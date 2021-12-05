@@ -20,13 +20,13 @@
 
     Public Sub Backupper()
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In RegionUuids()
 
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
 
-            ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
-            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
+            ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """")
+            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
         Next
 

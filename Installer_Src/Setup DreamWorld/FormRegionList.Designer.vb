@@ -31,28 +31,17 @@ Partial Class FormRegionlist
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionlist))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.RefreshButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.AddRegionButton = New System.Windows.Forms.Button()
-        Me.AllNone = New System.Windows.Forms.CheckBox()
-        Me.RunAllButton = New System.Windows.Forms.Button()
-        Me.StopAllButton = New System.Windows.Forms.Button()
-        Me.RestartButton = New System.Windows.Forms.Button()
-        Me.DetailsButton = New System.Windows.Forms.Button()
-        Me.IconsButton = New System.Windows.Forms.Button()
-        Me.AvatarsButton = New System.Windows.Forms.Button()
-        Me.ImportButton = New System.Windows.Forms.Button()
         Me.IconView = New System.Windows.Forms.ListView()
         Me.ExportButton = New System.Windows.Forms.Button()
+        Me.RefreshButton = New System.Windows.Forms.Button()
+        Me.AllNone = New System.Windows.Forms.CheckBox()
         Me.AvatarView = New System.Windows.Forms.ListView()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KOT = New System.Windows.Forms.ToolStripMenuItem()
         Me.OnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FloatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Users = New System.Windows.Forms.Button()
         Me.UserView = New System.Windows.Forms.ListView()
         Me.OffButton = New System.Windows.Forms.RadioButton()
         Me.OnButton = New System.Windows.Forms.RadioButton()
@@ -62,7 +51,16 @@ Partial Class FormRegionlist
         Me.SearchBox = New System.Windows.Forms.TextBox()
         Me.Bootedbutton = New System.Windows.Forms.RadioButton()
         Me.StoppedButton = New System.Windows.Forms.RadioButton()
-        Me.MenuStrip1.SuspendLayout()
+        Me.ImportButton = New System.Windows.Forms.Button()
+        Me.Users = New System.Windows.Forms.Button()
+        Me.AvatarsButton = New System.Windows.Forms.Button()
+        Me.IconsButton = New System.Windows.Forms.Button()
+        Me.DetailsButton = New System.Windows.Forms.Button()
+        Me.RestartButton = New System.Windows.Forms.Button()
+        Me.StopAllButton = New System.Windows.Forms.Button()
+        Me.RunAllButton = New System.Windows.Forms.Button()
+        Me.AddRegionButton = New System.Windows.Forms.Button()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -79,7 +77,7 @@ Partial Class FormRegionlist
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
-        Me.ListView1.Location = New System.Drawing.Point(14, 118)
+        Me.ListView1.Location = New System.Drawing.Point(12, 118)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
@@ -88,6 +86,45 @@ Partial Class FormRegionlist
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        '
+        'IconView
+        '
+        Me.IconView.AllowColumnReorder = True
+        Me.IconView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IconView.Font = New System.Drawing.Font("Lucida Console", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconView.FullRowSelect = True
+        Me.IconView.HideSelection = False
+        Me.IconView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
+        Me.IconView.Location = New System.Drawing.Point(13, 118)
+        Me.IconView.MultiSelect = False
+        Me.IconView.Name = "IconView"
+        Me.IconView.ShowItemToolTips = True
+        Me.IconView.Size = New System.Drawing.Size(1255, 196)
+        Me.IconView.TabIndex = 18609
+        Me.ToolTip1.SetToolTip(Me.IconView, "Icons")
+        Me.IconView.UseCompatibleStateImageBehavior = False
+        Me.IconView.View = System.Windows.Forms.View.SmallIcon
+        '
+        'ExportButton
+        '
+        Me.ExportButton.AutoSize = True
+        Me.ExportButton.Image = Global.Outworldz.My.Resources.Resources.xls_icon_3398
+        Me.ExportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ExportButton.Location = New System.Drawing.Point(606, 43)
+        Me.ExportButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.ExportButton.Name = "ExportButton"
+        Me.ExportButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.ExportButton.Size = New System.Drawing.Size(147, 34)
+        Me.ExportButton.TabIndex = 10
+        Me.ExportButton.Text = "Export"
+        Me.ToolTip1.SetToolTip(Me.ExportButton, "Export this list")
+        Me.ExportButton.UseVisualStyleBackColor = True
         '
         'RefreshButton
         '
@@ -104,25 +141,6 @@ Partial Class FormRegionlist
         Me.ToolTip1.SetToolTip(Me.RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
         Me.RefreshButton.UseVisualStyleBackColor = True
         '
-        'ToolTip1
-        '
-        Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
-        '
-        'AddRegionButton
-        '
-        Me.AddRegionButton.AutoSize = True
-        Me.AddRegionButton.Image = Global.Outworldz.My.Resources.Resources.package_add
-        Me.AddRegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegionButton.Location = New System.Drawing.Point(3, 46)
-        Me.AddRegionButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.AddRegionButton.Name = "AddRegionButton"
-        Me.AddRegionButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.AddRegionButton.Size = New System.Drawing.Size(144, 34)
-        Me.AddRegionButton.TabIndex = 5
-        Me.AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
-        Me.ToolTip1.SetToolTip(Me.AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
-        Me.AddRegionButton.UseVisualStyleBackColor = True
-        '
         'AllNone
         '
         Me.AllNone.AutoSize = True
@@ -130,149 +148,8 @@ Partial Class FormRegionlist
         Me.AllNone.Name = "AllNone"
         Me.AllNone.Size = New System.Drawing.Size(68, 17)
         Me.AllNone.TabIndex = 4
-        Me.AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
-        Me.ToolTip1.SetToolTip(Me.AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
+        Me.AllNone.Text = "All/None"
         Me.AllNone.UseVisualStyleBackColor = True
-        '
-        'RunAllButton
-        '
-        Me.RunAllButton.AutoSize = True
-        Me.RunAllButton.Image = Global.Outworldz.My.Resources.Resources.media_play
-        Me.RunAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RunAllButton.Location = New System.Drawing.Point(153, 46)
-        Me.RunAllButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.RunAllButton.Name = "RunAllButton"
-        Me.RunAllButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.RunAllButton.Size = New System.Drawing.Size(144, 34)
-        Me.RunAllButton.TabIndex = 6
-        Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
-        Me.ToolTip1.SetToolTip(Me.RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
-        Me.RunAllButton.UseVisualStyleBackColor = True
-        '
-        'StopAllButton
-        '
-        Me.StopAllButton.AutoSize = True
-        Me.StopAllButton.Image = Global.Outworldz.My.Resources.Resources.media_stop
-        Me.StopAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopAllButton.Location = New System.Drawing.Point(303, 46)
-        Me.StopAllButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.StopAllButton.Name = "StopAllButton"
-        Me.StopAllButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.StopAllButton.Size = New System.Drawing.Size(144, 34)
-        Me.StopAllButton.TabIndex = 7
-        Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
-        Me.ToolTip1.SetToolTip(Me.StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
-        Me.StopAllButton.UseVisualStyleBackColor = True
-        '
-        'RestartButton
-        '
-        Me.RestartButton.AutoSize = True
-        Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.refresh
-        Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RestartButton.Location = New System.Drawing.Point(453, 46)
-        Me.RestartButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.RestartButton.Name = "RestartButton"
-        Me.RestartButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.RestartButton.Size = New System.Drawing.Size(147, 34)
-        Me.RestartButton.TabIndex = 8
-        Me.RestartButton.Text = "Restart"
-        Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
-        Me.RestartButton.UseVisualStyleBackColor = True
-        '
-        'DetailsButton
-        '
-        Me.DetailsButton.AutoSize = True
-        Me.DetailsButton.Image = Global.Outworldz.My.Resources.Resources.text_marked
-        Me.DetailsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DetailsButton.Location = New System.Drawing.Point(153, 3)
-        Me.DetailsButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.DetailsButton.Name = "DetailsButton"
-        Me.DetailsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.DetailsButton.Size = New System.Drawing.Size(144, 34)
-        Me.DetailsButton.TabIndex = 1
-        Me.DetailsButton.Text = Global.Outworldz.My.Resources.Resources.Details_word
-        Me.ToolTip1.SetToolTip(Me.DetailsButton, Global.Outworldz.My.Resources.Resources.View_Details)
-        Me.DetailsButton.UseVisualStyleBackColor = True
-        '
-        'IconsButton
-        '
-        Me.IconsButton.AutoSize = True
-        Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
-        Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.IconsButton.Location = New System.Drawing.Point(303, 3)
-        Me.IconsButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.IconsButton.Name = "IconsButton"
-        Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.IconsButton.Size = New System.Drawing.Size(144, 34)
-        Me.IconsButton.TabIndex = 2
-        Me.IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
-        Me.ToolTip1.SetToolTip(Me.IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
-        Me.IconsButton.UseVisualStyleBackColor = True
-        '
-        'AvatarsButton
-        '
-        Me.AvatarsButton.AutoSize = True
-        Me.AvatarsButton.Image = Global.Outworldz.My.Resources.Resources.users2
-        Me.AvatarsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AvatarsButton.Location = New System.Drawing.Point(453, 3)
-        Me.AvatarsButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.AvatarsButton.Name = "AvatarsButton"
-        Me.AvatarsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.AvatarsButton.Size = New System.Drawing.Size(147, 34)
-        Me.AvatarsButton.TabIndex = 3
-        Me.AvatarsButton.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
-        Me.ToolTip1.SetToolTip(Me.AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
-        Me.AvatarsButton.UseVisualStyleBackColor = True
-        '
-        'ImportButton
-        '
-        Me.ImportButton.AutoSize = True
-        Me.ImportButton.Image = Global.Outworldz.My.Resources.Resources.package
-        Me.ImportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ImportButton.Location = New System.Drawing.Point(750, 3)
-        Me.ImportButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.ImportButton.Name = "ImportButton"
-        Me.ImportButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.ImportButton.Size = New System.Drawing.Size(139, 34)
-        Me.ImportButton.TabIndex = 9
-        Me.ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
-        Me.ToolTip1.SetToolTip(Me.ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
-        Me.ImportButton.UseVisualStyleBackColor = True
-        '
-        'IconView
-        '
-        Me.IconView.AllowColumnReorder = True
-        Me.IconView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IconView.Font = New System.Drawing.Font("Lucida Console", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconView.FullRowSelect = True
-        Me.IconView.HideSelection = False
-        Me.IconView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
-        Me.IconView.Location = New System.Drawing.Point(14, 118)
-        Me.IconView.MultiSelect = False
-        Me.IconView.Name = "IconView"
-        Me.IconView.ShowItemToolTips = True
-        Me.IconView.Size = New System.Drawing.Size(1255, 196)
-        Me.IconView.TabIndex = 18609
-        Me.ToolTip1.SetToolTip(Me.IconView, "XXXXXXXXXXX")
-        Me.IconView.UseCompatibleStateImageBehavior = False
-        Me.IconView.View = System.Windows.Forms.View.SmallIcon
-        '
-        'ExportButton
-        '
-        Me.ExportButton.AutoSize = True
-        Me.ExportButton.Image = Global.Outworldz.My.Resources.Resources.package
-        Me.ExportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExportButton.Location = New System.Drawing.Point(750, 46)
-        Me.ExportButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.ExportButton.Name = "ExportButton"
-        Me.ExportButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.ExportButton.Size = New System.Drawing.Size(139, 34)
-        Me.ExportButton.TabIndex = 10
-        Me.ExportButton.Text = "Export"
-        Me.ToolTip1.SetToolTip(Me.ExportButton, "Export this list")
-        Me.ExportButton.UseVisualStyleBackColor = True
         '
         'AvatarView
         '
@@ -283,7 +160,7 @@ Partial Class FormRegionlist
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(14, 118)
+        Me.AvatarView.Location = New System.Drawing.Point(13, 118)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
@@ -292,45 +169,27 @@ Partial Class FormRegionlist
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.KOT})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1288, 30)
-        Me.MenuStrip1.TabIndex = 1
-        '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'KOT
         '
         Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
-        Me.KOT.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.KOT.Name = "KOT"
         Me.KOT.Size = New System.Drawing.Size(83, 28)
-        Me.KOT.Text = Global.Outworldz.My.Resources.Resources.Window
         '
         'OnTopToolStripMenuItem
         '
-        Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
-        Me.OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.On_Top
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(67, 22)
         '
         'FloatToolStripMenuItem
         '
-        Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
-        Me.FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Float
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(67, 22)
         '
         'Label1
         '
@@ -342,47 +201,6 @@ Partial Class FormRegionlist
         Me.Label1.Size = New System.Drawing.Size(0, 25)
         Me.Label1.TabIndex = 18606
         '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.ColumnCount = 6
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.AddRegionButton, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.RunAllButton, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.StopAllButton, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.RestartButton, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.RefreshButton, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.DetailsButton, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Users, 4, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ImportButton, 5, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExportButton, 5, 1)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(243, 15)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(892, 87)
-        Me.TableLayoutPanel1.TabIndex = 2
-        '
-        'Users
-        '
-        Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
-        Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Users.Location = New System.Drawing.Point(605, 2)
-        Me.Users.Margin = New System.Windows.Forms.Padding(2)
-        Me.Users.Name = "Users"
-        Me.Users.Size = New System.Drawing.Size(140, 34)
-        Me.Users.TabIndex = 4
-        Me.Users.Text = Global.Outworldz.My.Resources.Resources.Users
-        Me.Users.UseVisualStyleBackColor = True
-        '
         'UserView
         '
         Me.UserView.AllowColumnReorder = True
@@ -392,7 +210,7 @@ Partial Class FormRegionlist
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(14, 118)
+        Me.UserView.Location = New System.Drawing.Point(13, 118)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
@@ -404,6 +222,7 @@ Partial Class FormRegionlist
         'OffButton
         '
         Me.OffButton.AutoSize = True
+        Me.OffButton.Checked = True
         Me.OffButton.Location = New System.Drawing.Point(81, 57)
         Me.OffButton.Name = "OffButton"
         Me.OffButton.Size = New System.Drawing.Size(39, 17)
@@ -419,7 +238,6 @@ Partial Class FormRegionlist
         Me.OnButton.Name = "OnButton"
         Me.OnButton.Size = New System.Drawing.Size(39, 17)
         Me.OnButton.TabIndex = 18611
-        Me.OnButton.TabStop = True
         Me.OnButton.Text = "On"
         Me.OnButton.UseVisualStyleBackColor = True
         '
@@ -430,7 +248,6 @@ Partial Class FormRegionlist
         Me.SmartButton.Name = "SmartButton"
         Me.SmartButton.Size = New System.Drawing.Size(52, 17)
         Me.SmartButton.TabIndex = 18612
-        Me.SmartButton.TabStop = True
         Me.SmartButton.Text = "Smart"
         Me.SmartButton.UseVisualStyleBackColor = True
         '
@@ -441,7 +258,6 @@ Partial Class FormRegionlist
         Me.AllButton.Name = "AllButton"
         Me.AllButton.Size = New System.Drawing.Size(36, 17)
         Me.AllButton.TabIndex = 18613
-        Me.AllButton.TabStop = True
         Me.AllButton.Text = "All"
         Me.AllButton.UseVisualStyleBackColor = True
         '
@@ -464,7 +280,6 @@ Partial Class FormRegionlist
         Me.Bootedbutton.Name = "Bootedbutton"
         Me.Bootedbutton.Size = New System.Drawing.Size(65, 17)
         Me.Bootedbutton.TabIndex = 18616
-        Me.Bootedbutton.TabStop = True
         Me.Bootedbutton.Text = "Running"
         Me.Bootedbutton.UseVisualStyleBackColor = True
         '
@@ -475,9 +290,161 @@ Partial Class FormRegionlist
         Me.StoppedButton.Name = "StoppedButton"
         Me.StoppedButton.Size = New System.Drawing.Size(65, 17)
         Me.StoppedButton.TabIndex = 18617
-        Me.StoppedButton.TabStop = True
         Me.StoppedButton.Text = "Stopped"
         Me.StoppedButton.UseVisualStyleBackColor = True
+        '
+        'ImportButton
+        '
+        Me.ImportButton.AutoSize = True
+        Me.ImportButton.Image = Global.Outworldz.My.Resources.Resources.package
+        Me.ImportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ImportButton.Location = New System.Drawing.Point(759, 3)
+        Me.ImportButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.ImportButton.Name = "ImportButton"
+        Me.ImportButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.ImportButton.Size = New System.Drawing.Size(139, 34)
+        Me.ImportButton.TabIndex = 9
+        Me.ImportButton.Text = "Import INI"
+        Me.ImportButton.UseVisualStyleBackColor = True
+        '
+        'Users
+        '
+        Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
+        Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Users.Location = New System.Drawing.Point(605, 2)
+        Me.Users.Margin = New System.Windows.Forms.Padding(2)
+        Me.Users.Name = "Users"
+        Me.Users.Size = New System.Drawing.Size(148, 34)
+        Me.Users.TabIndex = 4
+        Me.Users.Text = "Users"
+        Me.Users.UseVisualStyleBackColor = True
+        '
+        'AvatarsButton
+        '
+        Me.AvatarsButton.AutoSize = True
+        Me.AvatarsButton.Image = Global.Outworldz.My.Resources.Resources.users2
+        Me.AvatarsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.AvatarsButton.Location = New System.Drawing.Point(453, 3)
+        Me.AvatarsButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.AvatarsButton.Name = "AvatarsButton"
+        Me.AvatarsButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.AvatarsButton.Size = New System.Drawing.Size(147, 34)
+        Me.AvatarsButton.TabIndex = 3
+        Me.AvatarsButton.Text = "Avatars"
+        Me.AvatarsButton.UseVisualStyleBackColor = True
+        '
+        'IconsButton
+        '
+        Me.IconsButton.AutoSize = True
+        Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
+        Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.IconsButton.Location = New System.Drawing.Point(303, 3)
+        Me.IconsButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.IconsButton.Name = "IconsButton"
+        Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.IconsButton.Size = New System.Drawing.Size(144, 34)
+        Me.IconsButton.TabIndex = 2
+        Me.IconsButton.Text = "Icons"
+        Me.IconsButton.UseVisualStyleBackColor = True
+        '
+        'DetailsButton
+        '
+        Me.DetailsButton.AutoSize = True
+        Me.DetailsButton.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        Me.DetailsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DetailsButton.Location = New System.Drawing.Point(153, 3)
+        Me.DetailsButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.DetailsButton.Name = "DetailsButton"
+        Me.DetailsButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.DetailsButton.Size = New System.Drawing.Size(144, 34)
+        Me.DetailsButton.TabIndex = 1
+        Me.DetailsButton.Text = "Details"
+        Me.DetailsButton.UseVisualStyleBackColor = True
+        '
+        'RestartButton
+        '
+        Me.RestartButton.AutoSize = True
+        Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.refresh
+        Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RestartButton.Location = New System.Drawing.Point(453, 43)
+        Me.RestartButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.RestartButton.Name = "RestartButton"
+        Me.RestartButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.RestartButton.Size = New System.Drawing.Size(147, 34)
+        Me.RestartButton.TabIndex = 8
+        Me.RestartButton.Text = "Restart"
+        Me.RestartButton.UseVisualStyleBackColor = True
+        '
+        'StopAllButton
+        '
+        Me.StopAllButton.AutoSize = True
+        Me.StopAllButton.Image = Global.Outworldz.My.Resources.Resources.media_stop
+        Me.StopAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StopAllButton.Location = New System.Drawing.Point(303, 43)
+        Me.StopAllButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.StopAllButton.Name = "StopAllButton"
+        Me.StopAllButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.StopAllButton.Size = New System.Drawing.Size(144, 34)
+        Me.StopAllButton.TabIndex = 7
+        Me.StopAllButton.Text = "Stop"
+        Me.StopAllButton.UseVisualStyleBackColor = True
+        '
+        'RunAllButton
+        '
+        Me.RunAllButton.AutoSize = True
+        Me.RunAllButton.Image = Global.Outworldz.My.Resources.Resources.media_play
+        Me.RunAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RunAllButton.Location = New System.Drawing.Point(153, 43)
+        Me.RunAllButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.RunAllButton.Name = "RunAllButton"
+        Me.RunAllButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.RunAllButton.Size = New System.Drawing.Size(144, 34)
+        Me.RunAllButton.TabIndex = 6
+        Me.RunAllButton.Text = "Run"
+        Me.RunAllButton.UseVisualStyleBackColor = True
+        '
+        'AddRegionButton
+        '
+        Me.AddRegionButton.AutoSize = True
+        Me.AddRegionButton.Image = Global.Outworldz.My.Resources.Resources.package_add
+        Me.AddRegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.AddRegionButton.Location = New System.Drawing.Point(3, 43)
+        Me.AddRegionButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.AddRegionButton.Name = "AddRegionButton"
+        Me.AddRegionButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.AddRegionButton.Size = New System.Drawing.Size(144, 34)
+        Me.AddRegionButton.TabIndex = 5
+        Me.AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
+        Me.AddRegionButton.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.ColumnCount = 6
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.AddRegionButton, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.RunAllButton, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.StopAllButton, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.RestartButton, 3, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.RefreshButton, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.DetailsButton, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Users, 4, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.ImportButton, 5, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.ExportButton, 4, 1)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(252, 28)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(906, 84)
+        Me.TableLayoutPanel1.TabIndex = 2
         '
         'FormRegionlist
         '
@@ -497,14 +464,10 @@ Partial Class FormRegionlist
         Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.AllNone)
         Me.Controls.Add(Me.ListView1)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormRegionlist"
         Me.Text = "Region List"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
@@ -514,26 +477,14 @@ Partial Class FormRegionlist
 
     Friend WithEvents Timer1 As Timer
     Friend WithEvents ListView1 As ListView
-    Friend WithEvents RefreshButton As Button
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents AddRegionButton As Button
     Friend WithEvents AllNone As CheckBox
-    Friend WithEvents RunAllButton As Button
-    Friend WithEvents StopAllButton As Button
-    Friend WithEvents RestartButton As Button
     Friend WithEvents AvatarView As ListView
-    Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DetailsButton As Button
-    Friend WithEvents IconsButton As Button
-    Friend WithEvents AvatarsButton As Button
-    Friend WithEvents ImportButton As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents KOT As ToolStripMenuItem
     Friend WithEvents OnTopToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FloatToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents Users As Button
     Friend WithEvents UserView As ListView
     Friend WithEvents IconView As ListView
     Friend WithEvents OffButton As RadioButton
@@ -545,4 +496,15 @@ Partial Class FormRegionlist
     Friend WithEvents Bootedbutton As RadioButton
     Friend WithEvents StoppedButton As RadioButton
     Friend WithEvents ExportButton As Button
+    Friend WithEvents ImportButton As Button
+    Friend WithEvents Users As Button
+    Friend WithEvents AvatarsButton As Button
+    Friend WithEvents IconsButton As Button
+    Friend WithEvents DetailsButton As Button
+    Friend WithEvents RefreshButton As Button
+    Friend WithEvents RestartButton As Button
+    Friend WithEvents StopAllButton As Button
+    Friend WithEvents RunAllButton As Button
+    Friend WithEvents AddRegionButton As Button
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
 End Class

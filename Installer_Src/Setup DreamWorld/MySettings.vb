@@ -53,13 +53,13 @@ Public Class MySettings
 
     Public Function GetBootTime(UUID As String) As Integer
 
-        Return CInt("0" & GetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), "0"))
+        Return CInt("0" & GetMySetting("BootTime_" & Region_Name(UUID), "0"))
 
     End Function
 
     Public Function GetMapTime(UUID As String) As Integer
 
-        Return CInt("0" & GetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), "0"))
+        Return CInt("0" & GetMySetting("MapTime_" & Region_Name(UUID), "0"))
 
     End Function
 
@@ -71,13 +71,13 @@ Public Class MySettings
 
     Public Sub SaveBootTime(DT As Integer, UUID As String)
 
-        SetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
+        SetMySetting("BootTime_" & Region_Name(UUID), CStr(DT))
 
     End Sub
 
     Public Sub SaveMapTime(DT As Integer, UUID As String)
 
-        SetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
+        SetMySetting("MapTime_" & Region_Name(UUID), CStr(DT))
 
     End Sub
 
@@ -622,7 +622,7 @@ Public Class MySettings
 
     Public Property CoordX() As Integer
         Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(990, 1010))))
         End Get
         Set
             SetMySetting("CoordX", CStr(Value))
@@ -631,7 +631,7 @@ Public Class MySettings
 
     Public Property CoordY() As Integer
         Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(990, 1010))))
         End Get
         Set
             SetMySetting("CoordY", CStr(Value))
@@ -1195,8 +1195,8 @@ Public Class MySettings
     Public Property MapCenterX() As Integer
         Get
             If GlobalSettings.Settings.ServerType = RobustServerName Then
-                Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
-                Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
+                Dim RegionUUID As String = FindRegionByName(WelcomeRegion)
+                Dim Center As String = CStr(Coord_X(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterX", Center))
             Else
                 Return 1000
@@ -1211,8 +1211,8 @@ Public Class MySettings
     Public Property MapCenterY() As Integer
         Get
             If GlobalSettings.Settings.ServerType = RobustServerName Then
-                Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
-                Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
+                Dim RegionUUID As String = FindRegionByName(WelcomeRegion)
+                Dim Center As String = CStr(Coord_Y(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterY", Center))
             Else
                 Return 1000
@@ -1807,7 +1807,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SmartStart() As Boolean
+    Public Property Smart_Start() As Boolean
         Get
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
         End Get

@@ -96,11 +96,12 @@ Public Class FormMaps
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
-                    For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-                            thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RegionUUID))
+                    For Each RegionUUID As String In RegionUuids()
+
+                        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                            thing = IO.Path.Combine(thing, Region_Name(RegionUUID))
                             thing += ".jpg"
-                            TextPrint($"{PropRegionClass.RegionName(RegionUUID)} map exported")
+                            TextPrint($"{ Region_Name(RegionUUID)} map exported")
                             RPC_Region_Command(RegionUUID, $"export-map ""{thing}""")
                             Application.DoEvents()
                         End If
@@ -319,8 +320,8 @@ Public Class FormMaps
 
     Private Sub VieweAllMaps_Click(sender As Object, e As EventArgs) Handles VieweAllMaps.Click
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            VarChooser(PropRegionClass.RegionName(RegionUUID), False, False)
+        For Each RegionUUID As String In RegionUuids()
+            VarChooser(Region_Name(RegionUUID), False, False)
             Application.DoEvents()
         Next
 

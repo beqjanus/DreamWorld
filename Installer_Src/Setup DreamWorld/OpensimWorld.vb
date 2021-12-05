@@ -5,23 +5,23 @@ Module OpensimWorld
 
     Public Sub ScanOpenSimWorld(Force As Boolean)
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In RegionUuids()
 
             Application.DoEvents()
 
-            If PropRegionClass.OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
-            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+            If OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
+            If Not RegionEnabled(RegionUUID) Then Continue For
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Or
-                (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+                (Smart_Start(RegionUUID) = "True" And Settings.Smart_Start) Then
 
                 Dim Avatars = GetAgentsInRegion(RegionUUID)
-                If Avatars <> PropRegionClass.InRegion(RegionUUID) Then
-                    PropRegionClass.InRegion(RegionUUID) = Avatars
+                If Avatars <> InRegion(RegionUUID) Then
+                    InRegion(RegionUUID) = Avatars
                     SendToOpensimWorld(RegionUUID, Avatars)
-                    PropRegionClass.InRegion(RegionUUID) = Avatars
+                    InRegion(RegionUUID) = Avatars
                 ElseIf Force Then
-                    PropRegionClass.InRegion(RegionUUID) = Avatars
+                    InRegion(RegionUUID) = Avatars
                     SendToOpensimWorld(RegionUUID, Avatars)
                 End If
             End If
@@ -32,19 +32,18 @@ Module OpensimWorld
 
     Public Sub SendToOpensimWorld(RegionUUID As String, Avatars As Integer)
 
-        Dim k = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
+        Dim k = OpensimWorldAPIKey(RegionUUID)
         If k.Length = 0 Then Return
 
-        Dim Regionname = PropRegionClass.RegionName(RegionUUID)
+        Dim Regionname = Region_Name(RegionUUID)
         Dim pos = Uri.EscapeDataString("<128,128,23>")
         Logger("OpensimWorld", $"Update {Regionname}", "Outworldz")
         Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={k}&na={Avatars}&rat=0&r={Regionname}&pos={pos}"
         ' If he says to delete it, we do so.
-        If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
+        If Poke(URL) = -1 Then OpensimWorldAPIKey(RegionUUID) = ""
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Function Poke(URL As String) As Integer
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.

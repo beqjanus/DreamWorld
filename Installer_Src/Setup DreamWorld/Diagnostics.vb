@@ -49,8 +49,8 @@ Module Diags
 
         If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
         Dim TotalSize As Double
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            TotalSize += PropRegionClass.SizeX(RegionUUID) / 256 * PropRegionClass.SizeY(RegionUUID) / 256
+        For Each RegionUUID As String In RegionUuids()
+            TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
         Next
 
         Dim fs = CreateObject("Scripting.FileSystemObject")
@@ -195,8 +195,8 @@ Module Diags
 
             Application.DoEvents()
 
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
+            For Each RegionUUID As String In RegionUuids()
+                Dim R As Integer = Region_Port(RegionUUID)
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.UDP)
@@ -204,8 +204,8 @@ Module Diags
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return False
 
-                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(RegionUUID) & " ") Then
-                    TextPrint("--> " & PropRegionClass.RegionName(RegionUUID) & ":UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
+                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & Region_Name(RegionUUID) & " ") Then
+                    TextPrint("--> " & Region_Name(RegionUUID) & ":UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return False
@@ -216,8 +216,8 @@ Module Diags
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return False
 
-                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ") Then
-                    TextPrint("--> " & PropRegionClass.RegionName(RegionUUID) & ":TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
+                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & Region_Name(RegionUUID) & " ") Then
+                    TextPrint("--> " & Region_Name(RegionUUID) & ":TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return False
@@ -316,18 +316,18 @@ Module Diags
     Private Sub TestAllRegionPorts()
 
         Dim result As String = ""
-        Dim Len = PropRegionClass.RegionCount()
+        Dim Len = RegionCount()
 
         Dim Used As New List(Of String)
         ' Boot them up
-        For Each RegionUUID As String In PropRegionClass.RegionUuids()
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        For Each RegionUUID As String In RegionUuids()
+            If IsBooted(RegionUUID) Then
+                Dim RegionName = Region_Name(RegionUUID)
 
                 If Used.Contains(RegionName) Then Continue For
                 Used.Add(RegionName)
                 Logger("INFO", "Testing region " & RegionName, "Diagnostics")
-                Dim Port = PropRegionClass.GroupPort(RegionUUID)
+                Dim Port = GroupPort(RegionUUID)
                 TextPrint(My.Resources.Checking_Loopback_word & " " & RegionName)
                 Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)

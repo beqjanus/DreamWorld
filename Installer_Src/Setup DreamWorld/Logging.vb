@@ -67,7 +67,7 @@ Module Logging
 
         If name.StartsWith("Region ", StringComparison.OrdinalIgnoreCase) Then
             name = Replace(name, "Region ", "", 1, 1)
-            name = PropRegionClass.GroupName(PropRegionClass.FindRegionByName(name))
+            name = Group_Name(FindRegionByName(name))
             path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
         Else
             If name = "All Logs" Then AllLogs = True
@@ -80,8 +80,8 @@ Module Logging
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
-                For Each UUID As String In PropRegionClass.RegionUuids
-                    name = PropRegionClass.GroupName(UUID)
+                For Each UUID As String In RegionUuids()
+                    name = Group_Name(UUID)
                     path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
                     Application.DoEvents()
                 Next

@@ -622,7 +622,7 @@ Public Class FormSmartStart
                 PictureBox4.Image = My.Resources._7x7
         End Select
 
-        SmartStartEnabled.Checked = Settings.SmartStart
+        SmartStartEnabled.Checked = Settings.Smart_Start
         TempCheckBox.Checked = Settings.TempRegion
         DelayRegionReady.Text = CStr(Settings.TeleportSleepTime)
 
@@ -675,9 +675,9 @@ Public Class FormSmartStart
 
         Dim n = 0
         Dim s As Boolean
-        For Each RegionUUID In PropRegionClass.RegionUuids
-            If PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
-            Dim name = PropRegionClass.RegionName(RegionUUID)
+        For Each RegionUUID In RegionUuids()
+            If Smart_Start(RegionUUID) = "True" Then Continue For
+            Dim name = Region_Name(RegionUUID)
             ParkingSpot.Items.Add(name)
             If name = Settings.ParkingLot Then
                 ParkingSpot.SelectedIndex = n
@@ -801,8 +801,8 @@ Public Class FormSmartStart
             Return
         End If
 
-        Dim CoordX = CStr(PropRegionClass.LargestX() + 18)
-        Dim CoordY = CStr(PropRegionClass.LargestY() + 18)
+        Dim CoordX = CStr(LargestX() + 18)
+        Dim CoordY = CStr(LargestY() + 18)
 
         Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
 
@@ -856,9 +856,9 @@ Public Class FormSmartStart
 
                 If Not IO.File.Exists(p) Then
                     ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
-                    RegionUUID = PropRegionClass.CreateRegionStruct(shortname)
+                    RegionUUID = CreateRegionStruct(shortname)
                 Else
-                    RegionUUID = PropRegionClass.FindRegionByName(shortname)
+                    RegionUUID = FindRegionByName(shortname)
                     If GetPrimCount(RegionUUID) > 0 Then
                         ProgressPrint($"{J.Name} {My.Resources.Ok} ")
                         Continue For
@@ -870,7 +870,7 @@ Public Class FormSmartStart
                     Continue For
                 End If
 
-                PropRegionClass.CrashCounter(RegionUUID) = 0
+                CrashCounter(RegionUUID) = 0
 
                 ' setup parameters for the load
                 Dim sizerow As Integer = 256
@@ -883,25 +883,25 @@ Public Class FormSmartStart
                     sizerow = CInt(match1.Groups(3).Value) * 256
                 End If
 
-                PropRegionClass.CoordX(RegionUUID) = X
-                PropRegionClass.CoordY(RegionUUID) = Y
+                Coord_X(RegionUUID) = X
+                Coord_Y(RegionUUID) = Y
 
-                PropRegionClass.SmartStart(RegionUUID) = "True"
-                PropRegionClass.Teleport(RegionUUID) = "True"
+                Smart_Start(RegionUUID) = "True"
+                Teleport_Sign(RegionUUID) = "True"
 
-                PropRegionClass.SizeX(RegionUUID) = sizerow
-                PropRegionClass.SizeY(RegionUUID) = sizerow
+                SizeX(RegionUUID) = sizerow
+                SizeY(RegionUUID) = sizerow
 
-                PropRegionClass.GroupName(RegionUUID) = shortname
+                Group_Name(RegionUUID) = shortname
 
-                PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
-                PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
+                RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                Dim port = PropRegionClass.LargestPort + 1
-                PropRegionClass.GroupPort(RegionUUID) = port
-                PropRegionClass.RegionPort(RegionUUID) = port
-                PropRegionClass.WriteRegionObject(shortname, shortname, False)
+                Dim port = LargestPort() + 1
+                GroupPort(RegionUUID) = port
+                Region_Port(RegionUUID) = port
+                WriteRegionObject(shortname, shortname)
                 PropChangedRegionSettings = True
 
                 Firewall.SetFirewall()
@@ -909,7 +909,7 @@ Public Class FormSmartStart
                 PropUpdateView = True ' make form refresh
                 Application.DoEvents()
 
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                Dim RegionName = Region_Name(RegionUUID)
                 If RegionName = Settings.WelcomeRegion Then Continue For
 
                 ProgressPrint($"{My.Resources.Start_word} {RegionName}")
@@ -939,27 +939,27 @@ Public Class FormSmartStart
 
                 If GetPrimCount(RegionUUID) = 0 Then
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.NoError
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
 
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
-                    If Settings.MapType <> "None" Or PropRegionClass.MapType(RegionUUID).Length > 0 Then
+                    If Settings.MapType <> "None" Or MapType(RegionUUID).Length > 0 Then
                         ConsoleCommand(RegionUUID, "generate map")
                     End If
 
                     ConsoleCommand(RegionUUID, "backup")
 
-                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
 
-                    If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
+                    If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
                         ConsoleCommand(RegionUUID, "q")
                         ConsoleCommand(RegionUUID, "q")
 
                     End If
                 Else
-                    If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
-                        PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
                         ConsoleCommand(RegionUUID, "q")
                         ConsoleCommand(RegionUUID, "q")
                     End If
@@ -974,7 +974,7 @@ Public Class FormSmartStart
                 Dim ctr = 120
                 If Settings.Sequential Then
                     If Abort Then Exit For
-                    While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped AndAlso Not Abort
+                    While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped AndAlso Not Abort
                         Sleep(1000)
                         Application.DoEvents()
                         ctr -= 1
@@ -1003,7 +1003,7 @@ Public Class FormSmartStart
         'load menu
         Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
@@ -1205,7 +1205,7 @@ Public Class FormSmartStart
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim extension = IO.Path.GetExtension(Filename)
 
-        Dim Rname = PropRegionClass.RegionName(RegionUUID)
+        Dim Rname = Region_Name(RegionUUID)
         RPC_Region_Command(RegionUUID, $"change region ""{Rname}""")
 
         Dim RegionName = Filename
@@ -1270,7 +1270,7 @@ Public Class FormSmartStart
             SavedAlready.Clear()
             Dim RegionName = ChooseRegion(False)
             If RegionName.Length = 0 Then Return
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = FindRegionByName(RegionName)
 
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
@@ -1297,16 +1297,16 @@ Public Class FormSmartStart
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
         'Save all
         Try
-            For Each RegionUUID In PropRegionClass.RegionUuids
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+            For Each RegionUUID In RegionUuids()
+                Dim RegionName = Region_Name(RegionUUID)
                 Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                If Not RegionEnabled(RegionUUID) Then Continue For
 
                 ReBoot(RegionUUID)
                 WaitForBooted(RegionUUID)
                 Application.DoEvents()
 
-                Dim S As Double = PropRegionClass.SizeX(RegionUUID)
+                Dim S As Double = SizeX(RegionUUID)
                 S /= 256
                 If S > 1 Then
                     Dim path = $"{Terrainfolder}\{S}x{S}"
@@ -1321,7 +1321,7 @@ Public Class FormSmartStart
                     Terrainfolder = path
                 End If
 
-                If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
@@ -1351,13 +1351,13 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim S As Double = PropRegionClass.SizeX(RegionUUID)
+        Dim S As Double = SizeX(RegionUUID)
         S /= 256
         If S > 1 Then
             Dim path = $"{Terrainfolder}\{S}x{S}"
@@ -1390,7 +1390,7 @@ Public Class FormSmartStart
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         If Not _initialized Then Return
-        Settings.SmartStart = SmartStartEnabled.Checked
+        Settings.Smart_Start = SmartStartEnabled.Checked
         ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
     End Sub
 
@@ -1401,24 +1401,31 @@ Public Class FormSmartStart
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyTerrainEffectButton.Click
 
         'AI or .r32
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionName = ChooseRegion(False)
+        Dim RegionUUID As String = FindRegionByName(Name)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
-        If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName }""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.raw""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.png""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.ter""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.r32""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.raw""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.jpg""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.png""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.ter""") Then Return
 
         If RegionUUID.Length > 0 Then
-            GenLand(RegionUUID)
+
+            Dim R As New RegionEssentials With {
+             .RegionUUID = RegionUUID,
+             .RegionName = RegionName
+             }
+
+            GenLand(R)
+
         End If
 
     End Sub
@@ -1445,7 +1452,7 @@ Public Class FormSmartStart
         ' from photo
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
@@ -1466,17 +1473,23 @@ Public Class FormSmartStart
 
     Private Sub ApplyPlantButton_Click(sender As Object, e As EventArgs) Handles ApplyPlantButton.Click
         'plant apply
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionName = ChooseRegion(False)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
 
         If RegionUUID.Length > 0 Then
-            GenTrees(RegionUUID)
+
+            Dim R As New RegionEssentials With {
+             .RegionUUID = RegionUUID,
+             .RegionName = RegionName
+             }
+
+            GenTrees(R)
         End If
 
     End Sub
@@ -1767,7 +1780,7 @@ Public Class FormSmartStart
     Private Sub BakeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
 
         Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
@@ -1781,7 +1794,7 @@ Public Class FormSmartStart
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
@@ -1804,8 +1817,9 @@ Public Class FormSmartStart
         If result = vbOK Then
             Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If msg = vbYes Then
-                For Each RegionUUID In PropRegionClass.RegionUuids
-                    If PropRegionClass.Estate(RegionUUID) = "SimSurround" Then
+                For Each RegionUUID In RegionUuids()
+
+                    If Estate(RegionUUID) = "SimSurround" Then
                         DeleteAllRegionData(RegionUUID)
                         ctr += 1
                     End If
@@ -1838,16 +1852,16 @@ Public Class FormSmartStart
 
     Private Sub DeleteAllRegionData(RegionUUID As String)
 
-        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim GroupName = Group_Name(RegionUUID)
 
-        PropRegionClass.MapType(RegionUUID) = "" ' force a quick shutdown
+        MapType(RegionUUID) = "" ' force a quick shutdown
         ShutDown(RegionUUID)
         ' wait a minute for the region to quit
         Dim ctr = 60
 
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped And
-            PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Error
+        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
+             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
             If ctr = 0 Then Exit While
@@ -1886,7 +1900,7 @@ Public Class FormSmartStart
 
     Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
         Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)

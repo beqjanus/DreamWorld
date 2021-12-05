@@ -199,9 +199,9 @@ Public Class FormLogging
                 outputFile.WriteLine("<table id=""t01"">")
                 outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
 
-                For Each UUID As String In PropRegionClass.RegionUuids
+                For Each UUID As String In RegionUuids()
                     Application.DoEvents()
-                    Dim GroupName = PropRegionClass.GroupName(UUID)
+                    Dim GroupName = Group_Name(UUID)
                     ExamineOpensim(outputFile, GroupName)
                 Next
                 outputFile.WriteLine("</table>")
@@ -221,7 +221,6 @@ Public Class FormLogging
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do Not dispose objects multiple times")>
     Private Sub ExamineAvatars(Log As String)
 
         Try
@@ -255,7 +254,6 @@ Public Class FormLogging
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
 
         Try

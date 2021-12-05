@@ -2198,9 +2198,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to The East-West position on the world map.
         '''</summary>
-        Friend ReadOnly Property Coordx() As String
+        Friend ReadOnly Property CoordX() As String
             Get
-                Return ResourceManager.GetString("Coordx", resourceCulture)
+                Return ResourceManager.GetString("CoordX", resourceCulture)
             End Get
         End Property
         
@@ -5098,7 +5098,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Import.
+        '''  Looks up a localized string similar to Import INI.
         '''</summary>
         Friend ReadOnly Property Import_word() As String
             Get
@@ -11640,6 +11640,16 @@ Namespace My.Resources
         Friend ReadOnly Property XEngine_word() As String
             Get
                 Return ResourceManager.GetString("XEngine_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property xls_icon_3398() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("xls-icon-3398", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

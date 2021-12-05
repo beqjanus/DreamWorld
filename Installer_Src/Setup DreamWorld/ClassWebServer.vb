@@ -18,23 +18,9 @@ Public Class NetServer
     Dim listen As Boolean = True
     Private MyPort As String
 
-    Dim PropRegionClass As ClassRegionMaker = ClassRegionMaker.Instance()
     Private running As Boolean
     Dim Setting As MySettings
     Private WebThread As Thread
-
-#End Region
-
-#Region "Public Properties"
-
-    Public Property PropRegionClass1 As ClassRegionMaker
-        Get
-            Return PropRegionClass
-        End Get
-        Set(value As ClassRegionMaker)
-            PropRegionClass = value
-        End Set
-    End Property
 
 #End Region
 
@@ -90,13 +76,13 @@ Public Class NetServer
                 Dim original = request.Url.OriginalString
 
                 If original.ToUpperInvariant.Contains("TELEPORTS.HTM") Then
-                    responseString = RegionListHTML(Setting, PropRegionClass1, original)
+                    responseString = RegionListHTML(Setting, original)
                 Else
                     If (request.HasEntityBody) Then
                         Dim POST As String = reader.ReadToEnd()
-                        responseString = PropRegionClass1.ParsePost(POST, Setting)
+                        responseString = ParsePost(POST, Setting)
                     Else
-                        responseString = PropRegionClass1.ParsePost(original, Setting)
+                        responseString = ParsePost(original, Setting)
                     End If
                 End If
 

@@ -43,7 +43,7 @@ Module WindowHandlers
             Dim PID As Integer
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
-                PID = PropRegionClass.ProcessID(RegionUUID)
+                PID = ProcessID(RegionUUID)
 
                 If PID > 0 Then
                     Try
@@ -84,7 +84,7 @@ Module WindowHandlers
                 PID = GetPIDofRobust()
             End If
         Else
-            PID = PropRegionClass.ProcessID(RegionUUID)
+            PID = ProcessID(RegionUUID)
         End If
 
         'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
@@ -248,10 +248,11 @@ Module WindowHandlers
 
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
-                    l.Add(PropRegionClass.GroupName(RegionUUID))
-                    If PropRegionClass.IsBooted(RegionUUID) Then
+            For Each RegionUUID As String In RegionUuids()
+
+                If Not l.Contains(Group_Name(RegionUUID)) Then
+                    l.Add(Group_Name(RegionUUID))
+                    If IsBooted(RegionUUID) Then
                         RPC_Region_Command(RegionUUID, "set log level " & msg)
                     End If
                 End If
@@ -268,7 +269,7 @@ Module WindowHandlers
             Return
         End If
         Dim rname = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
+        Dim RegionUUID As String = FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
             ConsoleCommand(RegionUUID, cmd)
