@@ -8,7 +8,7 @@ use strict;use warnings;
 sub mysql_connect {
         
    use Config::IniFiles;
-   use File::BOM;  # fixes a bug in Pertl with UTF-8
+   use File::BOM;  # fixes a bug in Perl with UTF-8
    
    # get the path to the Settings.ini
    use Cwd;
