@@ -1422,6 +1422,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property PublicVisitorMaps() As Boolean
+        Get
+            Return CType(GetMySetting("PublicVisitorMaps", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("PublicVisitorMaps", CStr(Value))
+        End Set
+
+    End Property
+
     Public Property Ramused() As Double
         Get
             Return _RamUsed
