@@ -123,19 +123,13 @@ $(document).ready(function () {
     what = gup("Start");
     if (what.length > 0) {
         start = what;
-    } else {
-		var date =new Date;
-		start = (addMonths(new Date(date.getFullYear()),-1).toString());
-		start = start.toLocaleDateString("en-US", { month: 'numeric' }) + '/' +  start.toLocaleDateString("en-US", { day: 'numeric' }) + "/" + start.toLocaleDateString("en-US", { year: 'numeric' }) 
-    }
+    } 
 
     var end;
     what = gup("End");
     if (what.length > 0) {
         end = what;
-    } else {
-        end = '';
-    }
+    } 
 
     what = gup("person");
     if (what.length > 0) {
@@ -143,8 +137,6 @@ $(document).ready(function () {
     } else {
         person = '';
     }
-
-
 
     $.get('/stats/simvisit.plx?q=' + escape(sim) + '&Start=' + escape(start) + '&End=' + escape(end) + '&person=' + person , null, function (tsv, stat, xhr) {
 

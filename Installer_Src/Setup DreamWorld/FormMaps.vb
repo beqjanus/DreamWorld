@@ -275,6 +275,7 @@ Public Class FormMaps
     Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
 
         Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked
+        Settings.SaveSettings()
 
     End Sub
 

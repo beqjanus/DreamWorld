@@ -1402,20 +1402,20 @@ Public Class FormSmartStart
 
         'AI or .r32
         Dim RegionName = ChooseRegion(False)
-        Dim RegionUUID As String = FindRegionByName(Name)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then Return
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
-        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName }""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.r32""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.raw""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.jpg""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.png""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName }-Backup.ter""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.r32""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.raw""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.jpg""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.png""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.ter""") Then Return
 
         If RegionUUID.Length > 0 Then
 

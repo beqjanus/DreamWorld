@@ -512,8 +512,7 @@ Public Module MysqlInterface
                                 Dict.Clear()
                                 onetime = True
                             End If
-                            Dim Name = Region_Name(reader.GetString(2))
-                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), Name)
+                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
                 End Using
@@ -524,6 +523,9 @@ Public Module MysqlInterface
                 BreakPoint.Show(ex.Message)
                 Return Dict
             End Try
+
+            ' Todo
+            Return Dict
 
             Dim HowManyAvatars As Integer = 10
             Dim Odds As Double = 20
@@ -1219,6 +1221,7 @@ Public Module MysqlInterface
 
     End Function
 
+    '' Deprecated
     Public Function WhereisAgent(agentName As String) As String
 
         Dim agents = GetAgentList()

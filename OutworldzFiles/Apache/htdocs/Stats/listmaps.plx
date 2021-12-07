@@ -28,6 +28,45 @@ my $tt = Template->new({
 }) || die "$Template::ERROR\n";
 print header;
 
+use Config::IniFiles;
+	use File::BOM;  # fixes a bug in Perl with UTF-8
+	# get the path to the Settings.ini
+	use Cwd;
+	my $path = getcwd();
+	
+	$path =~ /(.*?\/Outworldzfiles)/i;
+	my $file = $1 . '/Settings.ini';
+	
+	 # Read the Right Thing from a unicode file with BOM:
+	open(CONFIG , '<:via(File::BOM)', $file);   
+	my $Config = Config::IniFiles->new(-file => *CONFIG);
+	
+	if (! $Config)  {
+		print header;
+		print "Cannot read INI";
+		return;
+		}
+	
+	if ($debug) {
+		$ENV{REMOTE_ADDR} = 'outworldz.com';
+	}
+	
+	my @nothing;
+	my $public = $Config->val('Data','SimVisitPublic')|| '';
+	if (lc($public) ne 'public') {
+		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
+		 if ($env ne '127.0.0.1')
+		 {
+				my $dataout;
+				my $vars = {sims => \@nothing};
+
+				$tt->process('listmaps.tt', $vars, \$dataout)  || die $tt->error(), "\n";
+				print $dataout;			
+			 exit;
+		 }
+}
+
+
 ###########################
 
 my @sims;

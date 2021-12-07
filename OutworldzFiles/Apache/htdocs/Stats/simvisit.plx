@@ -4,22 +4,61 @@
 
 use strict;
 use  warnings;
-my $debug = 0;
 
-# ensure all fatals go to browser during  and set-up
-BEGIN
-{
+	my $debug = 0; # set to any value but 0 to ber able to test parts of it.
+
+
 	$|=1;
  	#use CGI::Carp('fatalsToBrowser');
 	use CGI qw(:standard);
 	
-	my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
-	if ($env ne '127.0.0.1')
-	{
-		print header;		
-		exit;
+	use Config::IniFiles;
+	use File::BOM;  # fixes a bug in Perl with UTF-8
+	# get the path to the Settings.ini
+	use Cwd;
+	my $path = getcwd();
+	
+	$path =~ /(.*?\/Outworldzfiles)/i;
+	my $file = $1 . '/Settings.ini';
+	
+	 # Read the Right Thing from a unicode file with BOM:
+	open(CONFIG , '<:via(File::BOM)', $file);   
+	my $Config = Config::IniFiles->new(-file => *CONFIG);
+	
+	if (! $Config)  {
+		print header;
+		print "Cannot read INI";
+		return;
+	
+	#   foreach my $line (@Config::IniFiles::errors)
+	#   {
+	#      print $line;
+	#   }
 	}
-}
+	
+	if ($debug) {
+		$ENV{REMOTE_ADDR} = 'outworldz.com';
+	}
+	
+	my $public = $Config->val('Data','SimVisitPublic')|| '';
+	if (lc($public) ne 'public') {
+		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
+		 if ($env ne '127.0.0.1')
+		 {
+			use JSON;
+			
+			print header('application/json');
+			print to_json({ 
+					title=>'No Data',
+					start=>'',
+					end=>'',
+					data=> \@;
+				});	
+			
+			 exit;
+		 }
+	}
+
 	
 	use URI::Escape;    	
 	use lib qw(lib .);
@@ -46,48 +85,34 @@ BEGIN
 	my $end  = uri_unescape($Input->param('End')) || '';
 	
 	if ($debug) {
-		$q = 'Virunga';
-		$start = '01/09/2021';
+		$q = 'Welcome';		
 	}
 	
 	$s = $start;
 	$e = $end;
 
 	
-	# mm-dd-yyyy to yyyy-mm-dd
+	my $picker1;
 	if ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$start = $3 . '-' . $1 . '-' . $2 ;
 	} else {
-		$start = GetDate();
-		$start =~ /(\d+)\/(\d+)\/(\d+)/;
-		$start = $1 . '-' . $2 . '-' . $3 ;
+		my $thirty_ago = DateTime->today->subtract(days => 30);		
+		$start = $thirty_ago->ymd('/');
+		$picker1 = $thirty_ago->mdy('/');
 	}
 
+	my $picker2;
 	if($end =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$end = $3. '-' . $1. '-' . $2;
 	} else {
-		$end = GetDate();
-		$end =~ /(\d+)\/(\d+)\/(\d+)/;
-		$end = $1 . '-' . $2 . '-' . $3 . ' 23:59';
+		my $tomorrow = DateTime->today->add(days => 1);		
+		$end = $tomorrow->ymd('/');
+		$picker2 = $tomorrow->mdy('/');
 	}
-	
 	
 	
 	my $sql;
 	
-	#my $sql= qq!select regionname  from Visitor where regionname = ?
-	#			group by regionname
-	#			order by regionname
-	#			
-	#			!;
-	#
-	#if ($Data->Prepare($sql))	{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
-	#if ($Data->Execute($q))		{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
-	#while ($Data->FetchRow())
-	#{
-	#	my %Data = $Data->DataHash();
-	#	push @sims, $Data{regionname} ;
-	#}
 
 	if ($person)
 	{
@@ -353,18 +378,18 @@ BEGIN
 		$YCoord = $rs->locationY;
 	}
 	
-	
+
 	use JSON;
 	print header('application/json');
 	print to_json({ data=> \@response,
 					sims=> \@sims ,
 					sim=>$q,
 					time=>$time,
-					s=>$s,
-					e=>$e,
+					s=>$picker1,
+					e=>$picker2,
 					visits => $totalvisits,
-					start=>$start,
-					end =>$end,
+					start=>$picker1,
+					end =>$picker2,
 					timespent =>\@daily,
 					daily=>\@timespent,
 					title=>$title,
