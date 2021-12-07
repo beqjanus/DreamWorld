@@ -98,8 +98,8 @@ Public Class FormSetup
 
 #Region "NonDisposable fields "
 
-    Private cpu As New PerformanceCounter
 #Disable Warning CA2213 ' Disposable fields should be disposed
+    Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
@@ -3583,6 +3583,17 @@ Public Class FormSetup
         Else
             TextPrint(My.Resources.Not_Running)
         End If
+
+    End Sub
+
+    Private Sub ViewVisitorMapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewVisitorMapsToolStripMenuItem.Click
+
+        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 

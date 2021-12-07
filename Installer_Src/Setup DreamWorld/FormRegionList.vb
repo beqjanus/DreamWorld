@@ -15,7 +15,9 @@ Public Class FormRegionlist
 
     Private ReadOnly colsize As New ClassScreenpos("Region List")
     Private ReadOnly SearchArray As New List(Of String)
+#Disable Warning CA2213 ' Disposable fields should be disposed
     Private _ImageListSmall As New ImageList
+#Enable Warning CA2213 ' Disposable fields should be disposed
 
     Private detailsinitted As Boolean
     Private initted As Boolean
@@ -1159,9 +1161,8 @@ Public Class FormRegionlist
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
         PropChangedRegionSettings = True
-        While PropChangedRegionSettings
-            Sleep(100)
-        End While
+        GetAllRegions(False)
+
         LoadMyListView()
 
     End Sub
@@ -1408,7 +1409,9 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Edit" Then
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
             RegionForm.BringToFront()
             RegionForm.Init(RegionName)
             RegionForm.Activate()
