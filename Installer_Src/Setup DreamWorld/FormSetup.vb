@@ -1727,6 +1727,8 @@ Public Class FormSetup
                 mnuHideAllways.Checked = True
         End Select
 
+        SkipSetup = False
+
         If SetIniData() Then
             MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Buttons(StartButton)
