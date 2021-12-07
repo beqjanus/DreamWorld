@@ -159,6 +159,8 @@ Public Class FormMaps
         VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
         ExportAllMaps.Text = Global.Outworldz.My.Resources.ExportAllMaps
 
+        PublicMapsCheckbox.Checked = Settings.PublicVisitorMaps
+
         If Settings.MapType = "None" Then
             MapNone.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox
@@ -270,6 +272,12 @@ Public Class FormMaps
 
     End Sub
 
+    Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
+
+        Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked
+
+    End Sub
+
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
 
         Dim digitsOnly = New Regex("[^-\d]")
@@ -302,6 +310,7 @@ Public Class FormMaps
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
