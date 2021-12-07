@@ -8,6 +8,7 @@ Imports System.Collections.Concurrent
 Imports System.IO
 
 Imports System.Text.RegularExpressions
+Imports System.Threading
 Imports MySqlConnector
 Imports Newtonsoft.Json
 
@@ -1846,7 +1847,7 @@ Module RegionMaker
             ' copy the prototype to the regions Opensim.ini
 
             CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
-            Sleep(10) ' this should not be necessary but it is on some file systems
+            Thread.Sleep(10)
 
             Dim INI = New LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";", System.Text.Encoding.UTF8)
             If INI Is Nothing Then Return True
