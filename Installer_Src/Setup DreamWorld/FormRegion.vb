@@ -468,6 +468,8 @@ Public Class FormRegion
                 CoordY.Text = Coord_Y(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
+            APIKey.Text = OpensimWorldAPIKey(RegionUUID)
+
         End If
 
         If PropOpensimIsRunning Then
