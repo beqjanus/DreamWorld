@@ -1615,15 +1615,18 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
+
         If Not _initialized Then Return
+        Settings.AutoFill = AutoFillEnable.Checked
         If AutoFillEnable.Checked Then
             If AviName.Text.Length > 0 Then
-                Settings.AutoFill = AutoFillEnable.Checked
+
                 Settings.SaveSettings()
             Else
                 MsgBox(My.Resources.MustSetSS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             End If
         End If
+
 
     End Sub
 
