@@ -4,7 +4,8 @@
 
 use strict;
 use  warnings;
-my $debug = 0;
+
+	my $debug = 0; # set to any value but 0 to ber able to test parts of it.
 
 
 	$|=1;
@@ -24,21 +25,32 @@ my $debug = 0;
 	my $Config = Config::IniFiles->new(-file => *CONFIG);
 	
 	if (! $Config)  {
-	   print "Cannot read INI";
-	   return;
-	#   
+		print header;
+		print "Cannot read INI";
+		return;
+	
 	#   foreach my $line (@Config::IniFiles::errors)
 	#   {
 	#      print $line;
 	#   }
 	}
- 
+	
+	if ($debug) {
+		$ENV{REMOTE_ADDR} = 'outworldz.com';
+	}
+	
 	my $public = $Config->val('Data','SimVisitPublic')|| '';
 	if (lc($public) ne 'public') {
 		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
 		 if ($env ne '127.0.0.1')
 		 {
-			 print header;		
+			use JSON;
+			
+			print header('application/json');
+			print to_json({ 
+					title=>'No Data',					
+				});	
+			
 			 exit;
 		 }
 	}
