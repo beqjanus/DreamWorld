@@ -80,6 +80,7 @@ Outworldzfiles/Photo.png
 UDProxy
 /Outworldzfiles/Opensim/WifiPages/
 /Outworldzfiles/Opensim/bin/WifiPages/
+/Outworldzfiles/Opensim/bin/ScriptEngines/YEngine
 /OutworldzFiles/mysql/data/*.err
 LocalUserStatistics.db
 Diagnostics.log

@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <!--  author - Fred Beckhusen -->
 <!--  AGPL3.0  https://opensource.org/licenses/AGPL -->
@@ -102,6 +102,7 @@ var person;
 
 $(document).ready(function () {
 
+    //$("#datepicker1").datepicker("setDate", "-10");
     $("#datepicker1").datepicker();
     $("#datepicker2").datepicker();
     $("#timepicker1").timepicker({
@@ -119,7 +120,8 @@ $(document).ready(function () {
     } else {
         sim = 'Welcome';
     }
-
+	
+	var nodate;
     what = gup("Start");
     if (what.length > 0) {
         start = what;
@@ -142,11 +144,12 @@ $(document).ready(function () {
 
         $("#status").append(tsv.text);
 
-        $("#datepicker1").val(tsv.s);
-        $("#datepicker2").val(tsv.e);
+		
+        $("#datepicker1").val(tsv.start);
+        $("#datepicker2").val(tsv.end);
 
-        $("#datepicker1").datepicker();
-        $("#datepicker2").datepicker();
+        //$("#datepicker1").datepicker();				
+        //$("#datepicker2").datepicker();
 
         $("#mySelect").val(tsv.sim);
 
