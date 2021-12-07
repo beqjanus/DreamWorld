@@ -27,7 +27,7 @@ Module Build
     ReadOnly GenLandLock As New Object
     ReadOnly LandLock As New Object
 
-    Public Sub GenLand(R As RegionEssentials)
+    Public Sub GenLand(R As Object)
 
         Dim regionUUID = R.RegionUUID.ToString
         Dim regionName = R.RegionName.ToString
@@ -187,7 +187,7 @@ Module Build
 
 #Region "Landscaper"
 
-    Public Sub GenTrees(R As RegionEssentials)
+    Public Sub GenTrees(R As Object)
 
         Dim regionUUID = R.RegionUUID.ToString
         Dim regionName = R.RegionName.ToString
@@ -286,7 +286,7 @@ Module Build
 
     End Function
 
-    Private Sub MakeLand(R As RegionEssentials)
+    Private Sub MakeLand(R As Object)
 
         GenLand(R)
         GenTrees(R)
