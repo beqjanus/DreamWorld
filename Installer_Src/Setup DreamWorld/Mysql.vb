@@ -525,18 +525,18 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
-            Dim HowManyAvatars As Integer = 3
-            Dim Odds As Double = 4 'in % so  2 = 2 percent
+            Dim HowManyAvatars As Integer = 10
+            Dim Odds As Double = 20
             ' sprinkle avatars around the system
             If Debugger.IsAttached Then
                 If Dict.Count < HowManyAvatars Then
                     Dim a = Between(1, 1000)
                     If a <= Odds Then
-                        Dim r = Between(1, RegionCount - 1)
                         Dim RegionList = RegionUuids()
+                        Dim r = Between(1, RegionList.Count - 1)
                         Dim RegionUUID = RegionList.Item(r)
                         Dim RegionName = Region_Name(RegionUUID)
-                        Dim index = RandomNumber.Between(1, NameList.Count - 1)
+                        Dim index = RandomNumber.Between(1, NameList.Count)
                         Dim UserName = NameList.Item(index)
 
                         If Not Dict.ContainsKey(UserName) Then

@@ -683,7 +683,7 @@
     </Compile>
     <Compile Include="MySettings.vb" />
     <Compile Include="Mysql.vb" />
-    <Compile Include="ClassRegionMaker.vb" />
+    <Compile Include="RegionMaker.vb" />
     <Compile Include="Search.vb" />
     <Compile Include="Services.vb" />
     <Compile Include="Settings.vb" />

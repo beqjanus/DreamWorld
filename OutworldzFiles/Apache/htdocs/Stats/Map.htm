@@ -124,6 +124,7 @@ $(document).ready(function () {
     if (what.length > 0) {
         start = what;
     } else {
+		var date =new Date;
 		start = (addMonths(new Date(date.getFullYear()),-1).toString());
 		start = start.toLocaleDateString("en-US", { month: 'numeric' }) + '/' +  start.toLocaleDateString("en-US", { day: 'numeric' }) + "/" + start.toLocaleDateString("en-US", { year: 'numeric' }) 
     }

@@ -20,8 +20,8 @@ Module RandomNumber
         ' between calls '
         Static Generator = New System.Random()
         Dim r = Generator.Next(Min, Max + 1)
-        Diagnostics.Debug.Print("Random: " & r)
-        Return r
+
+        Return CInt(r)
 
     End Function
 
