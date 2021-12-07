@@ -160,7 +160,7 @@ Public Class FormAutoBackups
 
     Private Sub AutoBackupKeepFilesForDays_TextChanged(sender As Object, e As EventArgs) Handles AutoBackupKeepFilesForDays.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         AutoBackupKeepFilesForDays.Text = digitsOnly.Replace(AutoBackupKeepFilesForDays.Text, "")
 
         If Not Integer.TryParse(AutoBackupKeepFilesForDays.Text, Settings.KeepForDays) Then
@@ -190,7 +190,7 @@ Public Class FormAutoBackups
 
         Dim f = Settings.BackupFolder.Replace("/", "\")
         'Create an instance of the open file dialog box.
-        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups,
             .SelectedPath = f

@@ -77,7 +77,9 @@ Public Class FormLogging
         KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
         ViewLogButton.Text = Global.Outworldz.My.Resources.View_Logs
         AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
+        Date_Time_Checkbox.Text = Global.Outworldz.My.Resources.ShowDateTime
 
+        Date_Time_Checkbox.Checked = Settings.ShowDateandTimeinLogs
         DeleteOnBoot.Checked = Settings.DeleteByDate
         KeepLog.Checked = Not Settings.DeleteByDate
 
@@ -197,9 +199,9 @@ Public Class FormLogging
                 outputFile.WriteLine("<table id=""t01"">")
                 outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
 
-                For Each UUID As String In PropRegionClass.RegionUuids
+                For Each UUID As String In RegionUuids()
                     Application.DoEvents()
-                    Dim GroupName = PropRegionClass.GroupName(UUID)
+                    Dim GroupName = Group_Name(UUID)
                     ExamineOpensim(outputFile, GroupName)
                 Next
                 outputFile.WriteLine("</table>")
@@ -213,7 +215,12 @@ Public Class FormLogging
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do Not dispose objects multiple times")>
+    Private Sub Date_Time_Checkbox_CheckedChanged_1(sender As Object, e As EventArgs) Handles Date_Time_Checkbox.CheckedChanged
+
+        Settings.ShowDateandTimeinLogs = Date_Time_Checkbox.Checked
+
+    End Sub
+
     Private Sub ExamineAvatars(Log As String)
 
         Try
@@ -247,7 +254,6 @@ Public Class FormLogging
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
 
         Try
@@ -333,6 +339,7 @@ Public Class FormLogging
     End Function
 
     Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
+
         ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_LineCounter)} Lines  {CStr(_FileCounter)} Files"
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
         Dim match As Match = pattern.Match(line)

@@ -80,7 +80,7 @@ Public Class FormPorts
         SetScreen()
 
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & CStr(PropRegionClass.LargestPort)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & CStr(LargestPort())
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -120,7 +120,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         DiagnosticPort.Text = digitsOnly.Replace(DiagnosticPort.Text, "")
 
         Settings.DiagnosticPort = CInt("0" & DiagnosticPort.Text)
@@ -141,14 +141,14 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
         Settings.FirstRegionPort() = CInt("0" & FirstRegionPort.Text)
         Settings.SaveSettings()
 
-        PropRegionClass.UpdateAllRegionPorts()
+        UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & CStr(PropRegionClass.LargestPort)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & CStr(LargestPort())
 
     End Sub
 
@@ -156,7 +156,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
         Settings.HttpPort = CInt("0" & HTTPPort.Text)
         Settings.SaveSettings()
@@ -168,7 +168,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
         Settings.PrivatePort = CInt("0" & PrivatePort.Text)
         Settings.SaveSettings()

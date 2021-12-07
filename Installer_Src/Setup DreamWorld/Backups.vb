@@ -19,7 +19,9 @@ Public Class Backups
     Private _WebThread3 As Thread
 
     Private Shared Sub Break(msg As String)
+
         Diagnostics.Debug.Print(msg)
+
     End Sub
 
 #Region "SQL Backup"
@@ -100,7 +102,7 @@ Public Class Backups
                 ' --result-file="C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\AutoBackup\tmp\opensim_2020-12-09_00_25_24.sql"
                 ' opensim
 
-                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                Dim pi = New ProcessStartInfo With {
                 .Arguments = options,
                 .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqldump.exe") & """",
                 .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"),
@@ -123,7 +125,7 @@ Public Class Backups
             Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
             DeleteFile(Bak)
 
-            Using Zip As ZipFile = New ZipFile(Bak)
+            Using Zip = New ZipFile(Bak)
                 Zip.UseZip64WhenSaving = Zip64Option.AsNecessary
                 Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
                 Zip.AddFile(SQLFile, "/")
@@ -208,14 +210,14 @@ Public Class Backups
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
         Dim zipused As Boolean
-        Using Z As ZipFile = New ZipFile(Bak) With {
+        Using Z = New ZipFile(Bak) With {
             .UseZip64WhenSaving = Zip64Option.AsNecessary,
             .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
         }
 
             Try
                 If Settings.BackupWifi Then
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\\"), "jOpensim")
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\"), "jOpensim")
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     zipused = True
                 End If
@@ -228,7 +230,7 @@ Public Class Backups
                     Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
                     Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini"), "Settings")
 
-                    Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\OpPensim\bin\LocalUserStatistics.db")
+                    Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\LocalUserStatistics.db")
                     If File.Exists(fs) Then Z.AddFile(fs, "Stats Database in bin")
                     fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
@@ -254,7 +256,7 @@ Public Class Backups
                         Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
                         For Each Region In RegionDirectoryInfo.GetFileSystemInfos
                             Dim name = Region.Name
-                            If name.EndsWith(".ini", StringComparison.InvariantCulture) Then
+                            If name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
                                 Dim shortname = name.Replace("ini", "")
                                 Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
                                 zipused = True
@@ -306,7 +308,7 @@ Public Class Backups
                         Using ProcessRobocopy As New Process With {
                             .EnableRaisingEvents = True
                         }
-                            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                            Dim pi = New ProcessStartInfo With {
                                 .Arguments = args,
                                 .FileName = win,
                                 .UseShellExecute = True,

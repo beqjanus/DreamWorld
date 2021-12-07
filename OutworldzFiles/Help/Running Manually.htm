@@ -1,0 +1,168 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#5B9BD5;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#5B9BD5;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:"Courier New";}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:.5in .5in .5in .5in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5'>
+
+<h1 style='background:#5B9BD5'><a name="_Toc58320203">Running the Grid manually</a>
+</h1>
+
+</div>
+
+<p class=MsoNormal><span style='background:white'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='background:white'>After the first run of DreamGrid,
+you can run Opensim, MySQL, and Robust without it.  </span></p>
+
+<p class=MsoNormal><span style='background:white'> The batch file <b>Go.bat</b>
+starts a command prompt with an instance of Opensim in it (an instance is a set
+of sims). The batch file launches Opensim with the settings it needs for the
+INI files and the Log file.</span></p>
+
+<p class=MsoNormal>Step 1:  Navigate to Outworldzfiles\<span style='color:black'>
+mysql\b</span><span style='color:#000088'>in and run “StartManually.bat”. </span>This
+will boot Mysql.   StopMysql.bat is there which wil gracefully stop MySQL.  You
+can also run (as an Administrator) InstallAsAService.bat so you do not need to
+start/stop MySQL.  It will install itself in Services.msc and start when
+Windows runs.</p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='border:none;padding:0in'><span
+style='color:#660066'>StartManually</span><span style='color:#666600'>.</span><span
+style='color:black'>bat</span></pre></div>
+
+<p class=MsoNormal>Do not close the MySQL box.  Use this batch file:</p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='border:none;padding:0in'><span
+style='color:#660066'>StopManually</span><span style='color:#666600'>.</span><span
+style='color:black'>bat</span></pre></div>
+
+<p class=MsoNormal><span style='color:#000088'>Step 2. </span><span
+style='color:black'>&nbsp;</span>Run “Outworldzfiles\Opensim\RunRobust.bat”
+which starts Robust</p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='border:none;padding:0in'><span
+style='color:#660066'>RunRobust</span><span style='color:#666600'>.</span><span
+style='color:black'>bat&nbsp;</span></pre></div>
+
+<p class=MsoNormal><span style='color:black'>Step 3. &nbsp;</span>Run Outworldzfiles\Opensim\go.bat,
+which starts any region by Instance (Dos Box) Name. </p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='border:none;padding:0in'>go Welcome</pre></div>
+
+<p class=MsoNormal> <span style='background:white'>This is the batch file
+&quot;StartManually.bat&quot; which does multiple items  in sequence:</span></p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='border:none;padding:0in'><span
+style='color:#006666'>@remarkable</span><span style='color:black'> batch file to start </span><span
+style='color:#660066'>DreamGrid</span><span style='color:black'> manually</span><span
+style='color:#666600'>.<br>
+</span><span style='color:black'>cd mysql\b</span><span style='color:#000088'>in</span><span
+style='color:#666600'> <br>
+</span><span style='color:black'>start startmanually</span><span
+style='color:#666600'>.</span><span style='color:black'>bat</span><span
+style='color:#666600'> <br>
+</span><span style='color:black'>cd opensim</span><span style='color:#666600'> <br>
+</span><span style='color:black'>call runrobust</span><span style='color:#666600'>.</span><span
+style='color:black'>bat</span><span style='color:#666600'> <br>
+</span><span style='color:black'>call go </span><span style='color:#660066'>Welcome</span><span
+style='color:#666600'> <br>
+</span><i><span style='color:black'>call go </span><span style='color:#660066'>AnotherRegion<br>
+</span><span style='color:#000088'>add</span><span style='color:black'> more region names here</span></i></pre></div>
+
+</div>
+
+</body>
+
+</html>

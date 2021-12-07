@@ -261,14 +261,14 @@ Module Robust
             Dim a() = str.Split("=".ToCharArray())
             Dim s = a(0)
 
-            Dim pattern1 As Regex = New Regex("^#")
+            Dim pattern1 = New Regex("^#")
             Dim match1 As Match = pattern1.Match(s)
             If match1.Success Then
                 Continue For
             End If
 
             ' ban grid Addresses
-            Dim pattern2 As Regex = New Regex("^http", RegexOptions.IgnoreCase)
+            Dim pattern2 = New Regex("^http", RegexOptions.IgnoreCase)
             Dim match2 As Match = pattern2.Match(s)
             If match2.Success Then
                 GridString += s & ","   ' delimiter is a comma for grids
@@ -277,7 +277,7 @@ Module Robust
 
             ' Ban IP's
 
-            Dim pattern3 As Regex = New Regex("^\d+\.\d+\.\d+\.\d+")
+            Dim pattern3 = New Regex("^\d+\.\d+\.\d+\.\d+")
             Dim match3 As Match = pattern3.Match(s)
             If match3.Success Then
                 Firewall.BlockIP(s)
@@ -285,7 +285,7 @@ Module Robust
             End If
 
             ' ban MAC Addresses with and without caps and :
-            Dim pattern4 As Regex = New Regex("^[a-f0-9A-F]{32}")
+            Dim pattern4 = New Regex("^[a-f0-9A-F]{32}")
             Dim match4 As Match = pattern4.Match(s)
             If match4.Success Then
                 MACString += s & " " ' delimiter is a " " and  not a pipe
@@ -413,7 +413,7 @@ Module Robust
 
         ' SmartStart. Add own entries for DreamGrid host and port
         ' In future that may need to be more clever, as per machine in a servers cluster
-        If Settings.SmartStart Then
+        If Settings.Smart_Start Then
             INI.SetIni("SmartStart", "Enabled", "True")
             INI.SetIni("SmartStart", "URL", "http://" & Settings.LANIP() + ":" & CStr(Settings.DiagnosticPort))
             INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))

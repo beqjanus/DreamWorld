@@ -15,23 +15,51 @@ Public Class LoadIni
 
     Private _encoding As System.Text.Encoding
     Private _filename As String
-    Private _parser As FileIniDataParser
+    Private ReadOnly _parser As FileIniDataParser
     Private _sep As String
-    Private _SettingsData As IniParser.Model.IniData
+    Private ReadOnly _SettingsData As IniParser.Model.IniData
+
+    Public Property Filename As String
+        Get
+            Return _filename
+        End Get
+        Set(value As String)
+            _filename = value
+        End Set
+    End Property
+
+    Public Property Encoding As System.Text.Encoding
+        Get
+            Return _encoding
+        End Get
+        Set(value As System.Text.Encoding)
+            _encoding = value
+        End Set
+    End Property
+
+    Public Property Sep As String
+        Get
+            Return _sep
+        End Get
+        Set(value As String)
+            _sep = value
+        End Set
+    End Property
 
     Public Sub New(File As String, arg As String, encoding As System.Text.Encoding)
 
-        _filename = File
+        If File Is Nothing Then Return
+        Filename = File
         If arg Is Nothing Then Return
         If File.Contains("\Region\") Then CheckINI()
-        _sep = arg
+        Sep = arg
 
-        _encoding = encoding
+        Me.Encoding = encoding
 
         _parser = New FileIniDataParser()
         _parser.Parser.Configuration.SkipInvalidLines = True
         _parser.Parser.Configuration.AssigmentSpacer = ""
-        _parser.Parser.Configuration.CommentString = _sep ' Opensim uses semicolons
+        _parser.Parser.Configuration.CommentString = Sep ' Opensim uses semicolons
         _SettingsData = ReadINIFile()
 
     End Sub
@@ -85,7 +113,7 @@ Public Class LoadIni
         Dim Retry As Integer = 10 ' 1 sec
         While Retry > 0
             Try
-                _parser.WriteFile(_filename, _SettingsData, _encoding)
+                _parser.WriteFile(Filename, _SettingsData, Encoding)
                 Retry = 0
             Catch ex As Exception
                 'ErrorLog("Error:" + ex.Message)
@@ -122,12 +150,12 @@ Public Class LoadIni
 
         Dim c As Integer
         Dim RepairedLine As String = ""
-        If Not File.Exists(_filename) Then Return ' bug 39914812
+        If Not File.Exists(Filename) Then Return ' bug 39914812
 
-        Using Reader As New System.IO.StreamReader(_filename)
+        Using Reader As New System.IO.StreamReader(Filename)
             While Not Reader.EndOfStream
                 Dim line As String = Reader.ReadLine
-                Dim pattern As Regex = New Regex("^\[.*?\]")
+                Dim pattern = New Regex("^\[.*?\]")
                 Dim match As Match = pattern.Match(line)
                 If match.Success Then
                     c += 1
@@ -144,9 +172,9 @@ Public Class LoadIni
         Try
             If c > 1 Then
                 Sleep(100)
-                FileStuff.DeleteFile(_filename)
+                FileStuff.DeleteFile(Filename)
                 Sleep(100)
-                Using Writer As New StreamWriter(_filename, False)
+                Using Writer As New StreamWriter(Filename, False)
                     Writer.Write(RepairedLine)
                 End Using
             End If
@@ -160,7 +188,7 @@ Public Class LoadIni
         Dim waiting As Integer = 10 ' 1 sec
         While waiting > 0
             Try
-                Dim Data As IniData = _parser.ReadFile(_filename, _encoding)
+                Dim Data As IniData = _parser.ReadFile(Filename, Encoding)
                 Return Data
             Catch ex As Exception
                 waiting -= 1

@@ -141,7 +141,7 @@ Module Clear_Cache
                     TextPrint(My.Resources.Clearing_Script)
 
                     For Each script As String In folders
-                        If script.EndsWith("Yengine", StringComparison.InvariantCultureIgnoreCase) Then Continue For
+                        If script.EndsWith("Yengine", StringComparison.OrdinalIgnoreCase) Then Continue For
 
                         Dim ext = Path.GetExtension(script)
 

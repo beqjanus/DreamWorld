@@ -87,7 +87,7 @@ Public Class FormMaps
         'export-map [<path>] - Save an image of the world map (default name is exportmap.jpg)
 
         'Create an instance of the open file dialog box.
-        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
@@ -96,11 +96,12 @@ Public Class FormMaps
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
-                    For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-                            thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RegionUUID))
+                    For Each RegionUUID As String In RegionUuids()
+
+                        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                            thing = IO.Path.Combine(thing, Region_Name(RegionUUID))
                             thing += ".jpg"
-                            TextPrint($"{PropRegionClass.RegionName(RegionUUID)} map exported")
+                            TextPrint($"{ Region_Name(RegionUUID)} map exported")
                             RPC_Region_Command(RegionUUID, $"export-map ""{thing}""")
                             Application.DoEvents()
                         End If
@@ -157,6 +158,8 @@ Public Class FormMaps
         DelMapButton.Text = Global.Outworldz.My.Resources.DelMaps
         VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
         ExportAllMaps.Text = Global.Outworldz.My.Resources.ExportAllMaps
+
+        PublicMapsCheckbox.Checked = Settings.PublicVisitorMaps
 
         If Settings.MapType = "None" Then
             MapNone.Checked = True
@@ -251,7 +254,7 @@ Public Class FormMaps
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
         If Not Integer.TryParse(MapXStart.Text, Settings.MapCenterX) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -261,7 +264,7 @@ Public Class FormMaps
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
         If Not Integer.TryParse(MapYStart.Text, Settings.MapCenterY) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -269,9 +272,15 @@ Public Class FormMaps
 
     End Sub
 
+    Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
+
+        Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked
+
+    End Sub
+
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^-\d]")
+        Dim digitsOnly = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
         If Not Double.TryParse(RenderMaxH.Text, Settings.RenderMaxHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -280,7 +289,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^-\d]")
+        Dim digitsOnly = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
         If Not Integer.TryParse(RenderMinH.Text, Settings.RenderMinHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -301,10 +310,11 @@ Public Class FormMaps
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
 
         If Not Integer.TryParse(Days2KeepBox.Text, Settings.KeepVisits) Then
@@ -319,8 +329,8 @@ Public Class FormMaps
 
     Private Sub VieweAllMaps_Click(sender As Object, e As EventArgs) Handles VieweAllMaps.Click
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            VarChooser(PropRegionClass.RegionName(RegionUUID), False, False)
+        For Each RegionUUID As String In RegionUuids()
+            VarChooser(Region_Name(RegionUUID), False, False)
             Application.DoEvents()
         Next
 

@@ -20,7 +20,7 @@ Module Logging
         ' Create a StackTrace that captures
         'filename, line number, And column
         'information for the current thread.
-        Dim st As StackTrace = New StackTrace(True)
+        Dim st = New StackTrace(True)
         Dim i As Integer
 
         For i = 0 To st.FrameCount - 1 Step 1
@@ -65,9 +65,9 @@ Module Logging
         Dim AllLogs As Boolean = False
         Dim path As New List(Of String)
 
-        If name.StartsWith("Region ", StringComparison.InvariantCultureIgnoreCase) Then
+        If name.StartsWith("Region ", StringComparison.OrdinalIgnoreCase) Then
             name = Replace(name, "Region ", "", 1, 1)
-            name = PropRegionClass.GroupName(PropRegionClass.FindRegionByName(name))
+            name = Group_Name(FindRegionByName(name))
             path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
         Else
             If name = "All Logs" Then AllLogs = True
@@ -80,8 +80,8 @@ Module Logging
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
-                For Each UUID As String In PropRegionClass.RegionUuids
-                    name = PropRegionClass.GroupName(UUID)
+                For Each UUID As String In RegionUuids()
+                    name = Group_Name(UUID)
                     path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
                     Application.DoEvents()
                 Next

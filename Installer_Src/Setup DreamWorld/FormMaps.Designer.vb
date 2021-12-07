@@ -55,6 +55,7 @@ Partial Class FormMaps
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Visitor = New System.Windows.Forms.GroupBox()
         Me.K4Days = New System.Windows.Forms.Label()
+        Me.PublicMapsCheckbox = New System.Windows.Forms.CheckBox()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -312,7 +313,7 @@ Partial Class FormMaps
         '
         'Days2KeepBox
         '
-        Me.Days2KeepBox.Location = New System.Drawing.Point(117, 62)
+        Me.Days2KeepBox.Location = New System.Drawing.Point(15, 52)
         Me.Days2KeepBox.Name = "Days2KeepBox"
         Me.Days2KeepBox.Size = New System.Drawing.Size(39, 20)
         Me.Days2KeepBox.TabIndex = 14
@@ -337,6 +338,7 @@ Partial Class FormMaps
         '
         'Visitor
         '
+        Me.Visitor.Controls.Add(Me.PublicMapsCheckbox)
         Me.Visitor.Controls.Add(Me.K4Days)
         Me.Visitor.Controls.Add(Me.Days2KeepBox)
         Me.Visitor.Controls.Add(Me.ViewVisitorMapButton)
@@ -350,11 +352,21 @@ Partial Class FormMaps
         'K4Days
         '
         Me.K4Days.AutoSize = True
-        Me.K4Days.Location = New System.Drawing.Point(12, 65)
+        Me.K4Days.Location = New System.Drawing.Point(60, 54)
         Me.K4Days.Name = "K4Days"
         Me.K4Days.Size = New System.Drawing.Size(74, 13)
         Me.K4Days.TabIndex = 15
         Me.K4Days.Text = "Keep for Days"
+        '
+        'PublicMapsCheckbox
+        '
+        Me.PublicMapsCheckbox.AutoSize = True
+        Me.PublicMapsCheckbox.Location = New System.Drawing.Point(15, 86)
+        Me.PublicMapsCheckbox.Name = "PublicMapsCheckbox"
+        Me.PublicMapsCheckbox.Size = New System.Drawing.Size(84, 17)
+        Me.PublicMapsCheckbox.TabIndex = 16
+        Me.PublicMapsCheckbox.Text = "Public Maps"
+        Me.PublicMapsCheckbox.UseVisualStyleBackColor = True
         '
         'FormMaps
         '
@@ -414,4 +426,5 @@ Partial Class FormMaps
     Friend WithEvents K4Days As Label
     Friend WithEvents Days2KeepBox As TextBox
     Friend WithEvents ViewVisitorMapButton As Button
+    Friend WithEvents PublicMapsCheckbox As CheckBox
 End Class

@@ -49,7 +49,6 @@ Module GlobalSettings
     Private _IsRunning As Boolean
     Private _mySetting As MySettings
     Private _PropAborting As Boolean
-    Private _regionClass As ClassRegionMaker
     Private _RegionFilesChanged As Boolean
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
@@ -118,15 +117,6 @@ Module GlobalSettings
         End Get
         Set(ByVal Value As Boolean)
             _IsRunning = Value
-        End Set
-    End Property
-
-    Public Property PropRegionClass As ClassRegionMaker
-        Get
-            Return _regionClass
-        End Get
-        Set(value As ClassRegionMaker)
-            _regionClass = value
         End Set
     End Property
 
@@ -213,9 +203,15 @@ Module GlobalSettings
     Public Sub TextPrint(Value As String)
 
         Log(My.Resources.Info_word, Value)
-        Dim dt As String = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+        If Settings.ShowDateandTimeinLogs Then
+            FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
+            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+        Else
+            FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
+            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+        End If
 
-        FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
         If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
             FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
         End If
@@ -273,7 +269,7 @@ Module GlobalSettings
 
     Public Sub PokeGroupTimer(GroupName As String)
 
-        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+        For Each UUID In RegionUuidListByName(GroupName)
             PokeRegionTimer(UUID)
         Next
 
@@ -281,7 +277,7 @@ Module GlobalSettings
 
     Public Sub PokeRegionTimer(UUID As String)
 
-        PropRegionClass.Timer(UUID) = Date.Now ' wait another interval
+        Timer(UUID) = Date.Now ' wait another interval
 
     End Sub
 
@@ -304,12 +300,12 @@ Module GlobalSettings
 
     Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-        Dim size = PropRegionClass.SizeX(RegionUUID)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+        Dim size = SizeX(RegionUUID)
 
-#Disable Warning CA2000
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
-#Enable Warning CA2000
+#Enable Warning CA2000 ' Dispose objects before losing scope
         Dim span As Integer = CInt(Math.Ceiling(size / 256))
         ' Show Dialog as a modal dialog
         VarForm.Init(span, RegionUUID, Map)

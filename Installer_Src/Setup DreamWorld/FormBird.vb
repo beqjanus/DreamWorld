@@ -11,7 +11,6 @@ Public Class FormBird
 
 #Region "Private Fields"
 
-    Dim changed As Boolean
     Dim initted As Boolean
 
 #End Region
@@ -152,28 +151,26 @@ Public Class FormBird
     Private Sub BirdsBorderSizeTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsBorderSizeTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
 
         If Not Double.TryParse(BirdsBorderSizeTextBox.Text, Settings.BirdsBorderSize) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-        changed = True
 
     End Sub
 
     Private Sub BirdsMaxHeightTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsMaxHeightTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
 
         If Not Double.TryParse(BirdsMaxHeightTextBox.Text, Settings.BirdsMaxHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-        changed = True
     End Sub
 
     Private Sub BirdsModuleStartupbox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsModuleEnable.CheckedChanged
@@ -184,32 +181,32 @@ Public Class FormBird
         Else
             Settings.BirdsModuleStartup = False
         End If
-        changed = True
+
 
     End Sub
 
     Private Sub BirdsNeighbourDistanceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsNeighbourDistanceTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
 
         If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Settings.BirdsNeighbourDistance) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-        changed = True
+
 
     End Sub
 
     Private Sub BirdsToleranceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsToleranceTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
         If Not Double.TryParse(BirdsToleranceTextBox.Text, Settings.BirdsTolerance) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-        changed = True
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles LoadIARButton.Click
@@ -222,52 +219,51 @@ Public Class FormBird
     Private Sub ChatChanelTextBox_TextChanged(sender As Object, e As EventArgs) Handles ChatChanelTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         ChatChanelTextBox.Text = digitsOnly.Replace(ChatChanelTextBox.Text, "")
 
         If Not Integer.TryParse(ChatChanelTextBox.Text, Settings.BirdsChatChannel) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-        changed = True
+
 
     End Sub
 
     Private Sub DesiredSeparationTextBox_TextChanged(sender As Object, e As EventArgs) Handles DesiredSeparationTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
 
         If Double.TryParse(DesiredSeparationTextBox.Text, Settings.BirdsDesiredSeparation) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-        changed = True
+
 
     End Sub
 
     Private Sub MaxForceTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxForceTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
 
         If Not Double.TryParse(MaxForceTextBox.Text, Settings.BirdsMaxForce) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-        changed = True
+
 
     End Sub
 
     Private Sub MaxSpeedTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxSpeedTextBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
 
         If Not Double.TryParse(MaxSpeedTextBox.Text, Settings.BirdsMaxSpeed) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-        changed = True
 
     End Sub
 
@@ -275,7 +271,7 @@ Public Class FormBird
 
         If Not initted Then Return
         Settings.BirdsPrim = PrimNameTextBox.Text
-        changed = True
+
 
     End Sub
 

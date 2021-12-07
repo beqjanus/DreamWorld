@@ -59,10 +59,10 @@ Module OAR
                 If RegionName.Length = 0 Then Return
             End If
 
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = FindRegionByName(RegionName)
 
             ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+            Using openFileDialog1 = New OpenFileDialog With {
                 .InitialDirectory = BackupPath(),
                 .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
                 .FilterIndex = 1,
@@ -81,7 +81,7 @@ Module OAR
                     If thing.Length > 0 Then
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                        Dim Group = PropRegionClass.GroupName(RegionUUID)
+                        Dim Group = Group_Name(RegionUUID)
 
                         Dim ForceParcel As String = ""
                         If PropForceParcel() Then ForceParcel = " --force-parcels "
@@ -132,7 +132,7 @@ Module OAR
         Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & " (" & RegionName & ")", vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, Global.Outworldz.My.Resources.Backup_word)
         If backMeUp = vbCancel Then Return False
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then
             ErrorLog(My.Resources.Cannot_find_region_word)
         End If
@@ -185,10 +185,13 @@ Module OAR
 
             If RegionName.Length = 0 Then
                 RegionName = ChooseRegion(False)
-                If RegionName.Length = 0 Then Return
+                If RegionName.Length = 0 Then
+                    TextPrint(My.Resources.Cancelled_word)
+                    Return
+                End If
             End If
 
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = FindRegionByName(RegionName)
 
             Dim Message, title, defaultValue As String
             Dim myValue As String
@@ -202,7 +205,7 @@ Module OAR
             ' If user has clicked Cancel, set myValue to defaultValue
             If myValue.Length = 0 Then Return
 
-            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
+            If myValue.EndsWith(".OAR", StringComparison.OrdinalIgnoreCase) Or myValue.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Then
                 ' nothing
             Else
                 myValue += ".oar"
@@ -211,8 +214,8 @@ Module OAR
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
 
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim Group = PropRegionClass.GroupName(RegionUUID)
+            If IsBooted(RegionUUID) Then
+                Dim Group = Group_Name(RegionUUID)
                 SendMessage(RegionUUID, "CPU Intensive Backup Started")
                 ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
                 ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue & """")

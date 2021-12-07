@@ -1,7 +1,7 @@
 ﻿Public Class SearchHelp
 
     Public Sub New()
-
+        Levenshtein("", "")
     End Sub
 
     Private Shared Function Levenshtein(a As String, b As String) As Integer
@@ -15,13 +15,11 @@
         Dim min3 As Integer
 
         If Len(a) = 0 Then
-            Levenshtein = Len(b)
-            Exit Function
+            Return Len(b)
         End If
 
         If Len(b) = 0 Then
-            Levenshtein = Len(a)
-            Exit Function
+            Return Len(a)
         End If
 
         ReDim d(Len(a), Len(b))
@@ -61,7 +59,7 @@
             Next
         Next
 
-        Levenshtein = d(Len(a), Len(b))
+        Return d(Len(a), Len(b))
 
     End Function
 

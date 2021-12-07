@@ -1,4 +1,4 @@
-﻿Module Birds
+﻿Module AllBirds
 
     Public Sub SetBirdsOnOrOff()
 

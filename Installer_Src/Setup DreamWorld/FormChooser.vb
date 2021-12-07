@@ -66,7 +66,6 @@ Public Class FormChooser
         DataGridView.MultiSelect = False
 
         DataGridView.Text = Global.Outworldz.My.Resources.Select_word
-        Dim PropRegionClass As ClassRegionMaker = ClassRegionMaker.Instance()
 
         Dim L As New List(Of String)
 
@@ -75,17 +74,17 @@ Public Class FormChooser
             DataGridView.Rows.Add("! Add New Name")
         End If
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In RegionUuids()
             Dim name As String
             If type = "Group" Then
-                name = PropRegionClass.GroupName(RegionUUID)
+                name = Group_Name(RegionUUID)
             Else
-                name = PropRegionClass.RegionName(RegionUUID)
+                name = Region_Name(RegionUUID)
             End If
 
             ' Only show running sims option
-            If JustRunning AndAlso (PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Or
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended) Then
+            If JustRunning AndAlso (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended) Then
                 If Not L.Contains(name) Then
                     If name.Length > 0 Then DataGridView.Rows.Add(name)
                 End If

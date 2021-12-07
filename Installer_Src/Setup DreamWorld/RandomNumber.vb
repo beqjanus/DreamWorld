@@ -7,21 +7,21 @@
 
 Module RandomNumber
 
-    Public Function Between(ByVal MaxNumber As Integer, Optional ByVal MinNumber As Integer = 0) As Integer
+    Public Function Between(Min As Integer, Max As Integer) As Integer
 
-        'initialize random number generator
-        Dim r = New Random(System.DateTime.Now.Millisecond)
-
-        'if passed incorrect arguments, swap them
-        'can also throw exception or return 0
-
-        If MinNumber > MaxNumber Then
-            Dim t As Integer = MinNumber
-            MinNumber = MaxNumber
-            MaxNumber = t
+        If Max < Min Then
+            BreakPoint.Show("Error")
+            Dim tmp = Max
+            Max = Min
+            Min = tmp
         End If
+        ' by making Generator static, we preserve the same instance '
+        ' (i.e., do not create new instances with the same seed over and over) '
+        ' between calls '
+        Static Generator = New System.Random()
+        Dim r = Generator.Next(Min, Max + 1)
 
-        Return r.Next(MinNumber, MaxNumber)
+        Return CInt(r)
 
     End Function
 

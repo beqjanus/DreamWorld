@@ -5571,9 +5571,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("StartUPNP", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
-        '''  Looks up a localized string similar to staat.
+        '''  Looks up a localized string similar to status.
         '''</summary>
         Friend Shared ReadOnly Property Status() As String
             Get

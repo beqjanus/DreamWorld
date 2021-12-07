@@ -43,7 +43,7 @@ Module WindowHandlers
             Dim PID As Integer
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
-                PID = PropRegionClass.ProcessID(RegionUUID)
+                PID = ProcessID(RegionUUID)
 
                 If PID > 0 Then
                     Try
@@ -84,7 +84,7 @@ Module WindowHandlers
                 PID = GetPIDofRobust()
             End If
         Else
-            PID = PropRegionClass.ProcessID(RegionUUID)
+            PID = ProcessID(RegionUUID)
         End If
 
         'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
@@ -136,7 +136,7 @@ Module WindowHandlers
         Dim PID As Integer
         Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
         If IO.File.Exists(INI) Then
-
+            Dim Plist As Process = Nothing
             Try
                 Using F = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
                     Using S = New StreamReader(F)
@@ -144,15 +144,14 @@ Module WindowHandlers
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
                             If Int32.TryParse(sPID, PID) Then
-                                Dim Plist = Process.GetProcessById(PID)
-                                Return Plist.MainWindowHandle
+                                Plist = Process.GetProcessById(PID)
                             End If
                         End While
                     End Using
                 End Using
             Catch
             End Try
-
+            If Plist IsNot Nothing Then Return Plist.MainWindowHandle
         End If
 
         ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
@@ -166,7 +165,6 @@ Module WindowHandlers
         Return IntPtr.Zero
 
     End Function
-
 
     Public Function GetPIDofRobust() As Integer
 
@@ -182,7 +180,6 @@ Module WindowHandlers
 
     End Function
 
-
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
         Dim PID As Integer
@@ -194,15 +191,14 @@ Module WindowHandlers
                         'now loop through each line
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
-                            If Int32.TryParse(sPID, PID) Then
-                                Return PID
-                            End If
+                            Int32.TryParse(sPID, PID)
                         End While
                     End Using
                 End Using
             End If
         Catch
         End Try
+        If PID > 0 Then Return PID
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try
@@ -252,10 +248,11 @@ Module WindowHandlers
 
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
-                    l.Add(PropRegionClass.GroupName(RegionUUID))
-                    If PropRegionClass.IsBooted(RegionUUID) Then
+            For Each RegionUUID As String In RegionUuids()
+
+                If Not l.Contains(Group_Name(RegionUUID)) Then
+                    l.Add(Group_Name(RegionUUID))
+                    If IsBooted(RegionUUID) Then
                         RPC_Region_Command(RegionUUID, "set log level " & msg)
                     End If
                 End If
@@ -272,7 +269,7 @@ Module WindowHandlers
             Return
         End If
         Dim rname = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
+        Dim RegionUUID As String = FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
             ConsoleCommand(RegionUUID, cmd)
@@ -384,13 +381,14 @@ Module WindowHandlers
     Public Function WaitForPID(myProcess As Process) As Integer
 
         If myProcess Is Nothing Then
+            BreakPoint.Show("No Process!")
             Return 0
         End If
 
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
         ' 2 minutes for old hardware and it to build DB
-        Do While TooMany < 10 And PropOpensimIsRunning
+        Do While TooMany < 10
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -405,11 +403,10 @@ Module WindowHandlers
             Sleep(1000)
             TooMany += 1
         Loop
-        'BreakPoint.Show("No Pid")
+        BreakPoint.Show("No Pid")
         Return 0
 
     End Function
-
 
     Public Sub Zap(processName As String)
 

@@ -55,17 +55,4 @@ Module ProcessExtension
         Next
     End Sub
 
-#Disable Warning IDE0060 ' Remove unused parameter
-
-    <Extension()>
-    Sub SuspendP(ByVal processId As Integer)
-#Enable Warning IDE0060 ' Remove unused parameter
-
-    End Sub
-
-    'Private Sub SuspendThread(ByVal hThread As IntPtr)
-    ' removed suspend code
-
-    'End Sub
-
 End Module

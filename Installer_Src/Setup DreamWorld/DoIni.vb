@@ -58,13 +58,13 @@ Module DoIni
         Dim BirdData As String = ""
 
         ' Birds setup per region
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In RegionUuids()
             Application.DoEvents()
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+            Dim Name = Region_Name(RegionUUID)
 
-            If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionUUID) = "True" Then
+            If Settings.BirdsModuleStartup And Birds(RegionUUID) = "True" Then
 
-                BirdData = BirdData & "[" & RegionName & "]" & vbCrLf &
+                BirdData = BirdData & "[" & Name & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
             "BirdsModuleStartup = True" & vbCrLf & vbCrLf &
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
@@ -208,14 +208,14 @@ Module DoIni
         Try
             ' make a long list of the various regions with region_ at the start
             Dim Authorizationlist As String = ""
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+            For Each RegionUUID As String In RegionUuids()
+                Dim RegionName = Region_Name(RegionUUID)
 
                 RegionName = RegionName.Replace(" ", "_")
 
-                If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+                If Disallow_Foreigners(RegionUUID) = "True" Then
                     Authorizationlist += $"Region_{RegionName}=DisallowForeigners{vbLf}"
-                ElseIf PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+                ElseIf Disallow_Residents(RegionUUID) = "True" Then
                     Authorizationlist += $"Region_{RegionName}=DisallowResidents{vbLf}"
                 End If
             Next
@@ -227,7 +227,7 @@ Module DoIni
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
                         Output += line & vbLf ' add back on the ; START
                         Output += Authorizationlist
                     Else
@@ -334,6 +334,7 @@ Module DoIni
         Return False
 
     End Function
+
     Public Function DoPerlDBSetup() As Boolean
 
         Try
@@ -409,7 +410,7 @@ Module DoIni
 
         Try
             ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
-            Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+            Dim WelcomeUUID As String = FindRegionByName(Settings.WelcomeRegion)
 
             Dim DefaultName = Settings.WelcomeRegion
 
@@ -436,14 +437,14 @@ Module DoIni
             Dim RegionSetting As String = ""
 
             ' make a long list of the various regions with region_ at the start
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
+            For Each RegionUUID As String In RegionUuids()
 
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                Dim RegionName = Region_Name(RegionUUID)
                 RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                If PropRegionClass.RegionName(RegionUUID) = DefaultName Then
+                If Region_Name(RegionUUID) = DefaultName Then
                     RegionSetting += $"Region_{Welcome}=DefaultRegion,  DefaultHGRegion{vbCrLf}"
                 Else
-                    If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                    If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
                         RegionSetting += $"Region_{RegionName}=Persistent {vbCrLf}"
                     Else
                         RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
@@ -459,7 +460,7 @@ Module DoIni
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
                         Output += line & vbCrLf ' add back on the ; START
                         Output += RegionSetting
                     Else
@@ -574,10 +575,10 @@ Module DoIni
 
         DeleteFile(TideFile)
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        For Each RegionUUID As String In RegionUuids()
+            Dim RegionName = Region_Name(RegionUUID)
             'Tides Setup per region
-            If Settings.TideEnabled And PropRegionClass.Tides(RegionUUID) = "True" Then
+            If Settings.TideEnabled And Tides(RegionUUID) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
                     "[" & RegionName & "]" & vbCrLf &

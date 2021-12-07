@@ -272,7 +272,7 @@ Module FileStuff
 
             Dim fileSystemInfo As System.IO.FileSystemInfo
             For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
-                If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
+                If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.OrdinalIgnoreCase) Then
                     DeleteFile(fileSystemInfo.FullName)
                 End If
             Next
@@ -293,8 +293,8 @@ Module FileStuff
 
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
 
-        For Each UUID As String In PropRegionClass.RegionUuids
-            Dim GroupName = PropRegionClass.GroupName(UUID)
+        For Each UUID As String In RegionUuids()
+            Dim GroupName = Group_Name(UUID)
             DeleteThisOldFile($"{Settings.OpensimBinPath()}\Regions\{GroupName}\Opensim.log")
             DeleteThisOldFile($"{Settings.OpensimBinPath()}\regions\{GroupName}\OpensimConsole.log")
             DeleteThisOldFile($"{Settings.OpensimBinPath()}\regions\{GroupName}\OpenSimStats.log")
@@ -373,7 +373,7 @@ Module FileStuff
             Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.dll")
             For Each localdllname In localdlls
                 Application.DoEvents()
-                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
+                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.OrdinalIgnoreCase)
                 Dim newlocaldllname = Mid(localdllname, x)
                 If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                     DeleteFile(localdllname)

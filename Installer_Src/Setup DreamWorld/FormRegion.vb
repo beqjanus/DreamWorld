@@ -92,8 +92,8 @@ Public Class FormRegion
 
             PropAborting = True
             Dim loopctr = 60 ' wait 1 minute
-            PropRegionClass.StopRegion(RegionUUID)
-            While CheckPort(Settings.PublicIP(), PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+            StopRegion(RegionUUID)
+            While CheckPort(Settings.PublicIP(), GroupPort(RegionUUID)) And loopctr > 0
                 loopctr -= 1
                 Sleep(1000)
             End While
@@ -102,7 +102,7 @@ Public Class FormRegion
             PropAborting = False
             StartRobust()
 
-            Boot(PropRegionClass.RegionName(RegionUUID))
+            Boot(Region_Name(RegionUUID))
 
         End If
 
@@ -239,7 +239,7 @@ Public Class FormRegion
         ToolTip1.SetToolTip(BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
         ToolTip1.SetToolTip(ClampPrimLabel, Global.Outworldz.My.Resources.ClampSize)
         ToolTip1.SetToolTip(ClampPrimSize, Global.Outworldz.My.Resources.ClampSize)
-        ToolTip1.SetToolTip(CoordX, Global.Outworldz.My.Resources.Coordx)
+        ToolTip1.SetToolTip(CoordX, Global.Outworldz.My.Resources.CoordX)
         ToolTip1.SetToolTip(CoordY, Global.Outworldz.My.Resources.CoordY)
         ToolTip1.SetToolTip(DisableGBCheckBox, Global.Outworldz.My.Resources.Disable_Gloebits_text)
         ToolTip1.SetToolTip(DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
@@ -283,15 +283,13 @@ Public Class FormRegion
         If Name Is Nothing Then Return
         Name = Name.Trim() ' remove spaces
 
-        PropRegionClass = ClassRegionMaker.Instance()
-
         ' NEW REGION
         If Name.Length = 0 Then
             IsNew1 = True
             Gods_Use_Default.Checked = True
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
-            CoordX.Text = (PropRegionClass.LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
-            CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordX.Text = (LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordY.Text = (LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -301,7 +299,7 @@ Public Class FormRegion
             ConciergeCheckBox.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionUUID = PropRegionClass.CreateRegion("New Region")
+            RegionUUID = CreateRegionStruct("New Region")
             UUID.Text = RegionUUID
             Gods_Use_Default.Checked = True
 
@@ -327,46 +325,46 @@ Public Class FormRegion
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
 
-            RegionUUID = PropRegionClass.FindRegionByName(Name)
-            APIKey.Text = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
-            Oldname1 = PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
-            EnabledCheckBox.Checked = PropRegionClass.RegionEnabled(RegionUUID)
+            RegionUUID = FindRegionByName(Name)
+            APIKey.Text = OpensimWorldAPIKey(RegionUUID)
+            Oldname1 = Region_Name(RegionUUID) ' backup in case of rename
+            EnabledCheckBox.Checked = RegionEnabled(RegionUUID)
             Me.Text = Name & " " & Global.Outworldz.My.Resources.Region_word ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
-            NonphysicalPrimMax.Text = CStr(PropRegionClass.NonPhysicalPrimMax(RegionUUID))
-            PhysicalPrimMax.Text = CStr(PropRegionClass.PhysicalPrimMax(RegionUUID))
-            ClampPrimSize.Checked = PropRegionClass.ClampPrimSize(RegionUUID)
-            MaxPrims.Text = PropRegionClass.MaxPrims(RegionUUID)
-            MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
-            RegionPort.Text = CStr(PropRegionClass.RegionPort(RegionUUID))
+            NonphysicalPrimMax.Text = CStr(NonPhysical_PrimMax(RegionUUID))
+            PhysicalPrimMax.Text = CStr(Physical_PrimMax(RegionUUID))
+            ClampPrimSize.Checked = Clamp_PrimSize(RegionUUID)
+            MaxPrims.Text = Max_Prims(RegionUUID)
+            MaxAgents.Text = Max_Agents(RegionUUID)
+            RegionPort.Text = CStr(Region_Port(RegionUUID))
 
-            If PropRegionClass.Priority(RegionUUID).Length = 0 Then
+            If Priority(RegionUUID).Length = 0 Then
                 Normal.Checked = True
             Else
-                RealTime.Checked = PropRegionClass.Priority(RegionUUID) = "RealTime"
-                High.Checked = PropRegionClass.Priority(RegionUUID) = "High"
-                AboveNormal.Checked = PropRegionClass.Priority(RegionUUID) = "AboveNormal"
-                Normal.Checked = PropRegionClass.Priority(RegionUUID) = "Normal"
-                BelowNormal.Checked = PropRegionClass.Priority(RegionUUID) = "BelowNormal"
+                RealTime.Checked = Priority(RegionUUID) = "RealTime"
+                High.Checked = Priority(RegionUUID) = "High"
+                AboveNormal.Checked = Priority(RegionUUID) = "AboveNormal"
+                Normal.Checked = Priority(RegionUUID) = "Normal"
+                BelowNormal.Checked = Priority(RegionUUID) = "BelowNormal"
             End If
 
-            Core1Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H1)
-            Core2Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H2)
-            Core3Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H4)
-            Core4Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H8)
-            Core5Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H10)
-            Core6Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H20)
-            Core7Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H40)
-            Core8Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H80)
-            Core9Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H100)
-            Core10Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H200)
-            Core11Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H400)
-            Core12Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H800)
-            Core13Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H1000)
-            Core14Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H2000)
-            Core15Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H4000)
-            Core16Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H8000)
+            Core1Button.Checked = CBool(Cores(RegionUUID) And &H1)
+            Core2Button.Checked = CBool(Cores(RegionUUID) And &H2)
+            Core3Button.Checked = CBool(Cores(RegionUUID) And &H4)
+            Core4Button.Checked = CBool(Cores(RegionUUID) And &H8)
+            Core5Button.Checked = CBool(Cores(RegionUUID) And &H10)
+            Core6Button.Checked = CBool(Cores(RegionUUID) And &H20)
+            Core7Button.Checked = CBool(Cores(RegionUUID) And &H40)
+            Core8Button.Checked = CBool(Cores(RegionUUID) And &H80)
+            Core9Button.Checked = CBool(Cores(RegionUUID) And &H100)
+            Core10Button.Checked = CBool(Cores(RegionUUID) And &H200)
+            Core11Button.Checked = CBool(Cores(RegionUUID) And &H400)
+            Core12Button.Checked = CBool(Cores(RegionUUID) And &H800)
+            Core13Button.Checked = CBool(Cores(RegionUUID) And &H1000)
+            Core14Button.Checked = CBool(Cores(RegionUUID) And &H2000)
+            Core15Button.Checked = CBool(Cores(RegionUUID) And &H4000)
+            Core16Button.Checked = CBool(Cores(RegionUUID) And &H8000)
 
             Dim C = Environment.ProcessorCount
             If C >= 1 Then Core1Button.Visible = True Else Core1Button.Visible = False
@@ -386,7 +384,7 @@ Public Class FormRegion
             If C >= 15 Then Core15Button.Visible = True Else Core15Button.Visible = False
             If C >= 16 Then Core16Button.Visible = True Else Core16Button.Visible = False
 
-            If PropRegionClass.Cores(RegionUUID) = 0 Then
+            If Cores(RegionUUID) = 0 Then
                 Core1Button.Checked = True
                 Core2Button.Checked = True
                 Core3Button.Checked = True
@@ -406,55 +404,55 @@ Public Class FormRegion
             End If
 
             ' Size buttons can be zero
-            If PropRegionClass.SizeY(RegionUUID) = 0 Or PropRegionClass.SizeX(RegionUUID) = 0 Then
+            If SizeY(RegionUUID) = 0 Or SizeX(RegionUUID) = 0 Then
                 RadioButton1.Checked = True
                 BoxSize = 256
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 Then
+            ElseIf SizeY(RegionUUID) = 256 Then
                 RadioButton1.Checked = True
                 BoxSize = 256 * 1
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 2 Then
+            ElseIf SizeY(RegionUUID) = 256 * 2 Then
                 RadioButton2.Checked = True
                 BoxSize = 256 * 2
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 3 Then
+            ElseIf SizeY(RegionUUID) = 256 * 3 Then
                 RadioButton3.Checked = True
                 BoxSize = 256 * 3
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 4 Then
+            ElseIf SizeY(RegionUUID) = 256 * 4 Then
                 RadioButton4.Checked = True
                 BoxSize = 256 * 4
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 5 Then
+            ElseIf SizeY(RegionUUID) = 256 * 5 Then
                 RadioButton5.Checked = True
                 BoxSize = 256 * 5
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 6 Then
+            ElseIf SizeY(RegionUUID) = 256 * 6 Then
                 RadioButton6.Checked = True
                 BoxSize = 256 * 6
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 7 Then
+            ElseIf SizeY(RegionUUID) = 256 * 7 Then
                 RadioButton7.Checked = True
                 BoxSize = 256 * 7
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 8 Then
+            ElseIf SizeY(RegionUUID) = 256 * 8 Then
                 RadioButton8.Checked = True
                 BoxSize = 256 * 8
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 9 Then
+            ElseIf SizeY(RegionUUID) = 256 * 9 Then
                 RadioButton9.Checked = True
                 BoxSize = 256 * 9
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 10 Then
+            ElseIf SizeY(RegionUUID) = 256 * 10 Then
                 RadioButton10.Checked = True
                 BoxSize = 256 * 10
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 11 Then
+            ElseIf SizeY(RegionUUID) = 256 * 11 Then
                 RadioButton11.Checked = True
                 BoxSize = 256 * 11
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 12 Then
+            ElseIf SizeY(RegionUUID) = 256 * 12 Then
                 RadioButton12.Checked = True
                 BoxSize = 256 * 12
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 13 Then
+            ElseIf SizeY(RegionUUID) = 256 * 13 Then
                 RadioButton13.Checked = True
                 BoxSize = 256 * 14
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 14 Then
+            ElseIf SizeY(RegionUUID) = 256 * 14 Then
                 RadioButton14.Checked = True
                 BoxSize = 256 * 14
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 15 Then
+            ElseIf SizeY(RegionUUID) = 256 * 15 Then
                 RadioButton15.Checked = True
                 BoxSize = 256 * 15
-            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 16 Then
+            ElseIf SizeY(RegionUUID) = 256 * 16 Then
                 RadioButton16.Checked = True
                 BoxSize = 256 * 16
             Else
@@ -462,12 +460,12 @@ Public Class FormRegion
             End If
 
             ' global coordinates
-            If PropRegionClass.CoordX(RegionUUID) <> 0 Then
-                CoordX.Text = PropRegionClass.CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+            If Coord_X(RegionUUID) <> 0 Then
+                CoordX.Text = Coord_X(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
-            If PropRegionClass.CoordY(RegionUUID) <> 0 Then
-                CoordY.Text = PropRegionClass.CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+            If Coord_Y(RegionUUID) <> 0 Then
+                CoordY.Text = Coord_Y(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
         End If
@@ -478,25 +476,25 @@ Public Class FormRegion
             UUID.ReadOnly = False
         End If
         ' The following are all options.
-        If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+        If Disallow_Residents(RegionUUID) = "True" Then
             DisallowResidents.Checked = True
         End If
 
-        If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+        If Disallow_Foreigners(RegionUUID) = "True" Then
             DisallowForeigners.Checked = True
         End If
 
-        ScriptTimerTextBox.Text = PropRegionClass.MinTimerInterval(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
-        FrametimeBox.Text = PropRegionClass.FrameTime(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+        ScriptTimerTextBox.Text = MinTimerInterval(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+        FrametimeBox.Text = FrameTime(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
 
-        If PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
+        If SkipAutobackup(RegionUUID) = "True" Then
             SkipAutoCheckBox.Checked = True
         End If
-        If PropRegionClass.SmartStart(RegionUUID) = "True" Then
+        If Smart_Start(RegionUUID) = "True" Then
             SmartStartCheckBox.Checked = True
         End If
 
-        Select Case PropRegionClass.DisableGloebits(RegionUUID)
+        Select Case DisableGloebits(RegionUUID)
             Case ""
                 DisableGBCheckBox.Checked = False
             Case "False"
@@ -517,24 +515,24 @@ Public Class FormRegion
 
         ''''''''''''''''''''''''''''' DREAMGRID REGION LOAD '''''''''''''''''
 
-        If PropRegionClass.MapType(RegionUUID).Length = 0 Then
+        If MapType(RegionUUID).Length = 0 Then
             Maps_Use_Default.Checked = True
             DefaultMap()
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
+        ElseIf MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Simple
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
+        ElseIf MapType(RegionUUID) = "Good" Then
             MapGood.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Good
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
+        ElseIf MapType(RegionUUID) = "Better" Then
             MapBetter.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Better
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
+        ElseIf MapType(RegionUUID) = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
-        Select Case PropRegionClass.Physics(RegionUUID)
+        Select Case RegionPhysics(RegionUUID)
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
@@ -546,13 +544,13 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        If PropRegionClass.GodDefault(RegionUUID) = "True" Then
+        If GodDefault(RegionUUID) = "True" Then
             GodLevel.Checked = False
             GodEstate.Checked = False
             GodManager.Checked = False
             Gods_Use_Default.Checked = True
         Else
-            Select Case PropRegionClass.AllowGods(RegionUUID)
+            Select Case AllowGods(RegionUUID)
                 Case ""
                     GodLevel.Checked = False
                 Case "False"
@@ -563,7 +561,7 @@ Public Class FormRegion
                     Gods_Use_Default.Checked = False
             End Select
 
-            Select Case PropRegionClass.RegionGod(RegionUUID)
+            Select Case RegionGod(RegionUUID)
                 Case ""
                     GodEstate.Checked = False
                 Case "False"
@@ -574,7 +572,7 @@ Public Class FormRegion
                     Gods_Use_Default.Checked = False
             End Select
 
-            Select Case PropRegionClass.ManagerGod(RegionUUID)
+            Select Case ManagerGod(RegionUUID)
                 Case ""
                     GodManager.Checked = False
                 Case "False"
@@ -587,14 +585,14 @@ Public Class FormRegion
 
             ' if none selected, turn default on. This updates old code to new GodDefault global
 
-            If PropRegionClass.AllowGods(RegionUUID).Length = 0 And
-                 PropRegionClass.RegionGod(RegionUUID).Length = 0 And
-                PropRegionClass.ManagerGod(RegionUUID).Length = 0 Then
+            If AllowGods(RegionUUID).Length = 0 And
+                  RegionGod(RegionUUID).Length = 0 And
+                 ManagerGod(RegionUUID).Length = 0 Then
                 Gods_Use_Default.Checked = True
             End If
         End If
 
-        Select Case PropRegionClass.RegionSnapShot(RegionUUID)
+        Select Case RegionSnapShot(RegionUUID)
             Case ""
                 PublishDefault.Checked = True
                 NoPublish.Checked = False
@@ -609,7 +607,7 @@ Public Class FormRegion
                 Publish.Checked = True
         End Select
 
-        Select Case PropRegionClass.Birds(RegionUUID)
+        Select Case Birds(RegionUUID)
             Case ""
                 BirdsCheckBox.Checked = False
             Case "False"
@@ -618,7 +616,7 @@ Public Class FormRegion
                 BirdsCheckBox.Checked = True
         End Select
 
-        Select Case PropRegionClass.Tides(RegionUUID)
+        Select Case Tides(RegionUUID)
             Case ""
                 TidesCheckbox.Checked = False
             Case "False"
@@ -627,7 +625,7 @@ Public Class FormRegion
                 TidesCheckbox.Checked = True
         End Select
 
-        Select Case PropRegionClass.Teleport(RegionUUID)
+        Select Case Teleport_Sign(RegionUUID)
             Case ""
                 TPCheckBox1.Checked = False
             Case "False"
@@ -636,7 +634,7 @@ Public Class FormRegion
                 TPCheckBox1.Checked = True
         End Select
 
-        Select Case PropRegionClass.DisallowForeigners(RegionUUID)
+        Select Case Disallow_Foreigners(RegionUUID)
             Case ""
                 DisallowForeigners.Checked = False
             Case "False"
@@ -645,7 +643,7 @@ Public Class FormRegion
                 DisallowForeigners.Checked = True
         End Select
 
-        Select Case PropRegionClass.DisallowResidents(RegionUUID)
+        Select Case Disallow_Residents(RegionUUID)
             Case ""
                 DisallowResidents.Checked = False
             Case "False"
@@ -654,7 +652,7 @@ Public Class FormRegion
                 DisallowResidents.Checked = True
         End Select
 
-        Select Case PropRegionClass.ScriptEngine(RegionUUID)
+        Select Case ScriptEngine(RegionUUID)
             Case ""
                 ScriptDefaultButton.Checked = True
             Case "Off"
@@ -665,7 +663,7 @@ Public Class FormRegion
                 YEngineButton.Checked = True
         End Select
 
-        Select Case PropRegionClass.Concierge(RegionUUID)
+        Select Case Concierge(RegionUUID)
             Case ""
                 ConciergeCheckBox.Checked = False
             Case "True"
@@ -772,13 +770,13 @@ Public Class FormRegion
             StartMySQL()
             StartRobust()
 
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName.Text)
+            Dim RegionUUID As String = FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
-                If CheckPort(Settings.LANIP(), PropRegionClass.GroupPort(RegionUUID)) Then
+                If CheckPort(Settings.LANIP(), GroupPort(RegionUUID)) Then
                     ShutDown(RegionUUID)
                 End If
                 Dim loopctr = 120 ' wait 2 minutes
-                While CheckPort(Settings.LANIP(), PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+                While CheckPort(Settings.LANIP(), GroupPort(RegionUUID)) And loopctr > 0
                     Sleep(1000)
                     loopctr -= 1
                 End While
@@ -829,7 +827,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        If PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+        If RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped Then
             MsgBox(My.Resources.Regions_Are_Running, vbInformation Or vbMsgBoxSetForeground)
             Return
         End If
@@ -1115,7 +1113,7 @@ Public Class FormRegion
             Try
                 StartMySQL()
                 MysqlInterface.DeregisterRegionUUID(RegionUUID)
-                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
+                My.Computer.FileSystem.RenameFile(RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Aborted_word)
@@ -1123,8 +1121,7 @@ Public Class FormRegion
             End Try
 
             ' rename it
-            Dim RegionIniFolderPath = PropRegionClass.RegionIniFolderPath(RegionUUID)
-            PropRegionClass.RegionIniFilePath(RegionUUID) = RegionIniFolderPath + "/" + RegionName.Text + ".ini"
+            RegionIniFilePath(RegionUUID) = RegionIniFolderPath(RegionUUID) + "/" + RegionName.Text + ".ini"
         End If
 
         ' might be a new region, so give them a choice
@@ -1138,7 +1135,7 @@ Public Class FormRegion
                 Return False
             End If
 
-            If Not Directory.Exists(PropRegionClass.RegionIniFilePath(RegionUUID)) Or PropRegionClass.RegionIniFilePath(RegionUUID).Length = 0 Then
+            If Not Directory.Exists(RegionIniFilePath(RegionUUID)) Or RegionIniFilePath(RegionUUID).Length = 0 Then
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
                 Catch ex As Exception
@@ -1148,76 +1145,76 @@ Public Class FormRegion
                 End Try
             End If
 
-            PropRegionClass.RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            PropRegionClass.RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(PropRegionClass.RegionIniFilePath(RegionUUID))
-            PropRegionClass.GroupName(RegionUUID) = NewGroup
+            RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(RegionIniFilePath(RegionUUID))
+            Group_Name(RegionUUID) = NewGroup
 
-            Dim theEnd As Integer = PropRegionClass.RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.InvariantCulture)
-            PropRegionClass.OpensimIniPath(RegionUUID) = PropRegionClass.RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
+            Dim theEnd As Integer = RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
+            OpensimIniPath(RegionUUID) = RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
 
         End If
 
         ' save the changes to the memory structure, then to disk
 
         'CPU Affinity
-        Dim cores = 0
-        If Core1Button.Checked Then cores += &H1
-        If Core2Button.Checked Then cores += &H2
-        If Core3Button.Checked Then cores += &H4
-        If Core4Button.Checked Then cores += &H8
-        If Core5Button.Checked Then cores += &H10
-        If Core6Button.Checked Then cores += &H20
-        If Core7Button.Checked Then cores += &H40
-        If Core8Button.Checked Then cores += &H80
-        If Core9Button.Checked Then cores += &H100
-        If Core10Button.Checked Then cores += &H200
-        If Core10Button.Checked Then cores += &H400
-        If Core12Button.Checked Then cores += &H800
-        If Core13Button.Checked Then cores += &H1000
-        If Core14Button.Checked Then cores += &H2000
-        If Core15Button.Checked Then cores += &H4000
-        If Core16Button.Checked Then cores += &H8000
+        Dim Ncores = 0
+        If Core1Button.Checked Then Ncores += &H1
+        If Core2Button.Checked Then Ncores += &H2
+        If Core3Button.Checked Then Ncores += &H4
+        If Core4Button.Checked Then Ncores += &H8
+        If Core5Button.Checked Then Ncores += &H10
+        If Core6Button.Checked Then Ncores += &H20
+        If Core7Button.Checked Then Ncores += &H40
+        If Core8Button.Checked Then Ncores += &H80
+        If Core9Button.Checked Then Ncores += &H100
+        If Core10Button.Checked Then Ncores += &H200
+        If Core10Button.Checked Then Ncores += &H400
+        If Core12Button.Checked Then Ncores += &H800
+        If Core13Button.Checked Then Ncores += &H1000
+        If Core14Button.Checked Then Ncores += &H2000
+        If Core15Button.Checked Then Ncores += &H4000
+        If Core16Button.Checked Then Ncores += &H8000
 
-        If cores = 0 Then cores = Environment.ProcessorCount
-        PropRegionClass.Cores(RegionUUID) = cores
+        If Ncores = 0 Then Ncores = Environment.ProcessorCount
+        Cores(RegionUUID) = Ncores
 
         If RealTime.Checked Then
-            PropRegionClass.Priority(RegionUUID) = "RealTime"
+            Priority(RegionUUID) = "RealTime"
         ElseIf High.Checked Then
-            PropRegionClass.Priority(RegionUUID) = "High"
+            Priority(RegionUUID) = "High"
         ElseIf AboveNormal.Checked Then
-            PropRegionClass.Priority(RegionUUID) = "AboveNormal"
+            Priority(RegionUUID) = "AboveNormal"
         ElseIf Normal.Checked Then
-            PropRegionClass.Priority(RegionUUID) = "Normal"
+            Priority(RegionUUID) = "Normal"
         ElseIf BelowNormal.Checked Then
-            PropRegionClass.Priority(RegionUUID) = "BelowNormal"
+            Priority(RegionUUID) = "BelowNormal"
         Else
-            PropRegionClass.Priority(RegionUUID) = "Normal"
+            Priority(RegionUUID) = "Normal"
         End If
 
-        PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
-        PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
-        PropRegionClass.RegionName(RegionUUID) = RegionName.Text
+        Coord_X(RegionUUID) = CInt("0" & CoordX.Text)
+        Coord_Y(RegionUUID) = CInt("0" & CoordY.Text)
+        Region_Name(RegionUUID) = RegionName.Text
 
-        If PropRegionClass.RegionPort(RegionUUID) = 0 Then
-            Dim port = PropRegionClass.LargestPort + 1
-            PropRegionClass.RegionPort(RegionUUID) = port
-            PropRegionClass.GroupPort(RegionUUID) = port
+        If Region_Port(RegionUUID) = 0 Then
+            Dim port = LargestPort() + 1
+            Region_Port(RegionUUID) = port
+            GroupPort(RegionUUID) = port
         End If
 
-        PropRegionClass.SizeX(RegionUUID) = BoxSize
-        PropRegionClass.SizeY(RegionUUID) = BoxSize
-        PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
-        PropRegionClass.NonPhysicalPrimMax(RegionUUID) = NonphysicalPrimMax.Text
-        PropRegionClass.PhysicalPrimMax(RegionUUID) = PhysicalPrimMax.Text
-        PropRegionClass.ClampPrimSize(RegionUUID) = ClampPrimSize.Checked
+        SizeX(RegionUUID) = BoxSize
+        SizeY(RegionUUID) = BoxSize
+        RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
+        NonPhysical_PrimMax(RegionUUID) = NonphysicalPrimMax.Text
+        Physical_PrimMax(RegionUUID) = PhysicalPrimMax.Text
+        Clamp_PrimSize(RegionUUID) = ClampPrimSize.Checked
 
-        PropRegionClass.Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
+        Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
 
-        PropRegionClass.MaxAgents(RegionUUID) = MaxAgents.Text
-        PropRegionClass.MaxPrims(RegionUUID) = MaxPrims.Text
-        PropRegionClass.MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
-        PropRegionClass.FrameTime(RegionUUID) = FrametimeBox.Text
+        Max_Agents(RegionUUID) = MaxAgents.Text
+        Max_Prims(RegionUUID) = MaxPrims.Text
+        MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
+        FrameTime(RegionUUID) = FrametimeBox.Text
 
         Dim Snapshot As String = ""
         If PublishDefault.Checked Then
@@ -1228,7 +1225,7 @@ Public Class FormRegion
             Snapshot = "True"
         End If
 
-        PropRegionClass.RegionSnapShot(RegionUUID) = Snapshot
+        RegionSnapShot(RegionUUID) = Snapshot
 
         Dim Map As String = ""
         If MapNone.Checked Then
@@ -1243,7 +1240,7 @@ Public Class FormRegion
             Map = "Best"
         End If
 
-        PropRegionClass.MapType(RegionUUID) = Map
+        MapType(RegionUUID) = Map
 
         'Case "" : Physics_Default.Checked = True
         'Case "-1" : Physics_Default.Checked = True
@@ -1272,92 +1269,87 @@ Public Class FormRegion
             Phys = "2"
         End If
 
-        PropRegionClass.Physics(RegionUUID) = Phys
+        RegionPhysics(RegionUUID) = Phys
 
         If Gods_Use_Default.Checked Then
-            PropRegionClass.GodDefault(RegionUUID) = "True"
-            PropRegionClass.AllowGods(RegionUUID) = ""
-            PropRegionClass.RegionGod(RegionUUID) = ""
-            PropRegionClass.ManagerGod(RegionUUID) = ""
+            GodDefault(RegionUUID) = "True"
+            AllowGods(RegionUUID) = ""
+            RegionGod(RegionUUID) = ""
+            ManagerGod(RegionUUID) = ""
         Else
-            PropRegionClass.GodDefault(RegionUUID) = "False"
-            PropRegionClass.AllowGods(RegionUUID) = CStr(GodLevel.Checked)
-            PropRegionClass.RegionGod(RegionUUID) = CStr(GodEstate.Checked)
-            PropRegionClass.ManagerGod(RegionUUID) = CStr(GodManager.Checked)
+            GodDefault(RegionUUID) = "False"
+            AllowGods(RegionUUID) = CStr(GodLevel.Checked)
+            RegionGod(RegionUUID) = CStr(GodEstate.Checked)
+            ManagerGod(RegionUUID) = CStr(GodManager.Checked)
         End If
 
         If DisallowForeigners.Checked Then
-            PropRegionClass.DisallowForeigners(RegionUUID) = "True"
+            Disallow_Foreigners(RegionUUID) = "True"
         Else
-            PropRegionClass.DisallowForeigners(RegionUUID) = ""
+            Disallow_Foreigners(RegionUUID) = ""
         End If
 
         If DisallowResidents.Checked Then
-            PropRegionClass.DisallowResidents(RegionUUID) = "True"
+            Disallow_Residents(RegionUUID) = "True"
         Else
-            PropRegionClass.DisallowResidents(RegionUUID) = ""
+            Disallow_Residents(RegionUUID) = ""
         End If
 
         If SkipAutoCheckBox.Checked Then
-            PropRegionClass.SkipAutobackup(RegionUUID) = "True"
+            SkipAutobackup(RegionUUID) = "True"
         Else
-            PropRegionClass.SkipAutobackup(RegionUUID) = ""
+            SkipAutobackup(RegionUUID) = ""
         End If
 
         If BirdsCheckBox.Checked Then
-            PropRegionClass.Birds(RegionUUID) = "True"
+            Birds(RegionUUID) = "True"
         Else
-            PropRegionClass.Birds(RegionUUID) = ""
+            Birds(RegionUUID) = ""
         End If
 
         If TidesCheckbox.Checked Then
-            PropRegionClass.Tides(RegionUUID) = "True"
+            Tides(RegionUUID) = "True"
         Else
-            PropRegionClass.Tides(RegionUUID) = ""
+            Tides(RegionUUID) = ""
         End If
 
         If TPCheckBox1.Checked Then
-            PropRegionClass.Teleport(RegionUUID) = "True"
+            Teleport_Sign(RegionUUID) = "True"
         Else
-            PropRegionClass.Teleport(RegionUUID) = ""
+            Teleport_Sign(RegionUUID) = ""
         End If
 
         If DisableGBCheckBox.Checked Then
-            PropRegionClass.DisableGloebits(RegionUUID) = "True"
+            DisableGloebits(RegionUUID) = "True"
         Else
-            PropRegionClass.DisableGloebits(RegionUUID) = ""
+            DisableGloebits(RegionUUID) = ""
         End If
 
         If NoPublish.Checked Then
-            PropRegionClass.GDPR(RegionUUID) = "False"
+            GDPR(RegionUUID) = "False"
         Else
-            PropRegionClass.GDPR(RegionUUID) = ""
+            GDPR(RegionUUID) = ""
         End If
 
         If Publish.Checked Then
-            PropRegionClass.GDPR(RegionUUID) = "True"
+            GDPR(RegionUUID) = "True"
         Else
-            PropRegionClass.GDPR(RegionUUID) = ""
+            GDPR(RegionUUID) = ""
         End If
 
         If SmartStartCheckBox.Checked Then
-            PropRegionClass.SmartStart(RegionUUID) = "True"
+            Smart_Start(RegionUUID) = "True"
         Else
-            PropRegionClass.SmartStart(RegionUUID) = ""
+            Smart_Start(RegionUUID) = ""
         End If
 
-        Dim ScriptEngine As String = ""
-        PropRegionClass.ScriptEngine(RegionUUID) = "" ' default is blank
-
+        ScriptEngine(RegionUUID) = "" ' default is blank
         If ScriptOffButton.Checked = True Then
-            ScriptEngine = "Off"
-            PropRegionClass.ScriptEngine(RegionUUID) = "Off"
+            ScriptEngine(RegionUUID) = "Off"
         ElseIf XEngineButton.Checked = True Then
-            ScriptEngine = "XEngine"
-            PropRegionClass.ScriptEngine(RegionUUID) = "XEngine"
+            ScriptEngine(RegionUUID) = "XEngine"
         ElseIf YEngineButton.Checked = True Then
-            ScriptEngine = "YEngine"
-            PropRegionClass.ScriptEngine(RegionUUID) = "YEngine"
+            ScriptEngine(RegionUUID) = "YEngine"
         End If
 
         Dim Region = "; * Regions configuration file" &
@@ -1367,8 +1359,8 @@ Public Class FormRegion
                         "RegionUUID=" & UUID.Text & vbCrLf &
                         "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
                         "InternalAddress = 0.0.0.0" & vbCrLf &
-                        "InternalPort=" & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
-                        "GroupPort=" & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
+                        "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
+                        "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
                         "AllowAlternatePorts = False" & vbCrLf &
                         "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
                         "SizeX=" & BoxSize & vbCrLf &
@@ -1387,29 +1379,29 @@ Public Class FormRegion
                         "RegionSnapShot=" & Snapshot & vbCrLf &
                         "MapType=" & Map & vbCrLf &
                         "Physics=" & Phys & vbCrLf &
-                        "GodDefault=" & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
-                        "AllowGods=" & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
-                        "RegionGod=" & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
-                        "ManagerGod=" & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
-                        "Birds=" & PropRegionClass.Birds(RegionUUID) & vbCrLf &
-                        "Tides=" & PropRegionClass.Tides(RegionUUID) & vbCrLf &
-                        "Teleport=" & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
-                        "DisableGloebits=" & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
-                        "DisallowForeigners=" & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
-                        "DisallowResidents=" & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
-                        "SkipAutoBackup=" & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
-                        "ScriptEngine=" & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
-                        "Publicity=" & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
-                        "OpensimWorldAPIKey=" & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
-                        "Priority=" & PropRegionClass.Priority(RegionUUID) & vbCrLf &
-                        "Cores=" & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
-                        "SmartStart=" & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
+                        "GodDefault=" & GodDefault(RegionUUID) & vbCrLf &
+                        "AllowGods=" & AllowGods(RegionUUID) & vbCrLf &
+                        "RegionGod=" & RegionGod(RegionUUID) & vbCrLf &
+                        "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
+                        "Birds=" & Birds(RegionUUID) & vbCrLf &
+                        "Tides=" & Tides(RegionUUID) & vbCrLf &
+                        "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
+                        "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
+                        "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
+                        "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
+                        "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf &
+                        "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf &
+                        "Publicity=" & GDPR(RegionUUID) & vbCrLf &
+                        "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                        "Priority=" & Priority(RegionUUID) & vbCrLf &
+                        "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
+                        "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
 
-        FileStuff.CopyFileFast(PropRegionClass.RegionIniFilePath(RegionUUID), PropRegionClass.RegionIniFilePath(RegionUUID) & ".bak")
+        FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
         Try
-            Using outputFile As New StreamWriter(PropRegionClass.RegionIniFilePath(RegionUUID), False)
+            Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
                 outputFile.Write(Region)
             End Using
         Catch ex As Exception
@@ -1446,7 +1438,7 @@ Public Class FormRegion
     Private Sub APIKey_TextChanged(sender As Object, e As EventArgs) Handles APIKey.TextChanged
 
         If Initted1 Then Changed1 = True
-        PropRegionClass.OpensimWorldAPIKey(RegionUUID) = APIKey.Text
+        OpensimWorldAPIKey(RegionUUID) = APIKey.Text
 
     End Sub
 

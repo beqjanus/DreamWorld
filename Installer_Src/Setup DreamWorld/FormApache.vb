@@ -152,7 +152,7 @@ Public Class FormApache
 
         If Not initted Then Return
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
         If ApachePort.Text.Length > 0 Then
             Settings.ApachePort = CType(ApachePort.Text, Integer)

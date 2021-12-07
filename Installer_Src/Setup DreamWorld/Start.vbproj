@@ -683,7 +683,7 @@
     </Compile>
     <Compile Include="MySettings.vb" />
     <Compile Include="Mysql.vb" />
-    <Compile Include="ClassRegionMaker.vb" />
+    <Compile Include="RegionMaker.vb" />
     <Compile Include="Search.vb" />
     <Compile Include="Services.vb" />
     <Compile Include="Settings.vb" />
@@ -1370,6 +1370,7 @@
     <None Include="Resources\ModulesHelp.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\xls-icon-3398.png" />
     <None Include="Resources\welcome_toolbox.png" />
     <None Include="Resources\cubes_blue.png" />
     <None Include="Resources\1253433.png" />

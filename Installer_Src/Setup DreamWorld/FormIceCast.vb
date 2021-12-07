@@ -151,7 +151,7 @@ Public Class FormIcecast
 
     Private Sub ShoutcastPortTextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
 
         If Not Integer.TryParse(ShoutcastPort.Text, Settings.SCPortBase) Then
@@ -162,7 +162,7 @@ Public Class FormIcecast
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort1.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
 
         If Not Integer.TryParse(ShoutcastPort1.Text, Settings.SCPortBase1) Then

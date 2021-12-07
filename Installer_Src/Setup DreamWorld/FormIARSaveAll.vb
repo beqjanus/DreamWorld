@@ -2,7 +2,7 @@
 
 #Region "Private Fields"
 
-    Private _All As Boolean
+
     Private _gAvatarName As String = ""
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
@@ -37,13 +37,6 @@
 
     End Sub
 
-    Public Sub init(All As Boolean)
-
-        _All = All
-        ObjectNameBox.Text = My.Resources.Slash
-        GAvatarName = "*"
-
-    End Sub
 
 #End Region
 

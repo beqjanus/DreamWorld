@@ -62,8 +62,9 @@ Module IAR
 
         Try
             ' find one that is running
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                If PropRegionClass.IsBooted(RegionUUID) Then
+            For Each RegionUUID As String In RegionUuids()
+
+                If IsBooted(RegionUUID) Then
                     UUID = RegionUUID
                     Exit For
                 End If
@@ -125,7 +126,7 @@ Module IAR
                     Dim ToBackup As String
                     Dim BackupName = SaveIAR.GBackupName
 
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+                    If Not BackupName.EndsWith(".iar", StringComparison.OrdinalIgnoreCase) Then
                         BackupName += ".iar"
                     End If
 
@@ -159,11 +160,12 @@ Module IAR
                         opt += " --perm=" & Perm & " "
                     End If
 
-                    For Each RegionUUID As String In PropRegionClass.RegionUuids
+                    For Each RegionUUID As String In RegionUuids()
+
                         Try
-                            If PropRegionClass.IsBooted(RegionUUID) Then
+                            If IsBooted(RegionUUID) Then
                                 ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                                TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
+                                TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
                                 Exit For
                             End If
                         Catch
@@ -250,8 +252,8 @@ Module IAR
         Dim ToBackup As String
         Dim UserList = GetAvatarList()
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-        If Not PropRegionClass.IsBooted(RegionUUID) Then Return False
+        Dim RegionUUID = FindRegionByName(RegionName)
+        If Not IsBooted(RegionUUID) Then Return False
         For Each k As String In UserList
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"

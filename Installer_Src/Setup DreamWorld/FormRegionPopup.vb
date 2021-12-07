@@ -61,13 +61,13 @@ Public Class FormRegionPopup
 
         _RegionName = RegionName
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-        Dim status = PropRegionClass.Status(RegionUUID)
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+        Dim status = RegionStatus(RegionUUID)
 
         Me.Text = $"{RegionName} {GetStateString(status)}"
-        GroupBox1.Text = PropRegionClass.GroupName(RegionUUID)
+        GroupBox1.Text = Group_Name(RegionUUID)
 
-        If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+        If Not RegionEnabled(RegionUUID) Then
             ShowConsoleButton.Enabled = False
             StatsButton1.Enabled = False
             StartButton.Enabled = False
@@ -79,7 +79,7 @@ Public Class FormRegionPopup
             EditButton1.Enabled = True
         Else
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
@@ -91,7 +91,7 @@ Public Class FormRegionPopup
                 MsgButton.Enabled = False
             End If
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = True
                 StartButton.Enabled = False
@@ -103,8 +103,8 @@ Public Class FormRegionPopup
                 MsgButton.Enabled = True
             End If
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown Or
+                 RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDown Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False
@@ -116,8 +116,8 @@ Public Class FormRegionPopup
                 EditButton1.Enabled = True
             End If
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booting Or
-            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting Or
+             RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingUp Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False
@@ -130,7 +130,7 @@ Public Class FormRegionPopup
             End If
 
             ' stopped
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
                 ShowConsoleButton.Enabled = False
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
@@ -158,8 +158,8 @@ Public Class FormRegionPopup
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles ViewLog.Click
 
-        Dim UUID = PropRegionClass.FindRegionByName(_RegionName)
-        Dim GroupName As String = PropRegionClass.GroupName(UUID)
+        Dim UUID = FindRegionByName(_RegionName)
+        Dim GroupName As String = Group_Name(UUID)
         Dim path = IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles\Opensim\bin\Regions\{GroupName}\OpenSim.log")
 
         Using Baretail As New Process
@@ -179,8 +179,8 @@ Public Class FormRegionPopup
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles StatsButton1.Click
 
-        Dim RegionNum = PropRegionClass.FindRegionByName(_RegionName)
-        Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
+        Dim RegionNum = FindRegionByName(_RegionName)
+        Dim RegionPort = GroupPort(RegionNum)
         Dim webAddress As String = $"http://{Settings.PublicIP}:{CType(RegionPort, String)}/SStats/"
         Try
             Process.Start(webAddress)
@@ -217,7 +217,7 @@ Public Class FormRegionPopup
         End If
 
         Dim Message = InputBox(My.Resources.What_to_say_2_region)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
+        Dim RegionUUID As String = FindRegionByName(_RegionName)
         If RegionUUID.Length > 0 Then
             SendMessage(RegionUUID, Message)
         End If

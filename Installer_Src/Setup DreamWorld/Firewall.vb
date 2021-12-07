@@ -31,8 +31,8 @@ Public Module Firewall
 
         ' regions need both
 
-        Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Ports" & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort) & vbCrLf _
-                  & "netsh advfirewall firewall add rule name=""Region UDP Ports" & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort) & vbCrLf
+        Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Ports" & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(LargestPort()) & vbCrLf _
+                  & "netsh advfirewall firewall add rule name=""Region UDP Ports" & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(LargestPort()) & vbCrLf
 
         Return Command
 
@@ -85,9 +85,9 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In RegionUuids()
 
-            Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
+            Dim R As Integer = CInt("0" & Region_Port(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""Region TCP Port " & CStr(R) & """" & vbCrLf _
                               & "netsh advfirewall firewall delete rule name=""Region UDP Port " & CStr(R) & """" & vbCrLf
@@ -131,20 +131,20 @@ Public Module Firewall
 
         Dim file = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/tmp/" & CStr(DateTime.Now.Ticks) & "_fw.bat")
         Try
-            Using ns As StreamWriter = New StreamWriter(file, False)
+            Using ns = New StreamWriter(file, False)
                 ns.WriteLine(CStr(CMD))
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
 
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Dim pi = New ProcessStartInfo With {
         .Arguments = "",
         .FileName = file,
         .WindowStyle = ProcessWindowStyle.Hidden,
         .Verb = "runas"
     }
-        Using ProcessFirewall As Process = New Process With {
+        Using ProcessFirewall = New Process With {
             .StartInfo = pi
         }
             Try

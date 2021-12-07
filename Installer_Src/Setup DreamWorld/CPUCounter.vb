@@ -112,10 +112,10 @@ Module CPUCounter
             Dim process = GetProcessById(processId)
             Dim processName As String = IO.Path.GetFileNameWithoutExtension(process.ProcessName)
             Dim cat As New PerformanceCounterCategory("Process")
-            Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.InvariantCultureIgnoreCase)).ToArray()
+            Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.OrdinalIgnoreCase)).ToArray()
 
             For Each instance As String In instances
-                Using cnt As PerformanceCounter = New PerformanceCounter("Process", "ID Process", instance, True)
+                Using cnt = New PerformanceCounter("Process", "ID Process", instance, True)
                     Dim val As Integer = CInt(cnt.RawValue)
                     If val = processId Then
                         Return instance

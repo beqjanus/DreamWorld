@@ -45,7 +45,7 @@ Public Class FormDisplacement
         RUUID = RegionUUID
         If map Then
             ToolStrip1.Visible = True
-            If PropRegionClass.IsBooted(RUUID) Then
+            If IsBooted(RUUID) Then
                 ExportToolStripMenuItem.Visible = True
             Else
                 ExportToolStripMenuItem.Visible = False
@@ -53,7 +53,7 @@ Public Class FormDisplacement
             HelpToolStripMenuItem.Visible = True
         Else
             ToolStrip1.Visible = False
-            If PropRegionClass.IsBooted(RUUID) Then
+            If IsBooted(RUUID) Then
                 ExportToolStripMenuItem.Visible = True
             Else
                 ExportToolStripMenuItem.Visible = False
@@ -61,7 +61,7 @@ Public Class FormDisplacement
             HelpToolStripMenuItem.Visible = False
         End If
 
-        Dim RegionName = PropRegionClass.RegionName(RUUID)
+        Dim RegionName = Region_Name(RUUID)
         Me.Width = (Size * 256) + 60
         Me.Height = (Size * 256) + 100
         If map Then Me.Height += 80 ' for buttons
@@ -247,8 +247,8 @@ Public Class FormDisplacement
     Private Function MakePhotoOfRegion(X As Integer, Y As Integer) As Image
 
         'map-1-1000-1000-objects
-        Dim Xcoord = PropRegionClass.CoordX(RUUID) + X
-        Dim Ycoord = PropRegionClass.CoordY(RUUID) + Y
+        Dim Xcoord = Coord_X(RUUID) + X
+        Dim Ycoord = Coord_Y(RUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = $"{Settings.OpensimBinPath}maptiles\00000000-0000-0000-0000-000000000000\{place}"
@@ -268,7 +268,7 @@ Public Class FormDisplacement
     Private Sub OnPrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
 
         'create a memory bitmap and size to the form
-        Using bmp As Bitmap = New Bitmap(Me.Width, Me.Height)
+        Using bmp = New Bitmap(Me.Width, Me.Height)
 
             'draw the form on the memory bitmap
             Me.DrawToBitmap(bmp, New Rectangle(0, 0, Me.Width, Me.Height))
@@ -330,7 +330,7 @@ Public Class FormDisplacement
         'export-map [<path>] - Save an image of the world map (default name is exportmap.jpg)
 
         'Create an instance of the open file dialog box.
-        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
@@ -339,7 +339,7 @@ Public Class FormDisplacement
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
-                    thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RUUID))
+                    thing = IO.Path.Combine(thing, Region_Name(RUUID))
                     thing += ".jpg"
                     RPC_Region_Command(RUUID, $"export-map ""{thing}""")
                 End If

@@ -18,7 +18,7 @@ Public Module MysqlInterface
 #Disable Warning IDE0140 ' Object creation can be simplified
     Private WithEvents ProcessMySql As Process = New Process()
 #Enable Warning IDE0140 ' Object creation can be simplified
-
+    Private ReadOnly Dict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
@@ -283,11 +283,11 @@ Public Module MysqlInterface
         DeleteMaps(regionUUID)
         DeregisterRegionUUID(regionUUID)
 
-        Dim GroupName = PropRegionClass.GroupName(regionUUID)
-        Dim RegionName = PropRegionClass.RegionName(regionUUID)
+        Dim GroupName = Group_Name(regionUUID)
+        Dim RegionName = Region_Name(regionUUID)
         CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
-        PropRegionClass.DeleteRegion(regionUUID)
+        DeleteRegion(regionUUID)
 
     End Sub
 
@@ -499,23 +499,23 @@ Public Module MysqlInterface
     ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
-        Dim Dict As New Dictionary(Of String, String)
-
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
             Try
                 NewSQLConn.Open()
-
+                Dim onetime As Boolean
                 Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
-
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
-
                         While reader.Read()
-                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+                            If Not onetime Then
+                                Dict.Clear()
+                                onetime = True
+                            End If
+                            Dim Name = Region_Name(reader.GetString(2))
+                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), Name)
                         End While
                     End Using
-
                 End Using
             Catch ex As MySqlException
                 BreakPoint.Show(ex.Message)
@@ -525,6 +525,42 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
+            Dim HowManyAvatars As Integer = 10
+            Dim Odds As Double = 20
+            ' sprinkle avatars around the system
+            If Debugger.IsAttached Then
+                If Dict.Count < HowManyAvatars Then
+                    Dim a = Between(1, 1000)
+                    If a <= Odds Then
+                        Dim RegionList = RegionUuids()
+                        Dim r = Between(1, RegionList.Count - 1)
+                        Dim RegionUUID = RegionList.Item(r)
+                        Dim RegionName = Region_Name(RegionUUID)
+                        Dim index = RandomNumber.Between(1, NameList.Count)
+                        Dim UserName = NameList.Item(index)
+
+                        If Not Dict.ContainsKey(UserName) Then
+                            TextPrint($"Adding {UserName}")
+                            Dict.Add(UserName, RegionUUID)
+                        Else
+                            Dict.Item(UserName) = RegionUUID
+                        End If
+                    End If
+                Else
+                    Dim a = Between(1, 1000)
+                    If a <= Odds Then
+                        Dim b = Between(1, Dict.Count - 1)
+                        For Each name In Dict
+                            b -= 1
+                            If b = 0 Then
+                                Dict.Remove(name.Key)
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+
+            End If
 
         End Using
 
@@ -538,8 +574,8 @@ Public Module MysqlInterface
     ''' <returns>integer count of agents in this region</returns>
     Public Function GetAgentsInRegion(RegionUUID As String) As Integer
 
-        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-        Dim Dict As New Dictionary(Of String, String)
+        Dim RegionName = Region_Name(RegionUUID)
+
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
@@ -621,7 +657,7 @@ Public Module MysqlInterface
 
                 MysqlConn.Open()
 
-                Dim stm = "Select PrincipalID  from useraccounts where FirstName= @Fname and LastName=@LName "
+                Dim stm = "Select PrincipalID  from useraccounts where FirstName= @Fname And LastName=@LName "
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 
                     cmd.Parameters.AddWithValue("@Fname", Fname)
@@ -695,7 +731,7 @@ Public Module MysqlInterface
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
 
-        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
+        Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
@@ -817,12 +853,11 @@ Public Module MysqlInterface
     Public Function IsAgentInRegion(RegionUUID As String) As Boolean
 
         If Settings.ServerType <> RobustServerName Then Return False
-        If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
-        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        If Not RegionEnabled(RegionUUID) Then Return False
+        Dim RegionName = Region_Name(RegionUUID)
 
         Dim l = GetAgentList()
         Return l.ContainsValue(RegionUUID)
-
 
     End Function
 
@@ -1189,7 +1224,7 @@ Public Module MysqlInterface
         Dim agents = GetAgentList()
 
         If agents.ContainsKey(agentName) Then
-            Return PropRegionClass.FindRegionByName(agents.Item(agentName))
+            Return FindRegionByName(agents.Item(agentName))
         End If
 
         Return ""
@@ -1361,7 +1396,7 @@ Public Module MysqlInterface
                     For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
                         Application.DoEvents()
                         Dim RegionName = Visit.Value
-                        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+                        Dim RegionUUID = FindRegionByName(RegionName)
                         Dim result As List(Of AvatarData) = RPC_admin_get_agent_list(RegionUUID)
                         For Each Avi In result
                             Using cmd1 = New MySqlCommand(stm1, MysqlConn1)
@@ -1386,7 +1421,7 @@ Public Module MysqlInterface
 
     Private Sub Statrecord(RegionName As String)
 
-        Dim UUID = PropRegionClass.FindRegionByName(RegionName)
+        Dim UUID = FindRegionByName(RegionName)
         Dim val As String = ""
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -1415,9 +1450,9 @@ Public Module MysqlInterface
                     Using cmd = New MySqlCommand(stm, MysqlConn)
                         cmd.Parameters.AddWithValue("@UUID", UUID)
                         cmd.Parameters.AddWithValue("@REGIONNAME", RegionName)
-                        cmd.Parameters.AddWithValue("@REGIONSIZE", PropRegionClass.SizeX(UUID))
-                        cmd.Parameters.AddWithValue("@LOCX", PropRegionClass.CoordX(UUID))
-                        cmd.Parameters.AddWithValue("@LOCY", PropRegionClass.CoordY(UUID))
+                        cmd.Parameters.AddWithValue("@REGIONSIZE", SizeX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCX", Coord_X(UUID))
+                        cmd.Parameters.AddWithValue("@LOCY", Coord_Y(UUID))
                         cmd.ExecuteNonQuery()
                     End Using
                 End Using
@@ -1435,9 +1470,9 @@ Public Module MysqlInterface
                     Using cmd = New MySqlCommand(stm, MysqlConn)
                         cmd.Parameters.AddWithValue("@UUID", UUID)
                         cmd.Parameters.AddWithValue("@REGIONNAME", RegionName)
-                        cmd.Parameters.AddWithValue("@REGIONSIZE", PropRegionClass.SizeX(UUID))
-                        cmd.Parameters.AddWithValue("@LOCX", PropRegionClass.CoordX(UUID))
-                        cmd.Parameters.AddWithValue("@LOCY", PropRegionClass.CoordY(UUID))
+                        cmd.Parameters.AddWithValue("@REGIONSIZE", SizeX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCX", Coord_X(UUID))
+                        cmd.Parameters.AddWithValue("@LOCY", Coord_Y(UUID))
                         cmd.ExecuteNonQuery()
                     End Using
 
