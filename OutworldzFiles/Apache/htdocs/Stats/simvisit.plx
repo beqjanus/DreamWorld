@@ -28,28 +28,15 @@ use  warnings;
 		print header;
 		print "Cannot read INI";
 		return;
-	
-	#   foreach my $line (@Config::IniFiles::errors)
-	#   {
-	#      print $line;
-	#   }
-<<<<<<< HEAD
 	}
 	
 	if ($debug) {
 		$ENV{REMOTE_ADDR} = 'outworldz.com';
 	}
 	
-=======
-	}
-	
-	if ($debug) {
-		$ENV{REMOTE_ADDR} = 'outworldz.com';
-	}
-	
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
-	my $public = $Config->val('Data','SimVisitPublic')|| '';
-	if (lc($public) ne 'public') {
+
+	my $public = $Config->val('Data','PublicVisitorMaps')|| '';
+	if (lc($public) ne 'true') {
 		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
 		 if ($env ne '127.0.0.1')
 		 {
@@ -57,14 +44,11 @@ use  warnings;
 			
 			print header('application/json');
 			print to_json({ 
-<<<<<<< HEAD
+
 					title=>'No Data',
 					start=>'',
 					end=>'',
 					data=> \@;
-=======
-					title=>'No Data',					
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
 				});	
 			
 			 exit;
@@ -97,11 +81,8 @@ use  warnings;
 	my $end  = uri_unescape($Input->param('End')) || '';
 	
 	if ($debug) {
-<<<<<<< HEAD
+
 		$q = 'Welcome';		
-=======
-		$q = 'Virunga';		
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
 	}
 	
 	$s = $start;
@@ -113,12 +94,10 @@ use  warnings;
 		$start = $3 . '-' . $1 . '-' . $2 ;
 	} else {
 		my $thirty_ago = DateTime->today->subtract(days => 30);		
-<<<<<<< HEAD
+
 		$start = $thirty_ago->ymd('/');
 		$picker1 = $thirty_ago->mdy('/');
-=======
 		$start = $thirty_ago->ymd('/')
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
 	}
 
 	my $picker2;
@@ -127,10 +106,7 @@ use  warnings;
 	} else {
 		my $tomorrow = DateTime->today->add(days => 1);		
 		$end = $tomorrow->ymd('/');
-<<<<<<< HEAD
 		$picker2 = $tomorrow->mdy('/');
-=======
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
 	}
 	
 	
@@ -401,17 +377,8 @@ use  warnings;
 		$YCoord = $rs->locationY;
 	}
 	
-<<<<<<< HEAD
 
-=======
-	#$end =~ /(\d+)-(\d+)-(\d+)/;
-	#$end = $2 . '/' . $3 . '/' . $1 ;
-	#
-	#$start =~ /(\d+)-(\d+)-(\d+)/;
-	#$start = $2 . '/' . $3 . '/' . $1 ;
-	#
-		
->>>>>>> ca68eeedbfbd974ddeb99baa6d3252cb572a3c83
+
 	use JSON;
 	print header('application/json');
 	print to_json({ data=> \@response,

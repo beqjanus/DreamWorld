@@ -52,8 +52,8 @@ use Config::IniFiles;
 	}
 	
 	my @nothing;
-	my $public = $Config->val('Data','SimVisitPublic')|| '';
-	if (lc($public) ne 'public') {
+	my $public = $Config->val('Data','PublicVisitorMaps')|| '';
+	if (lc($public) ne 'true') {
 		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
 		 if ($env ne '127.0.0.1')
 		 {
