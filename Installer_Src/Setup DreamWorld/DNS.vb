@@ -56,26 +56,31 @@ Module DNS
             Return False
         End If
 
+        Dim DNS = New List(Of String) From {
+             "http://ns1.outworldz.net/dns.plx" & GetPostData(DNSName),
+             "http://ns1.outworldz.com/dns.plx" & GetPostData(DNSName),
+             "http://ns2.outworldz.net/dns.plx" & GetPostData(DNSName),
+             "http://ns2.outworldz.com/dns.plx" & GetPostData(DNSName)
+            }
+
         Using client As New WebClient ' download client for web pages
-            Try
-                Checkname = client.DownloadString("http://ns1.outworldz.com/dns.plx" & GetPostData(DNSName))
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+            For Each url In DNS
                 Try
-                    Checkname = client.DownloadString("http://ns2.outworldz.com/dns.plx" & GetPostData(DNSName))
-                Catch ex1 As Exception
-                    ErrorLog("Warn: Cannot register this DNS Name " & ex1.Message)
-                    Return False
+                    Checkname = client.DownloadString(url)
+                    Logger("DNS", url, "Outworldz")
+                Catch ex As Exception
+                    ErrorLog("Warn: Cannot register this DNS Name " & ex.Message)
                 End Try
-            End Try
+
+                If Checkname = "UPDATE" Then
+                    Return True
+                ElseIf Checkname = "NAK" Then
+                    MsgBox(DNSName & ":" & My.Resources.DDNS_In_Use, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                End If
+
+            Next
         End Using
 
-        If Checkname = "UPDATE" Then
-            Return True
-        End If
-        If Checkname = "NAK" Then
-            MsgBox(DNSName & ":" & My.Resources.DDNS_In_Use, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-        End If
         Return False
 
     End Function
