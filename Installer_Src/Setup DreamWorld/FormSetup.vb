@@ -2694,12 +2694,16 @@ Public Class FormSetup
             CheckForBootedRegions()     ' And see if any booted up
             ScanAgents() ' update agent count
 
+            If SecondsTicker = 10 Then
+                ScanOpenSimWorld(True)
+            End If
+
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
 
                 RestartDOSboxes()
                 CalcDiskFree()
-                ScanOpenSimWorld(False)
+                ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
 
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running

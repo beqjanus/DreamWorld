@@ -7,8 +7,6 @@ Module OpensimWorld
 
         For Each RegionUUID As String In RegionUuids()
 
-            Application.DoEvents()
-
             If OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
             If Not RegionEnabled(RegionUUID) Then Continue For
 
@@ -47,11 +45,14 @@ Module OpensimWorld
     Private Function Poke(URL As String) As Integer
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.
-        Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
+        Dim myHttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
+
+        myHttpWebRequest.Headers("X-SecondLife-Object-Name") = "DreamGrid"
         Dim outputData As String = ""
         ' Assign the response object of 'HttpWebRequest' to a 'HttpWebResponse' variable.
         Try
             Using myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
+
                 'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
                 ' Print the HTML contents of the page to the console.
                 Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
