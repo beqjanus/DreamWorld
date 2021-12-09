@@ -13,6 +13,7 @@ Public Class FormMaps
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ClassScreenpos
+    Private initted As Boolean
 
 #End Region
 
@@ -274,6 +275,7 @@ Public Class FormMaps
 
     Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
 
+        If Not initted Then Return
         Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked
         Settings.SaveSettings()
 
