@@ -67,6 +67,7 @@ Public Class FormHelp
 
         Dim u As New Uri(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\" & Webpage + ".htm"))
         WebBrowser1.Navigate(u)
+        Me.Show()
 
     End Sub
 
