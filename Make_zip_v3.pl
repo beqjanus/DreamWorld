@@ -157,8 +157,7 @@ if ($publish =~ /c|p/ ) {
 	chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 	print `mysqladmin.exe --port 3306 -u root shutdown`;
 	sleep(5);
-	chdir ($dir);
-	DeleteandKeep("$dir/OutworldzFiles/mysql/data");
+	chdir ($dir);	
 	say ("Cleaned");	
 }
 
