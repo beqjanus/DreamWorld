@@ -524,7 +524,6 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
-            ' Todo
             Return Dict
 
             Dim HowManyAvatars As Integer = 10
@@ -585,7 +584,14 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then Return (reader.GetInt32(0))
+                        If reader.Read() Then
+                            Try
+                                Return reader.GetInt32(0)
+                            Catch
+                                BreakPoint.Show("Cannot read MySQL!")
+                                Return 0
+                            End Try
+                        End If
                     End Using
                 End Using
             Catch ex As MySqlException

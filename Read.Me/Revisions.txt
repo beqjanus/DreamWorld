@@ -1,7 +1,7 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
-V4.792
+V4.79
 Help normally loads once the first you you view each page. Missing a me.show
 Visitor maps: Now uses any database setting, not just the default.  Default date for visitor maps set to previous 90 days. Also the maps have a Public or Private  setting. Default is private, or Localhost-only.
 You can now export the Region list to a CSV list for use in Excel or Google Sheets

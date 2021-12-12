@@ -81,9 +81,7 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/MeshCache",
 	"$dir/OutworldzFiles/Opensim/bin/ScriptEngines",
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
-	"$dir/OutworldzFiles/Opensim/bin/Regions",
 	"$dir/OutworldzFiles/Opensim/bin/bakes",	,
-	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
 	"$dir/OutworldzFiles/Apache/logs/",
 	"$dir/OutworldzFiles/Apache/htdocs/Stats/Maps/",
 	"$dir/OutworldzFiles/Apache/htdocs/TTS",
@@ -227,6 +225,9 @@ JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild48.xml');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makeaot.sh');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.bat');
 
+JustDelete('/Opensin/OutworldzFiles/Opensim/bin/Regions');
+JustDelete('/Opensin/OutworldzFiles/Opensim/bin/fsassets');
+	
 
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.vs');
