@@ -80,9 +80,7 @@ Module RegionMaker
             Settings.SafeShutdown = True
         End If
 
-        GetAllRegions(Verbose)
-
-        If RegionCount() = 0 Then
+        If GetAllRegions(Verbose) = 0 Then
             CreateRegionStruct("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome", "Welcome")
@@ -203,6 +201,7 @@ Module RegionMaker
                 ._DisableGloebits = "",
                 ._FrameTime = "",
                 ._GodDefault = "",
+                ._Group = name,
                 ._GroupPort = 0,
                 ._ManagerGod = "",
                 ._MapType = "",
@@ -496,7 +495,7 @@ Module RegionMaker
         If Not PropChangedRegionSettings Then Return 0
 
         If GetRegionsIsBusy Then
-            Sleep(1000)
+            Sleep(5000)
         End If
 
         SyncLock CreateRegionLock
@@ -566,7 +565,7 @@ Module RegionMaker
                                         Group_Name(uuid) = M.Groups(1).Value
                                         Group = M.Groups(1).Value
                                     Else
-                                        MsgBox("Cannot locate Dos Box name for  " & fName, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                                        MsgBox("Cannot locate Dos Box name for " & fName, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                                         Return 0
                                     End If
 
