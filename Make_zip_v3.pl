@@ -215,20 +215,13 @@ say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.sh');
-
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimProfile.Modules.dll');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimSearch.Modules.dll');
-
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/clean.sh');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/cleanaot.sh');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild48.xml');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makeaot.sh');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.bat');
-
-JustDelete('/Opensin/OutworldzFiles/Opensim/bin/Regions');
-JustDelete('/Opensin/OutworldzFiles/Opensim/bin/fsassets');
-	
-
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.vs');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.nant');
@@ -256,6 +249,10 @@ JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
 JustDelete('/Opensim/Zip/Start.vshost.exe.config');
 JustDelete('/Opensim/Zip/Start.vshost.exe');
 JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
+
+JustDelete('/Opensim/Zip/Opensim/Ezombies');
+JustDelete('/Opensin/OutworldzFiles/Opensim/bin/Regions');
+JustDelete('/Opensin/OutworldzFiles/Opensim/bin/fsassets');
 
 print "Make zip\n";
 unlink "/Opensim/Zips/DreamGrid$type.zip";
