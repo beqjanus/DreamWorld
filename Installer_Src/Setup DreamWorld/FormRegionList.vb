@@ -1839,6 +1839,12 @@ SetWindowOnTop_Err:
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
+        HelpManual("RegionList")
+
+    End Sub
+
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         HelpManual("RegionList")
 

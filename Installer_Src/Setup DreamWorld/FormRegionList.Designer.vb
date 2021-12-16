@@ -37,10 +37,6 @@ Partial Class FormRegionlist
         Me.RefreshButton = New System.Windows.Forms.Button()
         Me.AllNone = New System.Windows.Forms.CheckBox()
         Me.AvatarView = New System.Windows.Forms.ListView()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KOT = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FloatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UserView = New System.Windows.Forms.ListView()
         Me.OffButton = New System.Windows.Forms.RadioButton()
@@ -61,7 +57,13 @@ Partial Class FormRegionlist
         Me.RunAllButton = New System.Windows.Forms.Button()
         Me.AddRegionButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KOT = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FloatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Timer1
@@ -168,28 +170,6 @@ Partial Class FormRegionlist
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        '
-        'KOT
-        '
-        Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
-        Me.KOT.Name = "KOT"
-        Me.KOT.Size = New System.Drawing.Size(83, 28)
-        '
-        'OnTopToolStripMenuItem
-        '
-        Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(67, 22)
-        '
-        'FloatToolStripMenuItem
-        '
-        Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(67, 22)
         '
         'Label1
         '
@@ -446,11 +426,53 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(906, 84)
         Me.TableLayoutPanel1.TabIndex = 2
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.KOT})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1288, 30)
+        Me.MenuStrip1.TabIndex = 18618
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        '
+        'KOT
+        '
+        Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
+        Me.KOT.Image = Global.Outworldz.My.Resources.Resources.tables
+        Me.KOT.Name = "KOT"
+        Me.KOT.Size = New System.Drawing.Size(83, 28)
+        Me.KOT.Text = Global.Outworldz.My.Resources.Resources.Window
+        '
+        'OnTopToolStripMenuItem
+        '
+        Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
+        Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.On_Top
+        '
+        'FloatToolStripMenuItem
+        '
+        Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
+        Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Float
+        '
         'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1288, 338)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StoppedButton)
         Me.Controls.Add(Me.Bootedbutton)
         Me.Controls.Add(Me.SearchBox)
@@ -466,10 +488,13 @@ Partial Class FormRegionlist
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormRegionlist"
         Me.Text = "Region List"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -507,4 +532,5 @@ Partial Class FormRegionlist
     Friend WithEvents RunAllButton As Button
     Friend WithEvents AddRegionButton As Button
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents MenuStrip1 As MenuStrip
 End Class
