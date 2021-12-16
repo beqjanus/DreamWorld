@@ -442,7 +442,7 @@ Public Module MysqlInterface
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            Val = CInt(reader.GetInt16("EstateID"))
+                            Val = reader.GetInt32("EstateID")
                         End If
                     End Using
                 End Using
@@ -672,7 +672,7 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@Lname", LName)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            'Debug.Print("ID = {0}", reader.GetString(0))
+                            'Debug.Print("ID = {0}", reader.GetString(0))\
                             Val = reader.GetString(0)
                         End If
                     End Using

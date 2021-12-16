@@ -31,6 +31,7 @@ Module RegionMaker
     Private ReadOnly _webserverList As New List(Of String)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
+    Private ReadOnly RegionListBackup As New ConcurrentDictionary(Of String, Region_data)
 
     Private GetRegionsIsBusy As Boolean
     Dim json As New JSONresult
@@ -84,6 +85,7 @@ Module RegionMaker
             CreateRegionStruct("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome", "Welcome")
+            Settings.SafeShutdown = True
             Settings.SaveSettings()
             If GetAllRegions(Verbose) = 0 Then Return False
         End If
@@ -492,11 +494,13 @@ Module RegionMaker
 
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        If Not PropChangedRegionSettings Then Return 0
-
-        If GetRegionsIsBusy Then
-            Sleep(5000)
-        End If
+        ' wait for it to read the disk.
+        If Not PropChangedRegionSettings Then Return RegionList.Count
+        Dim RetryCounter = 120
+        While GetRegionsIsBusy And RetryCounter > 0
+            Sleep(1000)
+            RetryCounter -= 1
+        End While
 
         SyncLock CreateRegionLock
             GetRegionsIsBusy = True
@@ -537,7 +541,7 @@ Module RegionMaker
 
                             For Each file As String In inis
                                 Application.DoEvents()
-                                fName = System.IO.Path.GetFileNameWithoutExtension(file)
+                                fName = Path.GetFileNameWithoutExtension(file)
 
                                 Dim INI = New LoadIni(file, ";", System.Text.Encoding.ASCII)
                                 Dim Group As String
@@ -551,6 +555,7 @@ Module RegionMaker
                                 Else
                                     If Verbose Then TextPrint("-> " & fName)
                                     CreateRegionStruct(fName, uuid)
+
                                     RegionEnabled(uuid) = CBool(INI.GetIni(fName, "Enabled", "True", "Boolean"))
 
                                     RegionIniFilePath(uuid) = file ' save the path
@@ -559,11 +564,10 @@ Module RegionMaker
                                     Dim theEnd As Integer = RegionIniFolderPath(uuid).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
                                     OpensimIniPath(uuid) = RegionIniFolderPath(uuid).Substring(0, theEnd + 1)
 
-                                    Dim M As Match = Regex.Match(FolderName, ".*\\(.*)$")
-                                    If M.Groups(1).Success Then
-                                        Debug.Print(M.Groups(1).Value)
-                                        Group_Name(uuid) = M.Groups(1).Value
-                                        Group = M.Groups(1).Value
+                                    Dim DirName = Path.GetFileNameWithoutExtension(FolderName)
+                                    If DirName.Length > 0 Then
+                                        Group_Name(uuid) = DirName
+                                        Group = DirName
                                     Else
                                         MsgBox("Cannot locate Dos Box name for " & fName, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                                         Return 0
@@ -659,7 +663,6 @@ Module RegionMaker
                             BreakPoint.Show(ex.Message)
                             MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                             ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
-
                             PropUpdateView = True ' make form refresh
                             Return 0
                         End Try
@@ -672,6 +675,10 @@ Module RegionMaker
             PropUpdateView = True ' make form refresh
             GetRegionsIsBusy = False
         End SyncLock
+
+        If RegionList.Count = 0 Then
+            BreakPoint.Show("No Regions")
+        End If
 
         Return RegionList.Count
 
