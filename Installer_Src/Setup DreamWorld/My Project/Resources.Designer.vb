@@ -2622,6 +2622,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The default region cannot be enabled as Smart Start..
+        '''</summary>
+        Friend ReadOnly Property Default_Not_SS() As String
+            Get
+                Return ResourceManager.GetString("Default_Not_SS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Default region.
         '''</summary>
         Friend ReadOnly Property Default_Region_word() As String
