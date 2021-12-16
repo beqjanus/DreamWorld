@@ -13,7 +13,7 @@ Public Class FormRegion
 
 #Region "Declarations"
 
-    Private _NotSmarttStart As Boolean
+    Private _LastSmartSetting As Boolean  ' flag to remember of SmartStart was enabled and has changed
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
@@ -88,7 +88,7 @@ Public Class FormRegion
 
     Private Sub RestartRobustIfNeeded(RegionUUID As String)
 
-        If Not _NotSmarttStart And SmartStartCheckBox.Checked And IsRobustRunning() Then
+        If Not _LastSmartSetting And SmartStartCheckBox.Checked And IsRobustRunning() Then
 
             PropAborting = True
             Dim loopctr = 60 ' wait 1 minute
@@ -674,7 +674,7 @@ Public Class FormRegion
                 ConciergeCheckBox.Checked = False
         End Select
 
-        _NotSmarttStart = SmartStartCheckBox.Checked
+        _LastSmartSetting = SmartStartCheckBox.Checked
 
         Try
             Me.Show() ' time to show the results
@@ -900,7 +900,12 @@ Public Class FormRegion
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
         If Initted1 Then Changed1 = True
+        If SmartStartCheckBox.Checked And Settings.WelcomeRegion = RegionName.Text Then
 
+            MsgBox(My.Resources.Default_Not_SS)
+            SmartStartCheckBox.Checked = False
+
+        End If
     End Sub
 
     Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged

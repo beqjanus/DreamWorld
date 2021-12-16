@@ -3387,4 +3387,31 @@
   <data name="String1" xml:space="preserve">
     <value>زمن الإقلاع</value>
   </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>إظهار التاريخ والوقت في السجلات</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>تصدير هذه القائمة</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>اختيار المجلد</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>موقع الشرق والغرب على خريطة العالم</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>يجب تعيين صاحب سيم تحيط أولا!</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>لا يمكن تمكين المنطقة الافتراضية ك "ابدأ الذكية".</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
 </root>

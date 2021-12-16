@@ -2622,6 +2622,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The default region cannot be enabled as Smart Start..
+        '''</summary>
+        Friend ReadOnly Property Default_Not_SS() As String
+            Get
+                Return ResourceManager.GetString("Default_Not_SS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Default region.
         '''</summary>
         Friend ReadOnly Property Default_Region_word() As String
@@ -7240,6 +7249,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Open.
+        '''</summary>
+        Friend ReadOnly Property Open_word() As String
+            Get
+                Return ResourceManager.GetString("Open_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Opensimulator is loading.
         '''</summary>
         Friend ReadOnly Property Opensimulator_is_loading() As String
@@ -8958,6 +8976,15 @@ Namespace My.Resources
         Friend ReadOnly Property Save_word() As String
             Get
                 Return ResourceManager.GetString("Save_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Saved.
+        '''</summary>
+        Friend ReadOnly Property Saved_Word() As String
+            Get
+                Return ResourceManager.GetString("Saved_Word", resourceCulture)
             End Get
         End Property
         
