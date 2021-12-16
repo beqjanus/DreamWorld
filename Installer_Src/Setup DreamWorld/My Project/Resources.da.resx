@@ -3387,4 +3387,31 @@
   <data name="String1" xml:space="preserve">
     <value>Boot Time</value>
   </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Eksport</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Vis dato og klokkeslæt i logfiler</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Eksporter denne liste</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Vælg mappe</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>Øst-Vest-positionen på verdenskortet</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Skal indstille ejeren af sim-surrounds først!</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Standardområdet kan ikke aktiveres som Smart Start.</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Åben</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Gemt</value>
+  </data>
 </root>

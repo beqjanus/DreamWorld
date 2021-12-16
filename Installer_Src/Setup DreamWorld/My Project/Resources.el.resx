@@ -3387,4 +3387,31 @@
   <data name="String1" xml:space="preserve">
     <value>Χρόνο εκκίνησης</value>
   </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Εμφάνιση ημερομηνίας και ώρας στα αρχεία καταγραφής</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Εξαγωγή αυτής της λίστας</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Επιλογή φακέλου</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>Η θέση Ανατολής-Δύσης στον παγκόσμιο χάρτη</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Πρέπει να ρυθμίσετε πρώτα τον ιδιοκτήτη του Sim Surrounds!</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ενεργοποίηση της προεπιλεγμένης περιοχής ως Έξυπνη εκκίνηση.</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Ανοίγω</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Αποθηκεύτηκε</value>
+  </data>
 </root>

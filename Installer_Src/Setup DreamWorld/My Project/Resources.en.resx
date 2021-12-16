@@ -3384,4 +3384,31 @@
   <data name="ViewVisitorMaps" xml:space="preserve">
     <value>View Visitor Maps</value>
   </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Show Date and Time in Logs</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Export this list</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Choose folder</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>The East-West position on the world map</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Must set the owner of the Sim Surrounds first!</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>The default region cannot be enabled as Smart Start.</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Saved</value>
+  </data>
 </root>

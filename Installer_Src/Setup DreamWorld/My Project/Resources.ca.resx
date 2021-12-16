@@ -3388,4 +3388,31 @@
   <data name="String1" xml:space="preserve">
     <value>Temps d’arrencada</value>
   </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Mostra la data i l'hora als registres</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Exporta aquesta llista</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Tria la carpeta</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>La posició Est-Oest en el mapa mundial</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Primer heu d'establir el propietari del Sim Surrounds!</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>La regió per defecte no es pot habilitar com a inici intel·ligent.</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Obrir</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Salvat</value>
+  </data>
 </root>
