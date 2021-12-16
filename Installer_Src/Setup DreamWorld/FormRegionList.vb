@@ -1737,9 +1737,9 @@ SetWindowOnTop_Err:
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
                     BaseFolder = thing
-                    Dim sourceTable = New DataTable()
+                    Using sourceTable As New DataTable()
 
-                    sourceTable.Columns.AddRange(New DataColumn() {
+                        sourceTable.Columns.AddRange(New DataColumn() {
                     New DataColumn("Name", GetType(String)),
                     New DataColumn("Dos Box", GetType(String)),
                     New DataColumn("Agents", GetType(Integer)),
@@ -1771,45 +1771,58 @@ SetWindowOnTop_Err:
                     New DataColumn("Map Boot Time", GetType(String))
                 })
 
-                    For Each i In ListView1.Items
+                        For Each i In ListView1.Items
+                            sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
+                                         i.SubItems(1).Text.Trim,
+                                         i.SubItems(2).Text.Trim,
+                                         i.SubItems(3).Text.Trim,
+                                         i.SubItems(4).Text.Trim,
+                                         i.SubItems(5).Text.Trim,
+                                         i.SubItems(6).Text.Trim,
+                                         i.SubItems(7).Text.Trim,
+                                         i.SubItems(8).Text.Trim,
+                                         i.SubItems(9).Text.Trim,
+                                         i.SubItems(10).Text.Trim,
+                                         i.SubItems(11).Text.Trim,
+                                         i.SubItems(12).Text.Trim,
+                                         i.SubItems(13).Text.Trim,
+                                         i.SubItems(14).Text.Trim,
+                                         i.SubItems(15).Text.Trim,
+                                         i.SubItems(16).Text.Trim,
+                                         i.SubItems(17).Text.Trim,
+                                         i.SubItems(18).Text.Trim,
+                                         i.SubItems(19).Text.Trim,
+                                         i.SubItems(20).Text.Trim,
+                                         i.SubItems(21).Text.Trim,
+                                         i.SubItems(22).Text.Trim,
+                                         i.SubItems(23).Text.Trim,
+                                         i.SubItems(24).Text.Trim,
+                                         i.SubItems(25).Text.Trim,
+                                         i.SubItems(26).Text.Trim,
+                                         i.SubItems(27).Text.Trim,
+                                         i.SubItems(28).Text.Trim)
+                        Next
 
-                        sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
-                                    i.SubItems(1).Text.Trim,
-                                    i.SubItems(2).Text.Trim,
-                                    i.SubItems(3).Text.Trim,
-                                    i.SubItems(4).Text.Trim,
-                                    i.SubItems(5).Text.Trim,
-                                    i.SubItems(6).Text.Trim,
-                                    i.SubItems(7).Text.Trim,
-                                    i.SubItems(8).Text.Trim,
-                                    i.SubItems(9).Text.Trim,
-                                    i.SubItems(10).Text.Trim,
-                                    i.SubItems(11).Text.Trim,
-                                    i.SubItems(12).Text.Trim,
-                                    i.SubItems(13).Text.Trim,
-                                    i.SubItems(14).Text.Trim,
-                                    i.SubItems(15).Text.Trim,
-                                    i.SubItems(16).Text.Trim,
-                                    i.SubItems(17).Text.Trim,
-                                    i.SubItems(18).Text.Trim,
-                                    i.SubItems(19).Text.Trim,
-                                    i.SubItems(20).Text.Trim,
-                                    i.SubItems(21).Text.Trim,
-                                    i.SubItems(22).Text.Trim,
-                                    i.SubItems(23).Text.Trim,
-                                    i.SubItems(24).Text.Trim,
-                                    i.SubItems(25).Text.Trim,
-                                    i.SubItems(26).Text.Trim,
-                                    i.SubItems(27).Text.Trim,
-                                    i.SubItems(28).Text.Trim)
-                    Next
-                    DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
-                    Sleep(100)
-                    Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
-                        Rfc4180Writer.WriteDataTable(sourceTable, writer, True)
+                        DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
+                        Sleep(100)
+                        Try
+                            Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
+                                Rfc4180Writer.WriteDataTable(sourceTable, writer, True)
+                            End Using
+                        Catch
+                        End Try
                     End Using
-                    sourceTable.Dispose()
-                    MsgBox($"RegionList.csv ==> {BaseFolder}", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                    MsgBox($"{My.Resources.Saved_Word} RegionList.csv ==> {BaseFolder}", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv " + My.Resources.Saved_Word)
+
+                    Dim response = MsgBox($"{My.Resources.Open_word} RegionList.csv?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv")
+                    If response = vbYes Then
+                        Try
+                            System.Diagnostics.Process.Start(IO.Path.Combine(BaseFolder, "RegionList.csv"))
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+
                 End If
             End If
         End Using

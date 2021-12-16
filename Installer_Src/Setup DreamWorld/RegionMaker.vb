@@ -676,7 +676,7 @@ Module RegionMaker
             GetRegionsIsBusy = False
         End SyncLock
 
-        If RegionList.Count = 0 Then
+        If RegionList.IsEmpty Then
             BreakPoint.Show("No Regions")
         End If
 
