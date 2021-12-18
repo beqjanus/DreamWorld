@@ -968,7 +968,7 @@ Public Class FormSetup
         Dim t = 60
         Bench.Print("CheckForBootedRegions Begins")
         If PropBootScanIsBusy > 0 And PropBootScanIsBusy < t Then
-            Bench.Print("CheckForBootedRegions is busy")
+            Bench.Print("CheckForBootedRegions Is busy")
             BreakPoint.Show("ExitHandlerPoll timeout")
             PropBootScanIsBusy += 1
             Return
@@ -1103,7 +1103,7 @@ Public Class FormSetup
                     If Not AvatarsIsInGroup(GroupName) Then
 
                         ' shut down the group when AutoRestartInterval has gone by.
-                        Diagnostics.Debug.Print("State is Time Exceeded, shutdown", GroupName, "Teleport")
+                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown", GroupName, "Teleport")
 
                         ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                         SequentialPause()
@@ -1127,14 +1127,14 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Logger("State is RestartPending", GroupName, "Teleport")
+                    Logger("State Is RestartPending", GroupName, "Teleport")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         PokeRegionTimer(RegionUUID)
                         Boot(RegionName)
                     Next
 
-                    Diagnostics.Debug.Print("State is now Booted", Region_Name(RegionUUID), "Teleport")
+                    Diagnostics.Debug.Print("State Is now Booted", Region_Name(RegionUUID), "Teleport")
                     PropUpdateView = True
                     Continue For
                 End If
@@ -1144,7 +1144,7 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Diagnostics.Debug.Print("State is Resuming", GroupName, "Teleport")
+                    Diagnostics.Debug.Print("State Is Resuming", GroupName, "Teleport")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         PokeRegionTimer(RegionUUID)
@@ -1878,7 +1878,11 @@ Public Class FormSetup
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
         If sender Is Nothing Then Return
-        If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(CStr(sender.Text))
+        If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) And
+                sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "To Do List.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+
+            HelpManual(CStr(sender.Text))
+        End If
 
     End Sub
 
@@ -2159,15 +2163,6 @@ Public Class FormSetup
             StartMySQL()
         End If
 
-    End Sub
-
-    Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
-        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\Dreamgrid Manual.pdf")
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
     End Sub
 
     Private Sub ReallyQuit()
@@ -2527,6 +2522,15 @@ Public Class FormSetup
             End Try
         End Using
 
+    End Sub
+
+    Private Sub TodoManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodoManualToolStripMenuItem.Click
+        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
     End Sub
 
 #End Region
@@ -3571,6 +3575,15 @@ Public Class FormSetup
 
     Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
         StopMysql()
+    End Sub
+
+    Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles TodoManualToolStripMenuItem.Click
+        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub ViewGoogleMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewGoogleMapToolStripMenuItem.Click

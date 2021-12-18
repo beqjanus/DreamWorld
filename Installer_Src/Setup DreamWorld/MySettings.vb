@@ -2112,7 +2112,7 @@ Public Class MySettings
 
     Public Property VoiceName() As String
         Get
-            Return GetMySetting("VoiceName", "No Speech")
+            Return GetMySetting("VoiceName", "Microsoft Zira Desktop")
         End Get
         Set
             SetMySetting("VoiceName", Value)

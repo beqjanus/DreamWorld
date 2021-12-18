@@ -909,7 +909,7 @@
     <value>View</value>
   </data>
   <data name="Announce_visitors" xml:space="preserve">
-    <value>Announce Visitors</value>
+    <value>Announce Visitors in region chat</value>
   </data>
   <data name="DelayAfterRegionReady" xml:space="preserve">
     <value>Region Ready Delay</value>
@@ -3935,5 +3935,8 @@
   </data>
   <data name="Saved_Word" xml:space="preserve">
     <value>Saved</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Make Voices</value>
   </data>
 </root>

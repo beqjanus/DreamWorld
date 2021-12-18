@@ -355,7 +355,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Announce Visitors.
+        '''  Looks up a localized string similar to Announce Visitors in region chat.
         '''</summary>
         Friend ReadOnly Property Announce_visitors() As String
             Get
@@ -5883,6 +5883,15 @@ Namespace My.Resources
         Friend ReadOnly Property Make_a_backup_word() As String
             Get
                 Return ResourceManager.GetString("Make_a_backup_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Make Voices.
+        '''</summary>
+        Friend ReadOnly Property MakeVoices() As String
+            Get
+                Return ResourceManager.GetString("MakeVoices", resourceCulture)
             End Get
         End Property
         

@@ -1,7 +1,11 @@
 ﻿#Region "Copyright AGPL3.0"
 
+#Region "Copyright AGPL3.0"
+
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
 
 #End Region
 
@@ -251,6 +255,25 @@ Module FileStuff
 
     End Sub
 
+    Public Sub Deletefilesin(LogPath As String)
+
+        Try
+            FileIO.FileSystem.CreateDirectory(LogPath)
+            Dim directory As New System.IO.DirectoryInfo(LogPath)
+            ' get each file's last modified date
+            For Each File As System.IO.FileInfo In directory.GetFiles()
+                ' get  file's last modified date
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+                If Datedifference > Settings.KeepForDays * 24 Then
+                    DeleteFile(File.FullName)
+                End If
+            Next
+        Catch
+        End Try
+
+    End Sub
+
     Public Sub DeleteFolder(n As String)
 
         If System.IO.Directory.Exists(n) Then
@@ -405,25 +428,6 @@ Module FileStuff
         Next
         Return False
     End Function
-
-    Private Sub Deletefilesin(LogPath As String)
-
-        Try
-            FileIO.FileSystem.CreateDirectory(LogPath)
-            Dim directory As New System.IO.DirectoryInfo(LogPath)
-            ' get each file's last modified date
-            For Each File As System.IO.FileInfo In directory.GetFiles()
-                ' get  file's last modified date
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
-                If Datedifference > Settings.KeepForDays * 24 Then
-                    DeleteFile(File.FullName)
-                End If
-            Next
-        Catch
-        End Try
-
-    End Sub
 
     Private Sub DeleteThisOldFile(File As String)
 

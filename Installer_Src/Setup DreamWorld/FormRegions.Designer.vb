@@ -79,7 +79,7 @@ Partial Class FormRegions
         Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
         Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
         Me.ConciergeCheckbox.TabIndex = 9
-        Me.ConciergeCheckbox.Text = "Announce Visitors"
+        Me.ConciergeCheckbox.Text = "Announce Visitors in region chat"
         Me.ConciergeCheckbox.UseVisualStyleBackColor = True
         '
         'PictureBox2
