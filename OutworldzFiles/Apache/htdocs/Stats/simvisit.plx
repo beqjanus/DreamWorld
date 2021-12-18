@@ -73,7 +73,7 @@ use  warnings;
 	my $s;
 	my $e;
 
-	my @sims ;
+
 	my $text ;			
 	my @response ;
 	
@@ -82,27 +82,33 @@ use  warnings;
 	
 	if ($debug) {
 
-		$q = 'Welcome';		
+		$q = 'Welcome';
+		$start='12/18/2021';
+		$end = '12/25/2021';
 	}
 	
 	$s = $start;
 	$e = $end;
-
+	$text = $q;
 	
 	my $picker1;
-	if ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
+	if ($start =~ /(\d+)-(\d+)-(\d+)/)
+	{
+	} elsif ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$start = $3 . '-' . $1 . '-' . $2 ;
+		$picker1 = $start;
 	} else {
-		my $thirty_ago = DateTime->today->subtract(days => 30);		
+		my $thirty_ago = DateTime->today->subtract(days => 90);		
 
+		$start = $thirty_ago->ymd('/');		
 		$start = $thirty_ago->ymd('/');
 		$picker1 = $thirty_ago->mdy('/');
-		$start = $thirty_ago->ymd('/')
 	}
 
 	my $picker2;
 	if($end =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$end = $3. '-' . $1. '-' . $2;
+		$picker2 = $end;
 	} else {
 		my $tomorrow = DateTime->today->add(days => 1);		
 		$end = $tomorrow->ymd('/');
@@ -381,8 +387,7 @@ use  warnings;
 
 	use JSON;
 	print header('application/json');
-	print to_json({ data=> \@response,
-					sims=> \@sims ,
+	print to_json({ data=> \@response,					
 					sim=>$q,
 					time=>$time,
 					s=>$picker1,
