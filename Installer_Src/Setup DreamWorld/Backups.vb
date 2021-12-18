@@ -283,6 +283,14 @@ Public Class Backups
             End Try
 
             Try
+                If Settings.BackupSQL Then
+                    BackupSQLDB(Settings.RegionDBName)
+                End If
+            Catch ex As Exception
+                Break(ex.Message)
+            End Try
+
+            Try
                 If Settings.BackupFSAssets Then
                     Dim f As String
                     If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
@@ -324,14 +332,6 @@ Public Class Backups
                             End Try
                         End Using
                     End If
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
-
-            Try
-                If Settings.BackupSQL Then
-                    BackupSQLDB(Settings.RegionDBName)
                 End If
             Catch ex As Exception
                 Break(ex.Message)

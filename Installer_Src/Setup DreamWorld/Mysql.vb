@@ -761,7 +761,7 @@ Public Module MysqlInterface
                                 ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
                                 If UUID <> "00000000-0000-0000-0000-000000000000" Then
-                                    Dict.Add(Avatar, GetRegionName(UUID))
+                                    Dict.Add(Avatar, UUID)
                                 End If
                             Next
                         End While
@@ -775,6 +775,13 @@ Public Module MysqlInterface
             End Try
 
         End Using
+
+        ' Debug leaving and entering
+        'If Not Dict.ContainsKey("test user") Then
+        'Dict.Add("test user", FindRegionByName(Settings.WelcomeRegion))
+        'End If
+
+        'Dict.Remove("test user")
 
         Return Dict
 

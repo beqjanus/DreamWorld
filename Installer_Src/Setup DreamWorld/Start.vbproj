@@ -336,7 +336,6 @@
     <Compile Include="Birds.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassIni.vb" />
-    <Compile Include="ClassSpeech.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="FormDebug.Designer.vb">

@@ -1,4 +1,5 @@
-﻿Imports System.Net
+﻿Imports System.Globalization
+Imports System.Net
 
 Public Class FormDebug
 
@@ -98,7 +99,10 @@ Public Class FormDebug
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        If Command = My.Resources.Benchmark Then
+        If Command = My.Resources.MakeVoices Then
+            MakeSpeech()
+
+        ElseIf Command = My.Resources.Benchmark Then
             Benchmark()
 
         ElseIf Command = My.Resources.Speak Then
@@ -198,6 +202,7 @@ Public Class FormDebug
 
         ComboBox1.Items.Add(My.Resources.Benchmark)
         ComboBox1.Items.Add(My.Resources.Speak)
+        ComboBox1.Items.Add(My.Resources.MakeVoices)
         ComboBox1.Items.Add(My.Resources.Send_alert)
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
@@ -211,6 +216,18 @@ Public Class FormDebug
 
         HelpOnce("Debug")
 
+    End Sub
+
+    Private Sub MakeSpeech()
+
+        ExpireLogsByAge()
+
+        Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
+
+        For Each l In arrKeywords
+            Speach(l, True, "file")
+        Next
+        Speach("End", True)
     End Sub
 
     Private Sub NewMethod()

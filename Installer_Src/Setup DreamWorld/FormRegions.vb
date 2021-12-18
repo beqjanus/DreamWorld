@@ -250,9 +250,7 @@ Public Class FormRegions
         If selected = "No Speech" Then Return
         Try
             s1.SelectVoice(selected)
-            Dim SaveWave As Boolean = False
-
-            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
+            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
