@@ -157,7 +157,6 @@ Partial Class FormSetup
         Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartIceCastItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.TodoManualToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -578,7 +577,7 @@ Partial Class FormSetup
         '
         'HelpOnSettingsToolStripMenuItem
         '
-        Me.HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PDFManualToolStripMenuItem, Me.TodoManualToolStripMenuItem})
+        Me.HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PDFManualToolStripMenuItem})
         Me.HelpOnSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.HelpOnSettingsToolStripMenuItem.Name = "HelpOnSettingsToolStripMenuItem"
         Me.HelpOnSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.M), System.Windows.Forms.Keys)
@@ -1118,13 +1117,6 @@ Partial Class FormSetup
         Me.MenuStrip1.Size = New System.Drawing.Size(597, 26)
         Me.MenuStrip1.TabIndex = 0
         '
-        'TodoManualToolStripMenuItem
-        '
-        Me.TodoManualToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pdf
-        Me.TodoManualToolStripMenuItem.Name = "TodoManualToolStripMenuItem"
-        Me.TodoManualToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.TodoManualToolStripMenuItem.Text = "To Do List"
-        '
         'FormSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1288,5 +1280,4 @@ Partial Class FormSetup
     Friend WithEvents RestartIceCastItem2 As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ViewVisitorMapsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TodoManualToolStripMenuItem As ToolStripMenuItem
 End Class

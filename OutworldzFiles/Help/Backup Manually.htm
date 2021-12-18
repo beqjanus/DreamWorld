@@ -7,14 +7,25 @@
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Open Sans";}
+@font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -55,21 +66,38 @@ h2
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-h3
-	{mso-style-link:"Heading 3 Char";
-	margin-top:15.0pt;
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:.5in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
-	margin-left:0in;
-	line-height:115%;
-	border:none;
-	padding:0in;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
-	color:#1F3763;
-	text-transform:uppercase;
-	letter-spacing:.75pt;
-	font-weight:normal;}
+	margin-left:.5in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:.5in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -85,13 +113,6 @@ span.Heading2Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	font-family:"Times New Roman",serif;
-	color:#1F3763;
-	text-transform:uppercase;
-	letter-spacing:.75pt;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -107,122 +128,219 @@ span.Heading3Char
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
 -->
 </style>
 
-<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" -->
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-<!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1><a name="_Toc58323676">Backup Settings</a></h1>
+<h1 style='background:#4472C4'>Backup Manually</h1>
 
 </div>
 
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal><img width=279 height=204 id=image60.png
-src="Backup%20Manually_files/image001.png"></p>
-
-<p class=MsoNormal>A manual backup uses a lot of disk space, but it backs up
-all critical files quickly and in a usable form. It will save the selected
-items in the AUTOBACKUP folder. <br>
-<img width=367 height=356 id="Picture 3"
-src="Backup%20Manually_files/image002.png"
-alt="Graphical user interface, application&#10;&#10;Description automatically generated"><br>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'><br>
+There are multiple kinds of backups. Backups may be run at the region level, or
+at the grid level, which includes regions.&nbsp; Also remember there are always
+two or more databases on a grid: the grid's robust database, and the regions
+Opensim database. There can be more than one Opensim database, as a grid can
+consists of more than one machine.<br>
 <br>
-Some of these boxes may be grayed out or uncheckable because the you or the system
-has not installed that service. </p>
+</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2><span style='color:black'>CheckBoxes</span></h2>
+<h2 style='background:#D9E2F3'><span style='color:black'>Region Level OAR</span></h2>
 
 </div>
 
-<p class=MsoNormal><br>
-<b>Backup Settings - </b>saves Settings.ini and XYSettings.ini files in a zip. 
-Setting.ini contains all grid settings. XYSettings.ini contains the last positions
-of all windows. It can be deleted.</p>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>OARs
+can be created on the fly - look in Content Save Oars and you can do them all
+with one click.&nbsp; You can also set up OARS to be created on a schedule. -
+24 hours is an excellent choice.</span></p>
 
-<p class=MsoNormal><b>Backup Region INI files - </b>All Useful Region.ini files
-and the directory Structure from Opensim\bin\Regions are saved into a zip.  The
-useful ones are in the bin\Region\DosBoxName\Region\folder</p>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoNormal><b>Backup FSassets Folder - </b>If you are running the
-FSAssets system, this contains just the assets of the database.  You still need
-to backup MySQL.</p>
-
-<p class=MsoNormal><b>Backup Custom Web Pages - </b>This backs up two folders
-in bin\WifiPages-Custom and WifiPages-Custom in case you have made changes.</p>
-
-<p class=MsoNormal><b>Backup OARs - </b>runs all regions that enabled and saves
-an OAR from each with the name, date and time in Autobackup.<b> </b></p>
-
-<p class=MsoNormal><b>Backup MySQL\Data</b>:  This Zip holds the robust.sql and
-opensim.sql files that make up the entire database.  </p>
-
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
-
-<h1>Backup Strategies</h1>
+<h2 style='background:#D9E2F3'><span style='color:black'>Grid level IAR</span></h2>
 
 </div>
 
-<p class=MsoNormal>There are multiple kinds of backups. Backups are at the
-region level, or at the grid level, which includes regions.&nbsp; Also remember
-there are always two or more databases on a grid: the grid's robust database,
-and the regions Opensim database. There can be more than one Opensim database,
-as a grid can consists of more than one machine.</p>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>IARS
+are time consuming. But you should make them on occasion anyway.&nbsp; Just in
+case. They take a long time and can lag a grid when running.&nbsp; If you are
+on OsGrid or Metro, I HIGHLY RECOMMEND you get an IAR backup often!&nbsp; I
+have at different times lost data at both these major grids.</span></p>
 
-<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h3>Region Level OAR</h3>
-
-</div>
-
-<p class=MsoNormal>OARs can be created on the fly - look in Content Save Oars
-and you can do them all with one click.&nbsp; You can also set up OARS to be
-created on a schedule. - 24 hours is an excellent choice.</p>
-
-<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
-
-<h3>Grid level IAR</h3>
+<h2 style='background:#D9E2F3'><span style='color:black'>Grid level SQL</span></h2>
 
 </div>
 
-<p class=MsoNormal>IARS are more difficult and are more time consuming, as you
-need the password.&nbsp;&nbsp; But you should make them on occasion
-anyway.&nbsp; Just in case. They take a long time and can lag a grid when
-running.&nbsp; If you are on OsGrid or Metro, I HIGHLY RECOMMEND you get an IAR
-backup often!&nbsp; I have at different times lost data at both these major
-grids.</p>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>SQL
+backup is also slow, but very thorough. It saves outfits, logins, and
+usernames; everything but region UUID's and settings.&nbsp; With this you can
+fix problems in MySQL that are known to develop.&nbsp;&nbsp; This is sort of a
+monthly thing to do.</span></p>
 
-<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h3>Grid level SQL</h3>
-
-</div>
-
-<p class=MsoNormal>SQL backup is also slow, but very thorough. It saves
-outfits, logins, and usernames; everything but region UUID's and
-settings.&nbsp; With this you can fix problems in MySQL that are known to
-develop.&nbsp;&nbsp; This is sort of a monthly thing to do.</p>
-
-<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
-
-<h3><a name="_Toc58323685">UUID:</a></h3>
+<h2 style='background:#D9E2F3'><span style='color:black'>Robocopy:</span></h2>
 
 </div>
 
-<p class=MsoNormal>Keep a copy of your UUID, too. This is available in your
-Profile.  If you must start over, at least your new avatars will have the same
-UUID and will own everything you created.</p>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><br>
+<span style='font-family:"Verdana",sans-serif'>Robocopy is included in Windows.
+It is a fast and flexible back up program.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>This example
+is for backing up the AutoBackup folder to the X: drive</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>robocopy 
+C:\DreamGrid\OutworldzFiles\AutoBackup X:\Destination /E /TBD /J /M  /MOT:90  /LFSM:50M<br>
+<br>
+</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>/E - Everything
+including empty folders.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>/M –Modified
+files are copied that have the A bit set, then clears the bit.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>/TBD - Wait
+for share names to be defined by the network.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>/J – Use
+Unbuffered IO for large files.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>/MOT:90 
+ Wait 90 minutes and scan for changes in a loop.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'><br>
+You can add the LFSM switch on Windows 10.  Do not do this Server or Windows 7.<br>
+<br>
+/LFSM:50M – Will operate in low free space mode, enabling copy pause and resume.
+Robocopy will pause whenever a file copy would cause the destination volume's
+free space to go below 50 Megabytes.</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>What to back up</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal;background:white'><span
+style='font-size:10.5pt;font-family:"Open Sans",sans-serif;color:#373737'>This
+is what DreamGrid backs up if you check all the boxes:</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\Apache\htdocs\jOpensim\ folder<br>
+OutworldzFiles\Opensim\WifiPages-Custom\ folder</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\Settings.ini file</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\XYSettings.ini file</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\Opensim\bin\LocalUserStatistics.db database of traffic
+and viewers.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\Photo.png  Custom Hyperica Photo</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\NewBlack.png  Custom Theme</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\NewWhite.png  Custom Theme</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\NewCustom.png  Custom Theme</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>OutworldzFiles\Opensim\bin\Regions All the region Ini files</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>Mysql Robust as .sql  a portable database of Robust</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>Mysql Opensim as .sql a portable database of Opensim regions</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>Joomla as .sql a portable database of joomla data.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-size:9.5pt;line-height:107%;font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.5pt;line-height:107%;font-family:Consolas;
+color:black'>Opensim\bin\FSassets ALL the assets, which must be backed up last on
+a live machine</span></p>
+
+<p class=MsoNormal style='margin-bottom:0in;line-height:normal;text-autospace:
+none'>&nbsp;</p>
 
 </div>
 

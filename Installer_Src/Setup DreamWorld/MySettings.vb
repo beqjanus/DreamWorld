@@ -301,7 +301,7 @@ Public Class MySettings
 
     Public Property BackupSQL() As Boolean
         Get
-            Return CType(GetMySetting("BackupSQL", "False"), Boolean)
+            Return CType(GetMySetting("BackupSQL", "True"), Boolean)
         End Get
         Set
             SetMySetting("BackupSQL", CStr(Value))
@@ -1006,7 +1006,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return CInt("0" & GetMySetting("KeepForDays", "1"))
+            Return CInt("0" & GetMySetting("KeepForDays", "3"))
         End Get
         Set
             SetMySetting("KeepForDays", CStr(Value))

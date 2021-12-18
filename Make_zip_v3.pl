@@ -177,7 +177,7 @@ sign($dir);
 
 print "Processing Main Zip\n";
 
-JustDelete('\\Opensim\\Zip');
+JustDelete('/Opensim/Zip');
 
 my @files =   `cmd /c dir /b `;
 
@@ -205,66 +205,72 @@ foreach my $lang (@languages)
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
 
+my $zip ='/Opensim/Zip/';
+
 say("Drop Mysql from update");
-DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
-say("Drop Jopensim from update");
-DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
-if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
+DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
+say("Drop JOpensim Folder");
+
+DeleteandKeep("$zip/Outworldzfiles/Apache/htdocs/jOpensim");
+if (!copy ("$zip/Outworldzfiles/jOpensim_Files/default.htm", "$zip/Outworldzfiles/Apache/htdocs/jOpensim/default.htm"))  {die $!;}
+
+say("Drop bin Folders");
+DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/Regions");
+DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/fsassets");
 
 say("Drop Opensim Source code from update");
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimProfile.Modules.dll');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimSearch.Modules.dll');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/clean.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/cleanaot.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild48.xml');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makeaot.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.bat');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.vs');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.nant');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/share');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.git');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/compile.bat');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makefile');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/nant-color');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.sln');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.build');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
-JustDelete('/Opensim/Zip/Make_zip_v3.pl');
-JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
-JustDelete('/Opensim/Zip/Start.vshost.exe.config');
-JustDelete('/Opensim/Zip/Start.vshost.exe');
-JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
+JustDelete("$zip/Outworldzfiles/Opensim/Opensim");
+JustDelete("$zip/Outworldzfiles/Opensim/packages");
+JustDelete("$zip/Outworldzfiles/Opensim/runprebuild19.sh");
+JustDelete("$zip/Outworldzfiles/Opensim/jOpenSimProfile.Modules.dll");
+JustDelete("$zip/Outworldzfiles/Opensim/jOpenSimSearch.Modules.dll");
+JustDelete("$zip/Outworldzfiles/Opensim/clean.sh");
+JustDelete("$zip/Outworldzfiles/Opensim/cleanaot.sh");
+JustDelete("$zip/Outworldzfiles/Opensim/prebuild48.xml");
+JustDelete("$zip/Outworldzfiles/Opensim/makeaot.sh");
+JustDelete("$zip/Outworldzfiles/Opensim/runprebuild19.bat");
+JustDelete("$zip/Outworldzfiles/Opensim/addon-modules");
+JustDelete("$zip/Outworldzfiles/Opensim/.vs");
+JustDelete("$zip/Outworldzfiles/Opensim/.nant");
+JustDelete("$zip/Outworldzfiles/Opensim/bin/addin-db-002");
+JustDelete("$zip/Outworldzfiles/Opensim/Doc");
+JustDelete("$zip/Outworldzfiles/Opensim/Prebuild");
+JustDelete("$zip/Outworldzfiles/Opensim/share");
+JustDelete("$zip/Outworldzfiles/Opensim/Thirdparty");
+JustDelete("$zip/Outworldzfiles/Opensim/.git");
+JustDelete("$zip/Outworldzfiles/Opensim/.gitignore");
+JustDelete("$zip/Outworldzfiles/Opensim/.hgignore");
+JustDelete("$zip/Outworldzfiles/Opensim/BUILDING.md");
+JustDelete("$zip/Outworldzfiles/Opensim/compile.bat");	
+JustDelete("$zip/Outworldzfiles/Opensim/makefile");
+JustDelete("$zip/Outworldzfiles/Opensim/nant-color");
+JustDelete("$zip/Outworldzfiles/Opensim/BUILDING.md");	
+JustDelete("$zip/Outworldzfiles/Opensim/Opensim.sln");
+JustDelete("$zip/Outworldzfiles/Opensim/Opensim.build");
+JustDelete("$zip/Outworldzfiles/Opensim/prebuild.xml");
+JustDelete("$zip/Outworldzfiles/Opensim/runprebuild.bat");	
+JustDelete("$zip/Outworldzfiles/Opensim/runprebuild.sh");
+JustDelete("$zip/Outworldzfiles/Opensim/TESTING.txt");
+JustDelete("$zip/OutworldzFiles/Opensim/bin/.git");
+JustDelete("$zip/OutworldzFiles/Opensim/Ezombie");
 
-JustDelete('/Opensim/Zip/Opensim/Ezombies');
-JustDelete('/Opensin/OutworldzFiles/Opensim/bin/Regions');
-JustDelete('/Opensin/OutworldzFiles/Opensim/bin/fsassets');
+JustDelete("$zip/Make_zip_v3.pl");
+JustDelete("$zip/Start.vshost.exe.manifest");
+JustDelete("$zip/Start.vshost.exe.config");
+JustDelete("$zip/Start.vshost.exe");
+
 
 print "Make zip\n";
 unlink "/Opensim/Zips/DreamGrid$type.zip";
-my $src ='/Opensim/zip/';
+
 my $dest = "/Opensim/Zips/DreamGrid$type.zip";
 
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
-my $zip = Archive::Zip->new();
-$zip->addTree($src);
+my $finalzip = Archive::Zip->new();
+$finalzip->addTree($zip);
 
-unless  ( $zip->writeToFileNamed($dest) == AZ_OK ) {
+unless  ( $finalzip->writeToFileNamed($dest) == AZ_OK ) {
 	die 'write error';
 }
 
@@ -373,6 +379,7 @@ sub JustDelete {
 	my $path = shift;
 	if (! -d $path) {
 		unlink $path;
+		return;
 	}
 		
 	use File::Path;	

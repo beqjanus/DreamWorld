@@ -1878,8 +1878,7 @@ Public Class FormSetup
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
         If sender Is Nothing Then Return
-        If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) And
-                sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "To Do List.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+        If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then
 
             HelpManual(CStr(sender.Text))
         End If
@@ -2522,15 +2521,6 @@ Public Class FormSetup
             End Try
         End Using
 
-    End Sub
-
-    Private Sub TodoManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodoManualToolStripMenuItem.Click
-        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
     End Sub
 
 #End Region
@@ -3577,7 +3567,7 @@ Public Class FormSetup
         StopMysql()
     End Sub
 
-    Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles TodoManualToolStripMenuItem.Click
+    Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs)
         Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
         Try
             Process.Start(webAddress)

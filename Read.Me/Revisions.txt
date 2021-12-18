@@ -5,7 +5,7 @@ This is a high-level view of major changes. For detailed commit history, checkou
 V4.8
 Fixed the "extra welcome region" bug.  Obvious bug was not obvious. But cannot be unseen once seen.
 Default Welcome region cannot be Smart Boot enabled.
-Help normally loads once the first you you view each page. Missing a me.show.
+Help normally loads once the first time you view each page. 
 You can now export the Region list to a CSV list for use in Excel or Google Sheets.
 Many performance tweaks, too many to mention. Startup of the app should be 2X faster.
 
