@@ -109,7 +109,8 @@ Module CPUCounter
     Public Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
 
         Try
-            Dim process = GetProcessById(processId)
+            Dim process = ProcessIdDict.Item(processId)
+
             Dim processName As String = IO.Path.GetFileNameWithoutExtension(process.ProcessName)
             Dim cat As New PerformanceCounterCategory("Process")
             Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.OrdinalIgnoreCase)).ToArray()

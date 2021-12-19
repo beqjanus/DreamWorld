@@ -19,6 +19,8 @@ End Class
 
 Module SmartStart
 
+    Public ProcessIdDict As New Dictionary(Of Integer, Process)
+
 #Region "SmartBegin"
 
 
@@ -326,13 +328,21 @@ Module SmartStart
 
         CrashCounter(RegionUUID) = 0
 
-        ' Detect if a region Windows is already running
+        ' Detect if a region Window is already running
         If CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
                 Logger("Suspended, Resuming it", BootName, "Teleport")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
+
+                If ProcessIdDict.ContainsKey(PID) Then
+                    ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
+                Else
+                    ProcessIdDict.Add(PID, Process.GetProcessById(PID))
+                End If
+
+
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
@@ -351,6 +361,12 @@ Module SmartStart
                 Dim PID As Integer = GetPIDofWindow(GroupName)
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
+                End If
+
+                If ProcessIdDict.ContainsKey(PID) Then
+                    ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
+                Else
+                    ProcessIdDict.Add(PID, Process.GetProcessById(PID))
                 End If
 
                 For Each UUID As String In RegionUuidListByName(GroupName)
@@ -418,6 +434,11 @@ Module SmartStart
 
         If ok Then
             Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
+            If ProcessIdDict.ContainsKey(PID) Then
+                ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
+            Else
+                ProcessIdDict.Add(PID, BootProcess)
+            End If
 
             If PID > 0 Then
                 ' 0 is all cores
