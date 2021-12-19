@@ -99,80 +99,92 @@ Public Class FormDebug
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        If Command = My.Resources.MakeVoices Then
-            MakeSpeech()
+        If Command = "Debug LandMaker" Then
+            If Value = True Then
+                Dim res = MsgBox("Are you sure?  This makes a LOT of regions!!!! And there is no Undo!", vbYesNo)
+                If res = vbYes Then
+                    DebugLandMaker = True
+                    ProgressPrint("Landmaking On")
+                End If
+            Else
+                DebugLandMaker = False
+                ProgressPrint("Landmaking Off")
+            End If
 
-        ElseIf Command = My.Resources.Benchmark Then
-            Benchmark()
+        ElseIf Command = My.Resources.MakeVoices Then
+                MakeSpeech()
 
-        ElseIf Command = My.Resources.Speak Then
-            Speechtest()
+            ElseIf Command = My.Resources.Benchmark Then
+                Benchmark()
 
-        ElseIf Command = My.Resources.TeleportAPI Then
+            ElseIf Command = My.Resources.Speak Then
+                Speechtest()
 
-            TPAPITest()
+            ElseIf Command = My.Resources.TeleportAPI Then
 
-        ElseIf Command = My.Resources.Send_alert Then
-            If Value Then
+                TPAPITest()
 
-                Dim UserName = InputBox("Online Agent Name?")
+            ElseIf Command = My.Resources.Send_alert Then
+                If Value Then
 
-                Dim parts As String() = UserName.Split(" ".ToCharArray())
-                If parts.Length <> 2 Then
-                    MsgBox("Please use an avatar First and Last name", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-                    Return
+                    Dim UserName = InputBox("Online Agent Name?")
+
+                    Dim parts As String() = UserName.Split(" ".ToCharArray())
+                    If parts.Length <> 2 Then
+                        MsgBox("Please use an avatar First and Last name", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                        Return
+                    End If
+
+                    Dim UserID = GetAviUUUD(UserName)
+                    RPC_admin_dialog(UserID, "Pop up Alert Test")
                 End If
 
-                Dim UserID = GetAviUUUD(UserName)
-                RPC_admin_dialog(UserID, "Pop up Alert Test")
-            End If
+            ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
 
-        ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
+                If Value Then
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
+                Else
+                    ProgressPrint(My.Resources.Unchanged)
+                End If
+                Settings.SaveSettings()
 
-            If Value Then
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
-            Else
-                ProgressPrint(My.Resources.Unchanged)
-            End If
-            Settings.SaveSettings()
+            ElseIf Command = $"{My.Resources.Debug_word} 1 {My.Resources.Minute}" Then
 
-        ElseIf Command = $"{My.Resources.Debug_word} 1 {My.Resources.Minute}" Then
+                If Value Then
+                    Settings.StatusInterval = 60
+                    ProgressPrint($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
+                End If
+                Settings.SaveSettings()
 
-            If Value Then
-                Settings.StatusInterval = 60
-                ProgressPrint($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
-            End If
-            Settings.SaveSettings()
+            ElseIf Command = $"{My.Resources.Debug_word} 10 {My.Resources.Minutes}" Then
 
-        ElseIf Command = $"{My.Resources.Debug_word} 10 {My.Resources.Minutes}" Then
+                If Value Then
+                    Settings.StatusInterval = 600
+                    ProgressPrint($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} Off")
+                End If
+                Settings.SaveSettings()
 
-            If Value Then
-                Settings.StatusInterval = 600
-                ProgressPrint($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
-            End If
-            Settings.SaveSettings()
+            ElseIf Command = $"{My.Resources.Debug_word} 60 {My.Resources.Minutes}" Then
 
-        ElseIf Command = $"{My.Resources.Debug_word} 60 {My.Resources.Minutes}" Then
+                If Value Then
+                    Settings.StatusInterval = 3600
+                    ProgressPrint($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
+                End If
+                Settings.SaveSettings()
 
-            If Value Then
-                Settings.StatusInterval = 3600
-                ProgressPrint($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
-            End If
-            Settings.SaveSettings()
+            ElseIf Command = $"{My.Resources.Debug_word} 24 {My.Resources.Hours}" Then
 
-        ElseIf Command = $"{My.Resources.Debug_word} 24 {My.Resources.Hours}" Then
-
-            If Value Then
+                If Value Then
                 Settings.StatusInterval = 60 * 60 * 24
                 ProgressPrint($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
             Else
@@ -211,6 +223,8 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
+
+        ComboBox1.Items.Add("Debug LandMaker")
 
         SetScreen()
 

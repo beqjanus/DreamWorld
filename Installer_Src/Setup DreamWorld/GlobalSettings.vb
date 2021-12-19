@@ -44,6 +44,7 @@ Module GlobalSettings
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
     Public MapY As Integer = 100
+    Public DebugLandMaker As Boolean
 
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
@@ -53,6 +54,7 @@ Module GlobalSettings
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
+
     Private _XYINI As String ' global XY INI
     ' if any region files get written flag them for reloading
 

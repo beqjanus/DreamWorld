@@ -664,6 +664,7 @@ Module RegionMaker
                             MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                             ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                             PropUpdateView = True ' make form refresh
+                            GetRegionsIsBusy = False
                             Return 0
                         End Try
                     Next

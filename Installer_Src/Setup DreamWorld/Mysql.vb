@@ -524,43 +524,44 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
-            Return Dict
+            If DebugLandMaker Then
 
-            Dim HowManyAvatars As Integer = 10
-            Dim Odds As Double = 20
-            ' sprinkle avatars around the system
-            If Debugger.IsAttached Then
-                If Dict.Count < HowManyAvatars Then
-                    Dim a = Between(1, 1000)
-                    If a <= Odds Then
-                        Dim RegionList = RegionUuids()
-                        Dim r = Between(1, RegionList.Count - 1)
-                        Dim RegionUUID = RegionList.Item(r)
-                        Dim RegionName = Region_Name(RegionUUID)
-                        Dim index = RandomNumber.Between(1, NameList.Count)
-                        Dim UserName = NameList.Item(index)
+                Dim HowManyAvatars As Integer = 10
+                Dim Odds As Double = 20
+                ' sprinkle avatars around the system
+                If Debugger.IsAttached Then
+                    If Dict.Count < HowManyAvatars Then
+                        Dim a = Between(1, 1000)
+                        If a <= Odds Then
+                            Dim RegionList = RegionUuids()
+                            Dim r = Between(1, RegionList.Count - 1)
+                            Dim RegionUUID = RegionList.Item(r)
+                            Dim RegionName = Region_Name(RegionUUID)
+                            Dim index = RandomNumber.Between(1, NameList.Count)
+                            Dim UserName = NameList.Item(index)
 
-                        If Not Dict.ContainsKey(UserName) Then
-                            TextPrint($"Adding {UserName}")
-                            Dict.Add(UserName, RegionUUID)
-                        Else
-                            Dict.Item(UserName) = RegionUUID
+                            If Not Dict.ContainsKey(UserName) Then
+                                TextPrint($"Adding {UserName}")
+                                Dict.Add(UserName, RegionUUID)
+                            Else
+                                Dict.Item(UserName) = RegionUUID
+                            End If
+                        End If
+                    Else
+                        Dim a = Between(1, 1000)
+                        If a <= Odds Then
+                            Dim b = Between(1, Dict.Count - 1)
+                            For Each name In Dict
+                                b -= 1
+                                If b = 0 Then
+                                    Dict.Remove(name.Key)
+                                    Exit For
+                                End If
+                            Next
                         End If
                     End If
-                Else
-                    Dim a = Between(1, 1000)
-                    If a <= Odds Then
-                        Dim b = Between(1, Dict.Count - 1)
-                        For Each name In Dict
-                            b -= 1
-                            If b = 0 Then
-                                Dict.Remove(name.Key)
-                                Exit For
-                            End If
-                        Next
-                    End If
-                End If
 
+                End If
             End If
 
         End Using
