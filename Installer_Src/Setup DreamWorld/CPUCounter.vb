@@ -109,7 +109,7 @@ Module CPUCounter
     Public Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
 
         Try
-            Dim process = ProcessIdDict.Item(processId)
+            Dim process = CachedProcess(processId)
 
             Dim processName As String = IO.Path.GetFileNameWithoutExtension(process.ProcessName)
             Dim cat As New PerformanceCounterCategory("Process")

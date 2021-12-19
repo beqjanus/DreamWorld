@@ -8,6 +8,7 @@
 Imports System.IO
 Imports System.Reflection
 Imports System.Text.RegularExpressions
+Imports System.Data
 
 Public Class FormRegionlist
 
@@ -807,7 +808,7 @@ Public Class FormRegionlist
 
                     Try
                         Dim PID = ProcessID(RegionUUID)
-                        Dim component1 As Process = ProcessIdDict(PID)
+                        Dim component1 As Process = CachedProcess(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
 
                         item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))

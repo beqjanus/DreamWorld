@@ -48,46 +48,47 @@ Public Class FormEmail
             Return
         End If
 
-        Dim Message = New MimeMessage()
-        Message.From.Add(New MailboxAddress("", Settings.AdminEmail))
+        Using Message As New MimeMessage()
+            Message.From.Add(New MailboxAddress("", Settings.AdminEmail))
 
-        For Each Contact In Contacts
-            If EmailValidator.Validate(Contact.Value) Then
-                Message.Bcc.Add(New MailboxAddress(Contact.Key, Contact.Value))
-            End If
-        Next
+            For Each Contact In Contacts
+                If EmailValidator.Validate(Contact.Value) Then
+                    Message.Bcc.Add(New MailboxAddress(Contact.Key, Contact.Value))
+                End If
+            Next
 
-        Message.Subject = SubjectTextBox.Text
+            Message.Subject = SubjectTextBox.Text
 
-        Dim builder = New BodyBuilder With {
-            .TextBody = EditorBox.BodyText,
-            .HtmlBody = EditorBox.BodyHtml
-        }
-        Message.Body = builder.ToMessageBody()
-        Using client As New SmtpClient()
-            Try
-                client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
-            Catch ex As Exception
-                MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                Return
-            End Try
-            Try
-                client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
-            Catch ex As Exception
-                MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                Return
-            End Try
-            Try
-                client.Send(Message)
-            Catch ex As Exception
-                MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                Return
-            End Try
-            Try
-                client.Disconnect(True)
-            Catch
-            End Try
+            Dim builder = New BodyBuilder With {
+                .TextBody = EditorBox.BodyText,
+                .HtmlBody = EditorBox.BodyHtml
+            }
+            Message.Body = builder.ToMessageBody()
+            Using client As New SmtpClient()
+                Try
+                    client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
+                Catch ex As Exception
+                    MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    Return
+                End Try
+                Try
+                    client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
+                Catch ex As Exception
+                    MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    Return
+                End Try
+                Try
+                    client.Send(Message)
+                Catch ex As Exception
+                    MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                    Return
+                End Try
+                Try
+                    client.Disconnect(True)
+                Catch
+                End Try
 
+            End Using
         End Using
 
         Me.Close()
