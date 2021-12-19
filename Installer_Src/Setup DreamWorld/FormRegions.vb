@@ -60,6 +60,9 @@ Public Class FormRegions
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
 
+        ''' TODO If Opensim is running do not continue
+
+
         Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
         If result = vbYes Then
 
@@ -89,6 +92,7 @@ Public Class FormRegions
                 MsgBox(My.Resources.Cannot_Normalize)
                 Return
             End If
+
 
             For Each UUID As String In RegionUuids()
                 Coord_X(UUID) = Coord_X(UUID) + DeltaX

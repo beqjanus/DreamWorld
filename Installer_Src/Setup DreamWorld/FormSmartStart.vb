@@ -778,6 +778,7 @@ Public Class FormSmartStart
 
     Dim LoadOarLock As Object
 
+
     Private Sub LoadAllFreeOARs()
 
         If ApplyTerrainEffectButton.Text <> My.Resources.Apply_word Then
@@ -959,7 +960,6 @@ Public Class FormSmartStart
                     If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
                         ConsoleCommand(RegionUUID, "q")
                         ConsoleCommand(RegionUUID, "q")
-
                     End If
                 Else
                     If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then

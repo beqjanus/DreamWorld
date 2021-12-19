@@ -356,6 +356,8 @@ Module Build
     End Function
 
     Dim TempRegionLock As Object
+
+
     Private Function MakeTempRegion(Group As String, X As Integer, Y As Integer) As String
 
 
@@ -367,6 +369,7 @@ Module Build
 
         'kill it
         DeRegisterPosition(X, Y)
+
 
         SyncLock TempRegionLock
 
@@ -395,7 +398,6 @@ Module Build
             FormSetup.LandScapeList.Add(RegionUUID)
             PropChangedRegionSettings = True
         End SyncLock
-
 
         Return shortname
 

@@ -48,7 +48,8 @@ Public Class FormEmail
             Return
         End If
 
-        Using Message = New MimeMessage()
+        Using Message As New MimeMessage()
+
             Message.From.Add(New MailboxAddress("", Settings.AdminEmail))
 
             For Each Contact In Contacts

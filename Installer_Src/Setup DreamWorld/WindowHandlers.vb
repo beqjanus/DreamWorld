@@ -59,7 +59,7 @@ Module WindowHandlers
                 DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
                 Sleep(1000)
                 Try
-                    If Not noChange Then ShowDOSWindow(ProcessIdDict(PID).MainWindowHandle, MaybeHideWindow())
+                    If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                 End Try
             Else ' Robust
@@ -144,7 +144,7 @@ Module WindowHandlers
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
                             If Int32.TryParse(sPID, PID) Then
-                                Plist = ProcessIdDict(PID)
+                                Plist = CachedProcess(PID)
                             End If
                         End While
                     End Using
@@ -198,7 +198,10 @@ Module WindowHandlers
             End If
         Catch
         End Try
-        If PID > 0 Then Return PID
+
+        If PID > 0 Then
+            Return PID
+        End If
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try
@@ -212,6 +215,22 @@ Module WindowHandlers
 
     End Function
 
+    Public Function CachedProcess(PID As Integer) As Process
+
+        If Not ProcessIdDict.ContainsKey(PID) Then
+            Try
+                Dim Pr = Process.GetProcessById(PID)
+                If Pr IsNot Nothing Then
+                    ProcessIdDict.Add(PID, Pr)
+                    Return Pr
+                End If
+            Catch ex As exception
+            End Try
+        End If
+        Return ProcessIdDict(PID)
+
+
+    End Function
     Public Function MaybeHideWindow() As SHOWWINDOWENUM
 
         Dim w As SHOWWINDOWENUM
