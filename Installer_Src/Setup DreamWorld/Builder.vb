@@ -355,6 +355,7 @@ Module Build
 
     End Function
 
+    Dim TmpRegion As Object
     Private Function MakeTempRegion(Group As String, X As Integer, Y As Integer) As String
 
         Dim shortname = FantasyName()
@@ -366,30 +367,35 @@ Module Build
         'kill it
         DeRegisterPosition(X, Y)
 
-        ' build it
-        Dim RegionUUID = CreateRegionStruct(shortname, "")
-        ' Set the defaults for a Landfill
-        CrashCounter(RegionUUID) = 0
-        Coord_X(RegionUUID) = X
-        Coord_Y(RegionUUID) = Y
-        Smart_Start(RegionUUID) = "True"
-        Teleport_Sign(RegionUUID) = "True"
-        SizeX(RegionUUID) = 256
-        SizeY(RegionUUID) = 256
-        Group_Name(RegionUUID) = Group
+        SyncLock TmpRegion
 
-        SetCores(RegionUUID)
 
-        GDPR(RegionUUID) = CStr(Settings.GDPR)
 
-        Dim port = LargestPort() + 1
-        GroupPort(RegionUUID) = port
-        Region_Port(RegionUUID) = port
+            ' build it
+            Dim RegionUUID = CreateRegionStruct(shortname, "")
+            ' Set the defaults for a Landfill
+            CrashCounter(RegionUUID) = 0
+            Coord_X(RegionUUID) = X
+            Coord_Y(RegionUUID) = Y
+            Smart_Start(RegionUUID) = "True"
+            Teleport_Sign(RegionUUID) = "True"
+            SizeX(RegionUUID) = 256
+            SizeY(RegionUUID) = 256
+            Group_Name(RegionUUID) = Group
 
-        WriteRegionObject(Group, shortname)
+            SetCores(RegionUUID)
 
-        FormSetup.LandScapeList.Add(RegionUUID)
-        PropChangedRegionSettings = True
+            GDPR(RegionUUID) = CStr(Settings.GDPR)
+
+            Dim port = LargestPort() + 1
+            GroupPort(RegionUUID) = port
+            Region_Port(RegionUUID) = port
+
+            WriteRegionObject(Group, shortname)
+
+            FormSetup.LandScapeList.Add(RegionUUID)
+            PropChangedRegionSettings = True
+        End SyncLock
 
         Return shortname
 

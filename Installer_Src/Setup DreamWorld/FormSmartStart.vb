@@ -776,6 +776,8 @@ Public Class FormSmartStart
 
     End Sub
 
+    Dim MakeLargeRegion As Object
+
     Private Sub LoadAllFreeOARs()
 
         If ApplyTerrainEffectButton.Text <> My.Resources.Apply_word Then
@@ -898,11 +900,13 @@ Public Class FormSmartStart
                 RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
                 OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                Dim port = LargestPort() + 1
-                GroupPort(RegionUUID) = port
-                Region_Port(RegionUUID) = port
-                WriteRegionObject(shortname, shortname)
-                PropChangedRegionSettings = True
+                SyncLock MakeLargeRegion
+                    Dim port = LargestPort() + 1
+                    GroupPort(RegionUUID) = port
+                    Region_Port(RegionUUID) = port
+                    WriteRegionObject(shortname, shortname)
+                    PropChangedRegionSettings = True
+                End SyncLock
 
                 Firewall.SetFirewall()
 
@@ -955,7 +959,6 @@ Public Class FormSmartStart
                     If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
                         ConsoleCommand(RegionUUID, "q")
                         ConsoleCommand(RegionUUID, "q")
-
                     End If
                 Else
                     If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then

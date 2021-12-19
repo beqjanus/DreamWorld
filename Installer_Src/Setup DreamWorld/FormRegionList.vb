@@ -1770,7 +1770,7 @@ SetWindowOnTop_Err:
                     New DataColumn("Boot Time", GetType(String)),
                     New DataColumn("Map Boot Time", GetType(String))
                 })
-                        Debug.Print(ListView1.Items.Count)
+
                         For Each i In ListView1.Items
                             sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
                                          i.SubItems(1).Text.Trim,
