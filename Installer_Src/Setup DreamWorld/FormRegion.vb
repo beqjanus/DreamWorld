@@ -1111,6 +1111,7 @@ Public Class FormRegion
 
     End Function
 
+    Dim WriteLock As Object
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
 
@@ -1203,11 +1204,8 @@ Public Class FormRegion
         Coord_Y(RegionUUID) = CInt("0" & CoordY.Text)
         Region_Name(RegionUUID) = RegionName.Text
 
-        If Region_Port(RegionUUID) = 0 Then
-            Dim port = LargestPort() + 1
-            Region_Port(RegionUUID) = port
-            GroupPort(RegionUUID) = port
-        End If
+
+
 
         SizeX(RegionUUID) = BoxSize
         SizeY(RegionUUID) = BoxSize
@@ -1359,70 +1357,80 @@ Public Class FormRegion
             ScriptEngine(RegionUUID) = "YEngine"
         End If
 
-        Dim Region = "; * Regions configuration file" &
-                        "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
-                        "; Automatically changed by Dreamworld" & vbCrLf &
-                        "[" & RegionName.Text & "]" & vbCrLf &
-                        "RegionUUID=" & UUID.Text & vbCrLf &
-                        "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
-                        "InternalAddress = 0.0.0.0" & vbCrLf &
-                        "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
-                        "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
-                        "AllowAlternatePorts = False" & vbCrLf &
-                        "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
-                        "SizeX=" & BoxSize & vbCrLf &
-                        "SizeY=" & BoxSize & vbCrLf &
-                        "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
-                        "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
-                        "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
-                        "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
-                        "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
-                        "MaxAgents=" & MaxAgents.Text & vbCrLf &
-                        "MaxPrims=" & MaxPrims.Text & vbCrLf &
-                        "RegionType = Estate" & vbCrLf & vbCrLf &
-                        ";# Extended region properties from Dreamgrid" & vbCrLf &
-                        "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
-                        "FrameTime=" & FrametimeBox.Text & vbCrLf &
-                        "RegionSnapShot=" & Snapshot & vbCrLf &
-                        "MapType=" & Map & vbCrLf &
-                        "Physics=" & Phys & vbCrLf &
-                        "GodDefault=" & GodDefault(RegionUUID) & vbCrLf &
-                        "AllowGods=" & AllowGods(RegionUUID) & vbCrLf &
-                        "RegionGod=" & RegionGod(RegionUUID) & vbCrLf &
-                        "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
-                        "Birds=" & Birds(RegionUUID) & vbCrLf &
-                        "Tides=" & Tides(RegionUUID) & vbCrLf &
-                        "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
-                        "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
-                        "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
-                        "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
-                        "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf &
-                        "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf &
-                        "Publicity=" & GDPR(RegionUUID) & vbCrLf &
-                        "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
-                        "Priority=" & Priority(RegionUUID) & vbCrLf &
-                        "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
-                        "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
-
-        'Debug.Print(Region)
-
         FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
-        Try
-            Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
-                outputFile.Write(Region)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
-            Return False
+        Dim Abort As Boolean
 
-        End Try
+        SyncLock WriteLock
+
+            If Region_Port(RegionUUID) = 0 Then
+                Dim port = LargestPort() + 1
+                Region_Port(RegionUUID) = port
+                GroupPort(RegionUUID) = port
+            End If
+
+            Dim Region = "; * Regions configuration file" &
+                            "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
+                            "; Automatically changed by Dreamworld" & vbCrLf &
+                            "[" & RegionName.Text & "]" & vbCrLf &
+                            "RegionUUID=" & UUID.Text & vbCrLf &
+                            "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                            "InternalAddress = 0.0.0.0" & vbCrLf &
+                            "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
+                            "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
+                            "AllowAlternatePorts = False" & vbCrLf &
+                            "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
+                            "SizeX=" & BoxSize & vbCrLf &
+                            "SizeY=" & BoxSize & vbCrLf &
+                            "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                            "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
+                            "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
+                            "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
+                            "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
+                            "MaxAgents=" & MaxAgents.Text & vbCrLf &
+                            "MaxPrims=" & MaxPrims.Text & vbCrLf &
+                            "RegionType = Estate" & vbCrLf & vbCrLf &
+                            ";# Extended region properties from Dreamgrid" & vbCrLf &
+                            "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
+                            "FrameTime=" & FrametimeBox.Text & vbCrLf &
+                            "RegionSnapShot=" & Snapshot & vbCrLf &
+                            "MapType=" & Map & vbCrLf &
+                            "Physics=" & Phys & vbCrLf &
+                            "GodDefault=" & GodDefault(RegionUUID) & vbCrLf &
+                            "AllowGods=" & AllowGods(RegionUUID) & vbCrLf &
+                            "RegionGod=" & RegionGod(RegionUUID) & vbCrLf &
+                            "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
+                            "Birds=" & Birds(RegionUUID) & vbCrLf &
+                            "Tides=" & Tides(RegionUUID) & vbCrLf &
+                            "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
+                            "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
+                            "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
+                            "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
+                            "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf &
+                            "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf &
+                            "Publicity=" & GDPR(RegionUUID) & vbCrLf &
+                            "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                            "Priority=" & Priority(RegionUUID) & vbCrLf &
+                            "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
+                            "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
+
+
+            Try
+                Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
+                    outputFile.Write(Region)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
+                ABort = True
+            End Try
+
+        End SyncLock
 
         PropChangedRegionSettings = True
-
         PropUpdateView = True
-        Oldname1 = RegionName.Text
 
+        Oldname1 = RegionName.Text
+        If Abort Then Return False
         Return True
 
     End Function

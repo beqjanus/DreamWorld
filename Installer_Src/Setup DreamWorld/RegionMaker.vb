@@ -633,13 +633,22 @@ Module RegionMaker
                                     If GetHwnd(G) = IntPtr.Zero Then
                                         Region_Port(uuid) = LargestPort() + 1
                                         GroupPort(uuid) = ThisGroup
-                                        Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+
+                                        Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  to {fName}", "Port")
+                                        Logger("Port", $"Assign Group Port {CStr(GroupPort(uuid))} to + {fName}", "Port")
                                     Else
                                         Region_Port(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                                         If Region_Port(uuid) = 0 Then Region_Port(uuid) = LargestPort() + 1
+                                        Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} to {fName}", "Port")
 
                                         GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
-                                        If GroupPort(uuid) = 0 Then GroupPort(uuid) = ThisGroup
+                                        Diagnostics.Debug.Print($"Assign Group Port {CStr(GroupPort(uuid)) + " to " + fName}", "Port")
+
+                                        If GroupPort(uuid) = 0 Then
+                                            GroupPort(uuid) = ThisGroup
+                                            Logger("Port", $"Re-Assign Group Port {CStr(GroupPort(uuid)) + " to " + fName}", "Port")
+                                        End If
+
                                     End If
 
                                     ' If region Is already set, use its port as they cannot change while up.

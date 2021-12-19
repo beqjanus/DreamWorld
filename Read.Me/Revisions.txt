@@ -572,7 +572,8 @@ V3.8 Release
 
 V3.799
 XMLRPC is deprecated.
-MaxPort prevented you from adding a region and restarting it. Now adds Region port to the end of the list
+
+prevented you from adding a region and restarting it. Now adds Region port to the end of the list
 Save IAR does no longer ask for passwords.
 Server 2019 C++ Service Pack added.
 
