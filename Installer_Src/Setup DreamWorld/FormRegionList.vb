@@ -807,7 +807,7 @@ Public Class FormRegionlist
 
                     Try
                         Dim PID = ProcessID(RegionUUID)
-                        Dim component1 As Process = Process.GetProcessById(PID)
+                        Dim component1 As Process = ProcessIdDict(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
 
                         item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))
@@ -1770,7 +1770,7 @@ SetWindowOnTop_Err:
                     New DataColumn("Boot Time", GetType(String)),
                     New DataColumn("Map Boot Time", GetType(String))
                 })
-
+                        Debug.Print(ListView1.Items.Count)
                         For Each i In ListView1.Items
                             sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
                                          i.SubItems(1).Text.Trim,

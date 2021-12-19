@@ -59,7 +59,7 @@ Module WindowHandlers
                 DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
                 Sleep(1000)
                 Try
-                    If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+                    If Not noChange Then ShowDOSWindow(ProcessIdDict(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                 End Try
             Else ' Robust
@@ -144,7 +144,7 @@ Module WindowHandlers
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
                             If Int32.TryParse(sPID, PID) Then
-                                Plist = Process.GetProcessById(PID)
+                                Plist = ProcessIdDict(PID)
                             End If
                         End While
                     End Using
