@@ -1669,14 +1669,6 @@ Public Class FormSetup
         ' WebUI
         ViewWebUI.Visible = Settings.WifiEnabled
 
-        Me.Text += " V" & PropMyVersion
-        TextPrint(My.Resources.Version_word)
-        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
-        TextPrint($"--> Git Version:  #{GitVersion()}")
-        TextPrint($"--> Opensimulator {My.Resources.Version_word} {_SimVersion}")
-        TextPrint($"--> Joomla {My.Resources.Version_word} {jRev}")
-        TextPrint($"--> MySQL {My.Resources.Version_word} {MySqlRev}")
-
         PropOpensimIsRunning() = False ' true when opensim is running
         Application.DoEvents()
 
@@ -1697,10 +1689,6 @@ Public Class FormSetup
 
         CheckDefaultPorts()
         Application.DoEvents()
-
-        TextPrint(My.Resources.Setup_Network)
-        SetPublicIP()
-        SetServerType()
 
         TextPrint(My.Resources.Setup_Ports_word)
         OpenPorts()
@@ -1776,6 +1764,14 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
+
+        TextPrint(My.Resources.Setup_Network)
+        SetPublicIP()
+        SetServerType()
+
+        Me.Text += " V" & PropMyVersion
+        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
+
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
             Application.DoEvents()

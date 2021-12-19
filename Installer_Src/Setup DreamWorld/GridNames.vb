@@ -41,19 +41,19 @@ Module GridNames
             TextPrint("--> Region IP=" & Settings.ExternalHostName)
         End If
 
-        TextPrint("--> WAN IP  = " & Settings.WANIP)
-        TextPrint("--> WAN     = " & Settings.PublicIP)
-        TextPrint("--> LAN IP  = " & Settings.LANIP())
-        TextPrint("--> DNS     = " & n)
-        TextPrint("--> Region  = " & Settings.ExternalHostName)
+        TextPrint("--> WAN IP = " & Settings.WANIP)
+        TextPrint("--> DNS = " & n)
+        TextPrint("--> WAN = " & Settings.PublicIP)
+        TextPrint("--> LAN IP = " & Settings.LANIP())
+        TextPrint("--> Region IP= " & Settings.ExternalHostName)
         If Settings.ServerType = RobustServerName Then
-            TextPrint("--> Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
         ElseIf Settings.ServerType = RegionServerName Then
-            TextPrint("--> Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
         ElseIf Settings.ServerType = OsgridServer Then
-            TextPrint("--> Login   = " & "http://" & Settings.BaseHostName & ":80")
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
         ElseIf Settings.ServerType = MetroServer Then
-            TextPrint("--> Login   = " & "http://" & Settings.BaseHostName & ":80")
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
         End If
 
     End Sub
