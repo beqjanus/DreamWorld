@@ -69,7 +69,7 @@ Module Apache
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
             End Try
@@ -134,7 +134,7 @@ Module Apache
                 ApacheProcess.Start()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End If
@@ -150,7 +150,7 @@ Module Apache
                 ApacheProcess.Start()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
             Application.DoEvents()
 
@@ -184,7 +184,7 @@ Module Apache
                     ApacheProcess.Start()
                     ApacheProcess.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                     ApacheIcon(False)
                 End Try
                 Application.DoEvents()
@@ -224,7 +224,7 @@ Module Apache
                 response = ApacheProcess.StandardOutput.ReadToEnd() & ApacheProcess.StandardError.ReadToEnd()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 TextPrint(My.Resources.Apache_Failed & ":" & ex.Message)
             End Try
             Application.DoEvents()
@@ -265,7 +265,7 @@ Module Apache
                 ApacheProcess.Start()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 TextPrint(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
             End Try
 
@@ -297,7 +297,7 @@ Module Apache
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End If
 

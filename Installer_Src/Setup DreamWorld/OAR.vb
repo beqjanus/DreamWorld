@@ -169,7 +169,7 @@ Module OAR
             ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
             ConsoleCommand(RegionUUID, "generate map")
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
         End Try
         Application.DoEvents()

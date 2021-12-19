@@ -80,7 +80,7 @@ Module ChatToSpeech
                 SpeechBusyFlag = True
                 Speaker.SpeakAsync(texttospeak)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End SyncLock

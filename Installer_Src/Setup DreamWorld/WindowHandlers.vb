@@ -49,11 +49,11 @@ Module WindowHandlers
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
-                        'BreakPoint.Show(ex.Message)
+                        'BreakPoint.Show(ex)
                         Return
                     End Try
                 Else
-                    'BreakPoint.Show("No PID")
+                    'BreakPoint.Print("No PID")
                     Return
                 End If
                 DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
@@ -67,7 +67,7 @@ Module WindowHandlers
                     'Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
-                    'BreakPoint.Show(ex.Message)
+                    'BreakPoint.Show(ex)
                     Return
                 End Try
                 DoType("Robust", "{ENTER}" & command & "{ENTER}")
@@ -106,7 +106,7 @@ Module WindowHandlers
         ElseIf RegionUUID = "Robust" And command = "{ENTER}q{ENTER}" Then
             Zap("Robust")
         Else
-            BreakPoint.Show("No PID for this window")
+            BreakPoint.Print("No PID for this window")
         End If
 
     End Sub
@@ -224,7 +224,7 @@ Module WindowHandlers
                     ProcessIdDict.Add(PID, Pr)
                     Return Pr
                 End If
-            Catch ex As exception
+            Catch ex As Exception
             End Try
         End If
         Return ProcessIdDict(PID)
@@ -351,7 +351,7 @@ Module WindowHandlers
                     If myProcess.MainWindowTitle = windowName Then
                         Return True
                     Else
-                        'BreakPoint.Show("oops")
+                        'BreakPoint.Print("oops")
                         status = False
                     End If
                 End If
@@ -386,7 +386,7 @@ Module WindowHandlers
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
                 ctr -= 1
                 Sleep(100)
@@ -400,7 +400,7 @@ Module WindowHandlers
     Public Function WaitForPID(myProcess As Process) As Integer
 
         If myProcess Is Nothing Then
-            BreakPoint.Show("No Process!")
+            BreakPoint.Print("No Process!")
             Return 0
         End If
 
@@ -422,7 +422,7 @@ Module WindowHandlers
             Sleep(1000)
             TooMany += 1
         Loop
-        BreakPoint.Show("No Pid")
+        BreakPoint.Print("No Pid")
         Return 0
 
     End Function
@@ -439,7 +439,7 @@ Module WindowHandlers
             Try
                 P.Kill()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
             Application.DoEvents()
         Next

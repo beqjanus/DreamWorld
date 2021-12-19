@@ -14,7 +14,7 @@ Module Logging
         Logger("Error", "--------------------------", "Error")
         Logger("Error", message, "Error")
         If Debugger.IsAttached Then
-            BreakPoint.Show(message)
+            BreakPoint.Print(message)
         End If
 
         ' Create a StackTrace that captures
@@ -55,7 +55,7 @@ Module Logging
         Try
             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Outworldz.log") & """")
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub
@@ -97,7 +97,7 @@ Module Logging
                         path.Add("""" & FileName & """")
                     Next
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
             End If
         End If
@@ -113,7 +113,7 @@ Module Logging
         Try
             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), logs)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub

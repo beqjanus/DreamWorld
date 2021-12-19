@@ -21,7 +21,125 @@ Module SmartStart
 
     Public ProcessIdDict As New Dictionary(Of Integer, Process)
 
-#Region "SmartBegin"
+#Region "StartStart"
+
+
+    ''' <summary>
+    ''' Waits for a restarted region to be fully up
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booted</returns>
+    Public Function WaitForBooted(RegionUUID As String) As Boolean
+
+        Debug.Print("Waiting for " & Region_Name(RegionUUID))
+        Dim c As Integer = 90 ' 1.5 minutes
+        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted And
+                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood
+
+            If Not WaitForBooting(RegionUUID) Then
+                Return False
+            End If
+
+            c -= 1  ' skip on timeout error
+            If c < 0 Then
+                BreakPoint.Print("Timeout")
+                Return False
+            End If
+
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+
+    Public Function WaitForBooting(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
+        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booting And
+                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood And
+                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted
+
+            c -= 1  ' skip on timeout error
+            If c < 0 Then
+                BreakPoint.Print("Timeout")
+                Return False
+            End If
+
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+
+    Private Function AddEm(RegionUUID As String, AgentID As String) As Boolean
+
+        If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
+            BreakPoint.Print("UUID Zero")
+            Logger("Addem", "Bad UUID", "Teleport")
+            Return True
+        End If
+
+        Dim result As New Guid
+        If Not Guid.TryParse(RegionUUID, result) Then
+            Logger("Addem", "Bad UUID", "Teleport")
+            Return False
+        End If
+
+        'TextPrint(My.Resources.Smart_Start_word & " " &  Region_Name(RegionUUID))
+        'Logger("Teleport Request",  Region_Name(RegionUUID) & ":" & AgentID, "Teleport")
+
+        If TeleportAvatarDict.ContainsKey(AgentID) Then
+            TeleportAvatarDict.Remove(AgentID)
+        End If
+        TeleportAvatarDict.Add(AgentID, RegionUUID)
+        Bench.Print("Teleport Added")
+
+        ReBoot(RegionUUID) ' Wait for it to start booting
+
+        Bench.Print("Reboot Signaled")
+        Return False
+
+    End Function
+
+
+
+    Public Sub DeleteAllRegionData(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim GroupName = Group_Name(RegionUUID)
+
+        MapType(RegionUUID) = "" ' force a quick shutdown
+        ShutDown(RegionUUID)
+        ' wait a minute for the region to quit
+        Dim ctr = 60
+
+        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
+             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
+            Sleep(1000)
+            ctr -= 1
+            If ctr = 0 Then Exit While
+        End While
+
+        ' maybe make a backup and kill it
+        If Not Settings.TempRegion Then
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
+                     IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
+        End If
+
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
+
+        DeleteAllContents(RegionUUID)
+        PropChangedRegionSettings = True
+
+        PropUpdateView = True
+
+    End Sub
+#End Region
+
+
+#Region "HTML"
 
 
     Public Function SmartStartParse(post As String) As String
@@ -127,90 +245,9 @@ Module SmartStart
 
     End Function
 
-    ''' <summary>
-    ''' Waits for a restarted region to be fully up
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booted</returns>
-    Public Function WaitForBooted(RegionUUID As String) As Boolean
-
-        Debug.Print("Waiting for " & Region_Name(RegionUUID))
-        Dim c As Integer = 90 ' 1.5 minutes
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood
-
-            If Not WaitForBooting(RegionUUID) Then
-                Return False
-            End If
-
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
-                BreakPoint.Show("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
-    Public Function WaitForBooting(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booting And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted
-
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
-                BreakPoint.Show("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
-    Private Function AddEm(RegionUUID As String, AgentID As String) As Boolean
-
-        If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
-            BreakPoint.Show("UUID Zero")
-            Logger("Addem", "Bad UUID", "Teleport")
-            Return True
-        End If
-
-        Dim result As New Guid
-        If Not Guid.TryParse(RegionUUID, result) Then
-            Logger("Addem", "Bad UUID", "Teleport")
-            Return False
-        End If
-
-        'TextPrint(My.Resources.Smart_Start_word & " " &  Region_Name(RegionUUID))
-        'Logger("Teleport Request",  Region_Name(RegionUUID) & ":" & AgentID, "Teleport")
-
-        If TeleportAvatarDict.ContainsKey(AgentID) Then
-            TeleportAvatarDict.Remove(AgentID)
-        End If
-        TeleportAvatarDict.Add(AgentID, RegionUUID)
-        Bench.Print("Teleport Added")
-
-        ReBoot(RegionUUID) ' Wait for it to start booting
-
-        Bench.Print("Reboot Signaled")
-        Return False
-
-    End Function
-
-#End Region
-
-#Region "HTML"
-
     Public Function RegionListHTML(Settings As MySettings, Data As String) As String
+
+        ' TODO add paramter for start and length
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
@@ -270,7 +307,7 @@ Module SmartStart
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-            ' BreakPoint.Show(ex.Message)
+            ' BreakPoint.Show(ex)
         End Try
 
         Return HTML
@@ -278,6 +315,10 @@ Module SmartStart
     End Function
 
 #End Region
+
+#Region "Suspend"
+
+
     Public Sub DoSuspend(RegionName As String)
 
         Dim RegionUUID As String = FindRegionByName(RegionName)
@@ -295,7 +336,7 @@ Module SmartStart
 
     End Sub
 
-
+#End Region
 
 #Region "BootUp"
 
@@ -436,7 +477,7 @@ Module SmartStart
                         BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
                     End If
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
 
                 Try
@@ -460,7 +501,7 @@ Module SmartStart
 
                     BootProcess.PriorityClass = P
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
 
                 If Not SetWindowTextCall(BootProcess, GroupName) Then
@@ -483,7 +524,7 @@ Module SmartStart
                     ProcessID(UUID) = PID
                 Next
             Else
-                BreakPoint.Show("No PID for " & GroupName)
+                BreakPoint.Print("No PID for " & GroupName)
             End If
 
             PropUpdateView = True ' make form refresh

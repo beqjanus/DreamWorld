@@ -64,7 +64,7 @@ Module Icecast
         Try
             IcecastProcess.Start()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             TextPrint(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastIcon(False)
             Return False
@@ -72,7 +72,7 @@ Module Icecast
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
-            BreakPoint.Show(My.Resources.Icecast_failed)
+            BreakPoint.Print(My.Resources.Icecast_failed)
             TextPrint(My.Resources.Icecast_failed)
             IceCastIcon(False)
             Return False
@@ -95,7 +95,7 @@ Module Icecast
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 IceCastIcon(False)
                 Return False
             End Try

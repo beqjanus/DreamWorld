@@ -261,7 +261,7 @@ Module IAR
                 Try
                     System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
             End If
 
@@ -283,7 +283,7 @@ Module IAR
             Try
                 s = fi.Length
             Catch ex As Exception
-                'BreakPoint.Show(ex.Message)
+                'BreakPoint.Show(ex)
             End Try
             If s = oldsize And s > 0 Then
                 same += 1

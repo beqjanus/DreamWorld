@@ -19,6 +19,7 @@ Public Module MysqlInterface
     Private WithEvents ProcessMySql As Process = New Process()
 #Enable Warning IDE0140 ' Object creation can be simplified
     Private ReadOnly Dict As New Dictionary(Of String, String)
+    Private ReadOnly HGDict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
@@ -27,6 +28,7 @@ Public Module MysqlInterface
     End Sub
 
 #Region "Properties"
+
 
     Public Property MysqlCrashCounter As Integer
         Get
@@ -111,7 +113,7 @@ Public Module MysqlInterface
                              )
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
         CreateService()
@@ -134,7 +136,7 @@ Public Module MysqlInterface
                         MysqlProcess.Start()
                         MysqlProcess.WaitForExit()
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex)
                         MySQLIcon(False)
                     End Try
                     Application.DoEvents()
@@ -172,7 +174,7 @@ Public Module MysqlInterface
                     response = MysqlProcess.StandardOutput.ReadToEnd() & MysqlProcess.StandardError.ReadToEnd()
                     MysqlProcess.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                     TextPrint(My.Resources.Mysql_Failed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
@@ -207,7 +209,7 @@ Public Module MysqlInterface
             Try
                 ProcessMySql.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
             ' wait for MySql to come up
@@ -224,14 +226,14 @@ Public Module MysqlInterface
                         Try
                             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
+                            BreakPoint.Show(ex)
                         End Try
 
                         For Each FileName As String In files
                             Try
                                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
                             Catch ex As Exception
-                                BreakPoint.Show(ex.Message)
+                                BreakPoint.Show(ex)
                             End Try
                             Application.DoEvents()
                         Next
@@ -304,9 +306,9 @@ Public Module MysqlInterface
                 End Using
 #Enable Warning CA2100
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -335,9 +337,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -379,7 +381,7 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -421,9 +423,9 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -447,9 +449,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -484,7 +486,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -498,6 +500,52 @@ Public Module MysqlInterface
     ''' </summary>
     ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
+
+        If DebugLandMaker Then
+
+            Dim HowManyAvatars As Integer = 1
+            Dim Odds As Double = 20
+            ' sprinkle avatars around the system
+            If Debugger.IsAttached Then
+                If Dict.Count = HowManyAvatars Then
+                    Dim a = Between(1, 4000)
+                    If a <= Odds Then
+                        Dim b = Between(1, Dict.Count)
+                        For Each name In Dict
+                            b -= 1
+                            If b = 0 Then
+                                TextPrint($"Deleting {name.Key}")
+                                Dict.Remove(name.Key)
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+
+                If Dict.Count < HowManyAvatars Then
+                    Dim a = Between(1, 1000)
+                    If a <= Odds Then
+                        Dim RegionList = RegionUuids()
+                        Dim r = Between(0, RegionList.Count - 1)
+                        Dim RegionUUID = RegionList.Item(r)
+                        Dim RegionName = Region_Name(RegionUUID)
+                        Dim index = RandomNumber.Between(1, NameList.Count)
+                        Dim UserName = NameList.Item(index)
+
+                        If Not Dict.ContainsKey(UserName) Then
+                            TextPrint($"Adding {UserName} to {RegionName}")
+                            Dict.Add(UserName, RegionUUID)
+                        Else
+                            Dict.Item(UserName) = RegionUUID
+                        End If
+                    End If
+                End If
+
+
+            End If
+            Return Dict
+        End If
+
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
@@ -517,52 +565,13 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return Dict
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return Dict
             End Try
 
-            If DebugLandMaker Then
-
-                Dim HowManyAvatars As Integer = 10
-                Dim Odds As Double = 20
-                ' sprinkle avatars around the system
-                If Debugger.IsAttached Then
-                    If Dict.Count < HowManyAvatars Then
-                        Dim a = Between(1, 1000)
-                        If a <= Odds Then
-                            Dim RegionList = RegionUuids()
-                            Dim r = Between(1, RegionList.Count - 1)
-                            Dim RegionUUID = RegionList.Item(r)
-                            Dim RegionName = Region_Name(RegionUUID)
-                            Dim index = RandomNumber.Between(1, NameList.Count)
-                            Dim UserName = NameList.Item(index)
-
-                            If Not Dict.ContainsKey(UserName) Then
-                                TextPrint($"Adding {UserName}")
-                                Dict.Add(UserName, RegionUUID)
-                            Else
-                                Dict.Item(UserName) = RegionUUID
-                            End If
-                        End If
-                    Else
-                        Dim a = Between(1, 1000)
-                        If a <= Odds Then
-                            Dim b = Between(1, Dict.Count - 1)
-                            For Each name In Dict
-                                b -= 1
-                                If b = 0 Then
-                                    Dict.Remove(name.Key)
-                                    Exit For
-                                End If
-                            Next
-                        End If
-                    End If
-
-                End If
-            End If
 
         End Using
 
@@ -589,16 +598,16 @@ Public Module MysqlInterface
                             Try
                                 Return reader.GetInt32(0)
                             Catch
-                                BreakPoint.Show("Cannot read MySQL!")
+                                BreakPoint.Print("Cannot read MySQL!")
                                 Return 0
                             End Try
                         End If
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -634,9 +643,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -680,9 +689,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -722,10 +731,10 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return A
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return A
             End Try
 
@@ -738,7 +747,7 @@ Public Module MysqlInterface
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
-        Dim Dict As New Dictionary(Of String, String)
+
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
@@ -762,7 +771,7 @@ Public Module MysqlInterface
                                 ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
                                 If UUID <> "00000000-0000-0000-0000-000000000000" Then
-                                    Dict.Add(Avatar, UUID)
+                                    HGDict.Add(Avatar, UUID)
                                 End If
                             Next
                         End While
@@ -770,9 +779,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -784,7 +793,7 @@ Public Module MysqlInterface
 
         'Dict.Remove("test user")
 
-        Return Dict
+        Return HGDict
 
     End Function
 
@@ -813,7 +822,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -831,10 +840,10 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return Val
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 Return Val
             End Try
 
@@ -849,15 +858,15 @@ Public Module MysqlInterface
                             End While
                         End Using
                     Catch ex As MySqlException
-                        BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex)
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex)
                     End Try
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -907,7 +916,7 @@ Public Module MysqlInterface
             Try
                 p.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
     End Sub
@@ -935,9 +944,9 @@ Public Module MysqlInterface
                     End If
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -978,7 +987,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1012,9 +1021,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1047,9 +1056,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1078,9 +1087,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
 
         End Using
@@ -1098,12 +1107,12 @@ Public Module MysqlInterface
                             cmd1.ExecuteNonQuery()
                         End Using
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex)
                     End Try
                 Catch ex As MySqlException
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
             End Using
         End If
@@ -1166,7 +1175,7 @@ Public Module MysqlInterface
                 Mutelist.Start()
                 Mutelist.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 ErrorLog("Could not create Mutelist Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                 Return
@@ -1192,7 +1201,7 @@ Public Module MysqlInterface
                 Mutelist.Start()
                 Mutelist.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 ErrorLog("Could not create SimStats Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
             End Try
@@ -1217,7 +1226,7 @@ Public Module MysqlInterface
                 MysqlWordpress.Start()
                 MysqlWordpress.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 ErrorLog("Could not create WordPress Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                 Return
@@ -1260,7 +1269,7 @@ Public Module MysqlInterface
             "mysqld.exe --install MySQL --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub
@@ -1276,7 +1285,7 @@ Public Module MysqlInterface
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub
@@ -1292,7 +1301,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1318,9 +1327,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1370,7 +1379,7 @@ Public Module MysqlInterface
         Try
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
         If files IsNot Nothing Then
@@ -1381,7 +1390,7 @@ Public Module MysqlInterface
                     Try
                         System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{FileName}""")
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex)
                     End Try
                 Next
             End If
@@ -1427,9 +1436,9 @@ Public Module MysqlInterface
                         Next
                     Next
                 Catch ex As MySqlException
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
             End Using
         End If
@@ -1454,7 +1463,7 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End Using
 
@@ -1474,9 +1483,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         Else
             Try
@@ -1498,9 +1507,9 @@ Public Module MysqlInterface
                 End Using
                 '{"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'regionname , regionsize,locationx, locationy, dateupdated, UUID) " & vbCrLf & "             ' at line 1"}
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
             End Try
         End If
 

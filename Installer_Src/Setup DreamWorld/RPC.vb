@@ -152,7 +152,7 @@ Module RPC
                 Next
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
         Return result
 

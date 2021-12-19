@@ -992,7 +992,7 @@ Public Class FormSmartStart
                 TextPrint(My.Resources.Stopped_word)
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
         ApplyTerrainEffectButton.Text = My.Resources.Apply_word
@@ -1200,7 +1200,7 @@ Public Class FormSmartStart
                 Writer.Write(Xml)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
     End Sub
 
@@ -1319,7 +1319,7 @@ Public Class FormSmartStart
                         Try
                             System.IO.Directory.CreateDirectory(path)
                         Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
+                            BreakPoint.Show(ex)
                         End Try
                     End If
                     Terrainfolder = path
@@ -1370,7 +1370,7 @@ Public Class FormSmartStart
                 Try
                     System.IO.Directory.CreateDirectory(path)
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                 End Try
             End If
             Terrainfolder = path
@@ -1854,38 +1854,6 @@ Public Class FormSmartStart
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
 
         Settings.DeleteTreesFirst = DeletApply.Checked
-
-    End Sub
-
-    Private Sub DeleteAllRegionData(RegionUUID As String)
-
-        Dim RegionName = Region_Name(RegionUUID)
-        Dim GroupName = Group_Name(RegionUUID)
-
-        MapType(RegionUUID) = "" ' force a quick shutdown
-        ShutDown(RegionUUID)
-        ' wait a minute for the region to quit
-        Dim ctr = 60
-
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
-             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
-            Sleep(1000)
-            ctr -= 1
-            If ctr = 0 Then Exit While
-        End While
-
-        ' maybe make a backup and kill it
-        If Not Settings.TempRegion Then
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
-                     IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
-        End If
-
-        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
-
-        DeleteAllContents(RegionUUID)
-        PropChangedRegionSettings = True
-        ProgressPrint($"Deleted region {RegionName}")
-        PropUpdateView = True
 
     End Sub
 

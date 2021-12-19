@@ -40,7 +40,7 @@ Module Maps
         Try
             FileIO.FileSystem.CreateDirectory(SavePath)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
         For Each RegionUUID In RegionUuids()
@@ -60,7 +60,7 @@ Module Maps
                         Try
                             bmp.SetPixel(X, Y, newColor)
                         Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
+                            BreakPoint.Show(ex)
                         End Try
 
                     Next
@@ -94,7 +94,7 @@ Module Maps
                                     g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
                                     Out.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
                                 Catch ex As Exception
-                                    BreakPoint.Show(ex.Message)
+                                    BreakPoint.Show(ex)
                                 End Try
 
                             End Using

@@ -256,7 +256,7 @@ Public Class FormRegions
             s1.SelectVoice(selected)
             Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub

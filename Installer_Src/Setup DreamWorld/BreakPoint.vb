@@ -6,10 +6,21 @@
 #End Region
 
 Module BreakPoint
+    Public Sub Print(Message As String)
+        Diagnostics.Debug.Print(Message)
+    End Sub
 
-    Public Sub Show(message As String)
+    Public Sub Show(ex As Exception)
 
-        Diagnostics.Debug.Print(message)
+        Dim Message As String
+        Message = ex.Message
+        Dim st As StackTrace = New StackTrace(ex, True)
+        For Each sf As StackFrame In st.GetFrames
+            If sf.GetFileLineNumber() > 0 Then
+                Message &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
+            End If
+        Next
+        Diagnostics.Debug.Print(Message)
 
     End Sub
 

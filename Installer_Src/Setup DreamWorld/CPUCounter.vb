@@ -95,7 +95,7 @@ Module CPUCounter
                         Thread.Sleep(100)
                     Next
                 Catch ex As Exception
-                    'BreakPoint.Show(ex.Message)
+                    'BreakPoint.Show(ex)
                     O.CounterList.Clear()
                     O.CPUValues.Clear()
                 End Try

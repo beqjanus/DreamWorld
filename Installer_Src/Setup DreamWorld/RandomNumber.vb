@@ -10,7 +10,7 @@ Module RandomNumber
     Public Function Between(Min As Integer, Max As Integer) As Integer
 
         If Max < Min Then
-            BreakPoint.Show("Error")
+            BreakPoint.Print("Error")
             Dim tmp = Max
             Max = Min
             Min = tmp

@@ -14,7 +14,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.8"
+    Public Const _MyVersion As String = "4.81"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -230,7 +230,7 @@ Module GlobalSettings
         Select Case state
             Case -1
                 statestring = "*** BAD UUID **"
-                BreakPoint.Show(statestring)
+                BreakPoint.Print(statestring)
             Case 0
                 statestring = "Stopped"
             Case 1

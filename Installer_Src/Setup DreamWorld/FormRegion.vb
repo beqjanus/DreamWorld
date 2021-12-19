@@ -683,7 +683,7 @@ Public Class FormRegion
             Initted1 = True
             HelpOnce("Region")
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
     End Sub
@@ -989,7 +989,7 @@ Public Class FormRegion
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
 
         Return value
@@ -1016,7 +1016,7 @@ Public Class FormRegion
                     chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 chosen = ""
             End Try
 
@@ -1070,7 +1070,7 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             Message = Global.Outworldz.My.Resources.NVNonPhysPrim
             Return Message
         End Try
@@ -1081,7 +1081,7 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             Message = Global.Outworldz.My.Resources.NVPhysPrim
             Return Message
         End Try
@@ -1092,7 +1092,7 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             Message = Global.Outworldz.My.Resources.NVMaxPrim
             Return Message
         End Try
@@ -1102,7 +1102,7 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
             Message = Global.Outworldz.My.Resources.NVMaxAgents
             Return Message
         End Try
@@ -1123,7 +1123,7 @@ Public Class FormRegion
                 MysqlInterface.DeregisterRegionUUID(RegionUUID)
                 My.Computer.FileSystem.RenameFile(RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 TextPrint(My.Resources.Aborted_word)
                 Return False
             End Try
@@ -1147,7 +1147,7 @@ Public Class FormRegion
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex)
                     TextPrint(My.Resources.Aborted_word)
                     Return False
                 End Try
@@ -1419,7 +1419,7 @@ Public Class FormRegion
                     outputFile.Write(Region)
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                BreakPoint.Show(ex)
                 MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
                 ABort = True
             End Try
@@ -1562,7 +1562,7 @@ Public Class FormRegion
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
     End Sub
 
@@ -1615,7 +1615,7 @@ Public Class FormRegion
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex)
         End Try
     End Sub
 
