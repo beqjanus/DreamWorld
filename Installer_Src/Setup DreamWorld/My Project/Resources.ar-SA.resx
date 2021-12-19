@@ -756,7 +756,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>محتوى</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>موقع الشرق والغرب على خريطة العالم</value>
   </data>
   <data name="CoordY" xml:space="preserve">
@@ -3398,10 +3398,7 @@
   </data>
   <data name="Choose_folder" xml:space="preserve">
     <value>اختيار المجلد</value>
-  </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>موقع الشرق والغرب على خريطة العالم</value>
-  </data>
+  </data>  
   <data name="MustSetSS" xml:space="preserve">
     <value>يجب تعيين صاحب سيم تحيط أولا!</value>
   </data>

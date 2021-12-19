@@ -681,7 +681,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Obsah</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Na východ-západ pozice na mapě světa</value>
   </data>
   <data name="CoordY" xml:space="preserve">

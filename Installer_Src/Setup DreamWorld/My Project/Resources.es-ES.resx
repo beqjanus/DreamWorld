@@ -747,9 +747,6 @@
   <data name="Content_word" xml:space="preserve">
     <value>Contenido</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
-    <value>La posición Este-Oeste en el mapa mundial</value>
-  </data>
   <data name="CoordY" xml:space="preserve">
     <value>La posición Norte-Sur en el mapa mundial</value>
   </data>
@@ -3395,9 +3392,6 @@
   </data>
   <data name="Choose_folder" xml:space="preserve">
     <value>Elegir carpeta</value>
-  </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>La posición Este-Oeste en el mapa del mundo</value>
   </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>¡Debe configurar primero al propietario de los Sim Surrounds!</value>

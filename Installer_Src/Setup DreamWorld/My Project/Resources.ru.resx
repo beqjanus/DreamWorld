@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Содержание</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Положение Восток-Запад на карте мира</value>
   </data>
   <data name="CoordY" xml:space="preserve">

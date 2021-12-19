@@ -211,7 +211,7 @@ Partial Class FormRegion
         Me.CoordX.Name = "CoordX"
         Me.CoordX.Size = New System.Drawing.Size(40, 20)
         Me.CoordX.TabIndex = 0
-        Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Resources.Coordx)
+        Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Resources.CoordX)
         '
         'RegionName
         '

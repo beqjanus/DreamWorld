@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>內容</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>在世界地圖上的東西位置</value>
   </data>
   <data name="CoordY" xml:space="preserve">

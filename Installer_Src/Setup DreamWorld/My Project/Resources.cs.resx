@@ -756,7 +756,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Obsah</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Pozice východ-západ na mapě světa</value>
   </data>
   <data name="CoordY" xml:space="preserve">
@@ -3398,9 +3398,6 @@
   </data>
   <data name="Choose_folder" xml:space="preserve">
     <value>Vybrat složku</value>
-  </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>Pozice Východ-Západ na mapě světa</value>
   </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Musí nastavit majitele Sim Surrounds jako první!</value>

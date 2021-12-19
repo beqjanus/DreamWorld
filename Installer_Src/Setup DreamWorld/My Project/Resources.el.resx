@@ -756,7 +756,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Περιεχόμενο</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Η θέση της Ανατολής-Δύσης στον παγκόσμιο χάρτη</value>
   </data>
   <data name="CoordY" xml:space="preserve">

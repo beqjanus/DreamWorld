@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Sisältö</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Itä-länsi asema maailmankartalla</value>
   </data>
   <data name="CoordY" xml:space="preserve">

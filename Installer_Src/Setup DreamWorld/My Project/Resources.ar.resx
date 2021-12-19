@@ -756,9 +756,6 @@
   <data name="Content_word" xml:space="preserve">
     <value>محتوى</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
-    <value>الموقف بين الشرق والغرب على خريطة العالم</value>
-  </data>
   <data name="CoordY" xml:space="preserve">
     <value>موقف الشمال والجنوب على خريطة العالم</value>
   </data>

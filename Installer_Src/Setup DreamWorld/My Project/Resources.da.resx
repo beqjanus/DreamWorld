@@ -756,7 +756,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Indhold</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Øst-vest position på verdenskortet</value>
   </data>
   <data name="CoordY" xml:space="preserve">
@@ -3398,9 +3398,6 @@
   </data>
   <data name="Choose_folder" xml:space="preserve">
     <value>Vælg mappe</value>
-  </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>Øst-Vest-positionen på verdenskortet</value>
   </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Skal indstille ejeren af sim-surrounds først!</value>

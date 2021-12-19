@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>The East-West position on the world map</value>
   </data>
   <data name="CoordY" xml:space="preserve">
@@ -3395,9 +3395,6 @@
   </data>
   <data name="Choose_folder" xml:space="preserve">
     <value>Choose folder</value>
-  </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>The East-West position on the world map</value>
   </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Must set the owner of the Sim Surrounds first!</value>

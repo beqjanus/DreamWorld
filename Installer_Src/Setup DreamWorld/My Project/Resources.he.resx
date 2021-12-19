@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>תוֹכֶן</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>עמדת המזרח למערב על מפת העולם</value>
   </data>
   <data name="CoordY" xml:space="preserve">

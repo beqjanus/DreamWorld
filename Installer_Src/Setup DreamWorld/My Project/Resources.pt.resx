@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Contente</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>A posição leste-oeste no mapa do mundo</value>
   </data>
   <data name="CoordY" xml:space="preserve">

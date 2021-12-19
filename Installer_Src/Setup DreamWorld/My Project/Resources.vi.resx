@@ -747,7 +747,7 @@
   <data name="Content_word" xml:space="preserve">
     <value>Nội dung</value>
   </data>
-  <data name="Coordx" xml:space="preserve">
+  <data name="CoordX" xml:space="preserve">
     <value>Vị trí Đông Tây trên bản đồ thế giới</value>
   </data>
   <data name="CoordY" xml:space="preserve">

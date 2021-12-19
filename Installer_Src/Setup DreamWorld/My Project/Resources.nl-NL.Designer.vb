@@ -1489,9 +1489,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to De oost-west positie op de wereldkaart.
         '''</summary>
-        Friend Shared ReadOnly Property Coordx() As String
+        Friend Shared ReadOnly Property CoordX() As String
             Get
-                Return ResourceManager.GetString("Coordx", resourceCulture)
+                Return ResourceManager.GetString("CoordX", resourceCulture)
             End Get
         End Property
         
