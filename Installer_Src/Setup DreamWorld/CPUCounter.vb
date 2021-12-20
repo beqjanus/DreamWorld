@@ -64,8 +64,10 @@ Module CPUCounter
                             If Not O.CounterList.ContainsKey(Gname) Then
                                 Try
                                     Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                                        O.CounterList.Add(Gname, counter)
-                                        counter.NextValue() ' start the counter
+                                        If counter IsNot Nothing Then
+                                            O.CounterList.Add(Gname, counter)
+                                            counter.NextValue() ' start the counter
+                                        End If
                                     End Using
                                 Catch ex As Exception
                                     O.CounterList.Item(Gname).Close()
