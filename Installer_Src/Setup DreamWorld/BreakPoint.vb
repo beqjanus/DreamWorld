@@ -14,7 +14,7 @@ Module BreakPoint
 
         Dim Message As String
         Message = ex.Message
-        Dim st As StackTrace = New StackTrace(ex, True)
+        Dim st = New StackTrace(ex, True)
         Message &= st.ToString
 
         For Each sf As StackFrame In st.GetFrames

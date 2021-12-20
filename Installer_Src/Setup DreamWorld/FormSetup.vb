@@ -968,7 +968,7 @@ Public Class FormSetup
 
 #Region "Misc"
 
-    Dim LandcapeLock As Object
+    ReadOnly LandcapeLock As Object
     Public Sub CheckForBootedRegions()
 
         Dim t = 60

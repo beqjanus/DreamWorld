@@ -359,7 +359,6 @@ Module Build
 
     End Function
 
-    Dim TempRegionLock As Object
 
     Private Function MakeTempRegion(Group As String, X As Integer, Y As Integer) As String
 

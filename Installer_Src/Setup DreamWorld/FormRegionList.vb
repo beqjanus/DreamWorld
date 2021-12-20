@@ -1948,10 +1948,9 @@ SetWindowOnTop_Err:
 
 End Class
 
-#Disable Warning CA1052 ' Static holder types should be Static or NotInheritable
 
 Public Class Rfc4180Writer
-#Enable Warning CA1052 ' Static holder types should be Static or NotInheritable
+
 
     Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
