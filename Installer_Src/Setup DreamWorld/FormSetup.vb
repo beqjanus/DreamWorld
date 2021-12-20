@@ -348,9 +348,6 @@ Public Class FormSetup
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
 
-            'If GroupName = "Welcome" Then
-            'BreakPoint.Print("Break")
-            'End If
 
             TextPrint(GroupName & " " & Reason)
 
@@ -361,6 +358,9 @@ Public Class FormSetup
             Dim RegionUUID As String = ""
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
+
+                DelPidFile(RegionUUID) 'kill the disk PID
+
                 ' Already done, just being safe here
                 PID = ProcessID(RegionUUID)
                 If PropInstanceHandles.ContainsKey(PID) Then
@@ -1326,7 +1326,9 @@ Public Class FormSetup
             Logger("State is Stopped", Region_Name(RegionUUID), "Teleport")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
+            DelPidFile(RegionUUID)
         Next
+
         Try
             PropExitList.Clear()
             ClearStack()

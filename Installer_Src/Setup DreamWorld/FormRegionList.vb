@@ -1335,6 +1335,7 @@ SetWindowOnTop_Err:
 
         If chosen = "Start" Then
 
+            DelPidFile(RegionUUID)
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
                 Return
@@ -1387,22 +1388,26 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Console" Then
 
-            ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
-
             Dim hwnd = GetHwnd(Group_Name(RegionUUID))
-
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
                 For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
                     RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
                 Next
+                DelPidFile(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Else
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
                 Settings.ConsoleShow = "True"
-                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
+                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+                    ' shut down all regions in the DOS box
+                    For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
+                        RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
+                    Next
+                    DelPidFile(RegionUUID)
+                    Return
+                End If
 
                 SetWindowOnTop(hwnd.ToInt32)
                 Settings.ConsoleShow = tmp
@@ -1422,7 +1427,6 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Restart" Then
 
             FormSetup.Buttons(FormSetup.BusyButton)
-            FormSetup.SequentialPause()
 
             ' shut down all regions in the DOS box
             Dim GroupName = Group_Name(RegionUUID)

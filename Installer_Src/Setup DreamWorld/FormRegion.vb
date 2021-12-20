@@ -837,7 +837,7 @@ Public Class FormRegion
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
-            DeleteAllContents(RegionUUID)
+            DeleteAllRegionData(RegionUUID)
             PropChangedRegionSettings = True
             Changed1 = False
             PropUpdateView = True

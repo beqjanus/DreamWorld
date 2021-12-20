@@ -269,6 +269,9 @@ Public Module MysqlInterface
 
     Public Sub DeleteAllContents(regionUUID As String)
 
+        Dim GroupName = Group_Name(regionUUID)
+        Dim RegionName = Region_Name(regionUUID)
+
         DeleteContent(regionUUID, "primshapes", "uuid")
         DeleteContent(regionUUID, "bakedterrain", "regionuuid")
         DeleteContent(regionUUID, "estate_map", "regionid")
@@ -284,11 +287,8 @@ Public Module MysqlInterface
         Delete_Region_Map(regionUUID)
         DeleteMaps(regionUUID)
         DeregisterRegionUUID(regionUUID)
-
-        Dim GroupName = Group_Name(regionUUID)
-        Dim RegionName = Region_Name(regionUUID)
-        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
+
         DeleteRegion(regionUUID)
 
     End Sub

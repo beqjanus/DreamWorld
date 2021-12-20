@@ -13,6 +13,12 @@ Imports System.IO
 Imports System.Threading
 
 Module FileStuff
+    Public Sub DelPidFile(RegionUUID As String)
+
+        Dim Path = OpensimIniPath(RegionUUID)
+        DeleteFile(IO.Path.Combine(Path, "PID.pid"))
+
+    End Sub
 
     Public Sub Cleanup() ' old files
 
@@ -375,7 +381,7 @@ Module FileStuff
         Retry = 100 ' 10 sec
         While Retry > 0
             DeleteFile(INI)
-            Sleep(100)
+            Sleep(10)
             Try
                 My.Computer.FileSystem.RenameFile(INI & ".bak", f)
                 Retry = 0
