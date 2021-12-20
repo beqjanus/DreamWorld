@@ -15,6 +15,8 @@ Module BreakPoint
         Dim Message As String
         Message = ex.Message
         Dim st As StackTrace = New StackTrace(ex, True)
+        Message &= st.ToString
+
         For Each sf As StackFrame In st.GetFrames
             If sf.GetFileLineNumber() > 0 Then
                 Message &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
