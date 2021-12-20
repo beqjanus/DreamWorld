@@ -229,7 +229,7 @@ Module GlobalSettings
         Dim statestring As String
         Select Case state
             Case -1
-                statestring = "*** BAD UUID **"
+                statestring = "ERROR"
                 BreakPoint.Print(statestring)
             Case 0
                 statestring = "Stopped"
@@ -252,17 +252,17 @@ Module GlobalSettings
             Case 9
                 statestring = "Suspended"
             Case 10
-                statestring = "Error"
-            Case 11
                 statestring = "RestartStage2"
-            Case 12
+            Case 11
+
                 statestring = "ShuttingDownForGood"
-            Case 13
+            Case 12
                 statestring = "NoLogin"
-            Case 14
-                statestring = "No Error on Exit"
+            Case 13
+                statestring = "No Error"
             Case Else
                 statestring = "**** Unknown state ****"
+                BreakPoint.Print($"**** Unknown state **** {CStr(state)}")
         End Select
 
         Return statestring

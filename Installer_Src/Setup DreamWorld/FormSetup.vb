@@ -348,7 +348,6 @@ Public Class FormSetup
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
 
-
             TextPrint(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
@@ -367,7 +366,7 @@ Public Class FormSetup
                     PropInstanceHandles.Remove(PID)
                 End If
             Else
-                Logger("No UUID", GroupName, "Teleport")
+                BreakPoint.Print("No UUID!")
                 Continue While
             End If
 
@@ -404,6 +403,7 @@ Public Class FormSetup
                     RegionStatus(UUID) = SIMSTATUSENUM.Stopped
                 Next
                 PropUpdateView = True ' make form refresh
+                Application.DoEvents() ' FKB
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
@@ -1092,7 +1092,7 @@ Public Class FormSetup
                                 RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
                             Next
 
-                            PropUpdateView = True ' make form refresh
+                            PropUpdateView = True ' make form refresh                            
                             Continue For
                         End If
                     End If
