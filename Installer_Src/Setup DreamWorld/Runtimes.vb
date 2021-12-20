@@ -9,6 +9,21 @@ Module Runtimes
 
     Public Sub UpgradeDotNet()
 
+        ' Detect Operating System  Updates
+        Using objOS = New Management.ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem")
+
+            For Each objMgmt In objOS.Get()
+                Console.WriteLine("{0}: {1}", objMgmt.Properties("Caption").Name, objMgmt.Properties("Caption").Value)
+                Dim OS = objMgmt.Properties("Caption").Value.ToString
+                If OS <> Settings.OperatingSystem And
+                    Settings.OperatingSystem.Length > 0 Then
+                    Settings.DotnetUpgraded() = False
+                End If
+                Settings.OperatingSystem = OS
+            Next
+
+        End Using
+
         If Settings.DotnetUpgraded() Then Return
 
         TextPrint(My.Resources.Update_word & " Dot Net")

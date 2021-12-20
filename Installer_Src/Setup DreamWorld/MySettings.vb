@@ -760,6 +760,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property OperatingSystem() As String
+        Get
+            Return GetMySetting("OperatingSystem", "")
+        End Get
+        Set
+            SetMySetting("OperatingSystem", Value)
+        End Set
+    End Property
+
     Public Property DotnetUpgraded() As Boolean
         Get
             Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)
