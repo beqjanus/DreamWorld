@@ -1,5 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
-
+﻿
 #Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
@@ -7,7 +6,7 @@
 
 #End Region
 
-#End Region
+
 
 Imports System.IO
 Imports System.Threading
@@ -135,7 +134,7 @@ Module FileStuff
                 End Using
             End Using
         Catch ex As Exception
-            Logger("Warn", $"Cannot copy file {From}", "Error")
+            BreakPoint.Print($"Cannot copy file {From}")
         End Try
 
     End Sub
@@ -381,10 +380,10 @@ Module FileStuff
         Retry = 100 ' 10 sec
         While Retry > 0
             DeleteFile(INI)
-            Sleep(10)
+            Thread.Sleep(10)
             Try
-                My.Computer.FileSystem.RenameFile(INI & ".bak", f)
-                Retry = 0
+                CopyFileFast($"{INI}.bak", INI)
+                Return
             Catch
                 Retry -= 1
                 Sleep(100)
