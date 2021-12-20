@@ -536,6 +536,7 @@ Public Module MysqlInterface
                             TextPrint($"Adding {UserName} to {RegionName}")
                             Dict.Add(UserName, RegionUUID)
                         Else
+                            TextPrint($"Moving {UserName} to {RegionName}")
                             Dict.Item(UserName) = RegionUUID
                         End If
                     End If
