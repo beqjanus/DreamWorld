@@ -32,7 +32,7 @@ Module SmartStart
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
         Debug.Print("Waiting for " & Region_Name(RegionUUID))
-        Dim c As Integer = 90 ' 1.5 minutes
+        Dim Retry As Integer = 90 ' 1.5 minutes
         While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted And
                  RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood
 
@@ -40,8 +40,8 @@ Module SmartStart
                 Return False
             End If
 
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
+            Retry -= 1  ' skip on timeout error
+            If Retry < 0 Then
                 BreakPoint.Print("Timeout")
                 Return False
             End If
@@ -110,10 +110,9 @@ Module SmartStart
         Dim RegionName = Region_Name(RegionUUID)
         Dim GroupName = Group_Name(RegionUUID)
 
-        MapType(RegionUUID) = "" ' force a quick shutdown
         ShutDown(RegionUUID)
         ' wait a minute for the region to quit
-        Dim ctr = 60
+        Dim ctr = 120
 
         While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
              RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
@@ -122,17 +121,9 @@ Module SmartStart
             If ctr = 0 Then Exit While
         End While
 
-        ' maybe make a backup and kill it
-        If Not Settings.TempRegion Then
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
-                     IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
-        End If
-
-        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
-
         DeleteAllContents(RegionUUID)
-        PropChangedRegionSettings = True
 
+        PropChangedRegionSettings = True
         PropUpdateView = True
 
     End Sub

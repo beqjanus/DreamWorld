@@ -10,11 +10,8 @@ Imports System.Threading
 
 Module Build
     Public NameList As New List(Of String)
-
     Public Terrains As New List(Of String)
-
     Public TreeList As New List(Of String)
-
     Private _ctr As Integer
 
     Public Class RegionEssentials
@@ -343,13 +340,17 @@ Module Build
                 Return "SimSurround " & CStr(_ctr)
             End If
 
-            While True
+            Dim Retry = 300
+            While Retry > 0
                 Dim index = RandomNumber.Between(1, NameList.Count - 1)
                 Dim proposedName = NameList.Item(index)
                 If Not Existing.Contains(proposedName) Then
                     Return proposedName
                 End If
+                Retry -= 1
             End While
+            If Retry = 0 Then BreakPoint.Print("Retry Random Name exceeded")
+
         Catch ex As Exception
             BreakPoint.Show(ex)
         End Try

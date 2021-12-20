@@ -260,7 +260,7 @@ Module RegionMaker
     End Sub
 
 
-    Private writeRegionLock As Boolean
+    Private WriteRegionLock As Boolean
     ''' <summary>
     ''' Saves Region class to disk file
     ''' </summary>
@@ -269,11 +269,14 @@ Module RegionMaker
     ''' <param name="Verbose">Be chatty on the console</param>
     Public Sub WriteRegionObject(Group As String, RegionName As String)
 
-        While writeRegionLock
+        Dim Retry As Integer = 15
+        While Retry > 0 And WriteRegionLock
             Sleep(1000)
+            Retry -= 1
         End While
+        If Retry = 0 Then BreakPoint.Print("Retry WriteRegionLock exceeded")
+        WriteRegionLock = True
 
-        writeRegionLock = True
         Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
         Dim RegionUUID As String = FindRegionByName(RegionName)
         ' file paths
@@ -358,7 +361,7 @@ Module RegionMaker
 
         AddToRegionMap(RegionUUID)
 
-        writeRegionLock = False
+        WriteRegionLock = False
 
     End Sub
 
@@ -504,13 +507,15 @@ Module RegionMaker
 
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        ' wait for it to read the disk.
+
         If Not PropChangedRegionSettings Then Return RegionList.Count
-        Dim RetryCounter = 120
-        While GetRegionsIsBusy And RetryCounter > 0
+
+        Dim Retry = 120
+        While Retry > 0 And GetRegionsIsBusy
             Sleep(1000)
-            RetryCounter -= 1
+            Retry -= 1
         End While
+        If Retry = 0 Then BreakPoint.Print("Retry GetRegionsIsBusy exceeded")
         GetRegionsIsBusy = True
 
         Try
@@ -693,7 +698,6 @@ Module RegionMaker
 
         PropUpdateView = True ' make form refresh
 
-
         GetRegionsIsBusy = False
         If RegionList.IsEmpty Then
             BreakPoint.Print("No Regions")
@@ -707,11 +711,13 @@ Module RegionMaker
     Public Function LargestPort() As Integer
 
         Dim Maxnum As Integer
-        While PortLock
+        Dim Retry = 60
+        While Retry > 0 And PortLock
             Sleep(1000)
+            Retry -= 1
         End While
-
-        Portlock = True
+        If Retry = 0 Then BreakPoint.Print("Retry Portlock exceeded")
+        PortLock = True
 
         ' locate largest port
         Maxnum = Settings.FirstRegionPort - 1
@@ -791,13 +797,16 @@ Module RegionMaker
 
     End Sub
 
-    Private UpdatePortLock As Boolean
+    Private UpdateAllRegion As Boolean
     Public Sub UpdateAllRegionPorts()
 
-        While UpdatePortLock
+        Dim Retry = 60
+        While Retry > 0 And UpdateAllRegion
             Sleep(1000)
+            Retry -= 1
         End While
-        UpdatePortLock = True
+        If Retry = 0 Then BreakPoint.Print("Retry UpdateAllRegion exceeded")
+        UpdateAllRegion = True
 
         TextPrint(My.Resources.Updating_Ports_word)
         Dim used As New List(Of Integer)
@@ -842,7 +851,7 @@ Module RegionMaker
 
         TextPrint(My.Resources.Setup_Firewall_word)
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-        UpdatePortLock = False
+        UpdateAllRegion = False
 
     End Sub
 

@@ -49,8 +49,8 @@ Public Class ClassScreenpos
                     Sleep(100)
                     Retry -= 1
                 End Try
-
             End While
+            If Retry = 0 Then BreakPoint.Print("Cannot make a ScreenXY for " & name)
 
             LoadXYIni()
 
@@ -207,17 +207,14 @@ Public Class ClassScreenpos
 
     Public Sub SaveFormSettings()
 
-        Dim Retry As Integer = 100
-        While Retry > 0
-            Try
-                parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Sleep(100)
-            End Try
-        End While
+
+        Try
+            parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
+            Return
+        Catch ex As Exception
+            ErrorLog("Error:" + ex.Message)
+        End Try
+
 
     End Sub
 
