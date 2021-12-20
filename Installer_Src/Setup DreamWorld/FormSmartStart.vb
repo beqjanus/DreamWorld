@@ -609,6 +609,14 @@ Public Class FormSmartStart
         WinterPine1.Text = My.Resources.WinterPine1
         WinterPine2.Text = My.Resources.WinterPine2
 
+        If Debugger.IsAttached Then
+            EndlessLand.Visible = True
+        Else
+            EndlessLand.Visible = False
+            Settings.AutoFill = False
+            Settings.TempRegion = False
+        End If
+
         If AviName.Text.Length = 0 Then
             AviName.BackColor = Color.Red
         End If
@@ -1624,7 +1632,6 @@ Public Class FormSmartStart
         Settings.AutoFill = AutoFillEnable.Checked
         If AutoFillEnable.Checked Then
             If AviName.Text.Length > 0 Then
-
                 Settings.SaveSettings()
             Else
                 MsgBox(My.Resources.MustSetSS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
