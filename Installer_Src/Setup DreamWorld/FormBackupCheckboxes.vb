@@ -66,7 +66,7 @@ Public Class FormBackupCheckboxes
             Return
         End If
 
-        Dim WebThread = New Thread(AddressOf Backupper)
+        Dim WebThread = New Thread(AddressOf BackupAllRegions)
         WebThread.SetApartmentState(ApartmentState.STA)
         WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
         WebThread.Start()

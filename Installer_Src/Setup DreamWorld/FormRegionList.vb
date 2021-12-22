@@ -1444,17 +1444,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Teleport" Then
 
-            ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
-
-            'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
-
-            Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
-            Try
-                System.Diagnostics.Process.Start(link)
-            Catch ex As Exception
-                BreakPoint.Show(ex)
-            End Try
+            FormSetup.RebootAndRunTask(RegionUUID, FormSetup.TaskName.TeleportClicked)
 
         ElseIf chosen = "Load" Then
 
@@ -1812,7 +1802,7 @@ SetWindowOnTop_Err:
                         Sleep(100)
                         Try
                             Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
-                                Rfc4180Writer.WriteDataTable(sourceTable, writer, True)
+                                WriteDataTable(sourceTable, writer, True)
                             End Using
                         Catch
                         End Try
@@ -1946,11 +1936,7 @@ SetWindowOnTop_Err:
 
 #End Region
 
-End Class
-
-
-Public Class Rfc4180Writer
-
+#Region "Export"
 
     Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
@@ -1972,5 +1958,7 @@ Public Class Rfc4180Writer
     Private Shared Function QuoteValue(ByVal value As String) As String
         Return String.Concat("""", value.Replace("""", """"""), """")
     End Function
+
+#End Region
 
 End Class
