@@ -1,6 +1,8 @@
 ﻿Module Backup
     Private _lastbackup As Integer
 
+#Region "Backups"
+
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
@@ -17,20 +19,6 @@
         Return BackupPath
 
     End Function
-
-    Public Sub Backupper()
-
-        For Each RegionUUID As String In RegionUuids()
-
-            ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
-
-            ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """")
-            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
-                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
-        Next
-
-    End Sub
 
     Public Function BackupsRunning(dt As String) As String
 
@@ -58,5 +46,26 @@
         Return text
 
     End Function
+
+#End Region
+
+#Region "Tasks"
+
+    Public Sub BackupAllRegions()
+
+        For Each RegionUUID As String In RegionUuids()
+            FormSetup.RebootAndRunTask(RegionUUID, FormSetup.TaskName.RPCBackupper)
+        Next
+    End Sub
+
+    Public Sub RPCBackupper(RegionUUID As String)
+
+        ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """")
+        ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
+                           DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+
+    End Sub
+
+#End Region
 
 End Module
