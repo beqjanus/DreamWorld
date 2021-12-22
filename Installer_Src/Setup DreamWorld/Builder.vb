@@ -21,43 +21,37 @@ Module Build
 
 #Region "Land"
 
-    ReadOnly GenLandLock As New Object
-
-
-    Public Sub GenLand(R As Object)
+    Public Function GenLand(R As Object) As Boolean
 
         Dim regionUUID = R.RegionUUID.ToString
         Dim Name = R.RegionName.ToString
 
         If Region_Name(regionUUID) <> Name Then
             BreakPoint.Print(" **** BUGSPLAT Region is BAD ****")
+            Return False
         End If
 
-        ReBoot(regionUUID)
-        WaitForBooted(regionUUID)
-
-
-        If Not RPC_Region_Command(regionUUID, $"change region {Name}") Then Return
+        If Not RPC_Region_Command(regionUUID, $"change region {Name}") Then Return False
         If Settings.TerrainType = "Flat" Then
-            If Not RPC_Region_Command(regionUUID, $"terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Print("No RPC")
+            If Not RPC_Region_Command(regionUUID, $"terrain fill {Settings.FlatLandLevel}") Then Return False
         ElseIf Settings.TerrainType = "Water" Then
-            If Not RPC_Region_Command(regionUUID, "terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Print("No RPC")
+            If Not RPC_Region_Command(regionUUID, "terrain fill {Settings.FlatLandLevel}") Then Return False
         ElseIf Settings.TerrainType = "Random" Then
             Dim range = Between(0, Terrains.Count - 1)
             Dim Type As String = Terrains(range)
 
             Type = Type.Replace(".png", ".r32")
-            If Not RPC_Region_Command(regionUUID, $"terrain load {Type}") Then BreakPoint.Print("No RPC")
+            If Not RPC_Region_Command(regionUUID, $"terrain load {Type}") Then Return False
 
             Dim Fortytwo = Between(1, 5)
             Select Case Fortytwo
                 Case 1
-                    If Not RPC_Region_Command(regionUUID, "terrain flip x") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain flip x") Then Return False
                 Case 2
-                    If Not RPC_Region_Command(regionUUID, "terrain flip y") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain flip y") Then Return False
                 Case 3
-                    If Not RPC_Region_Command(regionUUID, "terrain flip x") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, "terrain flip y") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain flip x") Then Return False
+                    If Not RPC_Region_Command(regionUUID, "terrain flip y") Then Return False
             End Select
 
         ElseIf Settings.TerrainType = "AI" Then
@@ -69,23 +63,23 @@ Module Build
 
             Select Case range
                 Case 1
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify fill {Settings.LandStrength} -taper={taper}") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify fill {Settings.LandStrength} -taper={taper}") Then Return False
                 Case 2
-                    If Not RPC_Region_Command(regionUUID, "terrain fill 21") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain fill 21") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then Return False
                 Case 3
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=128,128,120 -taper=-{taper}") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=64,64,120 -taper=-{taper}") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=64,64,32 -taper=-{taper}") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=128,128,120 -taper=-{taper}") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=64,64,120 -taper=-{taper}") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {Between(20, 40)} -rec=64,64,32 -taper=-{taper}") Then Return False
                 Case 4
-                    If Not RPC_Region_Command(regionUUID, "terrain fill 0") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{Between(0, 55)}") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain fill 0") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{Between(0, 55)}") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify noise 1 0") Then Return False
                 Case 5
-                    If Not RPC_Region_Command(regionUUID, "terrain fill 0") Then BreakPoint.Print("No RPC")
-                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{taper}") Then BreakPoint.Print("No RPC")
+                    If Not RPC_Region_Command(regionUUID, "terrain fill 0") Then Return False
+                    If Not RPC_Region_Command(regionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{taper}") Then Return False
             End Select
 
         End If
@@ -93,9 +87,12 @@ Module Build
         Modifiers(regionUUID)
 
         'force update - Force the region to send all clients updates about all objects.
-        If Not RPC_Region_Command(regionUUID, "force update") Then BreakPoint.Print("No RPC")
+        If Not RPC_Region_Command(regionUUID, "force update") Then Return False
 
-    End Sub
+        BreakPoint.Print("Gentrees success")
+        Return True
+
+    End Function
 
     Public Sub SetCores(RegionUUID As String)
         ' bug 171036640
@@ -108,6 +105,7 @@ Module Build
         End Try
 
     End Sub
+
     ''' <summary>
     ''' Makes a dos box surrounding a visitor
     ''' </summary>
@@ -117,66 +115,64 @@ Module Build
         ' Make a map of occupied areas
         Dim RegionXY As New Dictionary(Of String, String)
 
-            For Each UUID In RegionUuids()
-                Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
-                For Xstep = 0 To SimSize - 1
-                    For Ystep = 0 To SimSize - 1
-                        RegionXY.Add($"{Coord_X(UUID) + Xstep}:{Coord_Y(UUID) + Ystep}", UUID)
-                    Next
+        For Each UUID In RegionUuids()
+            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
+                    RegionXY.Add($"{Coord_X(UUID) + Xstep}:{Coord_Y(UUID) + Ystep}", UUID)
                 Next
             Next
+        Next
 
-            Dim Xloc = Coord_X(RegionUUID)
-            Dim Yloc = Coord_Y(RegionUUID)
-            Dim CenterSize As Integer = CInt(SizeX(RegionUUID) / 256)
-            Dim xy As New List(Of String)
+        Dim Xloc = Coord_X(RegionUUID)
+        Dim Yloc = Coord_Y(RegionUUID)
+        Dim CenterSize As Integer = CInt(SizeX(RegionUUID) / 256)
+        Dim xy As New List(Of String)
 
-            ' draw a square around the new sim
-            Dim X1 = Xloc - Settings.Skirtsize
-            Dim X2 = Xloc + Settings.Skirtsize - 1 + CenterSize
-            Dim Y1 = Yloc - Settings.Skirtsize
-            Dim Y2 = Yloc + Settings.Skirtsize - 1 + CenterSize
+        ' draw a square around the new sim
+        Dim X1 = Xloc - Settings.Skirtsize
+        Dim X2 = Xloc + Settings.Skirtsize - 1 + CenterSize
+        Dim Y1 = Yloc - Settings.Skirtsize
+        Dim Y2 = Yloc + Settings.Skirtsize - 1 + CenterSize
 
-            For XPos As Integer = X1 To X2 Step 1
-                For Ypos As Integer = Y1 To Y2 Step 1
-                    xy.Add($"{XPos}:{Ypos}")
-                Next
+        For XPos As Integer = X1 To X2 Step 1
+            For Ypos As Integer = Y1 To Y2 Step 1
+                xy.Add($"{XPos}:{Ypos}")
             Next
+        Next
 
-            Dim GroupName As String = ""
+        Dim GroupName As String = ""
 
-            Dim Bootable As New List(Of String)
+        Dim Bootable As New List(Of String)
 
-            For Each possible As String In xy
-                If RegionXY.ContainsKey(possible) Then
-                    If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & Region_Name(RegionXY.Item(possible)))
-                Else
-                    Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
-                    Dim nX = CInt(CStr(parts(0).Trim))
-                    Dim nY = CInt(CStr(parts(1).Trim))
+        For Each possible As String In xy
+            If RegionXY.ContainsKey(possible) Then
+                If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & Region_Name(RegionXY.Item(possible)))
+            Else
+                Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
+                Dim nX = CInt(CStr(parts(0).Trim))
+                Dim nY = CInt(CStr(parts(1).Trim))
 
-                    If GroupName.Length = 0 Then
-                        GroupName = FantasyName()
-                        TextPrint("Making Group " & GroupName)
-                    End If
-
-                    Dim NewName = MakeTempRegion(GroupName, nX, nY)
-                    Bootable.Add(NewName)
+                If GroupName.Length = 0 Then
+                    GroupName = FantasyName()
+                    TextPrint("Making Group " & GroupName)
                 End If
 
-            Next
-
-            If Bootable.Count > 0 Then
-                PropChangedRegionSettings = True
-                GetAllRegions(False)
-                For Each Name In Bootable
-                    If Name.Length > 0 Then
-                        ReBoot(FindRegionByName(Name))
-                    End If
-                Next
+                Dim NewName = MakeTempRegion(GroupName, nX, nY)
+                Bootable.Add(NewName)
             End If
 
+        Next
 
+        If Bootable.Count > 0 Then
+            PropChangedRegionSettings = True
+            GetAllRegions(False)
+            For Each Name In Bootable
+                If Name.Length > 0 Then
+                    ReBoot(FindRegionByName(Name))
+                End If
+            Next
+        End If
 
     End Sub
 
@@ -184,7 +180,7 @@ Module Build
 
 #Region "Landscaper"
 
-    Public Sub GenTrees(R As Object)
+    Public Function GenTrees(R As Object) As Boolean
 
         Dim regionUUID = R.RegionUUID.ToString
         Dim regionName = R.RegionName.ToString
@@ -196,39 +192,41 @@ Module Build
             End If
         Next
 
-        If Not RPC_Region_Command(regionUUID, $"change region {regionName}") Then Return
-        If Not RPC_Region_Command(regionUUID, "tree active true") Then Return
+        If Not RPC_Region_Command(regionUUID, $"change region {regionName}") Then Return False
+        If Not RPC_Region_Command(regionUUID, "tree active true") Then Return False
 
         If Settings.DeleteTreesFirst Then
             For Each TT As String In TreeList
-                If Not RPC_Region_Command(regionUUID, $"tree remove {TT}") Then Return
+                If Not RPC_Region_Command(regionUUID, $"tree remove {TT}") Then Return False
             Next
         End If
 
         If UseTree.Count = 0 Then
-            If Not RPC_Region_Command(regionUUID, "tree active false") Then Return
-            Return
+            If Not RPC_Region_Command(regionUUID, "tree active false") Then Return False
         End If
 
         Debug.Print($"Planting {regionName}")
 
         For Each NewType In UseTree
-            If Not RPC_Region_Command(regionUUID, $"tree load Trees/{NewType}.xml") Then Return
-            If Not RPC_Region_Command(regionUUID, $"tree plant {NewType}") Then Return
-            If Not RPC_Region_Command(regionUUID, $"tree rate 1000") Then Return
-            If Not RPC_Region_Command(regionUUID, "tree active true") Then Return
+            If Not RPC_Region_Command(regionUUID, $"tree load Trees/{NewType}.xml") Then Return False
+            If Not RPC_Region_Command(regionUUID, $"tree plant {NewType}") Then Return False
+            If Not RPC_Region_Command(regionUUID, $"tree rate 1000") Then Return False
+            If Not RPC_Region_Command(regionUUID, "tree active true") Then Return False
             Sleep(1500)
-            If Not RPC_Region_Command(regionUUID, $"tree freeze {NewType} true") Then Return
-            If Not RPC_Region_Command(regionUUID, "force update") Then Return
+            If Not RPC_Region_Command(regionUUID, $"tree freeze {NewType} true") Then Return False
+            If Not RPC_Region_Command(regionUUID, "force update") Then Return False
         Next
 
-        If Not RPC_Region_Command(regionUUID, "tree active false") Then Return
+        If Not RPC_Region_Command(regionUUID, "tree active false") Then Return False
 
         'If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
         'force update - Force the region to send all clients updates about all objects.
-        If Not RPC_Region_Command(regionUUID, "force update") Then BreakPoint.Print("No RPC")
+        If Not RPC_Region_Command(regionUUID, "force update") Then Return False
 
-    End Sub
+        BreakPoint.Print("GenTrees success")
+        Return True
+
+    End Function
 
     Public Sub InitTrees()
 
@@ -248,22 +246,30 @@ Module Build
 
     End Sub
 
+    ''' <summary>
+    ''' Background task to make land in any given region.
+    ''' </summary>
+    ''' <param name="RegionUUID"></param>
+    ''' <param name="RegionName"></param>
     Sub Landscape(RegionUUID As String, RegionName As String)
 
-        '
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
-        'Dim start As ParameterizedThreadStart = AddressOf MakeLand
+        Dim Threaded = False
 
-        'Dim MakeLandthread = New Thread(start)
-        'MakeLandthread.SetApartmentState(ApartmentState.STA)
-        'MakeLandthread.Priority = ThreadPriority.Lowest ' UI gets priority
+        ' pass the two parameters it needs as in object
         Dim c As New RegionEssentials With {
-            .RegionUUID = RegionUUID,
-            .RegionName = RegionName
+                .RegionUUID = RegionUUID,
+                .RegionName = RegionName
         }
-        MakeLand(c)
 
-        'MakeLandthread.Start(c)
+        If Threaded Then
+            Dim start As ParameterizedThreadStart = AddressOf MakeLand
+            Dim MakeLandthread = New Thread(start)
+            MakeLandthread.SetApartmentState(ApartmentState.STA)
+            MakeLandthread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+            MakeLandthread.Start(c)
+        Else
+            MakeLand(c)
+        End If
 
     End Sub
 
@@ -286,8 +292,9 @@ Module Build
 
     Private Sub MakeLand(R As Object)
 
-        GenLand(R)
-        GenTrees(R)
+        If GenLand(R) Then Return
+        If GenTrees(R) Then Return
+        BreakPoint.Print("Trees and Land finished")
 
     End Sub
 
@@ -350,7 +357,6 @@ Module Build
                 Retry -= 1
             End While
             If Retry = 0 Then BreakPoint.Print("Retry Random Name exceeded")
-
         Catch ex As Exception
             BreakPoint.Show(ex)
         End Try
@@ -359,9 +365,7 @@ Module Build
 
     End Function
 
-
     Private Function MakeTempRegion(Group As String, X As Integer, Y As Integer) As String
-
 
         Dim shortname = FantasyName()
 
@@ -372,7 +376,6 @@ Module Build
 
         'kill it
         DeRegisterPosition(X, Y)
-
 
         ' build it
         Dim RegionUUID = CreateRegionStruct(shortname, "")
