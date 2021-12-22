@@ -8,21 +8,48 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
-Public Class PRIEnumClass
-
-    Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
-    Public BelowNormal As ProcessPriorityClass = ProcessPriorityClass.BelowNormal
-    Public High As ProcessPriorityClass = ProcessPriorityClass.High
-    Public Normal As ProcessPriorityClass = ProcessPriorityClass.Normal
-    Public RealTime As ProcessPriorityClass = ProcessPriorityClass.RealTime
-End Class
-
 Module SmartStart
+    Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
 
-    Public ProcessIdDict As New Dictionary(Of Integer, Process)
+    Public Sub TeleportClicked(Regionuuid As String)
+
+        Dim RegionName = Region_Name(Regionuuid)
+
+        'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
+
+        Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
+        Try
+            System.Diagnostics.Process.Start(link)
+        Catch ex As Exception
+            BreakPoint.Show(ex)
+        End Try
+
+    End Sub
 
 #Region "StartStart"
 
+    Public Sub DeleteAllRegionData(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim GroupName = Group_Name(RegionUUID)
+
+        ShutDown(RegionUUID)
+        ' wait a minute for the region to quit
+        Dim ctr = 120
+
+        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
+             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
+            Sleep(1000)
+            ctr -= 1
+            If ctr = 0 Then Exit While
+        End While
+
+        DeleteAllContents(RegionUUID)
+
+        PropChangedRegionSettings = True
+        PropUpdateView = True
+
+    End Sub
 
     ''' <summary>
     ''' Waits for a restarted region to be fully up
@@ -103,35 +130,78 @@ Module SmartStart
 
     End Function
 
-
-
-    Public Sub DeleteAllRegionData(RegionUUID As String)
-
-        Dim RegionName = Region_Name(RegionUUID)
-        Dim GroupName = Group_Name(RegionUUID)
-
-        ShutDown(RegionUUID)
-        ' wait a minute for the region to quit
-        Dim ctr = 120
-
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
-             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
-            Sleep(1000)
-            ctr -= 1
-            If ctr = 0 Then Exit While
-        End While
-
-        DeleteAllContents(RegionUUID)
-
-        PropChangedRegionSettings = True
-        PropUpdateView = True
-
-    End Sub
 #End Region
-
 
 #Region "HTML"
 
+    Public Function RegionListHTML(Settings As MySettings, Data As String) As String
+
+        ' TODO add paramter for start and length
+
+        ' http://localhost:8001/teleports.htm
+        ' http://YourURL:8001/teleports.htm
+        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
+        '*|Welcome||outworldz.com9000Welcome|128,128,96|
+        Dim HTML As String = ""
+
+        Dim ToSort As New Dictionary(Of String, String)
+
+        Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
+        ToSort.Add(Settings.WelcomeRegion, "0")
+
+        For Each RegionUUID As String In RegionUuids()
+
+            Dim Sort = ""
+            Dim Name As String
+            If Data.ToUpperInvariant.Contains("NAME") Then
+                Name = Region_Name(RegionUUID)
+            ElseIf Data.ToUpperInvariant.Contains("GROUP") Then
+                Name = Group_Name(RegionUUID)
+            ElseIf Data.ToUpperInvariant.Contains("ESTATE") Then
+                Name = EstateName(RegionUUID)
+            Else
+                Name = Region_Name(RegionUUID)
+            End If
+
+            Debug.Print($"Sort by {Name}")
+
+            Dim status = RegionStatus(RegionUUID)
+            If (Teleport_Sign(RegionUUID) = "True" AndAlso
+                status = SIMSTATUSENUM.Booted) Or
+               (Teleport_Sign(RegionUUID) = "True" AndAlso
+                 Smart_Start(RegionUUID) = "True" AndAlso
+                Settings.Smart_Start) Then
+
+                If Settings.WelcomeRegion = Region_Name(RegionUUID) Then Continue For
+                ' Bugreport #286942400
+                If Not ToSort.ContainsKey(Region_Name(RegionUUID)) Then
+                    ToSort.Add(Region_Name(RegionUUID), Name)
+                End If
+            End If
+        Next
+
+        Dim myList As List(Of KeyValuePair(Of String, String)) = ToSort.ToList()
+        Dim sorted = ToSort.OrderBy(Function(kvp) kvp.Value, StringComparer.CurrentCultureIgnoreCase).ToDictionary(Function(kvp) kvp.Key, Function(kvp) kvp.Value)
+
+        For Each S As KeyValuePair(Of String, String) In sorted
+            Dim V = S.Key
+            HTML += $"*|{V}||{Settings.PublicIP}:{Settings.HttpPort}:{V}||{V}|{vbCrLf}"
+        Next
+
+        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
+        DeleteFile(HTMLFILE)
+
+        Try
+            Using outputFile As New StreamWriter(HTMLFILE, False)
+                outputFile.WriteLine(HTML)
+            End Using
+        Catch ex As Exception
+            ' BreakPoint.Show(ex)
+        End Try
+
+        Return HTML
+
+    End Function
 
     Public Function SmartStartParse(post As String) As String
 
@@ -236,79 +306,9 @@ Module SmartStart
 
     End Function
 
-    Public Function RegionListHTML(Settings As MySettings, Data As String) As String
-
-        ' TODO add paramter for start and length
-
-        ' http://localhost:8001/teleports.htm
-        ' http://YourURL:8001/teleports.htm
-        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String = ""
-
-        Dim ToSort As New Dictionary(Of String, String)
-
-        Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
-        ToSort.Add(Settings.WelcomeRegion, "0")
-
-        For Each RegionUUID As String In RegionUuids()
-
-            Dim Sort = ""
-            Dim Name As String
-            If Data.ToUpperInvariant.Contains("NAME") Then
-                Name = Region_Name(RegionUUID)
-            ElseIf Data.ToUpperInvariant.Contains("GROUP") Then
-                Name = Group_Name(RegionUUID)
-            ElseIf Data.ToUpperInvariant.Contains("ESTATE") Then
-                Name = EstateName(RegionUUID)
-            Else
-                Name = Region_Name(RegionUUID)
-            End If
-
-            Debug.Print($"Sort by {Name}")
-
-            Dim status = RegionStatus(RegionUUID)
-            If (Teleport_Sign(RegionUUID) = "True" AndAlso
-                status = SIMSTATUSENUM.Booted) Or
-               (Teleport_Sign(RegionUUID) = "True" AndAlso
-                 Smart_Start(RegionUUID) = "True" AndAlso
-                Settings.Smart_Start) Then
-
-                If Settings.WelcomeRegion = Region_Name(RegionUUID) Then Continue For
-                ' Bugreport #286942400
-                If Not ToSort.ContainsKey(Region_Name(RegionUUID)) Then
-                    ToSort.Add(Region_Name(RegionUUID), Name)
-                End If
-            End If
-        Next
-
-        Dim myList As List(Of KeyValuePair(Of String, String)) = ToSort.ToList()
-        Dim sorted = ToSort.OrderBy(Function(kvp) kvp.Value, StringComparer.CurrentCultureIgnoreCase).ToDictionary(Function(kvp) kvp.Key, Function(kvp) kvp.Value)
-
-        For Each S As KeyValuePair(Of String, String) In sorted
-            Dim V = S.Key
-            HTML += $"*|{V}||{Settings.PublicIP}:{Settings.HttpPort}:{V}||{V}|{vbCrLf}"
-        Next
-
-        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
-        DeleteFile(HTMLFILE)
-
-        Try
-            Using outputFile As New StreamWriter(HTMLFILE, False)
-                outputFile.WriteLine(HTML)
-            End Using
-        Catch ex As Exception
-            ' BreakPoint.Show(ex)
-        End Try
-
-        Return HTML
-
-    End Function
-
 #End Region
 
 #Region "Suspend"
-
 
     Public Sub DoSuspend(RegionName As String)
 
@@ -387,7 +387,6 @@ Module SmartStart
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
-
 
                 For Each UUID As String In RegionUuidListByName(GroupName)
                     'Must be listening, not just in a window
@@ -543,7 +542,13 @@ Module SmartStart
                 PokeRegionTimer(RegionUUID)
             Next
             PropUpdateView = True ' make form refresh
+        ElseIf RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            FormSetup.RunTaskList(RegionUUID)
         End If
+
+
+
+
     End Sub
 
 #End Region

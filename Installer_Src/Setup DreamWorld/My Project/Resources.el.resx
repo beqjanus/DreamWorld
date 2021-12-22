@@ -3399,9 +3399,6 @@
   <data name="Choose_folder" xml:space="preserve">
     <value>Επιλογή φακέλου</value>
   </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>Η θέση Ανατολής-Δύσης στον παγκόσμιο χάρτη</value>
-  </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Πρέπει να ρυθμίσετε πρώτα τον ιδιοκτήτη του Sim Surrounds!</value>
   </data>

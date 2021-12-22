@@ -3399,9 +3399,6 @@
   <data name="Choose_folder" xml:space="preserve">
     <value>Ordner auswählen</value>
   </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>Die Ost-West-Lage auf der Weltkarte</value>
-  </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Muss zuerst den Besitzer der Sim Surrounds einstellen!</value>
   </data>

@@ -4,8 +4,6 @@
 
 #End Region
 
-'Option Strict On
-
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -70,7 +68,6 @@ Public Class FormSetup
 #Region "Private Declarations"
 
     Private ReadOnly _exitList As New Dictionary(Of String, String)
-    Private ReadOnly _LandscapeList As New List(Of String)
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
@@ -186,12 +183,6 @@ Public Class FormSetup
         Set(value As Integer)
             _IcecastCrashCounter = value
         End Set
-    End Property
-
-    Public ReadOnly Property LandScapeList As List(Of String)
-        Get
-            Return _LandscapeList
-        End Get
     End Property
 
     Public Property PropBootScanIsBusy() As Integer
@@ -968,7 +959,16 @@ Public Class FormSetup
 
 #Region "Misc"
 
-    ReadOnly LandcapeLock As Object
+    Public ToDoList As New Dictionary(Of String, Queue(Of TaskName))
+
+    Private ReadOnly TaskQue As New Queue(Of TaskName)
+
+    Public Enum TaskName As Integer
+        RPCBackupper = 1        ' run backups via XMLRPC
+        TeleportClicked = 2     ' click the teleport button in the region pop up
+        LoadOar = 3             '
+    End Enum
+
     Public Sub CheckForBootedRegions()
 
         Dim t = 60
@@ -1006,15 +1006,6 @@ Public Class FormSetup
 
                 Dim RegionName = Region_Name(RegionUUID)
 
-                If LandScapeList.Contains(RegionUUID) Then
-                    LandScapeList.Remove(RegionUUID)
-                    Diagnostics.Debug.Print("Landscaping " & RegionName)
-                    SyncLock LandcapeLock
-                        Landscape(RegionUUID, RegionName)
-                    End SyncLock
-
-                End If
-
                 ' see how long it has been since we booted
                 Dim seconds = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), DateTime.Now)
                 TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
@@ -1032,6 +1023,12 @@ Public Class FormSetup
                 End If
 
                 TeleportAgents()
+
+                Diagnostics.Debug.Print("Landscaping " & RegionName)
+                Landscape(RegionUUID, RegionName)
+
+                RunTaskList(RegionUUID)
+
                 PropUpdateView = True
 
             End While
@@ -1092,7 +1089,7 @@ Public Class FormSetup
                                 RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
                             Next
 
-                            PropUpdateView = True ' make form refresh                            
+                            PropUpdateView = True ' make form refresh
                             Continue For
                         End If
                     End If
@@ -1203,6 +1200,49 @@ Public Class FormSetup
         Return True
 
     End Function
+
+    ''' <summary>
+    ''' Queue a task to occur after a region is booted.
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <param name="Taskname">A Task Name</param>
+    Public Sub RebootAndRunTask(RegionUUID As String, Task As TaskName)
+
+        ReBoot(RegionUUID)
+        TaskQue.Enqueue(Task)
+        If ToDoList.ContainsKey(RegionUUID) Then
+            ToDoList(RegionUUID) = TaskQue
+        Else
+            ToDoList.Add(RegionUUID, TaskQue)
+        End If
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            RunTaskList(RegionUUID)
+        End If
+
+    End Sub
+
+    Public Sub RunTaskList(RegionUUID As String)
+
+        If ToDoList.ContainsKey(RegionUUID) Then
+
+            Dim Q = ToDoList.Item(RegionUUID)
+            While Q.Count > 0
+                Dim todo = Q.Dequeue
+
+                Select Case todo
+
+                    Case TaskName.RPCBackupper
+                        RPCBackupper(RegionUUID)
+                    Case TaskName.TeleportClicked
+                        TeleportClicked(RegionUUID)
+
+                    Case Else
+                        BreakPoint.Print("Impossible task")
+                End Select
+            End While
+        End If
+
+    End Sub
 
     Public Sub ToolBar(visible As Boolean)
 
@@ -3325,7 +3365,7 @@ Public Class FormSetup
             Return
         End If
 
-        Dim WebThread = New Thread(AddressOf Backupper)
+        Dim WebThread = New Thread(AddressOf BackupAllRegions)
         WebThread.SetApartmentState(ApartmentState.STA)
         WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
         WebThread.Start()

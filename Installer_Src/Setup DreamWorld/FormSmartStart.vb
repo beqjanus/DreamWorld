@@ -18,6 +18,7 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    ReadOnly LoadOarLock As Object
     Private ReadOnly SavedAlready As New List(Of String)
     Private _abort As Boolean
     Private _Index As Integer
@@ -784,9 +785,6 @@ Public Class FormSmartStart
 
     End Sub
 
-    Dim LoadOarLock As Object
-
-
     Private Sub LoadAllFreeOARs()
 
         If ApplyTerrainEffectButton.Text <> My.Resources.Apply_word Then
@@ -854,7 +852,6 @@ Public Class FormSmartStart
         Dim localEstateName = gEstateName
         Dim localOwnerName = gEstateOwner
 
-        Dim Max As Integer
         Try
             For Each J In FormSetup.ContentOAR.GetJson
 
@@ -929,9 +926,10 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
+                ' TO DO ugly global
                 ' force the Estate Name in Opensim.ini in CopyOpenSimProto
-                gEstateName = localEstateName
-                gEstateOwner = localOwnerName
+                '  gEstateName = localEstateName
+                '  gEstateOwner = localOwnerName
 
                 ReBoot(RegionUUID) ' Wait for it to start booting
                 WaitForBooted(RegionUUID)
@@ -940,8 +938,7 @@ Public Class FormSmartStart
                 gEstateName = ""
                 gEstateOwner = ""
 
-                If Abort Then Exit For
-
+                Dim Max As Integer
                 If sizerow > Max Then Max = sizerow
                 X += CInt((sizerow / 256) + 1)
                 If X > StartX + 50 Then
@@ -980,12 +977,12 @@ Public Class FormSmartStart
 
                 PropUpdateView = True
 
-                If Abort Then Exit For
+                If Abort Then Return
 
                 PropUpdateView = True
                 Dim ctr = 120
                 If Settings.Sequential Then
-                    If Abort Then Exit For
+                    If Abort Then Return
                     While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped AndAlso Not Abort
                         Sleep(1000)
                         Application.DoEvents()
@@ -993,20 +990,12 @@ Public Class FormSmartStart
                         If ctr = 0 Then Exit While
                     End While
                 End If
-                ProgressPrint($"{RegionName} {My.Resources.Loaded_word}")
-            Next
+                Settings.SaveSettings()
 
-            If Abort Then
-                TextPrint(My.Resources.Stopped_word)
-            End If
+            Next
         Catch ex As Exception
             BreakPoint.Show(ex)
         End Try
-
-        ApplyTerrainEffectButton.Text = My.Resources.Apply_word
-
-        TextPrint(My.Resources.New_is_Done)
-        Settings.SaveSettings()
 
     End Sub
 
@@ -1637,7 +1626,6 @@ Public Class FormSmartStart
                 MsgBox(My.Resources.MustSetSS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             End If
         End If
-
 
     End Sub
 

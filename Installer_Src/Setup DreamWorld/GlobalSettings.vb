@@ -16,10 +16,26 @@ Module GlobalSettings
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "4.81"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
+    Public Const FreeDiskSpaceWarn As Long = 100000000
+
+    ' 100 M
+    Public Const Hyperica As String = "Hyperica"
+
+    Public Const JOpensim As String = "JOpensim"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
+    Public Const MetroServer As String = "Metro"
+    Public Const OsgridServer As String = "OsGrid"
+    Public Const RegionServerName As String = "Region"
+    Public Const RobustServerName As String = "Robust"
     Public ApacheRevision As String = "2.4.46"
     Public AssemblyV As String
+    Public Bench As New Benchmark()
+    Public DebugLandMaker As Boolean
+    Public gEstateName As String = ""
+    Public gEstateOwner As String = ""
+    Public MapX As Integer = 100
+    Public MapY As Integer = 100
     Public MySqlRev As String = "5.6.50"
     ' holds "Assembly version: " + displayableVersion
 
@@ -27,24 +43,9 @@ Module GlobalSettings
 
 #Region "Global Strings"
 
-    Public Const FreeDiskSpaceWarn As Long = 100000000 ' 100 M
-    Public Const Hyperica As String = "Hyperica"
-    Public Const JOpensim As String = "JOpensim"
-    Public Const MetroServer As String = "Metro"
-    Public Const OsgridServer As String = "OsGrid"
-    Public Const RegionServerName As String = "Region"
-    Public Const RobustServerName As String = "Robust"
-
 #End Region
 
 #Region "Globals"
-
-    Public Bench As New Benchmark()
-    Public gEstateName As String = ""
-    Public gEstateOwner As String = ""
-    Public MapX As Integer = 100
-    Public MapY As Integer = 100
-    Public DebugLandMaker As Boolean
 
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
@@ -61,6 +62,12 @@ Module GlobalSettings
 #End Region
 
 #Region "Properties"
+
+    Public Enum TaskName As Integer
+        RPCBackupper = 1        ' run backups via XMLRPC
+        TeleportClicked = 2     ' click the teleport button in the region pop up
+        LoadOar = 3             '
+    End Enum
 
     Public ReadOnly Property GitVersion As String
         ' output of  git rev-parse --short HEAD   from Perl
@@ -187,43 +194,6 @@ Module GlobalSettings
 
 #Region "Subs"
 
-    Public Sub Sleep(value As Integer)
-        ''' <summary>Sleep(ms)</summary>
-        ''' <param name="value">millseconds</param>
-        ' value is in milliseconds, but we do it in 10 passes a second so we can doevents() to free up console
-        Dim slices As Integer = 10
-
-        While value > 0
-            Application.DoEvents()
-            Dim t = CInt(1000 / slices)
-            Thread.Sleep(t)
-            value -= t
-        End While
-
-    End Sub
-
-    Public Sub TextPrint(Value As String)
-
-        Log(My.Resources.Info_word, Value)
-        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
-        If Settings.ShowDateandTimeinLogs Then
-            FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
-            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
-        Else
-            FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
-            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
-        End If
-
-        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
-            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
-        End If
-
-    End Sub
-
-#End Region
-
-#Region "Functions"
-
     Public Function GetStateString(state As Integer) As String
 
         Dim statestring As String
@@ -300,6 +270,43 @@ Module GlobalSettings
 
     End Function
 
+    Public Sub Sleep(value As Integer)
+        ''' <summary>Sleep(ms)</summary>
+        ''' <param name="value">millseconds</param>
+        ' value is in milliseconds, but we do it in 10 passes a second so we can doevents() to free up console
+        Dim slices As Integer = 10
+
+        While value > 0
+            Application.DoEvents()
+            Dim t = CInt(1000 / slices)
+            Thread.Sleep(t)
+            value -= t
+        End While
+
+    End Sub
+
+    Public Sub TextPrint(Value As String)
+
+        Log(My.Resources.Info_word, Value)
+        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+        If Settings.ShowDateandTimeinLogs Then
+            FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
+            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+        Else
+            FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
+            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+        End If
+
+        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
+            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
+
     Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
 
         Dim RegionUUID As String = FindRegionByName(RegionName)
@@ -322,6 +329,19 @@ Module GlobalSettings
         Return PropSelectedBox
 
     End Function
+
+#End Region
+
+#Region "Classes and Enums"
+
+    Public Class PRIEnumClass
+
+        Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
+        Public BelowNormal As ProcessPriorityClass = ProcessPriorityClass.BelowNormal
+        Public High As ProcessPriorityClass = ProcessPriorityClass.High
+        Public Normal As ProcessPriorityClass = ProcessPriorityClass.Normal
+        Public RealTime As ProcessPriorityClass = ProcessPriorityClass.RealTime
+    End Class
 
 #End Region
 
