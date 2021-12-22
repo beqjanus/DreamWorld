@@ -399,8 +399,6 @@ Module Build
 
         WriteRegionObject(Group, shortname)
 
-        FormSetup.LandScapeList.Add(RegionUUID)
-
         PropChangedRegionSettings = True
         Return shortname
 

@@ -95,18 +95,13 @@ Module OAR
                             If m = vbNo Or m = vbCancel Then Return
                         End If
 
-                        ReBoot(RegionUUID)
-                        WaitForBooted(RegionUUID)
+                        If PropUserName.Length > 0 Then UserName = $" --Default-user ""{PropUserName}"" "
+                        Dim v As String = "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """"
 
-                        If PropUserName.Length > 0 Then
-                            UserName = " --default-user " & """" & PropUserName & """" & " "
-                        End If
-                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-                        If Not PropForceParcel() Then
-                            ConsoleCommand(RegionUUID, "land clear")
-                        End If
-                        ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
-                        ConsoleCommand(RegionUUID, "generate map")
+                        Dim obj As New TaskObject
+                        obj.TaskName = FormSetup.TaskName.LoadOneOarTask
+                        FormSetup.RebootAndRunTask(RegionUUID, obj)
+
                     End If
                 End If
 
@@ -114,23 +109,33 @@ Module OAR
         Else
             TextPrint(My.Resources.Not_Running)
         End If
+
     End Sub
 
-    Public Function LoadOARContent(thing As String) As Boolean
+    Public Sub LoadOARContent(thing As String)
 
         If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
-            Return False
+            Return
         End If
 
         Dim RegionName = ChooseRegion(False)
-        If RegionName.Length = 0 Then Return False
+        If RegionName.Length = 0 Then Return
 
         Dim offset = VarChooser(RegionName)
-        If offset.Length = 0 Then Return False
+        If offset.Length = 0 Then Return
 
+        ' Must be passed as a string in queue
         Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & " (" & RegionName & ")", vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, Global.Outworldz.My.Resources.Backup_word)
-        If backMeUp = vbCancel Then Return False
+        Dim BackUpString As String = ""
+        Select Case backMeUp
+            Case vbCancel
+                Return
+            Case vbYes
+                BackUpString = "Yes"
+            Case vbNo
+                BackUpString = "No"
+        End Select
 
         Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then
@@ -140,43 +145,76 @@ Module OAR
         TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
         If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
+        Dim ForceParcel As String = ""
+        If PropForceParcel() Then ForceParcel = " --force-parcels "
+        Dim ForceTerrain As String = ""
+        If PropForceTerrain Then ForceTerrain = " --force-terrain "
+        Dim ForceMerge As String = ""
+
+        Dim UserName As String = ""
+        If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
+
+        If PropForceMerge Then ForceMerge = " --merge "
+        If Not PropForceMerge Then
+            Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
+            If m = vbNo Or m = vbCancel Then Return
+        End If
+
+        Dim LoadOarCmd = $"load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} {thing}"
+
+        Dim obj As New TaskObject
+        obj.TaskName = FormSetup.TaskName.LoadOARContent
+        obj.RegionName = RegionName
+        obj.backMeUp = BackUpString
+        obj.Command = LoadOarCmd
+
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
+
+    End Sub
+
+    ''' <summary>
+    ''' Backs up a region by name after booting
+    ''' </summary>
+
+    Public Sub LoadOARContent2(RegionUUID As String, T As TaskObject)
+
+        Dim Regionname = T.RegionName
+        Dim backMeUp = T.backMeUp
+        Dim LoadOarStr = T.Str
 
         Try
-            If backMeUp = vbYes Then
-                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+            If backMeUp = "Yes" Then
+                ConsoleCommand(RegionUUID, $"change region ""{Regionname}""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{Regionname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
 
-            Dim ForceParcel As String = ""
-            If PropForceParcel() Then ForceParcel = " --force-parcels "
-            Dim ForceTerrain As String = ""
-            If PropForceTerrain Then ForceTerrain = " --force-terrain "
-            Dim ForceMerge As String = ""
-            If PropForceMerge Then ForceMerge = " --merge "
-            If Not PropForceMerge Then
-                Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
-                If m = vbNo Or m = vbCancel Then Return False
-            End If
-            Dim UserName As String = ""
-            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
-            ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
+            ConsoleCommand(RegionUUID, $"change region ""{Regionname}""")
+            ConsoleCommand(RegionUUID, LoadOarStr)
             ConsoleCommand(RegionUUID, "generate map")
         Catch ex As Exception
             BreakPoint.Show(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
         End Try
-        Application.DoEvents()
 
-        Return True
+    End Sub
 
-    End Function
+    ''' <summary>
+    '''
+    ''' </summary>
+
+    Public Sub LoadOneOarTask(RegionUUID As String, T As TaskObject)
+
+        SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
+        If Not PropForceParcel() Then
+            ConsoleCommand(RegionUUID, "land clear")
+        End If
+        ConsoleCommand(RegionUUID, T.Command)
+        ConsoleCommand(RegionUUID, "generate map")
+
+    End Sub
 
     Public Sub SaveOar(RegionName As String)
 

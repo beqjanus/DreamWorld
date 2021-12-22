@@ -63,12 +63,6 @@ Module GlobalSettings
 
 #Region "Properties"
 
-    Public Enum TaskName As Integer
-        RPCBackupper = 1        ' run backups via XMLRPC
-        TeleportClicked = 2     ' click the teleport button in the region pop up
-        LoadOar = 3             '
-    End Enum
-
     Public ReadOnly Property GitVersion As String
         ' output of  git rev-parse --short HEAD   from Perl
         Get

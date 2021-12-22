@@ -104,6 +104,8 @@ Public Class FormSetup
 
 #Region "Globals"
 
+    Public ToDoList As New Dictionary(Of String, TaskObject)
+
     Private speed As Double
     Private speed1 As Double
     Private speed2 As Double
@@ -957,17 +959,75 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Misc"
+#Region "TaskList"
 
-    Public ToDoList As New Dictionary(Of String, Queue(Of TaskName))
+    ' we can stack up multiple commands to send to regions when they boot
+    Private ReadOnly TaskQue As New Queue(Of TaskObject)
 
-    Private ReadOnly TaskQue As New Queue(Of TaskName)
-
+    ''' <summary>
+    ''' The list of commands
+    ''' </summary>
     Public Enum TaskName As Integer
         RPCBackupper = 1        ' run backups via XMLRPC
         TeleportClicked = 2     ' click the teleport button in the region pop up
-        LoadOar = 3             '
+        LoadOar = 3             ' for Loading a series of OARS
+        LoadOneOarTask = 4      ' loading One Oar
+        LoadOARContent = 5      ' !!!
     End Enum
+
+    ''' <summary>
+    ''' Queue a task to occur after a region is booted.
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <param name="Taskname">A Task Name</param>
+    Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
+
+        ReBoot(RegionUUID)
+        TaskQue.Enqueue(TObj)
+        If ToDoList.ContainsKey(RegionUUID) Then
+            ToDoList(RegionUUID) = TObj
+        Else
+            ToDoList.Add(RegionUUID, TObj)
+        End If
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            RunTaskList(RegionUUID)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Run a task after region boots
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub RunTaskList(RegionUUID As String)
+
+        If ToDoList.ContainsKey(RegionUUID) Then
+
+            Dim Task = ToDoList.Item(RegionUUID)
+            Dim T = Task.TaskName
+            Select Case T
+                Case TaskName.RPCBackupper
+                    RPCBackupper(RegionUUID)
+                Case TaskName.TeleportClicked
+                    TeleportClicked(RegionUUID)
+                Case TaskName.LoadOar
+                    LoadOar(RegionUUID)
+                Case TaskName.LoadOneOarTask
+                    LoadOneOarTask(RegionUUID, Task)
+                Case TaskName.LoadOARContent
+                    LoadOARContent2(RegionUUID, Task)
+                Case Else
+                    BreakPoint.Print("Impossible task")
+            End Select
+
+            Application.DoEvents()
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "misc"
 
     Public Sub CheckForBootedRegions()
 
@@ -1200,49 +1260,6 @@ Public Class FormSetup
         Return True
 
     End Function
-
-    ''' <summary>
-    ''' Queue a task to occur after a region is booted.
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <param name="Taskname">A Task Name</param>
-    Public Sub RebootAndRunTask(RegionUUID As String, Task As TaskName)
-
-        ReBoot(RegionUUID)
-        TaskQue.Enqueue(Task)
-        If ToDoList.ContainsKey(RegionUUID) Then
-            ToDoList(RegionUUID) = TaskQue
-        Else
-            ToDoList.Add(RegionUUID, TaskQue)
-        End If
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            RunTaskList(RegionUUID)
-        End If
-
-    End Sub
-
-    Public Sub RunTaskList(RegionUUID As String)
-
-        If ToDoList.ContainsKey(RegionUUID) Then
-
-            Dim Q = ToDoList.Item(RegionUUID)
-            While Q.Count > 0
-                Dim todo = Q.Dequeue
-
-                Select Case todo
-
-                    Case TaskName.RPCBackupper
-                        RPCBackupper(RegionUUID)
-                    Case TaskName.TeleportClicked
-                        TeleportClicked(RegionUUID)
-
-                    Case Else
-                        BreakPoint.Print("Impossible task")
-                End Select
-            End While
-        End If
-
-    End Sub
 
     Public Sub ToolBar(visible As Boolean)
 
@@ -3319,9 +3336,8 @@ Public Class FormSetup
     Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
 
         Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
-        If LoadOARContent(File) Then
-            TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
-        End If
+        LoadOARContent(File)
+        TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
 
     End Sub
 
@@ -3346,9 +3362,8 @@ Public Class FormSetup
 
         Dim thing As String = sender.text.ToString
         Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & thing) 'make a real URL
-        If LoadOARContent(File) Then
-            TextPrint(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
-        End If
+        LoadOARContent(File)
+        TextPrint(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
 
     End Sub
 
