@@ -6,14 +6,14 @@
 #End Region
 
 Module BreakPoint
+
     Public Sub Print(Message As String)
         Diagnostics.Debug.Print(Message)
     End Sub
 
     Public Sub Show(ex As Exception)
 
-        Dim Message As String
-        Message = ex.Message
+        Dim Message = ex.Message
         Dim st = New StackTrace(ex, True)
         Message &= st.ToString
 

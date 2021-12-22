@@ -19,7 +19,7 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     ReadOnly LoadOarLock As Object
-    Private ReadOnly SavedAlready As New List(Of String)
+
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
@@ -510,7 +510,7 @@ Public Class FormSmartStart
         BakeButton.Text = My.Resources.Bakeword
         BeachGrass1.Text = My.Resources.BeachGrass
         BulkLoadRegionsToolStripMenuItem.Text = My.Resources.BulkLoad
-        Button1.Text = My.Resources.Delete_All
+        Delete_TreeButton.Text = My.Resources.Delete_All
         Cypress1.Text = My.Resources.Cypress_1
         Cypress2.Text = My.Resources.Cypress_2
         DelayLabelRegionReady.Text = Global.Outworldz.My.Resources.DelayAfterRegionReady
@@ -849,9 +849,6 @@ Public Class FormSmartStart
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
 
-        Dim localEstateName = gEstateName
-        Dim localOwnerName = gEstateOwner
-
         Try
             For Each J In FormSetup.ContentOAR.GetJson
 
@@ -926,18 +923,6 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
-                ' TO DO ugly global
-                ' force the Estate Name in Opensim.ini in CopyOpenSimProto
-                '  gEstateName = localEstateName
-                '  gEstateOwner = localOwnerName
-
-                ReBoot(RegionUUID) ' Wait for it to start booting
-                WaitForBooted(RegionUUID)
-
-                ' clear out the global estate name so normal prompts are followed
-                gEstateName = ""
-                gEstateOwner = ""
-
                 Dim Max As Integer
                 If sizerow > Max Then Max = sizerow
                 X += CInt((sizerow / 256) + 1)
@@ -946,55 +931,18 @@ Public Class FormSmartStart
                     Y += CInt((Max / 256) + 1)
                     sizerow = 256
                 End If
-
                 If GetPrimCount(RegionUUID) = 0 Then
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
 
-                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-
-                    If Settings.MapType <> "None" Or MapType(RegionUUID).Length > 0 Then
-                        ConsoleCommand(RegionUUID, "generate map")
-                    End If
-
-                    ConsoleCommand(RegionUUID, "backup")
-
-                    RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-
-                    If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
-                        ConsoleCommand(RegionUUID, "q")
-                        ConsoleCommand(RegionUUID, "q")
-                    End If
-                Else
-                    If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
-                        RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-                        ConsoleCommand(RegionUUID, "q")
-                        ConsoleCommand(RegionUUID, "q")
-                    End If
-
+                    Dim obj As New TaskObject With {
+                        .TaskName = FormSetup.TaskName.Load_AllFreeOARs,
+                        .Command = File
+                    }
+                    FormSetup.RebootAndRunTask(RegionUUID, obj)
                 End If
-
-                PropUpdateView = True
-
-                If Abort Then Return
-
-                PropUpdateView = True
-                Dim ctr = 120
-                If Settings.Sequential Then
-                    If Abort Then Return
-                    While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped AndAlso Not Abort
-                        Sleep(1000)
-                        Application.DoEvents()
-                        ctr -= 1
-                        If ctr = 0 Then Exit While
-                    End While
-                End If
-                Settings.SaveSettings()
 
             Next
-        Catch ex As Exception
-            BreakPoint.Show(ex)
+        Catch
         End Try
 
     End Sub
@@ -1006,38 +954,11 @@ Public Class FormSmartStart
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
-
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        ' Create an instance of the open file dialog box. Set filter options and filter index.
-        Using openFileDialog1 = New OpenFileDialog With {
-            .InitialDirectory = Terrainfolder,
-            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.png,*.r32,*.raw, *.ter)|*.png;*.r32;*.raw;*.ter|All Files (*.*)|*.*",
-            .FilterIndex = 1,
-            .Multiselect = False
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.Terrain_Load,
+                .Command = ""
             }
-
-            ' Call the ShowDialog method to show the dialog box.
-            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-            ' Process input if the user clicked OK.
-            If UserClickedOK = DialogResult.OK Then
-
-                Dim thing = openFileDialog1.FileName
-                If thing.Length > 0 Then
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.raw""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.png""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.ter""")
-                    RPC_Region_Command(RegionUUID, $"terrain load ""{thing}""")
-                End If
-            End If
-
-        End Using
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
 
     End Sub
 
@@ -1201,39 +1122,6 @@ Public Class FormSmartStart
         End Try
     End Sub
 
-    Private Sub Maketypes(startWith As String, Filename As String, RegionUUID As String)
-
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim extension = IO.Path.GetExtension(Filename)
-
-        Dim Rname = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{Rname}""")
-
-        Dim RegionName = Filename
-        RegionName = RegionName.Replace($"{extension}", startWith)
-        RegionName = RegionName.Replace("*", "")
-        RPC_Region_Command(RegionUUID, $"terrain load ""{Filename}""")
-
-        RegionName = RegionName.Replace($"{extension}", "")
-
-        Save(RegionUUID, $"terrain save ""{RegionName}.r32""")
-        Save(RegionUUID, $"terrain save ""{RegionName}.raw""")
-        Save(RegionUUID, $"terrain save ""{RegionName}.jpg""")
-        Save(RegionUUID, $"terrain save ""{RegionName}.png""")
-        Save(RegionUUID, $"terrain save ""{RegionName}.ter""")
-
-    End Sub
-
-    Private Sub Save(RegionUUID As String, S As String)
-
-        If SavedAlready.Contains(S) Then
-            Return
-        End If
-        RPC_Region_Command(RegionUUID, S)
-        SavedAlready.Add(S)
-
-    End Sub
-
 #End Region
 
 #Region "4Choices"
@@ -1267,72 +1155,28 @@ Public Class FormSmartStart
 
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
-        Try
-            SavedAlready.Clear()
-            Dim RegionName = ChooseRegion(False)
-            If RegionName.Length = 0 Then Return
-            Dim RegionUUID As String = FindRegionByName(RegionName)
+        SavedAlready.Clear()
+        Dim RegionName = ChooseRegion(False)
+        If RegionName.Length = 0 Then Return
+        Dim RegionUUID As String = FindRegionByName(RegionName)
 
-            ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
-            Application.DoEvents()
-            Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-            Dim exts As New List(Of String) From {
-                "*.r32",
-                "*.raw",
-                "*.ter",
-                "*.png"
-            }
-
-            For Each extension In exts
-                Dim Files = System.IO.Directory.EnumerateFiles(Terrainfolder, extension, SearchOption.TopDirectoryOnly)
-                For Each File In Files
-                    Maketypes(extension, File, RegionUUID)
-                Next
-            Next
-        Catch
-        End Try
+        Dim obj As New TaskObject With {
+                        .TaskName = FormSetup.TaskName.RebuildTerrain
+                    }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
-        'Save all
-        Try
-            For Each RegionUUID In RegionUuids()
-                Dim RegionName = Region_Name(RegionUUID)
-                Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-                If Not RegionEnabled(RegionUUID) Then Continue For
 
-                ReBoot(RegionUUID)
-                WaitForBooted(RegionUUID)
-                Application.DoEvents()
+        For Each RegionUUID In RegionUuids()
+            If Not RegionEnabled(RegionUUID) Then Continue For
 
-                Dim S As Double = SizeX(RegionUUID)
-                S /= 256
-                If S > 1 Then
-                    Dim path = $"{Terrainfolder}\{S}x{S}"
-                    ' If the destination folder don't exist then create it
-                    If Not System.IO.Directory.Exists(path) Then
-                        Try
-                            System.IO.Directory.CreateDirectory(path)
-                        Catch ex As Exception
-                            BreakPoint.Show(ex)
-                        End Try
-                    End If
-                    Terrainfolder = path
-                End If
-
-                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-                    RPC_Region_Command(RegionUUID, $"change region {RegionName}")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
-                End If
-            Next
-        Catch
-        End Try
+            Dim obj As New TaskObject With {
+                        .TaskName = FormSetup.TaskName.Save_Terrain
+                    }
+            FormSetup.RebootAndRunTask(RegionUUID, obj)
+        Next
 
     End Sub
 
@@ -1354,30 +1198,10 @@ Public Class FormSmartStart
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim S As Double = SizeX(RegionUUID)
-        S /= 256
-        If S > 1 Then
-            Dim path = $"{Terrainfolder}\{S}x{S}"
-            ' If the destination folder don't exist then create it
-            If Not System.IO.Directory.Exists(path) Then
-                Try
-                    System.IO.Directory.CreateDirectory(path)
-                Catch ex As Exception
-                    BreakPoint.Show(ex)
-                End Try
-            End If
-            Terrainfolder = path
-        End If
-
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.Save_Terrain
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1406,28 +1230,10 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then Return
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""") Then Return
-
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.r32""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.raw""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.jpg""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.png""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.ter""") Then Return
-
-        If RegionUUID.Length > 0 Then
-
-            Dim R As New RegionEssentials With {
-             .RegionUUID = RegionUUID,
-             .RegionName = RegionName
-             }
-
-            GenLand(R)
-
-        End If
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.ApplyTerrainEffect
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1450,21 +1256,18 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TerrainApply_Click(sender As Object, e As EventArgs) Handles TerrainApply.Click
-        ' from photo
+
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
-
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        Dim Tname = _TerrainName.Item(_Index)
-        Tname = Tname.Replace(".jpg", ".r32")
-        If IO.File.Exists(Tname) Then
-            If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
-            If Not RPC_Region_Command(RegionUUID, $"terrain load ""{Tname}""") Then Return
-        End If
+        Dim TerrainName = _TerrainName.Item(_Index)
+        TerrainName = TerrainName.Replace(".jpg", ".r32")
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.Terrain_Load,
+                            .Command = TerrainName
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1478,20 +1281,10 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
         If RegionUUID.Length = 0 Then Return
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
-
-        If RegionUUID.Length > 0 Then
-
-            Dim R As New RegionEssentials With {
-             .RegionUUID = RegionUUID,
-             .RegionName = RegionName
-             }
-
-            GenTrees(R)
-        End If
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.Apply_Plant
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1785,26 +1578,23 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-        RPC_Region_Command(RegionUUID, "terrain bake")
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.Bake_Terrain
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Delete_TreeButton.Click
 
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        For Each TT As String In TreeList
-            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
-        Next
+        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.Delete_Tree
+                        }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1817,23 +1607,17 @@ Public Class FormSmartStart
         End If
         Dim result = MsgBox(My.Resources.DeleteSims, vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
         If result = vbOK Then
-            Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-            If msg = vbYes Then
-                For Each RegionUUID In RegionUuids()
-
-                    If Estate(RegionUUID) = "SimSurround" Then
-                        DeleteAllRegionData(RegionUUID)
-                        ctr += 1
-                    End If
-                Next
-            Else
-                ProgressPrint(My.Resources.Cancelled_word)
-            End If
-
-            ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
+            For Each RegionUUID In RegionUuids()
+                If Estate(RegionUUID) = "SimSurround" Then
+                    DeleteAllRegionData(RegionUUID)
+                    ctr += 1
+                End If
+            Next
         Else
             ProgressPrint(My.Resources.Cancelled_word)
         End If
+
+        ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
 
     End Sub
 
@@ -1873,13 +1657,10 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-        RPC_Region_Command(RegionUUID, "terrain revert")
-
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.Revert
+            }
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
     End Sub
 
     Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged

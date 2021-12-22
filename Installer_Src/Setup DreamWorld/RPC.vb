@@ -8,6 +8,7 @@
 Imports Nwc.XmlRpc
 
 Module RPC
+    Public ReadOnly SavedAlready As New List(Of String)
 
     ''' <summary>
     ''' Returns count of ALL agents + NPC in region

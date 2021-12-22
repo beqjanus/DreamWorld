@@ -2631,7 +2631,7 @@
     <value>Maximum of 4096</value>
   </data>
   <data name="Save_All_Regions" xml:space="preserve">
-    <value>Save All Running Regions to OARs</value>
+    <value>Save All Enabled Regions as OARs</value>
   </data>
   <data name="INI_Filter" xml:space="preserve">
     <value>ini files (*.ini)|*.ini|All files (*.*)|*.*</value>

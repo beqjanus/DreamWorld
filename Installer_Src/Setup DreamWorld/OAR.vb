@@ -98,10 +98,11 @@ Module OAR
                         If PropUserName.Length > 0 Then UserName = $" --Default-user ""{PropUserName}"" "
                         Dim v As String = "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """"
 
-                        Dim obj As New TaskObject
-                        obj.TaskName = FormSetup.TaskName.LoadOneOarTask
+                        Dim obj As New TaskObject With {
+                            .TaskName = FormSetup.TaskName.LoadOneOarTask,
+                            .Command = v
+                        }
                         FormSetup.RebootAndRunTask(RegionUUID, obj)
-
                     End If
                 End If
 
@@ -162,11 +163,11 @@ Module OAR
 
         Dim LoadOarCmd = $"load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} {thing}"
 
-        Dim obj As New TaskObject
-        obj.TaskName = FormSetup.TaskName.LoadOARContent
-        obj.RegionName = RegionName
-        obj.backMeUp = BackUpString
-        obj.Command = LoadOarCmd
+        Dim obj As New TaskObject With {
+            .TaskName = FormSetup.TaskName.LoadOARContent,
+            .backMeUp = BackUpString,
+            .Command = LoadOarCmd
+        }
 
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 
@@ -178,20 +179,20 @@ Module OAR
 
     Public Sub LoadOARContent2(RegionUUID As String, T As TaskObject)
 
-        Dim Regionname = T.RegionName
+        Dim RegionName = Region_Name(RegionUUID)
         Dim backMeUp = T.backMeUp
         Dim LoadOarStr = T.Str
 
         Try
             If backMeUp = "Yes" Then
-                ConsoleCommand(RegionUUID, $"change region ""{Regionname}""")
+                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{Regionname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
+                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{RegionName}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
 
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, $"change region ""{Regionname}""")
+            ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
             ConsoleCommand(RegionUUID, LoadOarStr)
             ConsoleCommand(RegionUUID, "generate map")
         Catch ex As Exception
@@ -219,50 +220,59 @@ Module OAR
     Public Sub SaveOar(RegionName As String)
 
         If RegionName Is Nothing Then Return
-        If PropOpensimIsRunning() Then
-
-            If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(False)
-                If RegionName.Length = 0 Then
-                    TextPrint(My.Resources.Cancelled_word)
-                    Return
-                End If
-            End If
-
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-
-            Dim Message, title, defaultValue As String
-            Dim myValue As String
-            ' Set prompt.
-            Message = Global.Outworldz.My.Resources.EnterName
-            title = "Backup to OAR"
-            defaultValue = RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
-
-            ' Display message, title, and default value.
-            myValue = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue
-            If myValue.Length = 0 Then Return
-
-            If myValue.EndsWith(".OAR", StringComparison.OrdinalIgnoreCase) Or myValue.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Then
-                ' nothing
-            Else
-                myValue += ".oar"
-            End If
-
-            ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
-
-            If IsBooted(RegionUUID) Then
-                Dim Group = Group_Name(RegionUUID)
-                SendMessage(RegionUUID, "CPU Intensive Backup Started")
-                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue & """")
-            End If
-
-            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & myValue)
-        Else
+        If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
+            Return
         End If
+
+        If RegionName.Length = 0 Then
+            RegionName = ChooseRegion(False)
+            If RegionName.Length = 0 Then
+                TextPrint(My.Resources.Cancelled_word)
+                Return
+            End If
+        End If
+
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+
+        Dim Message, title, defaultValue As String
+        Dim myValue As String
+        ' Set prompt.
+        Message = Global.Outworldz.My.Resources.EnterName
+        title = "Backup to OAR"
+        defaultValue = RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
+
+        ' Display message, title, and default value.
+        myValue = InputBox(Message, title, defaultValue)
+        ' If user has clicked Cancel, set myValue to defaultValue
+        If myValue.Length = 0 Then Return
+
+        If myValue.EndsWith(".OAR", StringComparison.OrdinalIgnoreCase) Or myValue.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Then
+            ' nothing
+        Else
+            myValue += ".oar"
+        End If
+
+        Dim obj As New TaskObject With {
+                        .TaskName = FormSetup.TaskName.SaveOneOAR,
+                        .Command = myValue
+                    }
+        FormSetup.RebootAndRunTask(RegionUUID, obj)
+
+    End Sub
+
+    Public Sub SaveOneOar(RegionUUID As String, Task As TaskObject)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim MyValue = Task.Command
+        If IsBooted(RegionUUID) Then
+            Dim Group = Group_Name(RegionUUID)
+            SendMessage(RegionUUID, "CPU Intensive Backup Started")
+            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & MyValue & """")
+        End If
+
+        TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & MyValue)
 
     End Sub
 

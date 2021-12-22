@@ -87,7 +87,7 @@ Partial Class FormSmartStart
         Me.Rand = New System.Windows.Forms.RadioButton()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Delete_TreeButton = New System.Windows.Forms.Button()
         Me.DeletApply = New System.Windows.Forms.CheckBox()
         Me.Dogwood = New System.Windows.Forms.CheckBox()
         Me.None = New System.Windows.Forms.CheckBox()
@@ -788,7 +788,7 @@ Partial Class FormSmartStart
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.Delete_TreeButton)
         Me.GroupBox1.Controls.Add(Me.DeletApply)
         Me.GroupBox1.Controls.Add(Me.Dogwood)
         Me.GroupBox1.Controls.Add(Me.None)
@@ -822,21 +822,21 @@ Partial Class FormSmartStart
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
         '
-        'Button1
+        'Delete_TreeButton
         '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(665, 174)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(111, 34)
-        Me.Button1.TabIndex = 27
-        Me.Button1.Text = "Delete All"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Delete_TreeButton.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        Me.Delete_TreeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Delete_TreeButton.Location = New System.Drawing.Point(655, 94)
+        Me.Delete_TreeButton.Name = "Delete_TreeButton"
+        Me.Delete_TreeButton.Size = New System.Drawing.Size(111, 34)
+        Me.Delete_TreeButton.TabIndex = 27
+        Me.Delete_TreeButton.Text = "Delete All"
+        Me.Delete_TreeButton.UseVisualStyleBackColor = True
         '
         'DeletApply
         '
         Me.DeletApply.AutoSize = True
-        Me.DeletApply.Location = New System.Drawing.Point(127, 41)
+        Me.DeletApply.Location = New System.Drawing.Point(655, 62)
         Me.DeletApply.Name = "DeletApply"
         Me.DeletApply.Size = New System.Drawing.Size(131, 17)
         Me.DeletApply.TabIndex = 11
@@ -877,7 +877,7 @@ Partial Class FormSmartStart
         '
         Me.ApplyPlantButton.Image = CType(resources.GetObject("ApplyPlantButton.Image"), System.Drawing.Image)
         Me.ApplyPlantButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyPlantButton.Location = New System.Drawing.Point(665, 239)
+        Me.ApplyPlantButton.Location = New System.Drawing.Point(655, 144)
         Me.ApplyPlantButton.Name = "ApplyPlantButton"
         Me.ApplyPlantButton.Size = New System.Drawing.Size(111, 37)
         Me.ApplyPlantButton.TabIndex = 10
@@ -1762,7 +1762,7 @@ Partial Class FormSmartStart
     Friend WithEvents Radius As Label
     Friend WithEvents Rad As TextBox
     Friend WithEvents DeletApply As CheckBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents Delete_TreeButton As Button
     Friend WithEvents BakeButton As Button
     Friend WithEvents RevertButton As Button
     Friend WithEvents TempCheckBox As CheckBox

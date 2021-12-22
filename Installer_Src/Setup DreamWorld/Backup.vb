@@ -54,10 +54,12 @@
     Public Sub BackupAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
-            Dim Obj = New TaskObject
-            Obj.TaskName = FormSetup.TaskName.RPCBackupper
-            Obj.Command = ""
+            If Not RegionEnabled(RegionUUID) Then Continue For
 
+            Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.RPCBackupper,
+                .Command = ""
+            }
             FormSetup.RebootAndRunTask(RegionUUID, Obj)
         Next
     End Sub

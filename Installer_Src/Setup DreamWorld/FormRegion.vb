@@ -299,7 +299,7 @@ Public Class FormRegion
             ConciergeCheckBox.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionUUID = CreateRegionStruct("New Region")
+            RegionUUID = CreateRegionStruct("")
             UUID.Text = RegionUUID
             Gods_Use_Default.Checked = True
 
@@ -982,6 +982,8 @@ Public Class FormRegion
 
 #Region "Subs"
 
+    Dim WriteLock As New Object
+
     Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
         ' check for invalid chars in file name for INI file
         If fileName Is Nothing Then Return False
@@ -1111,7 +1113,6 @@ Public Class FormRegion
 
     End Function
 
-    Dim WriteLock As Object
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
 
@@ -1203,9 +1204,6 @@ Public Class FormRegion
         Coord_X(RegionUUID) = CInt("0" & CoordX.Text)
         Coord_Y(RegionUUID) = CInt("0" & CoordY.Text)
         Region_Name(RegionUUID) = RegionName.Text
-
-
-
 
         SizeX(RegionUUID) = BoxSize
         SizeY(RegionUUID) = BoxSize
@@ -1413,7 +1411,6 @@ Public Class FormRegion
                             "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
                             "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
 
-
             Try
                 Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
                     outputFile.Write(Region)
@@ -1421,7 +1418,7 @@ Public Class FormRegion
             Catch ex As Exception
                 BreakPoint.Show(ex)
                 MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
-                ABort = True
+                Abort = True
             End Try
 
         End SyncLock

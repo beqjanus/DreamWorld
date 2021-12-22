@@ -8935,7 +8935,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Save All Running Regions to OARs.
+        '''  Looks up a localized string similar to Save All Enabled Regions as OARs.
         '''</summary>
         Friend ReadOnly Property Save_All_Regions() As String
             Get

@@ -23,13 +23,9 @@ Module Build
 
     Public Function GenLand(R As Object) As Boolean
 
+        If R Is Nothing Then Return False
         Dim regionUUID = R.RegionUUID.ToString
         Dim Name = R.RegionName.ToString
-
-        If Region_Name(regionUUID) <> Name Then
-            BreakPoint.Print(" **** BUGSPLAT Region is BAD ****")
-            Return False
-        End If
 
         If Not RPC_Region_Command(regionUUID, $"change region {Name}") Then Return False
         If Settings.TerrainType = "Flat" Then
@@ -89,7 +85,6 @@ Module Build
         'force update - Force the region to send all clients updates about all objects.
         If Not RPC_Region_Command(regionUUID, "force update") Then Return False
 
-        BreakPoint.Print("Gentrees success")
         Return True
 
     End Function
@@ -294,7 +289,6 @@ Module Build
 
         If GenLand(R) Then Return
         If GenTrees(R) Then Return
-        BreakPoint.Print("Trees and Land finished")
 
     End Sub
 

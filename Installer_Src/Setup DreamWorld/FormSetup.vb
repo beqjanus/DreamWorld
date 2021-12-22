@@ -968,11 +968,23 @@ Public Class FormSetup
     ''' The list of commands
     ''' </summary>
     Public Enum TaskName As Integer
+
         RPCBackupper = 1        ' run backups via XMLRPC
         TeleportClicked = 2     ' click the teleport button in the region pop up
         LoadOar = 3             ' for Loading a series of OARS
         LoadOneOarTask = 4      ' loading One Oar
-        LoadOARContent = 5      ' !!!
+        LoadOARContent = 5      ' From the map click
+        SaveOneOAR = 6          ' Save this one OAR click
+        RebuildTerrain = 7      ' Smart Terrain
+        Save_Terrain = 8        ' Dump one region to disk
+        ApplyTerrainEffect = 9 ' Change the terrain
+        Terrain_Load = 10      ' Change one of them
+        Apply_Plant = 11        ' Plant trees
+        Bake_Terrain = 12       ' save it permanently
+        Load_AllFreeOARs = 13   ' the big Kaunas of all oars at once
+        Delete_Tree = 14        ' kill off all trees
+        Revert = 15             ' revert terrain
+
     End Enum
 
     ''' <summary>
@@ -1006,20 +1018,40 @@ Public Class FormSetup
             Dim Task = ToDoList.Item(RegionUUID)
             Dim T = Task.TaskName
             Select Case T
-                Case TaskName.RPCBackupper
+                Case TaskName.RPCBackupper       '1
                     RPCBackupper(RegionUUID)
-                Case TaskName.TeleportClicked
+                Case TaskName.TeleportClicked   '2
                     TeleportClicked(RegionUUID)
-                Case TaskName.LoadOar
+                Case TaskName.LoadOar   '2
                     LoadOar(RegionUUID)
-                Case TaskName.LoadOneOarTask
+                Case TaskName.LoadOneOarTask    '4
                     LoadOneOarTask(RegionUUID, Task)
-                Case TaskName.LoadOARContent
+                Case TaskName.LoadOARContent    '5
                     LoadOARContent2(RegionUUID, Task)
+                Case TaskName.SaveOneOAR    '6
+                    SaveOneOar(RegionUUID, Task)
+                Case TaskName.RebuildTerrain    '7
+                    RebuildTerrain(RegionUUID)
+                Case TaskName.Save_Terrain  '8
+                    Save_Terrain(RegionUUID)
+                Case TaskName.ApplyTerrainEffect    '9
+                    ApplyTerrainEffect(RegionUUID)
+                Case TaskName.Terrain_Load       '10
+                    Load_Save(RegionUUID)
+                Case TaskName.Apply_Plant       '11
+                    Apply_Plant(RegionUUID)
+                Case TaskName.Bake_Terrain      '12
+                    Bake_Terrain(RegionUUID)
+                Case TaskName.Load_AllFreeOARs  '13
+                    Load_AllFreeOARs(RegionUUID, Task)
+                Case TaskName.Delete_Tree       '14
+                    Delete_Tree(RegionUUID)
+                Case TaskName.Revert             '15
+                    Revert(RegionUUID)
                 Case Else
                     BreakPoint.Print("Impossible task")
             End Select
-
+            ToDoList.Remove(RegionUUID)
             Application.DoEvents()
         End If
 
@@ -1084,8 +1116,9 @@ Public Class FormSetup
 
                 TeleportAgents()
 
-                Diagnostics.Debug.Print("Landscaping " & RegionName)
-                Landscape(RegionUUID, RegionName)
+                If Estate(RegionUUID) = "SimSurround" Then
+                    Landscape(RegionUUID, RegionName)
+                End If
 
                 RunTaskList(RegionUUID)
 
@@ -1126,7 +1159,6 @@ Public Class FormSetup
                         If AvatarIsNearby(RegionUUID) Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
-                            Application.DoEvents()
                             Continue For
                         End If
                     End If

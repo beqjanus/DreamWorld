@@ -546,8 +546,221 @@ Module SmartStart
             FormSetup.RunTaskList(RegionUUID)
         End If
 
+    End Sub
 
+#End Region
 
+#Region "Pass2"
+
+    Public Sub Apply_Plant(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
+
+        If RegionUUID.Length > 0 Then
+            Dim R As New RegionEssentials With {
+             .RegionUUID = RegionUUID,
+             .RegionName = RegionName
+             }
+
+            GenTrees(R)
+        End If
+
+    End Sub
+
+    Public Sub ApplyTerrainEffect(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+
+        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""") Then Return
+
+        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.r32""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.raw""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.jpg""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.png""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.ter""") Then Return
+
+        Dim R As New RegionEssentials With {
+             .RegionUUID = RegionUUID,
+             .RegionName = RegionName
+             }
+
+        GenLand(R)
+
+    End Sub
+
+    Public Sub Bake_Terrain(RegionUUID As String)
+
+        Dim Name = Region_Name(RegionUUID)
+        RPC_Region_Command(RegionUUID, $"change region ""{Name}""")
+        RPC_Region_Command(RegionUUID, "terrain bake")
+
+    End Sub
+
+    Public Sub Delete_Tree(RegionUUID As String)
+
+        For Each TT As String In TreeList
+            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
+        Next
+
+    End Sub
+
+    Public Sub Load_AllFreeOARs(RegionUUID As String, obj As TaskObject)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim File = obj.Command
+
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
+
+        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+
+        If Settings.MapType <> "None" Or MapType(RegionUUID).Length > 0 Then
+            ConsoleCommand(RegionUUID, "generate map")
+        End If
+
+        ConsoleCommand(RegionUUID, "backup")
+
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
+
+        If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
+            ConsoleCommand(RegionUUID, "q")
+        End If
+
+    End Sub
+
+    Public Sub Load_Save(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        ' Create an instance of the open file dialog box. Set filter options and filter index.
+        Using openFileDialog1 = New OpenFileDialog With {
+            .InitialDirectory = Terrainfolder,
+            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.png,*.r32,*.raw, *.ter)|*.png;*.r32;*.raw;*.ter|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+            }
+
+            ' Call the ShowDialog method to show the dialog box.
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+
+                Dim thing = openFileDialog1.FileName
+                If thing.Length > 0 Then
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.raw""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.png""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.ter""")
+                    RPC_Region_Command(RegionUUID, $"terrain load ""{thing}""")
+                End If
+            End If
+
+        End Using
+
+    End Sub
+
+    Public Sub RebuildTerrain(RegionUUId As String)
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim exts As New List(Of String) From {
+                "*.r32",
+                "*.raw",
+                "*.ter",
+                "*.png"
+            }
+
+        For Each extension In exts
+            Dim Files = System.IO.Directory.EnumerateFiles(Terrainfolder, extension, SearchOption.TopDirectoryOnly)
+            For Each File In Files
+                Maketypes(extension, File, RegionUUId)
+            Next
+        Next
+
+    End Sub
+
+    Public Sub Revert(RegionUUID As String)
+
+        Dim Name = Region_Name(RegionUUID)
+        RPC_Region_Command(RegionUUID, $"change region ""{Name}""")
+        RPC_Region_Command(RegionUUID, "terrain revert")
+
+    End Sub
+
+    Public Sub Save_Terrain(RegionUUID As String)
+
+        Dim RegionName = Region_Name(RegionUUID)
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim S As Double = SizeX(RegionUUID)
+        S /= 256
+        If S > 1 Then
+            Dim path = $"{Terrainfolder}\{S}x{S}"
+            ' If the destination folder don't exist then create it
+            If Not System.IO.Directory.Exists(path) Then
+                Try
+                    System.IO.Directory.CreateDirectory(path)
+                Catch ex As Exception
+                    BreakPoint.Show(ex)
+                End Try
+            End If
+            Terrainfolder = path
+        End If
+
+        If Not RPC_Region_Command(RegionUUID, $"change region {RegionName}") Then Return
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+
+    End Sub
+
+    Public Sub Terrain_Load(RegionUUID As String, obj As TaskObject)
+
+        Dim TerrainName = obj.Command
+        Dim name = Region_Name(RegionUUID)
+        If IO.File.Exists(TerrainName) Then
+            If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"terrain load ""{TerrainName }""") Then Return
+        End If
+
+    End Sub
+
+    Private Sub Maketypes(startWith As String, Filename As String, RegionUUID As String)
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim extension = IO.Path.GetExtension(Filename)
+
+        Dim Rname = Region_Name(RegionUUID)
+        RPC_Region_Command(RegionUUID, $"change region ""{Rname}""")
+
+        Dim RegionName = Filename
+        RegionName = RegionName.Replace($"{extension}", startWith)
+        RegionName = RegionName.Replace("*", "")
+        RPC_Region_Command(RegionUUID, $"terrain load ""{Filename}""")
+
+        RegionName = RegionName.Replace($"{extension}", "")
+
+        Save(RegionUUID, $"terrain save ""{RegionName}.r32""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.raw""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.jpg""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.png""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.ter""")
+
+    End Sub
+
+    Private Sub Save(RegionUUID As String, S As String)
+
+        If SavedAlready.Contains(S) Then
+            Return
+        End If
+        RPC_Region_Command(RegionUUID, S)
+        SavedAlready.Add(S)
 
     End Sub
 
