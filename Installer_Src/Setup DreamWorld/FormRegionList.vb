@@ -716,7 +716,7 @@ Public Class FormRegionlist
             For Each Agent In M
                 If Agent.Value.Length > 0 Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
+                    item1.SubItems.Add(Region_Name(Agent.Value))
                     item1.SubItems.Add(My.Resources.Hypergrid_word)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
