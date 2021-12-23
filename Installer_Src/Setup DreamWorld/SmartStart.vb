@@ -532,9 +532,10 @@ Module SmartStart
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
+                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Then
 
-            Bench.Print($"Reboot { Region_Name(RegionUUID)}")
+            Bench.Print($"Reboot {Region_Name(RegionUUID)}")
 
             For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume

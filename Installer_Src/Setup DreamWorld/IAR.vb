@@ -17,6 +17,36 @@ Module IAR
 
 #Region "Load"
 
+    Public Function DoIARBackground(o As Params) As Boolean
+
+        Dim RegionName As String = o.RegionName
+        Dim opt As String = o.opt
+        Dim itemName As String = o.itemName
+
+        Dim ToBackup As String
+        Dim UserList = GetAvatarList()
+
+        Dim RegionUUID = FindRegionByName(RegionName)
+        If Not IsBooted(RegionUUID) Then Return False
+        For Each k As String In UserList
+            Dim newname = k.Replace(" ", "_")
+            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
+            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
+                Try
+                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
+                Catch ex As Exception
+                    BreakPoint.Show(ex)
+                End Try
+            End If
+
+            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
+            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
+            WaitforComplete(ToBackup)
+        Next
+        Return True
+
+    End Function
+
     Public Sub LoadIAR()
 
         HelpOnce("Load IAR")
@@ -182,7 +212,7 @@ Module IAR
 
         If PropOpensimIsRunning() Then
 
-            Dim RegionName = ChooseRegion(False)
+            Dim RegionName = Settings.WelcomeRegion
             If RegionName.Length = 0 Then Return
 
             Using SaveIAR As New FormIARSaveAll
@@ -228,7 +258,6 @@ Module IAR
                         .itemName = itemName
                     }
 
-                    ' start a thread to see if a region has crashed, if so, add it to an exit list
 #Disable Warning BC42016 ' Implicit conversion
                     Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
 #Enable Warning BC42016 ' Implicit conversion
@@ -243,36 +272,6 @@ Module IAR
         End If
     End Sub
 
-    Private Function DoIARBackground(o As Params) As Boolean
-
-        Dim RegionName As String = o.RegionName
-        Dim opt As String = o.opt
-        Dim itemName As String = o.itemName
-
-        Dim ToBackup As String
-        Dim UserList = GetAvatarList()
-
-        Dim RegionUUID = FindRegionByName(RegionName)
-        If Not IsBooted(RegionUUID) Then Return False
-        For Each k As String In UserList
-            Dim newname = k.Replace(" ", "_")
-            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
-            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
-                Try
-                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
-                Catch ex As Exception
-                    BreakPoint.Show(ex)
-                End Try
-            End If
-
-            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
-            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-            WaitforComplete(ToBackup)
-        Next
-        Return True
-
-    End Function
-
     Private Sub WaitforComplete(BackupName As String)
 
         Dim s As Long
@@ -283,7 +282,7 @@ Module IAR
             Try
                 s = fi.Length
             Catch ex As Exception
-                'BreakPoint.Show(ex)
+                BreakPoint.Show(ex)
             End Try
             If s = oldsize And s > 0 Then
                 same += 1

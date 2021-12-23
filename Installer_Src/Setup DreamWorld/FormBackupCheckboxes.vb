@@ -5,6 +5,7 @@
 
 #End Region
 
+Imports System.ComponentModel
 Imports System.Threading
 
 Public Class FormBackupCheckboxes
@@ -43,61 +44,35 @@ Public Class FormBackupCheckboxes
 
 #End Region
 
-#Region "Private Methods"
+#Region "Backup Start "
 
-    Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
+    ''' <summary>
+    ''' Backup Run Button
+    ''' </summary>
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
-        If Not initted Then Return
-        Settings.BackupSQL = BackupSQlCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Button1.Text = My.Resources.Running_word
         Dim b As New Backups()
-        b.RunAllBackups(True) 'run backup right now
-        Application.DoEvents()
-        Threading.Thread.Sleep(2000)
-
         If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
             Return
         End If
 
-        Dim WebThread = New Thread(AddressOf BackupAllRegions)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-        WebThread.Start()
+        BackupButton.Text = My.Resources.Running_word
+
+        b.RunAllBackups(True) 'run backup right now instead of on a timer
+        Sleep(1000)
+
+        If Settings.BackupOARs Then
+            BackupAllRegions()
+        End If
 
         Me.Close()
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
+#End Region
 
-        If Not initted Then Return
-        Settings.BackupOARs = BackupOarsCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupWifi = CustomCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupFSAssets = FSAssetsCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
+#Region "Load"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
@@ -107,26 +82,28 @@ Public Class FormBackupCheckboxes
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Button1.Text = Global.Outworldz.My.Resources.Backup_word
+        BackupButton.Text = Global.Outworldz.My.Resources.System_Backup_Now_word
+        BackupIARsCheckBox.Text = Global.Outworldz.My.Resources.Backup_IARs
+        BackupOarsCheckBox.Text = Global.Outworldz.My.Resources.Backup_OARs
+        BackupSQlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         CustomCheckBox.Text = Global.Outworldz.My.Resources.Backup_Custom
         FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Backup_FSAssets
         GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
-        BackupSQlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
-        Button1.Text = Global.Outworldz.My.Resources.System_Backup_Now_word
+        SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         Me.Text = Global.Outworldz.My.Resources.System_Backup_word
 
         ' tool tips
-        ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
+        ToolTip1.SetToolTip(BackupButton, Global.Outworldz.My.Resources.tt_Backup_Now)
+        ToolTip1.SetToolTip(BackupIARsCheckBox, Global.Outworldz.My.Resources.tt_Backup_IARs)
+        ToolTip1.SetToolTip(BackupOarsCheckBox, Global.Outworldz.My.Resources.tt_Backup_OARs)
+        ToolTip1.SetToolTip(BackupSQlCheckBox, Global.Outworldz.My.Resources.tt_Backup_SQL)
         ToolTip1.SetToolTip(CustomCheckBox, Global.Outworldz.My.Resources.tt_Backup_Custom)
         ToolTip1.SetToolTip(FSAssetsCheckBox, Global.Outworldz.My.Resources.tt_Backup_Fsassets)
-        ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
         ToolTip1.SetToolTip(RegionCheckBox, Global.Outworldz.My.Resources.tt_Backup_Regions)
-        ToolTip1.SetToolTip(BackupSQlCheckBox, Global.Outworldz.My.Resources.tt_Backup_SQL)
-        ToolTip1.SetToolTip(Button1, Global.Outworldz.My.Resources.tt_Backup_Now)
+        ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
 
         HelpOnce("Backup Manually")
 
@@ -144,10 +121,54 @@ Public Class FormBackupCheckboxes
         FSAssetsCheckBox.Checked = Settings.BackupFSAssets
         CustomCheckBox.Checked = Settings.BackupWifi
         BackupOarsCheckBox.Checked = Settings.BackupOARs
-
+        BackupIARsCheckBox.Checked = Settings.BackupIARs
         BackupSQlCheckBox.Checked = Settings.BackupSQL
 
         initted = True
+
+    End Sub
+
+#End Region
+
+#Region "CheckBoxes"
+
+    Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupSQL = BackupSQlCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupOARs = BackupOarsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles BackupIARsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupIARs = BackupIARsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupWifi = CustomCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupFSAssets = FSAssetsCheckBox.Checked
+        Settings.SaveSettings()
 
     End Sub
 

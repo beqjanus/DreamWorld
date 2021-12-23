@@ -28,15 +28,16 @@ Public Class Backups
 
     Public Sub BackupSQLDB(DBName As String)
 
-        If Not StartMySQL() Then
-            FormSetup.ToolBar(False)
-            FormSetup.Buttons(FormSetup.StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
+        If Settings.BackupSQL Then
+            If Not StartMySQL() Then
+                FormSetup.ToolBar(False)
+                FormSetup.Buttons(FormSetup.StartButton)
+                TextPrint(My.Resources.Stopped_word)
+                Return
+            End If
+
+            SqlBackup(DBName)
         End If
-
-        SqlBackup(DBName)
-
     End Sub
 
     Public Sub RunSQLBackup(OP As Object)
@@ -164,14 +165,14 @@ Public Class Backups
 
 #Region "File Backup"
 
+    Dim IARLock As New Object
+
     Public Sub RunAllBackups(run As Boolean)
 
         Dim currentdatetime As Date = Date.Now
         If run Then
-            _WebThread2 = New Thread(AddressOf FullBackupThread)
-            _WebThread2.SetApartmentState(ApartmentState.STA)
-            _WebThread2.Priority = ThreadPriority.BelowNormal
-            _WebThread2.Start()
+            TextPrint($"{currentdatetime.ToLocalTime} {My.Resources.AutomaticBackupIsRunning}")
+            RunFullBackupThread()
             Return
         End If
 
@@ -190,30 +191,134 @@ Public Class Backups
             Settings.StartDate = currentdatetime ' wait another interval
             Settings.SaveSettings()
             If Settings.AutoBackup Then
-                TextPrint(currentdatetime.ToLocalTime & " auto backup running")
-                _WebThread3 = New Thread(AddressOf FullBackupThread)
-                _WebThread3.SetApartmentState(ApartmentState.STA)
-                _WebThread3.Priority = ThreadPriority.BelowNormal
-                _WebThread3.Start()
-
+                TextPrint($"{currentdatetime.ToLocalTime} {My.Resources.AutomaticBackupIsRunning}")
+                RunFullBackupThread()
             End If
         End If
 
     End Sub
 
+    Private Sub BackupFsassets()
+
+        If Settings.BackupFSAssets Then
+
+            Try
+                Dim f As String
+                If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
+                    f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
+                Else
+                    f = Settings.BaseDirectory
+                End If
+                If Directory.Exists(f) Then
+                    Dim dest = IO.Path.Combine(BackupPath, "FSassets")
+                    Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
+                    '/E  Everything including empty folders
+                    '/M Modified with the A bit set, then clears the bit
+                    '/TBD wait for share names to be defined
+                    '/IM include files with modified times
+                    '/J Unbuffered IO
+
+                    Dim rev = System.Environment.OSVersion.Version.Major
+                    ' Only on 10
+                    If rev = 10 Then args += "/LFSM:50M"
+
+                    Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
+                    Debug.Print(args)
+                    Using ProcessRobocopy As New Process With {
+                            .EnableRaisingEvents = True
+                        }
+                        Dim pi = New ProcessStartInfo With {
+                            .Arguments = args,
+                            .FileName = win,
+                            .UseShellExecute = True,
+                            .CreateNoWindow = True
+                        }
+                        ProcessRobocopy.StartInfo = pi
+                        ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                        ProcessRobocopy.StartInfo.CreateNoWindow = True
+                        Try
+                            ProcessRobocopy.Start()
+                        Catch ex As Exception
+                            Break(ex.Message)
+                        End Try
+                    End Using
+                End If
+            Catch ex As Exception
+                Break(ex.Message)
+            End Try
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Run all backups in sequence
+    ''' </summary>
     Private Sub FullBackupThread()
 
+        RunMainZip()
+        BackupSQLDB(Settings.RegionDBName)
+        BackupFsassets()
+
+    End Sub
+
+    ''' <summary>
+    '''  Save IARs as a background task
+    ''' </summary>
+    Private Sub RunBackupIARThread()
+
+        If Settings.BackupIARs Then
+            SyncLock IARLock
+                ' Make IAR options
+                Dim opt As String = ""
+                If Settings.DNSName.Length > 0 Then
+                    opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
+                End If
+
+                Dim p As New Params With {
+                            .RegionName = Settings.WelcomeRegion,
+                            .opt = opt,
+                            .itemName = "/"
+                        }
+
+#Disable Warning BC42016 ' Implicit conversion
+                Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
+#Enable Warning BC42016 ' Implicit conversion
+                Dim SaveIARThread = New Thread(start)
+                SaveIARThread.SetApartmentState(ApartmentState.STA)
+                SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
+                SaveIARThread.Start(p)
+
+            End SyncLock
+
+        End If
+
+    End Sub
+
+    Private Sub RunFullBackupThread()
+
+        RunBackupIARThread()
+
+        _WebThread3 = New Thread(AddressOf FullBackupThread)
+        _WebThread3.SetApartmentState(ApartmentState.STA)
+        _WebThread3.Priority = ThreadPriority.BelowNormal
+        _WebThread3.Start()
+
+    End Sub
+
+    Private Sub RunMainZip()
+
+        Dim zipused As Boolean
         'used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
         FileIO.FileSystem.CreateDirectory(_folder)
 
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
-        Dim zipused As Boolean
+
         Using Z = New ZipFile(Bak) With {
-            .UseZip64WhenSaving = Zip64Option.AsNecessary,
-            .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-        }
+                .UseZip64WhenSaving = Zip64Option.AsNecessary,
+                .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+            }
 
             Try
                 If Settings.BackupWifi Then
@@ -282,63 +387,7 @@ Public Class Backups
                 Break(ex.Message)
             End Try
 
-            Try
-                If Settings.BackupSQL Then
-                    BackupSQLDB(Settings.RegionDBName)
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
-
-            Try
-                If Settings.BackupFSAssets Then
-                    Dim f As String
-                    If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
-                        f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
-                    Else
-                        f = Settings.BaseDirectory
-                    End If
-                    If Directory.Exists(f) Then
-                        Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                        Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
-                        '/E  Everything including empty folders
-                        '/M Modified with the A bit set, then clears the bit
-                        '/TBD wait for share names to be defined
-                        '/IM include files with modified times
-                        '/J Unbuffered IO
-
-                        Dim rev = System.Environment.OSVersion.Version.Major
-                        ' Only on 10
-                        If rev = 10 Then args += "/LFSM:50M"
-
-                        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
-                        Debug.Print(args)
-                        Using ProcessRobocopy As New Process With {
-                            .EnableRaisingEvents = True
-                        }
-                            Dim pi = New ProcessStartInfo With {
-                                .Arguments = args,
-                                .FileName = win,
-                                .UseShellExecute = True,
-                                .CreateNoWindow = True
-                            }
-                            ProcessRobocopy.StartInfo = pi
-                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                            ProcessRobocopy.StartInfo.CreateNoWindow = True
-                            Try
-                                ProcessRobocopy.Start()
-                            Catch ex As Exception
-                                Break(ex.Message)
-                            End Try
-                        End Using
-                    End If
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
-
         End Using
-        'Application.ExitThread()
 
     End Sub
 
