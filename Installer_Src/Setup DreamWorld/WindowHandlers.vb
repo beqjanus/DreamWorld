@@ -132,27 +132,6 @@ Module WindowHandlers
             Return IntPtr.Zero
         End If
 
-        ' non robust
-        Dim PID As Integer
-        Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
-        If IO.File.Exists(INI) Then
-            Dim Plist As Process = Nothing
-            Try
-                Using F = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
-                    Using S = New StreamReader(F)
-                        'now loop through each line
-                        While S.Peek <> -1
-                            Dim sPID As String = S.ReadLine
-                            If Int32.TryParse(sPID, PID) Then
-                                Plist = CachedProcess(PID)
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch
-            End Try
-            If Plist IsNot Nothing Then Return Plist.MainWindowHandle
-        End If
 
         ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
         Dim AllProcesses = Process.GetProcessesByName("Opensim")
@@ -181,27 +160,6 @@ Module WindowHandlers
     End Function
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
-
-        Dim PID As Integer
-        Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\PID.pid")
-        Try
-            If IO.File.Exists(INI) Then
-                Using F = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
-                    Using S = New StreamReader(F)
-                        'now loop through each line
-                        While S.Peek <> -1
-                            Dim sPID As String = S.ReadLine
-                            Int32.TryParse(sPID, PID)
-                        End While
-                    End Using
-                End Using
-            End If
-        Catch
-        End Try
-
-        If PID > 0 Then
-            Return PID
-        End If
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try
