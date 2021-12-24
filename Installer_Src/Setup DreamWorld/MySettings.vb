@@ -274,7 +274,7 @@ Public Class MySettings
 
     Public Property BackupIARs() As Boolean
         Get
-            Return CType(GetMySetting("BackupIARs", "True"), Boolean)
+            Return CType(GetMySetting("BackupIARs", "False"), Boolean)
         End Get
         Set
             SetMySetting("BackupIARs", CStr(Value))
