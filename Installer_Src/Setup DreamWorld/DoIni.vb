@@ -482,6 +482,29 @@ Module DoIni
 
     End Function
 
+    Public Function DoTos() As Boolean
+
+        Try
+            Dim reader As System.IO.StreamReader
+            reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
+            'now loop through each line
+            Dim HTML As String = ""
+            While reader.Peek <> -1
+                HTML = HTML + reader.ReadLine() + vbCrLf
+            End While
+            reader.Close()
+
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\tos.html"), False)
+                outputFile.WriteLine(HTML)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex)
+        End Try
+
+        Return False
+
+    End Function
+
     Public Function DoWhoGotWhat() As Boolean
 
         Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";", System.Text.Encoding.UTF8)
@@ -618,29 +641,6 @@ Module DoIni
 
         Next
         IO.File.WriteAllText(TideFile, TideData, System.Text.Encoding.Default) 'The text file will be created if it does not already exist
-
-        Return False
-
-    End Function
-
-    Private Function DoTos() As Boolean
-
-        Try
-            Dim reader As System.IO.StreamReader
-            reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
-            'now loop through each line
-            Dim HTML As String = ""
-            While reader.Peek <> -1
-                HTML = HTML + reader.ReadLine() + vbCrLf
-            End While
-            reader.Close()
-
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\tos.html"), False)
-                outputFile.WriteLine(HTML)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex)
-        End Try
 
         Return False
 

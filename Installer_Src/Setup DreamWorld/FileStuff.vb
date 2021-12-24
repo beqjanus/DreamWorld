@@ -1,23 +1,14 @@
-﻿
-#Region "Copyright AGPL3.0"
+﻿#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
 #End Region
 
-
-
 Imports System.IO
 Imports System.Threading
 
 Module FileStuff
-    Public Sub DelPidFile(RegionUUID As String)
-
-        Dim Path = OpensimIniPath(RegionUUID)
-        DeleteFile(IO.Path.Combine(Path, "PID.pid"))
-
-    End Sub
 
     Public Sub Cleanup() ' old files
 
@@ -227,6 +218,34 @@ Module FileStuff
 
         CopyFileFast(Path, IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\images\Photo.png"))
 
+        DoTos()
+
+    End Sub
+
+    Public Sub DeleteAllContents(regionUUID As String)
+
+        Dim GroupName = Group_Name(regionUUID)
+        Dim RegionName = Region_Name(regionUUID)
+
+        DeleteContent(regionUUID, "primshapes", "uuid")
+        DeleteContent(regionUUID, "bakedterrain", "regionuuid")
+        DeleteContent(regionUUID, "estate_map", "regionid")
+        DeleteContent(regionUUID, "land", "regionuuid")
+        DeleteContent(regionUUID, "prims", "uuid")
+        DeleteContent(regionUUID, "primitems", "primid")
+        DeleteContent(regionUUID, "regionenvironment", "region_id")
+        DeleteContent(regionUUID, "regionextra", "regionid")
+        DeleteContent(regionUUID, "regionsettings", "regionuuid")
+        DeleteContent(regionUUID, "regionwindlight", "region_id")
+        DeleteContent(regionUUID, "spawn_points", "regionid")
+        DeleteContent(regionUUID, "terrain", "regionuuid")
+        Delete_Region_Map(regionUUID)
+        DeleteMaps(regionUUID)
+        DeregisterRegionUUID(regionUUID)
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
+
+        DeleteRegion(regionUUID)
+
     End Sub
 
     Sub DeleteDirectory(folder As String, param As FileIO.DeleteDirectoryOption)
@@ -235,6 +254,7 @@ Module FileStuff
             My.Computer.FileSystem.DeleteDirectory(folder, param)
         Catch ex As Exception
         End Try
+
     End Sub
 
     Public Sub DeleteDirectoryTmp()
@@ -306,6 +326,13 @@ Module FileStuff
             Next
         Catch
         End Try
+
+    End Sub
+
+    Public Sub DelPidFile(RegionUUID As String)
+
+        Dim Path = OpensimIniPath(RegionUUID)
+        DeleteFile(IO.Path.Combine(Path, "PID.pid"))
 
     End Sub
 
