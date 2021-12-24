@@ -114,7 +114,7 @@ Public Class ChatToSpeech
                 Sleep(10)
             End While
 
-            ConvertWavMP3(fname, True)
+            If SaveWave Then ConvertWavMP3(fname, True)
 
         End SyncLock
 
