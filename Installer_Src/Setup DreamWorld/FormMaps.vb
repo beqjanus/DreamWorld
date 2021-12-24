@@ -70,7 +70,7 @@ Public Class FormMaps
         Dim X As Integer = Settings.MapCenterX
         Dim Y As Integer = Settings.MapCenterY
 
-        Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/map.html?X=" & CStr(X) & "&Y=" & CStr(Y)
+        Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/map.html?X=" & CStr(X - 10) & "&Y=" & CStr(Y + 5)
 
         Try
             Process.Start(webAddress)
@@ -182,7 +182,7 @@ Public Class FormMaps
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         End If
 
-        If PropOpensimIsRunning Then
+        If IsMySqlRunning() Then
             ViewRegionMapsButton.Enabled = True
         Else
             ViewRegionMapsButton.Enabled = False
