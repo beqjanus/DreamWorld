@@ -3647,6 +3647,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+        Settings.ApacheEnable = True
         StartApache()
     End Sub
 
