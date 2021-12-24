@@ -48,7 +48,7 @@ use Config::IniFiles;
 		}
 	
 	if ($debug) {
-		$ENV{REMOTE_ADDR} = 'outworldz.com';
+		$ENV{REMOTE_ADDR} = '';
 	}
 	
 	my @nothing;
@@ -80,12 +80,15 @@ foreach my $row ($rs->all) {
 	my $Y = $row->locationY;
 	my $S = $row->regionsize/256;
 	  
+  my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;
+  		
 
 	push @sims, {regionname => $row->regionname,				 
 				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
-				 map=> '/Stats/maps/' . $row->regionname . '.jpg',
-				 width=>$width,
-				 link=>'/Stats/map.htm?q=' . $row->regionname,				 
+				 map=> '/Stats/maps/' . $row->regionname . '.png',
+				 width=>$row->regionsize,
+				 link=>'/Stats/map.htm?q=' . $row->regionname,
+				 count=>$count,
 				 };
 
 }
@@ -94,7 +97,8 @@ if (!@sims) {
 	push @sims, {regionname => 'No Regions Found',				 
 				 regionsize =>  0,
 				 map=> '/Stats/images/blankbox.jpg',
-				 width=>$width,
+				 width=>256,
+				 count=>0,
 				 };
 
 }
