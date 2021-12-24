@@ -2509,18 +2509,15 @@ Public Class FormSetup
             Dim Agents = GetAgentList()
             Dim HGAgents = GetHGAgentList()
             Dim Combined As New Dictionary(Of String, String)
-            Try
-                Combined = Agents.Union(HGAgents).ToDictionary(Function(p) p.Key, Function(p) p.Value)
-            Catch
-                For Each item In Agents
+
+            For Each item In Agents
+                Combined.Add(item.Key, item.Value)
+            Next
+            For Each item In HGAgents
+                If Not Combined.ContainsKey(item.Key) Then
                     Combined.Add(item.Key, item.Value)
-                Next
-                For Each item In HGAgents
-                    If Not Combined.ContainsKey(item.Key) Then
-                        Combined.Add(item.Key, item.Value)
-                    End If
-                Next
-            End Try
+                End If
+            Next
 
             If Combined IsNot Nothing And Combined.Count > 0 Then
                 BuildLand(Combined)
