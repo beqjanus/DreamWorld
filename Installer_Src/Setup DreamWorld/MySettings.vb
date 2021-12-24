@@ -272,6 +272,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property BackupIARs() As Boolean
+        Get
+            Return CType(GetMySetting("BackupIARs", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupIARs", CStr(Value))
+        End Set
+    End Property
+
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
@@ -757,15 +766,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("DnsName", Value)
-        End Set
-    End Property
-
-    Public Property OperatingSystem() As String
-        Get
-            Return GetMySetting("OperatingSystem", "")
-        End Get
-        Set
-            SetMySetting("OperatingSystem", Value)
         End Set
     End Property
 
@@ -1346,6 +1346,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("OpensimBinPath", Value)
+        End Set
+    End Property
+
+    Public Property OperatingSystem() As String
+        Get
+            Return GetMySetting("OperatingSystem", "")
+        End Get
+        Set
+            SetMySetting("OperatingSystem", Value)
         End Set
     End Property
 

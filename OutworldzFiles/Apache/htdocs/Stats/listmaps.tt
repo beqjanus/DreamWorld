@@ -3,23 +3,56 @@
 
 <title>Simulator stats for $text</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/Search/Search.css" />
+
+<script type="text/javascript">
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
 </head>
 <body>
 
 
   <!-- Begin  Toolkit -->
 
-   <h1>Visitors</h1>
+   <h1>Visitors </h1>
       
-   [% FOREACH item IN sims  %]
-      <div style="float:left;">
-   	  <a href="[% item.link %]">[% item.regionname %]</a>  Size: [% item.regionsize  %]</a>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
       <br clear="all">
-      <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]">
-			&nbsp;
-			</div>
-			 
-   [% END %]
+      <div style="float:left;">
+        <ul id="myUL">
+          [% FOREACH item IN sims  %]          
+          <li><a href="[% item.link %]">[% item.regionname %] 
+            [% IF item.count > 0 %]
+                 ([% item.count %] Visits)
+             [% END %]
+          </a>
+          
+          <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]"></a>			
+          </li>
+          <br clear="all">
+           [% END %]       
+        </ul>
+
+      </div>
    
   </body
 

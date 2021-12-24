@@ -643,6 +643,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatic Backup Is Running.
+        '''</summary>
+        Friend ReadOnly Property AutomaticBackupIsRunning() As String
+            Get
+                Return ResourceManager.GetString("AutomaticBackupIsRunning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to 0  - Off. How many minutes until auto restart occurs?.
         '''</summary>
         Friend ReadOnly Property AutorestartBox() As String
@@ -796,6 +805,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup IARs.
+        '''</summary>
+        Friend ReadOnly Property Backup_IARs() As String
+            Get
+                Return ResourceManager.GetString("Backup_IARs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup MySQL Data folder.
         '''</summary>
         Friend ReadOnly Property Backup_Mysql() As String
@@ -819,6 +837,15 @@ Namespace My.Resources
         Friend ReadOnly Property Backup_Name() As String
             Get
                 Return ResourceManager.GetString("Backup_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup OARs.
+        '''</summary>
+        Friend ReadOnly Property Backup_OARs() As String
+            Get
+                Return ResourceManager.GetString("Backup_OARs", resourceCulture)
             End Get
         End Property
         
@@ -10665,11 +10692,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Very Time consuming IAR backup of All Users. CAUTION ** USES LARGE AMOUNTS OF DISK SPACE **.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_IARs() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_IARs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Runs the selected backups now..
         '''</summary>
         Friend ReadOnly Property tt_Backup_Now() As String
             Get
                 Return ResourceManager.GetString("tt_Backup_Now", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup All regions to OAR files.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_OARs() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_OARs", resourceCulture)
             End Get
         End Property
         

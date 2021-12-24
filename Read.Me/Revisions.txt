@@ -1,11 +1,29 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
+V4.82
+Avatars never left DreamGrid so you got prompted when quitting that people are in world.
+Visitor Map date was not sticky, so if you submitted a date it was reset back to today -90 days.
+Endless land and sea is offline for testing. 
+Detects updates to Windows 11 and reloads Dot Net on boot.
+Experimental Text to Speech correctly saved wave files for Act V, Scene III of Antony and Cleopatra.
+New method to make region restart. Used to backup OARS and do other things in Land Builder that have to occur in the future.
+Added "Backup All IARS" to the Backup menu.  This can take up an ENORMOUS amount of space.
+Added my To Do list to the Help menu
+Fixed an issue that sped up detection of running process
+HG Visitors would show up in a region by a UUID instead of a name
+Many small Visitor map tweaks so the map image lies more closely on the dots.
+The Javascript map is centered.  You can get to this in the Settings->Maps. 
+Visitor Maps can be made public. Default = private, http://127.0.0.1/Stats only
+Visitor Maps have a search to find them. I have nearly 200 maps, and it took forever to scroll.
+
+V4.81
+Developer version never released
 
 V4.8
 Fixed the "extra welcome region" bug.  Obvious bug was not obvious. But cannot be unseen once seen.
 Default Welcome region cannot be Smart Boot enabled.
-Help normally loads once the first time you view each page. 
+Help  loads once the first time you view each page. 
 You can now export the Region list to a CSV list for use in Excel or Google Sheets.
 Many performance tweaks, too many to mention. Startup of the app should be 2X faster.
 

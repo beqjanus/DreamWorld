@@ -3939,4 +3939,19 @@
   <data name="MakeVoices" xml:space="preserve">
     <value>Make Voices</value>
   </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automatic Backup Is Running</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Backup IARs</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Backup OARs</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Very Time consuming IAR backup of All Users. CAUTION ** USES LARGE AMOUNTS OF DISK SPACE **</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Backup All regions to OAR files</value>
+  </data>
 </root>

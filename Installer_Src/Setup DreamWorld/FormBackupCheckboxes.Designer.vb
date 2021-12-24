@@ -25,9 +25,10 @@ Partial Class FormBackupCheckboxes
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackupCheckboxes))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.BackupIARsCheckBox = New System.Windows.Forms.CheckBox()
         Me.BackupSQlCheckBox = New System.Windows.Forms.CheckBox()
         Me.BackupOarsCheckBox = New System.Windows.Forms.CheckBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BackupButton = New System.Windows.Forms.Button()
         Me.CustomCheckBox = New System.Windows.Forms.CheckBox()
         Me.FSAssetsCheckBox = New System.Windows.Forms.CheckBox()
         Me.SettingsCheckbox = New System.Windows.Forms.CheckBox()
@@ -41,9 +42,10 @@ Partial Class FormBackupCheckboxes
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.BackupIARsCheckBox)
         Me.GroupBox1.Controls.Add(Me.BackupSQlCheckBox)
         Me.GroupBox1.Controls.Add(Me.BackupOarsCheckBox)
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.BackupButton)
         Me.GroupBox1.Controls.Add(Me.CustomCheckBox)
         Me.GroupBox1.Controls.Add(Me.FSAssetsCheckBox)
         Me.GroupBox1.Controls.Add(Me.SettingsCheckbox)
@@ -55,12 +57,24 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Backup"
         '
+        'BackupIARsCheckBox
+        '
+        Me.BackupIARsCheckBox.AutoSize = True
+        Me.BackupIARsCheckBox.Checked = True
+        Me.BackupIARsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.BackupIARsCheckBox.Location = New System.Drawing.Point(23, 137)
+        Me.BackupIARsCheckBox.Name = "BackupIARsCheckBox"
+        Me.BackupIARsCheckBox.Size = New System.Drawing.Size(89, 17)
+        Me.BackupIARsCheckBox.TabIndex = 11
+        Me.BackupIARsCheckBox.Text = "Backup IARs"
+        Me.BackupIARsCheckBox.UseVisualStyleBackColor = True
+        '
         'BackupSQlCheckBox
         '
         Me.BackupSQlCheckBox.AutoSize = True
         Me.BackupSQlCheckBox.Checked = True
         Me.BackupSQlCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.BackupSQlCheckBox.Location = New System.Drawing.Point(23, 137)
+        Me.BackupSQlCheckBox.Location = New System.Drawing.Point(23, 158)
         Me.BackupSQlCheckBox.Name = "BackupSQlCheckBox"
         Me.BackupSQlCheckBox.Size = New System.Drawing.Size(87, 17)
         Me.BackupSQlCheckBox.TabIndex = 6
@@ -79,14 +93,14 @@ Partial Class FormBackupCheckboxes
         Me.BackupOarsCheckBox.Text = "Backup OARs"
         Me.BackupOarsCheckBox.UseVisualStyleBackColor = True
         '
-        'Button1
+        'BackupButton
         '
-        Me.Button1.Location = New System.Drawing.Point(44, 181)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(160, 23)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BackupButton.Location = New System.Drawing.Point(39, 193)
+        Me.BackupButton.Name = "BackupButton"
+        Me.BackupButton.Size = New System.Drawing.Size(160, 23)
+        Me.BackupButton.TabIndex = 10
+        Me.BackupButton.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        Me.BackupButton.UseVisualStyleBackColor = True
         '
         'CustomCheckBox
         '
@@ -174,7 +188,7 @@ Partial Class FormBackupCheckboxes
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BackupButton As Button
     Friend WithEvents CustomCheckBox As CheckBox
     Friend WithEvents FSAssetsCheckBox As CheckBox
     Friend WithEvents SettingsCheckbox As CheckBox
@@ -184,4 +198,5 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents BackupOarsCheckBox As CheckBox
     Friend WithEvents BackupSQlCheckBox As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents BackupIARsCheckBox As CheckBox
 End Class

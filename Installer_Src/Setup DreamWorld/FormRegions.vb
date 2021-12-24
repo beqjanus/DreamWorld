@@ -13,6 +13,7 @@ Imports System.Text.RegularExpressions
 Public Class FormRegions
 
     ReadOnly s1 = New SpeechSynthesizer()
+    Private initted As Boolean
 
 #Region "ScreenSize"
 
@@ -62,7 +63,6 @@ Public Class FormRegions
 
         ''' TODO If Opensim is running do not continue
 
-
         Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
         If result = vbYes Then
 
@@ -92,7 +92,6 @@ Public Class FormRegions
                 MsgBox(My.Resources.Cannot_Normalize)
                 Return
             End If
-
 
             For Each UUID As String In RegionUuids()
                 Coord_X(UUID) = Coord_X(UUID) + DeltaX
@@ -171,6 +170,7 @@ Public Class FormRegions
 
         HelpOnce("Regions")
         SetScreen()
+        initted = True
 
     End Sub
 
@@ -248,13 +248,17 @@ Public Class FormRegions
 
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
 
+        If Not initted Then Return
+
         Dim selected = SpeechBox.SelectedItem.ToString
         Settings.VoiceName = selected
         Settings.SaveSettings()
         If selected = "No Speech" Then Return
         Try
             s1.SelectVoice(selected)
-            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
+            Using S As New ChatToSpeech
+                S.Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
+            End Using
         Catch ex As Exception
             BreakPoint.Show(ex)
         End Try

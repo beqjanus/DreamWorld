@@ -19,10 +19,9 @@
     <body>
      <a href="/Search">Search</a>  | 
 Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulator</a> | 
-  <a href="/Metromap/mapmax.php">Large Map</a>  | 
-  <a href="/Metromap/index.php">Map Framed</a> | 
-  <a href="/Metromap/indexmax.php">Large Map Framed</a>
-
+  <a href="/Metromap/mapmax.php"> Map</a>  |
+  <a href="/Metromap/mapmax.php"> Map</a>   
+  
 
 <p>
 <!--#include virtual="/Stats/listmaps.plx" -->

@@ -994,7 +994,8 @@ Public Class FormSetup
     ''' <param name="Taskname">A Task Name</param>
     Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
 
-        ReBoot(RegionUUID)
+        Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
+
         TaskQue.Enqueue(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
@@ -1004,6 +1005,7 @@ Public Class FormSetup
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             RunTaskList(RegionUUID)
         End If
+        ReBoot(RegionUUID)
 
     End Sub
 
@@ -1013,8 +1015,10 @@ Public Class FormSetup
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub RunTaskList(RegionUUID As String)
 
-        If ToDoList.ContainsKey(RegionUUID) Then
-
+        If Not ToDoList.ContainsKey(RegionUUID) Then
+            Diagnostics.Debug.Print($"No tasks for {Region_Name(RegionUUID)}")
+        Else
+            Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
             Dim T = Task.TaskName
             Select Case T
@@ -1146,13 +1150,6 @@ Public Class FormSetup
                     PokeGroupTimer(GroupName)
                 End If
 
-                ' Find any regions touching this region.
-                ' add them to the area to stay alive.
-                'Diagnostics.Debug.Print("Checking " & RegionName)
-                'If RegionName.Contains("Welcome") Then
-                '    BreakPoint.Print("Welcome")
-                'End If
-
                 If Settings.Smart_Start Then
 
                     If status = SIMSTATUSENUM.Stopped Or status = SIMSTATUSENUM.ShuttingDownForGood Then
@@ -1225,14 +1222,14 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Logger("State Is RestartPending", GroupName, "Teleport")
+                    Diagnostics.Debug.Print("State Is RestartPending")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         PokeRegionTimer(RegionUUID)
                         Boot(RegionName)
                     Next
 
-                    Diagnostics.Debug.Print("State Is now Booted", Region_Name(RegionUUID), "Teleport")
+                    Diagnostics.Debug.Print("State Is now Booted")
                     PropUpdateView = True
                     Continue For
                 End If
@@ -1242,7 +1239,7 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Diagnostics.Debug.Print("State Is Resuming", GroupName, "Teleport")
+                    Diagnostics.Debug.Print("State Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         PokeRegionTimer(RegionUUID)
@@ -3647,6 +3644,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+        Settings.ApacheEnable = True
         StartApache()
     End Sub
 

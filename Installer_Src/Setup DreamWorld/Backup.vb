@@ -55,6 +55,7 @@
 
         For Each RegionUUID As String In RegionUuids()
             If Not RegionEnabled(RegionUUID) Then Continue For
+            If SkipAutobackup(RegionUUID) = "True" Then Continue For
 
             Dim Obj = New TaskObject With {
                 .TaskName = FormSetup.TaskName.RPCBackupper,

@@ -92,7 +92,7 @@ Module Maps
                                 Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
                                 Try
                                     g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
-                                    Out.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
+                                    Out.Save(IO.Path.Combine(SavePath, $"{Name}.png"))
                                 Catch ex As Exception
                                     BreakPoint.Show(ex)
                                 End Try
