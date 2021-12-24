@@ -18,11 +18,9 @@
     </head>
     <body>
      <a href="/Search">Search</a>  | 
-Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulator</a> | 
-  <a href="/Metromap/mapmax.php">Large Map</a>  | 
-  <a href="/Metromap/index.php">Map Framed</a> | 
-  <a href="/Metromap/indexmax.php">Large Map Framed</a>
-
+Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulator</a> |
+    
+  <a href="/Stats">Visitor Stats</a>  | 
 
 <p>
       <iframe frameborder="0" height="900" width="1600" src="/Metromap/index.php"></iframe>
