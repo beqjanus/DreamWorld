@@ -2772,6 +2772,8 @@ Public Class FormSetup
             ' only at boot
             If SecondsTicker = 0 Then
                 CalcDiskFree()
+                Delete_all_visitor_maps()
+                MakeMaps()
             End If
 
             Chart() ' do charts collection each second
@@ -2800,6 +2802,7 @@ Public Class FormSetup
 
                 RegionListHTML(Settings, "Name") ' create HTML for teleport boards
                 VisitorCount()
+
                 Bench.Print("60 second work done")
             End If
 
@@ -2807,7 +2810,6 @@ Public Class FormSetup
             If SecondsTicker = 300 Then
                 RunParser()
                 GetEvents()
-                MakeMaps()
             End If
 
             ' half hour
@@ -2825,6 +2827,8 @@ Public Class FormSetup
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()
+                Delete_all_visitor_maps()
+                MakeMaps()
             End If
 
             SecondsTicker += 1

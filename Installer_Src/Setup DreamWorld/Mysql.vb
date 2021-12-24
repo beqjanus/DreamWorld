@@ -29,7 +29,6 @@ Public Module MysqlInterface
 
 #Region "Properties"
 
-
     Public Property MysqlCrashCounter As Integer
         Get
             Return _MysqlCrashCounter
@@ -267,33 +266,7 @@ Public Module MysqlInterface
 
 #Region "DeletePrims"
 
-    Public Sub DeleteAllContents(regionUUID As String)
-
-        Dim GroupName = Group_Name(regionUUID)
-        Dim RegionName = Region_Name(regionUUID)
-
-        DeleteContent(regionUUID, "primshapes", "uuid")
-        DeleteContent(regionUUID, "bakedterrain", "regionuuid")
-        DeleteContent(regionUUID, "estate_map", "regionid")
-        DeleteContent(regionUUID, "land", "regionuuid")
-        DeleteContent(regionUUID, "prims", "uuid")
-        DeleteContent(regionUUID, "primitems", "primid")
-        DeleteContent(regionUUID, "regionenvironment", "region_id")
-        DeleteContent(regionUUID, "regionextra", "regionid")
-        DeleteContent(regionUUID, "regionsettings", "regionuuid")
-        DeleteContent(regionUUID, "regionwindlight", "region_id")
-        DeleteContent(regionUUID, "spawn_points", "regionid")
-        DeleteContent(regionUUID, "terrain", "regionuuid")
-        Delete_Region_Map(regionUUID)
-        DeleteMaps(regionUUID)
-        DeregisterRegionUUID(regionUUID)
-        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
-
-        DeleteRegion(regionUUID)
-
-    End Sub
-
-    Private Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
+    Public Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
 
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
@@ -542,11 +515,9 @@ Public Module MysqlInterface
                     End If
                 End If
 
-
             End If
             Return Dict
         End If
-
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
@@ -572,7 +543,6 @@ Public Module MysqlInterface
                 BreakPoint.Show(ex)
                 Return Dict
             End Try
-
 
         End Using
 
@@ -748,7 +718,6 @@ Public Module MysqlInterface
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
-
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"

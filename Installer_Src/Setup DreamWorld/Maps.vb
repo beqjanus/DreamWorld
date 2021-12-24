@@ -5,25 +5,6 @@ Module Maps
 
 #Region "MapMaking"
 
-    Public Sub Delete_Region_Map(RegionUUID As String)
-
-        ' add to the global map this entire DOS box
-        Dim Xloc = Coord_X(RegionUUID)
-        Dim Yloc = Coord_Y(RegionUUID)
-
-        ' draw a box at this size plus the pull down size.
-        For Each UUID In RegionUuidListByName(Group_Name(RegionUUID))
-            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
-            For Xstep = 0 To SimSize - 1
-                For Ystep = 0 To SimSize - 1
-                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
-                    If Map.ContainsKey(gr) Then Map.Remove(gr)
-                Next
-            Next
-        Next
-
-    End Sub
-
     Public Sub MakeMaps()
 
         Dim Mapthread As Thread
@@ -112,6 +93,34 @@ Module Maps
 
 #End Region
 
+#Region "Map Deleting"
+
+    Public Sub Delete_all_visitor_maps()
+
+        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
+        DeleteDirectory(SavePath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+
+    End Sub
+
+    Public Sub Delete_Region_Map(RegionUUID As String)
+
+        ' add to the global map this entire DOS box
+        Dim Xloc = Coord_X(RegionUUID)
+        Dim Yloc = Coord_Y(RegionUUID)
+
+        ' draw a box at this size plus the pull down size.
+        For Each UUID In RegionUuidListByName(Group_Name(RegionUUID))
+            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
+                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                    If Map.ContainsKey(gr) Then Map.Remove(gr)
+                Next
+            Next
+        Next
+
+    End Sub
+
     Public Sub DeleteMaps(RegionUUID As String)
 
         Dim path = IO.Path.Combine(Settings.OpensimBinPath(), "maptiles\00000000-0000-0000-0000-000000000000")
@@ -129,5 +138,7 @@ Module Maps
         Next
 
     End Sub
+
+#End Region
 
 End Module
