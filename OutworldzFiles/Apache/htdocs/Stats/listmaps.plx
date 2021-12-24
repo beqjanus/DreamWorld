@@ -79,14 +79,19 @@ foreach my $row ($rs->all) {
 	my $X = $row->locationX;
 	my $Y = $row->locationY;
 	my $S = $row->regionsize/256;
-	  
-  my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;
-  		
+	my $size;
+	if ($S <= 3 ) { 
+		$size =   $row->regionsize;
+	} else {
+		$size = 768;
+	}
+	
+	my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;	
 
 	push @sims, {regionname => $row->regionname,				 
 				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
 				 map=> '/Stats/maps/' . $row->regionname . '.png',
-				 width=>$row->regionsize,
+				 width=>$size,
 				 link=>'/Stats/map.htm?q=' . $row->regionname,
 				 count=>$count,
 				 };
