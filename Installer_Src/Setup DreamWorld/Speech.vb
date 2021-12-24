@@ -2,13 +2,8 @@
 Imports System.Speech.Synthesis
 Imports System.Speech.Synthesis.VoiceGender
 
-Module ChatToSpeech
-
-    Public WithEvents Speaker As New SpeechSynthesizer
+Module speech
     Public SpeechList As New Queue(Of String)
-    ReadOnly Interlock As New Object
-    Private Counter As Integer
-    Dim SpeechBusyFlag As Boolean
 
     Public Sub Chat2Speech()
 
@@ -17,6 +12,37 @@ Module ChatToSpeech
         WebThread.SetApartmentState(ApartmentState.STA)
         WebThread.Start()
 
+    End Sub
+
+    Private Sub SpeakArrival()
+
+        While SpeechList.Count > 0
+            Using S As New ChatToSpeech
+                Dim ProcessString As String = SpeechList.Dequeue
+                If Settings.VoiceName = "No Speech" Then Return
+                S.Speach(ProcessString, True)
+            End Using
+        End While
+
+    End Sub
+
+End Module
+
+Public Class ChatToSpeech
+
+    Implements IDisposable
+
+    Public WithEvents Speaker As New SpeechSynthesizer
+
+    ReadOnly Interlock As New Object
+    Private Counter As Integer
+    Private disposedValue As Boolean
+    Dim SpeechBusyFlag As Boolean
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Dispose(disposing:=True)
+        GC.SuppressFinalize(Me)
     End Sub
 
     ''' <summary>
@@ -37,17 +63,18 @@ Module ChatToSpeech
                 Sleep(1000)
             End While
 
+            Dim fname As String = ""
             Try
                 If SaveWave Then
+                    Dim filepath = ""
                     DeleteOldWave(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS"))
                     pathinfo = "http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "TTS"
-                    Dim fname As String = ""
+
                     If FileName.Length = 0 Then
-                        Dim out As New Guid
                         Dim g = Guid.NewGuid()
                         fname = g.ToString + ".wav"
                     Else
-                        fname = $"{Counter:D5}.wav"
+                        fname = $"{Counter:D10}.wav"
                         Counter += 1
                     End If
 
@@ -61,7 +88,7 @@ Module ChatToSpeech
                     fname.Replace("*", "")
 
                     pathinfo = IO.Path.Combine(pathinfo, fname)
-                    Dim filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
+                    filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
                     FileIO.FileSystem.CreateDirectory(filepath)
                     filepath = IO.Path.Combine(filepath, fname)
 
@@ -83,7 +110,14 @@ Module ChatToSpeech
                 BreakPoint.Show(ex)
             End Try
 
+            While SpeechBusyFlag
+                Sleep(10)
+            End While
+
+            ConvertWavMP3(fname, True)
+
         End SyncLock
+
         pathinfo.Replace("\", "/")
         Return pathinfo
 
@@ -94,6 +128,41 @@ Module ChatToSpeech
         Return SpeechBusyFlag
 
     End Function
+
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: dispose managed state (managed objects)
+            End If
+
+            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            ' TODO: set large fields to null
+            disposedValue = True
+        End If
+    End Sub
+
+    Private Sub ConvertWavMP3(fileName As String, waitFlag As Boolean)
+
+        Dim psi = New System.Diagnostics.ProcessStartInfo()
+
+        psi.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\lame.exe")
+
+        psi.Arguments = $"-b 128 --resample 44.1 {fileName} {fileName.Replace(".wav", ".mp3")}"
+        psi.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\TTS")
+        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        Dim p As New Process()
+        Try
+            p = Process.Start(psi)
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
+        End Try
+
+        If waitFlag Then
+            p.WaitForExit()
+        End If
+        If p IsNot Nothing Then p.Dispose()
+
+    End Sub
 
     Private Sub DeleteOldWave(LogPath As String)
 
@@ -120,14 +189,4 @@ Module ChatToSpeech
 
     End Sub
 
-    Private Sub SpeakArrival()
-
-        While SpeechList.Count > 0
-            Dim ProcessString As String = SpeechList.Dequeue
-            If Settings.VoiceName = "No Speech" Then Return
-            Speach(ProcessString, True)
-        End While
-
-    End Sub
-
-End Module
+End Class

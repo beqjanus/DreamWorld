@@ -17,10 +17,7 @@ Module GlobalSettings
     Public Const _MyVersion As String = "4.82"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const FreeDiskSpaceWarn As Long = 100000000
-
-    ' 100 M
     Public Const Hyperica As String = "Hyperica"
-
     Public Const JOpensim As String = "JOpensim"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -37,7 +34,6 @@ Module GlobalSettings
     Public MapX As Integer = 100
     Public MapY As Integer = 100
     Public MySqlRev As String = "5.6.50"
-    ' holds "Assembly version: " + displayableVersion
 
 #End Region
 
