@@ -13,6 +13,7 @@ Imports System.Text.RegularExpressions
 Public Class FormRegions
 
     ReadOnly s1 = New SpeechSynthesizer()
+    Private initted As Boolean
 
 #Region "ScreenSize"
 
@@ -169,6 +170,7 @@ Public Class FormRegions
 
         HelpOnce("Regions")
         SetScreen()
+        initted = True
 
     End Sub
 
@@ -245,6 +247,8 @@ Public Class FormRegions
     End Sub
 
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
+
+        If Not initted Then Return
 
         Dim selected = SpeechBox.SelectedItem.ToString
         Settings.VoiceName = selected

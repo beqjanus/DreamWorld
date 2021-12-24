@@ -3,6 +3,7 @@ Imports System.Speech.Synthesis
 Imports System.Speech.Synthesis.VoiceGender
 
 Module speech
+    Public SpeechBusyFlag As Boolean
     Public SpeechList As New Queue(Of String)
 
     Public Sub Chat2Speech()
@@ -37,7 +38,6 @@ Public Class ChatToSpeech
     ReadOnly Interlock As New Object
     Private Counter As Integer
     Private disposedValue As Boolean
-    Dim SpeechBusyFlag As Boolean
 
     Public Sub Dispose() Implements IDisposable.Dispose
         ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
@@ -102,6 +102,8 @@ Public Class ChatToSpeech
                 ElseIf texttospeak.StartsWith("F:", System.StringComparison.OrdinalIgnoreCase) Then
                     Speaker.SelectVoiceByHints(Female, System.Speech.Synthesis.VoiceAge.Adult, 0, System.Globalization.CultureInfo.CurrentCulture)
                     texttospeak = texttospeak.Replace("F:", "")
+                Else
+                    Speaker.SelectVoice(Settings.VoiceName)
                 End If
 
                 SpeechBusyFlag = True
