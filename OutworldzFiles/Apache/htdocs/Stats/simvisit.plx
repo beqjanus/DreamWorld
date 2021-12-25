@@ -82,7 +82,7 @@ use  warnings;
 	
 	if ($debug) {
 
-		$q = 'Welcome';
+		$q = 'Fairy_Island_by_Lost_World-3X3';
 		$start='12/18/2021';
 		$end = '12/25/2021';
 	}
@@ -373,6 +373,14 @@ use  warnings;
 	my $XCoord;
 	my $YCoord;
 	
+	my $mapfile = $path . '/maps/' . $q . '.png';
+	if (-e  $mapfile) {
+		$file= '/Stats/maps/' . $q . '.png';
+	} else {
+		$file= '/Stats/images/blankbox.jpg';
+	}
+	
+	
 	if ($rs)
 	{
 		my $regionsize = $rs->regionsize;
@@ -389,6 +397,7 @@ use  warnings;
 	print header('application/json');
 	print to_json({ data=> \@response,					
 					sim=>$q,
+					map=>$file,
 					time=>$time,
 					s=>$picker1,
 					e=>$picker2,

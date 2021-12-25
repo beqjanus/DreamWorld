@@ -22,6 +22,7 @@ Module Maps
             FileIO.FileSystem.CreateDirectory(SavePath)
         Catch ex As Exception
             BreakPoint.Show(ex)
+            Return
         End Try
 
         For Each RegionUUID In RegionUuids()
@@ -79,6 +80,8 @@ Module Maps
                                 End Try
 
                             End Using
+                        Else
+                            BreakPoint.Print($"File {MapImage} does not exist")
                         End If
                         Y -= 256
                     Next

@@ -83,7 +83,7 @@ Partial Class FormRegionlist
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(1255, 196)
+        Me.ListView1.Size = New System.Drawing.Size(995, 196)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -107,7 +107,7 @@ Partial Class FormRegionlist
         Me.IconView.MultiSelect = False
         Me.IconView.Name = "IconView"
         Me.IconView.ShowItemToolTips = True
-        Me.IconView.Size = New System.Drawing.Size(1255, 196)
+        Me.IconView.Size = New System.Drawing.Size(995, 196)
         Me.IconView.TabIndex = 18609
         Me.ToolTip1.SetToolTip(Me.IconView, "Icons")
         Me.IconView.UseCompatibleStateImageBehavior = False
@@ -166,7 +166,7 @@ Partial Class FormRegionlist
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(1255, 196)
+        Me.AvatarView.Size = New System.Drawing.Size(995, 196)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -194,7 +194,7 @@ Partial Class FormRegionlist
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(1255, 196)
+        Me.UserView.Size = New System.Drawing.Size(995, 196)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
@@ -433,7 +433,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1288, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1028, 30)
         Me.MenuStrip1.TabIndex = 18618
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -457,21 +457,21 @@ Partial Class FormRegionlist
         '
         Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.On_Top
         '
         'FloatToolStripMenuItem
         '
         Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Float
         '
         'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1288, 338)
+        Me.ClientSize = New System.Drawing.Size(1028, 338)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StoppedButton)
         Me.Controls.Add(Me.Bootedbutton)

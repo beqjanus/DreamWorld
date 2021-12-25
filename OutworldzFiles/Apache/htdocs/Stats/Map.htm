@@ -88,7 +88,7 @@
 
         function addMonths(date, months) {
             var d = date.getDate();
-            date.setMonth(date.getMonth() + +months);
+            date.setMonth(date.getMonth()  + months);
             if (date.getDate() != d) {
                 date.setDate(0);
             }
@@ -157,12 +157,11 @@
                 var xsize = tsv.xsize;
                 var ysize = tsv.ysize;
 
-                var mapimage = '/Stats/maps/' + tsv.sim + '.png';
 
+                var mapimage = tsv.map;
+		
                 jQuery.each(tsv.data, function (name, line) {
-
                     var point = {};
-
                     var red = Math.floor(Math.random() * 200);
                     var green = Math.floor(Math.random() * 200);
                     var blue = Math.floor(Math.random() * 200);

@@ -86,15 +86,21 @@ foreach my $row ($rs->all) {
 		$size = 768;
 	}
 	
-	my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;	
-
+	my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;
+	my $mapfile = $path . '/maps/' . $row->regionname . '.png';
+	if (-e  $mapfile) {
+		$file= '/Stats/maps/' . $row->regionname . '.png';
+	} else {
+		$file= '/Stats/images/blankbox.jpg';
+	}
+	
 	push @sims, {regionname => $row->regionname,				 
-				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
-				 map=> '/Stats/maps/' . $row->regionname . '.png',
-				 width=>$size,
-				 link=>'/Stats/map.htm?q=' . $row->regionname,
-				 count=>$count,
-				 };
+			regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
+			map=> $file,
+			width=>$size,
+			link=>'/Stats/map.htm?q=' . $row->regionname,
+			count=>$count,
+			};
 
 }
 
