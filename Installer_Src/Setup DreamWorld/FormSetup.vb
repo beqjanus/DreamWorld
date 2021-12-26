@@ -1136,7 +1136,7 @@ Public Class FormSetup
         Try
             Bench.Print("Scan Region State")
             For Each RegionUUID As String In RegionUuids()
-                
+
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
                 If Not RegionEnabled(RegionUUID) Then Continue For
@@ -3187,7 +3187,7 @@ Public Class FormSetup
             Dim GroupName = Group_Name(RegionUUID)
             Dim Status = RegionStatus(RegionUUID)
 
-            If RegionEnabled(RegionUUID) And AvatarsIsInGroup(GroupName) Then
+            If AvatarsIsInGroup(GroupName) Then
                 TextPrint($"{My.Resources.Avatars_are_in} {GroupName}")
                 Continue For
             End If
@@ -3195,11 +3195,11 @@ Public Class FormSetup
             If Not PropAborting And (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
-                ShutDown(RegionUUID)
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
+                ShutDown(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Else
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+                '      RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
             End If
 
         Next
