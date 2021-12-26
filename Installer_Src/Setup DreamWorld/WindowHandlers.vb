@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.IO
+Imports System.Threading
 
 Module WindowHandlers
 
@@ -268,10 +269,7 @@ Module WindowHandlers
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
 
-        If myProcess Is Nothing Then
-            ErrorLog("Process is nothing " & windowName)
-            Return False
-        End If
+        If myProcess Is Nothing Then Return False
 
         Dim WindowCounter As Integer = 0
         Dim myhandle As IntPtr
@@ -284,8 +282,7 @@ Module WindowHandlers
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
                     Return False
                 End If
-                Sleep(100)
-                Application.DoEvents()
+                Thread.Sleep(100)
                 myProcess.Refresh()
                 myhandle = myProcess.MainWindowHandle
             End While
@@ -296,33 +293,34 @@ Module WindowHandlers
 
         Dim status As Boolean = False
         WindowCounter = 0
-        While Not status
+        While True
             Try
-                If myProcess Is Nothing Then
-                    ErrorLog("Process is nothing " & windowName)
-                    Return False
-                End If
-                myhandle = myProcess.MainWindowHandle
                 status = SetWindowText(myhandle, windowName)
-                If status Then
+                If Not status Then
+                    Dim err = GetLastError()
+                Else
+                    If myProcess Is Nothing Then Return False
                     myProcess.Refresh()
+                    Thread.Sleep(10)
                     If myProcess.MainWindowTitle = windowName Then
                         Return True
                     Else
-                        'BreakPoint.Print("oops")
+                        'Dim err = GetLastError()
                         status = False
                     End If
                 End If
             Catch ' can fail to be a valid window handle
                 Return False
             End Try
+
             WindowCounter += 1
             If WindowCounter > 600 Then '  1 minute
                 ErrorLog(windowName & " timeout setting title")
                 Return False
             End If
+            Thread.Sleep(100)
+            myProcess.Refresh()
 
-            Sleep(100)
         End While
 
         Return False

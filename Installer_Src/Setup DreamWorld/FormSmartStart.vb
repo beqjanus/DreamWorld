@@ -843,10 +843,7 @@ Public Class FormSmartStart
         PropOpensimIsRunning() = True
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
-        If FormSetup.Timer1.Enabled = False Then
-            FormSetup.Timer1.Interval = 1000
-            FormSetup.Timer1.Start() 'Timer starts functioning
-        End If
+        FormSetup.StartTimer()
 
         Try
             For Each J In FormSetup.ContentOAR.GetJson

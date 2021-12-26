@@ -332,200 +332,197 @@ Module SmartStart
 
 #Region "BootUp"
 
+    Dim BootupLock As New Object
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
-        Bench.Print($"Boot {BootName}")
-        If FormSetup.Timer1.Enabled = False Then
-            FormSetup.Timer1.Interval = 1000
-            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled
-            FormSetup.Timer1.Start() 'Timer starts functioning
-        End If
+        ''' 
+        SyncLock BootupLock
 
-        PropOpensimIsRunning() = True
-        If PropAborting Then Return True
 
-        Dim RegionUUID As String = FindRegionByName(BootName)
 
-        If Not RegionEnabled(RegionUUID) Then Return True
+            Bench.Print($"Boot {BootName}")
 
-        Dim GroupName = Group_Name(RegionUUID)
+            PropOpensimIsRunning() = True
+            If PropAborting Then Return True
 
-        If String.IsNullOrEmpty(RegionUUID) Then
-            ErrorLog("Cannot find " & BootName & " to boot!")
-            Return False
-        End If
+            Dim RegionUUID As String = FindRegionByName(BootName)
 
-        SetCores(RegionUUID)
+            If Not RegionEnabled(RegionUUID) Then Return True
 
-        CrashCounter(RegionUUID) = 0
+            Dim GroupName = Group_Name(RegionUUID)
 
-        ' Detect if a region Window is already running
-        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+            If String.IsNullOrEmpty(RegionUUID) Then
+                ErrorLog("Cannot find " & BootName & " to boot!")
+                Return False
+            End If
 
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
-                Logger("Suspended, Resuming it", BootName, "Teleport")
+            SetCores(RegionUUID)
 
-                Dim PID As Integer = GetPIDofWindow(GroupName)
+            CrashCounter(RegionUUID) = 0
 
-                If Not PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Add(PID, GroupName)
-                End If
-                For Each UUID As String In RegionUuidListByName(GroupName)
-                    RegionStatus(UUID) = SIMSTATUSENUM.Resume
-                    ProcessID(UUID) = PID
-                    PokeRegionTimer(UUID)
-                    SendToOpensimWorld(RegionUUID, 0)
-                Next
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
-                Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
-                PropUpdateView = True ' make form refresh
-                Return True
-            Else    ' needs to be captured into the event handler
-                ' TextPrint(BootName & " " & My.Resources.Running_word)
-                Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Add(PID, GroupName)
-                End If
+            ' Detect if a region Window is already running
+            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
-                For Each UUID As String In RegionUuidListByName(GroupName)
-                    'Must be listening, not just in a window
+                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+                    Logger("Suspended, Resuming it", BootName, "Teleport")
 
-                    If CheckPort("127.0.0.1", GroupPort(RegionUUID)) Then
-                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                        PokeRegionTimer(UUID)
+                    Dim PID As Integer = GetPIDofWindow(GroupName)
+
+                    If Not PropInstanceHandles.ContainsKey(PID) Then
+                        PropInstanceHandles.Add(PID, GroupName)
+                    End If
+                    For Each UUID As String In RegionUuidListByName(GroupName)
+                        RegionStatus(UUID) = SIMSTATUSENUM.Resume
+                        ProcessID(UUID) = PID
                         SendToOpensimWorld(RegionUUID, 0)
+                    Next
+                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                    Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
+                    PropUpdateView = True ' make form refresh
+                    Return True
+                Else    ' needs to be captured into the event handler
+                    ' TextPrint(BootName & " " & My.Resources.Running_word)
+                    Dim PID As Integer = GetPIDofWindow(GroupName)
+                    If Not PropInstanceHandles.ContainsKey(PID) Then
+                        PropInstanceHandles.Add(PID, GroupName)
                     End If
 
-                    ProcessID(UUID) = PID
-                    Application.DoEvents()
-                Next
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                    For Each UUID As String In RegionUuidListByName(GroupName)
+                        'Must be listening, not just in a window
 
-                PropUpdateView = True ' make form refresh
-                Return True
+                        If CheckPort("127.0.0.1", GroupPort(RegionUUID)) Then
+                            RegionStatus(UUID) = SIMSTATUSENUM.Booted
+                            SendToOpensimWorld(RegionUUID, 0)
+                        End If
+
+                        ProcessID(UUID) = PID
+                        Application.DoEvents()
+                    Next
+                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+
+                    PropUpdateView = True ' make form refresh
+                    Return True
+                End If
             End If
-        End If
 
-        TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
+            TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
-        DoGloebits()
+            DoGloebits()
 
-        If CopyOpensimProto(RegionUUID) Then Return False
+            If CopyOpensimProto(RegionUUID) Then Return False
 
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
-        Grep(ini, Settings.LogLevel)
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim BootProcess = New Process With {
+            Dim BootProcess = New Process With {
             .EnableRaisingEvents = True
         }
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
-        BootProcess.StartInfo.UseShellExecute = True
-        BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
+            BootProcess.StartInfo.UseShellExecute = True
+            BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
-        BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
-        BootProcess.StartInfo.CreateNoWindow = False
+            BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
+            BootProcess.StartInfo.CreateNoWindow = False
 
-        Select Case Settings.ConsoleShow
-            Case "True"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "False"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "None"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        End Select
+            Select Case Settings.ConsoleShow
+                Case "True"
+                    BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "False"
+                    BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "None"
+                    BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End Select
 
-        BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
+            BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
+            Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
 
-        FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
+            FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
 
-        Dim ok As Boolean = False
-        Try
-            ok = BootProcess.Start
-            Application.DoEvents()
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-        End Try
+            Dim ok As Boolean = False
+            Try
+                ok = BootProcess.Start
+                Application.DoEvents()
+            Catch ex As Exception
+                ErrorLog(ex.Message)
+            End Try
 
-        If ok Then
-            Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
+            If ok Then
+                Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
 
-            If ProcessIdDict.ContainsKey(PID) Then
-                ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
-            Else
-                ProcessIdDict.Add(PID, BootProcess)
-            End If
+                If ProcessIdDict.ContainsKey(PID) Then
+                    ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
+                Else
+                    ProcessIdDict.Add(PID, BootProcess)
+                End If
 
-            If PID > 0 Then
-                ' 0 is all cores
-                Try
-                    If Cores(RegionUUID) > 0 Then
-                        BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
-                    End If
-                Catch ex As Exception
-                    BreakPoint.Show(ex)
-                End Try
+                If PID > 0 Then
+                    ' 0 is all cores
+                    Try
+                        If Cores(RegionUUID) > 0 Then
+                            BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
+                        End If
+                    Catch ex As Exception
+                        BreakPoint.Show(ex)
+                    End Try
 
-                Try
-                    Dim Pri = Priority(RegionUUID)
+                    Try
+                        Dim Pri = Priority(RegionUUID)
 
-                    Dim E = New PRIEnumClass
-                    Dim P As ProcessPriorityClass
-                    If Pri = "RealTime" Then
-                        P = E.RealTime
-                    ElseIf Pri = "High" Then
-                        P = E.High
-                    ElseIf Pri = "AboveNormal" Then
-                        P = E.AboveNormal
-                    ElseIf Pri = "Normal" Then
-                        P = E.Normal
-                    ElseIf Pri = "BelowNormal" Then
-                        P = E.BelowNormal
-                    Else
-                        P = E.Normal
-                    End If
+                        Dim E = New PRIEnumClass
+                        Dim P As ProcessPriorityClass
+                        If Pri = "RealTime" Then
+                            P = E.RealTime
+                        ElseIf Pri = "High" Then
+                            P = E.High
+                        ElseIf Pri = "AboveNormal" Then
+                            P = E.AboveNormal
+                        ElseIf Pri = "Normal" Then
+                            P = E.Normal
+                        ElseIf Pri = "BelowNormal" Then
+                            P = E.BelowNormal
+                        Else
+                            P = E.Normal
+                        End If
 
-                    BootProcess.PriorityClass = P
-                Catch ex As Exception
-                    BreakPoint.Show(ex)
-                End Try
+                        BootProcess.PriorityClass = P
+                    Catch ex As Exception
+                        BreakPoint.Show(ex)
+                    End Try
 
-                If Not SetWindowTextCall(BootProcess, GroupName) Then
-                    ' Try again
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        ErrorLog($"Timeout setting the title of {GroupName }")
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
+                        ShutDown(RegionUUID)
                     End If
-                End If
-                If Not PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Add(PID, GroupName)
-                End If
-                ' Mark them before we boot as a crash will immediately trigger the event that it exited
-                For Each UUID As String In RegionUuidListByName(GroupName)
-                    RegionStatus(UUID) = SIMSTATUSENUM.Booting
-                    PokeRegionTimer(RegionUUID)
-                Next
 
-                AddCPU(PID, GroupName) ' get a list of running opensim processes
-                For Each UUID As String In RegionUuidListByName(GroupName)
-                    ProcessID(UUID) = PID
-                Next
-            Else
-                BreakPoint.Print("No PID for " & GroupName)
+                    If Not PropInstanceHandles.ContainsKey(PID) Then
+                        PropInstanceHandles.Add(PID, GroupName)
+                    End If
+                    ' Mark them before we boot as a crash will immediately trigger the event that it exited
+                    For Each UUID As String In RegionUuidListByName(GroupName)
+                        RegionStatus(UUID) = SIMSTATUSENUM.Booting
+                        PokeRegionTimer(RegionUUID)
+                    Next
+
+                    AddCPU(PID, GroupName) ' get a list of running opensim processes
+                    For Each UUID As String In RegionUuidListByName(GroupName)
+                        ProcessID(UUID) = PID
+                    Next
+                Else
+                    BreakPoint.Print("No PID for " & GroupName)
+                End If
+
+                PropUpdateView = True ' make form refresh
+                FormSetup.Buttons(FormSetup.StopButton)
+                Return True
             End If
-
             PropUpdateView = True ' make form refresh
-            FormSetup.Buttons(FormSetup.StopButton)
-            Return True
-        End If
-        PropUpdateView = True ' make form refresh
-        Logger("Failed to boot ", BootName, "Teleport")
-        TextPrint("Failed to boot region " & BootName)
-        Return False
+            Logger("Failed to boot ", BootName, "Teleport")
+            TextPrint("Failed to boot region " & BootName)
+            Return False
+        End SyncLock
 
     End Function
 

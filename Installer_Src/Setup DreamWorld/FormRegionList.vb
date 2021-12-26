@@ -1357,8 +1357,8 @@ SetWindowOnTop_Err:
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
 
             Application.DoEvents()
-            FormSetup.Timer1.Interval = 1000
-            FormSetup.Timer1.Start() 'Timer starts functioning
+            FormSetup.StartTimer()
+
             FormSetup.Buttons(FormSetup.StopButton)
             PropOpensimIsRunning() = True
             FormSetup.ToolBar(True)

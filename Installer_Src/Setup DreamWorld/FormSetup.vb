@@ -326,8 +326,6 @@ Public Class FormSetup
         ' now look at the exit stack
         While Not exitList.IsEmpty
 
-            Application.DoEvents()
-
             Dim GroupName = exitList.Keys.First
             Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
             Dim out As String = ""
@@ -350,6 +348,7 @@ Public Class FormSetup
                 End If
             Else
                 BreakPoint.Print("No UUID!")
+                Application.DoEvents()
                 Continue While
             End If
 
@@ -357,6 +356,7 @@ Public Class FormSetup
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
                 Logger("State changed to NoLogin", Region_Name(RegionUUID), "Teleport")
+                Application.DoEvents()
                 Continue While
             End If
 
@@ -366,6 +366,7 @@ Public Class FormSetup
             Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
+                Application.DoEvents()
                 Continue While
             End If
 
@@ -379,6 +380,7 @@ Public Class FormSetup
                 End If
 
                 PropUpdateView = True ' make form refresh
+                Application.DoEvents()
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
@@ -386,6 +388,7 @@ Public Class FormSetup
                 StopGroup(GroupName)
                 PropUpdateView = True
                 Logger("State changed to Stopped", Region_Name(RegionUUID), "Teleport")
+                Application.DoEvents()
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
@@ -397,6 +400,7 @@ Public Class FormSetup
                 Next
                 Logger("State changed to RestartStage2", Region_Name(RegionUUID), "Teleport")
                 PropUpdateView = True
+                Application.DoEvents()
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
@@ -418,6 +422,7 @@ Public Class FormSetup
                         CrashCounter(RegionUUID) = 0
                         RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
                         PropUpdateView = True
+                        Application.DoEvents()
                         Continue While
                     End If
 
@@ -433,9 +438,11 @@ Public Class FormSetup
                     Logger("Stopped", GroupName & "  was stopped", "Teleport")
                     PropUpdateView = True
                     Continue While
+                    Application.DoEvents()
                 Else
                     If PropAborting Then
-                        Return ' not if we are aborting
+                        Application.DoEvents()
+                        Continue While
                     End If
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     ErrorGroup(GroupName)
@@ -448,12 +455,13 @@ Public Class FormSetup
                             BreakPoint.Show(ex)
                         End Try
                     End If
-
+                    Application.DoEvents()
                 End If
             Else
                 StopGroup(GroupName)
             End If
             PropUpdateView = True
+            Application.DoEvents()
         End While
 
     End Sub
@@ -714,18 +722,19 @@ Public Class FormSetup
         Application.DoEvents()
         Dim l = RegionUuids()
 
+        StartTimer()
+
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = FindRegionByName(RegionName)
             Dim out As New Guid
             If Guid.TryParse(UUID, out) Then
-                CrashCounter(UUID) = 0
                 ReBoot(UUID)
             End If
             l.Remove(UUID)
         End If
-        Application.DoEvents()
 
+        Sleep(3000)
         If Settings.GraphVisible Then
             G()
         End If
@@ -782,6 +791,8 @@ Public Class FormSetup
 
         Next
 
+
+
         Settings.SafeShutdown() = False
         Settings.SaveSettings()
 
@@ -793,6 +804,14 @@ Public Class FormSetup
         Return True
 
     End Function
+
+    Public Sub StartTimer()
+
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
+        TimerBusy = 0
+
+    End Sub
 
     ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
@@ -1116,6 +1135,8 @@ Public Class FormSetup
             Bench.Print("Scan Region State")
             For Each RegionUUID As String In RegionUuids()
 
+                Application.DoEvents()
+
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
                 If Not RegionEnabled(RegionUUID) Then Continue For
@@ -1227,7 +1248,6 @@ Public Class FormSetup
                     Diagnostics.Debug.Print("State Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
-                        PokeRegionTimer(RegionUUID)
                         Boot(RegionName)
                     Next
                     PropUpdateView = True
@@ -2767,7 +2787,7 @@ Public Class FormSetup
             ProcessQuit()               ' check if any processes exited
             RestartDOSboxes()
 
-            If SecondsTicker Mod 5 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 ScanAgents() ' update agent count
                 CheckForBootedRegions()     ' And see if any booted up
                 CalcDiskFree()
@@ -3160,9 +3180,8 @@ Public Class FormSetup
         PropOpensimIsRunning() = True
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
-        TimerBusy = 0
+
+        StartTimer()
 
         For Each RegionUUID As String In RegionUuids()
 
