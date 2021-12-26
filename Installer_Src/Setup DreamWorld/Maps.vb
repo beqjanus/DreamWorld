@@ -15,7 +15,21 @@ Module Maps
 
     End Sub
 
+    ReadOnly MakeMapLock As New Object
     Private Sub BuildMap()
+
+        For Each RegionUUID In RegionUuids()
+            Application.DoEvents()
+            Make_Region_Map(RegionUUID)
+        Next
+
+
+    End Sub
+
+#End Region
+
+    Public Sub Make_Region_Map(regionUUID As String)
+
 
         Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
         Try
@@ -25,12 +39,11 @@ Module Maps
             Return
         End Try
 
-        For Each RegionUUID In RegionUuids()
-            Application.DoEvents()
+        SyncLock MakeMapLock
             Dim MapPath = IO.Path.Combine(Settings.OpensimBinPath, "maptiles\00000000-0000-0000-0000-000000000000")
 
-            Dim Name = Region_Name(RegionUUID)
-            Dim SimSize As Integer = CInt(SizeX(RegionUUID))
+            Dim Name = Region_Name(regionUUID)
+            Dim SimSize As Integer = CInt(SizeX(regionUUID))
             Using bmp As New Bitmap(SimSize, SimSize)
                 Dim X = 0
                 Dim Y = 0
@@ -56,7 +69,7 @@ Module Maps
                 For Xstep = 0 To XS - 1
                     Y = CInt(SimSize - (SimSize / XS))
                     For Ystep = 0 To XS - 1
-                        Dim MapImage = $"map-1-{Coord_X(RegionUUID) + Xstep }-{Coord_Y(RegionUUID) + Ystep  }-objects.jpg"
+                        Dim MapImage = $"map-1-{Coord_X(regionUUID) + Xstep }-{Coord_Y(regionUUID) + Ystep  }-objects.jpg"
                         Diagnostics.Debug.Print(Name)
                         Diagnostics.Debug.Print(MapImage)
 
@@ -89,12 +102,9 @@ Module Maps
                 Next
 
             End Using
-
-        Next
+        End SyncLock
 
     End Sub
-
-#End Region
 
 #Region "Map Deleting"
 

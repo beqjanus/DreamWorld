@@ -3954,4 +3954,7 @@
   <data name="tt_Backup_OARs" xml:space="preserve">
     <value>Backup All regions to OAR files</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Load Help Files</value>
+  </data>
 </root>

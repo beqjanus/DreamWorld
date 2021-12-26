@@ -1472,10 +1472,10 @@ Public Module MysqlInterface
                         cmd.ExecuteNonQuery()
                     End Using
 
-                    MakeMaps()
+                    Make_Region_Map(UUID)
 
                 End Using
-                '{"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'regionname , regionsize,locationx, locationy, dateupdated, UUID) " & vbCrLf & "             ' at line 1"}
+
             Catch ex As MySqlException
                 BreakPoint.Show(ex)
             Catch ex As Exception

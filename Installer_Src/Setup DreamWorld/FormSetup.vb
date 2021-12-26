@@ -4,6 +4,7 @@
 
 #End Region
 
+Imports System.Collections.Concurrent
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -67,9 +68,9 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Private ReadOnly _exitList As New Dictionary(Of String, String)
+    Public ReadOnly exitList As New ConcurrentDictionary(Of String, String)
     ReadOnly BackupThread As New Backups
-    Private ReadOnly BootedList As New List(Of String)
+
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private _Adv As FormSettings
@@ -136,12 +137,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property BootedList1 As List(Of String)
-        Get
-            Return BootedList
-        End Get
-    End Property
-
     Public Property ContentIAR As FormOAR
         Get
             Return _ContentIAR
@@ -203,12 +198,6 @@ Public Class FormSetup
         Set(value As String)
             _CurSlashDir = value
         End Set
-    End Property
-
-    Public ReadOnly Property PropExitList As Dictionary(Of String, String)
-        Get
-            Return _exitList
-        End Get
     End Property
 
     Public Property PropIceCastExited() As Boolean
@@ -335,12 +324,14 @@ Public Class FormSetup
     Public Sub ProcessQuit()
 
         ' now look at the exit stack
-        While PropExitList.Count > 0
+        While Not exitList.IsEmpty
 
-            Dim GroupName = PropExitList.Keys.First
-            Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
-            PropExitList.Remove(GroupName)
+            Application.DoEvents()
 
+            Dim GroupName = exitList.Keys.First
+            Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
+            Dim out As String = ""
+            exitList.TryRemove(GroupName, out)
             TextPrint(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
@@ -350,7 +341,6 @@ Public Class FormSetup
             Dim RegionUUID As String = ""
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
-
                 DelPidFile(RegionUUID) 'kill the disk PID
 
                 ' Already done, just being safe here
@@ -379,24 +369,16 @@ Public Class FormSetup
                 Continue While
             End If
 
-            If Status = SIMSTATUSENUM.NoError Then
-                For Each R In GroupList
-                    RegionStatus(R) = SIMSTATUSENUM.Stopped
+            If Status = SIMSTATUSENUM.ShuttingDownForGood Then
+                For Each UUID In RegionUuidListByName(GroupName)
+                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped
                 Next
 
                 If Settings.TempRegion And EstateName(RegionUUID) = "SimSurround" Then
                     DeleteAllRegionData(RegionUUID)
                 End If
 
-                PropUpdateView = True
-                Continue While
-
-            ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In RegionUuidListByName(GroupName)
-                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped
-                Next
                 PropUpdateView = True ' make form refresh
-                Application.DoEvents() ' FKB
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
@@ -404,7 +386,6 @@ Public Class FormSetup
                 StopGroup(GroupName)
                 PropUpdateView = True
                 Logger("State changed to Stopped", Region_Name(RegionUUID), "Teleport")
-
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
@@ -426,7 +407,7 @@ Public Class FormSetup
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
                 Status = SIMSTATUSENUM.Error
                 PropUpdateView = True
-                Application.DoEvents()
+
                 Logger("Crash", GroupName & " Crashed", "Teleport")
                 If Settings.RestartOnCrash Then
 
@@ -474,6 +455,7 @@ Public Class FormSetup
             End If
             PropUpdateView = True
         End While
+
     End Sub
 
 #End Region
@@ -702,6 +684,9 @@ Public Class FormSetup
 
         Init(False)
 
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
+        Grep(ini, Settings.LogLevel)
+
         If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
@@ -722,9 +707,6 @@ Public Class FormSetup
             Buttons(StopButton)
             Return False
         End If
-
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
-        Grep(ini, Settings.LogLevel)
 
         CheckOverLap()
 
@@ -1015,9 +997,8 @@ Public Class FormSetup
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub RunTaskList(RegionUUID As String)
 
-        If Not ToDoList.ContainsKey(RegionUUID) Then
-            Diagnostics.Debug.Print($"No tasks for {Region_Name(RegionUUID)}")
-        Else
+        If ToDoList.ContainsKey(RegionUUID) Then
+
             Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
             Dim T = Task.TaskName
@@ -1086,12 +1067,11 @@ Public Class FormSetup
         Try
             Dim GroupName As String = ""
 
-            While BootedList1.Count > 0
+            While BootedList.Count > 0
 
                 Dim RegionUUID As String = ""
                 Try
-                    RegionUUID = BootedList1(0)
-                    BootedList1.RemoveAt(0)
+                    RegionUUID = BootedList.Dequeue
                 Catch ex As Exception
                     BreakPoint.Show(ex)
                 End Try
@@ -1136,7 +1116,7 @@ Public Class FormSetup
         Try
             Bench.Print("Scan Region State")
             For Each RegionUUID As String In RegionUuids()
-                Application.DoEvents()
+
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
                 If Not RegionEnabled(RegionUUID) Then Continue For
@@ -1195,10 +1175,16 @@ Public Class FormSetup
                 And Settings.AutoRestartInterval() > 0 _
                 And Settings.AutoRestartEnabled Then
 
-                    If Not AvatarsIsInGroup(GroupName) Then
+                    If AvatarsIsInGroup(GroupName) Then
+                        ' keep smart start regions alive if someone is near
+                        If AvatarIsNearby(RegionUUID) Then
+                            PokeGroupTimer(GroupName)
+                        End If
+                        Continue For
+                    Else
 
                         ' shut down the group when AutoRestartInterval has gone by.
-                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown", GroupName, "Teleport")
+                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown")
 
                         ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                         SequentialPause()
@@ -1206,10 +1192,10 @@ Public Class FormSetup
                         ShutDown(RegionUUID)
                         Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                         For Each UUID As String In GroupList
-                            RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown
+                            RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
                         Next
-                        Diagnostics.Debug.Print("State changed to RecyclingDown", GroupName, "Teleport")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+                        Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
                         Continue For
                     End If
@@ -1270,9 +1256,8 @@ Public Class FormSetup
         End Try
 
         Bench.Print("CheckForBootedRegions done")
-
         PropBootScanIsBusy = 0
-        Application.DoEvents()
+
     End Sub
 
     Public Function DoStopActions() As Boolean
@@ -1416,7 +1401,7 @@ Public Class FormSetup
         Next
 
         Try
-            PropExitList.Clear()
+            exitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
@@ -1451,8 +1436,8 @@ Public Class FormSetup
 
                     If GetHwnd(G) = IntPtr.Zero Then
                         Try
-                            If Not PropExitList.ContainsKey(G) Then
-                                PropExitList.Add(G, "Exit")
+                            If Not exitList.ContainsKey(G) Then
+                                exitList.TryAdd(G, "Exit")
                             End If
                         Catch ex As Exception
                             BreakPoint.Show(ex)
@@ -2100,7 +2085,7 @@ Public Class FormSetup
     Private Sub LoadHelp()
 
         ' read help files for menu
-
+        TextPrint(My.Resources.LoadHelp)
         Dim folders As Array = Nothing
         Try
             folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help"))
@@ -2781,20 +2766,21 @@ Public Class FormSetup
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
             ProcessQuit()               ' check if any processes exited
-            CheckForBootedRegions()     ' And see if any booted up
-            ScanAgents() ' update agent count
+            RestartDOSboxes()
 
-            If SecondsTicker = 10 Then
+            If SecondsTicker Mod 5 And SecondsTicker > 0 Then
+                ScanAgents() ' update agent count
+                CheckForBootedRegions()     ' And see if any booted up
+                CalcDiskFree()
+            End If
+
+            If SecondsTicker = 60 Then
                 ScanOpenSimWorld(True)
             End If
 
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
-
-                RestartDOSboxes()
-                CalcDiskFree()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
-
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running
                 Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
@@ -3185,24 +3171,29 @@ Public Class FormSetup
                 Continue For
             End If
 
+            If PropAborting Then
+                Return
+            End If
+
             Dim GroupName = Group_Name(RegionUUID)
             Dim Status = RegionStatus(RegionUUID)
 
-            If RegionEnabled(RegionUUID) And AvatarsIsInGroup(GroupName) Then
+            If AvatarsIsInGroup(GroupName) Then
                 TextPrint($"{My.Resources.Avatars_are_in} {GroupName}")
                 Continue For
             End If
 
-            If Not PropAborting And (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
+            If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
-                ShutDown(RegionUUID)
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
+                ShutDown(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Else
+                ' Smart Start Enabled and stopped
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
             End If
-
+            Application.DoEvents()
         Next
 
     End Sub
