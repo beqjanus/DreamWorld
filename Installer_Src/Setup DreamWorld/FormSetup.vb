@@ -1136,7 +1136,7 @@ Public Class FormSetup
         Try
             Bench.Print("Scan Region State")
             For Each RegionUUID As String In RegionUuids()
-                Application.DoEvents()
+                
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
                 If Not RegionEnabled(RegionUUID) Then Continue For
@@ -1270,9 +1270,8 @@ Public Class FormSetup
         End Try
 
         Bench.Print("CheckForBootedRegions done")
-
         PropBootScanIsBusy = 0
-        Application.DoEvents()
+
     End Sub
 
     Public Function DoStopActions() As Boolean
