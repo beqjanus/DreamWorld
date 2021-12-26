@@ -9,6 +9,7 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Module SmartStart
+    Public ReadOnly BootedList As New Queue(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
 
     Public Sub TeleportClicked(Regionuuid As String)

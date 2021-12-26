@@ -181,7 +181,7 @@ Module OAR
 
         Dim RegionName = Region_Name(RegionUUID)
         Dim backMeUp = T.backMeUp
-        Dim LoadOarStr = T.Str
+        Dim LoadOarStr = T.Command
 
         Try
             If backMeUp = "Yes" Then
