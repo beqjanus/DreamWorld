@@ -1195,10 +1195,16 @@ Public Class FormSetup
                 And Settings.AutoRestartInterval() > 0 _
                 And Settings.AutoRestartEnabled Then
 
-                    If Not AvatarsIsInGroup(GroupName) Then
+                    If AvatarsIsInGroup(GroupName) Then
+                        ' keep smart start regions alive if someone is near
+                        If AvatarIsNearby(RegionUUID) Then
+                            PokeGroupTimer(GroupName)
+                        End If
+                        Continue For
+                    Else
 
                         ' shut down the group when AutoRestartInterval has gone by.
-                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown", GroupName, "Teleport")
+                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown")
 
                         ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                         SequentialPause()
@@ -1206,10 +1212,10 @@ Public Class FormSetup
                         ShutDown(RegionUUID)
                         Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                         For Each UUID As String In GroupList
-                            RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown
+                            RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
                         Next
-                        Diagnostics.Debug.Print("State changed to RecyclingDown", GroupName, "Teleport")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+                        Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
                         Continue For
                     End If
@@ -2776,25 +2782,28 @@ Public Class FormSetup
                 MakeMaps()
             End If
 
+
             Chart() ' do charts collection each second
             CheckPost() ' see if anything arrived in the web server
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
             ProcessQuit()               ' check if any processes exited
-            CheckForBootedRegions()     ' And see if any booted up
-            ScanAgents() ' update agent count
+            RestartDOSboxes()
 
-            If SecondsTicker = 10 Then
+            If SecondsTicker = 5 And SecondsTicker > 0 Then
+                ScanAgents() ' update agent count
+                CheckForBootedRegions()     ' And see if any booted up
+                CalcDiskFree()
+            End If
+
+            If SecondsTicker = 60 Then
                 ScanOpenSimWorld(True)
             End If
 
+
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
-
-                RestartDOSboxes()
-                CalcDiskFree()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
-
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running
                 Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
