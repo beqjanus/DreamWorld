@@ -18,7 +18,6 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    ReadOnly LoadOarLock As Object
 
     Private _abort As Boolean
     Private _Index As Integer
@@ -903,18 +902,15 @@ Public Class FormSmartStart
                 RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
                 OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                SyncLock LoadOarLock
-                    Dim port = LargestPort() + 1
-                    GroupPort(RegionUUID) = port
-                    Region_Port(RegionUUID) = port
-                    WriteRegionObject(shortname, shortname)
-                    PropChangedRegionSettings = True
-                End SyncLock
+                Dim port = LargestPort() + 1
+                GroupPort(RegionUUID) = port
+                Region_Port(RegionUUID) = port
+                WriteRegionObject(shortname, shortname)
+                PropChangedRegionSettings = True
 
                 Firewall.SetFirewall()
 
                 PropUpdateView = True ' make form refresh
-                Application.DoEvents()
 
                 Dim RegionName = Region_Name(RegionUUID)
                 If RegionName = Settings.WelcomeRegion Then Continue For
@@ -941,8 +937,11 @@ Public Class FormSmartStart
                     FormSetup.RebootAndRunTask(RegionUUID, obj)
                 End If
 
+                Application.DoEvents()
+
             Next
-        Catch
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
         End Try
 
     End Sub
