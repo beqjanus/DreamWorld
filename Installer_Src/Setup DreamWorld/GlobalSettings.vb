@@ -14,7 +14,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.82"
+    Public Const _MyVersion As String = "4.83"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const FreeDiskSpaceWarn As Long = 100000000
     Public Const Hyperica As String = "Hyperica"
