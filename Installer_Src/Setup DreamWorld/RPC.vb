@@ -233,17 +233,11 @@ Module RPC
 
     Public Function ShutDown(RegionUUID As String) As Boolean
 
-        If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
-            Dim ht = New Hashtable From {
+        Dim ht = New Hashtable From {
             {"password", Settings.MachineID},
             {"region_id", RegionUUID}
         }
-            Return SendRPC(RegionUUID, "admin_shutdown", ht)
-        Else
-            ConsoleCommand(RegionUUID, "q")
-            ConsoleCommand(RegionUUID, "q")
-        End If
-        Return True
+        Return SendRPC(RegionUUID, "admin_shutdown", ht)
 
     End Function
 

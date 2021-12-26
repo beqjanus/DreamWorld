@@ -149,9 +149,7 @@ Module RegionMaker
                         Continue While
                     End If
 
-                    If Not FormSetup.BootedList1.Contains(uuid) Then
-                        FormSetup.BootedList1.Add(uuid)
-                    End If
+                    BootedList.Enqueue(uuid)
 
                 ElseIf json.login = "shutdown" Then
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
@@ -180,6 +178,8 @@ Module RegionMaker
 
     Private CreateRegionLock As Boolean
 
+    Private WriteRegionLock As Boolean
+
     Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
 
         While CreateRegionLock
@@ -190,8 +190,8 @@ Module RegionMaker
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
 
-            Debug.Print("Create Region " + name)
-            Dim r As New Region_data With {
+        Debug.Print("Create Region " + name)
+        Dim r As New Region_data With {
                 ._AllowGods = "",
                 ._AvatarCount = 0,
                 ._AvatarsInRegion = 0,
@@ -235,18 +235,17 @@ Module RegionMaker
                 ._UUID = UUID
             }
 
-            If Not RegionList.ContainsKey(r._UUID) Then
-                RegionList.TryAdd(r._UUID, r)
-            Else
-                BreakPoint.Print("Region List error! " & r._UUID)
-                RegionDump()
-            End If
+        If Not RegionList.ContainsKey(r._UUID) Then
+            RegionList.TryAdd(r._UUID, r)
+        Else
+            BreakPoint.Print("Region List error! " & r._UUID)
+            RegionDump()
+        End If
 
         Debug.Print("Region count is " & CStr(RegionList.Count))
 
         CreateRegionLock = False
         Return r._UUID
-
 
     End Function
 
@@ -259,8 +258,6 @@ Module RegionMaker
 
     End Sub
 
-
-    Private WriteRegionLock As Boolean
     ''' <summary>
     ''' Saves Region class to disk file
     ''' </summary>
@@ -369,7 +366,9 @@ Module RegionMaker
 
 #Region "Functions"
 
+    Private PortLock As Boolean
 
+    Private UpdateAllRegion As Boolean
 
     Public Sub AddToRegionMap(RegionUUID As String)
 
@@ -506,7 +505,6 @@ Module RegionMaker
     End Function
 
     Public Function GetAllRegions(Verbose As Boolean) As Integer
-
 
         If Not PropChangedRegionSettings Then Return RegionList.Count
 
@@ -707,7 +705,6 @@ Module RegionMaker
 
     End Function
 
-    Private PortLock As Boolean
     Public Function LargestPort() As Integer
 
         Dim Maxnum As Integer
@@ -721,18 +718,18 @@ Module RegionMaker
 
         ' locate largest port
         Maxnum = Settings.FirstRegionPort - 1
-            Dim pair As KeyValuePair(Of String, Region_data)
+        Dim pair As KeyValuePair(Of String, Region_data)
 
-            For Each pair In RegionList
-                If pair.Value._RegionPort > Maxnum Then
-                    Maxnum = pair.Value._RegionPort
-                End If
-                If pair.Value._GroupPort > Maxnum Then
-                    Maxnum = pair.Value._GroupPort
-                End If
-            Next
+        For Each pair In RegionList
+            If pair.Value._RegionPort > Maxnum Then
+                Maxnum = pair.Value._RegionPort
+            End If
+            If pair.Value._GroupPort > Maxnum Then
+                Maxnum = pair.Value._GroupPort
+            End If
+        Next
 
-        Portlock = False
+        PortLock = False
 
         Return Maxnum
 
@@ -797,7 +794,6 @@ Module RegionMaker
 
     End Sub
 
-    Private UpdateAllRegion As Boolean
     Public Sub UpdateAllRegionPorts()
 
         Dim Retry = 60
@@ -1605,7 +1601,6 @@ Module RegionMaker
         For Each pair In RegionList
             DebugRegions(pair.Value._UUID)
         Next
-
 
     End Sub
 
