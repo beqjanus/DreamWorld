@@ -5759,6 +5759,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Load Help Files.
+        '''</summary>
+        Friend ReadOnly Property LoadHelp() As String
+            Get
+                Return ResourceManager.GetString("LoadHelp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Loading Settings.ini.
         '''</summary>
         Friend ReadOnly Property Loading_Settings() As String

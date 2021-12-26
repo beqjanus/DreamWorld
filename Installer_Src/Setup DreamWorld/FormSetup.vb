@@ -2085,7 +2085,7 @@ Public Class FormSetup
     Private Sub LoadHelp()
 
         ' read help files for menu
-
+        TextPrint(My.Resources.LoadHelp)
         Dim folders As Array = Nothing
         Try
             folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help"))
@@ -2769,7 +2769,7 @@ Public Class FormSetup
             ProcessQuit()               ' check if any processes exited
             RestartDOSboxes()
 
-            If SecondsTicker = 5 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 5 And SecondsTicker > 0 Then
                 ScanAgents() ' update agent count
                 CheckForBootedRegions()     ' And see if any booted up
                 CalcDiskFree()

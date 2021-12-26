@@ -15,7 +15,7 @@ Module Maps
 
     End Sub
 
-    Dim MakeMapLock As New Object
+    ReadOnly MakeMapLock As New Object
     Private Sub BuildMap()
 
         For Each RegionUUID In RegionUuids()
