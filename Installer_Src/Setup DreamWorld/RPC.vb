@@ -209,7 +209,6 @@ Module RPC
            {"message", Message}
         }
         Log("Info", "Message to " & Region_Name(RegionUUID) & " of " & Message)
-
         Return SendRPC(RegionUUID, "admin_dialog", ht)
 
     End Function
@@ -237,6 +236,7 @@ Module RPC
             {"password", Settings.MachineID},
             {"region_id", RegionUUID}
         }
+        Log("Info", "Shutdown " & Region_Name(RegionUUID))
         Return SendRPC(RegionUUID, "admin_shutdown", ht)
 
     End Function
