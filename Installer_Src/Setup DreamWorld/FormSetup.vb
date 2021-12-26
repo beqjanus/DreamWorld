@@ -720,7 +720,7 @@ Public Class FormSetup
             Dim out As New Guid
             If Guid.TryParse(UUID, out) Then
                 CrashCounter(UUID) = 0
-                If Not Boot(Region_Name(UUID)) Then Return False
+                ReBoot(UUID)
             End If
             l.Remove(UUID)
         End If
@@ -741,6 +741,9 @@ Public Class FormSetup
 
         ' Boot them up
         For Each RegionUUID As String In l
+
+            Diagnostics.Debug.Print($"Scanning  {Region_Name(RegionUUID)}")
+
             If RegionEnabled(RegionUUID) Then
                 Dim BootNeeded As Boolean = False
                 Select Case Settings.Smart_Start
@@ -773,14 +776,10 @@ Public Class FormSetup
                 End If
 
                 If BootNeeded And PropOpensimIsRunning Then
-                    If Not Boot(Region_Name(RegionUUID)) Then
-                        Exit For
-                    End If
+                    ReBoot(RegionUUID)
                 End If
-
             End If
 
-            Application.DoEvents()
         Next
 
         Settings.SafeShutdown() = False

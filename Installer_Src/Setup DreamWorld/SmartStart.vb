@@ -531,21 +531,22 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
+        Bench.Print($"Reboot {Region_Name(RegionUUID)}")
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Then
 
-            Bench.Print($"Reboot {Region_Name(RegionUUID)}")
-
             For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                Diagnostics.Debug.Print("State Changed to Resume", Region_Name(RegionUUID), "Teleport")
+                Diagnostics.Debug.Print("State Changed to Resume", Region_Name(RegionUUID))
                 PokeRegionTimer(RegionUUID)
             Next
             PropUpdateView = True ' make form refresh
         ElseIf RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             FormSetup.RunTaskList(RegionUUID)
+        Else
+            Diagnostics.Debug.Print("State unchanged " & GetStateString(RegionUUID))
         End If
 
     End Sub
