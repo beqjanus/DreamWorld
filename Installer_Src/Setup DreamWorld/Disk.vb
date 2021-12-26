@@ -117,7 +117,7 @@ Module Disk
                 If x = Mid(drive.Name, 1, 1) Then
                     Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
                     Dim FreeDisk = Percent * 100
-                    Free = drive.TotalSize - drive.AvailableFreeSpace
+                    Free = drive.AvailableFreeSpace
 
                     If Sleeping.Count = 0 Then
                         If Free < FreeDiskSpaceWarn Then
