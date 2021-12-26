@@ -15,7 +15,8 @@ HG Visitors would show up in a region by a UUID instead of a name
 Many small Visitor map tweaks so the map image lies more closely on the dots.
 The Javascript map is centered.  You can get to this in the Settings->Maps. 
 Visitor Maps can be made public. Default = private, http://127.0.0.1/Stats only
-Visitor Maps have a search to find them. I have nearly 200 maps, and it took forever to scroll.
+Visitor Maps have a search box. I have nearly 200 maps, and it took forever to scroll.
+Added a blank map for missing Visitor maps.   You need a set of tiled maps, as the visitor map is made from the small tiles.
 
 V4.81
 Developer version never released
