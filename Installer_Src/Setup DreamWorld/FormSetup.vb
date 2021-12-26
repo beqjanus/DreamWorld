@@ -684,6 +684,9 @@ Public Class FormSetup
 
         Init(False)
 
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
+        Grep(ini, Settings.LogLevel)
+
         If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
@@ -704,9 +707,6 @@ Public Class FormSetup
             Buttons(StopButton)
             Return False
         End If
-
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
-        Grep(ini, Settings.LogLevel)
 
         CheckOverLap()
 
@@ -2761,7 +2761,6 @@ Public Class FormSetup
                 MakeMaps()
             End If
 
-
             Chart() ' do charts collection each second
             CheckPost() ' see if anything arrived in the web server
             TeleportAgents()            ' send them onward
@@ -2778,7 +2777,6 @@ Public Class FormSetup
             If SecondsTicker = 60 Then
                 ScanOpenSimWorld(True)
             End If
-
 
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
