@@ -196,7 +196,7 @@ Module OAR
             ConsoleCommand(RegionUUID, LoadOarStr)
             ConsoleCommand(RegionUUID, "generate map")
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
         End Try
 

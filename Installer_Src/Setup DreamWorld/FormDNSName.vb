@@ -179,7 +179,7 @@ Public Class FormDNSName
                     End If
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
 
             If DNSAliasTextBox.Text.Length > 0 Then
@@ -202,7 +202,7 @@ Public Class FormDNSName
                         End If
                     Next
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
 
             End If

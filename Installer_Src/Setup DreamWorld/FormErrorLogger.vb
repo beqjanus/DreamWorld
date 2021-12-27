@@ -56,7 +56,7 @@
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 

@@ -43,7 +43,7 @@ Module Updater
                 Return
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             Return
         End Try
 
@@ -87,7 +87,7 @@ Module Updater
                 UpdateProcess.Start()
                 End
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 TextPrint(My.Resources.ErrUpdate)
             End Try
         End If

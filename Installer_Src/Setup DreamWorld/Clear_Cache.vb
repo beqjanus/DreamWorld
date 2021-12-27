@@ -38,7 +38,7 @@ Module Clear_Cache
         Try
             files = IO.Directory.GetFiles(Flotsam)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         ctr = 0
@@ -62,7 +62,7 @@ Module Clear_Cache
             Try
                 files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 
@@ -87,7 +87,7 @@ Module Clear_Cache
             Try
                 files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 
@@ -113,7 +113,7 @@ Module Clear_Cache
             Try
                 files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 

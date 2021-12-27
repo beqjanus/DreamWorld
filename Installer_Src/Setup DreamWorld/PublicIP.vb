@@ -62,7 +62,7 @@ Module PublicIP
             Next
             Return String.Empty
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             ErrorLog("Warn:Unable to resolve name: " & ex.Message)
         End Try
         Return String.Empty

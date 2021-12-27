@@ -121,7 +121,7 @@ Public Class FormBanList
                 PropAborting = False
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         Finally
             '"# Examples are below.=You can ban a viewer, an IP and/or a MAC address.|# 34.206.39.153=This IP from 'junk.com' is banned.|# 01:23:45:67:89:A=This MAC address is banned. Get MACs from the Robust log.|# HydraStorm=HydraStorm Copybotter|# SolarStorm=Singularity Solar Storm Copybot|#=# is a comment.|#=Delete or modify any rules then close this window. Robust will restart if running."
             BanListString = Mid(BanListString, 1, BanListString.Length - 1)
@@ -250,7 +250,7 @@ Public Class FormBanList
             ' Do not catch general exception types
         Catch ex As Exception
             ' Do not catch general exception types
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             ErrorLog("Banlist:" & ex.Message)
         End Try
 

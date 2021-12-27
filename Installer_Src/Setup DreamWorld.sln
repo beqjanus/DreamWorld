@@ -22,12 +22,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = SingleSheet
-		SolutionGuid = {8A3689AC-C2EC-4C3F-9BD8-815842380D9F}
-		RESX_AutoCreateNewLanguageFiles = False
-		RESX_ConfirmAddLanguageFile = False
-		RESX_DuplicateKeyHandling = Fail
-		RESX_ShowPerformanceTraces = True
+		RESX_Rules = {"EnabledRules":[]}
 		RESX_TaskErrorCategory = Message
+		RESX_ShowPerformanceTraces = False
+		RESX_DuplicateKeyHandling = Fail
+		RESX_ConfirmAddLanguageFile = False
+		RESX_AutoCreateNewLanguageFiles = False
+		SolutionGuid = {8A3689AC-C2EC-4C3F-9BD8-815842380D9F}
+		RESX_ExcelExportMode = SingleSheet
 	EndGlobalSection
 EndGlobal

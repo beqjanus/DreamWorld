@@ -41,7 +41,7 @@ Public Class NetServer
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Priority = ThreadPriority.Highest
@@ -149,7 +149,7 @@ Public Class NetServer
             Try
                 listener.Start() ' Throws Exception
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 Log(My.Resources.Error_word, ex.Message)
                 Return
             End Try

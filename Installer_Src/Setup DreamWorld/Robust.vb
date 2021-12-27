@@ -71,7 +71,7 @@ Module Robust
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
         End Using
@@ -161,7 +161,7 @@ Module Robust
             RobustProcess.Start()
             Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
             FormSetup.KillAll()
             FormSetup.Buttons(FormSetup.StartButton)
@@ -200,7 +200,7 @@ Module Robust
                     Try
                         System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe " & Log))
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                     End Try
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
@@ -492,7 +492,7 @@ Module Robust
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 

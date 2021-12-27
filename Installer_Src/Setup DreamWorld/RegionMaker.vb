@@ -124,7 +124,7 @@ Module RegionMaker
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                     Debug.Print(ex.Message)
                     Logger("RegionReady", "Malformed JSON: " & ProcessString, "Teleport")
                     Continue While
@@ -149,7 +149,7 @@ Module RegionMaker
                         Continue While
                     End If
 
-                    BootedList.Enqueue(uuid)
+                    BootedList.Add(uuid)
 
                 ElseIf json.login = "shutdown" Then
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
@@ -159,7 +159,7 @@ Module RegionMaker
                     Continue While
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 Logger("RegionReady", "Exception:" & ex.Message, "Teleport")
                 Try
                     WebserverList.Clear()
@@ -287,7 +287,7 @@ Module RegionMaker
             Try
                 Directory.CreateDirectory(pathtoRegion)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 
@@ -353,7 +353,7 @@ Module RegionMaker
                 outputFile.WriteLine(proto)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         AddToRegionMap(RegionUUID)
@@ -548,7 +548,7 @@ Module RegionMaker
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-                            BreakPoint.Show(ex)
+                            BreakPoint.DUmp(ex)
                         End Try
 
                         For Each file As String In inis
@@ -681,7 +681,7 @@ Module RegionMaker
                             End If
                         Next
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                         PropUpdateView = True ' make form refresh
@@ -691,7 +691,7 @@ Module RegionMaker
                 Next
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         PropUpdateView = True ' make form refresh
@@ -1628,7 +1628,7 @@ Module RegionMaker
             Next
             Return L
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Dim L2 As New List(Of String)
@@ -1780,7 +1780,7 @@ Module RegionMaker
                 Return "<html><head></head><body>Test Passed</html>"
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             Return "<html><head></head><body>Error</html>"
         End Try
 
@@ -1857,7 +1857,7 @@ Module RegionMaker
                     End Using
                     Return Partner
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
 
             End If

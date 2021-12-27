@@ -30,6 +30,22 @@ Module WindowHandlers
 
 #End Region
 
+    Public Function CachedProcess(PID As Integer) As Process
+
+        If Not ProcessIdDict.ContainsKey(PID) Then
+            Try
+                Dim Pr = Process.GetProcessById(PID)
+                If Pr IsNot Nothing Then
+                    ProcessIdDict.Add(PID, Pr)
+                    Return Pr
+                End If
+            Catch ex As Exception
+            End Try
+        End If
+        Return ProcessIdDict(PID)
+
+    End Function
+
     Public Sub ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False)
 
         ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
@@ -50,7 +66,7 @@ Module WindowHandlers
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
-                        'BreakPoint.Show(ex)
+                        'BreakPoint.Dump(ex)
                         Return
                     End Try
                 Else
@@ -68,7 +84,7 @@ Module WindowHandlers
                     'Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
-                    'BreakPoint.Show(ex)
+                    'BreakPoint.Dump(ex)
                     Return
                 End Try
                 DoType("Robust", "{ENTER}" & command & "{ENTER}")
@@ -133,7 +149,6 @@ Module WindowHandlers
             Return IntPtr.Zero
         End If
 
-
         ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
         Dim AllProcesses = Process.GetProcessesByName("Opensim")
         For Each p As Process In AllProcesses
@@ -174,22 +189,6 @@ Module WindowHandlers
 
     End Function
 
-    Public Function CachedProcess(PID As Integer) As Process
-
-        If Not ProcessIdDict.ContainsKey(PID) Then
-            Try
-                Dim Pr = Process.GetProcessById(PID)
-                If Pr IsNot Nothing Then
-                    ProcessIdDict.Add(PID, Pr)
-                    Return Pr
-                End If
-            Catch ex As Exception
-            End Try
-        End If
-        Return ProcessIdDict(PID)
-
-
-    End Function
     Public Function MaybeHideWindow() As SHOWWINDOWENUM
 
         Dim w As SHOWWINDOWENUM
@@ -342,7 +341,7 @@ Module WindowHandlers
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
                 ctr -= 1
                 Sleep(100)
@@ -395,7 +394,7 @@ Module WindowHandlers
             Try
                 P.Kill()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Application.DoEvents()
         Next

@@ -352,7 +352,7 @@ Module Build
             End While
             If Retry = 0 Then BreakPoint.Print("Retry Random Name exceeded")
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Return ""

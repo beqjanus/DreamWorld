@@ -34,7 +34,7 @@ Module Maps
         Try
             FileIO.FileSystem.CreateDirectory(SavePath)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             Return
         End Try
 
@@ -54,7 +54,7 @@ Module Maps
                         Try
                             bmp.SetPixel(X, Y, newColor)
                         Catch ex As Exception
-                            BreakPoint.Show(ex)
+                            BreakPoint.DUmp(ex)
                         End Try
 
                     Next
@@ -88,7 +88,7 @@ Module Maps
                                     g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
                                     Out.Save(IO.Path.Combine(SavePath, $"{Name}.png"))
                                 Catch ex As Exception
-                                    BreakPoint.Show(ex)
+                                    BreakPoint.DUmp(ex)
                                 End Try
 
                             End Using

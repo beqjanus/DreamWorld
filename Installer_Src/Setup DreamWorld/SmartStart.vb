@@ -9,7 +9,7 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Module SmartStart
-    Public ReadOnly BootedList As New Queue(Of String)
+    Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
 
     Public Sub TeleportClicked(Regionuuid As String)
@@ -22,7 +22,7 @@ Module SmartStart
         Try
             System.Diagnostics.Process.Start(link)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
@@ -164,7 +164,7 @@ Module SmartStart
                 Name = Region_Name(RegionUUID)
             End If
 
-            Debug.Print($"Sort by {Name}")
+            'Debug.Print($"Sort by {Name}")
 
             Dim status = RegionStatus(RegionUUID)
             If (Teleport_Sign(RegionUUID) = "True" AndAlso
@@ -197,7 +197,7 @@ Module SmartStart
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-            ' BreakPoint.Show(ex)
+            ' BreakPoint.Dump(ex)
         End Try
 
         Return HTML
@@ -333,24 +333,19 @@ Module SmartStart
 #Region "BootUp"
 
     Dim BootupLock As New Object
+
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
-        ''' 
+        '''
         SyncLock BootupLock
-
-
-
-            Bench.Print($"Boot {BootName}")
 
             PropOpensimIsRunning() = True
             If PropAborting Then Return True
 
             Dim RegionUUID As String = FindRegionByName(BootName)
-
             If Not RegionEnabled(RegionUUID) Then Return True
-
             Dim GroupName = Group_Name(RegionUUID)
 
             If String.IsNullOrEmpty(RegionUUID) Then
@@ -413,7 +408,6 @@ Module SmartStart
 
             If CopyOpensimProto(RegionUUID) Then Return False
 
-
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim BootProcess = New Process With {
             .EnableRaisingEvents = True
@@ -422,7 +416,6 @@ Module SmartStart
 
             BootProcess.StartInfo.UseShellExecute = True
             BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
-
             BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
             BootProcess.StartInfo.CreateNoWindow = False
 
@@ -465,7 +458,7 @@ Module SmartStart
                             BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
                         End If
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                     End Try
 
                     Try
@@ -489,7 +482,7 @@ Module SmartStart
 
                         BootProcess.PriorityClass = P
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                     End Try
 
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
@@ -528,7 +521,6 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        Bench.Print($"Reboot {Region_Name(RegionUUID)}")
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
@@ -543,7 +535,7 @@ Module SmartStart
         ElseIf RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             FormSetup.RunTaskList(RegionUUID)
         Else
-            Diagnostics.Debug.Print("State unchanged " & GetStateString(RegionUUID))
+            Diagnostics.Debug.Print("State unchanged " & GetStateString(RegionStatus(RegionUUID)))
         End If
 
     End Sub
@@ -705,7 +697,7 @@ Module SmartStart
                 Try
                     System.IO.Directory.CreateDirectory(path)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             End If
             Terrainfolder = path

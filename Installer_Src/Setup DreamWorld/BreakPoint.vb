@@ -7,11 +7,7 @@
 
 Module BreakPoint
 
-    Public Sub Print(Message As String)
-        Diagnostics.Debug.Print(Message)
-    End Sub
-
-    Public Sub Show(ex As Exception)
+    Public Sub Dump(ex As Exception)
 
         Dim Message = ex.Message
         Dim st = New StackTrace(ex, True)
@@ -24,6 +20,10 @@ Module BreakPoint
         Next
         Diagnostics.Debug.Print(Message)
 
+    End Sub
+
+    Public Sub Print(Message As String)
+        Diagnostics.Debug.Print(Message)
     End Sub
 
 End Module

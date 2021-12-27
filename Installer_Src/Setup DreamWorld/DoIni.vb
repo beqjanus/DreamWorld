@@ -239,7 +239,7 @@ Module DoIni
             'close your reader
             reader.Close()
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Dim INI = New LoadIni(d, ";", System.Text.Encoding.UTF8)
@@ -473,7 +473,7 @@ Module DoIni
             'close your reader
             reader.Close()
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
             MsgBox(My.Resources.no_Default_sim, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Settings_word)
             Return True
         End Try
@@ -498,7 +498,7 @@ Module DoIni
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Return False

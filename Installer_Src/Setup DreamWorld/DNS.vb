@@ -15,7 +15,7 @@ Module DNS
                     ErrorLog("Warn: Cannot get new name:" & ex1.Message)
                     Return ""
                 End Try
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 ErrorLog("Error:Cannot get new name:" & ex.Message)
                 Return ""
             End Try

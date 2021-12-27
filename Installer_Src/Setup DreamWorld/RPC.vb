@@ -153,7 +153,7 @@ Module RPC
                 Next
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
         Return result
 

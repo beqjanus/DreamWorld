@@ -260,7 +260,7 @@ Public Class FormRegions
                 S.Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub

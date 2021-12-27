@@ -4,41 +4,48 @@ Imports System.Threading
 Module Disk
 
 #Region "Disk"
+
     Private ReadOnly Sleeping As New List(Of String)
 
-    Private Sub FreezeThaw(RegionUUID As String, Arg As String)
+    Public Function CalcDiskFree() As Long
 
-        Using SuspendProcess As New Process()
-            Dim pi = New ProcessStartInfo With {
-                .Arguments = Arg,
-                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-            }
+        Dim d = DriveInfo.GetDrives()
+        Dim c = CurDir()
+        Dim Free As Long
+        Try
+            For Each drive As DriveInfo In d
+                Dim x = Mid(c, 1, 1)
+                If x = Mid(drive.Name, 1, 1) Then
+                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
+                    Dim FreeDisk = Percent * 100
+                    Free = drive.AvailableFreeSpace
 
-            pi.CreateNoWindow = True
-            pi.WindowStyle = ProcessWindowStyle.Minimized
+                    If Sleeping.Count = 0 Then
+                        If Free < FreeDiskSpaceWarn Then
+                            Dim SThread = New Thread(AddressOf FreezeAll)
+                            SThread.SetApartmentState(ApartmentState.STA)
+                            SThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+                            SThread.Start()
+                            Busy = True
+                            MsgBox(My.Resources.Diskspacelow & $" {Free:n0} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                        End If
+                    End If
 
-            SuspendProcess.StartInfo = pi
+                    Dim tt = My.Resources.Available
+                    Dim Text = $"{Percent:P1} {tt}"
 
-            Try
-                SuspendProcess.Start()
-                SuspendProcess.WaitForExit()
-                PokeRegionTimer(RegionUUID)
-            Catch ex As Exception
-                BreakPoint.Show(ex)
-            End Try
-        End Using
+                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
+                    Exit For
+                End If
 
-    End Sub
+            Next
+        Catch
+        End Try
 
+        Return Free
 
-    Public Sub Pause(RegionUUID As String)
+    End Function
 
-        Dim RegionName = Region_Name(RegionUUID)
-        FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-        Application.DoEvents()
-
-    End Sub
     Public Sub FreezeAll()
 
         Dim running As Boolean
@@ -105,45 +112,38 @@ Module Disk
 
     End Sub
 
+    Public Sub Pause(RegionUUID As String)
 
-    Public Function CalcDiskFree() As Long
+        Dim RegionName = Region_Name(RegionUUID)
+        FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
+        Application.DoEvents()
 
-        Dim d = DriveInfo.GetDrives()
-        Dim c = CurDir()
-        Dim Free As Long
-        Try
-            For Each drive As DriveInfo In d
-                Dim x = Mid(c, 1, 1)
-                If x = Mid(drive.Name, 1, 1) Then
-                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
-                    Dim FreeDisk = Percent * 100
-                    Free = drive.AvailableFreeSpace
+    End Sub
 
-                    If Sleeping.Count = 0 Then
-                        If Free < FreeDiskSpaceWarn Then
-                            Dim SThread = New Thread(AddressOf FreezeAll)
-                            SThread.SetApartmentState(ApartmentState.STA)
-                            SThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-                            SThread.Start()
-                            Busy = True
-                            MsgBox(My.Resources.Diskspacelow & $" {Free:n0} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-                        End If
-                    End If
+    Private Sub FreezeThaw(RegionUUID As String, Arg As String)
 
-                    Dim tt = My.Resources.Available
-                    Dim Text = $"{Percent:P1} {tt}"
+        Using SuspendProcess As New Process()
+            Dim pi = New ProcessStartInfo With {
+                .Arguments = Arg,
+                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
+            }
 
-                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
-                    Exit For
-                End If
+            pi.CreateNoWindow = True
+            pi.WindowStyle = ProcessWindowStyle.Minimized
 
-            Next
-        Catch
-        End Try
+            SuspendProcess.StartInfo = pi
 
-        Return Free
+            Try
+                SuspendProcess.Start()
+                SuspendProcess.WaitForExit()
+                PokeRegionTimer(RegionUUID)
+            Catch ex As Exception
+                BreakPoint.DUmp(ex)
+            End Try
+        End Using
 
-    End Function
+    End Sub
 
 #End Region
 

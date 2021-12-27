@@ -50,7 +50,7 @@ Public Class FormSetup
             Try
                 Me.Height = hw.Item(0)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 
@@ -352,6 +352,10 @@ Public Class FormSetup
                 Continue While
             End If
 
+            If ToDoList.ContainsKey(RegionUUID) Then
+                ToDoList.Remove(RegionUUID)
+            End If
+
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
@@ -452,7 +456,7 @@ Public Class FormSetup
                         Try
                             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{ OpensimIniPath(RegionUUID)}\Opensim.log""")
                         Catch ex As Exception
-                            BreakPoint.Show(ex)
+                            BreakPoint.DUmp(ex)
                         End Try
                     End If
                     Application.DoEvents()
@@ -521,7 +525,7 @@ Public Class FormSetup
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IceCastLog}""")
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End If
 
@@ -638,7 +642,7 @@ Public Class FormSetup
     Public Sub SequentialPause()
 
         If Settings.Sequential Then
-            Dim ctr = 5 * 60  '  minute max to start a region
+            Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
@@ -688,7 +692,7 @@ Public Class FormSetup
 
     Public Function StartOpensimulator() As Boolean
 
-        Bench.Start()
+        Bench.Start("StartOpensim")
 
         Init(False)
 
@@ -791,15 +795,11 @@ Public Class FormSetup
 
         Next
 
-
-
         Settings.SafeShutdown() = False
         Settings.SaveSettings()
 
         Buttons(StopButton)
         TextPrint(My.Resources.Ready)
-
-        Bench.StopW() ' stop the benchmark timer
 
         Return True
 
@@ -933,14 +933,6 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
-        Dim start As ParameterizedThreadStart = AddressOf DidItDie
-
-        Dim DeathThread = New Thread(start)
-        DeathThread.SetApartmentState(ApartmentState.STA)
-        DeathThread.Priority = ThreadPriority.Lowest ' UI gets priority
-        DeathThread.Start()
-
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
@@ -962,7 +954,7 @@ Public Class FormSetup
 #Region "TaskList"
 
     ' we can stack up multiple commands to send to regions when they boot
-    Private ReadOnly TaskQue As New Queue(Of TaskObject)
+    Private ReadOnly TaskQue As New List(Of TaskObject)
 
     ''' <summary>
     ''' The list of commands
@@ -996,7 +988,7 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        TaskQue.Enqueue(TObj)
+        TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
         Else
@@ -1067,9 +1059,8 @@ Public Class FormSetup
     Public Sub CheckForBootedRegions()
 
         Dim t = 60
-        Bench.Print("CheckForBootedRegions Begins")
+
         If PropBootScanIsBusy > 0 And PropBootScanIsBusy < t Then
-            Bench.Print("CheckForBootedRegions Is busy")
             BreakPoint.Print("ExitHandlerPoll timeout")
             PropBootScanIsBusy += 1
             Return
@@ -1081,7 +1072,7 @@ Public Class FormSetup
         End If
 
         ' booted regions from web server
-        Bench.Print("Booted list Start")
+        Bench.Start("Booted list Start")
         Try
             Dim GroupName As String = ""
 
@@ -1089,9 +1080,10 @@ Public Class FormSetup
 
                 Dim RegionUUID As String = ""
                 Try
-                    RegionUUID = BootedList.Dequeue
+                    RegionUUID = BootedList(0)
+                    BootedList.RemoveAt(0)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
 
                 If PropAborting Then Continue While
@@ -1128,17 +1120,19 @@ Public Class FormSetup
 
             End While
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
+        'Bench.Print("Booted list End")
 
+        'Bench.Start("Scan Region State")
         Try
-            Bench.Print("Scan Region State")
             For Each RegionUUID As String In RegionUuids()
 
                 Application.DoEvents()
 
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
+
                 If Not RegionEnabled(RegionUUID) Then Continue For
 
                 Dim RegionName = Region_Name(RegionUUID)
@@ -1271,10 +1265,10 @@ Public Class FormSetup
                 End If
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
+        'Bench.print("Scan Region State End")
 
-        Bench.Print("CheckForBootedRegions done")
         PropBootScanIsBusy = 0
 
     End Sub
@@ -1353,7 +1347,7 @@ Public Class FormSetup
             Try
                 speed = Me.Cpu1.NextValue()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 If Not Settings.CPUPatched Then
                     Dim pUpdate = New Process()
                     Dim pi = New ProcessStartInfo With {
@@ -1425,48 +1419,46 @@ Public Class FormSetup
             PropInstanceHandles.Clear()
             WebserverList.Clear()
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
 
     Private Sub DidItDie()
 
-        Bench.Print("DidItDie Begins")
+        'Bench.Print("DidItDie Begins")
 
-        While PropOpensimIsRunning
-            ' check to see if a handle to all regions exists. If not, then it died.
-            For Each RegionUUID As String In RegionUuids()
-                Application.DoEvents()
+        ' check to see if a handle to all regions exists. If not, then it died.
+        For Each RegionUUID As String In RegionUuids()
+            Application.DoEvents()
 
-                If Not PropOpensimIsRunning() Then Return
-                If Not RegionEnabled(RegionUUID) Then Continue For
+            If Not PropOpensimIsRunning() Then Return
+            If Not RegionEnabled(RegionUUID) Then Continue For
 
-                Dim status = RegionStatus(RegionUUID)
-                If CBool((status = SIMSTATUSENUM.Booted) _
-                        Or (status = SIMSTATUSENUM.Booting) _
-                        Or (status = SIMSTATUSENUM.RecyclingDown) _
-                        Or (status = SIMSTATUSENUM.NoError) _
-                        Or (status = SIMSTATUSENUM.ShuttingDown) _
-                        Or (status = SIMSTATUSENUM.ShuttingDownForGood) _
-                        Or (status = SIMSTATUSENUM.Suspended)) Then
+            Dim status = RegionStatus(RegionUUID)
+            If CBool((status = SIMSTATUSENUM.Booted) _
+                    Or (status = SIMSTATUSENUM.Booting) _
+                    Or (status = SIMSTATUSENUM.RecyclingDown) _
+                    Or (status = SIMSTATUSENUM.NoError) _
+                    Or (status = SIMSTATUSENUM.ShuttingDown) _
+                    Or (status = SIMSTATUSENUM.ShuttingDownForGood) _
+                    Or (status = SIMSTATUSENUM.Suspended)) Then
 
-                    Dim G = Group_Name(RegionUUID)
+                Dim Groupname = Group_Name(RegionUUID)
 
-                    If GetHwnd(G) = IntPtr.Zero Then
-                        Try
-                            If Not exitList.ContainsKey(G) Then
-                                exitList.TryAdd(G, "Exit")
-                            End If
-                        Catch ex As Exception
-                            BreakPoint.Show(ex)
-                        End Try
-                    End If
+                If GetHwnd(Groupname) = IntPtr.Zero Then
+                    Try
+                        If Not exitList.ContainsKey(Groupname) Then
+                            exitList.TryAdd(Groupname, "Exit")
+                        End If
+                    Catch ex As Exception
+                        BreakPoint.DUmp(ex)
+                    End Try
                 End If
+            End If
 
-            Next
-            Sleep(1000)
-        End While
+        Next
+        'Bench.Print("DidItDie Ends")
 
     End Sub
 
@@ -1901,7 +1893,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             End Using
         End If
@@ -1921,7 +1913,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             End Using
 
@@ -1935,7 +1927,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             End Using
             Settings.VisitorsEnabledModules = True
@@ -1987,7 +1979,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -1996,7 +1988,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -2035,7 +2027,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -2062,7 +2054,7 @@ Public Class FormSetup
             Try
                 Parser.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End Using
 
@@ -2089,7 +2081,7 @@ Public Class FormSetup
                     Try
                         LoopbackProcess.Start()
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                     End Try
                 End Using
             End If
@@ -2122,7 +2114,7 @@ Public Class FormSetup
                 End If
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         AddLog("All Logs")
@@ -2166,7 +2158,7 @@ Public Class FormSetup
                     Try
                         SurroundingLandMaker(RegionUUID)
                     Catch ex As Exception
-                        BreakPoint.Show(ex)
+                        BreakPoint.DUmp(ex)
                     End Try
 
                 End If
@@ -2250,7 +2242,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
@@ -2475,7 +2467,7 @@ Public Class FormSetup
                         Try
                             pMySqlRestore.Start()
                         Catch ex As Exception
-                            BreakPoint.Show(ex)
+                            BreakPoint.DUmp(ex)
                         End Try
                     End Using
                 End If
@@ -2580,7 +2572,7 @@ Public Class FormSetup
             total = Combined.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Return total
@@ -2615,7 +2607,7 @@ Public Class FormSetup
             Try
                 CPortsProcess.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End Using
 
@@ -2683,7 +2675,7 @@ Public Class FormSetup
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         Else
             TextPrint(My.Resources.Not_Running)
@@ -2756,77 +2748,86 @@ Public Class FormSetup
             Return
         End If
 
-        Bench.Start()
+        If TimerBusy > 0 And TimerBusy < 90 Then
+            TimerBusy += 1
+            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
+            '   Return
+        End If
+
+        TimerBusy = 1
 
         SyncLock TimerLock ' stop other threads from firing this
-
-            If TimerBusy > 0 And TimerBusy < 10 Then
-                TimerBusy += 1
-                Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
-                Return
-            End If
-
-            TimerBusy = 1
 
             ' Reload regions from disk
             If PropChangedRegionSettings Then
                 GetAllRegions(False)
             End If
 
-            ' only at boot
-            If SecondsTicker = 0 Then
-                CalcDiskFree()
-                Delete_all_visitor_maps()
-                MakeMaps()
-            End If
-
-            Chart() ' do charts collection each second
-            CheckPost() ' see if anything arrived in the web server
+            ' 9 ms I9 9900K
+            'Bench.Start("1 second worker start")
+            CalcDiskFree()              ' check for free disk space
+            Chart()                     ' do charts collection each second
+            CheckPost()                 ' see if anything arrived in the web server
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
-            ProcessQuit()               ' check if any processes exited
             RestartDOSboxes()
+            'Bench.Print("1 second worker ends")
 
+            ' 33 ms
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
+                ' Bench.Start("5 second worker")
+                DidItDie()
+                ProcessQuit()               ' check if any processes exited
                 ScanAgents() ' update agent count
                 CheckForBootedRegions()     ' And see if any booted up
-                CalcDiskFree()
+                'Bench.Print("5 second worker ends")
             End If
 
+            ' 2  ms
             If SecondsTicker = 60 Then
+                'Bench.Start("Initial 60 second worker")
                 ScanOpenSimWorld(True)
+                Delete_all_visitor_maps()
+                MakeMaps()
+                'Bench.Print("Initial 60 second worker ends")
             End If
 
+            '22 ms
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
-                Bench.Print("60 second worker")
+                'Bench.Start("60 second worker")
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running
                 Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
                 If t.Length > 0 Then TextPrint(t)
-
                 RegionListHTML(Settings, "Name") ' create HTML for teleport boards
                 VisitorCount()
-
-                Bench.Print("60 second work done")
+                'Bench.Print("60 second work done")
             End If
 
+            ' 2 ms
             ' Run Search and events once at 5 minute mark
             If SecondsTicker = 300 Then
+                'Bench.Start("300 second worker")
                 RunParser()
                 GetEvents()
+                'Bench.Print("300 second worker ends")
             End If
 
+            '2 ms
             ' half hour
             If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
+                'Bench.Start("half hour worker")
                 ScanOpenSimWorld(True)
                 GetEvents()
                 RunParser()
                 MakeMaps()
+                'Bench.Print("half hour worker ends")
             End If
 
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
+                'Bench.Start("hour worker")
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 SetPublicIP()
                 ExpireLogsByAge()
@@ -2834,12 +2835,13 @@ Public Class FormSetup
                 DeleteOldVisitors()
                 Delete_all_visitor_maps()
                 MakeMaps()
+                'Bench.Print("hour worker ends")
             End If
 
             SecondsTicker += 1
             TimerBusy = 0
 
-            Bench.StopW()
+            'Bench.StopW()
 
         End SyncLock
 
@@ -2879,14 +2881,14 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
                 TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
                 TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
@@ -2898,7 +2900,7 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             Else
                 TextPrint(My.Resources.Not_Running)
@@ -2992,7 +2994,7 @@ Public Class FormSetup
             Try
                 pMySqlDiag1.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             pMySqlDiag1.WaitForExit()
         End Using
@@ -3015,7 +3017,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -3087,7 +3089,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -3104,7 +3106,7 @@ Public Class FormSetup
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         ElseIf Settings.SCEnable = False Then
             TextPrint(My.Resources.Shoutcast_Disabled)
@@ -3222,7 +3224,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
@@ -3267,7 +3269,7 @@ Public Class FormSetup
         Try
             OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Try
@@ -3315,7 +3317,7 @@ Public Class FormSetup
                 Next
             End If
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Dim IARs As Array = Nothing
@@ -3444,7 +3446,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
@@ -3491,7 +3493,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub
@@ -3524,14 +3526,14 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
                 TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
                 TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
@@ -3542,7 +3544,7 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
             Else
                 TextPrint(My.Resources.Not_Running)
@@ -3579,7 +3581,7 @@ Public Class FormSetup
                 p.WaitForExit()
                 ApacheIcon(False)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End Using
 
@@ -3602,7 +3604,7 @@ Public Class FormSetup
                 p.WaitForExit()
                 MySQLIcon(False)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End Using
     End Sub
@@ -3628,7 +3630,7 @@ Public Class FormSetup
                 PUpdater.Start()
                 End
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
         End Using
         End
@@ -3678,7 +3680,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -3707,7 +3709,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub

@@ -135,7 +135,7 @@ Public Module Firewall
                 ns.WriteLine(CStr(CMD))
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         Dim pi = New ProcessStartInfo With {

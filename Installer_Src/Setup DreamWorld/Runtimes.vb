@@ -11,7 +11,6 @@ Module Runtimes
 
         ' Detect Operating System  Updates
 
-
         Dim V As String = "Win11"
         If Environment.OSVersion.Version.Build < 22000 Then
             V = "Win10"
@@ -42,7 +41,7 @@ Module Runtimes
                 Settings.DotnetUpgraded() = True
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 
@@ -64,7 +63,7 @@ Module Runtimes
                 Settings.DotnetUpgraded() = True
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 
@@ -94,7 +93,7 @@ Module Runtimes
                 Settings.MysqlRev = MySqlRev
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 

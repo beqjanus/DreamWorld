@@ -80,7 +80,7 @@ Public Class FormHelp
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -93,7 +93,7 @@ Public Class FormHelp
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -107,7 +107,7 @@ Public Class FormHelp
         Try
             Process.Start(info)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -117,7 +117,7 @@ Public Class FormHelp
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
     End Sub

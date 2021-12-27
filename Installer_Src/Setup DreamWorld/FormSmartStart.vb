@@ -786,8 +786,6 @@ Public Class FormSmartStart
 
     Private Sub LoadAllFreeOARs()
 
-        Abort = False
-
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
@@ -827,100 +825,95 @@ Public Class FormSmartStart
 
         Try
             For Each J In FormSetup.ContentOAR.GetJson
-
-                If Abort Then Exit For
+                ' Get name from web site JSON
                 Dim Name = J.Name
-
                 Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
-
                 Dim Index = shortname.IndexOf("(", StringComparison.OrdinalIgnoreCase)
                 If (Index >= 0) Then
                     shortname = shortname.Substring(0, Index)
                 End If
 
                 If shortname.Length = 0 Then Return
+                If shortname = Settings.WelcomeRegion Then Continue For
 
                 Dim RegionUUID As String
-                Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
 
-                If Not IO.File.Exists(p) Then
-                    ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
-                    RegionUUID = CreateRegionStruct(shortname)
-                Else
+                ' it may already exists
+                Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                If IO.File.Exists(p) Then
+                    ' if so, check that it has prims
                     RegionUUID = FindRegionByName(shortname)
-                    If GetPrimCount(RegionUUID) > 0 Then
-                        ProgressPrint($"{J.Name} {My.Resources.Ok} ")
+                    Dim o As New Guid
+                    If Guid.TryParse(RegionUUID, o) Then
+                        Dim Prims = GetPrimCount(RegionUUID)
+                        If Prims > 0 Then
+                            ProgressPrint($"{J.Name} {My.Resources.Ok} ")
+                            Continue For
+                        End If
+                    Else
+                        BreakPoint.Print("Bad UUID " & RegionUUID)
                         Continue For
                     End If
+                Else ' its a new region
+                    ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
+                    RegionUUID = CreateRegionStruct(shortname)
+
+                    ' setup parameters for the load
+                    Dim sizerow As Integer = 256
+
+                    Dim Max As Integer
+                    If sizerow > Max Then Max = sizerow
+                    X += CInt((sizerow / 256) + 1)
+                    If X > StartX + 50 Then
+                        X = StartX
+                        Y += CInt((Max / 256) + 1)
+                        sizerow = 256
+                    End If
+
+                    ' convert 1,2,3 to 256, 512, etc
+                    Dim pattern1 = New Regex("(.*?)-(\d+)[xX](\d+)")
+                    Dim match1 As Match = pattern1.Match(Name)
+                    If match1.Success Then
+                        Name = match1.Groups(1).Value
+                        sizerow = CInt(match1.Groups(3).Value) * 256
+                    End If
+
+                    Coord_X(RegionUUID) = X
+                    Coord_Y(RegionUUID) = Y
+
+                    Smart_Start(RegionUUID) = "True"
+                    Teleport_Sign(RegionUUID) = "True"
+
+                    SizeX(RegionUUID) = sizerow
+                    SizeY(RegionUUID) = sizerow
+
+                    Group_Name(RegionUUID) = shortname
+
+                    RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                    RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                    OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
+
+                    Dim port = LargestPort() + 1
+                    GroupPort(RegionUUID) = port
+                    Region_Port(RegionUUID) = port
+                    WriteRegionObject(shortname, shortname)
+
+                    Firewall.SetFirewall()
+                    PropChangedRegionSettings = True
+                    PropUpdateView = True ' make form refresh
+
                 End If
 
-                Dim g = New Guid
-                If Not Guid.TryParse(RegionUUID, g) Then
-                    Continue For
-                End If
+                ProgressPrint($"{My.Resources.Start_word} {shortname}")
 
-                ' setup parameters for the load
-                Dim sizerow As Integer = 256
+                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                Dim obj As New TaskObject With {
+                    .TaskName = FormSetup.TaskName.Load_AllFreeOARs,
+                    .Command = File
+                }
+                FormSetup.RebootAndRunTask(RegionUUID, obj)
 
-                ' convert 1,2,3 to 256, 512, etc
-                Dim pattern1 = New Regex("(.*?)-(\d+)[xX](\d+)")
-                Dim match1 As Match = pattern1.Match(Name)
-                If match1.Success Then
-                    Name = match1.Groups(1).Value
-                    sizerow = CInt(match1.Groups(3).Value) * 256
-                End If
-
-                Coord_X(RegionUUID) = X
-                Coord_Y(RegionUUID) = Y
-
-                Smart_Start(RegionUUID) = "True"
-                Teleport_Sign(RegionUUID) = "True"
-
-                SizeX(RegionUUID) = sizerow
-                SizeY(RegionUUID) = sizerow
-
-                Group_Name(RegionUUID) = shortname
-
-                RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
-                OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
-
-                Dim port = LargestPort() + 1
-                GroupPort(RegionUUID) = port
-                Region_Port(RegionUUID) = port
-                WriteRegionObject(shortname, shortname)
-                PropChangedRegionSettings = True
-
-                Firewall.SetFirewall()
-
-                PropUpdateView = True ' make form refresh
-
-                Dim RegionName = Region_Name(RegionUUID)
-                If RegionName = Settings.WelcomeRegion Then Continue For
-
-                ProgressPrint($"{My.Resources.Start_word} {RegionName}")
-
-                If Abort Then Exit For
-
-                Dim Max As Integer
-                If sizerow > Max Then Max = sizerow
-                X += CInt((sizerow / 256) + 1)
-                If X > StartX + 50 Then
-                    X = StartX
-                    Y += CInt((Max / 256) + 1)
-                    sizerow = 256
-                End If
-                If GetPrimCount(RegionUUID) = 0 Then
-                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-
-                    Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.Load_AllFreeOARs,
-                        .Command = File
-                    }
-                    FormSetup.RebootAndRunTask(RegionUUID, obj)
-                End If
-
-                Sleep(10000) ' wait 10 seconds between each.
+                Sleep(1000) ' wait 1 seconds between each.
 
             Next
         Catch ex As Exception
@@ -1100,7 +1093,7 @@ Public Class FormSmartStart
                 Writer.Write(Xml)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
     End Sub
 
@@ -1424,7 +1417,9 @@ Public Class FormSmartStart
 #Region "Editor"
 
     Private Sub BulkLoadRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BulkLoadRegionsToolStripMenuItem.Click
+
         LoadAllFreeOARs()
+
     End Sub
 
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged

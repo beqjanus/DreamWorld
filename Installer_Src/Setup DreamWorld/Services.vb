@@ -18,7 +18,7 @@
                 console = ServiceProcess.StandardOutput.ReadToEnd()
                 ServiceProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             If console.Contains("does not exist") Then Return False
             Return True
@@ -58,7 +58,7 @@
                     response = MysqlProcess.StandardOutput.ReadToEnd() & MysqlProcess.StandardError.ReadToEnd()
                     MysqlProcess.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.Show(ex)
+                    BreakPoint.DUmp(ex)
                 End Try
                 Application.DoEvents()
 

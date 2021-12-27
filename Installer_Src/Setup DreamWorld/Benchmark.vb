@@ -7,30 +7,28 @@
         If _stopWatch Is Nothing Then
             Return
         End If
+
         If Settings.LogBenchmarks Then
             Logger("Benchmark", $"{Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}", "Benchmark")
+        Else
+            If Debugger.IsAttached Then
+                Debug.Print($"Benchmark: {Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}")
+            End If
         End If
-
-        If Not Debugger.IsAttached Then Return
-        Debug.Print($"Benchmark: {Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}")
+        _stopWatch = New Stopwatch()
 
     End Sub
 
-    Public Sub Start()
+    Public Sub Start(val As String)
 
         _stopWatch = New Stopwatch()
         _stopWatch.Start()
         If Settings.LogBenchmarks Then
-            Logger("Benchmark", "---START---", "Benchmark")
+            Logger("Benchmark", val, "Benchmark")
+        Else
+            Debug.Print("Benchmark:" & val)
         End If
 
-        Debug.Print("Benchmark: ---START---")
-
     End Sub
-
-    Public Sub StopW()
-        _stopWatch.Stop()
-    End Sub
-
 
 End Class

@@ -19,8 +19,8 @@ Module speech
 
         While SpeechList.Count > 0
             Using S As New ChatToSpeech
-                Dim ProcessString As String = SpeechList.Dequeue
                 If Settings.VoiceName = "No Speech" Then Return
+                Dim ProcessString As String = SpeechList.Dequeue
                 S.Speach(ProcessString, True)
             End Using
         End While
@@ -109,7 +109,7 @@ Public Class ChatToSpeech
                 SpeechBusyFlag = True
                 Speaker.SpeakAsync(texttospeak)
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
 
             While SpeechBusyFlag

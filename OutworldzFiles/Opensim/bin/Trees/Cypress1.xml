@@ -3,12 +3,12 @@
   <m_frozen>false</m_frozen>
   <m_tree_type>Cypress1</m_tree_type>
   <m_tree_quantity>200</m_tree_quantity>
-  <m_treeline_low>20</m_treeline_low>
+  <m_treeline_low>18</m_treeline_low>
   <m_treeline_high>45</m_treeline_high>
   <m_seed_point>
     <X>128</X>
     <Y>128</Y>
-    <Z>32.5</Z>
+    <Z>31.5</Z>
   </m_seed_point>
   <m_range>300</m_range>
   <m_initial_scale>

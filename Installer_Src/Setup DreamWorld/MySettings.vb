@@ -38,7 +38,7 @@ Public Class MySettings
                     outputFile.WriteLine(contents)
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
 
             Settings = New LoadIni(_myINI, ";", System.Text.Encoding.UTF8)
@@ -360,7 +360,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsBorderSize", "25"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 25
         End Get
@@ -387,7 +387,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsDesiredSeparation", "5"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 5
         End Get
@@ -419,7 +419,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsMaxForce", "0.2"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 0.2
         End Get
@@ -435,7 +435,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsMaxHeight", "25"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 25
         End Get
@@ -451,7 +451,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsMaxSpeed", "1.0"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 1.0
         End Get
@@ -476,7 +476,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsNeighbourDistance", "25"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 25
         End Get
@@ -506,7 +506,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("BirdsTolerance", "25"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 25
         End Get
@@ -583,7 +583,7 @@ Public Class MySettings
             Dim var = GetMySetting("CMS", DreamGrid)
             If var = "Joomla" Then var = JOpensim
             Dim installed As Boolean = Joomla.IsjOpensimInstalled()
-            If (Not installed) & GlobalSettings.Settings.SearchOptions = JOpensim Then
+            If (Not installed) & SearchOptions = JOpensim Then
                 Return DreamGrid
             End If
             Return var
@@ -715,7 +715,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("Density", "0.5"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 0.5
         End Get
@@ -819,7 +819,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("FlatLandLevel", "21"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 21
         End Get
@@ -1073,7 +1073,7 @@ Public Class MySettings
 
                 Return CDbl(GetMySetting("LandSmoothValue", "0.5"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 0.5
         End Get
@@ -1087,7 +1087,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("LandStrength", "1.0"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 10
         End Get
@@ -1101,7 +1101,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("LandTaper", "0.6"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 0.6
         End Get
@@ -1203,7 +1203,7 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            If GlobalSettings.Settings.ServerType = RobustServerName Then
+            If ServerType = RobustServerName Then
                 Dim RegionUUID As String = FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(Coord_X(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterX", Center))
@@ -1219,7 +1219,7 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            If GlobalSettings.Settings.ServerType = RobustServerName Then
+            If ServerType = RobustServerName Then
                 Dim RegionUUID As String = FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(Coord_Y(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterY", Center))
@@ -1249,7 +1249,7 @@ Public Class MySettings
                 If value < 0.05 Or value > 1 Then value = 0.2
                 Return value
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 0.2
         End Get
@@ -1545,7 +1545,7 @@ Public Class MySettings
             Try
                 Return CDbl(GetMySetting("RenderMaxHeight", "4096"))
             Catch ex As Exception
-                BreakPoint.Show(ex)
+                BreakPoint.DUmp(ex)
             End Try
             Return 4096
 
@@ -2206,7 +2206,7 @@ Public Class MySettings
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
         Catch ex As Exception
-            BreakPoint.Show(ex)
+            BreakPoint.DUmp(ex)
         End Try
 
         DeleteFile(ini)
