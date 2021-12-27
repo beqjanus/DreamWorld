@@ -623,7 +623,7 @@ Public Class FormSetup
         Zap("baretail")
         Zap("cports")
 
-        Timer1.Stop()
+        TimerMain.Stop()
         TimerBusy = 0
 
         PropOpensimIsRunning() = False
@@ -807,8 +807,8 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
+        TimerMain.Interval = 1000
+        TimerMain.Start() 'Timer starts functioning
         TimerBusy = 0
 
     End Sub
@@ -1329,7 +1329,7 @@ Public Class FormSetup
 
         PropAborting = True
         ClearAllRegions()
-        Timer1.Stop()
+        TimerMain.Stop()
         TimerBusy = 0
 
         PropUpdateView = True ' make form refresh
@@ -2751,7 +2751,7 @@ Public Class FormSetup
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
 
         If Not PropOpensimIsRunning() Then
@@ -2759,7 +2759,7 @@ Public Class FormSetup
         End If
 
         ' prevent recursion
-        Timer1.Stop()
+        TimerMain.Stop()
 
         SyncLock TimerLock ' stop other threads from firing this
             ' Reload regions from disk
@@ -2837,12 +2837,10 @@ Public Class FormSetup
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()
-                Delete_all_visitor_maps()
-                MakeMaps()
                 'Bench.Print("hour worker ends")
             End If
             SecondsTicker += 1
-            Timer1.Start()
+            TimerMain.Start()
         End SyncLock
 
     End Sub

@@ -22,6 +22,7 @@ Module Maps
         For Each RegionUUID In RegionUuids()
             Application.DoEvents()
             Make_Region_Map(RegionUUID)
+            Sleep(100)
         Next
 
     End Sub
@@ -43,22 +44,27 @@ Module Maps
 
             Dim Name = Region_Name(regionUUID)
             Dim SimSize As Integer = CInt(SizeX(regionUUID))
+            If SimSize = 0 Then Return
             Using bmp As New Bitmap(SimSize, SimSize)
                 Dim X = 0
                 Dim Y = 0
 
                 ' Loop through the images pixels to reset color.
-                For X = 0 To bmp.Width - 1
-                    For Y = 0 To bmp.Height - 1
-                        Dim newColor = Color.FromArgb(230, 230, 230)
-                        Try
-                            bmp.SetPixel(X, Y, newColor)
-                        Catch ex As Exception
-                            BreakPoint.DUmp(ex)
-                        End Try
+                ' TO DO remove
+                If False Then
+                    For X = 0 To bmp.Width - 1
+                        For Y = 0 To bmp.Height - 1
+                            Dim newColor = Color.FromArgb(230, 230, 230)
+                            Try
+                                bmp.SetPixel(X, Y, newColor)
+                            Catch ex As Exception
+                                BreakPoint.DUmp(ex)
+                            End Try
 
+                        Next
                     Next
-                Next
+                End If
+
 
                 Dim Out As Image = bmp
                 Dim Src As Image = bmp
@@ -83,14 +89,12 @@ Module Maps
                         If IO.File.Exists(RegionSrc) Then
                             Src = Image.FromFile(RegionSrc)
                             Using g As Graphics = Graphics.FromImage(Out)
-                                Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
+                                'Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
                                 Try
                                     g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
                                     Out.Save(IO.Path.Combine(SavePath, $"{Name}.png"))
                                 Catch ex As Exception
-                                    BreakPoint.DUmp(ex)
                                 End Try
-
                             End Using
                         Else
                             Return

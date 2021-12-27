@@ -982,7 +982,7 @@ Public Class FormRegion
 
 #Region "Subs"
 
-    Dim WriteLock As New Object
+    ReadOnly WriteLock As New Object
 
     Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
         ' check for invalid chars in file name for INI file

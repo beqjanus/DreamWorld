@@ -38,7 +38,7 @@ Partial Class FormSetup
         Me.DiskSize = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.TimerMain = New System.Windows.Forms.Timer(Me.components)
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.JustQuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -262,7 +262,7 @@ Partial Class FormSetup
         Me.TextBox1.TabIndex = 18612
         Me.TextBox1.Text = ""
         '
-        'Timer1
+        'TimerMain
         '
         '
         'FileToolStripMenuItem
@@ -1162,7 +1162,7 @@ Partial Class FormSetup
     Friend WithEvents DiskSize As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents TextBox1 As RichTextBox
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents TimerMain As Timer
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuExit As ToolStripMenuItem

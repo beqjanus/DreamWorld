@@ -125,7 +125,7 @@ Module FileStuff
                 End Using
             End Using
         Catch ex As Exception
-            BreakPoint.Print($"Cannot copy file {From}")
+            'BreakPoint.Print($"Cannot copy file {From}")
         End Try
 
     End Sub

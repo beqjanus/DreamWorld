@@ -332,7 +332,7 @@ Module SmartStart
 
 #Region "BootUp"
 
-    Dim BootupLock As New Object
+    ReadOnly BootupLock As New Object
 
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
