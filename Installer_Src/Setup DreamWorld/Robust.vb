@@ -326,6 +326,8 @@ Module Robust
 
     Public Function DoRobust() As Boolean
 
+        If IsRobustRunning() Then Return False
+
         TextPrint("->Set Robust")
 
         If DoSetDefaultSims() Then Return True

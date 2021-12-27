@@ -268,7 +268,9 @@ Module WindowHandlers
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
 
-        If myProcess Is Nothing Then Return False
+        If myProcess Is Nothing Then
+            Return False
+        End If
 
         Dim WindowCounter As Integer = 0
         Dim myhandle As IntPtr
@@ -308,8 +310,8 @@ Module WindowHandlers
                         status = False
                     End If
                 End If
-            Catch ' can fail to be a valid window handle
-                Return False
+            Catch ex As Exception ' can fail to be a valid window handle                
+                BreakPoint.Dump(ex)
             End Try
 
             WindowCounter += 1
@@ -362,7 +364,7 @@ Module WindowHandlers
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
         ' 2 minutes for old hardware and it to build DB
-        Do While TooMany < 10
+        Do While TooMany < 60
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception

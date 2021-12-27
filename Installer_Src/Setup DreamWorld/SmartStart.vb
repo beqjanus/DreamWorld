@@ -458,7 +458,7 @@ Module SmartStart
                             BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
                         End If
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
 
                     Try
@@ -482,7 +482,7 @@ Module SmartStart
 
                         BootProcess.PriorityClass = P
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
 
                     If Not SetWindowTextCall(BootProcess, GroupName) Then

@@ -692,7 +692,7 @@ Public Class FormSetup
 
     Public Function StartOpensimulator() As Boolean
 
-        Bench.Start("StartOpensim")
+        'Bench.Start("StartOpensim")
 
         Init(False)
 
@@ -738,7 +738,7 @@ Public Class FormSetup
             l.Remove(UUID)
         End If
 
-        Sleep(3000)
+        Sleep(5000)
         If Settings.GraphVisible Then
             G()
         End If
@@ -789,7 +789,7 @@ Public Class FormSetup
                 End If
 
                 If BootNeeded And PropOpensimIsRunning Then
-                    ReBoot(RegionUUID)
+                    Boot(Region_Name(RegionUUID))
                 End If
             End If
 
@@ -1072,7 +1072,7 @@ Public Class FormSetup
         End If
 
         ' booted regions from web server
-        Bench.Start("Booted list Start")
+        'Bench.Start("Booted list Start")
         Try
             Dim GroupName As String = ""
 
@@ -1133,7 +1133,11 @@ Public Class FormSetup
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
 
-                If Not RegionEnabled(RegionUUID) Then Continue For
+                Try
+                    If Not RegionEnabled(RegionUUID) Then Continue For
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
 
                 Dim RegionName = Region_Name(RegionUUID)
                 Dim GroupName = Group_Name(RegionUUID)
@@ -2526,6 +2530,9 @@ Public Class FormSetup
             For Each NameValue In Combined
                 Dim Avatar = NameValue.Key
                 Dim RegionUUID = NameValue.Value
+                If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
+                    Continue For
+                End If
                 Dim RegionName = Region_Name(RegionUUID)
                 If RegionName Is Nothing Then Continue For
 
@@ -2544,7 +2551,11 @@ Public Class FormSetup
                     AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                 Else
-                    AvatarCount(RegionUUID) += 1
+                    Try
+                        AvatarCount(RegionUUID) += 1
+                    Catch
+                    End Try
+
                 End If
             Next
 
@@ -2742,22 +2753,15 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
+
         If Not PropOpensimIsRunning() Then
-            Timer1.Stop()
-            TimerBusy = 0
             Return
         End If
 
-        If TimerBusy > 0 And TimerBusy < 90 Then
-            TimerBusy += 1
-            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
-            '   Return
-        End If
-
-        TimerBusy = 1
+        ' prevent recursion
+        Timer1.Stop()
 
         SyncLock TimerLock ' stop other threads from firing this
-
             ' Reload regions from disk
             If PropChangedRegionSettings Then
                 GetAllRegions(False)
@@ -2837,12 +2841,8 @@ Public Class FormSetup
                 MakeMaps()
                 'Bench.Print("hour worker ends")
             End If
-
             SecondsTicker += 1
-            TimerBusy = 0
-
-            'Bench.StopW()
-
+            Timer1.Start()
         End SyncLock
 
     End Sub
