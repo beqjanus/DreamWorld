@@ -1235,7 +1235,7 @@ Public Class MySettings
 
     Public Property MapType() As String
         Get
-            Return GetMySetting("MapType")
+            Return GetMySetting("MapType", "Simple")
         End Get
         Set
             SetMySetting("MapType", Value)

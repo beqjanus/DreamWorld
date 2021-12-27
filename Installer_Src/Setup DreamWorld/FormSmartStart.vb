@@ -786,38 +786,23 @@ Public Class FormSmartStart
 
     Private Sub LoadAllFreeOARs()
 
-        If ApplyTerrainEffectButton.Text <> My.Resources.Apply_word Then
-            TextPrint(My.Resources.Stopping_word)
-            Abort = True
-        End If
+        Abort = False
 
-        ApplyTerrainEffectButton.Text = My.Resources.Stop_word
-
-        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
+        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
-        If Abort Then
-            ApplyTerrainEffectButton.Text = My.Resources.Apply_word
-            Return
-        End If
-
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
-        gEstateOwner = InputBox(My.Resources.Owner_Name)
-
-        If Abort Then
-            ApplyTerrainEffectButton.Text = My.Resources.Apply_word
+        If Settings.SurroundOwner.Length = 0 Then
+            MsgBox("No Owner!")
             Return
         End If
+
+        gEstateOwner = Settings.SurroundOwner
 
         Dim CoordX = CStr(LargestX() + 18)
         Dim CoordY = CStr(LargestY() + 18)
 
         Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
-
-        If Abort Then
-            ApplyTerrainEffectButton.Text = My.Resources.Apply_word
-            Return
-        End If
 
         Dim pattern = New Regex("(\d+),(\d+)")
         Dim match As Match = pattern.Match(coord)
@@ -829,11 +814,6 @@ Public Class FormSmartStart
         Dim X As Integer = CInt(match.Groups(1).Value)
         Dim Y As Integer = CInt(match.Groups(2).Value)
         Dim StartX As Integer = X
-
-        If Abort Then
-            ApplyTerrainEffectButton.Text = My.Resources.Apply_word
-            Return
-        End If
 
         If Not PropOpensimIsRunning() Then
             MysqlInterface.DeregisterRegions(False)
@@ -852,6 +832,14 @@ Public Class FormSmartStart
                 Dim Name = J.Name
 
                 Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
+
+                Dim Index = shortname.IndexOf("(", StringComparison.OrdinalIgnoreCase)
+                If (Index >= 0) Then
+                    shortname = shortname.Substring(0, Index)
+                End If
+
+                If shortname.Length = 0 Then Return
+
                 Dim RegionUUID As String
                 Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
 
@@ -870,8 +858,6 @@ Public Class FormSmartStart
                 If Not Guid.TryParse(RegionUUID, g) Then
                     Continue For
                 End If
-
-                CrashCounter(RegionUUID) = 0
 
                 ' setup parameters for the load
                 Dim sizerow As Integer = 256
@@ -934,7 +920,7 @@ Public Class FormSmartStart
                     FormSetup.RebootAndRunTask(RegionUUID, obj)
                 End If
 
-                Application.DoEvents()
+                Sleep(10000) ' wait 10 seconds between each.
 
             Next
         Catch ex As Exception

@@ -697,9 +697,6 @@ Module RegionMaker
         PropUpdateView = True ' make form refresh
 
         GetRegionsIsBusy = False
-        If RegionList.IsEmpty Then
-            BreakPoint.Print("No Regions")
-        End If
 
         Return RegionList.Count
 
@@ -713,7 +710,7 @@ Module RegionMaker
             Sleep(1000)
             Retry -= 1
         End While
-        If Retry = 0 Then BreakPoint.Print("Retry Portlock exceeded")
+        If Retry = 0 Then BreakPoint.Print("Retry Port lock exceeded")
         PortLock = True
 
         ' locate largest port

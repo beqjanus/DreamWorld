@@ -5,6 +5,8 @@ Module Maps
 
 #Region "MapMaking"
 
+    ReadOnly MakeMapLock As New Object
+
     Public Sub MakeMaps()
 
         Dim Mapthread As Thread
@@ -15,7 +17,6 @@ Module Maps
 
     End Sub
 
-    ReadOnly MakeMapLock As New Object
     Private Sub BuildMap()
 
         For Each RegionUUID In RegionUuids()
@@ -23,13 +24,11 @@ Module Maps
             Make_Region_Map(RegionUUID)
         Next
 
-
     End Sub
 
 #End Region
 
     Public Sub Make_Region_Map(regionUUID As String)
-
 
         Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
         Try
@@ -94,7 +93,7 @@ Module Maps
 
                             End Using
                         Else
-                            BreakPoint.Print($"File {MapImage} does not exist")
+                            Return
                         End If
                         Y -= 256
                     Next

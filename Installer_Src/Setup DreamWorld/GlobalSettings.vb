@@ -190,7 +190,6 @@ Module GlobalSettings
         Select Case state
             Case -1
                 statestring = "ERROR"
-                BreakPoint.Print(statestring)
             Case 0
                 statestring = "Stopped"
             Case 1

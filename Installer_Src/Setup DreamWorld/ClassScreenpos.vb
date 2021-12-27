@@ -50,7 +50,6 @@ Public Class ClassScreenpos
                     Retry -= 1
                 End Try
             End While
-            If Retry = 0 Then BreakPoint.Print("Cannot make a ScreenXY for " & name)
 
             LoadXYIni()
 
@@ -63,6 +62,7 @@ Public Class ClassScreenpos
 #Region "Public Methods"
 
 #Disable Warning CA1822 ' Mark members as static
+
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
 #Enable Warning CA1822 ' Mark members as static
 
@@ -170,6 +170,7 @@ Public Class ClassScreenpos
     End Sub
 
 #Disable Warning CA1822 ' Mark members as static
+
     Public Sub PutSize(name As String, size As Integer)
 #Enable Warning CA1822 ' Mark members as static
 
@@ -207,14 +208,12 @@ Public Class ClassScreenpos
 
     Public Sub SaveFormSettings()
 
-
         Try
             parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
             Return
         Catch ex As Exception
             ErrorLog("Error:" + ex.Message)
         End Try
-
 
     End Sub
 
