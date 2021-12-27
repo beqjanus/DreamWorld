@@ -576,7 +576,7 @@ Module RegionMaker
                                 Dim theEnd As Integer = RegionIniFolderPath(uuid).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
                                 OpensimIniPath(uuid) = RegionIniFolderPath(uuid).Substring(0, theEnd + 1)
 
-                                Dim DirName = Path.GetFileNameWithoutExtension(FolderName)
+                                Dim DirName = Path.GetFileName(FolderName)
                                 If DirName.Length > 0 Then
                                     Group_Name(uuid) = DirName
                                     Group = DirName

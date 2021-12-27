@@ -538,6 +538,8 @@ Public Class FormSetup
             If response = vbNo Then Return False
         End If
 
+        ToDoList.Clear()
+
         AvatarLabel.Text = ""
         PropAborting = True
         ToolBar(False)
