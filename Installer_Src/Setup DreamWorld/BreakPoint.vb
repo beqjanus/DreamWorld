@@ -23,7 +23,9 @@ Module BreakPoint
     End Sub
 
     Public Sub Print(Message As String)
+
         Diagnostics.Debug.Print(Message)
+
     End Sub
 
 End Module

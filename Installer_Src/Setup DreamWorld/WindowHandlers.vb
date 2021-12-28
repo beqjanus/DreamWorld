@@ -310,7 +310,7 @@ Module WindowHandlers
                         status = False
                     End If
                 End If
-            Catch ex As Exception ' can fail to be a valid window handle                
+            Catch ex As Exception ' can fail to be a valid window handle
                 BreakPoint.Dump(ex)
             End Try
 
@@ -343,7 +343,7 @@ Module WindowHandlers
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
                 ctr -= 1
                 Sleep(100)
@@ -396,7 +396,7 @@ Module WindowHandlers
             Try
                 P.Kill()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
             Application.DoEvents()
         Next

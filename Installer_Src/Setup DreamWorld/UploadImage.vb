@@ -40,7 +40,7 @@ Module UploadImage
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable, New HttpRequestState(req, params, File))
             Busy = True
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
 
             Log(My.Resources.Error_word, ex.Message)
             Busy = False
@@ -69,7 +69,7 @@ Module UploadImage
                 Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
@@ -120,7 +120,7 @@ Module UploadImage
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             UploadError(ex.Message)
             Return
         End Try
@@ -178,7 +178,7 @@ Module UploadImage
                 sw.Flush()
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         r_State.Request.BeginGetResponse(AddressOf ResponseAvailable, r_State)
@@ -193,7 +193,7 @@ Module UploadImage
             webResp = CType(r_State.Request.EndGetResponse(ar), HttpWebResponse)
         Catch ex As Exception
             webResp = Nothing
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         If webResp IsNot Nothing Then

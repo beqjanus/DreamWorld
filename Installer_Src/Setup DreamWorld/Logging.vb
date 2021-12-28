@@ -55,7 +55,7 @@ Module Logging
         Try
             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Outworldz.log") & """")
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -97,7 +97,7 @@ Module Logging
                         path.Add("""" & FileName & """")
                     Next
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End If
         End If
@@ -113,7 +113,7 @@ Module Logging
         Try
             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), logs)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub

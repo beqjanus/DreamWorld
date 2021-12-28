@@ -41,7 +41,7 @@ Module Runtimes
                 Settings.DotnetUpgraded() = True
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 
@@ -63,7 +63,7 @@ Module Runtimes
                 Settings.DotnetUpgraded() = True
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 
@@ -93,7 +93,7 @@ Module Runtimes
                 Settings.MysqlRev = MySqlRev
                 Settings.SaveSettings()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 TextPrint(My.Resources.Error_word)
             End Try
 

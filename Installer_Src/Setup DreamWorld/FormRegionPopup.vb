@@ -171,7 +171,7 @@ Public Class FormRegionPopup
             Try
                 Baretail.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -185,7 +185,7 @@ Public Class FormRegionPopup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 

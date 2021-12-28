@@ -139,7 +139,7 @@ Module FileStuff
             Try
                 System.IO.Directory.CreateDirectory(destinationPath)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 
@@ -163,7 +163,7 @@ Module FileStuff
                 Try
                     CopyFileFast(fileSystemInfo.FullName, destinationFileName)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             Else
                 ' Recursively call the method to copy all the nested folders
@@ -171,7 +171,7 @@ Module FileStuff
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
@@ -305,7 +305,7 @@ Module FileStuff
             Try
                 System.IO.Directory.Delete(n, True)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End If
@@ -368,7 +368,7 @@ Module FileStuff
         Try
             File.Move(Src, Dest)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -518,7 +518,7 @@ Module FileStuff
             Try
                 result.AddRange(Directory.GetFiles(dir, t))
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
             ' Loop through all subdirectories and add them to the stack.

@@ -22,7 +22,7 @@ Module SmartStart
         Try
             System.Diagnostics.Process.Start(link)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -51,35 +51,6 @@ Module SmartStart
         PropUpdateView = True
 
     End Sub
-
-    ''' <summary>
-    ''' Waits for a restarted region to be fully up
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booted</returns>
-    Public Function WaitForBooted(RegionUUID As String) As Boolean
-
-        Debug.Print("Waiting for " & Region_Name(RegionUUID))
-        Dim Retry As Integer = 90 ' 1.5 minutes
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood
-
-            If Not WaitForBooting(RegionUUID) Then
-                Return False
-            End If
-
-            Retry -= 1  ' skip on timeout error
-            If Retry < 0 Then
-                BreakPoint.Print("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
 
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
@@ -276,7 +247,7 @@ Module SmartStart
                             Else
                                 time = "|" & CStr(MapTime(RegionUUID) + Settings.TeleportSleepTime)
                             End If
-                            RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. {vbCrLf}Please wait in the Welcome region.")
+                            RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(time} seconds.")
                             Logger("Agent ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             Return Settings.WelcomeRegion
@@ -697,7 +668,7 @@ Module SmartStart
                 Try
                     System.IO.Directory.CreateDirectory(path)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End If
             Terrainfolder = path
@@ -709,17 +680,6 @@ Module SmartStart
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
-
-    End Sub
-
-    Public Sub Terrain_Load(RegionUUID As String, obj As TaskObject)
-
-        Dim TerrainName = obj.Command
-        Dim name = Region_Name(RegionUUID)
-        If IO.File.Exists(TerrainName) Then
-            If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
-            If Not RPC_Region_Command(RegionUUID, $"terrain load ""{TerrainName }""") Then Return
-        End If
 
     End Sub
 

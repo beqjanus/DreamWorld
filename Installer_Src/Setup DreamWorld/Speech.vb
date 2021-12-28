@@ -39,6 +39,12 @@ Public Class ChatToSpeech
     Private Counter As Integer
     Private disposedValue As Boolean
 
+    Public Shared Function SpeechBusy() As Boolean
+
+        Return SpeechBusyFlag
+
+    End Function
+
     Public Sub Dispose() Implements IDisposable.Dispose
         ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
         Dispose(disposing:=True)
@@ -78,14 +84,14 @@ Public Class ChatToSpeech
                         Counter += 1
                     End If
 
-                    fname.Replace("<", "")
-                    fname.Replace("?", "")
-                    fname.Replace("""", "")
-                    fname.Replace("/", "")
-                    fname.Replace("\", "")
-                    fname.Replace("|", "")
-                    fname.Replace(">", "")
-                    fname.Replace("*", "")
+                    fname = fname.Replace("<", "")
+                    fname = fname.Replace("?", "")
+                    fname = fname.Replace("""", "")
+                    fname = fname.Replace("/", "")
+                    fname = fname.Replace("\", "")
+                    fname = fname.Replace("|", "")
+                    fname = fname.Replace(">", "")
+                    fname = fname.Replace("*", "")
 
                     pathinfo = IO.Path.Combine(pathinfo, fname)
                     filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
@@ -109,7 +115,7 @@ Public Class ChatToSpeech
                 SpeechBusyFlag = True
                 Speaker.SpeakAsync(texttospeak)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
             While SpeechBusyFlag
@@ -122,12 +128,6 @@ Public Class ChatToSpeech
 
         pathinfo.Replace("\", "/")
         Return pathinfo
-
-    End Function
-
-    Public Function SpeechBusy() As Boolean
-
-        Return SpeechBusyFlag
 
     End Function
 
@@ -144,14 +144,12 @@ Public Class ChatToSpeech
     End Sub
 
     Private Sub ConvertWavMP3(fileName As String, waitFlag As Boolean)
-
-        Dim psi = New System.Diagnostics.ProcessStartInfo()
-
-        psi.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\lame.exe")
-
-        psi.Arguments = $"-b 128 --resample 44.1 {fileName} {fileName.Replace(".wav", ".mp3")}"
-        psi.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\TTS")
-        psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        Dim psi = New System.Diagnostics.ProcessStartInfo With {
+            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\lame.exe"),
+            .Arguments = $"-b 128 --resample 44.1 {fileName} {fileName.Replace(".wav", ".mp3")}",
+            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\TTS"),
+            .WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        }
         Dim p As New Process()
         Try
             p = Process.Start(psi)

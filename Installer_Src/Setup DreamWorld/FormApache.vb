@@ -122,7 +122,7 @@ Public Class FormApache
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
@@ -132,7 +132,7 @@ Public Class FormApache
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()

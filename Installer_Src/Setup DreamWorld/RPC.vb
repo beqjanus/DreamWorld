@@ -100,22 +100,6 @@ Module RPC
 
     End Function
 
-    ''' http://opensimulator.org/wiki/Remoteadmin:admin_get_agent_count
-    '''
-    Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
-
-        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            Return 0
-        End If
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPC(RegionUUID, "admin_get_agent_count", ht)
-
-    End Function
-
     Public Function RPC_admin_get_agent_list(RegionUUID As String) As List(Of AvatarData)
 
         Dim result As New List(Of AvatarData)
@@ -153,7 +137,7 @@ Module RPC
                 Next
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
         Return result
 

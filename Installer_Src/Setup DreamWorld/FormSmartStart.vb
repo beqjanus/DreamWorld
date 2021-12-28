@@ -1093,7 +1093,7 @@ Public Class FormSmartStart
                 Writer.Write(Xml)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -1184,7 +1184,7 @@ Public Class FormSmartStart
 
 #Region "SmartStart"
 
-    Private Sub SetSetting(check As CheckBox)
+    Private Shared Sub SetSetting(check As CheckBox)
         check.Checked = True
     End Sub
 

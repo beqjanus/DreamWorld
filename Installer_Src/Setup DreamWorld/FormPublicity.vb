@@ -102,7 +102,7 @@ Public Class FormPublicity
                 End Using
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         End Try
         Dim tmp = Settings.Description
@@ -133,7 +133,7 @@ Public Class FormPublicity
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -175,7 +175,7 @@ Public Class FormPublicity
                         newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
                         newBitmap.Dispose()
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                         ErrorLog("Save Photo " & ex.Message)
                         Return
                     End Try

@@ -139,7 +139,7 @@ Module Disk
                 SuspendProcess.WaitForExit()
                 PokeRegionTimer(RegionUUID)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 

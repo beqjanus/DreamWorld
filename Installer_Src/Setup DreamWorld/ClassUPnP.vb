@@ -38,7 +38,7 @@ Public Class UPnp
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             ErrorLog(ex.Message)
 
         End Try
@@ -203,7 +203,7 @@ Public Class UPnp
                         LIP = EndPoint.Address.ToString()
                     End Using
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                     LIP = LocalIPForced()
 
                     If LIP.Length = 0 Then
@@ -215,7 +215,7 @@ Public Class UPnp
                 LIP = CacheIP
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Return LIP
@@ -228,7 +228,7 @@ Public Class UPnp
         Try
             staticMapping.Remove(port, prot.ToString)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
 
         End Try
     End Sub
@@ -252,7 +252,7 @@ Public Class UPnp
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             Marshal.ReleaseComObject(UPnpnat)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -275,7 +275,7 @@ Public Class UPnp
                 Return
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log("WARN", "UPNP is not available")
             staticEnabled = False
             Return

@@ -124,7 +124,7 @@ Module RegionMaker
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                     Debug.Print(ex.Message)
                     Logger("RegionReady", "Malformed JSON: " & ProcessString, "Teleport")
                     Continue While
@@ -159,7 +159,7 @@ Module RegionMaker
                     Continue While
                 End If
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Logger("RegionReady", "Exception:" & ex.Message, "Teleport")
                 Try
                     WebserverList.Clear()
@@ -287,13 +287,15 @@ Module RegionMaker
             Try
                 Directory.CreateDirectory(pathtoRegion)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 
         ' Change estate for Endless Land, assuming its on
         Dim out As Integer
-        Integer.TryParse(Estate(RegionUUID), out)
+        If Integer.TryParse(Estate(RegionUUID), out) Then
+
+        End If
 
         If Settings.AutoFill And Smart_Start(RegionUUID) = "True" And out = 0 Then
             Estate(RegionUUID) = "SimSurround"
@@ -353,7 +355,7 @@ Module RegionMaker
                 outputFile.WriteLine(proto)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         AddToRegionMap(RegionUUID)
@@ -548,7 +550,7 @@ Module RegionMaker
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-                            BreakPoint.DUmp(ex)
+                            BreakPoint.Dump(ex)
                         End Try
 
                         For Each file As String In inis
@@ -681,7 +683,7 @@ Module RegionMaker
                             End If
                         Next
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                         PropUpdateView = True ' make form refresh
@@ -691,7 +693,7 @@ Module RegionMaker
                 Next
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         PropUpdateView = True ' make form refresh
@@ -1289,17 +1291,6 @@ Module RegionMaker
         End Set
     End Property
 
-    Public Property ConciergeSpeech(uuid As String) As String
-        Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._ConciergeSpeech
-            BadUUID(uuid)
-            Return ""
-        End Get
-        Set(ByVal Value As String)
-            RegionList(uuid)._ConciergeSpeech = Value
-        End Set
-    End Property
-
     Public Property DisableGloebits(uuid As String) As String
         Get
             If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._DisableGloebits
@@ -1628,7 +1619,7 @@ Module RegionMaker
             Next
             Return L
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Dim L2 As New List(Of String)
@@ -1780,7 +1771,7 @@ Module RegionMaker
                 Return "<html><head></head><body>Test Passed</html>"
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Return "<html><head></head><body>Error</html>"
         End Try
 
@@ -1857,7 +1848,7 @@ Module RegionMaker
                     End Using
                     Return Partner
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
 
             End If

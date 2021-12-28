@@ -224,7 +224,7 @@ Module Diags
 
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log("UPnP", "UPnP Exception caught:  " & ex.Message)
             Return False
         End Try
@@ -240,7 +240,7 @@ Module Diags
                 result = client.DownloadString(Weblink)
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
                 Logger("Error", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
             End Try
@@ -295,7 +295,7 @@ Module Diags
             Try
                 isPortOpen = client.DownloadString(Url)
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Logger("Error", Global.Outworldz.My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
@@ -347,7 +347,7 @@ Module Diags
             Try
                 result = client.DownloadString(weblink)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Logger("Error", ex.Message, "Diagnostics")
             End Try
         End Using

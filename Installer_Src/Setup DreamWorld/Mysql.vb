@@ -15,9 +15,9 @@ Imports MySqlConnector
 'TODO SELECT inventoryname, inventoryID, assetID FROM robust.inventoryitems WHERE replace(assetID, '-', '') Not IN (SELECT hex(id) FROM opensim.fsassets);
 
 Public Module MysqlInterface
-#Disable Warning IDE0140 ' Object creation can be simplified
+
     Private WithEvents ProcessMySql As Process = New Process()
-#Enable Warning IDE0140 ' Object creation can be simplified
+
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private ReadOnly HGDict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
@@ -112,7 +112,7 @@ Public Module MysqlInterface
                              )
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         CreateService()
@@ -135,7 +135,7 @@ Public Module MysqlInterface
                         MysqlProcess.Start()
                         MysqlProcess.WaitForExit()
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                         MySQLIcon(False)
                     End Try
                     Application.DoEvents()
@@ -173,7 +173,7 @@ Public Module MysqlInterface
                     response = MysqlProcess.StandardOutput.ReadToEnd() & MysqlProcess.StandardError.ReadToEnd()
                     MysqlProcess.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                     TextPrint(My.Resources.Mysql_Failed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
@@ -208,7 +208,7 @@ Public Module MysqlInterface
             Try
                 ProcessMySql.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
             ' wait for MySql to come up
@@ -225,14 +225,14 @@ Public Module MysqlInterface
                         Try
                             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-                            BreakPoint.DUmp(ex)
+                            BreakPoint.Dump(ex)
                         End Try
 
                         For Each FileName As String In files
                             Try
                                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
                             Catch ex As Exception
-                                BreakPoint.DUmp(ex)
+                                BreakPoint.Dump(ex)
                             End Try
                             Application.DoEvents()
                         Next
@@ -279,9 +279,9 @@ Public Module MysqlInterface
                 End Using
 #Enable Warning CA2100
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -310,9 +310,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -354,7 +354,7 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -396,9 +396,9 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -422,9 +422,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -459,7 +459,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -537,10 +537,10 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return Dict
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return Dict
             End Try
 
@@ -576,9 +576,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -614,9 +614,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -660,9 +660,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -702,10 +702,10 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return A
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return A
             End Try
 
@@ -749,9 +749,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -792,7 +792,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -810,10 +810,10 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return Val
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Return Val
             End Try
 
@@ -828,15 +828,15 @@ Public Module MysqlInterface
                             End While
                         End Using
                     Catch ex As MySqlException
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -886,7 +886,7 @@ Public Module MysqlInterface
             Try
                 p.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
     End Sub
@@ -914,9 +914,9 @@ Public Module MysqlInterface
                     End If
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -957,7 +957,7 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -991,9 +991,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -1026,9 +1026,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -1057,9 +1057,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End Using
@@ -1077,12 +1077,12 @@ Public Module MysqlInterface
                             cmd1.ExecuteNonQuery()
                         End Using
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 Catch ex As MySqlException
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End Using
         End If
@@ -1145,7 +1145,7 @@ Public Module MysqlInterface
                 Mutelist.Start()
                 Mutelist.WaitForExit()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog("Could not create Mutelist Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                 Return
@@ -1171,7 +1171,7 @@ Public Module MysqlInterface
                 Mutelist.Start()
                 Mutelist.WaitForExit()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog("Could not create SimStats Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
             End Try
@@ -1196,7 +1196,7 @@ Public Module MysqlInterface
                 MysqlWordpress.Start()
                 MysqlWordpress.WaitForExit()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog("Could not create WordPress Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                 Return
@@ -1239,7 +1239,7 @@ Public Module MysqlInterface
             "mysqld.exe --install MySQL --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -1255,7 +1255,7 @@ Public Module MysqlInterface
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -1271,41 +1271,11 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
     End Sub
-
-    Private Function GetRegionName(UUID As String) As String
-
-        Dim Val As String = ""
-        Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-
-                Dim stm = "Select RegionName from regions where uuid=@UUID;"
-                Using cmd As New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            ' Debug.Print("Region Name = {0}", reader.GetString(0))
-                            Val = reader.GetString(0)
-                        End If
-                    End Using
-
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
-            Catch ex As Exception
-                BreakPoint.DUmp(ex)
-            End Try
-        End Using
-
-        Return Val
-
-    End Function
 
     Private Sub MakeMysql()
 
@@ -1349,7 +1319,7 @@ Public Module MysqlInterface
         Try
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         If files IsNot Nothing Then
@@ -1360,7 +1330,7 @@ Public Module MysqlInterface
                     Try
                         System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{FileName}""")
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 Next
             End If
@@ -1406,9 +1376,9 @@ Public Module MysqlInterface
                         Next
                     Next
                 Catch ex As MySqlException
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End Using
         End If
@@ -1433,7 +1403,7 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -1453,9 +1423,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         Else
             Try
@@ -1476,9 +1446,9 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 

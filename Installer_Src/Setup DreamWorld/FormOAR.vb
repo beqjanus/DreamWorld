@@ -206,7 +206,7 @@ Public Class FormOAR
                 column += 1
             End While
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         DataGridView.PerformLayout()
@@ -228,7 +228,7 @@ Public Class FormOAR
                 LoadIARContent(File)
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -247,7 +247,7 @@ Public Class FormOAR
                 End Using
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log("Warn", ex.Message)
         End Try
 
@@ -262,7 +262,7 @@ Public Class FormOAR
                 Return client.DownloadString(url)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log("Warn", ex.Message)
         End Try
         Return ""
@@ -279,7 +279,7 @@ Public Class FormOAR
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log("Error", ex.Message)
         End Try
 
@@ -407,7 +407,7 @@ Public Class FormOAR
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
@@ -426,7 +426,7 @@ Public Class FormOAR
                 Dim str = PropDomain & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
             End Try
@@ -434,7 +434,7 @@ Public Class FormOAR
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Return Nothing
         End Try
         Return json
@@ -477,7 +477,7 @@ Public Class FormOAR
                 gr.DrawImageUnscaled(bmp, 0, 0)
                 gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
             Return newImage
         End Using
@@ -521,7 +521,7 @@ Public Class FormOAR
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                     img.Dispose()
 

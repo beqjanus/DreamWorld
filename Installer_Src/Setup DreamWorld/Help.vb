@@ -30,7 +30,7 @@ Module Help
                     FormHelp.Select()
                     FormHelp.BringToFront()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End If
 

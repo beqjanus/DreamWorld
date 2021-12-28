@@ -35,7 +35,7 @@ Module Maps
         Try
             FileIO.FileSystem.CreateDirectory(SavePath)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Return
         End Try
 
@@ -58,13 +58,12 @@ Module Maps
                             Try
                                 bmp.SetPixel(X, Y, newColor)
                             Catch ex As Exception
-                                BreakPoint.DUmp(ex)
+                                BreakPoint.Dump(ex)
                             End Try
 
                         Next
                     Next
                 End If
-
 
                 Dim Out As Image = bmp
                 Dim Src As Image = bmp

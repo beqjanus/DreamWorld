@@ -43,15 +43,6 @@ Module Robust
         End Set
     End Property
 
-    Public Property RobustIsStarting As Boolean
-        Get
-            Return _RobustIconStarting
-        End Get
-        Set(value As Boolean)
-            _RobustIconStarting = value
-        End Set
-    End Property
-
 #Region "Robust"
 
     ''' <summary>
@@ -71,7 +62,7 @@ Module Robust
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
         End Using
@@ -132,7 +123,6 @@ Module Robust
             Return True
         End If
 
-        RobustIsStarting = True
         SetServerType()
         PropRobustProcID = 0
 
@@ -161,12 +151,11 @@ Module Robust
             RobustProcess.Start()
             Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
             FormSetup.KillAll()
             FormSetup.Buttons(FormSetup.StartButton)
             MarkRobustOffline()
-            RobustIsStarting = False
             Return False
         End Try
 
@@ -174,7 +163,6 @@ Module Robust
         If PropRobustProcID = 0 Then
             MarkRobustOffline()
             Log("Error", Global.Outworldz.My.Resources.Robust_failed_to_start)
-            RobustIsStarting = False
             Return False
         End If
 
@@ -200,18 +188,16 @@ Module Robust
                     Try
                         System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe " & Log))
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
                 MarkRobustOffline()
-                RobustIsStarting = False
                 Return False
             End If
 
         End While
 
-        RobustIsStarting = False
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)
@@ -494,7 +480,7 @@ Module Robust
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 

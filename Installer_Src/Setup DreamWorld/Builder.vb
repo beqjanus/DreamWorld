@@ -16,7 +16,7 @@ Module Build
 
     Public Class RegionEssentials
         Public RegionName As String
-        Public RegionUUID As String
+        'Public RegionUUID As String
     End Class
 
 #Region "Land"
@@ -352,7 +352,7 @@ Module Build
             End While
             If Retry = 0 Then BreakPoint.Print("Retry Random Name exceeded")
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Return ""

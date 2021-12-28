@@ -45,7 +45,7 @@ Public Class ClassScreenpos
                         Retry = 0
                     End Using
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                     Sleep(100)
                     Retry -= 1
                 End Try
@@ -148,7 +148,7 @@ Public Class ClassScreenpos
             Return r
         Catch ex As Exception
             Logger("Resize", ex.Message, "Error")
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
         Return New List(Of Integer) From {100, 100}
 
@@ -255,7 +255,7 @@ Public Class ClassScreenpos
         Try
             XYData(section)(key) = value ' replace it
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             ErrorLog(ex.Message)
         End Try
 

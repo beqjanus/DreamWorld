@@ -134,7 +134,7 @@ Public Class FormRegionlist
                 Me.Width = hw.Item(1)
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Me.Height = 460
             Me.Width = 1800
             Me.Left = 100
@@ -741,7 +741,7 @@ Public Class FormRegionlist
             AvatarView.Show()
             AvatarView.Visible = True
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         Finally
             PropUpdateView() = False
@@ -961,7 +961,7 @@ Public Class FormRegionlist
 
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -1020,7 +1020,7 @@ Public Class FormRegionlist
                 }
                 IconView.Items.AddRange(New ListViewItem() {item1})
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
         Next
@@ -1110,7 +1110,7 @@ Public Class FormRegionlist
                 End Using
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -1151,7 +1151,7 @@ Public Class FormRegionlist
                 Try
                     Dim result = Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End If
         Next
@@ -1246,7 +1246,7 @@ Public Class FormRegionlist
         Try
             Item = ListView1.Items.Item(e.Index)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
         If Item.Text.Length = 0 Then Return
         If Item.Text = "New Region" Then Return
@@ -1479,7 +1479,7 @@ SetWindowOnTop_Err:
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             chosen = ""
         End Try
 
@@ -1691,7 +1691,7 @@ SetWindowOnTop_Err:
                                 Try
                                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
                                 Catch ex As Exception
-                                    BreakPoint.DUmp(ex)
+                                    BreakPoint.Dump(ex)
                                 End Try
                             End If
                             File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
@@ -1818,7 +1818,7 @@ SetWindowOnTop_Err:
                         Try
                             System.Diagnostics.Process.Start(IO.Path.Combine(BaseFolder, "RegionList.csv"))
                         Catch ex As Exception
-                            BreakPoint.DUmp(ex)
+                            BreakPoint.Dump(ex)
                         End Try
                     End If
 

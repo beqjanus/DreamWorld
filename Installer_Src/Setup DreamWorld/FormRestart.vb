@@ -39,7 +39,7 @@ Public Class FormRestart
         Try
             Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
             Settings.AutoRestartInterval = 0
         End Try
 

@@ -71,7 +71,7 @@ Public Class FormJoomla
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -82,7 +82,7 @@ Public Class FormJoomla
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -120,7 +120,7 @@ Public Class FormJoomla
                 Try
                     JoomlaProcess.Start()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
                 Application.DoEvents()
                 JoomlaProcess.WaitForExit()
@@ -150,7 +150,7 @@ Public Class FormJoomla
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
 
         End If
@@ -170,7 +170,7 @@ Public Class FormJoomla
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -215,7 +215,7 @@ Public Class FormJoomla
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -226,7 +226,7 @@ Public Class FormJoomla
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub

@@ -213,7 +213,7 @@ Public Class FormDiva
                             newBitmap.Save(path, Imaging.ImageFormat.Png)
                         End Using
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
 
                     LoadPhoto()

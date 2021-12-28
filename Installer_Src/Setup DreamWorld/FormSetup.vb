@@ -50,7 +50,7 @@ Public Class FormSetup
             Try
                 Me.Height = hw.Item(0)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 
@@ -456,7 +456,7 @@ Public Class FormSetup
                         Try
                             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{ OpensimIniPath(RegionUUID)}\Opensim.log""")
                         Catch ex As Exception
-                            BreakPoint.DUmp(ex)
+                            BreakPoint.Dump(ex)
                         End Try
                     End If
                     Application.DoEvents()
@@ -525,7 +525,7 @@ Public Class FormSetup
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IceCastLog}""")
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End If
 
@@ -1085,7 +1085,7 @@ Public Class FormSetup
                     RegionUUID = BootedList(0)
                     BootedList.RemoveAt(0)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
 
                 If PropAborting Then Continue While
@@ -1122,7 +1122,7 @@ Public Class FormSetup
 
             End While
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
         'Bench.Print("Booted list End")
 
@@ -1271,7 +1271,7 @@ Public Class FormSetup
                 End If
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
         'Bench.print("Scan Region State End")
 
@@ -1353,7 +1353,7 @@ Public Class FormSetup
             Try
                 speed = Me.Cpu1.NextValue()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
                 If Not Settings.CPUPatched Then
                     Dim pUpdate = New Process()
                     Dim pi = New ProcessStartInfo With {
@@ -1425,7 +1425,7 @@ Public Class FormSetup
             PropInstanceHandles.Clear()
             WebserverList.Clear()
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -1458,7 +1458,7 @@ Public Class FormSetup
                             exitList.TryAdd(Groupname, "Exit")
                         End If
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 End If
             End If
@@ -1899,7 +1899,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End Using
         End If
@@ -1919,7 +1919,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End Using
 
@@ -1933,7 +1933,7 @@ Public Class FormSetup
                     pPerl.Start()
                     pPerl.WaitForExit()
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             End Using
             Settings.VisitorsEnabledModules = True
@@ -1985,7 +1985,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -1994,7 +1994,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -2033,7 +2033,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -2060,7 +2060,7 @@ Public Class FormSetup
             Try
                 Parser.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -2087,7 +2087,7 @@ Public Class FormSetup
                     Try
                         LoopbackProcess.Start()
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
                 End Using
             End If
@@ -2120,7 +2120,7 @@ Public Class FormSetup
                 End If
             Next
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         AddLog("All Logs")
@@ -2164,7 +2164,7 @@ Public Class FormSetup
                     Try
                         SurroundingLandMaker(RegionUUID)
                     Catch ex As Exception
-                        BreakPoint.DUmp(ex)
+                        BreakPoint.Dump(ex)
                     End Try
 
                 End If
@@ -2248,7 +2248,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -2473,7 +2473,7 @@ Public Class FormSetup
                         Try
                             pMySqlRestore.Start()
                         Catch ex As Exception
-                            BreakPoint.DUmp(ex)
+                            BreakPoint.Dump(ex)
                         End Try
                     End Using
                 End If
@@ -2585,7 +2585,7 @@ Public Class FormSetup
             total = Combined.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Return total
@@ -2620,7 +2620,7 @@ Public Class FormSetup
             Try
                 CPortsProcess.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -2688,7 +2688,7 @@ Public Class FormSetup
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         Else
             TextPrint(My.Resources.Not_Running)
@@ -2754,7 +2754,6 @@ Public Class FormSetup
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
-
 
         If Not PropOpensimIsRunning() Then
             Return
@@ -2881,14 +2880,14 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
                 TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
                 TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
@@ -2900,7 +2899,7 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             Else
                 TextPrint(My.Resources.Not_Running)
@@ -2994,7 +2993,7 @@ Public Class FormSetup
             Try
                 pMySqlDiag1.Start()
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
             pMySqlDiag1.WaitForExit()
         End Using
@@ -3017,7 +3016,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -3089,7 +3088,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -3106,7 +3105,7 @@ Public Class FormSetup
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         ElseIf Settings.SCEnable = False Then
             TextPrint(My.Resources.Shoutcast_Disabled)
@@ -3224,7 +3223,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -3269,7 +3268,7 @@ Public Class FormSetup
         Try
             OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Try
@@ -3317,7 +3316,7 @@ Public Class FormSetup
                 Next
             End If
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Dim IARs As Array = Nothing
@@ -3446,7 +3445,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -3493,7 +3492,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -3526,14 +3525,14 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
                 TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
                 TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
@@ -3544,7 +3543,7 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.DUmp(ex)
+                    BreakPoint.Dump(ex)
                 End Try
             Else
                 TextPrint(My.Resources.Not_Running)
@@ -3581,7 +3580,7 @@ Public Class FormSetup
                 p.WaitForExit()
                 ApacheIcon(False)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
 
@@ -3604,7 +3603,7 @@ Public Class FormSetup
                 p.WaitForExit()
                 MySQLIcon(False)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
     End Sub
@@ -3630,7 +3629,7 @@ Public Class FormSetup
                 PUpdater.Start()
                 End
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         End Using
         End
@@ -3680,7 +3679,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
     End Sub
 
@@ -3709,7 +3708,7 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub

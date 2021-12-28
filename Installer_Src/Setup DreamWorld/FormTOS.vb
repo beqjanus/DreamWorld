@@ -53,7 +53,7 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -65,7 +65,7 @@ Public Class TosForm
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-                BreakPoint.DUmp(ex)
+                BreakPoint.Dump(ex)
             End Try
         Else
             MsgBox(My.Resources.Not_Running)
@@ -106,7 +106,7 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
-            BreakPoint.DUmp(ex)
+            BreakPoint.Dump(ex)
         End Try
 
         Me.Close()

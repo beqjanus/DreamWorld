@@ -111,7 +111,6 @@ Module Global_Properties
             Case 10
                 statestring = "RestartStage2"
             Case 11
-
                 statestring = "ShuttingDownForGood"
             Case 12
                 statestring = "NoLogin"
@@ -129,17 +128,6 @@ Module Global_Properties
     Public Function RobustName() As String
 
         Return "Robust " & Settings.PublicIP
-
-    End Function
-
-    Public Function SafeFolderName() As String
-
-        Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(DateTime.Now.Ticks))
-        If Not System.IO.Directory.Exists(destinationpath) Then
-            System.IO.Directory.CreateDirectory(destinationpath)
-        End If
-
-        Return destinationpath
 
     End Function
 
