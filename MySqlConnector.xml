@@ -22,7 +22,7 @@
         </member>
         <member name="P:MySqlConnector.Authentication.IAuthenticationPlugin.Name">
             <summary>
-            The authentication plugin name.
+            Gets the authentication plugin name.
             </summary>
         </member>
         <member name="M:MySqlConnector.Authentication.IAuthenticationPlugin.CreateResponse(System.String,System.ReadOnlySpan{System.Byte})">
@@ -33,7 +33,7 @@
             <param name="authenticationData">The authentication data supplied by the server; this is the <code>auth method data</code>
             from the <a href="https://dev.mysql.com/doc/internals/en/connection-phase-packets.html#packet-Protocol::AuthSwitchRequest">Authentication
             Method Switch Request Packet</a>.</param>
-            <returns></returns>
+            <returns>The authentication response.</returns>
         </member>
         <member name="T:MySqlConnector.Core.CommandListPosition">
             <summary>
@@ -91,7 +91,6 @@
             <summary>
             Returns a unique ID for all implementations of <see cref="T:MySqlConnector.Core.ICancellableCommand"/>.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:MySqlConnector.Core.ICancellableCommandExtensions.GetCommandTimeUntilCanceled(MySqlConnector.Core.ICancellableCommand)">
             <summary>
@@ -287,6 +286,85 @@
         <member name="M:MySqlConnector.Logging.NoOpLoggerProvider.CreateLogger(System.String)">
             <summary>
             Returns a <see cref="T:MySqlConnector.Logging.NoOpLogger"/>.
+            </summary>
+        </member>
+        <member name="T:MySqlConnector.MySqlAttribute">
+            <summary>
+            <see cref="T:MySqlConnector.MySqlAttribute"/> represents an attribute that can be sent with a MySQL query.
+            </summary>
+            <remarks>See <a href="https://dev.mysql.com/doc/refman/8.0/en/query-attributes.html">Query Attributes</a> for information on using query attributes.</remarks>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttribute.#ctor">
+            <summary>
+            Initializes a new <see cref="T:MySqlConnector.MySqlAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttribute.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new <see cref="T:MySqlConnector.MySqlAttribute"/> with the specified attribute name and value.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlAttribute.AttributeName">
+            <summary>
+            Gets or sets the attribute name.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlAttribute.Value">
+            <summary>
+            Gets or sets the attribute value.
+            </summary>
+        </member>
+        <member name="T:MySqlConnector.MySqlAttributeCollection">
+            <summary>
+            <see cref="T:MySqlConnector.MySqlAttributeCollection"/> represents a collection of query attributes that can be added to a <see cref="T:MySqlConnector.MySqlCommand"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlAttributeCollection.Count">
+            <summary>
+            Returns the number of attributes in the collection.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.Add(MySqlConnector.MySqlAttribute)">
+            <summary>
+            Adds a new <see cref="T:MySqlConnector.MySqlAttribute"/> to the collection.
+            </summary>
+            <param name="attribute">The attribute to add.</param>
+            <remarks>The attribute name must not be empty, and must not already exist in the collection.</remarks>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.SetAttribute(System.String,System.Object)">
+            <summary>
+            Sets the attribute with the specified name to the given value, overwriting it if it already exists.
+            </summary>
+            <param name="attributeName">The attribute name.</param>
+            <param name="value">The attribute value.</param>
+        </member>
+        <member name="P:MySqlConnector.MySqlAttributeCollection.Item(System.Int32)">
+            <summary>
+            Gets the attribute at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>The <see cref="T:MySqlConnector.MySqlAttribute"/> at that index.</returns>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.Clear">
+            <summary>
+            Clears the collection.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator for the collection.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.Remove(MySqlConnector.MySqlAttribute)">
+            <summary>
+            Removes the specified attribute from the collection.
+            </summary>
+            <param name="attribute">The attribute to remove.</param>
+            <returns><c>true</c> if that attribute was removed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MySqlConnector.MySqlAttributeCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator for the collection.
             </summary>
         </member>
         <member name="T:MySqlConnector.MySqlBatch">
@@ -780,6 +858,11 @@
             The collection of <see cref="T:MySqlConnector.MySqlParameter"/> objects for this command.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlCommand.Attributes">
+            <summary>
+            The collection of <see cref="T:MySqlConnector.MySqlAttribute"/> objects for this command.
+            </summary>
+        </member>
         <member name="M:MySqlConnector.MySqlCommand.Cancel">
             <inheritdoc/>
         </member>
@@ -1022,7 +1105,6 @@
             <summary>
             Creates a <see cref="T:MySqlConnector.MySqlBatch"/> object for executing batched commands.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:MySqlConnector.MySqlConnection.CloneWith(System.String)">
             <summary>
@@ -1319,6 +1401,11 @@
             If true, preserves security-sensitive information in the connection string retrieved from any open <see cref="T:MySqlConnector.MySqlConnection"/>.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Pipelining">
+            <summary>
+            Enables query pipelining.
+            </summary>
+        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ServerRedirectionMode">
             <summary>
             Whether to use server redirection.
@@ -1366,7 +1453,6 @@
             Removes the option with the specified name.
             </summary>
             <param name="keyword">The option name.</param>
-            <returns></returns>
         </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Item(System.String)">
             <summary>
@@ -1410,7 +1496,6 @@
             <summary>
             Creates a new <see cref="T:MySqlConnector.MySqlParameter"/> object.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:MySqlConnector.MySqlConnectorFactory.CreateCommandBuilder">
             <summary>
@@ -1573,7 +1658,6 @@
             <summary>
             Converts this object to a <see cref="T:System.DateTime"/>.
             </summary>
-            <param name="val"></param>
         </member>
         <member name="M:MySqlConnector.MySqlDateTime.Equals(System.Object)">
             <summary>
@@ -1623,6 +1707,28 @@
         <member name="F:MySqlConnector.MySqlDateTimeKind.Local">
             <summary>
             Use <see cref="F:System.DateTimeKind.Local" /> when reading; reject <see cref="F:System.DateTimeKind.Utc" /> in command parameters.
+            </summary>
+        </member>
+        <member name="T:MySqlConnector.MySqlDecimal">
+            <summary>
+            <see cref="T:MySqlConnector.MySqlDecimal"/> represents a MySQL <c>DECIMAL</c> value that is too large to fit in a .NET <see cref="T:System.Decimal"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlDecimal.Value">
+            <summary>
+            Gets the value of this <see cref="T:MySqlConnector.MySqlDecimal"/> as a <see cref="T:System.Decimal"/>.
+            </summary>
+            <remarks>This method will throw an <see cref="T:System.OverflowException"/> if the value is too large to be represented.</remarks>
+        </member>
+        <member name="M:MySqlConnector.MySqlDecimal.ToDouble">
+            <summary>
+            Gets the value of this <see cref="T:MySqlConnector.MySqlDecimal"/> as a <see cref="T:System.Double"/>.
+            </summary>
+            <remarks>The return value may have lost precision.</remarks>
+        </member>
+        <member name="M:MySqlConnector.MySqlDecimal.ToString">
+            <summary>
+            Gets the original value of this <see cref="T:MySqlConnector.MySqlDecimal"/> as a <see cref="T:System.String"/>.
             </summary>
         </member>
         <member name="T:MySqlConnector.MySqlError">
@@ -5668,6 +5774,11 @@
             Can send OK after a Text Resultset.
             </summary>
         </member>
+        <member name="F:MySqlConnector.Protocol.ProtocolCapabilities.QueryAttributes">
+            <summary>
+            Supports query attributes (CLIENT_QUERY_ATTRIBUTES).
+            </summary>
+        </member>
         <member name="F:MySqlConnector.Protocol.ProtocolCapabilities.MariaDbClientProgress">
             <summary>
             Client supports progress indicator.
@@ -5753,6 +5864,13 @@
             Starts a new "conversation" with the MySQL Server. This resets the "<a href="https://dev.mysql.com/doc/internals/en/sequence-id.html">sequence id</a>"
             and should be called when a new command begins.
             </summary>
+        </member>
+        <member name="M:MySqlConnector.Protocol.Serialization.IPayloadHandler.SetNextSequenceNumber(System.Int32)">
+            <summary>
+            Forces the next sequence number to be the specified value.
+            </summary>
+            <param name="sequenceNumber">The next sequence number.</param>
+            <remarks>This should only be used in advanced scenarios.</remarks>
         </member>
         <member name="P:MySqlConnector.Protocol.Serialization.IPayloadHandler.ByteHandler">
             <summary>
@@ -5856,8 +5974,8 @@
             Calculates the Adler32 checksum with the bytes taken from the span.
             </summary>
             <param name="buffer">The readonly span of bytes.</param>
-            <param name="offset"></param>
-            <param name="length"></param>
+            <param name="offset">The offset.</param>
+            <param name="length">The length.</param>
             <returns>The <see cref="T:System.UInt32"/>.</returns>
         </member>
         <member name="F:MySqlConnector.Utilities.Constants.InfiniteTimeout">
