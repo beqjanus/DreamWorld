@@ -84,11 +84,14 @@ timer starts the benchmark.</p>
 <p class=MsoNormal><b>Speak</b> – Uses the Text to Speech API to speak a test
 message.</p>
 
-<p class=MsoNormal><b>Make Voices -</b>  Makes wav files in female or male
-voices.  You add lines of text to the form. Set the function to True and click
-Apply. DreamGrid will save a wave file using the voice you selected in the
-Region Panel.  If the line begins with F:  this will use the female voice.  A
-line beginning with M: will use the male voice. </p>
+<p class=MsoNormal><b>Make Voices -</b>  Makes wav and Mp3 files in female or
+male voices.  You add lines of text to the debug window, set the switch to
+True, and select Text to Speech in the Pulldown.   Click Apply. DreamGrid will
+save a wave file using the voice you selected in the Region Panel.  If the line
+begins with F:  this will use the female voice.  A line beginning with M: will
+use the male voice.  The files will appear in Apache\htdocs\Stats\TTS as
+44.1Khz stereo wav files that can be uploaded, and as MP3 files that can be
+streamed into Opensim via MOAP.  </p>
 
 <p class=MsoNormal><b>Send Alert</b> <b>to a User</b> – Prompts for an Avatar
 name and will then send an alert to that person, wherever they are. </p>
@@ -97,8 +100,9 @@ name and will then send an alert to that person, wherever they are. </p>
 the person, and send them to a region. Part of Smart Boot debugging</p>
 
 <p class=MsoNormal><b>Debug (off, 1 Minute …..)</b> – The system prints debug
-stats on each region every hour. You can speed this up or slow it down. Requires
-a region restart. The new setting is saved and will be used in the future. </p>
+stats on each region every hour. You can speed this up or slow it down.
+Requires a region restart. The new setting is saved and will be used in the
+future. </p>
 
 <p class=MsoNormal>&nbsp;</p>
 
