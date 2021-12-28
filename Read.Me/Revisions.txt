@@ -1,18 +1,31 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
+There is a long list of changes in V 4.83 that just went out that have been in the works for several months.   It includes a major re-write of the core of DreamGrid.   
 
-V4.83
-Added my To Do list to the Help files.
-Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was being written. Fixed by loading it only at boot. 
-Did a speedup for full-sized Visitor Maps. Maps saved as PNG, instead of JPG in Apache\Stats\Maps. 
-Free disk space calc was incorrect, but the display was correct.  If disk space gets < 1M bytes, any Opensim processes will freeze.  If you free up disk space, they will unsuspend.
+Get this by clicking Help -> Check for Updates.
+
+Added my To Do list to the Help files. Likely a mistake, but hey, I am allowed to make mistakes.  After I bought out one partner and fired the other at Mitsi.com,  I can make all the mistakes I want there... /s
+
+Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was being written. Harmless issue but logs did not get made on that region.  Fixed by loading it only at boot. 
+
+Did a speedup and background task for full-sized Visitor Maps. Maps saved as PNG, instead of JPG in Apache\Stats\Maps.  
+
+Free disk space calc was incorrect, but the display was correct.  If disk space gets < 100M bytes, any Opensim processes will freeze.  If you free up disk space, they will unsuspend.
+
 TOS pages did not work as expected.  They also have a better look that matches the B&W themes.
-The subsystem for event handling and processing of Bootups, backups, loading of OARS, and making the 160 region block has been rewritten and is much more efficient/reliable. Ditto for trees and plants modules.
-There are 158 free regions now due to some de-duplication. All of them have been renamed by dropping Authors name. The credits are both in DreamGrid and in the menu system.
+
+The subsystem for event handling and processing of Bootups, backups, loading of OARS, and making the 169 region block has been rewritten and is much more efficient/reliable. Ditto for trees and plants modules.
+
+There are 169 free regions.  All of them have been renamed by dropping the Authors name. The credits are both in DreamGrid and in the menu system.  The sizes 1X1 shows, too, and you can in 2X2 or 3x3 to get a specific size.
+
 Fixed up the JavaScript maps to be centered.  These are in Setting->Maps.
+
 Visitor maps are accurate for placement of the avatars with larger symbols and better color choices.
+|
 Added a Backup All IARs to the AutoBackup system.  This will FILL YOUR HARD DISK if you have a large grid.  Default is OFF. It may be wiser to run this manually in the Content menu.
+
 Text to Speech supports Ad-hoc speech to Wav and Mp3 files.  This is currently a Help->Debug option. You add lines of text to the debug window, set the switch to True, and select Text to Speech in the Pulldown.   The files will appear in Apache\htdocs\Stats\TTS as 44.1Khz stereo wav files that can be uploaded, and as MP3 files that can be streamed into Opensim via MOAP.  F:Hello will say hello in a female voice, and M:Goodbye will say Goodbye in a male voice.  See Help->Debug for instructions.
+
 Endless Land and Sea is still disabled for more testing. It will be back.
 
 V4.82
