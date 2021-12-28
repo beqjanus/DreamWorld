@@ -247,7 +247,7 @@ Module SmartStart
                             Else
                                 time = "|" & CStr(MapTime(RegionUUID) + Settings.TeleportSleepTime)
                             End If
-                            RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(time} seconds.")
+                            RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(time)} seconds.")
                             Logger("Agent ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             Return Settings.WelcomeRegion

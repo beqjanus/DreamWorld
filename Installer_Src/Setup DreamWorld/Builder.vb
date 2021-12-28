@@ -16,7 +16,7 @@ Module Build
 
     Public Class RegionEssentials
         Public RegionName As String
-        'Public RegionUUID As String
+        Public RegionUUID As String
     End Class
 
 #Region "Land"
