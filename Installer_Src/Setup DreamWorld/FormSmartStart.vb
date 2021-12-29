@@ -612,7 +612,7 @@ Public Class FormSmartStart
         If Debugger.IsAttached Then
             EndlessLand.Visible = True
         Else
-            EndlessLand.Visible = False
+            EndlessLand.Visible = True
             Settings.AutoFill = False
             Settings.TempRegion = False
         End If

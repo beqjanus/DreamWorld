@@ -87,27 +87,6 @@ Module Icecast
 
 #End Region
 
-    Public Function CheckIcecast() As Boolean
-        ''' <summary>Check is Icecast port 8081 is up</summary>
-        ''' <returns>boolean</returns>
-        Using client As New Net.WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                IceCastIcon(False)
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-        End Using
-        Return True
-
-    End Function
-
     Public Sub IceCastIcon(Running As Boolean)
 
         If Not Running Then
@@ -118,6 +97,30 @@ Module Icecast
         Application.DoEvents()
 
     End Sub
+
+    Public Function IsIceCastRunning() As Boolean
+        ''' <summary>Check is Icecast port 8081 is up</summary>
+        ''' <returns>boolean</returns>
+        ''' 
+        Dim Up As String
+        Using TimedClient As New TimedWebClient With {
+               .Timeout = 1000
+           }
+            Try
+                Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As Exception
+                IceCastIcon(False)
+                Return False
+            End Try
+
+            If Up.Length = 0 Then
+                Return False
+            End If
+        End Using
+        IceCastIcon(True)
+        Return True
+
+    End Function
 
     Public Sub StopIcecast()
 
