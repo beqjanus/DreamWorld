@@ -49,7 +49,9 @@ Public Class SSL
         Dim Authz = (Await order.Authorizations()).First()
         Dim httpChallenge = Await Authz.Http()
         Dim keyAuthz = httpChallenge.KeyAuthz
-        SaveKey(keyAuthz)
+        Dim token = httpChallenge.Token
+        'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
+        SaveCert(keyAuthz, $"Outworldzfiles/Apache/htdocs/.well-known/acme-challenge/{token}")
 
         'Ask the ACME server to validate our domain ownership
         Dim result = httpChallenge.Validate()
@@ -57,7 +59,7 @@ Public Class SSL
         Dim attempts = 10
         While attempts > 0 And result.Status = ChallengeStatus.Pending Or result.Status = ChallengeStatus.Processing
             result = httpChallenge.Resource()
-            Sleep(500)
+            Sleep(1000)
             attempts -= 1
         End While
 
@@ -70,19 +72,22 @@ Public Class SSL
         'Download the certificate once validation is done
         Dim privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256)
         Dim cert = Await order.Generate(New CsrInfo With {
-        .CountryName = "US",
-        .State = "Texas",
-        .Locality = "Allen",
-        .Organization = "Outworldz, LLC.",
-        .OrganizationUnit = "Dev",
-        .CommonName = Settings.DNSName
-    }, privateKey)
+            .CountryName = "US",
+            .State = "Texas",
+            .Locality = "Allen",
+            .Organization = "Outworldz, LLC.",
+            .OrganizationUnit = "Outworldz",
+            .CommonName = Settings.DNSName
+        }, privateKey)
 
         'Export full chain certification
         Dim certPem = cert.ToPem()
 
-        'Download the certifcate for a finalized order.
+        'Download the certificate for a finalized order.
         Dim certChain = Await order.Download()
+
+        SaveCert(privateKey.ToString, "Outworldzfiles/Apache/conf/ssl/private.key")
+        SaveCert(certChain.ToString, "Outworldzfiles/Apache/conf/ssl/freessl.key")
 
         'Export PFX
         Dim pfxBuilder = cert.ToPfx(privateKey)
@@ -92,23 +97,15 @@ Public Class SSL
 
     End Function
 
-    Private Sub SaveKey(key As String)
+    Private Sub SaveCert(Content As String, file As String)
 
-        'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
-        Dim foldername = IO.Path.Combine(Settings.CurrentDirectory, "Apache/htdocs/.well-known/acme-challenge/")
-        Try
-            System.IO.Directory.CreateDirectory(foldername)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-        Dim filename = IO.Path.Combine(foldername, key)
+        Dim foldername = IO.Path.Combine(Settings.CurrentDirectory, file)
 
         Try
-            DeleteFile(filename)
-            Dim file = My.Computer.FileSystem.OpenTextFileWriter(filename, False)
-            file.WriteLine(key)
-            file.Close()
+            DeleteFile(file)
+            Dim f = My.Computer.FileSystem.OpenTextFileWriter(file, False)
+            f.WriteLine(Content)
+            f.Close()
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
