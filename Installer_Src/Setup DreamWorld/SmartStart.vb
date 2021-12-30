@@ -28,6 +28,7 @@ Module SmartStart
     End Sub
 
 #Region "StartStart"
+
     ''' <summary>
     ''' Stops and deletes a region and all the DB things it came with
     ''' </summary>
@@ -96,11 +97,11 @@ Module SmartStart
             TeleportAvatarDict.Remove(AgentID)
         End If
         TeleportAvatarDict.Add(AgentID, RegionUUID)
-        Bench.Print("Teleport Added")
+        'Bench.Print("Teleport Added")
 
         ReBoot(RegionUUID) ' Wait for it to start booting
 
-        Bench.Print("Reboot Signaled")
+        ' Bench.Print("Reboot Signaled")
         Return False
 
     End Function

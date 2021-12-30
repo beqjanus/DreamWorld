@@ -39,7 +39,7 @@ Module Teleport
                         Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName.Length > 0 Then
-                            Bench.Print("Teleport Initiated")
+                            'Bench.Print("Teleport Initiated")
                             RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                             Threading.Thread.Sleep(Settings.TeleportSleepTime * 1000)
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
@@ -63,7 +63,7 @@ Module Teleport
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             TeleportAvatarDict.Remove(str)
-            Bench.Print("Teleport Finished")
+            'Bench.Print("Teleport Finished")
         Next
         Fin.Clear()
 

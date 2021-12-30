@@ -936,6 +936,31 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Sub MysqlSetRegionFlagOnline(RegionUUID As String)
+
+        Dim flag = GetFlag(RegionUUID)
+        flag += 20
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "update robust.regions set flags = @flag where uuid = @UUID;"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@flag", flag)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Dump(ex)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+    End Sub
+
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
 
@@ -1276,6 +1301,32 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+
+    Private Function GetFlag(RegionUUID As String) As Integer
+        Dim Val = 0
+        Using Flags As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                Flags.Open()
+                Dim stm = "select flags from where RegionID=@UUID"
+                Using cmd = New MySqlCommand(stm, Flags)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Val = reader.GetInt32("flags")
+                        End If
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Dump(ex)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+        Return Val
+    End Function
 
     Private Sub MakeMysql()
 

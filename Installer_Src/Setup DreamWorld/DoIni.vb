@@ -446,7 +446,7 @@ Module DoIni
                     RegionSetting += $"Region_{Welcome}=DefaultRegion,  DefaultHGRegion{vbCrLf}"
                 Else
                     If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
-                        RegionSetting += $"Region_{RegionName}=Persistent {vbCrLf}"
+                        RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
                     Else
                         RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
                     End If

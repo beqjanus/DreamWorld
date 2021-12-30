@@ -1114,6 +1114,10 @@ Public Class FormSetup
                     MapTime(RegionUUID) = CInt(seconds)
                 End If
 
+                If Smart_Start(RegionUUID) = "True" Then
+                    MysqlSetRegionFlagOnline(RegionUUID)
+                End If
+
                 TeleportAgents()
 
                 If Estate(RegionUUID) = "SimSurround" Then
@@ -3682,44 +3686,6 @@ Public Class FormSetup
 
     Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
         G()
-    End Sub
-
-    Private Sub RestartApacheIcon_Click(sender As Object, e As EventArgs) Handles RestartApacheIcon.Click
-
-        StopApache(True)
-        Sleep(2000)
-        StartApache()
-
-    End Sub
-
-    Private Sub RestartIcecastIcon_Click(sender As Object, e As EventArgs) Handles RestartIcecastIcon.Click
-
-        If Not Settings.SCEnable Then
-            Settings.SCEnable = True
-        End If
-
-        PropAborting = True
-        StopIcecast()
-        StartIcecast()
-
-    End Sub
-
-    Private Sub RestartMysqlIcon_Click(sender As Object, e As EventArgs) Handles RestartMysqlIcon.Click
-
-        PropAborting = True
-        StopMysql()
-        StartMySQL()
-        PropAborting = False
-
-    End Sub
-
-    Private Sub RestartRobustIcon_Click(sender As Object, e As EventArgs) Handles RestartRobustIcon.Click
-
-        PropAborting = True
-        StopRobust()
-        StartRobust()
-        PropAborting = False
-
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click

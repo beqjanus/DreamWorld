@@ -21,7 +21,7 @@ Module speech
             Using S As New ChatToSpeech
                 If Settings.VoiceName = "No Speech" Then Return
                 Dim ProcessString As String = SpeechList.Dequeue
-                S.Speach(ProcessString, True)
+                S.Speach(ProcessString, False)
             End Using
         End While
 
