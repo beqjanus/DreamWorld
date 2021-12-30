@@ -84,7 +84,7 @@ Module Robust
     Public Sub RobustIcon(Running As Boolean)
 
         If Not Running Then
-            FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+            FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear
         Else
             FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.check2
         End If
@@ -312,8 +312,6 @@ Module Robust
 
     Public Function DoRobust() As Boolean
 
-        If IsRobustRunning() Then Return False
-
         TextPrint("->Set Robust")
 
         If DoSetDefaultSims() Then Return True
@@ -431,13 +429,12 @@ Module Robust
 
         Dim Up As String = ""
 
-        Using TimedCLient As New TimedWebClient With {
+        Using TimedClient As New TimedWebClient With {
                 .Timeout = 1000
             }
             Try
-                Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
+                Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
             Catch ex As Exception
-
             End Try
 
         End Using

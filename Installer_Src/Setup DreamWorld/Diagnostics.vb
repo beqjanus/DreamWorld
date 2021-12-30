@@ -235,9 +235,11 @@ Module Diags
     Public Sub PortTest(Weblink As String, Port As Integer)
 
         Dim result As String = ""
-        Using client As New WebClient
+        Using TimedClient As New TimedWebClient With {
+               .Timeout = 1000
+           }
             Try
-                result = client.DownloadString(Weblink)
+                result = TimedClient.DownloadString(Weblink)
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
             Catch ex As Exception
                 BreakPoint.Dump(ex)

@@ -124,6 +124,12 @@ Public Class FormDebug
 
             TPAPITest()
 
+        ElseIf Command = "SSL Test" Then
+
+            If Value = True Then
+                Dim ssl = New SSL
+            End If
+
         ElseIf Command = My.Resources.Send_alert Then
             If Value Then
 
@@ -213,17 +219,16 @@ Public Class FormDebug
         RadioFalse.Text = My.Resources.False_word
 
         ComboBox1.Items.Add(My.Resources.Benchmark)
+        ComboBox1.Items.Add("SSL Test")
         ComboBox1.Items.Add(My.Resources.Speak)
         ComboBox1.Items.Add(My.Resources.MakeVoices)
         ComboBox1.Items.Add(My.Resources.Send_alert)
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
-
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
-
         ComboBox1.Items.Add("Debug LandMaker")
 
         SetScreen()

@@ -2160,6 +2160,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Connect to Console.
+        '''</summary>
+        Friend ReadOnly Property Connect2Console() As String
+            Get
+                Return ResourceManager.GetString("Connect2Console", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Consoles.
         '''</summary>
         Friend ReadOnly Property Consoles_word() As String

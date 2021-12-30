@@ -3957,4 +3957,7 @@
   <data name="LoadHelp" xml:space="preserve">
     <value>Load Help Files</value>
   </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Connect to Console</value>
+  </data>
 </root>

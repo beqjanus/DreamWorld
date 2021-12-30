@@ -277,6 +277,7 @@ Module DoIni
 
     Public Function DoIceCast() As Boolean
 
+        If Not Settings.SCEnable Then Return False
         TextPrint("->Set IceCast")
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
         Dim name As String = rgx.Replace(Settings.SimName, "")

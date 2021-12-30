@@ -1404,6 +1404,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property PemKey() As String
+        Get
+            Return CType(GetMySetting("pemKey", ""), String)
+        End Get
+        Set
+            SetMySetting("pemKey", Value)
+        End Set
+    End Property
+
     Public Property Physics() As Integer
         Get
             Return CInt("0" & GetMySetting("Physics", "3"))

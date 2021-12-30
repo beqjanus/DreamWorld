@@ -1319,7 +1319,7 @@ Public Class FormSetup
 
     Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs)
 
-        If Not CheckApache() Then
+        If Not IsApacheRunning() Then
             StartApache()
         Else
             StopApache(True) 'Do Stop, even If a service
@@ -1558,6 +1558,11 @@ Public Class FormSetup
         ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Load_Free_Avatar_Inventory_text
         CommonConsoleCommandsToolStripMenuItem.Image = Global.Outworldz.My.Resources.text_marked
         CommonConsoleCommandsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Issue_Commands
+
+        ConnectToConsoleToolStripMenuItemMySQL.Text = Global.Outworldz.My.Resources.Connect2Console
+        ConnectToIceCastToolStripMenuItemIcecast.Text = Global.Outworldz.My.Resources.Connect2Console
+        ConnectToWebPageToolStripMenuItemApache.Text = Global.Outworldz.My.Resources.Connect2Console
+
         ConsoleCOmmandsToolStripMenuItem1.Image = Global.Outworldz.My.Resources.text_marked
         ConsoleCOmmandsToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_Console
         ConsoleCOmmandsToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Help_Console_text
@@ -1867,6 +1872,11 @@ Public Class FormSetup
         TextPrint(My.Resources.Setup_Network)
         SetPublicIP()
         SetServerType()
+
+        IsMySqlRunning()
+        IsRobustRunning()
+        IsApacheRunning()
+        IsIceCastRunning()
 
         Me.Text += " V" & PropMyVersion
         TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
@@ -3513,11 +3523,24 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItem.Click
+    Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItemMySQL.Click
         MysqlConsole()
     End Sub
 
-    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItem.Click
+    Private Sub ConnectToIceCastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToIceCastToolStripMenuItemIcecast.Click
+
+        If Settings.SCEnable Then
+            Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.SCPortBase, Globalization.CultureInfo.InvariantCulture)
+            Try
+                Process.Start(webAddress)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItemApache.Click
 
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
@@ -3657,6 +3680,44 @@ Public Class FormSetup
         G()
     End Sub
 
+    Private Sub RestartApacheIcon_Click(sender As Object, e As EventArgs) Handles RestartApacheIcon.Click
+
+        StopApache(True)
+        Sleep(2000)
+        StartApache()
+
+    End Sub
+
+    Private Sub RestartIcecastIcon_Click(sender As Object, e As EventArgs) Handles RestartIcecastIcon.Click
+
+        If Not Settings.SCEnable Then
+            Settings.SCEnable = True
+        End If
+
+        PropAborting = True
+        StopIcecast()
+        StartIcecast()
+
+    End Sub
+
+    Private Sub RestartMysqlIcon_Click(sender As Object, e As EventArgs) Handles RestartMysqlIcon.Click
+
+        PropAborting = True
+        StopMysql()
+        StartMySQL()
+        PropAborting = False
+
+    End Sub
+
+    Private Sub RestartRobustIcon_Click(sender As Object, e As EventArgs) Handles RestartRobustIcon.Click
+
+        PropAborting = True
+        StopRobust()
+        StartRobust()
+        PropAborting = False
+
+    End Sub
+
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
         Settings.ApacheEnable = True
         StartApache()
@@ -3666,12 +3727,41 @@ Public Class FormSetup
         StartMySQL()
     End Sub
 
+    Private Sub StartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem2.Click
+
+        StartRobust()
+
+    End Sub
+
+    Private Sub StartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem3.Click
+
+        StartIcecast()
+
+    End Sub
+
     Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
         StopApache(True)
     End Sub
 
     Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
+
         StopMysql()
+
+    End Sub
+
+    Private Sub StopToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem2.Click
+
+        StopRobust()
+
+    End Sub
+
+    Private Sub StopToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem3.Click
+
+        PropAborting = True
+        StopIcecast()
+        Sleep(2000)
+        PropAborting = False
+
     End Sub
 
     Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs)

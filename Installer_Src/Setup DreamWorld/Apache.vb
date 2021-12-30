@@ -59,25 +59,31 @@ Module Apache
 
 #End Region
 
-    Public Function CheckApache() As Boolean
+    Public Function IsApacheRunning() As Boolean
         ''' <summary>Check is Apache port 80 or 8000 is up</summary>
         ''' <returns>boolean</returns>
-        Using client As New Net.WebClient ' download client for web pages
-            Dim Up As String
+        Dim Up As String
+        Using TimedClient As New TimedWebClient With {
+              .Timeout = 1000
+            }
             Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
+                Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
-                BreakPoint.Dump(ex)
-                If ex.Message.Contains("200 OK") Then Return True
+                If ex.Message.Contains("200 OK") Then
+                    ApacheIcon(True)
+                    Return True
+                End If
+                ApacheIcon(False)
                 Return False
             End Try
-            If Up.Length = 0 And PropOpensimIsRunning() Then
+            If Up.Length = 0 Then
+                ApacheIcon(False)
                 Return False
             End If
 
         End Using
-
-        Return True
+        ApacheIcon(True)
+        Return False
 
     End Function
 
