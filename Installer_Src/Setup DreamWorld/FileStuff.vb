@@ -242,8 +242,8 @@ Module FileStuff
         Delete_Region_Map(regionUUID)
         DeleteMaps(regionUUID)
         DeregisterRegionUUID(regionUUID)
-        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
 
+        DeleteFolder(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}"))
         DeleteRegion(regionUUID)
 
     End Sub

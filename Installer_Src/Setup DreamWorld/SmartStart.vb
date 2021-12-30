@@ -28,17 +28,20 @@ Module SmartStart
     End Sub
 
 #Region "StartStart"
-
+    ''' <summary>
+    ''' Stops and deletes a region and all the DB things it came with
+    ''' </summary>
+    ''' <param name="RegionUUID"></param>
     Public Sub DeleteAllRegionData(RegionUUID As String)
 
         Dim RegionName = Region_Name(RegionUUID)
         Dim GroupName = Group_Name(RegionUUID)
-
+        PropAborting = True
         ShutDown(RegionUUID)
-        ' wait a minute for the region to quit
+        ' wait 2 minute for the region to quit
         Dim ctr = 120
 
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
+        While PropOpensimIsRunning And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
              RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
@@ -46,7 +49,7 @@ Module SmartStart
         End While
 
         DeleteAllContents(RegionUUID)
-
+        PropAborting = False
         PropChangedRegionSettings = True
         PropUpdateView = True
 

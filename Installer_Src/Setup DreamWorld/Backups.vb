@@ -132,9 +132,9 @@ Public Class Backups
                 Zip.AddFile(SQLFile, "/")
                 Zip.Save()
             End Using
-            Sleep(5000)
+            Sleep(1000)
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
-            Sleep(5000)
+            Sleep(1000)
             DeleteFile(SQLFile)
             Sleep(1000)
             DeleteFolder(_folder)
@@ -145,8 +145,6 @@ Public Class Backups
         If Name = Settings.RegionDBName And Settings.RegionDBName <> Settings.RobustDataBaseName Then
             BackupSQLDB(Settings.RobustDataBaseName)
         End If
-
-        'Application.ExitThread()
 
     End Sub
 
@@ -277,27 +275,23 @@ Public Class Backups
         If Settings.BackupIARs Then
             SyncLock IARLock
                 ' Make IAR options
-                Dim opt As String = ""
-                If Settings.DNSName.Length > 0 Then
-                    opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
+                Dim RegionName = "TEMP"
+                Dim RegionUUID = FindRegionByName(RegionName)
+                If RegionUUID.Length = 0 Then
+                    RegionUUID = CreateRegionStruct(RegionName)
+                    WriteRegionObject(RegionName, RegionName)
+                    Settings.SaveSettings()
+                    PropChangedRegionSettings = True
+                    GetAllRegions(False)
+                    Estate(RegionUUID) = "SimSurround"
+                    SetEstate(RegionUUID, 1999)
                 End If
 
-                Dim p As New Params With {
-                            .RegionName = Settings.WelcomeRegion,
-                            .opt = opt,
-                            .itemName = "/"
-                        }
-
-#Disable Warning BC42016 ' Implicit conversion
-                Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
-#Enable Warning BC42016 ' Implicit conversion
-                Dim SaveIARThread = New Thread(start)
-                SaveIARThread.SetApartmentState(ApartmentState.STA)
-                SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
-                SaveIARThread.Start(p)
-
+                Dim obj As New TaskObject With {
+                    .TaskName = FormSetup.TaskName.SaveAllIARS
+                }
+                FormSetup.RebootAndRunTask(RegionUUID, obj)
             End SyncLock
-
         End If
 
     End Sub

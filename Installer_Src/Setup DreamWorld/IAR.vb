@@ -43,6 +43,9 @@ Module IAR
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(ToBackup)
         Next
+
+        DeleteAllRegionData(RegionUUID)
+
         Return True
 
     End Function
@@ -272,12 +275,39 @@ Module IAR
         End If
     End Sub
 
+    Public Sub SaveThreadIARS()
+
+        Dim opt As String = ""
+        If Settings.DNSName.Length > 0 Then
+            opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
+        End If
+
+        Dim p As New Params With {
+                                .RegionName = "TEMP",
+                                .opt = opt,
+                                .itemName = "/"
+                            }
+
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
+#Enable Warning BC42016 ' Implicit conversion
+        Dim SaveIARThread = New Thread(start)
+        SaveIARThread.SetApartmentState(ApartmentState.STA)
+        SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
+        SaveIARThread.Start(p)
+
+    End Sub
+
+    ''' <summary>
+    ''' Waits until an IAR stops changing length so we can type again. Quits if DreamGrid  is stopped
+    ''' </summary>
+    ''' <param name="BackupName">Name of region to watch</param>
     Private Sub WaitforComplete(BackupName As String)
 
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 10
+        While same < 10 And PropOpensimIsRunning
             Dim fi = New System.IO.FileInfo(BackupName)
             Try
                 s = fi.Length

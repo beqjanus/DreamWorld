@@ -978,6 +978,7 @@ Public Class FormSetup
         Load_AllFreeOARs = 13   ' the big Kaunas of all oars at once
         Delete_Tree = 14        ' kill off all trees
         Revert = 15             ' revert terrain
+        SaveAllIARS = 16        ' save all IARS after making a TEMP region
 
     End Enum
 
@@ -1045,11 +1046,14 @@ Public Class FormSetup
                     Delete_Tree(RegionUUID)
                 Case TaskName.Revert             '15
                     Revert(RegionUUID)
+                Case TaskName.SaveAllIARS        '16
+                    SaveThreadIARS()
                 Case Else
                     BreakPoint.Print("Impossible task")
             End Select
             ToDoList.Remove(RegionUUID)
             Application.DoEvents()
+
         End If
 
     End Sub

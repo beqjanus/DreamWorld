@@ -52,17 +52,13 @@ Public Class FormBackupCheckboxes
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
         Dim b As New Backups()
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
 
         BackupButton.Text = My.Resources.Running_word
 
         b.RunAllBackups(True) 'run backup right now instead of on a timer
         Sleep(1000)
 
-        If Settings.BackupOARs Then
+        If Settings.BackupOARs And PropOpensimIsRunning() Then
             BackupAllRegions()
         End If
 
@@ -93,7 +89,7 @@ Public Class FormBackupCheckboxes
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
-        ShowFsassets.Text = Global.Outworldz.My.Resources.Show_word
+        ShowFsassets.Text = Global.Outworldz.My.Resources.Show_Status_word
         Me.Text = Global.Outworldz.My.Resources.System_Backup_word
 
         ' tool tips

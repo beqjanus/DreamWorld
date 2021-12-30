@@ -294,7 +294,7 @@ Module RegionMaker
         ' Change estate for Endless Land, assuming its on
         Dim out As Integer
         If Integer.TryParse(Estate(RegionUUID), out) Then
-
+            ' nada
         End If
 
         If Settings.AutoFill And Smart_Start(RegionUUID) = "True" And out = 0 Then
