@@ -145,6 +145,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Show the Robocopy window
+    ''' </summary>
+
     Public Property AllPlants() As Boolean
         Get
             Return CType(GetMySetting("AllPlants", "False"), Boolean)
@@ -156,8 +160,7 @@ Public Class MySettings
 
     Public Property AltDnsName() As String
         Get
-            Dim AltDns As String = GetMySetting("AltDnsName", "")
-            Return AltDns
+            Return GetMySetting("AltDnsName", "")
         End Get
         Set
             SetMySetting("AltDnsName", Value)
@@ -1769,6 +1772,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ShowDateandTimeinLogs", CStr(Value))
+        End Set
+    End Property
+
+    Public Property ShowFsAssetBackup() As Boolean
+        Get
+            Return CType(GetMySetting("ShowFsAssetBackup", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("ShowFsAssetBackup", CStr(Value))
         End Set
     End Property
 

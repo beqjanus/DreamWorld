@@ -212,6 +212,7 @@ Public Class Backups
                 If Directory.Exists(f) Then
                     Dim dest = IO.Path.Combine(BackupPath, "FSassets")
                     Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
+
                     '/E  Everything including empty folders
                     '/M Modified with the A bit set, then clears the bit
                     '/TBD wait for share names to be defined
@@ -234,8 +235,15 @@ Public Class Backups
                             .CreateNoWindow = True
                         }
                         ProcessRobocopy.StartInfo = pi
-                        ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                        ProcessRobocopy.StartInfo.CreateNoWindow = True
+
+                        If Settings.ShowFsAssetBackup Then
+                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                            ProcessRobocopy.StartInfo.CreateNoWindow = False
+                        Else
+                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                            ProcessRobocopy.StartInfo.CreateNoWindow = True
+                        End If
+
                         Try
                             ProcessRobocopy.Start()
                         Catch ex As Exception

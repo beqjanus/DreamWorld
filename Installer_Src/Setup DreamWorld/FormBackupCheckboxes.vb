@@ -93,6 +93,7 @@ Public Class FormBackupCheckboxes
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
+        ShowFsassets.Text = Global.Outworldz.My.Resources.Show_word
         Me.Text = Global.Outworldz.My.Resources.System_Backup_word
 
         ' tool tips
@@ -104,6 +105,7 @@ Public Class FormBackupCheckboxes
         ToolTip1.SetToolTip(FSAssetsCheckBox, Global.Outworldz.My.Resources.tt_Backup_Fsassets)
         ToolTip1.SetToolTip(RegionCheckBox, Global.Outworldz.My.Resources.tt_Backup_Regions)
         ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
+        ToolTip1.SetToolTip(ShowFsassets, Global.Outworldz.My.Resources.tt_Backup_Fsassets)
 
         HelpOnce("Backup Manually")
 
@@ -184,6 +186,14 @@ Public Class FormBackupCheckboxes
 
         If Not initted Then Return
         Settings.BackupSettings = SettingsCheckbox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub ShowFsassets_CheckedChanged(sender As Object, e As EventArgs) Handles ShowFsassets.CheckedChanged
+
+        If Not initted Then Return
+        Settings.ShowFsAssetBackup = ShowFsassets.Checked
         Settings.SaveSettings()
 
     End Sub

@@ -36,12 +36,14 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ShowFsassets = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ShowFsassets)
         Me.GroupBox1.Controls.Add(Me.BackupIARsCheckBox)
         Me.GroupBox1.Controls.Add(Me.BackupSQlCheckBox)
         Me.GroupBox1.Controls.Add(Me.BackupOarsCheckBox)
@@ -95,9 +97,9 @@ Partial Class FormBackupCheckboxes
         '
         'BackupButton
         '
-        Me.BackupButton.Location = New System.Drawing.Point(39, 193)
+        Me.BackupButton.Location = New System.Drawing.Point(23, 193)
         Me.BackupButton.Name = "BackupButton"
-        Me.BackupButton.Size = New System.Drawing.Size(160, 23)
+        Me.BackupButton.Size = New System.Drawing.Size(110, 23)
         Me.BackupButton.TabIndex = 10
         Me.BackupButton.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         Me.BackupButton.UseVisualStyleBackColor = True
@@ -167,6 +169,18 @@ Partial Class FormBackupCheckboxes
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'ShowFsassets
+        '
+        Me.ShowFsassets.AutoSize = True
+        Me.ShowFsassets.Checked = True
+        Me.ShowFsassets.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowFsassets.Location = New System.Drawing.Point(190, 68)
+        Me.ShowFsassets.Name = "ShowFsassets"
+        Me.ShowFsassets.Size = New System.Drawing.Size(53, 17)
+        Me.ShowFsassets.TabIndex = 12
+        Me.ShowFsassets.Text = "Show"
+        Me.ShowFsassets.UseVisualStyleBackColor = True
+        '
         'FormBackupCheckboxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -199,4 +213,5 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents BackupSQlCheckBox As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents BackupIARsCheckBox As CheckBox
+    Friend WithEvents ShowFsassets As CheckBox
 End Class
