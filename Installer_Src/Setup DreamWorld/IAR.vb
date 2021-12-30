@@ -17,39 +17,6 @@ Module IAR
 
 #Region "Load"
 
-    Public Function DoIARBackground(o As Params) As Boolean
-
-        Dim RegionName As String = o.RegionName
-        Dim opt As String = o.opt
-        Dim itemName As String = o.itemName
-
-        Dim ToBackup As String
-        Dim UserList = GetAvatarList()
-
-        Dim RegionUUID = FindRegionByName(RegionName)
-        If Not IsBooted(RegionUUID) Then Return False
-        For Each k As String In UserList
-            Dim newname = k.Replace(" ", "_")
-            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
-            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
-                Try
-                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End If
-
-            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
-            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-            WaitforComplete(ToBackup)
-        Next
-
-        DeleteAllRegionData(RegionUUID)
-
-        Return True
-
-    End Function
-
     Public Sub LoadIAR()
 
         HelpOnce("Load IAR")
@@ -302,7 +269,7 @@ Module IAR
     ''' Waits until an IAR stops changing length so we can type again. Quits if DreamGrid  is stopped
     ''' </summary>
     ''' <param name="BackupName">Name of region to watch</param>
-    Private Sub WaitforComplete(BackupName As String)
+    Public Sub WaitforComplete(BackupName As String)
 
         Dim s As Long
         Dim oldsize As Long = 0
@@ -324,6 +291,39 @@ Module IAR
         End While
 
     End Sub
+
+    Private Function DoIARBackground(o As Params) As Boolean
+
+        Dim RegionName As String = o.RegionName
+        Dim opt As String = o.opt
+        Dim itemName As String = o.itemName
+
+        Dim ToBackup As String
+        Dim UserList = GetAvatarList()
+
+        Dim RegionUUID = FindRegionByName(RegionName)
+        If Not IsBooted(RegionUUID) Then Return False
+        For Each k As String In UserList
+            Dim newname = k.Replace(" ", "_")
+            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
+            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
+                Try
+                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End If
+
+            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
+            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
+            WaitforComplete(ToBackup)
+        Next
+
+        DeleteAllRegionData(RegionUUID)
+
+        Return True
+
+    End Function
 
 #End Region
 

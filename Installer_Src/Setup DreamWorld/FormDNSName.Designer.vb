@@ -37,7 +37,6 @@ Partial Class FormDNSName
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OsGridButton.SuspendLayout()
@@ -46,8 +45,7 @@ Partial Class FormDNSName
         '
         'ToolTip1
         '
-        Me.ToolTip1.ToolTipTitle = "If marked Public, this sim will be published to an online directory so others peo" &
-    "pkle on the hypergrid can find it."
+        Me.ToolTip1.ToolTipTitle = ""
         '
         'SuitcaseCheckbox
         '
