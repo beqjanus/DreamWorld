@@ -19,8 +19,7 @@
     <body>
      <a href="/Search">Search</a>  | 
 Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulator</a> | 
-  <a href="/Metromap/mapmax.php"> Map</a>  |
-  <a href="/Metromap/mapmax.php"> Map</a>   
+  <a href="/Metromap/map.php"> Map</a>   
   
 
 <p>

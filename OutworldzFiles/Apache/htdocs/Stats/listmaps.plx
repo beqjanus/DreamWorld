@@ -29,41 +29,41 @@ my $tt = Template->new({
 print header;
 
 use Config::IniFiles;
-	use File::BOM;  # fixes a bug in Perl with UTF-8
-	# get the path to the Settings.ini
-	use Cwd;
-	my $path = getcwd();
-	
-	$path =~ /(.*?\/Outworldzfiles)/i;
-	my $file = $1 . '/Settings.ini';
-	
-	 # Read the Right Thing from a unicode file with BOM:
-	open(CONFIG , '<:via(File::BOM)', $file);   
-	my $Config = Config::IniFiles->new(-file => *CONFIG);
-	
-	if (! $Config)  {
-		print header;
-		print "Cannot read INI";
-		return;
-		}
-	
-	if ($debug) {
-		$ENV{REMOTE_ADDR} = '';
-	}
-	
-	my @nothing;
-	my $public = $Config->val('Data','PublicVisitorMaps')|| '';
-	if (lc($public) ne 'true') {
-		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
-		 if ($env ne '127.0.0.1')
-		 {
-				my $dataout;
-				my $vars = {sims => \@nothing};
+use File::BOM;  # fixes a bug in Perl with UTF-8
+# get the path to the Settings.ini
+use Cwd;
+my $path = getcwd();
 
-				$tt->process('listmaps.tt', $vars, \$dataout)  || die $tt->error(), "\n";
-				print $dataout;			
-			 exit;
-		 }
+$path =~ /(.*?\/Outworldzfiles)/i;
+my $file = $1 . '/Settings.ini';
+
+ # Read the Right Thing from a unicode file with BOM:
+open(CONFIG , '<:via(File::BOM)', $file);   
+my $Config = Config::IniFiles->new(-file => *CONFIG);
+
+if (! $Config)  {
+	print header;
+	print "Cannot read INI";
+	return;
+	}
+
+if ($debug) {
+	$ENV{REMOTE_ADDR} = '';
+}
+
+my @nothing;
+my $public = $Config->val('Data','PublicVisitorMaps')|| '';
+if (lc($public) ne 'true') {
+	 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
+	 if ($env ne '127.0.0.1')
+	 {
+			my $dataout;
+			my $vars = {sims => \@nothing};
+
+			$tt->process('listmaps.tt', $vars, \$dataout)  || die $tt->error(), "\n";
+			print $dataout;			
+		 exit;
+	 }
 }
 
 
@@ -75,32 +75,32 @@ my $rs = $schema->resultset('Sim')->search({},{order_by => { -asc => 'regionname
 my $width= '400';
 my %unique;
 foreach my $row ($rs->all) {
-		
-	my $X = $row->locationX;
-	my $Y = $row->locationY;
-	my $S = $row->regionsize/256;
-	my $size;
-	if ($S <= 3 ) { 
-		$size =   $row->regionsize;
-	} else {
-		$size = 768;
-	}
 	
-	my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;
-	my $mapfile = $path . '/maps/' . $row->regionname . '.png';
-	if (-e  $mapfile) {
-		$file= '/Stats/maps/' . $row->regionname . '.png';
-	} else {
-		$file= '/Stats/images/blankbox.jpg';
-	}
-	
-	push @sims, {regionname => $row->regionname,				 
-			regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
-			map=> $file,
-			width=>$size,
-			link=>'/Stats/map.htm?q=' . $row->regionname,
-			count=>$count,
-			};
+my $X = $row->locationX;
+my $Y = $row->locationY;
+my $S = $row->regionsize/256;
+my $size;
+if ($S <= 3 ) { 
+	$size =   $row->regionsize;
+} else {
+	$size = 768;
+}
+
+my $count = $schema->resultset('Visitor')->search({regionname => $row->regionname})->count;
+my $mapfile = $path . '/maps/' . $row->regionname . '.png';
+if (-e  $mapfile) {
+	$file= '/Stats/maps/' . $row->regionname . '.png';
+} else {
+	$file= '/Stats/images/blankbox.jpg';
+}
+
+push @sims, {regionname => $row->regionname,				 
+		regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
+		map=> $file,
+		width=>$size,
+		link=>'/Stats/map.htm?q=' . $row->regionname,
+		count=>$count,
+		};
 
 }
 

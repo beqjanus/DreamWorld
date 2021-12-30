@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<head>
 
-<title>Simulator stats for $text</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/Search/Search.css" />
 
 <script type="text/javascript">
@@ -27,33 +23,28 @@ function myFunction() {
 }
 </script>
 
-</head>
-<body>
 
+<!-- Begin  Toolkit -->
 
-  <!-- Begin  Toolkit -->
+ <h1>Visitors </h1>
+    
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+    <br clear="all">
+    <div style="float:left;">
+      <ul id="myUL">
+        [% FOREACH item IN sims  %]          
+        <li><a href="[% item.link %]">[% item.regionname %] 
+          [% IF item.count > 0 %]
+               ([% item.count %] Visits)
+           [% END %]
+        </a>
+        
+        <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]"></a>
+        <br clear="all">
+        </li>
+        
+         [% END %]       
+      </ul>
 
-   <h1>Visitors </h1>
-      
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
-      <br clear="all">
-      <div style="float:left;">
-        <ul id="myUL">
-          [% FOREACH item IN sims  %]          
-          <li><a href="[% item.link %]">[% item.regionname %] 
-            [% IF item.count > 0 %]
-                 ([% item.count %] Visits)
-             [% END %]
-          </a>
-          
-          <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]"></a>			
-          </li>
-          <br clear="all">
-           [% END %]       
-        </ul>
-
-      </div>
-   
-  </body
-
-</html>
+    </div>
+ 
