@@ -1,31 +1,25 @@
+
 REVISIONS FOR DREAMGRID
-This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
-There is a long list of changes in V 4.83 that just went out that have been in the works for several months.   It includes a major re-write of the core of DreamGrid.   
+This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you're interested in viewing.
 
-Get this by clicking Help -> Check for Updates.
+V4.84
+Tweaks to maps and menus in the web server.
+Sometimes a language used in Visitor Maps, Perl, does not load/work for unknown reasons.  It could be a conflict with Git coming first in the system path.  To help troubleshoot this, a batch file “InstallPerlModules.bat” has been added to MSFT_Runtimes folder to re-install the necessary Perl modules. There is no need to run this if Visitor Maps work. See http://www.outworldz.com:8000/Stats/ to get an idea of how these Visitor Stats work.
 
-Added my To Do list to the Help files. Likely a mistake, but hey, I am allowed to make mistakes.  After I bought out one partner and fired the other at Mitsi.com,  I can make all the mistakes I want there... /s
+Hyperica.com is gone. I purchased this domain and web site from Maria at Hypergrid Business some years ago to make a map of the Opensimulator World. The functions it used to run have all been moved into Outworldz.com.  These include Global Search and the web crawler that indexes the world.   
 
-Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was being written. Harmless issue but logs did not get made on that region.  Fixed by loading it only at boot. 
-
-Did a speedup and background task for full-sized Visitor Maps. Maps saved as PNG, instead of JPG in Apache\Stats\Maps.  
-
-Free disk space calc was incorrect, but the display was correct.  If disk space gets < 100M bytes, any Opensim processes will freeze.  If you free up disk space, they will unsuspend.
-
+V4.83
+Added my To Do list to the Help files.
+Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was being written. Fixed by loading it only at boot. 
+Did a speedup for full-sized Visitor Maps. Maps saved as PNG, instead of JPG in Apache\Stats\Maps. 
+Free disk space calc was incorrect, but the display was correct.  If disk space gets < 1M bytes, any Opensim processes will freeze.  If you free up disk space, they will unsuspend.
 TOS pages did not work as expected.  They also have a better look that matches the B&W themes.
-
-The subsystem for event handling and processing of Bootups, backups, loading of OARS, and making the 169 region block has been rewritten and is much more efficient/reliable. Ditto for trees and plants modules.
-
-There are 169 free regions.  All of them have been renamed by dropping the Authors name. The credits are both in DreamGrid and in the menu system.  The sizes 1X1 shows, too, and you can in 2X2 or 3x3 to get a specific size.
-
+The subsystem for event handling and processing of Bootups, backups, loading of OARS, and making the 160 region block has been rewritten and is much more efficient/reliable. Ditto for trees and plants modules.
+There are 158 free regions now due to some de-duplication. All of them have been renamed by dropping Authors name. The credits are both in DreamGrid and in the menu system.
 Fixed up the JavaScript maps to be centered.  These are in Setting->Maps.
-
 Visitor maps are accurate for placement of the avatars with larger symbols and better color choices.
-|
 Added a Backup All IARs to the AutoBackup system.  This will FILL YOUR HARD DISK if you have a large grid.  Default is OFF. It may be wiser to run this manually in the Content menu.
-
 Text to Speech supports Ad-hoc speech to Wav and Mp3 files.  This is currently a Help->Debug option. You add lines of text to the debug window, set the switch to True, and select Text to Speech in the Pulldown.   The files will appear in Apache\htdocs\Stats\TTS as 44.1Khz stereo wav files that can be uploaded, and as MP3 files that can be streamed into Opensim via MOAP.  F:Hello will say hello in a female voice, and M:Goodbye will say Goodbye in a male voice.  See Help->Debug for instructions.
-
 Endless Land and Sea is still disabled for more testing. It will be back.
 
 V4.82
@@ -56,7 +50,7 @@ Text To Speech has the ability to make Male and Female Wav files you can play in
 V4.8
 Fixed the "extra welcome region" bug.  Obvious bug was not obvious. But cannot be unseen once seen.
 Default Welcome region cannot be Smart Boot enabled.
-Help  loads once the first time you view each page. 
+Help normally loads once the first time you view each page. 
 You can now export the Region list to a CSV list for use in Excel or Google Sheets.
 Many performance tweaks, too many to mention. Startup of the app should be 2X faster.
 
@@ -623,8 +617,7 @@ V3.8 Release
 
 V3.799
 XMLRPC is deprecated.
-
-prevented you from adding a region and restarting it. Now adds Region port to the end of the list
+MaxPort prevented you from adding a region and restarting it. Now adds Region port to the end of the list
 Save IAR does no longer ask for passwords.
 Server 2019 C++ Service Pack added.
 
@@ -1888,29 +1881,3 @@ Modules:
  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically with a timer. If no avatars are in the region, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the default.
  - Birds Module by jonc and Jak Daniels: 
 
-There is an IAR called !OpensimBirds.iar’ in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2. Type this onto the region console:
-
-birds-prim SeaGull1 <enter> (or use SeaGull2, whichever bird you have put out)
-birds-start<enter>
-
- You should see a flock of birds fly around you and gather into a flock. 
-
- To make the birds auto fly, edit Outworldzfiles\Opensim\bin\startup_commands.txt.example and add the same commands. Save the file as "startup_commands.txt" and restart the system. Your birds will start to fly immediately. This is System-Wide feature. To make it per-region, move the Birds.ini file into Opensim\bin\Regions\<Groupname>\<SomeRegionName>.
-
-Console commands:
-
-birds-start - Start Birds Flocking to region Welcome
-birds-enable - Enable Birds Flocking to region Welcome
-birds-disable - Disable Birds Flocking to region Welcome
-birds-size <num> - Adjust the size of the flock to region Welcome
-birds-prim <name> - Set the prim used for each bird to that passed in to region Welcome
-birds-speed <num> - Set the maximum velocity each bird may achieve to region Welcome
-birds-force <num> - Set the maximum force each bird may accelerate to region Welcome
-birds-distance <num> - Set the maximum distance that other birds are to be considered in the same flock as us to region Welcome
-birds-separation <num> - How far away from other birds we would like to stay to region Welcome
-birds-tolerance <num> - How close to the edges of things can we get without being worried to region Welcome
-birds-stats - Show birds stats to region Welcome
-birds-framerate <num> - [debugging] only update birds every <num> frames to region Welcome
-
-Bird Module Author: https://github.com/jonc
-For more information, see https://github.com/JakDaniels/OpenSimBirds
