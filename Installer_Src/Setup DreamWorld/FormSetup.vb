@@ -2795,6 +2795,7 @@ Public Class FormSetup
             Chat2Speech()               ' speak of the devil
             RestartDOSboxes()
             ScanAgents()                ' update agent count
+            CheckForBootedRegions()     ' And see if any booted up
             'Bench.Print("1 second worker ends")
 
             ' 33 ms
@@ -2802,7 +2803,6 @@ Public Class FormSetup
                 ' Bench.Start("5 second worker")
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
-                CheckForBootedRegions()     ' And see if any booted up
                 'Bench.Print("5 second worker ends")
             End If
 
