@@ -2794,6 +2794,7 @@ Public Class FormSetup
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
             RestartDOSboxes()
+            ScanAgents()                ' update agent count
             'Bench.Print("1 second worker ends")
 
             ' 33 ms
@@ -2801,7 +2802,6 @@ Public Class FormSetup
                 ' Bench.Start("5 second worker")
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
-                ScanAgents() ' update agent count
                 CheckForBootedRegions()     ' And see if any booted up
                 'Bench.Print("5 second worker ends")
             End If

@@ -939,6 +939,9 @@ Public Module MysqlInterface
     Public Sub MysqlSetRegionFlagOnline(RegionUUID As String)
 
         Dim flag = GetFlag(RegionUUID)
+        ' no need to update if its enabled
+        If flag > 0 And flag Mod 20 = 0 Then Return
+
         flag += 20
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -1307,10 +1310,9 @@ Public Module MysqlInterface
         Using Flags As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Flags.Open()
-                Dim stm = "select flags from where RegionID=@UUID"
+                Dim stm = "select flags from regions where uuid=@UUID"
                 Using cmd = New MySqlCommand(stm, Flags)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
-
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             Val = reader.GetInt32("flags")
