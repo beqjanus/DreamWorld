@@ -112,7 +112,7 @@ Module SmartStart
 
     Public Function RegionListHTML(Settings As MySettings, Data As String) As String
 
-        ' TODO add paramter for start and length
+        ' TODO add parameter for start and length
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
