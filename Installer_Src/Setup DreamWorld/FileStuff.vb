@@ -10,9 +10,11 @@ Imports System.Threading
 
 Module FileStuff
 
+    ''' <summary>
+    ''' ' Delete old code and files
+    ''' </summary>
     Public Sub Cleanup() ' old files
 
-        ' cleanup old code and files
         Dim ToDrop = New List(Of String) From {
             "fw.bat",
             "Downloader.exe",
@@ -50,7 +52,8 @@ Module FileStuff
         "\OutworldzFiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
         "\OutworldzFiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
         "\OutworldzFiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "\OutworldzFiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
+        "\OutworldzFiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
+        "\OutworldzFiles\Opensim\eZombie" ' Non working library
         }
 
         If FormSetup.PropKillSource Then
@@ -72,6 +75,8 @@ Module FileStuff
         CleanPDB()  ' drop all opensim debug
 
         DeleteDirectoryTmp()
+        DeleteOldRtfFiles() ' Get rid of RTF Help files since we moved to .html
+        ClearOldLogFiles() ' clear log files
 
     End Sub
 
@@ -181,6 +186,9 @@ Module FileStuff
         Next
     End Sub
 
+    ''' <summary>
+    ''' Make the two folders in Wifi and Wifi bin for Diva
+    ''' </summary>
     Public Sub CopyWifi()
 
         Dim Path As String = ""
@@ -312,8 +320,10 @@ Module FileStuff
 
     End Sub
 
-    Sub DeleteOldFiles()
-
+    ''' <summary>
+    ''' Get rid of RTF Help files since we moved to .html
+    ''' </summary>
+    Sub DeleteOldRtfFiles()
         Try
             Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help")
             Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)

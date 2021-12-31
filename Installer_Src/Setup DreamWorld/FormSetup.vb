@@ -629,8 +629,6 @@ Public Class FormSetup
         TimerBusy = 0
 
         PropOpensimIsRunning() = False
-        Settings.SafeShutdown = True
-
         PropUpdateView = True ' make form refresh
 
         Settings.SaveSettings()
@@ -698,10 +696,12 @@ Public Class FormSetup
 
         Init(False)
 
+        OpenPorts()
+
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
         Grep(ini, Settings.LogLevel)
 
-        If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
+        If Not Settings.DeregisteredOnce Then
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
@@ -740,18 +740,12 @@ Public Class FormSetup
             l.Remove(UUID)
         End If
 
-        Sleep(5000)
         If Settings.GraphVisible Then
             G()
         End If
 
         If Settings.RegionListVisible Then
             ShowRegionform()
-        End If
-
-        Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
-        If RunningTasks.Length = 0 Then
-            Settings.SafeShutdown = True
         End If
 
         ' Boot them up
@@ -797,7 +791,6 @@ Public Class FormSetup
 
         Next
 
-        Settings.SafeShutdown() = False
         Settings.SaveSettings()
 
         Buttons(StopButton)
@@ -1754,37 +1747,44 @@ Public Class FormSetup
         TextPrint(My.Resources.Getting_regions_word)
 
         PropChangedRegionSettings = True
-        Init(True)
+
+        CheckDefaultPorts()
+
+        Init(True)  ' read all region data
 
         UpgradeDotNet()
         Application.DoEvents()
+
+        ' Boot RAM Query
         Dim wql = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
 
-        CopyWifi()
+        CopyWifi() 'Make the two folders in Wifi and Wifi bin for Diva
+
         Cleanup() ' old files thread
+
+        'UPNP create if we need it
         PropMyUPnpMap = New UPnp()
-        DeleteOldFiles()
 
         TextPrint(My.Resources.Starting_WebServer_word)
-        'must start after region Class Is instantiated
+
+        ' Boot Port 8001 Server
         PropWebServer = NetServer.GetWebServer
         PropWebServer.StartServer(Settings.CurrentDirectory, Settings)
         Application.DoEvents()
+
+        ' Ruin Diagnostics
         CheckDiagPort()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
-        ' WebUI
+        ' WebUI Menu
         ViewWebUI.Visible = Settings.WifiEnabled
 
         PropOpensimIsRunning() = False ' true when opensim is running
-        Application.DoEvents()
-
-        ClearOldLogFiles() ' clear log files
 
         CheckForUpdates()
         Application.DoEvents()
@@ -1798,12 +1798,6 @@ Public Class FormSetup
         If Not IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm")) Then
             CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
         End If
-
-        CheckDefaultPorts()
-        Application.DoEvents()
-
-        TextPrint(My.Resources.Setup_Ports_word)
-        OpenPorts()
 
         Application.DoEvents()
         SetQuickEditOff()
@@ -2305,7 +2299,6 @@ Public Class FormSetup
         PropAborting = True
         StopMysql()
 
-        Settings.SafeShutdown() = True
         Settings.SaveSettings()
 
         TextPrint("Zzzz...")
