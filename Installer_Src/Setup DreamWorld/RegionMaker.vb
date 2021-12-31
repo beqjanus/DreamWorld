@@ -75,19 +75,14 @@ Module RegionMaker
 
     Public Function Init(Verbose As Boolean) As Boolean
 
-        Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
-        If RunningTasks.Length = 0 Then
-            Settings.SafeShutdown = True
-        End If
-
-        If GetAllRegions(Verbose) = 0 Then
+        If GetAlreadyUsedPorts() = 0 Then
             CreateRegionStruct("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome", "Welcome")
-            Settings.SafeShutdown = True
             Settings.SaveSettings()
-            If GetAllRegions(Verbose) = 0 Then Return False
         End If
+
+        If GetAllRegions(Verbose) = 0 Then Return False
         TextPrint($"Loaded {CStr(RegionCount)} Regions")
 
         Return CheckOverLap()
@@ -249,11 +244,15 @@ Module RegionMaker
 
     End Function
 
-    Public Sub DeleteRegion(UUID As String)
+    Public Sub DeleteRegion(RegionUUID As String)
 
-        If RegionList.ContainsKey(UUID) Then
+        If RegionList.ContainsKey(RegionUUID) Then
+
+            ReleasePort(Region_Port(RegionUUID))
+            ReleasePort(GroupPort(RegionUUID))
+
             Dim v As Region_data = Nothing
-            Dim unused = RegionList.TryRemove(UUID, v)
+            Dim unused = RegionList.TryRemove(RegionUUID, v)
         End If
 
     End Sub
@@ -636,17 +635,20 @@ Module RegionMaker
                                 ' if not, read them from the INI files.
                                 ' If the iNI files have Nothing, Then  go Max
                                 ' if this is after boot up, use the backed up settings.
-                                ' Adding a new region always uses Max
+                                ' Adding a new region always uses
 
                                 ' Get Next Port
                                 If ThisGroup = 0 Then
-                                    ThisGroup = LargestPort() + 1
+                                    ThisGroup = GetFreePort(uuid)
+                                    Region_Port(uuid) = ThisGroup
                                 End If
 
                                 Dim G = Group_Name(uuid)
                                 If GetHwnd(G) = IntPtr.Zero Then
-                                    Region_Port(uuid) = LargestPort() + 1
-                                    GroupPort(uuid) = ThisGroup
+                                    If Not Region_Port(uuid) = ThisGroup Then
+                                        Region_Port(uuid) = GetFreePort(uuid)
+                                        GroupPort(uuid) = ThisGroup
+                                    End If
 
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  to {fName}", "Port")
                                     Logger("Port", $"Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
@@ -1171,6 +1173,7 @@ Module RegionMaker
         End Get
         Set(ByVal Value As Integer)
             RegionList(uuid)._RegionPort = Value
+
         End Set
     End Property
 

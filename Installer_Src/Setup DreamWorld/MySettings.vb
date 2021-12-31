@@ -1639,15 +1639,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SafeShutdown() As Boolean
-        Get
-            Return CType(GetMySetting("SafeShutdown", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("SafeShutdown", CStr(Value))
-        End Set
-    End Property
-
     Public Property SCAdminPassword() As String
         Get
             Return GetMySetting("SC_AdminPassword", SCAdmin())
