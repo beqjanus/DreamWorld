@@ -5,7 +5,7 @@ Imports System.Speech.Synthesis.VoiceGender
 Module speech
     Public SpeechBusyFlag As Boolean
     Public SpeechList As New Queue(Of String)
-
+    Dim S As New ChatToSpeech
     Public Sub Chat2Speech()
 
         If SpeechList.Count = 0 Then Return
@@ -18,11 +18,11 @@ Module speech
     Private Sub SpeakArrival()
 
         While SpeechList.Count > 0
-            Using S As New ChatToSpeech
-                If Settings.VoiceName = "No Speech" Then Return
-                Dim ProcessString As String = SpeechList.Dequeue
-                S.Speach(ProcessString, False)
-            End Using
+
+            If Settings.VoiceName = "No Speech" Then Return
+            Dim ProcessString As String = SpeechList.Dequeue
+            S.Speach(ProcessString, False)
+
         End While
 
     End Sub
