@@ -101,7 +101,7 @@ Public Class FormDebug
 
         If Command = "Debug LandMaker" Then
             If Value = True Then
-                Dim res = MsgBox("Are you sure?  This makes a LOT of regions!!!! And there is no Undo!", vbYesNo)
+                Dim res = MsgBox("Are you sure?  This makes a LOT of regions! - Make them Smart Boot and Temporary!", vbYesNo)
                 If res = vbYes Then
                     DebugLandMaker = True
                     ProgressPrint("Land making On")
