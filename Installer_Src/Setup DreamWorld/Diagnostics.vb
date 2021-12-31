@@ -102,7 +102,6 @@ Module Diags
         If Not Settings.UPnPEnabled Then
             Return False
         End If
-
         TextPrint(My.Resources.Open_Router_Ports)
 
         Log("UPnP", "Local IP seems to be " & PropMyUPnpMap.LocalIP)
@@ -110,8 +109,8 @@ Module Diags
         Try
 
             If Settings.SCEnable Then
-                'Icecast 8100-8101
 
+                'Icecast 8100-8101
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
@@ -150,9 +149,8 @@ Module Diags
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.UDP, "Icecast1 UDP Public " & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     TextPrint("--> " & My.Resources.Icecast_is_Set & ":UDP:" & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
-
+                Application.DoEvents()
             End If ' IceCast
-            Application.DoEvents()
 
             If Settings.ApacheEnable Then
                 If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
@@ -161,8 +159,9 @@ Module Diags
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Apache TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     TextPrint("--> " & My.Resources.Apache_is_Set & ":TCP:" & Settings.ApachePort.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
+                Application.DoEvents()
             End If
-            Application.DoEvents()
+
             If Not PropOpensimIsRunning() Then Return False
 
             ' 8001 for Diagnostics
