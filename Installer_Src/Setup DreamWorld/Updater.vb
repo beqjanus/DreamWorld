@@ -19,7 +19,7 @@ Module Updater
         Using client As New Net.WebClient ' download client for web pages
             TextPrint(My.Resources.Checking_for_Updates_word)
             Try
-                Update_To_version = client.DownloadString(PropDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
+                Update_To_version = client.DownloadString(PropHttpsDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
             Catch ex As Exception
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return

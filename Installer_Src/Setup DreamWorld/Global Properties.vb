@@ -216,6 +216,13 @@ Module Global_Properties
 
     End Property
 
+    Public ReadOnly Property PropHttpsDomain As String
+        Get
+            Return _httpsDomain
+        End Get
+
+    End Property
+
     Public ReadOnly Property PropMyVersion As String
         Get
             Return _MyVersion

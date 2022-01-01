@@ -18,7 +18,7 @@
 
     Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
 
-        Dim webAddress As String = "https://outworldz.com"
+        Dim webAddress As String = PropHttpsDomain
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -35,7 +35,7 @@
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
 
-        Dim webAddress As String = "https://outworldz.com"
+        Dim webAddress As String = PropHttpsDomain
         Try
             Process.Start(webAddress)
         Catch ex As Exception

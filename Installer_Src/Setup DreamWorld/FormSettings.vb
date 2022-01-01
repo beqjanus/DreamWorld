@@ -151,7 +151,7 @@ Public Class FormSettings
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = PropDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = PropHttpsDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

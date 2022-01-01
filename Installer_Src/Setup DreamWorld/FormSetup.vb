@@ -2041,7 +2041,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
+        Dim webAddress As String = PropHttpsDomain & "/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -2256,7 +2256,7 @@ Public Class FormSetup
 
     Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreFreeIslandsandPartsContentToolStripMenuItem.Click
 
-        Dim webAddress As String = PropDomain & "/cgi/freesculpts.plx"
+        Dim webAddress As String = PropHttpsDomain & "/cgi/freesculpts.plx"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -3095,7 +3095,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        Dim webAddress As String = PropDomain & "/Outworldz_Installer/PortForwarding.htm"
+        Dim webAddress As String = PropHttpsDomain & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -3230,7 +3230,7 @@ Public Class FormSetup
 
     Private Sub FindIARsOnOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindIARsOnOutworldzToolStripMenuItem.Click
 
-        Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
+        Dim webAddress As String = PropHttpsDomain & "/outworldz_installer/IAR"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -3452,7 +3452,7 @@ Public Class FormSetup
 
     Private Sub SearchForOarsAtOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForOarsAtOutworldzToolStripMenuItem.Click
 
-        Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
+        Dim webAddress As String = PropHttpsDomain & "/Outworldz_Installer/OAR"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -3499,7 +3499,7 @@ Public Class FormSetup
 
     Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
 
-        Dim webAddress As String = "https://hyperica.com/Search/"
+        Dim webAddress As String = IO.Path.Combine(PropHttpsDomain, "Search/")
         Try
             Process.Start(webAddress)
         Catch ex As Exception

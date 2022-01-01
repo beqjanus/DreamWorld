@@ -59,7 +59,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
-    <NoWarn>42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <NoWarn>42017,42018,42019,42032,42036</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
@@ -77,7 +77,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
-    <NoWarn>42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <NoWarn>42017,42018,42019,42032,42036</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>
@@ -413,6 +413,12 @@
     <Compile Include="FormFsAssets.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormGlobalMap.Designer.vb">
+      <DependentUpon>FormGlobalMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormGlobalMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormGraphs.Designer.vb">
       <DependentUpon>FormGraphs.vb</DependentUpon>
     </Compile>
@@ -728,6 +734,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBanList.resx">
       <DependentUpon>FormBanList.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
       <DependentUpon>FormCaches.vb</DependentUpon>
@@ -744,6 +751,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormFsAssets.resx">
       <DependentUpon>FormFsAssets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGlobalMap.resx">
+      <DependentUpon>FormGlobalMap.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormGraphs.resx">
       <DependentUpon>FormGraphs.vb</DependentUpon>
@@ -922,7 +932,9 @@
     <EmbeddedResource Include="My Project\Resources.es-MX.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.fa-IR.resx" />
+    <EmbeddedResource Include="My Project\Resources.fa-IR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.fa.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

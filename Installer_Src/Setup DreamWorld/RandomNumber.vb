@@ -18,7 +18,7 @@ Module RandomNumber
         ' by making Generator static, we preserve the same instance '
         ' (i.e., do not create new instances with the same seed over and over) '
         ' between calls '
-        Static Generator = New System.Random()
+        Static Generator As New System.Random()
         Dim r = Generator.Next(Min, Max + 1)
 
         Return CInt(r)

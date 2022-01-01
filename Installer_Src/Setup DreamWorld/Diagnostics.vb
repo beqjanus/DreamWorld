@@ -291,7 +291,7 @@ Module Diags
             ' results See my privacy policy at https://outworldz.com/privacy.htm
 
             TextPrint(My.Resources.Checking_Router_word)
-            Dim Url = PropDomain & "/cgi/probetest.plx" & GetPostData()
+            Dim Url = $"{PropHttpsDomain}/cgi/probetest.plx{GetPostData()}"
             Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
@@ -342,7 +342,7 @@ Module Diags
         Dim result As String = ""
         TextPrint(My.Resources.Checking_LAN_Loopback_word)
         Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
-        Dim weblink = "http://" & Settings.LANIP() & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Dim weblink = $"http://{Settings.LANIP()}:{Settings.DiagnosticPort}/?_TestLoopback={RandomNumber.Random()}"
         Logger("Info", "URL= " & weblink, "Diagnostics")
         Using client As New WebClient
             Try

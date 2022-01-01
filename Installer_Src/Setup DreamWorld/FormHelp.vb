@@ -73,10 +73,8 @@ Public Class FormHelp
 
 #End Region
 
-#Region "Private Methods"
-
     Private Sub DreamgridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DreamgridToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/"
+        Dim webAddress As String = IO.Path.Combine(PropHttpsDomain, "Outworldz_installer/")
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -89,7 +87,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub HomeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HomeToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com"
+        Dim webAddress As String = PropHttpsDomain
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -113,7 +111,7 @@ Public Class FormHelp
 
     Private Sub SourceCodeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SourceCodeToolStripMenuItem.Click
 
-        Dim webAddress As String = "https://github.com/Outworldz/DreamWorld"
+        Dim webAddress As String = "https: //github.com/Outworldz/DreamWorld"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -121,7 +119,5 @@ Public Class FormHelp
         End Try
 
     End Sub
-
-#End Region
 
 End Class

@@ -48,7 +48,7 @@ Module Events
                 Dim Simevent As New Dictionary(Of String, String)
                 Try
                     Using client As New WebClient()
-                        Dim Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & RandomNumber.Random)
+                        Dim Stream = client.OpenRead(PropHttpsDomain() & "/events.txt?r=" & RandomNumber.Random)
                         Using reader = New StreamReader(Stream)
                             Application.DoEvents()
 

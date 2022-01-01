@@ -483,7 +483,7 @@ Module Robust
 
     End Sub
 
-    Private Sub SetupMoney(INI)
+    Private Sub SetupMoney(INI As LoadIni)
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         If Settings.GCG Then
@@ -502,18 +502,18 @@ Module Robust
 
     End Sub
 
-    Private Sub SetupRobustSearchINI(INI)
+    Private Sub SetupRobustSearchINI(INI As LoadIni)
 
         If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
         ElseIf Settings.SearchOptions = Hyperica Then
-            INI.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+            INI.SetIni("LoginService", "SearchURL", PropDomain & "/Search/query.php")
+            INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
         ElseIf Settings.SearchOptions = "Local" Then
             INI.SetIni("LoginService", "SearchURL", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php")
-            INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+            INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
         Else
             INI.SetIni("LoginService", "SearchURL", "")
             INI.SetIni("LoginService", "DestinationGuide", "")

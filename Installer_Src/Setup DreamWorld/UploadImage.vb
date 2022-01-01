@@ -66,7 +66,7 @@ Module UploadImage
 
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
+                Dim str = PropHttpsDomain & "/cgi/UpdateCategory.plx" & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Dump(ex)

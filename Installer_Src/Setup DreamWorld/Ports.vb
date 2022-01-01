@@ -101,7 +101,7 @@ Module Ports
     ''' </summary>
     ''' <param name="Port">Region or Group Port</param>
     ''' <returns>True if it is removed, false if it fails to be removed</returns>
-    Public Function ReleasePort(Port As Integer)
+    Public Function ReleasePort(Port As Integer) As Boolean
         If RegionPortList.ContainsKey(Port) Then
             Dim RegionUUID As String = ""
             Return RegionPortList.TryRemove(Port, RegionUUID)

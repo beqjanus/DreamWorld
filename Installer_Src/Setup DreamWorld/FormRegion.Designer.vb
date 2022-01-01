@@ -955,7 +955,7 @@ Partial Class FormRegion
         Me.Hyperica.Size = New System.Drawing.Size(106, 13)
         Me.Hyperica.TabIndex = 3
         Me.Hyperica.TabStop = True
-        Me.Hyperica.Text = "https://hyperica.com"
+        Me.Hyperica.Text = ""
         '
         'APIKey
         '

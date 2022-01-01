@@ -68,6 +68,12 @@ Public Class FormPublicity
             If i.ToString.Length > 0 Then category += CStr(i) & ","
         Next
 
+        GroupBoxPhoto.Text = My.Resources.Photo_Word
+        GDPRCheckBox.Text = My.Resources.PublishToOutworldz
+        GroupBoxCategory.Text = My.Resources.Category_word
+        GroupBoxDescription.Text = My.Resources.Description_word
+        ViewOutworldz.Text = My.Resources.View_word
+
         Settings.Categories = category
 
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
@@ -81,14 +87,14 @@ Public Class FormPublicity
     Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         GDPRCheckBox.Text = Global.Outworldz.My.Resources.Publish_grid
-        GroupBox1.Text = Global.Outworldz.My.Resources.Category_word
-        GroupBox11.Text = Global.Outworldz.My.Resources.Photo_Word
-        GroupBox2.Text = Global.Outworldz.My.Resources.Description_word
+        GroupBoxCategory.Text = Global.Outworldz.My.Resources.Category_word
+        GroupBoxPhoto.Text = Global.Outworldz.My.Resources.Photo_Word
+        GroupBoxDescription.Text = Global.Outworldz.My.Resources.Description_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         Text = Global.Outworldz.My.Resources.Publicity_Word
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        ViewHyperica.Text = Global.Outworldz.My.Resources.View_word
+        ViewOutworldz.Text = Global.Outworldz.My.Resources.View_word
 
         SetScreen()
 
@@ -127,14 +133,15 @@ Public Class FormPublicity
 
 #Region "Clicks"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewHyperica.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewOutworldz.Click
 
-        Dim webAddress As String = "https://hyperica.com"
+        Dim webAddress As String = IO.Path.Combine(PropHttpsDomain, "Hyperica/GridsWide.htm")
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
     End Sub
 
     Private Sub CategoryCheckbox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CategoryCheckbox.SelectedIndexChanged

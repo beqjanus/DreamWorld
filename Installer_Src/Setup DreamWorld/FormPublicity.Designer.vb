@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormPublicity
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,47 +20,47 @@ Partial Class FormPublicity
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPublicity))
-        Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxPhoto = New System.Windows.Forms.GroupBox()
         Me.GDPRCheckBox = New System.Windows.Forms.CheckBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxCategory = New System.Windows.Forms.GroupBox()
         Me.CategoryCheckbox = New System.Windows.Forms.CheckedListBox()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.ViewHyperica = New System.Windows.Forms.Button()
+        Me.GroupBoxDescription = New System.Windows.Forms.GroupBox()
         Me.DescriptionBox = New System.Windows.Forms.TextBox()
-        Me.GroupBox11.SuspendLayout()
+        Me.ViewOutworldz = New System.Windows.Forms.Button()
+        Me.GroupBoxPhoto.SuspendLayout()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.GroupBoxCategory.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox2.SuspendLayout()
+        Me.GroupBoxDescription.SuspendLayout()
         Me.SuspendLayout()
         '
-        'GroupBox11
+        'GroupBoxPhoto
         '
-        Me.GroupBox11.Controls.Add(Me.GDPRCheckBox)
-        Me.GroupBox11.Controls.Add(Me.PictureBox9)
-        Me.GroupBox11.Location = New System.Drawing.Point(12, 29)
-        Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(221, 188)
-        Me.GroupBox11.TabIndex = 3
-        Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = "Photo"
+        Me.GroupBoxPhoto.Controls.Add(Me.GDPRCheckBox)
+        Me.GroupBoxPhoto.Controls.Add(Me.PictureBox9)
+        Me.GroupBoxPhoto.Location = New System.Drawing.Point(12, 29)
+        Me.GroupBoxPhoto.Name = "GroupBoxPhoto"
+        Me.GroupBoxPhoto.Size = New System.Drawing.Size(221, 188)
+        Me.GroupBoxPhoto.TabIndex = 3
+        Me.GroupBoxPhoto.TabStop = False
+        Me.GroupBoxPhoto.Text = "Photo"
         '
         'GDPRCheckBox
         '
         Me.GDPRCheckBox.AutoSize = True
         Me.GDPRCheckBox.Location = New System.Drawing.Point(5, 19)
         Me.GDPRCheckBox.Name = "GDPRCheckBox"
-        Me.GDPRCheckBox.Size = New System.Drawing.Size(162, 17)
+        Me.GDPRCheckBox.Size = New System.Drawing.Size(167, 17)
         Me.GDPRCheckBox.TabIndex = 0
-        Me.GDPRCheckBox.Text = Global.Outworldz.My.Resources.Resources.Publish_grid
+        Me.GDPRCheckBox.Text = "Publish Grid"
         Me.GDPRCheckBox.UseVisualStyleBackColor = True
         '
         'PictureBox9
@@ -91,15 +91,15 @@ Partial Class FormPublicity
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'GroupBox1
+        'GroupBoxCategory
         '
-        Me.GroupBox1.Controls.Add(Me.CategoryCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(239, 29)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(216, 188)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Category"
+        Me.GroupBoxCategory.Controls.Add(Me.CategoryCheckbox)
+        Me.GroupBoxCategory.Location = New System.Drawing.Point(239, 29)
+        Me.GroupBoxCategory.Name = "GroupBoxCategory"
+        Me.GroupBoxCategory.Size = New System.Drawing.Size(216, 188)
+        Me.GroupBoxCategory.TabIndex = 1
+        Me.GroupBoxCategory.TabStop = False
+        Me.GroupBoxCategory.Text = "Category"
         '
         'CategoryCheckbox
         '
@@ -107,7 +107,7 @@ Partial Class FormPublicity
         Me.CategoryCheckbox.Items.AddRange(New Object() {"Adult", "Art", "Charity", "Child Friendly", "Commercial", "Educational", "Education - School", "Education - College", "Experimental", "Fantasy", "Freebies", "Free Land", "Furry", "Hideout", "Hyperport", "Gaming", "LGBT", "Personal", "Newcomer Friendly", "Parks & Nature", "R-Rated", "Rental", "Residential", "Role play", "Romance", "Sandbox", "Sci-Fi", "Science", "Scripting", "Shopping", "Testing", "X-Rated"})
         Me.CategoryCheckbox.Location = New System.Drawing.Point(11, 19)
         Me.CategoryCheckbox.Name = "CategoryCheckbox"
-        Me.CategoryCheckbox.Size = New System.Drawing.Size(204, 139)
+        Me.CategoryCheckbox.Size = New System.Drawing.Size(204, 154)
         Me.CategoryCheckbox.TabIndex = 0
         '
         'FileSystemWatcher1
@@ -115,25 +115,15 @@ Partial Class FormPublicity
         Me.FileSystemWatcher1.EnableRaisingEvents = True
         Me.FileSystemWatcher1.SynchronizingObject = Me
         '
-        'GroupBox2
+        'GroupBoxDescription
         '
-        Me.GroupBox2.Controls.Add(Me.ViewHyperica)
-        Me.GroupBox2.Controls.Add(Me.DescriptionBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(459, 28)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(221, 189)
-        Me.GroupBox2.TabIndex = 2
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Description"
-        '
-        'ViewHyperica
-        '
-        Me.ViewHyperica.Location = New System.Drawing.Point(41, 155)
-        Me.ViewHyperica.Name = "ViewHyperica"
-        Me.ViewHyperica.Size = New System.Drawing.Size(117, 23)
-        Me.ViewHyperica.TabIndex = 1
-        Me.ViewHyperica.Text = "View"
-        Me.ViewHyperica.UseVisualStyleBackColor = True
+        Me.GroupBoxDescription.Controls.Add(Me.DescriptionBox)
+        Me.GroupBoxDescription.Location = New System.Drawing.Point(459, 28)
+        Me.GroupBoxDescription.Name = "GroupBoxDescription"
+        Me.GroupBoxDescription.Size = New System.Drawing.Size(221, 189)
+        Me.GroupBoxDescription.TabIndex = 2
+        Me.GroupBoxDescription.TabStop = False
+        Me.GroupBoxDescription.Text = "Description"
         '
         'DescriptionBox
         '
@@ -141,46 +131,56 @@ Partial Class FormPublicity
         Me.DescriptionBox.Multiline = True
         Me.DescriptionBox.Name = "DescriptionBox"
         Me.DescriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DescriptionBox.Size = New System.Drawing.Size(215, 129)
+        Me.DescriptionBox.Size = New System.Drawing.Size(215, 153)
         Me.DescriptionBox.TabIndex = 0
+        '
+        'ViewOutworldz
+        '
+        Me.ViewOutworldz.Location = New System.Drawing.Point(462, 223)
+        Me.ViewOutworldz.Name = "ViewOutworldz"
+        Me.ViewOutworldz.Size = New System.Drawing.Size(117, 23)
+        Me.ViewOutworldz.TabIndex = 1
+        Me.ViewOutworldz.Text = "View"
+        Me.ViewOutworldz.UseVisualStyleBackColor = True
         '
         'FormPublicity
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(701, 229)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(701, 257)
+        Me.Controls.Add(Me.ViewOutworldz)
+        Me.Controls.Add(Me.GroupBoxDescription)
+        Me.Controls.Add(Me.GroupBoxCategory)
         Me.Controls.Add(Me.MenuStrip2)
-        Me.Controls.Add(Me.GroupBox11)
+        Me.Controls.Add(Me.GroupBoxPhoto)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
         Me.Text = "Publicity"
-        Me.GroupBox11.ResumeLayout(False)
-        Me.GroupBox11.PerformLayout()
+        Me.GroupBoxPhoto.ResumeLayout(False)
+        Me.GroupBoxPhoto.PerformLayout()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBoxCategory.ResumeLayout(False)
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GroupBoxDescription.ResumeLayout(False)
+        Me.GroupBoxDescription.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents GroupBox11 As GroupBox
+    Friend WithEvents GroupBoxPhoto As GroupBox
     Friend WithEvents GDPRCheckBox As CheckBox
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBoxCategory As GroupBox
     Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBoxDescription As GroupBox
     Friend WithEvents DescriptionBox As TextBox
     Friend WithEvents CategoryCheckbox As CheckedListBox
-    Friend WithEvents ViewHyperica As Button
+    Friend WithEvents ViewOutworldz As Button
 End Class

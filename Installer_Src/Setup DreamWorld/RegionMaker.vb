@@ -2473,8 +2473,8 @@ Module RegionMaker
 
         ElseIf Settings.SearchOptions = Hyperica Then
 
-            INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-            Dim SearchURL = "http://hyperica.com/Search/query.php"
+            INI.SetIni("DataSnapshot", "data_services", PropDomain & "/Search/register.php")
+            Dim SearchURL = PropDomain & "/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))

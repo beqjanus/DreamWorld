@@ -7,6 +7,7 @@
 
 Imports System.IO
 Imports System.Threading
+Imports System.Runtime.InteropServices
 
 Module WindowHandlers
 

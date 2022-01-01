@@ -16,7 +16,7 @@
         Using client As New Net.WebClient ' download client for web pages
             TextPrint(My.Resources.Checking_for_Updates_word)
             Try
-                RichTextBox3.Text = client.DownloadString(PropDomain & "/Outworldz_Installer/Revisions.txt")
+                RichTextBox3.Text = client.DownloadString(PropHttpsDomain & "/Outworldz_Installer/Revisions.txt")
             Catch ex As Exception
                 RichTextBox3.Text = str
                 Return

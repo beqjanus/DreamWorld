@@ -11,7 +11,7 @@ Public Class FormDiva
 
 #Region "Private Fields"
 
-    Dim _SaveNeeded = False
+    Dim _SaveNeeded As Boolean
     Dim initted As Boolean
     Private path As String = ""
     Dim setpassword As Boolean

@@ -28,7 +28,7 @@
                 outputFile.WriteLine("********END*************")
             End Using
 
-            Dim CGI = New Uri(_Domain & "/cgi/uploadcrash.plx")
+            Dim CGI = New Uri(PropHttpsDomain & "/cgi/uploadcrash.plx")
             PostContentUploadFile(path, CGI)
             DeleteFile(path)
         Catch

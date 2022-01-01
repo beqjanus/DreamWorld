@@ -667,7 +667,7 @@
     <value>انقر لإعداد المنافذ الخاصة بك</value>
   </data>
   <data name="Click_Publicity" xml:space="preserve">
-    <value>انقر لإعداد الدعاية في Hyperica.com</value>
+    <value></value>
   </data>
   <data name="Click_Regions" xml:space="preserve">
     <value>انقر لإعداد خيارات المنطقة الأساسية.</value>
@@ -2266,7 +2266,7 @@
     <value>صورة عامة</value>
   </data>
   <data name="Publish_grid" xml:space="preserve">
-    <value>انشر الشبكة إلى Hyperica.com</value>
+    <value></value>
   </data>
   <data name="Publish_Items" xml:space="preserve">
     <value>نشر العناصر المحددة للبحث</value>

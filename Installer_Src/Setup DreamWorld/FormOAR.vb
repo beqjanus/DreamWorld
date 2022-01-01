@@ -218,7 +218,7 @@ Public Class FormOAR
 
         Try
             Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
-            File = PropDomain & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+            File = $"{PropHttpsDomain}/Outworldz_Installer/{_type}/{File}" 'make a real URL
             If File.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.OrdinalIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.OrdinalIgnoreCase) Then
@@ -423,7 +423,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = PropDomain & "/outworldz_installer/JSON/" & _type & ".json"
+                Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}.json"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
@@ -501,7 +501,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As New Uri(PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As New Uri($"{PropHttpsDomain}/Outworldz_installer/{_type}/{item.Photo}")
 #Disable Warning CA2000
                         img = GetImageFromURL(link)
 #Enable Warning CA2000

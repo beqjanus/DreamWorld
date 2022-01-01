@@ -1925,7 +1925,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to set up Publicity at Hyperica.com.
+        '''  Looks up a localized string similar to Click to set up Publicity.
         '''</summary>
         Friend ReadOnly Property Click_Publicity() As String
             Get
@@ -4373,6 +4373,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Global Map.
+        '''</summary>
+        Friend ReadOnly Property Global_Map() As String
+            Get
+                Return ResourceManager.GetString("Global_Map", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Global Settings.
         '''</summary>
         Friend ReadOnly Property Global_Settings_word() As String
@@ -5928,6 +5937,15 @@ Namespace My.Resources
         Friend ReadOnly Property Make_a_backup_word() As String
             Get
                 Return ResourceManager.GetString("Make_a_backup_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show Global Map.
+        '''</summary>
+        Friend ReadOnly Property MakeNewMap() As String
+            Get
+                Return ResourceManager.GetString("MakeNewMap", resourceCulture)
             End Get
         End Property
         
@@ -8019,7 +8037,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Publish Grid to Hyperica.com.
+        '''  Looks up a localized string similar to Publish Grid.
         '''</summary>
         Friend ReadOnly Property Publish_grid() As String
             Get
@@ -8033,6 +8051,15 @@ Namespace My.Resources
         Friend ReadOnly Property Publish_Items() As String
             Get
                 Return ResourceManager.GetString("Publish_Items", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Publish To Outworldz.
+        '''</summary>
+        Friend ReadOnly Property PublishToOutworldz() As String
+            Get
+                Return ResourceManager.GetString("PublishToOutworldz", resourceCulture)
             End Get
         End Property
         
