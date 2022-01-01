@@ -8,6 +8,7 @@ Partial Class FormRegionlist
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             colsize.Dispose()
+            FormRegion.Dispose()
 
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()

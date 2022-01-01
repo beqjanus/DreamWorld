@@ -12,6 +12,8 @@ Imports System.Data
 
 Public Class FormRegionlist
 
+    Dim RegionForm As New FormRegion
+
 #Region "Declarations"
 
     Private ReadOnly colsize As New ClassScreenpos("Region List")
@@ -1126,9 +1128,9 @@ Public Class FormRegionlist
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
+
+
+
         RegionForm.BringToFront()
         RegionForm.Init("")
         RegionForm.Activate()
