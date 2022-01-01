@@ -1743,6 +1743,7 @@ Public Class FormSetup
         AssemblyV = "Assembly version: " + displayableVersion
 
         SetupPerl()
+        SetupPerlModules() ' may require  a restart due to path
 
         TextPrint(My.Resources.Getting_regions_word)
 
@@ -1799,10 +1800,14 @@ Public Class FormSetup
             CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
         End If
 
-        Application.DoEvents()
-        SetQuickEditOff()
-        Application.DoEvents()
-        SetLoopback()
+        Using tmp As New ClassQuickedit
+            tmp.SetQuickEditOff()
+        End Using
+
+        Using tmp As New ClassLoopback
+            tmp.SetLoopback()
+        End Using
+
         Application.DoEvents()
 
         'mnuShow shows the DOS box for Opensimulator
@@ -1917,6 +1922,11 @@ Public Class FormSetup
         End If
         Settings.VisitorsEnabled = True
         Settings.SaveSettings()
+        Sleep(1000)
+
+    End Sub
+
+    Private Sub SetupPerlModules()
 
         ' needed for DBIX::Class in util.pm
         If Settings.VisitorsEnabledModules = False Then
@@ -1944,14 +1954,14 @@ Public Class FormSetup
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
+                    Settings.VisitorsEnabledModules = True
+                    Settings.SaveSettings()
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
             End Using
-            Settings.VisitorsEnabledModules = True
-            Settings.SaveSettings()
-        End If
 
+        End If
     End Sub
 
 #End Region
@@ -2075,35 +2085,6 @@ Public Class FormSetup
                 BreakPoint.Dump(ex)
             End Try
         End Using
-
-    End Sub
-
-#End Region
-
-#Region "Loopback"
-
-    Private Shared Sub SetLoopback()
-
-        Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
-        For Each adapter As NetworkInterface In Adapters
-            Diagnostics.Debug.Print(adapter.Name)
-
-            If adapter.Name = "Loopback" Then
-                TextPrint(My.Resources.Setting_Loopback)
-                Using LoopbackProcess As New Process
-                    LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    LoopbackProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "NAT_Loopback_Tool.bat")
-                    LoopbackProcess.StartInfo.CreateNoWindow = True
-                    LoopbackProcess.StartInfo.Arguments = "Loopback"
-                    LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                    Try
-                        LoopbackProcess.Start()
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
-                End Using
-            End If
-        Next
 
     End Sub
 
