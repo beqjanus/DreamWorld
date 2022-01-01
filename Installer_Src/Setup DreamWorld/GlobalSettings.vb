@@ -22,7 +22,7 @@ Module GlobalSettings
     Public Const OsgridServer As String = "OsGrid"
     Public Const RegionServerName As String = "Region"
     Public Const RobustServerName As String = "Robust"
-    Public ApacheRevision As String = "2.4.46"
+    Public ApacheRevision As String = "2.4.52-64"
     Public AssemblyV As String
     Public MySqlRev As String = "5.6.50"
 
