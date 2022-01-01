@@ -12,8 +12,9 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
-    ReadOnly s1 = New SpeechSynthesizer()
+    Private ReadOnly Synth As New SpeechSynthesizer()
     Private initted As Boolean
+    Private RegionForm As New FormRegion
 
 #Region "ScreenSize"
 
@@ -48,9 +49,6 @@ Public Class FormRegions
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
         RegionForm.Init("")
         RegionForm.Activate()
         RegionForm.Visible = True
@@ -123,6 +121,8 @@ Public Class FormRegions
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+        Synth.Dispose()
+        RegionForm.Dispose()
         Settings.SaveSettings()
     End Sub
 
@@ -159,7 +159,7 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
-        For Each voice In CType(s1.GetInstalledVoices(), IEnumerable(Of Object))
+        For Each voice In CType(Synth.GetInstalledVoices(), IEnumerable(Of Object))
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
@@ -255,7 +255,7 @@ Public Class FormRegions
         Settings.SaveSettings()
         If selected = "No Speech" Then Return
         Try
-            s1.SelectVoice(selected)
+            Synth.SelectVoice(selected)
             Using S As New ChatToSpeech
                 S.Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
             End Using
