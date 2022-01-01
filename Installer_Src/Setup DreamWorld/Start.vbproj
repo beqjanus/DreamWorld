@@ -337,6 +337,7 @@
     <Compile Include="Birds.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassIni.vb" />
+    <Compile Include="ClassLoopback.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Disk.vb" />
     <Compile Include="Events.vb" />
@@ -651,7 +652,7 @@
     <Compile Include="Ports.vb" />
     <Compile Include="ProcessExtension.vb" />
     <Compile Include="PublicIP.vb" />
-    <Compile Include="Quickedit.vb" />
+    <Compile Include="ClassQuickedit.vb" />
     <Compile Include="RandomNumber.vb" />
     <Compile Include="Robust.vb" />
     <Compile Include="RPC.vb" />

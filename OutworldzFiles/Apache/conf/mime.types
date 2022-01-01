@@ -120,8 +120,7 @@ application/font-woff				woff
 application/gml+xml				gml
 application/gpx+xml				gpx
 application/gxf					gxf
-application/x-gzip    oar
-application/x-gzip    iar
+# application/gzip
 # application/h224
 # application/held+xml
 # application/http
@@ -220,7 +219,7 @@ application/mxf					mxf
 # application/nss
 # application/ocsp-request
 # application/ocsp-response
-application/octet-stream bin dms lrf mar so dist distz pkg bpk dump elc deploy 
+application/octet-stream	bin dms lrf mar so dist distz pkg bpk dump elc deploy
 application/oda					oda
 # application/odx
 application/oebps-package+xml			opf
@@ -1322,7 +1321,7 @@ application/x-sv4cpio				sv4cpio
 application/x-sv4crc				sv4crc
 application/x-t3vm-image			t3
 application/x-tads				gam
-application/x-tar				tar 
+application/x-tar				tar
 application/x-tcl				tcl
 application/x-tex				tex
 application/x-tex-tfm				tfm
