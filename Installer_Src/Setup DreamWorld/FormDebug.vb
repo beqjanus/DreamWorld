@@ -114,6 +114,9 @@ Public Class FormDebug
         ElseIf Command = My.Resources.MakeVoices Then
             MakeSpeech()
 
+        ElseIf Command = My.Resources.MakeNewMap Then
+            MakeMap()
+
         ElseIf Command = My.Resources.Benchmark Then
             Benchmark()
 
@@ -230,10 +233,26 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
         ComboBox1.Items.Add("Debug LandMaker")
+        ComboBox1.Items.Add(My.Resources.MakeNewMap)
 
         SetScreen()
 
         HelpOnce("Debug")
+
+    End Sub
+
+    Private Sub MakeMap()
+
+        Try
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim NewMap = New FormGlobalMap
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            NewMap.Show()
+            NewMap.Activate()
+            NewMap.Select()
+            NewMap.BringToFront()
+        Catch
+        End Try
 
     End Sub
 
