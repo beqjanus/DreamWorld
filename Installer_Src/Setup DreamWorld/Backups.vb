@@ -15,7 +15,6 @@ Public Class Backups
     Private _initted As Boolean
     Private _startDate As Date
     Private _WebThread1 As Thread
-    Private _WebThread2 As Thread
     Private _WebThread3 As Thread
 
     Private Shared Sub Break(msg As String)
@@ -196,7 +195,7 @@ Public Class Backups
 
     End Sub
 
-    Private Sub BackupFsassets()
+    Private Shared Sub BackupFsassets()
 
         If Settings.BackupFSAssets Then
 

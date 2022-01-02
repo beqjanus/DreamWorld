@@ -27,6 +27,7 @@
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")>
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
 
         Throw New System.Exception("A Test Exception has occurred.")

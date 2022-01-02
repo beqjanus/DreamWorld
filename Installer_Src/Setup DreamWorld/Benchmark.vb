@@ -19,14 +19,14 @@
 
     End Sub
 
-    Public Sub Start(val As String)
+    Public Sub Start(Name As String)
 
         _stopWatch = New Stopwatch()
         _stopWatch.Start()
         If Settings.LogBenchmarks Then
-            Logger("Benchmark", val, "Benchmark")
+            Logger("Benchmark", Name, "Benchmark")
         Else
-            Debug.Print("Benchmark:" & val)
+            Debug.Print("Benchmark:" & Name)
         End If
 
     End Sub

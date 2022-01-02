@@ -51,7 +51,7 @@ Public Class NetServer
 
     End Sub
 
-    Public Sub StopWebServer()
+    Public Sub StopWebserver()
 
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Stopping_Webserver)
         listen = False

@@ -51,7 +51,7 @@
 
         Select Case Settings.SearchOptions
             Case ""
-                RadioButton2.Checked = True
+                NoneButton.Checked = True
             Case JOpensim
                 JOpensimRadioButton.Checked = True
             Case "Local"
@@ -96,9 +96,9 @@
 
     End Sub
 
-    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles NoneButton.CheckedChanged
 
-        If RadioButton2.Checked Then
+        If NoneButton.Checked Then
             Settings.SearchOptions = ""
             Settings.SaveSettings()
         End If

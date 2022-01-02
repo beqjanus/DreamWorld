@@ -13,43 +13,16 @@ Imports IniParser.Model
 
 Public Class LoadIni
 
+    Private ReadOnly _parser As FileIniDataParser
+    Private ReadOnly _SettingsData As IniParser.Model.IniData
     Private _encoding As System.Text.Encoding
     Private _filename As String
-    Private ReadOnly _parser As FileIniDataParser
     Private _sep As String
-    Private ReadOnly _SettingsData As IniParser.Model.IniData
-
-    Public Property Filename As String
-        Get
-            Return _filename
-        End Get
-        Set(value As String)
-            _filename = value
-        End Set
-    End Property
-
-    Public Property Encoding As System.Text.Encoding
-        Get
-            Return _encoding
-        End Get
-        Set(value As System.Text.Encoding)
-            _encoding = value
-        End Set
-    End Property
-
-    Public Property Sep As String
-        Get
-            Return _sep
-        End Get
-        Set(value As String)
-            _sep = value
-        End Set
-    End Property
 
     Public Sub New(File As String, arg As String, encoding As System.Text.Encoding)
 
         If File Is Nothing Then Return
-        Filename = File
+        FileName = File
         If arg Is Nothing Then Return
         If File.Contains("\Region\") Then CheckINI()
         Sep = arg
@@ -63,6 +36,33 @@ Public Class LoadIni
         _SettingsData = ReadINIFile()
 
     End Sub
+
+    Public Property Encoding As System.Text.Encoding
+        Get
+            Return _encoding
+        End Get
+        Set(value As System.Text.Encoding)
+            _encoding = value
+        End Set
+    End Property
+
+    Public Property FileName As String
+        Get
+            Return _filename
+        End Get
+        Set(value As String)
+            _filename = value
+        End Set
+    End Property
+
+    Public Property Sep As String
+        Get
+            Return _sep
+        End Get
+        Set(value As String)
+            _sep = value
+        End Set
+    End Property
 
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
@@ -113,7 +113,7 @@ Public Class LoadIni
         Dim Retry As Integer = 10 ' 1 sec
         While Retry > 0
             Try
-                _parser.WriteFile(Filename, _SettingsData, Encoding)
+                _parser.WriteFile(FileName, _SettingsData, Encoding)
                 Retry = 0
             Catch ex As Exception
                 BreakPoint.Print("Error:" + ex.Message)
@@ -150,9 +150,9 @@ Public Class LoadIni
 
         Dim c As Integer
         Dim RepairedLine As String = ""
-        If Not File.Exists(Filename) Then Return ' bug 39914812
+        If Not File.Exists(FileName) Then Return ' bug 39914812
 
-        Using Reader As New System.IO.StreamReader(Filename)
+        Using Reader As New System.IO.StreamReader(FileName)
             While Not Reader.EndOfStream
                 Dim line As String = Reader.ReadLine
                 Dim pattern = New Regex("^\[.*?\]")
@@ -172,9 +172,9 @@ Public Class LoadIni
         Try
             If c > 1 Then
                 Sleep(100)
-                FileStuff.DeleteFile(Filename)
+                FileStuff.DeleteFile(FileName)
                 Sleep(100)
-                Using Writer As New StreamWriter(Filename, False)
+                Using Writer As New StreamWriter(FileName, False)
                     Writer.Write(RepairedLine)
                 End Using
             End If
@@ -188,7 +188,7 @@ Public Class LoadIni
         Dim waiting As Integer = 10 ' 1 sec
         While waiting > 0
             Try
-                Dim Data As IniData = _parser.ReadFile(Filename, Encoding)
+                Dim Data As IniData = _parser.ReadFile(FileName, Encoding)
                 Return Data
             Catch ex As Exception
                 waiting -= 1

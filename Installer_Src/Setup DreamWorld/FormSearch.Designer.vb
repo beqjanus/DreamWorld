@@ -24,13 +24,13 @@ Partial Class FormSearch
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormSearch))
         Me.SearchBox = New System.Windows.Forms.GroupBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.LocalButton = New System.Windows.Forms.RadioButton()
+        Me.NoneButton = New System.Windows.Forms.RadioButton()
         Me.JOpensimRadioButton = New System.Windows.Forms.RadioButton()
         Me.HypericaRadioButton = New System.Windows.Forms.RadioButton()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
-        Me.LocalButton = New System.Windows.Forms.RadioButton()
         Me.SearchBox.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -38,7 +38,7 @@ Partial Class FormSearch
         'SearchBox
         '
         Me.SearchBox.Controls.Add(Me.LocalButton)
-        Me.SearchBox.Controls.Add(Me.RadioButton2)
+        Me.SearchBox.Controls.Add(Me.NoneButton)
         Me.SearchBox.Controls.Add(Me.JOpensimRadioButton)
         Me.SearchBox.Controls.Add(Me.HypericaRadioButton)
         Me.SearchBox.Location = New System.Drawing.Point(16, 39)
@@ -50,17 +50,29 @@ Partial Class FormSearch
         Me.SearchBox.TabStop = False
         Me.SearchBox.Text = "Search Options"
         '
-        'RadioButton2
+        'LocalButton
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(22, 33)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(2)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(76, 17)
-        Me.RadioButton2.TabIndex = 0
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "No Search"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.LocalButton.AutoSize = True
+        Me.LocalButton.Location = New System.Drawing.Point(22, 54)
+        Me.LocalButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.LocalButton.Name = "LocalButton"
+        Me.LocalButton.Size = New System.Drawing.Size(88, 17)
+        Me.LocalButton.TabIndex = 3
+        Me.LocalButton.TabStop = True
+        Me.LocalButton.Text = "Local Search"
+        Me.LocalButton.UseVisualStyleBackColor = True
+        '
+        'NoneButton
+        '
+        Me.NoneButton.AutoSize = True
+        Me.NoneButton.Location = New System.Drawing.Point(22, 33)
+        Me.NoneButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.NoneButton.Name = "NoneButton"
+        Me.NoneButton.Size = New System.Drawing.Size(76, 17)
+        Me.NoneButton.TabIndex = 0
+        Me.NoneButton.TabStop = True
+        Me.NoneButton.Text = "No Search"
+        Me.NoneButton.UseVisualStyleBackColor = True
         '
         'JOpensimRadioButton
         '
@@ -111,18 +123,6 @@ Partial Class FormSearch
         Me.ToolStripLabel1.Size = New System.Drawing.Size(32, 28)
         Me.ToolStripLabel1.Text = "Help"
         '
-        'LocalButton
-        '
-        Me.LocalButton.AutoSize = True
-        Me.LocalButton.Location = New System.Drawing.Point(22, 54)
-        Me.LocalButton.Margin = New System.Windows.Forms.Padding(2)
-        Me.LocalButton.Name = "LocalButton"
-        Me.LocalButton.Size = New System.Drawing.Size(88, 17)
-        Me.LocalButton.TabIndex = 3
-        Me.LocalButton.TabStop = True
-        Me.LocalButton.Text = "Local Search"
-        Me.LocalButton.UseVisualStyleBackColor = True
-        '
         'FormSearch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -143,7 +143,7 @@ Partial Class FormSearch
     End Sub
 
     Friend WithEvents SearchBox As GroupBox
-    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents NoneButton As RadioButton
     Friend WithEvents JOpensimRadioButton As RadioButton
     Friend WithEvents HypericaRadioButton As RadioButton
     Friend WithEvents ToolStrip1 As ToolStrip

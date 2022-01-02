@@ -68,7 +68,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Public ReadOnly exitList As New ConcurrentDictionary(Of String, String)
+    Public exitList As New ConcurrentDictionary(Of String, String)
     ReadOnly BackupThread As New Backups
 
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
@@ -256,7 +256,7 @@ Public Class FormSetup
 
     Public Property PropUseIcons As Boolean
 
-    Public Property PropWebServer As NetServer
+    Public Property PropWebserver As NetServer
         Get
             Return ws
         End Get
@@ -956,6 +956,7 @@ Public Class FormSetup
     ''' </summary>
     Public Enum TaskName As Integer
 
+        None = 0
         RPCBackupper = 1        ' run backups via XMLRPC
         TeleportClicked = 2     ' click the teleport button in the region pop up
         LoadOar = 3             ' for Loading a series of OARS
@@ -963,13 +964,13 @@ Public Class FormSetup
         LoadOARContent = 5      ' From the map click
         SaveOneOAR = 6          ' Save this one OAR click
         RebuildTerrain = 7      ' Smart Terrain
-        Save_Terrain = 8        ' Dump one region to disk
+        SaveTerrain = 8        ' Dump one region to disk
         ApplyTerrainEffect = 9 ' Change the terrain
-        Terrain_Load = 10      ' Change one of them
-        Apply_Plant = 11        ' Plant trees
-        Bake_Terrain = 12       ' save it permanently
-        Load_AllFreeOARs = 13   ' the big Kaunas of all oars at once
-        Delete_Tree = 14        ' kill off all trees
+        TerrainLoad = 10      ' Change one of them
+        ApplyPlant = 11        ' Plant trees
+        BakeTerrain = 12       ' save it permanently
+        LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
+        DeleteTree = 14        ' kill off all trees
         Revert = 15             ' revert terrain
         SaveAllIARS = 16        ' save all IARS after making a TEMP region
 
@@ -1023,19 +1024,19 @@ Public Class FormSetup
                     SaveOneOar(RegionUUID, Task)
                 Case TaskName.RebuildTerrain    '7
                     RebuildTerrain(RegionUUID)
-                Case TaskName.Save_Terrain  '8
+                Case TaskName.SaveTerrain  '8
                     Save_Terrain(RegionUUID)
                 Case TaskName.ApplyTerrainEffect    '9
                     ApplyTerrainEffect(RegionUUID)
-                Case TaskName.Terrain_Load       '10
+                Case TaskName.TerrainLoad       '10
                     Load_Save(RegionUUID)
-                Case TaskName.Apply_Plant       '11
+                Case TaskName.ApplyPlant       '11
                     Apply_Plant(RegionUUID)
-                Case TaskName.Bake_Terrain      '12
+                Case TaskName.BakeTerrain      '12
                     Bake_Terrain(RegionUUID)
-                Case TaskName.Load_AllFreeOARs  '13
+                Case TaskName.LoadAllFreeOARs  '13
                     Load_AllFreeOARs(RegionUUID, Task)
-                Case TaskName.Delete_Tree       '14
+                Case TaskName.DeleteTree       '14
                     Delete_Tree(RegionUUID)
                 Case TaskName.Revert             '15
                     Revert(RegionUUID)
@@ -1771,8 +1772,8 @@ Public Class FormSetup
         TextPrint(My.Resources.Starting_WebServer_word)
 
         ' Boot Port 8001 Server
-        PropWebServer = NetServer.GetWebServer
-        PropWebServer.StartServer(Settings.CurrentDirectory, Settings)
+        PropWebserver = NetServer.GetWebServer
+        PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
         Application.DoEvents()
 
         ' Ruin Diagnostics
@@ -2273,7 +2274,7 @@ Public Class FormSetup
         Catch
         End Try
 
-        If PropWebServer IsNot Nothing Then PropWebServer.StopWebServer()
+        If PropWebserver IsNot Nothing Then PropWebserver.StopWebserver()
 
         DeleteOnlineUsers()
 
@@ -2431,7 +2432,7 @@ Public Class FormSetup
 
                 Dim db As String
                 If thing.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains("ROBUST") Then
-                    db = Settings.RobustDataBaseName
+                    db = Settings.RobustDatabaseName
                 Else
                     db = Settings.RegionDBName
                 End If
@@ -2949,10 +2950,10 @@ Public Class FormSetup
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+        If Settings.RegionDBName <> Settings.RobustDatabaseName Then
             Sleep(5000)
             Dim B As New Backups
-            B.BackupSQLDB(Settings.RobustDataBaseName)
+            B.BackupSQLDB(Settings.RobustDatabaseName)
         End If
 
     End Sub

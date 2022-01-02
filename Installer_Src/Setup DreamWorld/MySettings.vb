@@ -817,7 +817,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FlatLandLevel() As Double
+    Public Property FlatlandLevel() As Double
         Get
             Try
                 Return CDbl(GetMySetting("FlatLandLevel", "21"))
@@ -1168,7 +1168,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property LoopBackDiag() As Boolean
+    Public Property LoopbackDiag() As Boolean
         Get
             Return CType(GetMySetting("LoopBackDiag", "True"), Boolean)
         End Get
@@ -1371,7 +1371,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property OutBoundPermissions() As Boolean
+    Public Property OutboundPermissions() As Boolean
         Get
             Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)
         End Get
@@ -1498,7 +1498,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RegionDBUsername() As String
+    Public Property RegionDBUserName() As String
         Get
             Return GetMySetting("RegionDBUsername", "opensimuser")
         End Get
@@ -1594,7 +1594,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RobustDataBaseName() As String
+    Public Property RobustDatabaseName() As String
         Get
             Return GetMySetting("RobustMySqlName", "Robust")
         End Get
@@ -1621,7 +1621,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RobustUsername() As String
+    Public Property RobustUserName() As String
         Get
             Return GetMySetting("RobustMySqlUsername", "robustuser")
         End Get
@@ -2268,7 +2268,7 @@ Public Class MySettings
         & "Data Source=" & RegionServer _
         & ";Database=" & RegionDBName _
         & ";Port=" & CStr(MySqlRegionDBPort) _
-        & ";User ID=" & RegionDBUsername _
+        & ";User ID=" & RegionDBUserName _
         & ";Password=" & RegionDbPassword _
         & ";Old Guids=true;Allow Zero Datetime=true" _
         & ";Connect Timeout=28800;Command Timeout=28800;" & """"
@@ -2280,7 +2280,7 @@ Public Class MySettings
         Return "server=" & RegionServer _
         & ";database=" & RegionDBName _
         & ";port=" & CStr(MySqlRegionDBPort) _
-        & ";user=" & RegionDBUsername _
+        & ";user=" & RegionDBUserName _
         & ";password=" & RegionDbPassword
 
     End Function
@@ -2289,9 +2289,9 @@ Public Class MySettings
 
         Return """" _
             & "Data Source=" & RobustServerIP _
-            & ";Database=" & RobustDataBaseName _
+            & ";Database=" & RobustDatabaseName _
             & ";Port=" & CStr(MySqlRobustDBPort) _
-            & ";User ID=" & RobustUsername _
+            & ";User ID=" & RobustUserName _
             & ";Password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
             & ";Connect Timeout=28800;Command Timeout=28800" & """"
@@ -2301,9 +2301,9 @@ Public Class MySettings
     Public Function RobustMysqlConnection() As String
 
         Return "server=" & RobustServerIP _
-            & ";database=" & RobustDataBaseName _
+            & ";database=" & RobustDatabaseName _
             & ";port=" & CStr(MySqlRobustDBPort) _
-            & ";user=" & RobustUsername _
+            & ";user=" & RobustUserName _
             & ";password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
             & ";Connect Timeout=28800;Command Timeout=28800;"

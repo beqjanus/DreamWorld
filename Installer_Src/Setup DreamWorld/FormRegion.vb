@@ -984,12 +984,12 @@ Public Class FormRegion
 
     ReadOnly WriteLock As New Object
 
-    Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
+    Public Shared Function FileNameIsOK(ByVal FileName As String) As Boolean
         ' check for invalid chars in file name for INI file
-        If fileName Is Nothing Then Return False
+        If FileName Is Nothing Then Return False
         Dim value As Boolean = False
         Try
-            value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
+            value = Not FileName.Intersect(Path.GetInvalidFileNameChars()).Any()
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try

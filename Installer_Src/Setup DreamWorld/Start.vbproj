@@ -100,7 +100,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D7EA8E5F8E6D27B138ECD93811DAA6B02B0BA333</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>6F50813B6D0E1989EC44DC90714269F8404E7AB1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>
@@ -110,7 +110,7 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>Internet</TargetZone>
@@ -125,13 +125,16 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Outworldz.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Outworldz.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.digicert.com</ManifestTimestampUrl>
   </PropertyGroup>
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
@@ -1061,6 +1064,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Outworldz.snk" />
     <None Include="Resources\cubes_yellow.png" />
     <None Include="Resources\cubes_green.png" />
     <None Include="Resources\cube_yellow.png" />

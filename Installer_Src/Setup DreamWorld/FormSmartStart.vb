@@ -522,7 +522,7 @@ Public Class FormSmartStart
         Fern.Text = My.Resources.Fern
         FillSizeLabel.Text = My.Resources.FillSizeLabel
         Flat.Text = My.Resources.Flat
-        FlatLandLevel.Text = CStr(Settings.FlatLandLevel)
+        FlatLandLevel.Text = CStr(Settings.FlatlandLevel)
         GroupBox1.Text = My.Resources.Plants
         GroupBox2.Text = My.Resources.Terrain_word
         GroupBox4.Text = My.Resources.Terrain_word
@@ -908,7 +908,7 @@ Public Class FormSmartStart
 
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                 Dim obj As New TaskObject With {
-                    .TaskName = FormSetup.TaskName.Load_AllFreeOARs,
+                    .TaskName = FormSetup.TaskName.LoadAllFreeOARs,
                     .Command = File
                 }
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
@@ -930,7 +930,7 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
         Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.Terrain_Load,
+                .TaskName = FormSetup.TaskName.TerrainLoad,
                 .Command = ""
             }
         FormSetup.RebootAndRunTask(RegionUUID, Obj)
@@ -1148,7 +1148,7 @@ Public Class FormSmartStart
             If Not RegionEnabled(RegionUUID) Then Continue For
 
             Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.Save_Terrain
+                        .TaskName = FormSetup.TaskName.SaveTerrain
                     }
             FormSetup.RebootAndRunTask(RegionUUID, obj)
         Next
@@ -1174,7 +1174,7 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.Save_Terrain
+                            .TaskName = FormSetup.TaskName.SaveTerrain
                         }
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 
@@ -1239,7 +1239,7 @@ Public Class FormSmartStart
         Dim TerrainName = _TerrainName.Item(_Index)
         TerrainName = TerrainName.Replace(".jpg", ".r32")
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.Terrain_Load,
+                            .TaskName = FormSetup.TaskName.TerrainLoad,
                             .Command = TerrainName
                         }
         FormSetup.RebootAndRunTask(RegionUUID, obj)
@@ -1257,7 +1257,7 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.Apply_Plant
+                            .TaskName = FormSetup.TaskName.ApplyPlant
                         }
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 
@@ -1363,7 +1363,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d\.]")
         FlatLandLevel.Text = digitsOnly.Replace(FlatLandLevel.Text, "")
         If Convert.ToSingle("0" & FlatLandLevel.Text, Globalization.CultureInfo.InvariantCulture) > 100 Then FlatLandLevel.Text = CStr(100)
-        Settings.FlatLandLevel = CDbl("0" & FlatLandLevel.Text)
+        Settings.FlatlandLevel = CDbl("0" & FlatLandLevel.Text)
     End Sub
 
     Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
@@ -1556,7 +1556,7 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.Bake_Terrain
+                            .TaskName = FormSetup.TaskName.BakeTerrain
                         }
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 
@@ -1569,7 +1569,7 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.Delete_Tree
+                            .TaskName = FormSetup.TaskName.DeleteTree
                         }
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 

@@ -1,16 +1,18 @@
-
 REVISIONS FOR DREAMGRID
-This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you're interested in viewing.
+This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
+
+V4.85
+Fixes for a crash and a compiler issue with a 3rd party tool in 4.84.  Saved back into 4.84 so is the same as the 4.84 zip now.
 
 V4.84
+Updated Apache to 2.4.52-64 bit.
 Tweaks to maps and menus in the web server.
-Sometimes a language used in Visitor Maps, Perl, does not load/work for unknown reasons.  It could be a conflict with Git coming first in the system path.  To help troubleshoot this, a batch file “InstallPerlModules.bat” has been added to MSFT_Runtimes folder to re-install the necessary Perl modules. There is no need to run this if Visitor Maps work. See http://www.outworldz.com:8000/Stats/ to get an idea of how these Visitor Stats work.
-
+Sometimes the Visitor Maps language Perl, does not load/work for unknown reasons.  It could be a conflict with Git coming first in the system path.  To help troubleshoot this, a batch file “InstallPerlModules.bat” has been added to MSFT_Runtimes folder to re-install the necessary Perl modules. These modules should auto install on first boot, but may take s seco9nd boot to load.  There is no need to run this batch file if Visitor Maps work. See http://www.outworldz.com:8000/Stats/ to get an idea of how these Visitor Stats work.
 Hyperica.com is gone. I purchased this domain and web site from Maria at Hypergrid Business some years ago to make a map of the Opensimulator World. The functions it used to run have all been moved into Outworldz.com.  These include Global Search and the web crawler that indexes the world.   
 
 V4.83
 Added my To Do list to the Help files.
-Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was being written. Fixed by loading it only at boot. 
+Log4Net would sometimes not work due to conflicts with Opensim loading when the Opensim.exe.config file was written. Fixed by loading it only at boot. 
 Did a speedup for full-sized Visitor Maps. Maps saved as PNG, instead of JPG in Apache\Stats\Maps. 
 Free disk space calc was incorrect, but the display was correct.  If disk space gets < 1M bytes, any Opensim processes will freeze.  If you free up disk space, they will unsuspend.
 TOS pages did not work as expected.  They also have a better look that matches the B&W themes.

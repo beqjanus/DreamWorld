@@ -341,7 +341,7 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub DeRegisterPosition(X As Integer, Y As Integer)
+    Public Sub DeregisterPosition(X As Integer, Y As Integer)
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -690,7 +690,7 @@ Public Module MysqlInterface
                             Dim u = reader.GetString(3)
                             Dim Level = reader.GetInt32(4)
                             Dim c = reader.GetInt32(5)
-                            Dim Birthdate As DateTime = UnixTimeStampToDateTime(c)
+                            Dim Birthdate As DateTime = UnixTimestampToDateTime(c)
                             Dim Age = DateDiff(DateInterval.Day, Birthdate, DateTime.Now)
 
                             '     Debug.Print("{0} {1} {2}", f, l, e)
@@ -938,11 +938,11 @@ Public Module MysqlInterface
 
     Public Sub MysqlSetRegionFlagOnline(RegionUUID As String)
 
-        Dim flag = GetFlag(RegionUUID)
+        Dim RegionFlag = GetFlag(RegionUUID)
         ' no need to update if its enabled
-        If flag > 0 And flag Mod 20 = 0 Then Return
+        If RegionFlag > 0 And RegionFlag Mod 20 = 0 Then Return
 
-        flag += 20
+        RegionFlag += 20
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -950,7 +950,7 @@ Public Module MysqlInterface
 
                 Dim stm = "update robust.regions set flags = @flag where uuid = @UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@flag", flag)
+                    cmd.Parameters.AddWithValue("@flag", RegionFlag)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -1233,11 +1233,11 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Function UnixTimeStampToDateTime(unixTimeStamp As Double) As DateTime
+    Public Function UnixTimestampToDateTime(unixTimestamp As Double) As DateTime
 
         ' Unix time stamp Is seconds past epoch
         Dim dtDateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
-        dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime()
+        dtDateTime = dtDateTime.AddSeconds(unixTimestamp).ToLocalTime()
         Return dtDateTime
 
     End Function

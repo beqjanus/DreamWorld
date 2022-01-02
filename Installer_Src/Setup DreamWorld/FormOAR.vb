@@ -549,7 +549,7 @@ Public Class FormOAR
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Timer1.Interval = 10
+        Timer1.Interval = 1000
         Timer1.Start()
 
     End Sub

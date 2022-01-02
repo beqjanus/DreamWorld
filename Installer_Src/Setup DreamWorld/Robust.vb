@@ -13,7 +13,6 @@ Module Robust
     Private WithEvents RobustProcess As New Process()
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
-    Private _RobustIconStarting As Boolean
     Private _RobustProcID As Integer
 
     Public Property PropRobustExited() As Boolean

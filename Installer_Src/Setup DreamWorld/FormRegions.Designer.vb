@@ -8,6 +8,7 @@ Partial Class FormRegions
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
+                Synth.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)

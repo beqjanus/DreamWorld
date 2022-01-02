@@ -12,22 +12,60 @@ Imports System.Data
 
 Public Class FormRegionlist
 
-    Dim RegionForm As New FormRegion
+#Disable Warning CA2213
 
-#Region "Declarations"
+    '// Constants
+    Const HWND_TOP As Integer = 0
 
+    'Const HWND_TOPMOST As Integer = -1
+    'Const HWND_NO_TOPMOST As Integer = -2
+    Const NOMOVE As Long = &H2
+
+    Const NOSIZE As Long = &H1
     Private ReadOnly colsize As New ClassScreenpos("Region List")
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly SearchArray As New List(Of String)
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private _ImageListSmall As New ImageList
-#Enable Warning CA2213 ' Disposable fields should be disposed
-
+    Dim _order As SortOrder
+    Private _screenPosition As ClassScreenpos
+    Private _SortColumn As Integer
     Private detailsinitted As Boolean
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
+    Dim RegionForm As New FormRegion
+#Enable Warning CS2213
+
+#Region "Declarations"
+
+#Disable Warning CA2213 ' Disposable fields should be disposed
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean
+
+    ' icons image list layout
+    Enum DGICON
+        bootingup = 0
+        shuttingdown = 1
+        up = 2
+        disabled = 3
+        stopped = 4
+        recyclingdown = 5
+        recyclingup = 6
+        warning = 7
+        user1 = 8
+        user2 = 9
+        SmartStartStopped = 10
+        Home = 11
+        HomeOffline = 12
+        Pending = 13
+        Suspended = 14
+        ErrorIcon = 15
+        NoLogon = 16
+        NoError = 17
+        NoEstate = 18
+
+    End Enum
 
     Private Enum ViewType As Integer
         Icons = 1
@@ -39,17 +77,6 @@ Public Class FormRegionlist
 #End Region
 
 #Region "Const"
-
-    '// Constants
-    Const HWND_TOP As Integer = 0
-
-    'Const HWND_TOPMOST As Integer = -1
-    'Const HWND_NO_TOPMOST As Integer = -2
-    Const NOMOVE As Long = &H2
-
-    Const NOSIZE As Long = &H1
-    Dim _order As SortOrder
-    Private _SortColumn As Integer
 
 #End Region
 
@@ -104,50 +131,343 @@ Public Class FormRegionlist
 
 #Region "ScreenSize"
 
-    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ClassScreenpos
+    Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        If (includeHeaders) Then
+            Dim headerValues As IEnumerable(Of String) = sourceTable.Columns.OfType(Of DataColumn).Select(Function(column) QuoteValue(column.ColumnName))
+            writer.WriteLine(String.Join(",", headerValues))
+        End If
 
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
-        ScreenPosition.SaveHW(Me.Height, Me.Width)
+        Dim items As IEnumerable(Of String) = Nothing
+        For Each row As DataRow In sourceTable.Rows
+            items = row.ItemArray.Select(Function(obj) QuoteValue(If(obj?.ToString(), String.Empty)))
+            writer.WriteLine(String.Join(",", items))
+        Next
+
+        writer.Flush()
 
     End Sub
 
-    Private Sub SetScreen(View As Integer)
+    Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
+        Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
+        doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
+    End Sub
 
+    Private Shared Function GetRegionsName(Region As String) As String
+
+        Dim p1 As String = ""
+        Using reader = New StreamReader(Region)
+            While reader.Peek <> -1 And p1.Length = 0
+                Dim line = reader.ReadLine
+                Dim pattern1 = New Regex("^ *\[(.*?)\] *$")
+                Dim match1 As Match = pattern1.Match(line)
+                If match1.Success Then
+                    p1 = match1.Groups(1).Value
+                End If
+            End While
+        End Using
+        Return p1
+
+    End Function
+
+    Private Shared Function LoadImage(S As String) As Image
+
+        Dim bmp As Bitmap = Nothing
+        Dim u As New Uri(S)
+        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
+        Dim response As System.Net.WebResponse = Nothing
         Try
-            ScreenPosition = New ClassScreenpos(MyBase.Name & "_View_" & CStr(View))
-            AddHandler ResizeEnd, Handler
-            Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-            Me.Left = xy.Item(0)
-            Me.Top = xy.Item(1)
-            Dim hw As List(Of Integer) = ScreenPosition.GetHW()
-            '1106, 460
-            If hw.Item(0) = 0 Then
-                Me.Height = 460
-            Else
-                Me.Height = hw.Item(0)
-            End If
-            If hw.Item(1) = 0 Then
-                Me.Width = 1800
-            Else
-                Me.Width = hw.Item(1)
-            End If
+            response = request.GetResponse()
         Catch ex As Exception
-            BreakPoint.Dump(ex)
-            Me.Height = 460
-            Me.Width = 1800
-            Me.Left = 100
-            Me.Top = 100
+            ' BreakPoint.Dump(ex)
         End Try
 
+        Dim responseStream As System.IO.Stream = Nothing
+        Try
+            responseStream = response.GetResponseStream()
+        Catch ex As Exception
+            'BreakPoint.Dump(ex)
+        End Try
+
+        If responseStream IsNot Nothing Then
+            bmp = New Bitmap(responseStream)
+            responseStream.Dispose()
+        End If
+
+        Return bmp
+
+    End Function
+
+    Private Shared Function PickGroup() As String
+
+        Dim Chooseform As New FormChooser ' form for choosing a set of regions
+        ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+
+        Chooseform.FillGrid("Group")
+        Chooseform.BringToFront()
+        Dim chosen As String
+        Chooseform.ShowDialog()
+        Try
+            ' Read the chosen GROUP name
+            chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+            chosen = ""
+        End Try
+
+        Chooseform.Dispose()
+        Return chosen
+
+    End Function
+
+    Private Shared Function QuoteValue(ByVal value As String) As String
+        Return String.Concat("""", value.Replace("""", """"""), """")
+    End Function
+
+    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
+
+        On Error GoTo SetWindowOnTop_Err
+
+        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
+
+SetWindowOnTop_Exit:
+        Exit Sub
+
+SetWindowOnTop_Err:
+        Resume SetWindowOnTop_Exit
+
     End Sub
 
-#End Region
+    Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
-#Region "Layout"
+        Dim Choices As New FormRegionPopup
+        Dim chosen As String = ""
+        Choices.Init(RegionName)
+        Choices.BringToFront()
+        Choices.ShowDialog()
+
+        ' Read the chosen sim name
+        chosen = Choices.Choice()
+        Choices.Dispose()
+
+        If chosen = "Start" Then
+
+            DelPidFile(RegionUUID)
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+                Return
+            End If
+
+            FormSetup.Buttons(FormSetup.BusyButton)
+
+            If Not StartMySQL() Then
+                TextPrint(My.Resources.Stopped_word)
+            End If
+            If Not StartRobust() Then
+                TextPrint(My.Resources.Stopped_word)
+            End If
+
+            Log("Starting", Region_Name(RegionUUID))
+
+            PropAborting = False
+
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+
+            Application.DoEvents()
+            FormSetup.StartTimer()
+
+            FormSetup.Buttons(FormSetup.StopButton)
+            PropOpensimIsRunning() = True
+            FormSetup.ToolBar(True)
+
+        ElseIf chosen = "Stop" Then
+
+            ' if any avatars in any region, give them a choice.
+            Dim StopIt As Boolean = True
+            For Each num In RegionUuidListByName(Group_Name(RegionUUID))
+                ' Ask before killing any people
+                If AvatarCount(num) > 0 Then
+                    Dim response As MsgBoxResult
+                    If AvatarCount(num) = 1 Then
+                        response = MsgBox(My.Resources.OneAvatar & " " & Region_Name(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                    Else
+                        response = MsgBox(AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.Avatars_are_in & " " + Region_Name(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                    End If
+                    If response = vbNo Then
+                        StopIt = False
+                    End If
+                End If
+            Next
+
+            If (StopIt) Then
+                StopRegion(RegionUUID)
+            End If
+
+        ElseIf chosen = "Console" Then
+
+            Dim hwnd = GetHwnd(Group_Name(RegionUUID))
+            If hwnd = IntPtr.Zero Then
+                ' shut down all regions in the DOS box
+                For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
+                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
+                Next
+                DelPidFile(RegionUUID)
+                PropUpdateView = True ' make form refresh
+            Else
+                Dim tmp As String = Settings.ConsoleShow
+                'temp show console
+                Settings.ConsoleShow = "True"
+                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+                    ' shut down all regions in the DOS box
+                    For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
+                        RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
+                    Next
+                    DelPidFile(RegionUUID)
+                    Return
+                End If
+
+                SetWindowOnTop(hwnd.ToInt32)
+                Settings.ConsoleShow = tmp
+            End If
+
+        ElseIf chosen = "Edit" Then
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            RegionForm.BringToFront()
+            RegionForm.Init(RegionName)
+            RegionForm.Activate()
+            RegionForm.Visible = True
+            RegionForm.Select()
+
+        ElseIf chosen = "Restart" Then
+
+            FormSetup.Buttons(FormSetup.BusyButton)
+
+            ' shut down all regions in the DOS box
+            Dim GroupName = Group_Name(RegionUUID)
+            Logger("RecyclingDown", GroupName, "Teleport")
+            For Each UUID In RegionUuidListByName(GroupName)
+                RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                Logger("RecyclingDown", Region_Name(UUID), "Teleport")
+            Next
+
+            FormSetup.Buttons(FormSetup.StopButton)
+
+            TextPrint(My.Resources.Recycle1 & "  " + Group_Name(RegionUUID))
+            ShutDown(RegionUUID)
+            PropUpdateView = True ' make form refresh
+
+        ElseIf chosen = "Teleport" Then
+
+            Dim Obj = New TaskObject With {
+                            .TaskName = FormSetup.TaskName.TeleportClicked,
+                            .Command = ""
+                        }
+            FormSetup.RebootAndRunTask(RegionUUID, Obj)
+
+        ElseIf chosen = "Load" Then
+
+            LoadOar(RegionName)
+
+        ElseIf chosen = "Save" Then
+
+            SaveOar(RegionName)
+
+        End If
+
+    End Sub
+
+    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
+
+        RegionForm.BringToFront()
+        RegionForm.Init("")
+        RegionForm.Activate()
+        RegionForm.Visible = True
+        RegionForm.Select()
+
+    End Sub
+
+    Private Sub AllButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNone.CheckedChanged
+
+        If Not initted Then Return
+
+        If TheView1 = ViewType.Users Then
+
+            For Each X As ListViewItem In UserView.Items
+
+                If ItemsAreChecked1 Then
+                    If X.ForeColor = Color.Black Then
+                        X.Checked = CType(CheckState.Checked, Boolean)
+                    End If
+                Else
+                    X.Checked = CType(CheckState.Unchecked, Boolean)
+                End If
+            Next
+
+        ElseIf TheView1 = ViewType.Details Then
+
+            For Each X As ListViewItem In ListView1.Items
+                Dim RegionUUID As String
+
+                Dim name = X.Text
+                If name.Length > 0 Then
+                    RegionUUID = FindRegionByName(name)
+
+                    If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
+                    If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
+                    If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
+
+                    RegionEnabled(RegionUUID) = X.Checked
+                    If ItemsAreChecked1 Then
+                        X.Checked = CType(CheckState.Checked, Boolean)
+                    Else
+                        X.Checked = CType(CheckState.Unchecked, Boolean)
+                    End If
+
+                    Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                    INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(X.Checked))
+                    INI.SaveINI()
+                End If
+
+            Next
+        End If
+
+        If ItemsAreChecked1 Then
+            ItemsAreChecked1 = False
+        Else
+            ItemsAreChecked1 = True
+        End If
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
+    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
+        Dim item As ListViewItem
+
+        For Each item In regions
+            Dim RegionName = item.SubItems(1).Text
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
+                ' TODO: Needs to be HGV3?
+                Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
+                Try
+                    Dim result = Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End If
+        Next
+        PropUpdateView() = True
+
+    End Sub
 
     Private Sub Avatarview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles AvatarView.ColumnWidthChanged
 
@@ -157,6 +477,403 @@ Public Class FormRegionlist
 
         ScreenPosition.PutSize(name, w)
         ScreenPosition.SaveFormSettings()
+
+    End Sub
+
+    Private Sub Bootedbutton_CheckedChanged(sender As Object, e As EventArgs) Handles Bootedbutton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
+
+        PropChangedRegionSettings = True
+        GetAllRegions(False)
+
+        LoadMyListView()
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
+
+        Using ofd As New OpenFileDialog With {
+            .InitialDirectory = "\",
+            .Filter = Global.Outworldz.My.Resources.INI_Filter,
+            .FilterIndex = 1,
+            .RestoreDirectory = True,
+            .Multiselect = True
+        }
+
+            If ofd.ShowDialog = DialogResult.OK Then
+                If ofd.CheckFileExists Then
+
+                    Dim dirpathname = PickGroup()
+                    If dirpathname.Length = 0 Then
+                        TextPrint(My.Resources.Aborted_word)
+                        Return
+                    End If
+
+                    If dirpathname = "! Add New Name" Then
+                        dirpathname = InputBox(My.Resources.Enter_Dos_Name)
+                    End If
+                    If dirpathname.Length = 0 Then
+                        Return
+                    End If
+
+                    For Each ofdFilename As String In ofd.FileNames
+
+                        Dim noquotes = New Regex("'")
+                        dirpathname = noquotes.Replace(dirpathname, "")
+
+                        Dim extension As String = Path.GetExtension(ofdFilename)
+                        extension = Mid(extension, 2, 5)
+                        If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
+
+                            Dim filename = GetRegionsName(ofdFilename)
+                            Dim RegionUUID As String = FindRegionByName(filename)
+
+                            If RegionUUID.Length > 0 Then
+                                MsgBox(My.Resources.Region_Already_Exists, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+                                Return
+                            End If
+
+                            If dirpathname.Length = 0 Then dirpathname = filename
+
+                            Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
+                            If Not Directory.Exists(NewFilepath) Then
+                                Try
+                                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
+                                Catch ex As Exception
+                                    BreakPoint.Dump(ex)
+                                End Try
+                            End If
+                            File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                        Else
+                            TextPrint(My.Resources.Unrecognized & " " & extension & ". ")
+                        End If
+                    Next
+
+                    PropChangedRegionSettings = True
+                    LoadMyListView()
+                End If
+            End If
+        End Using
+
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
+
+        FormSetup.RestartAllRegions()
+
+    End Sub
+
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
+
+#Disable Warning CA2000
+        Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+        EmailForm.BringToFront()
+        EmailForm.Init(UserView)
+        EmailForm.Activate()
+        EmailForm.Visible = True
+        EmailForm.Select()
+    End Sub
+
+    ' ColumnClick event handler.
+    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
+
+        '// Determine if clicked column Is already the column that is being sorted.
+        If e.Column = _SortColumn Then
+            ' // Reverse the current sort direction for this column.
+            If (_order = SortOrder.Ascending) Then
+                _order = SortOrder.Descending
+            Else
+                _order = SortOrder.Ascending
+            End If
+        Else
+            _order = SortOrder.Ascending
+        End If
+
+        If TheView1 = ViewType.Details Then
+            ListView1.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+            _SortColumn = e.Column
+
+            ListView1.Sort()
+            ListView1.ResumeLayout()
+        End If
+
+        If TheView1 = ViewType.Users Then
+            UserView.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+            _SortColumn = e.Column
+
+            UserView.Sort()
+            UserView.ResumeLayout()
+        End If
+
+        If TheView1 = ViewType.Avatars Then
+            UserView.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+            _SortColumn = e.Column
+
+            AvatarView.Sort()
+            UserView.ResumeLayout()
+        End If
+
+    End Sub
+
+    Private Sub ExportButton_Click(sender As Object, e As EventArgs) Handles ExportButton.Click
+
+        Dim BaseFolder As String
+        Dim f = Settings.BackupFolder.Replace("/", "\")
+        'Create an instance of the open file dialog box.
+        Using openFileDialog1 = New FolderBrowserDialog With {
+            .ShowNewFolderButton = True,
+            .Description = Global.Outworldz.My.Resources.Choose_folder,
+            .SelectedPath = f
+        }
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+                Dim thing = openFileDialog1.SelectedPath
+                If thing.Length > 0 Then
+                    BaseFolder = thing
+                    Using sourceTable As New DataTable()
+
+                        sourceTable.Columns.AddRange(New DataColumn() {
+                    New DataColumn("Name", GetType(String)),
+                    New DataColumn("Dos Box", GetType(String)),
+                    New DataColumn("Agents", GetType(Integer)),
+                    New DataColumn("Status", GetType(String)),
+                    New DataColumn("RAM", GetType(String)),
+                    New DataColumn("CPU %", GetType(String)),
+                    New DataColumn("X", GetType(String)),
+                    New DataColumn("Y", GetType(String)),
+                    New DataColumn("Size", GetType(String)),
+                    New DataColumn("Estate", GetType(String)),
+                    New DataColumn("Prims", GetType(String)),
+                    New DataColumn("Region Port", GetType(String)),
+                    New DataColumn("Group Port", GetType(String)),
+                    New DataColumn("Scripts", GetType(String)),
+                    New DataColumn("Maps", GetType(String)),
+                    New DataColumn("Physics", GetType(String)),
+                    New DataColumn("Birds", GetType(String)),
+                    New DataColumn("Tides", GetType(String)),
+                    New DataColumn("Teleport", GetType(String)),
+                    New DataColumn("Smart Start", GetType(String)),
+                    New DataColumn("Level Gods", GetType(String)),
+                    New DataColumn("Owner Gods", GetType(String)),
+                    New DataColumn("Manager Gods", GetType(String)),
+                    New DataColumn("OAR Backup", GetType(String)),
+                    New DataColumn("Publicity", GetType(String)),
+                    New DataColumn("Frame Rate", GetType(String)),
+                    New DataColumn("Script Rate", GetType(String)),
+                    New DataColumn("Boot Time", GetType(String)),
+                    New DataColumn("Map Boot Time", GetType(String))
+                })
+
+                        For Each i In ListView1.Items
+                            sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
+                                         i.SubItems(1).Text.Trim,
+                                         i.SubItems(2).Text.Trim,
+                                         i.SubItems(3).Text.Trim,
+                                         i.SubItems(4).Text.Trim,
+                                         i.SubItems(5).Text.Trim,
+                                         i.SubItems(6).Text.Trim,
+                                         i.SubItems(7).Text.Trim,
+                                         i.SubItems(8).Text.Trim,
+                                         i.SubItems(9).Text.Trim,
+                                         i.SubItems(10).Text.Trim,
+                                         i.SubItems(11).Text.Trim,
+                                         i.SubItems(12).Text.Trim,
+                                         i.SubItems(13).Text.Trim,
+                                         i.SubItems(14).Text.Trim,
+                                         i.SubItems(15).Text.Trim,
+                                         i.SubItems(16).Text.Trim,
+                                         i.SubItems(17).Text.Trim,
+                                         i.SubItems(18).Text.Trim,
+                                         i.SubItems(19).Text.Trim,
+                                         i.SubItems(20).Text.Trim,
+                                         i.SubItems(21).Text.Trim,
+                                         i.SubItems(22).Text.Trim,
+                                         i.SubItems(23).Text.Trim,
+                                         i.SubItems(24).Text.Trim,
+                                         i.SubItems(25).Text.Trim,
+                                         i.SubItems(26).Text.Trim,
+                                         i.SubItems(27).Text.Trim,
+                                         i.SubItems(28).Text.Trim)
+                        Next
+
+                        DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
+                        Sleep(100)
+                        Try
+                            Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
+                                WriteDataTable(sourceTable, writer, True)
+                            End Using
+                        Catch
+                        End Try
+                    End Using
+                    MsgBox($"{My.Resources.Saved_Word} RegionList.csv ==> {BaseFolder}", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv " + My.Resources.Saved_Word)
+
+                    Dim response = MsgBox($"{My.Resources.Open_word} RegionList.csv?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv")
+                    If response = vbYes Then
+                        Try
+                            System.Diagnostics.Process.Start(IO.Path.Combine(BaseFolder, "RegionList.csv"))
+                        Catch ex As Exception
+                            BreakPoint.Dump(ex)
+                        End Try
+                    End If
+
+                End If
+            End If
+        End Using
+
+    End Sub
+
+    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
+
+        FloatToolStripMenuItem.Checked = True
+        OnTopToolStripMenuItem.Checked = False
+        Me.TopMost = False
+        Settings.KeepOnTop = False
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        Settings.RegionListVisible = False
+
+        _ImageListSmall.Dispose()
+        colsize.Dispose()
+
+    End Sub
+
+    Private Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
+
+        Dim Status As Integer = RegionStatus(RegionUUID)
+
+        ' Get Estate name (cached)
+        Dim MyEstate = Estate(RegionUUID)
+        If TheView1 = ViewType.Details Then
+            If MyEstate.Length = 0 Then
+                MyEstate = EstateName(RegionUUID)
+                Estate(RegionUUID) = MyEstate
+            End If
+        End If
+
+        If Not RegionEnabled(RegionUUID) Then
+            Letter = "Disabled"
+            If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
+                Num = DGICON.HomeOffline
+            Else
+                Num = DGICON.disabled
+            End If
+            '   ElseIf Estate.Length = 0 Then
+            '      Letter = My.Resources.No_Estate_Word
+            '     Num = DGICON.NoEstate
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
+            Letter = My.Resources.Waiting
+            Num = DGICON.SmartStartStopped
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Not Settings.Smart_Start Then
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.stopped
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) <> "True" Then
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.stopped
+        ElseIf Status = SIMSTATUSENUM.Error Then
+            Letter = My.Resources.Error_word
+            Num = DGICON.ErrorIcon
+        ElseIf Status = SIMSTATUSENUM.Suspended Then
+            Letter = My.Resources.Suspended_word
+            Num = DGICON.Suspended
+        ElseIf Status = SIMSTATUSENUM.RecyclingDown Then
+            Letter = My.Resources.Recycling_Down_word
+            Num = DGICON.recyclingdown
+        ElseIf Status = SIMSTATUSENUM.RecyclingUp Then
+            Letter = My.Resources.Recycling_Up_word
+            Num = DGICON.recyclingup
+        ElseIf Status = SIMSTATUSENUM.RestartPending Then
+            Letter = My.Resources.Restart_Pending_word
+            Num = DGICON.recyclingup
+        ElseIf Status = SIMSTATUSENUM.RetartingNow Then
+            Letter = My.Resources.Restarting_Now_word
+            Num = DGICON.recyclingup
+        ElseIf Status = SIMSTATUSENUM.Resume Then
+            Letter = "Restarting Now"
+            Num = DGICON.recyclingup
+        ElseIf Status = SIMSTATUSENUM.Booting Then
+            Letter = My.Resources.Booting_word
+            Num = DGICON.bootingup
+        ElseIf Status = SIMSTATUSENUM.NoLogin Then
+            Letter = My.Resources.NoLogin_word
+            Num = DGICON.NoLogon
+        ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
+            Letter = My.Resources.Quitting_word
+            Num = DGICON.shuttingdown
+        ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
+            Letter = My.Resources.Stopping_word
+            Num = DGICON.shuttingdown
+        ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
+            Letter = My.Resources.Pending_word
+        ElseIf Status = SIMSTATUSENUM.NoError Then
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.NoError
+        ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) = 1 Then
+            Letter = My.Resources.Running_word
+            Num = DGICON.user1
+        ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) > 1 Then
+            Letter = CStr(AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
+            Num = DGICON.user2
+        ElseIf Status = SIMSTATUSENUM.Booted Then
+            If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
+                Num = DGICON.Home
+                Letter = My.Resources.Home_word
+            Else
+                Letter = My.Resources.Running_word
+                Num = DGICON.up
+            End If
+        Else
+            Num = DGICON.warning ' warning
+        End If
+
+        Return Status
+
+    End Function
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
+        HelpManual("RegionList")
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
+        HelpManual("RegionList")
+
+    End Sub
+
+    Private Sub IconClick(sender As Object, e As EventArgs) Handles IconView.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
+        Dim item As ListViewItem
+        For Each item In regions
+            Dim RegionName = item.SubItems(0).Text.Trim
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
+                StartStopEdit(RegionUUID, RegionName)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
+        Dim item As ListViewItem
+        For Each item In regions
+            Dim RegionName = item.SubItems(0).Text.Trim
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
+                StartStopEdit(RegionUUID, RegionName)
+            End If
+        Next
 
     End Sub
 
@@ -171,60 +888,41 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
+    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
-        Dim w = UserView.Columns(e.ColumnIndex).Width
-        Dim name = UserView.Columns(e.ColumnIndex).Name
-        If name.Length = 0 Or w = 0 Then Return
+        If Not detailsinitted Then Return
 
-        ScreenPosition.PutSize(name, w)
-        ScreenPosition.SaveFormSettings()
+        Dim Item As ListViewItem = Nothing
 
-    End Sub
+        Try
+            Item = ListView1.Items.Item(e.Index)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+        If Item.Text.Length = 0 Then Return
+        If Item.Text = "New Region" Then Return
 
-#End Region
+        Dim UUID As String = FindRegionByName(Item.Text)
+        Dim out As New Guid
+        If Not Guid.TryParse(UUID, out) Then Return
+        Dim GroupName = Group_Name(UUID)
 
-#Region "Public Enums"
+        For Each RegionUUID In RegionUuidListByName(GroupName)
 
-    ' icons image list layout
-    Enum DGICON
-        bootingup = 0
-        shuttingdown = 1
-        up = 2
-        disabled = 3
-        stopped = 4
-        recyclingdown = 5
-        recyclingup = 6
-        warning = 7
-        user1 = 8
-        user2 = 9
-        SmartStartStopped = 10
-        Home = 11
-        HomeOffline = 12
-        Pending = 13
-        Suspended = 14
-        ErrorIcon = 15
-        NoLogin = 16
-        NoError = 17
-        NoEstate = 18
+            If (e.NewValue = CheckState.Unchecked) Then
+                RegionEnabled(RegionUUID) = False
+            Else
+                RegionEnabled(RegionUUID) = True
+            End If
+            If RegionIniFilePath(RegionUUID).Length > 0 Then
+                Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
+                INI.SaveINI()
+            Else
+                BreakPoint.Print("cannot locate region in group " & GroupName)
+            End If
 
-    End Enum
-
-#End Region
-
-#Region "Loader"
-
-    Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
-        Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
-        doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
-    End Sub
-
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-        Settings.RegionListVisible = False
-
-        _ImageListSmall.Dispose()
-        colsize.Dispose()
+        Next
 
     End Sub
 
@@ -490,12 +1188,12 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogon
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-            Timer1.Interval = 1 ' check for Form1.PropUpdateView immediately
+            Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
             Timer1.Start() 'Timer starts functioning
         End If
 
@@ -508,150 +1206,64 @@ Public Class FormRegionlist
 
     End Sub
 
+    Private Sub LoadMyListView()
+
+        If SearchBusy = True Then Return
+        SearchBusy = True
+
+        SearchArray.Clear()
+        For Each RegionUUID In RegionUuids()
+
+            If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
+                If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                    SearchArray.Add(RegionUUID)
+                End If
+            Else
+                SearchArray.Add(RegionUUID)
+            End If
+        Next
+        SearchBusy = False
+        Search()
+
+    End Sub
+
     Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
 
         Debug.Print(e.Label)
 
     End Sub
 
-    Private Sub ShowTitle()
+    Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
+        LoadMyListView()
+    End Sub
 
-        Dim TotalSize As Double
-        Dim RegionCount As Integer
-        Dim TotalRegionCount As Integer
-        Dim SSRegionCount As Integer
+    Private Sub OnButton_CheckedChanged(sender As Object, e As EventArgs) Handles OnButton.CheckedChanged
+        LoadMyListView()
+    End Sub
 
-        For Each RegionUUID As String In SearchArray
-            TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
-            If RegionEnabled(RegionUUID) Then
-                RegionCount += 1
-            End If
-            If RegionEnabled(RegionUUID) And Smart_Start(RegionUUID) = "True" Then
-                SSRegionCount += 1
-            End If
-            TotalRegionCount += 1
-        Next
-        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word}"
+    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
+
+        OnTopToolStripMenuItem.Checked = True
+        FloatToolStripMenuItem.Checked = False
+        Me.TopMost = True
+        Settings.KeepOnTop = True
+        Settings.SaveSettings()
 
     End Sub
 
-#End Region
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
 
-#Region "Timer"
-
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-
-        If TheView1 = ViewType.Users Then
-            Timer1.Stop()
-            Return
-        End If
-
-        If PropUpdateView() Then ' force a refresh
-            If ViewBusy = True Then
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
-                Return
-            End If
-            LoadMyListView()
-            Timer1.Interval = 1000
-        End If
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+        ScreenPosition.SaveHW(Me.Height, Me.Width)
 
     End Sub
 
-#End Region
+    Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-#Region "LoadListView"
+        FormSetup.StartOpensimulator()
 
-    Private Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
-
-        Dim Status As Integer = RegionStatus(RegionUUID)
-
-        ' Get Estate name (cached)
-        Dim MyEstate = Estate(RegionUUID)
-        If TheView1 = ViewType.Details Then
-            If MyEstate.Length = 0 Then
-                MyEstate = EstateName(RegionUUID)
-                Estate(RegionUUID) = MyEstate
-            End If
-        End If
-
-        If Not RegionEnabled(RegionUUID) Then
-            Letter = "Disabled"
-            If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
-                Num = DGICON.HomeOffline
-            Else
-                Num = DGICON.disabled
-            End If
-            '   ElseIf Estate.Length = 0 Then
-            '      Letter = My.Resources.No_Estate_Word
-            '     Num = DGICON.NoEstate
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
-            Letter = My.Resources.Waiting
-            Num = DGICON.SmartStartStopped
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Not Settings.Smart_Start Then
-            Letter = My.Resources.Stopped_word
-            Num = DGICON.stopped
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) <> "True" Then
-            Letter = My.Resources.Stopped_word
-            Num = DGICON.stopped
-        ElseIf Status = SIMSTATUSENUM.Error Then
-            Letter = My.Resources.Error_word
-            Num = DGICON.ErrorIcon
-        ElseIf Status = SIMSTATUSENUM.Suspended Then
-            Letter = My.Resources.Suspended_word
-            Num = DGICON.Suspended
-        ElseIf Status = SIMSTATUSENUM.RecyclingDown Then
-            Letter = My.Resources.Recycling_Down_word
-            Num = DGICON.recyclingdown
-        ElseIf Status = SIMSTATUSENUM.RecyclingUp Then
-            Letter = My.Resources.Recycling_Up_word
-            Num = DGICON.recyclingup
-        ElseIf Status = SIMSTATUSENUM.RestartPending Then
-            Letter = My.Resources.Restart_Pending_word
-            Num = DGICON.recyclingup
-        ElseIf Status = SIMSTATUSENUM.RetartingNow Then
-            Letter = My.Resources.Restarting_Now_word
-            Num = DGICON.recyclingup
-        ElseIf Status = SIMSTATUSENUM.Resume Then
-            Letter = "Restarting Now"
-            Num = DGICON.recyclingup
-        ElseIf Status = SIMSTATUSENUM.Booting Then
-            Letter = My.Resources.Booting_word
-            Num = DGICON.bootingup
-        ElseIf Status = SIMSTATUSENUM.NoLogin Then
-            Letter = My.Resources.NoLogin_word
-            Num = DGICON.NoLogin
-        ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
-            Letter = My.Resources.Quitting_word
-            Num = DGICON.shuttingdown
-        ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-            Letter = My.Resources.Stopping_word
-            Num = DGICON.shuttingdown
-        ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
-            Letter = My.Resources.Pending_word
-        ElseIf Status = SIMSTATUSENUM.NoError Then
-            Letter = My.Resources.Stopped_word
-            Num = DGICON.NoError
-        ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) = 1 Then
-            Letter = My.Resources.Running_word
-            Num = DGICON.user1
-        ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) > 1 Then
-            Letter = CStr(AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
-            Num = DGICON.user2
-        ElseIf Status = SIMSTATUSENUM.Booted Then
-            If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
-                Num = DGICON.Home
-                Letter = My.Resources.Home_word
-            Else
-                Letter = My.Resources.Running_word
-                Num = DGICON.up
-            End If
-        Else
-            Num = DGICON.warning ' warning
-        End If
-
-        Return Status
-
-    End Function
+    End Sub
 
     Private Sub Search()
 
@@ -669,6 +1281,47 @@ Public Class FormRegionlist
         End Select
 
     End Sub
+
+    Private Sub SearchBox_TextChanged(sender As Object, e As EventArgs) Handles SearchBox.Click
+        If Not initted Then Return
+        If SearchBox.Text = My.Resources.Search_word Then
+            SearchBox.Text = ""
+        End If
+    End Sub
+
+    Private Sub SetScreen(View As Integer)
+
+        Try
+            ScreenPosition = New ClassScreenpos(MyBase.Name & "_View_" & CStr(View))
+            AddHandler ResizeEnd, Handler
+            Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+            Me.Left = xy.Item(0)
+            Me.Top = xy.Item(1)
+            Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+            '1106, 460
+            If hw.Item(0) = 0 Then
+                Me.Height = 460
+            Else
+                Me.Height = hw.Item(0)
+            End If
+            If hw.Item(1) = 0 Then
+                Me.Width = 1800
+            Else
+                Me.Width = hw.Item(1)
+            End If
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+            Me.Height = 460
+            Me.Width = 1800
+            Me.Left = 100
+            Me.Top = 100
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Layout"
 
     Private Sub ShowAvatars()
         Try
@@ -1037,6 +1690,27 @@ Public Class FormRegionlist
 
     End Sub
 
+    Private Sub ShowTitle()
+
+        Dim TotalSize As Double
+        Dim RegionCount As Integer
+        Dim TotalRegionCount As Integer
+        Dim SSRegionCount As Integer
+
+        For Each RegionUUID As String In SearchArray
+            TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
+            If RegionEnabled(RegionUUID) Then
+                RegionCount += 1
+            End If
+            If RegionEnabled(RegionUUID) And Smart_Start(RegionUUID) = "True" Then
+                SSRegionCount += 1
+            End If
+            TotalRegionCount += 1
+        Next
+        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word}"
+
+    End Sub
+
     Private Sub ShowUsers()
 
         Me.Text = ""
@@ -1122,438 +1796,8 @@ Public Class FormRegionlist
 
     End Sub
 
-#End Region
-
-#Region "Click Methods"
-
-    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
-
-
-
-
-        RegionForm.BringToFront()
-        RegionForm.Init("")
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
-
-    End Sub
-
-    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
-        Dim item As ListViewItem
-
-        For Each item In regions
-            Dim RegionName = item.SubItems(1).Text
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                ' TODO: Needs to be HGV3?
-                Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
-                Try
-                    Dim result = Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End If
-        Next
-        PropUpdateView() = True
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
-
-        PropChangedRegionSettings = True
-        GetAllRegions(False)
-
+    Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
         LoadMyListView()
-
-    End Sub
-
-    ' ColumnClick event handler.
-    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
-
-        '// Determine if clicked column Is already the column that is being sorted.
-        If e.Column = _SortColumn Then
-            ' // Reverse the current sort direction for this column.
-            If (_order = SortOrder.Ascending) Then
-                _order = SortOrder.Descending
-            Else
-                _order = SortOrder.Ascending
-            End If
-        Else
-            _order = SortOrder.Ascending
-        End If
-
-        If TheView1 = ViewType.Details Then
-            ListView1.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
-            _SortColumn = e.Column
-
-            ListView1.Sort()
-            ListView1.ResumeLayout()
-        End If
-
-        If TheView1 = ViewType.Users Then
-            UserView.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
-            _SortColumn = e.Column
-
-            UserView.Sort()
-            UserView.ResumeLayout()
-        End If
-
-        If TheView1 = ViewType.Avatars Then
-            UserView.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
-            _SortColumn = e.Column
-
-            AvatarView.Sort()
-            UserView.ResumeLayout()
-        End If
-
-    End Sub
-
-    Private Sub IconClick(sender As Object, e As EventArgs) Handles IconView.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
-        Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                StartStopEdit(RegionUUID, RegionName)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
-        Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                StartStopEdit(RegionUUID, RegionName)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
-
-        If Not detailsinitted Then Return
-
-        Dim Item As ListViewItem = Nothing
-
-        Try
-            Item = ListView1.Items.Item(e.Index)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-        If Item.Text.Length = 0 Then Return
-        If Item.Text = "New Region" Then Return
-
-        Dim UUID As String = FindRegionByName(Item.Text)
-        Dim out As New Guid
-        If Not Guid.TryParse(UUID, out) Then Return
-        Dim GroupName = Group_Name(UUID)
-
-        For Each RegionUUID In RegionUuidListByName(GroupName)
-
-            If (e.NewValue = CheckState.Unchecked) Then
-                RegionEnabled(RegionUUID) = False
-            Else
-                RegionEnabled(RegionUUID) = True
-            End If
-            If RegionIniFilePath(RegionUUID).Length > 0 Then
-                Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
-                INI.SaveINI()
-            Else
-                BreakPoint.Print("cannot locate region in group " & GroupName)
-            End If
-
-        Next
-
-    End Sub
-
-#End Region
-
-#Region "Private Methods"
-
-    Private Shared Function LoadImage(S As String) As Image
-
-        Dim bmp As Bitmap = Nothing
-        Dim u As New Uri(S)
-        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
-        Dim response As System.Net.WebResponse = Nothing
-        Try
-            response = request.GetResponse()
-        Catch ex As Exception
-            ' BreakPoint.Dump(ex)
-        End Try
-
-        Dim responseStream As System.IO.Stream = Nothing
-        Try
-            responseStream = response.GetResponseStream()
-        Catch ex As Exception
-            'BreakPoint.Dump(ex)
-        End Try
-
-        If responseStream IsNot Nothing Then
-            bmp = New Bitmap(responseStream)
-            responseStream.Dispose()
-        End If
-
-        Return bmp
-
-    End Function
-
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
-
-        On Error GoTo SetWindowOnTop_Err
-
-        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
-
-SetWindowOnTop_Exit:
-        Exit Sub
-
-SetWindowOnTop_Err:
-        Resume SetWindowOnTop_Exit
-
-    End Sub
-
-    Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
-
-        Dim Choices As New FormRegionPopup
-        Dim chosen As String = ""
-        Choices.Init(RegionName)
-        Choices.BringToFront()
-        Choices.ShowDialog()
-
-        ' Read the chosen sim name
-        chosen = Choices.Choice()
-        Choices.Dispose()
-
-        If chosen = "Start" Then
-
-            DelPidFile(RegionUUID)
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                Return
-            End If
-
-            FormSetup.Buttons(FormSetup.BusyButton)
-
-            If Not StartMySQL() Then
-                TextPrint(My.Resources.Stopped_word)
-            End If
-            If Not StartRobust() Then
-                TextPrint(My.Resources.Stopped_word)
-            End If
-
-            Log("Starting", Region_Name(RegionUUID))
-
-            PropAborting = False
-
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-
-            Application.DoEvents()
-            FormSetup.StartTimer()
-
-            FormSetup.Buttons(FormSetup.StopButton)
-            PropOpensimIsRunning() = True
-            FormSetup.ToolBar(True)
-
-        ElseIf chosen = "Stop" Then
-
-            ' if any avatars in any region, give them a choice.
-            Dim StopIt As Boolean = True
-            For Each num In RegionUuidListByName(Group_Name(RegionUUID))
-                ' Ask before killing any people
-                If AvatarCount(num) > 0 Then
-                    Dim response As MsgBoxResult
-                    If AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar & " " & Region_Name(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
-                    Else
-                        response = MsgBox(AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.Avatars_are_in & " " + Region_Name(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
-                    End If
-                    If response = vbNo Then
-                        StopIt = False
-                    End If
-                End If
-            Next
-
-            If (StopIt) Then
-                StopRegion(RegionUUID)
-            End If
-
-        ElseIf chosen = "Console" Then
-
-            Dim hwnd = GetHwnd(Group_Name(RegionUUID))
-            If hwnd = IntPtr.Zero Then
-                ' shut down all regions in the DOS box
-                For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
-                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
-                Next
-                DelPidFile(RegionUUID)
-                PropUpdateView = True ' make form refresh
-            Else
-                Dim tmp As String = Settings.ConsoleShow
-                'temp show console
-                Settings.ConsoleShow = "True"
-                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-                    ' shut down all regions in the DOS box
-                    For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
-                        RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
-                    Next
-                    DelPidFile(RegionUUID)
-                    Return
-                End If
-
-                SetWindowOnTop(hwnd.ToInt32)
-                Settings.ConsoleShow = tmp
-            End If
-
-        ElseIf chosen = "Edit" Then
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
-            RegionForm.BringToFront()
-            RegionForm.Init(RegionName)
-            RegionForm.Activate()
-            RegionForm.Visible = True
-            RegionForm.Select()
-
-        ElseIf chosen = "Restart" Then
-
-            FormSetup.Buttons(FormSetup.BusyButton)
-
-            ' shut down all regions in the DOS box
-            Dim GroupName = Group_Name(RegionUUID)
-            Logger("RecyclingDown", GroupName, "Teleport")
-            For Each UUID In RegionUuidListByName(GroupName)
-                RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Logger("RecyclingDown", Region_Name(UUID), "Teleport")
-            Next
-
-            FormSetup.Buttons(FormSetup.StopButton)
-
-            TextPrint(My.Resources.Recycle1 & "  " + Group_Name(RegionUUID))
-            ShutDown(RegionUUID)
-            PropUpdateView = True ' make form refresh
-
-        ElseIf chosen = "Teleport" Then
-
-            Dim Obj = New TaskObject With {
-                            .TaskName = FormSetup.TaskName.TeleportClicked,
-                            .Command = ""
-                        }
-            FormSetup.RebootAndRunTask(RegionUUID, Obj)
-
-        ElseIf chosen = "Load" Then
-
-            LoadOar(RegionName)
-
-        ElseIf chosen = "Save" Then
-
-            SaveOar(RegionName)
-
-        End If
-
-    End Sub
-
-#End Region
-
-#Region "Clicks"
-
-    Private Shared Function PickGroup() As String
-
-        Dim Chooseform As New FormChooser ' form for choosing a set of regions
-        ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-
-        Chooseform.FillGrid("Group")
-        Chooseform.BringToFront()
-        Dim chosen As String
-        Chooseform.ShowDialog()
-        Try
-            ' Read the chosen GROUP name
-            chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-            chosen = ""
-        End Try
-
-        Chooseform.Dispose()
-        Return chosen
-
-    End Function
-
-    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNone.CheckedChanged
-
-        If Not initted Then Return
-
-        If TheView1 = ViewType.Users Then
-
-            For Each X As ListViewItem In UserView.Items
-
-                If ItemsAreChecked1 Then
-                    If X.ForeColor = Color.Black Then
-                        X.Checked = CType(CheckState.Checked, Boolean)
-                    End If
-                Else
-                    X.Checked = CType(CheckState.Unchecked, Boolean)
-                End If
-            Next
-
-        ElseIf TheView1 = ViewType.Details Then
-
-            For Each X As ListViewItem In ListView1.Items
-                Dim RegionUUID As String
-
-                Dim name = X.Text
-                If name.Length > 0 Then
-                    RegionUUID = FindRegionByName(name)
-
-                    If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
-                    If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-                    If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
-
-                    RegionEnabled(RegionUUID) = X.Checked
-                    If ItemsAreChecked1 Then
-                        X.Checked = CType(CheckState.Checked, Boolean)
-                    Else
-                        X.Checked = CType(CheckState.Unchecked, Boolean)
-                    End If
-
-                    Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                    INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(X.Checked))
-                    INI.SaveINI()
-                End If
-
-            Next
-        End If
-
-        If ItemsAreChecked1 Then
-            ItemsAreChecked1 = False
-        Else
-            ItemsAreChecked1 = True
-        End If
-        PropUpdateView = True ' make form refresh
-
-    End Sub
-
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
-
-        FormSetup.RestartAllRegions()
-
-    End Sub
-
-    Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
-
-        FormSetup.StartOpensimulator()
-
     End Sub
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
@@ -1562,6 +1806,102 @@ SetWindowOnTop_Err:
         LoadMyListView()
 
     End Sub
+
+    Private Sub StoppedButton_CheckedChanged(sender As Object, e As EventArgs) Handles StoppedButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
+
+        LoadMyListView()
+
+    End Sub
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+
+        If TheView1 = ViewType.Users Then
+            Timer1.Stop()
+            Return
+        End If
+
+        If PropUpdateView() Then ' force a refresh
+            If ViewBusy = True Then
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
+                Return
+            End If
+            LoadMyListView()
+
+        End If
+
+    End Sub
+
+    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
+
+        If Users.Text = My.Resources.Email_word Then
+
+            Try
+#Disable Warning CA2000
+                Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+                EmailForm.BringToFront()
+                EmailForm.Init(UserView)
+                EmailForm.Visible = True
+                EmailForm.Select()
+                EmailForm.Activate()
+                Return
+            Catch
+            End Try
+        End If
+
+        Settings.RegionListView() = ViewType.Users
+        Settings.SaveSettings()
+        TheView1 = ViewType.Users
+        SetScreen(TheView1)
+        ListView1.View = View.List
+        ListView1.Hide()
+        UserView.Show()
+        AvatarView.Hide()
+        LoadMyListView()
+    End Sub
+
+    Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
+
+        Dim w = UserView.Columns(e.ColumnIndex).Width
+        Dim name = UserView.Columns(e.ColumnIndex).Name
+        If name.Length = 0 Or w = 0 Then Return
+
+        ScreenPosition.PutSize(name, w)
+        ScreenPosition.SaveFormSettings()
+
+    End Sub
+
+#End Region
+
+#Region "Public Enums"
+
+#End Region
+
+#Region "Loader"
+
+#End Region
+
+#Region "Timer"
+
+#End Region
+
+#Region "LoadListView"
+
+#End Region
+
+#Region "Click Methods"
+
+#End Region
+
+#Region "Private Methods"
+
+#End Region
+
+#Region "Clicks"
 
     Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles AvatarsButton.Click
 
@@ -1618,352 +1958,9 @@ SetWindowOnTop_Err:
 
 #Region "MySQL"
 
-    Private Shared Function GetRegionsName(Region As String) As String
-
-        Dim p1 As String = ""
-        Using reader = New StreamReader(Region)
-            While reader.Peek <> -1 And p1.Length = 0
-                Dim line = reader.ReadLine
-                Dim pattern1 = New Regex("^ *\[(.*?)\] *$")
-                Dim match1 As Match = pattern1.Match(line)
-                If match1.Success Then
-                    p1 = match1.Groups(1).Value
-                End If
-            End While
-        End Using
-        Return p1
-
-    End Function
-
-    Private Sub AllButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllButton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub Bootedbutton_CheckedChanged(sender As Object, e As EventArgs) Handles Bootedbutton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
-
-        Using ofd As New OpenFileDialog With {
-            .InitialDirectory = "\",
-            .Filter = Global.Outworldz.My.Resources.INI_Filter,
-            .FilterIndex = 1,
-            .RestoreDirectory = True,
-            .Multiselect = True
-        }
-
-            If ofd.ShowDialog = DialogResult.OK Then
-                If ofd.CheckFileExists Then
-
-                    Dim dirpathname = PickGroup()
-                    If dirpathname.Length = 0 Then
-                        TextPrint(My.Resources.Aborted_word)
-                        Return
-                    End If
-
-                    If dirpathname = "! Add New Name" Then
-                        dirpathname = InputBox(My.Resources.Enter_Dos_Name)
-                    End If
-                    If dirpathname.Length = 0 Then
-                        Return
-                    End If
-
-                    For Each ofdFilename As String In ofd.FileNames
-
-                        Dim noquotes = New Regex("'")
-                        dirpathname = noquotes.Replace(dirpathname, "")
-
-                        Dim extension As String = Path.GetExtension(ofdFilename)
-                        extension = Mid(extension, 2, 5)
-                        If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
-
-                            Dim filename = GetRegionsName(ofdFilename)
-                            Dim RegionUUID As String = FindRegionByName(filename)
-
-                            If RegionUUID.Length > 0 Then
-                                MsgBox(My.Resources.Region_Already_Exists, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                                Return
-                            End If
-
-                            If dirpathname.Length = 0 Then dirpathname = filename
-
-                            Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
-                            If Not Directory.Exists(NewFilepath) Then
-                                Try
-                                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
-                                Catch ex As Exception
-                                    BreakPoint.Dump(ex)
-                                End Try
-                            End If
-                            File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
-                        Else
-                            TextPrint(My.Resources.Unrecognized & " " & extension & ". ")
-                        End If
-                    Next
-
-                    PropChangedRegionSettings = True
-                    LoadMyListView()
-                End If
-            End If
-        End Using
-
-    End Sub
-
-    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
-
-#Disable Warning CA2000
-        Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-        EmailForm.BringToFront()
-        EmailForm.Init(UserView)
-        EmailForm.Activate()
-        EmailForm.Visible = True
-        EmailForm.Select()
-    End Sub
-
-    Private Sub ExportButton_Click(sender As Object, e As EventArgs) Handles ExportButton.Click
-
-        Dim BaseFolder As String
-        Dim f = Settings.BackupFolder.Replace("/", "\")
-        'Create an instance of the open file dialog box.
-        Using openFileDialog1 = New FolderBrowserDialog With {
-            .ShowNewFolderButton = True,
-            .Description = Global.Outworldz.My.Resources.Choose_folder,
-            .SelectedPath = f
-        }
-            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-            ' Process input if the user clicked OK.
-            If UserClickedOK = DialogResult.OK Then
-                Dim thing = openFileDialog1.SelectedPath
-                If thing.Length > 0 Then
-                    BaseFolder = thing
-                    Using sourceTable As New DataTable()
-
-                        sourceTable.Columns.AddRange(New DataColumn() {
-                    New DataColumn("Name", GetType(String)),
-                    New DataColumn("Dos Box", GetType(String)),
-                    New DataColumn("Agents", GetType(Integer)),
-                    New DataColumn("Status", GetType(String)),
-                    New DataColumn("RAM", GetType(String)),
-                    New DataColumn("CPU %", GetType(String)),
-                    New DataColumn("X", GetType(String)),
-                    New DataColumn("Y", GetType(String)),
-                    New DataColumn("Size", GetType(String)),
-                    New DataColumn("Estate", GetType(String)),
-                    New DataColumn("Prims", GetType(String)),
-                    New DataColumn("Region Port", GetType(String)),
-                    New DataColumn("Group Port", GetType(String)),
-                    New DataColumn("Scripts", GetType(String)),
-                    New DataColumn("Maps", GetType(String)),
-                    New DataColumn("Physics", GetType(String)),
-                    New DataColumn("Birds", GetType(String)),
-                    New DataColumn("Tides", GetType(String)),
-                    New DataColumn("Teleport", GetType(String)),
-                    New DataColumn("Smart Start", GetType(String)),
-                    New DataColumn("Level Gods", GetType(String)),
-                    New DataColumn("Owner Gods", GetType(String)),
-                    New DataColumn("Manager Gods", GetType(String)),
-                    New DataColumn("OAR Backup", GetType(String)),
-                    New DataColumn("Publicity", GetType(String)),
-                    New DataColumn("Frame Rate", GetType(String)),
-                    New DataColumn("Script Rate", GetType(String)),
-                    New DataColumn("Boot Time", GetType(String)),
-                    New DataColumn("Map Boot Time", GetType(String))
-                })
-
-                        For Each i In ListView1.Items
-                            sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
-                                         i.SubItems(1).Text.Trim,
-                                         i.SubItems(2).Text.Trim,
-                                         i.SubItems(3).Text.Trim,
-                                         i.SubItems(4).Text.Trim,
-                                         i.SubItems(5).Text.Trim,
-                                         i.SubItems(6).Text.Trim,
-                                         i.SubItems(7).Text.Trim,
-                                         i.SubItems(8).Text.Trim,
-                                         i.SubItems(9).Text.Trim,
-                                         i.SubItems(10).Text.Trim,
-                                         i.SubItems(11).Text.Trim,
-                                         i.SubItems(12).Text.Trim,
-                                         i.SubItems(13).Text.Trim,
-                                         i.SubItems(14).Text.Trim,
-                                         i.SubItems(15).Text.Trim,
-                                         i.SubItems(16).Text.Trim,
-                                         i.SubItems(17).Text.Trim,
-                                         i.SubItems(18).Text.Trim,
-                                         i.SubItems(19).Text.Trim,
-                                         i.SubItems(20).Text.Trim,
-                                         i.SubItems(21).Text.Trim,
-                                         i.SubItems(22).Text.Trim,
-                                         i.SubItems(23).Text.Trim,
-                                         i.SubItems(24).Text.Trim,
-                                         i.SubItems(25).Text.Trim,
-                                         i.SubItems(26).Text.Trim,
-                                         i.SubItems(27).Text.Trim,
-                                         i.SubItems(28).Text.Trim)
-                        Next
-
-                        DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
-                        Sleep(100)
-                        Try
-                            Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
-                                WriteDataTable(sourceTable, writer, True)
-                            End Using
-                        Catch
-                        End Try
-                    End Using
-                    MsgBox($"{My.Resources.Saved_Word} RegionList.csv ==> {BaseFolder}", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv " + My.Resources.Saved_Word)
-
-                    Dim response = MsgBox($"{My.Resources.Open_word} RegionList.csv?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "RegionList.csv")
-                    If response = vbYes Then
-                        Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(BaseFolder, "RegionList.csv"))
-                        Catch ex As Exception
-                            BreakPoint.Dump(ex)
-                        End Try
-                    End If
-
-                End If
-            End If
-        End Using
-
-    End Sub
-
-    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
-
-        FloatToolStripMenuItem.Checked = True
-        OnTopToolStripMenuItem.Checked = False
-        Me.TopMost = False
-        Settings.KeepOnTop = False
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-
-        HelpManual("RegionList")
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-        HelpManual("RegionList")
-
-    End Sub
-
-    Private Sub LoadMyListView()
-
-        If SearchBusy = True Then Return
-        SearchBusy = True
-
-        SearchArray.Clear()
-        For Each RegionUUID In RegionUuids()
-
-            If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
-                If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                    SearchArray.Add(RegionUUID)
-                End If
-            Else
-                SearchArray.Add(RegionUUID)
-            End If
-        Next
-        SearchBusy = False
-        Search()
-
-    End Sub
-
-    Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub OnButton_CheckedChanged(sender As Object, e As EventArgs) Handles OnButton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
-
-        OnTopToolStripMenuItem.Checked = True
-        FloatToolStripMenuItem.Checked = False
-        Me.TopMost = True
-        Settings.KeepOnTop = True
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub SearchBox_TextChanged(sender As Object, e As EventArgs) Handles SearchBox.Click
-        If Not initted Then Return
-        If SearchBox.Text = My.Resources.Search_word Then
-            SearchBox.Text = ""
-        End If
-    End Sub
-
-    Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub StoppedButton_CheckedChanged(sender As Object, e As EventArgs) Handles StoppedButton.CheckedChanged
-        LoadMyListView()
-    End Sub
-
-    Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
-
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
-
-        If Users.Text = My.Resources.Email_word Then
-
-            Try
-#Disable Warning CA2000
-                Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-                EmailForm.BringToFront()
-                EmailForm.Init(UserView)
-                EmailForm.Visible = True
-                EmailForm.Select()
-                EmailForm.Activate()
-                Return
-            Catch
-            End Try
-        End If
-
-        Settings.RegionListView() = ViewType.Users
-        Settings.SaveSettings()
-        TheView1 = ViewType.Users
-        SetScreen(TheView1)
-        ListView1.View = View.List
-        ListView1.Hide()
-        UserView.Show()
-        AvatarView.Hide()
-        LoadMyListView()
-    End Sub
-
 #End Region
 
 #Region "Export"
-
-    Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
-
-        If (includeHeaders) Then
-            Dim headerValues As IEnumerable(Of String) = sourceTable.Columns.OfType(Of DataColumn).Select(Function(column) QuoteValue(column.ColumnName))
-            writer.WriteLine(String.Join(",", headerValues))
-        End If
-
-        Dim items As IEnumerable(Of String) = Nothing
-        For Each row As DataRow In sourceTable.Rows
-            items = row.ItemArray.Select(Function(obj) QuoteValue(If(obj?.ToString(), String.Empty)))
-            writer.WriteLine(String.Join(",", items))
-        Next
-
-        writer.Flush()
-
-    End Sub
-
-    Private Shared Function QuoteValue(ByVal value As String) As String
-        Return String.Concat("""", value.Replace("""", """"""), """")
-    End Function
 
 #End Region
 

@@ -3,7 +3,7 @@
 Public Class ClassLoopback
     Implements IDisposable
 
-    Public Sub SetLoopback()
+    Public Shared Sub SetLoopback()
 
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
         For Each adapter As NetworkInterface In Adapters

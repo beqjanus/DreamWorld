@@ -2,7 +2,7 @@
 
     Implements IDisposable
 
-    Public Sub SetQuickEditOff()
+    Public Shared Sub SetQuickEditOff()
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
