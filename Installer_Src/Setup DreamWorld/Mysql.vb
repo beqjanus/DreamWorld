@@ -520,19 +520,17 @@ Public Module MysqlInterface
         End If
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-
+            Dict.Clear()
             Try
                 NewSQLConn.Open()
-                Dim onetime As Boolean
                 Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            If Not onetime Then
-                                Dict.Clear()
-                                onetime = True
+                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1))
+                            If reader.GetString(0).Length > 0 Then
+                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                             End If
-                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
                 End Using

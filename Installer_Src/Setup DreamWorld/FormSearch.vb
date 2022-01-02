@@ -50,7 +50,7 @@
         HelpOnce("Search")
 
         Select Case Settings.SearchOptions
-            Case ""
+            Case "None"
                 NoneButton.Checked = True
             Case JOpensim
                 JOpensimRadioButton.Checked = True
@@ -99,7 +99,7 @@
     Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles NoneButton.CheckedChanged
 
         If NoneButton.Checked Then
-            Settings.SearchOptions = ""
+            Settings.SearchOptions = "None"
             Settings.SaveSettings()
         End If
 
