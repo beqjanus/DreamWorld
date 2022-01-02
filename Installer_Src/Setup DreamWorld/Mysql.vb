@@ -523,7 +523,7 @@ Public Module MysqlInterface
             Dict.Clear()
             Try
                 NewSQLConn.Open()
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) "
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
@@ -717,7 +717,7 @@ Public Module MysqlInterface
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
-        Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true'"
+        Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
@@ -738,9 +738,8 @@ Public Module MysqlInterface
                                 ' Debug.Print("Avatar {0}", m.Groups(2).Value)
                                 ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
-                                If UUID <> "00000000-0000-0000-0000-000000000000" Then
-                                    HGDict.Add(Avatar, UUID)
-                                End If
+                                HGDict.Add(Avatar, UUID)
+
                             Next
                         End While
                     End Using
