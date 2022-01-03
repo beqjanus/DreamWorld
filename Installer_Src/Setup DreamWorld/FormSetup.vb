@@ -1610,7 +1610,7 @@ Public Class FormSetup
         LoadIARsToolMenuItem.Image = Global.Outworldz.My.Resources.user1_into
         LoadIARsToolMenuItem.Text = Global.Outworldz.My.Resources.Inventory_IAR_Load_and_Save_words
         LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.box_tall
-        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Local_OARs_word
+        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Local_OARs
         LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_On_LoopBack_word
         LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_Loopback_Text

@@ -629,7 +629,6 @@
     </Compile>
     <Compile Include="Global Properties.vb" />
     <Compile Include="GlobalSettings.vb" />
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="Help.vb" />
     <Compile Include="IAR.vb" />
