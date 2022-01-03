@@ -160,7 +160,7 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
-        For Each voice In CType(Synth.GetInstalledVoices(), IEnumerable(Of Object))
+        For Each voice In CType(Synth.GetInstalledVoices(Globalization.CultureInfo.CurrentCulture), IEnumerable(Of Object))
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
