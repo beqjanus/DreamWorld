@@ -3179,12 +3179,12 @@ Public Class FormSetup
 
         For Each RegionUUID As String In RegionUuids()
 
-            If Not RegionEnabled(RegionUUID) Then
-                Continue For
-            End If
-
             If PropAborting Then
                 Return
+            End If
+
+            If Not RegionEnabled(RegionUUID) Then
+                Continue For
             End If
 
             Dim GroupName = Group_Name(RegionUUID)
