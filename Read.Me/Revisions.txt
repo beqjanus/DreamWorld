@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.86
+The web links for Load IAR and Load OAR used https protocol, which Opensim cannot support at this time.
+A help menu item was suppressed – Show Region Stats. The stats work if Welcome is running. 
+
 V4.85
 Fixes for a crash and a compiler issue with a 3rd party tool in 4.84.  Saved back into 4.84 so is the same as the 4.84 zip now.
 
@@ -47,21 +51,17 @@ V4.81
 Added “To Do List.pdf” to help. It’s a PDF of things To do. It is currently not going to make much sense to you as it was intended for my eyes only. I’ll add more detail to it as I go.  This goes back 62 pages in time.	
 
 Text To Speech has the ability to make Male and Female Wav files you can play in Opensim. See Help-Debug for now.  These files appear in the web server so can be played with media on a prim.  Lots of plans for this, none written down.  It uses the Microsoft Zira and David voices for now.Or whatever it thinks is the male or female on Win 7.  You cannot use this on Contabo or most servers as they have no sound card.
-
-
 V4.8
 Fixed the "extra welcome region" bug.  Obvious bug was not obvious. But cannot be unseen once seen.
 Default Welcome region cannot be Smart Boot enabled.
 Help normally loads once the first time you view each page. 
 You can now export the Region list to a CSV list for use in Excel or Google Sheets.
 Many performance tweaks, too many to mention. Startup of the app should be 2X faster.
-
 V4.79
 Visitor maps: Now uses any database setting, not just the default.  Default date for visitor maps set to previous 90 days. Also the maps have a Public or Private  setting. Default is private, or Localhost-only.
 DNS will attempt to contact up to 4 DNS servers.
 OpensimWorld went offline as they added more security. Added X-SecondLife-Object-Name fir future use, and they turned off the extra security.  OpensimWorld key would not show the saved value.
 1st boot of icecast did not show a green Icon.
-
 V4.78 
 Logs will be saved with a Date/time stamp.  Disable this in Settings->logs if you prefer the original no timestamp method.
 Added a link to Google Map in Help. This map has nice images, but doesn't cover much area. It centers on your Welcome Region.
@@ -90,13 +90,11 @@ Visitor Map fixes:
 	Visitor maps with no start date show from the first day of the month to the current date.
 	Added a back button 
 	Floats added to list maps for compactness.
-
 V4.75
 Announce in voice Avatars that leave
 Fixed a bug in Visitor maps lists where some visitors may not be counted
 Tell Smart Start avatars when region is almost ready
 Allow both http:// and https:// URLS in the splash screen
-
 V4.74
 A missing me.show in Load OAR and Load IAR made it impossible to load web OAR and IAR content. Oops.
 Added better messages for Smart Start region booting.
@@ -105,74 +103,57 @@ Authenticode digital signature from Digicert RSA4096/SHA384 updated for 2022.
 The Outworldz digital certificate signs the DLLS and EXE files. Microsoft learns to trust code that is signed.
 This ensures this software is compiled and came from me, and no one else. It protects software from alteration after publication.
 Only use code you trust!
-
 V4.73
 Possible crash if Avatar name is mangled in Smart Start.
 Add auto-incrementing Assembly Version and Date of build to crash dumps.
-
 V4.72
 Slight tweak to Perl installer to handle if a fatal Perl launch error occurs.
 Region Name missing from Visitor Maps.
-
 V4.71
 Changed Perl so it can be relocated off C drive.
 Clear Cache does not delete YEngine script cache, thus retaining YEngine state.
 Fix Map.htm hover data point to show proper coordinates for each minute.
-
 V4.7
 Fixes to Visitor Maps. Was not following people around.
 Remove remote admin message from Debug Menu.
 Moar Help.
 Detect Mysql not shutting down and retry.
-Six more translations.
-
-
+Six more translations
 V4.69 
 Adding a visitor map to Setup->Map. This requires you to install Strawberry Perl which it will prompt on first boot.
-
 V4.68
 Oops - left out a line of code if you overrode a region Script engine in a region. It left scripts off.
-
 V4.67
 Allow scripts to be disabled globally or per region for troubleshooting
 Add normal boot time and Map boot times to region list.
 Added a "Are You Sure?" message when you try to quit.
 Editing a map in a specific region did not change the preview image, or show the default.
 Replaced the troublesome Oracle Mysql driver with a 3rd party driver. The oracle driver would often report an unmanaged code crash 'connection already open', when it clearly was not.
-
-V4.66 Beta
+V4.66 BETA
 Added a Save All IAR background task. Choose a region, click Start. It will save each IAR for all users one at a time using that region.
-
-V4.65 Beta
+V4.65 BETA
 Environment.processorcount now used to set initial core counts- minor fix to suppress a try catch
 VisitorCount could fail to count local visitors. 
 Set focus to Region name on form load
 Set SafeShutdown flag if no Opensim processes detected so ports get renumbered
 Changing physics tab in Regions did not trigger a save warning if panel was closed
-
-V4.64 Beta
+V4.64 BETA
 Logging reports (Setup->Setting->Logging->{Analyze Logs] are styled better and report YEngine script errors now
 Added a 1 second sleep after typed commands before potentially closing windows for readability
-
-V4.63 Beta
+V4.63 BETA
 Read and print Mysql Version that we are connected to.
 Suppressed a possible crash in visitor counter. Something is fucky in Mysql connections to Robust.
 Removed Robust restart when Smart start settings are changed. 
-
-V4.62 Beta
+V4.62 BETA
 Old Bug: Region re-normalize puts the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
 Fix glitches in Port renumbering. Reworked refresh button to re-fetch the ports from INI files.
 Region Estates not always showing in Region list.
 Setting Wifi Password prompted for password length too often and the Robust box did not close in some situations.
-
-V4.61 Beta 
+V4.61 BETA 
 Added a Chat to Speech announcer to the Settings->Region. When enabled, this announces 
 in a male or female voice arrivals and departures. It does not depend upon Concierge module which announces in-world in chat.
-
-V4.6 General release
+V4.6 GENERAL RELEASE
 Could not restore from a .sql backup. A typo added a space in a file path.
-
-
 V4.58
 Lots of small tweaks to UI to improve performance.
 Link set: Max number of prims increased to 1024.
@@ -180,7 +161,6 @@ Chat to Speech: Added a Speech class for the future Chat to Speech system. Will 
 Bug: Surrounding sims would start with nearby visitor when SS was disabled.
 Bump connections to Mysql in my.ini for large grids like mine.
 Added three more free OARS. 2 adult and an older prim-based region.
-
 V4.57 
 Git is Rev V4 so it's `git checkout V4`. My code is mostly written in Visual Basic and anyone can compile it for free.
 Opensim is now same as core as of 7/31/2021. Rev is "#d0e41f747b9054 there should be no need..."
@@ -195,13 +175,12 @@ Events: seems to sometimes hang as its Http. And can take more time that should 
 Jopensim: Kickstart added back into the installer. Also a rev file added to show or suppress the you need to update screen.
 Crash fix: Windows caching could cause a crash when renaming a file during INI file checks. The Crash report I added a while back has worked beautifully and thanks to the you folks, the reporters, 39 sneaky bugs have been fixed.
 Changes to Diva settings causes robust to restart, if running, as it should.
-
 V4.56
 Search in Region list in non-English Languages blanked out all regions. As "Search" <> "Suche". Fixed.
 Cleanup and reorganize by running it through the CodeMaid extension
 Opensim recompiled to not spam the bin region with Map-* maptiles which are just for debug.
 
-V4.55
+V4.5
 Important Fix for Default Hypergrid region - made it hard to visit a HG System!
 Several potential crashes fixed in OpensimWorld and other places.
 
@@ -230,7 +209,7 @@ Help Once function was not working. This pops up Help when you first look at a c
 The count of regions on the Diva home page did not include Smart Boot enabled regions.
 
 
-V4.51 removed due to an isue with multipl sims per DOS box.
+V4.51 removed due to an issue with multiple sims per DOS box.
 
 V4.5 
 Possible crash if you delete a .bak file for Baretail. It's needed.
@@ -262,7 +241,7 @@ Explicit version message of VersionIS==> WillBe when prompted to update. As in 4
 Opensim world shows the avatars + NPCs, instead of the avatars. Oops. The RPC call admin_get_agent_count command is basically an antique. I added a admin_get_avatar_count.
 
 
-V.42 Internal alpha test
+V.42 INTERNAL ALPHA TEST
 
 V4.41
 Finally fixed the crash in some machines since 4.03. Its timing in thread exits.
@@ -279,12 +258,12 @@ RegionList check boxes for All, Smart On, and Disabled
 Save Size of the graphs
 Add counts of Smart Boot to Region list title
 
-V4.3-4.2 Alpha tests
+V4.3-4.2 ALPHA TESTS
 
 V4.1 Performance Tweaks to Mysql and Smart Start
 Fixed a crash in Diva web pages where a URL could (and did) crash robust.
 
-V4.04 Performance Tweaks to Mysql and Smart Start
+V4.04 PERFORMANCE TWEAKS TO MYSQL AND SMART START
 
 Partner Control Panel Is now Rev 4.1 now has a pretty look and works in both XEngine and YEngine.
 This is a new Beta for Smart Start. The Smart Start Button in "Settings" is now enabled.	
@@ -312,7 +291,8 @@ Force Viewers that are in range to update when a region is ready.
 Region Builder knows how to set estate without typing.
 Added a RPC enable login to force Opensim to accept teleports when it says its ready but is really only mostly ready.
 
-V4.02 5-23-2021 Fixes to Smart Start, signs, and some UI performance improvements 
+V4.02 5-23-2021 
+Fixes to Smart Start, signs, and some UI performance improvements 
 Thankxx to Richard Dennis, who reported that adding a Region from the Setup->Settings->Region-[Add] button would always create an extra "New Region". 
 Robust could start and would lie about being ready and this could cause a crash when a region boots too early when the database was still being generated.
 Opensim would still jab the API in some cases even if global SS was disabled. 
@@ -330,7 +310,7 @@ Added more "allows" to the list of LSL destinations. These are the only LAN Addr
 	LANIP:HttpPort				http://(PC LAN IP):(80)
 	PublicIP:HttpPort			http://(PC WAN IP or DNS Name):(80) in case a loopback adapter is involved
 
-V4.01 Maintenance
+V4.01 MAINTENANCE
 Just some tweaks, no need to update unless you are a Smart Start Alpha tester.
 Slower machines on first install may miss the Create User dialog. Added a Information MNsgBox in all 30 languages to wait for Robust to finish updating.
 Smart Start has several fixes:
@@ -342,7 +322,7 @@ Smart Start has several fixes:
 	Added a Mysql check of the region status (0x4=online) before initiating a teleport.
 Added a Mysql Console menu in the main form under the Mysql Menu.
 
-V4.0 Release
+V4.0 RELEASE
 This update will notify you its time to update.
 Added sortable columns for User Age in days, Birth date, count of inventory items, and User level to User Screen
 
@@ -352,7 +332,6 @@ X translated as Y, doh!
 Enable script function lsSetWindlightScene so scripted EEP should work. This script function is restricted to the region owner only.
 Added a Force Update to Help Menu so you can get updates on demand instead of waiting for a release.
 All manuals updated, including the big PDF.
-
 
 V3.931
 Icecast did not redirect to the /status.xsl home page. An <Alias=..> got wildcarded in, should be <alias= ..>
@@ -435,7 +414,7 @@ V3.92
 Physics default was always overridden to off in Region options.
 
 
-V3.91 Post fixes for 3.9
+V3.91 POST FIXES FOR 3.9
 
 Scrolling Text box bottom was not floating with the bottom of the window.
 Teleport signs got back a UUID instead of a region name, so scripted teleports were borked. missing an else.
@@ -586,26 +565,26 @@ Brought back all Physics Engines.
 Added Ninja (Ragdoll) prim physics enable for ODE.
 
 
-V3.84 Post fixes
+V3.84 POST FIXES
 Another crash in Black and White Diva Wifi Image on boot.
 Systems running with a merged database where robust and region files are in the same db would backup twice.
 Ban Lists did not reload automatically. It required you to click the Ban list after a reboot.
 
 
-V3.83 Post Fixes
+V3.83 POST FIXES
 GUI Crash may be happening when running backup tasks. Added code to help spot the issue.
 Added SQL backup to the backup scheduler. Caution ! FSAssets and SQL backups will fill up a disk quickly. Most useful if you want all backups with one click, or have lots of disk space and a small number of days to keep.
 Graphs now float to fill the screen correctly.
 MySqlBackup could not be turned off.
 
 
-V3.82 Post fixes
+V3.82 POST FIXES
 Backup of SQL files did not work. Zip was never made
 Added a crash logger for all unhandled exceptions. It pops up a request to send the error securely to me.
 Icons for Robust, Mysql, etc did not change color on a crash.
 Add longer timeout to manual for FSassets help, and the Opensimulator wiki.
 
-V3.81 Post-fixes
+V3.81 POST-FIXES
 Adding a new Region no longer requires restarting the grid
 Backups used to make a copy, then zipped the copies folder. This used 1.5 times the original data while being backed up. Now it uses about half, depending on compression, throughout the entire process. Thanks for the idea, Marianna!
 Apache sometimes would not install. Added an isApacheInstalled function to detect and install. Thanks for the tip, Garrt Beaumont!
@@ -615,7 +594,7 @@ Deleted Regions de-register from robust so you can place a new region there
 Added a Region Message button to Region Pop Up so you can send Blue alerts more easily. 
 Shutting down while zipping up backups would create large tmp files. These took a long time at startup to delete.
 
-V3.8 Release
+V3.8 RELEASE
 
 V3.799
 XMLRPC is deprecated.
@@ -647,8 +626,6 @@ Updater can be updated
 Apache logs expire with the "Keep For Days" setting
 Threw out three years of work on Restart logic and rebuilt it all using XMLRPC and detecting process Window names. 
 
-
-
 V3.794
 Auto Restart now handles region restarts if the GUI has been restarted. Users can reliably restart a region.
 Speedup: Only as many Performance counters as necessary, for umm, performance!
@@ -658,7 +635,7 @@ Opensim error: Mutelist and SearchURL fixes if Jopensim was enabled and them dis
 V3.793
 Error starting Icecast due to a missing slash.
 
-V3.792
+V3 .792
 Prior version mixed up a INI file and never re-wrote the Opensim.ini.
 Depending upon your situation, it would boot but not let you log in. Or crash regions and not boot.
 
@@ -700,14 +677,14 @@ Enable WhoGotWhat to capture in world events.
 BanList changes for IP addresses which now support /24 subnets
 
 
-V3.781 JOpensim Update
+V3.781 JOPENSIM UPDATE
 This rev of DreamGrid supports Rev 0.3.2.0. If you are running Jopensim at an earlier rev, you must update JOpensim in the Joomla/administrator menu. There are minor changes in new added features, but huge changes to the internal communication structure between OpenSimulator and Joomla.
 
 Step 1) To Update Joomla, navigate to your Joomla admin panel at http://127.0.0.1/JOpensim/administrator and log in as Admin. In the top menu, go to Component->Joomla Update and update your Joomla system. 
 Step 2)Go to Extensions-Manage->Install and click Browse to File. The file you install is in OutworldzFiles\Apache\JOpensim_Files\Version0.3.2.0. Select and install pkg_jopensim.0.3.2.0.zip. There is no need to unzip it first.
 
 
-V3.78 JOpensim fix
+V3.78 JOPENSIM FIX
 A password was accidentally put in the JOpensim Backup. Fix has been back ported to V3.77.
 Minor fix to ban list to prevent a blank line from creeping in.
 Hyperica.com rewritten to get rid of ancient PHP5 code with many improvements for Search. Only V3.77 and higher are supported.
@@ -757,26 +734,26 @@ IAR and OAR menus reorganized to be easier to locate the various ways to load an
 Built and tested a shared region module “WhoGotWhat”. It uses use a LSL script in a ‘giver’ box. Touching the box gives the contents. It also posts Who, What, Where the contents was given, and logs when it happens in Outworldzfile\Opensim\Bin\ WhoGotWhat.csv. Should work in Region Servers, too. The grid owner can load this into a spreadsheet and know what people have been getting. 
 
 
-
 V3.76
 Add remote Admin port and XMLRPC ports to firewall and UPNP
 PHP7 curl works now for Jopensim to use
 Patch around an issue with Hyperica.com's SSL interfering with Opensims inability to fetch from a https source
 
 
-V3.75 Updater Tweak 
+V3.75 UPDATER TWEAK 
 Removed deprecated Ionic.zip.dll. Older versions of DreamGrid were forced to use this DLL at an even old rev due to collisions in updater and older Dreamgrids. Now its really, really dead. Replaced by System.Compression.DotNetZip.
 DreamGridUpdater case in URL (Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable redirect at Outworldz.com was supposed to send this URL to a Cloud Storage service. It did not always do so.
 Add CAA record to Outworldz and Hyperica DNS for security - prevents forgery of certificates.
 
-V3.74 Updater Updated
+V3.74 UPDATER UPDATED
 Run “DreamGridUpdater.exe”. It will shut off Apache and MySQL, download the latest released and extract it, then click Start.exe for you. 
 Some region columns could end up with 0 width and so they disappeared. 
 Added more checks for correct data entry to regions such as Script timer and Frame timers. Limits added: .05 < value > 1.
 JOpensim’s RemoteAdminPort was 5050 in all regions which crashed the 2nd region onward. It is now a variable set to 0, happens on only one region as originally intended, and the port is disabled by default. Crash fix was also pushed back into 3.73.
 Simplified JOpensim Installer can choose between JOpensimSearch of your local grid or Hyperica Global Search.
 
-V3.73 is a small improvement in Joomla/Jopensim
+V3.7 3 
+Asmall improvement in Joomla/Jopensim
 Tweaks to Joomla Install Button.
 Joomla Search enabled. This actually sucks, will add a button to toggle between it and Hyperica search which works.
 Same for JMoney. It’s a pay-for-license thing.
@@ -808,13 +785,13 @@ Sendkeys had issues so sometimes save all oars not working. Set to consistent be
 Threaded System backup to not block the main UI
 Added Joomla DLL's to bin
 
-V3.695 Alpha Release for 3.7
+V3.695 ALPHA RELEASE FOR 3.7
 Minor tweaks
 
-V3.694 Alpha Release for 3.7
+V3.694 ALPHA RELEASE FOR 3.7
 Another bug in Banlist fixed, could not add more than one http:grid.com>:8002 address
 
-V3.693 Alpha Release for 3.7
+V3.693 ALPHA RELEASE FOR 3.7
 Fixes to Ban Lists for Viewer name. This uses a simple string compare.
 One can use a Substring of the viewer name to disable only certain versions
  Example: Agent uses the viewer "Imprudence 1.3.2.0"
@@ -823,10 +800,10 @@ One can use a Substring of the viewer name to disable only certain versions
  - "Imprudence 1.3.1" has access as the string does not match
 For the old Darkstorm copybot viewer, use “Firestorm-Releasex64 5.0.11” or “Firestorm-Releasex64 5" to ban all older Firestorms.
 
-V3.692 Alpha Release for 3.7
+V3.692 ALPHA RELEASE FOR 3.7
 Recompiled Opensim
 
-V3.691 Alpha Release for 3.7
+V3.691 ALPHA RELEASE FOR 3.7
 Fixes to Ban Lists for Grid name, use syntax like http://hg.osgrid.org:80
 Moved Banlist.txt into Settings.ini for portability
 Add a visitor list to the Local IAR that is styled like the Teleport sign
@@ -837,13 +814,13 @@ Viewer bans are too banny. Seems to be an Opensim bug.
 You cannot run more than 1 grid on an IP without using Domain names. http://opensimulator.org/mantis/view.php?id=8771 
 Arabic and Farsi translations do not work at all so they are disabled.
 
-V3.69 Post Fixes
+V3.69 POST FIXES
 Add new Icons for Opensim and Robust windows
 Opensim updated to #d2e7c711b4188106a 0.9.2.dev 2020-09-21 20:40:24 actually make yExceptionMessage and yExceptionTypeName avaiable"
 Some NPCs from Satyr Farm would crash a region hard.
 Fix the Unknown User that appears on some avatars and NPCs
 
-V3.68 Post fixes (Beta Bleeding edge)
+V3.68 POST FIXES (BETA BLEEDING EDGE)
 Opensim updated to "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()
 Fixed birds module.dll after mistakenly deleting the .bak and .ini files. doh
 Updated DreamGrid_Test_Region-1X1.oar to include birds test
@@ -851,14 +828,14 @@ Updated DreamGrid_Test_Region-1X1 to include the Outworldz Radio system. This is
 Updated DreamGrid_Test_Region-1X1 to include a Deathstar moon and Fantasy sun for EEP tests.
 Restored OsSlEnableDG.ini default settings.
 
-V3.67 Post Fixes (Bleeding edge Opensim)
+V3.67 POST FIXES (BLEEDING EDGE OPENSIM)
 Opensim updated to #ac8271e391bee1b 0.9.2.dev 2020-09-12 19:10:45	try reduce number of this webrequest
 This mainly adds back in EEP defaults. See http://opensimulator.org/viewgit/?a=shortlog&p=opensim. Also fixes some HTTP-In
 
-V3.65 Post Fixes (Bleeding edge Opensim)
+V3.65 POST FIXES (BLEEDING EDGE OPENSIM)
 Fixed a glitch that caused immediate crash in 3.64
 
-V3.64 Post Fixes (Bleeding edge Opensim)
+V3.64 POST FIXES (BLEEDING EDGE OPENSIM)
 Add 100+ translations.
 Add Brazilian Portuguese.
 Opensim updated to #7dc50c93b82f22da8a9 0.9.2.dev 2020-08-26. This fixes a glitch in EPP that showed a missing UUID. Also fixes a repeated debug log that occurs when the suitcase is on and a visitor arrives.
@@ -867,18 +844,18 @@ Another try at fixing the missing texture popup in EEP Firestorm
 Added updated parts to the Test Island:
 Fixed Shaun's Radio, as it did not run in the latest Opensim. There are prims on colored tiles outlining separate parcels to test the Search Parcel features of different prims in your viewer at Hyperica.com. Tides test: there is a ruler for showing the tides going up and down 3 meters in 15 minutes and also the test buoy. I have this script in water lilies and surf in my sims. Both teleporters and the Partners prim are there for testing. And Opensim Birds are available.
 
-V3.63 Post Fixes
+V3.63 POST FIXES
 Opensim updated to #e9b4bca0899f13eab 0.9.2.dev 2020-08-25. 
 UPNP for new grids is on by default. And it works. This should make it a lot easier for nooblets.
 Add firewall manual on how fw.bat works.
 Fixed Unicode support in Events on Hyperica.com
 
-V3.62 Post Fixes
+V3.62 POST FIXES
 Added Audio and Video examples on how to play region-wide audio loops and how to play videos
 Update license files to exactly match names in OAR folder. Add 6 new OARS.
 
 
-V3.61 Post fixes
+V3.61 POST FIXES
 Opensim is Dev Master for EEP testing #af9bd993bb71ed1d6 2020-08-11 09:33:41
 Altered mechanism for reading OSSL section of OpenSim.ini to use config-include/osslDefaultEnable.ini which then loads config-include/osslEnable.ini overrides.
 Add osReplaceAgentEnvironment, osSetParcelMusicURL to oslEnable
@@ -890,15 +867,15 @@ V3.6
 Release of V3.592
 
 
-V3.592 Release Candidate for V3.6
+V3.592 RELEASE CANDIDATE FOR V3.6
 Drop Addins-db-002
 
-V3.591 Release Candidate 
+V3.591 RELEASE CANDIDATE 
 Oops, some missing files in 3.59.
 Also fixed a missing macro in Opensim.exe.config and robust.exe.config that stopped the "Help->Issue Console Commands->Set Debug Level" from taking effect for all sessions, not just one session.
 
 
-V3.59 Release Candidate 7/24/2020
+V3.59 RELEASE CANDIDATE 7/24/2020
 Opensim updated to the same as OsGrid: Version #b598573 0.9.2.dev. 5-22-10:55 This includes hundreds of tweaks.
 Enabled built-in Denial-of-Service protection. 
 Added Settable Ban lists for Grids, Viewer type, IP addresses and MAC addresses.
@@ -912,7 +889,7 @@ Removed Scan of Region logs to improve performance.
 YEngine script is now the default for new DreamGrids.
 
 
-V3.58 Post Fixes 7/14/2020
+V3.58 POST FIXES 7/14/2020
 When more than one grid is run on a PC do not shut off wrong Robust.
 Region Form remembers the column widths in Details mode.
 OsGrid complained about 2 economy modules.
@@ -927,7 +904,7 @@ Added XMLRPC port to each Region for third party tools to control Opensim.
 http://opensimulator.org/wiki/RemoteAdmin:RemoteAdmin_Examples
 Stopped a recursive timer tick from happening on slow machines which again delayed startup of Regions.
 
-V3.57 Post Fixes 7/6/2020
+V3.57 POST FIXES 7/6/2020
 Bug Fix:Console = None works again.
 Performance: Skip huge folders with no Dlls in updates 
 Bug Fix: timer reentrant issue that shut down the icons. 
@@ -935,8 +912,7 @@ Performance: Added back the DoEvents to make UI more responsive.
 Coding: Added example on how to make an addin for Opensim
 Bug Fix: Local Events missing a column.
 
-7-1041
-V3.56 Post Fixes 6/18/2020
+V3.56 POST FIXES 6/18/2020
 New Feature: Updates could destroy added on services such as WordPress or Joomla. Added a switch to 
 Apache to select "DreamGrid Diva", WordPress, or Joomla/JOpensim or "Other" folder as the home page, 
 such as http://(your grid):80, aka http://(your grid). Documentation on this is not in this update. 
@@ -948,10 +924,10 @@ Crash prevention: If blank "Server Admin" email, use "not@set.yet" to allow Apac
 Performance: Don't scan logs if Restart on physics Crash is set for anything but Bullet in a separate thread, as it useless.
 
 
-V3.55 Post Fixes 6/12/2020
+V3.55 POST FIXES 6/12/2020
 Added a Refresh button to the OAR loader
 
-V3.54 Post Fixes 6/10/2020
+V3.54 POST FIXES 6/10/2020
 Welcome Regions with a space in the name could not be tp'ed to over the Hypergrid. A really old bug, too.
 Allow YEngine and Xengine to be selected per region.
 Show map photos without lines or text.
@@ -961,7 +937,7 @@ OpenJPEG not CSJ2K to cut down on warnings.
 Fixed graph glitch when resizing home.
 
 
-V3.53 Post Fixes 6/2/2020
+V3.53 POST FIXES 6/2/2020
 Tuned Apache.conf for speed, security, in effort to "Future Proof" if people add Wordpress or Joomla.
 Include conf/extra/httpd-mpm.conf whioch has been tweaked to use a 4 core machine without too much RAM in use. 
 Added MIMEMagicFile module and conf/magic for peeking in file contents to determine the MIME type.
@@ -970,21 +946,21 @@ Added a bunch of mod_deflates for compression for various browsers.
 Added a bunch of expires by type for web browsers built-in caches.
 
 
-V3.52 Post Fixes 5/31/2020
+V3.52 POST FIXES 5/31/2020
 'admin' password for Icecast was the same as the stream password. Extended the "new grid" random passwords to 15 characters.
 
-V3.51 Post fixes. 5/28/2020
+V3.51 POST FIXES. 5/28/2020
 Tweaks at turn off DEBUG in opensim.exe.config, make a longer default password for Wifi Admin.
 
 
-V3.5 Release 5/26/2020
+V3.5 RELEASE 5/26/2020
 General Release and set to trigger "Update Needed" via AutoUpdater.
 Made the Region Chooser resizable and remember its size per request from Ethan Breck. Nice idea!
 
-V3.49 Release candidate for 3.5 5/22/2020 
+V3.49 RELEASE CANDIDATE FOR 3.5 5/22/2020 
 Oops, IM and receive objects via IM over HG was broken.
 
-V3.48 Release Candidate for 3.5 5/22/2020
+V3.48 RELEASE CANDIDATE FOR 3.5 5/22/2020
 Map tiles in MySQL are automatically deleted when rebuilt to save disk space.
 Offline message module fixes.
 3-day auto backup would not work due to extra leading space
@@ -993,13 +969,13 @@ Home page Icons relocated so app supports Large fonts.
 Clicking an icon has a restart option to start or restart the service.
 Icons have Help option for each background service.
 
-V3.47 Release Candidate for 4.5 4/26/2020
+V3.47 RELEASE CANDIDATE FOR 4.5 4/26/2020
 The IAR save only saved the Wifi Admin IAR. Reverted back to standard Opensim so you need to know or reset the users password. Doh!
 
-V3.46 Release 4/26/2020
+V3.46 RELEASE 4/26/2020
 Opensim checks passwords for IARS now, but you only use Wifi Admin’s password. Makes it much easier to dump an IAR for a customer/user and makes it more secure. Users can load IARS in the Wifi Web Panel using their password.
 
-V3.45 Release 4/21/2020
+V3.45 RELEASE 4/21/2020
 Change Offline IM Group port to port 8003 to stop endlessly repeating error messages in Robust.
 Allow empty bin\Libraries.proto for one person who wants no library.
 Simplified Try catch to catch all exceptions everywhere. 
@@ -1011,16 +987,16 @@ Enabling Apache will remove and re-install the service on startup to make it eas
 PHP.ini got duplicated - now it's just one. Also changed some PHP settings for Search.
 
 
-V3.44 Release
+V3.44 RELEASE
 Try Catch OAR load from web and other Web checks to remove dependency on Outworldz and Hyperica.
 More checks on WindowsTitle as Windows is not always setting them.
 
 
-V3.43 Release 4/7/2020
+V3.43 RELEASE 4/7/2020
 Missing line of code broke Gloebits if any settings were not the default.
 Home page links fixed in viewer for login and Help
 
-V3.42 Postfixes released 3/27/2010
+V3.42 POSTFIXES RELEASED 3/27/2010
 Region Restart Form could crash if you fat-fingered some settings. Now it saves on close after sanity checks.
 On first boot, Welcome did not start due to not having a group port.
 TOS form would save, but not stick around after an update or a change from black to white or custom.
@@ -1028,10 +1004,10 @@ Always set Gloebits INI as region servers will crash without it set up.
 Wrong folder for cache. Oops.
 Just hide the damn downloader.
 
-V3.41 Post fixes release 3/6/2020
+V3.41 POST FIXES RELEASE 3/6/2020
 A load OAR or Load IAR search and clicking to load it got you the wrong item. Thankxx for the tip, Scott Taylor!
 
-V3.4 release 2/28/2080
+V3.4 RELEASE 2/28/2080
 Fixed issues in German Translation that caused a crash for Dieter Mueller. Thank you very much for the valuable feedback.
 About 100 of the translations were not 'taking'.
 New form for Nooblets to use to create the initial avatar. Thanks to Garry Beaumont for pushing for this.
@@ -1039,36 +1015,34 @@ Avatar View in Region list was not set to visible. Oops
 Spellcheck every manual - Office 365 Word has no grammer (sic) or other errors, and it shows readability from 6th to 9th grade so there is no excuse for not reading them. 
 Publicity module crash when nothing was entered. There was a string set to nothing. Should have been "", which is not nothing.
 
-
-
-V3.38 Beta
+V3.38 BETA
 Extensive refactoring and state machine changed in region restart. 
 Main form resizes in all screen scale font size.
 Updated 15460 translations, including hand-updated German and French. Thank you very much to all the volunteers!
 Should be able to change most settings and restart the region without shutting down the grid.
 Sped up lots of places and much more threading during boot and shutdown. 
 
-V3.37 Beta
+V3.37 BETA
 Updates started at 0, should be at curtrent version to prevent repetitive begging for updates.
 Robust double start fixes.
 DNS shows busy when testing.
 Allow changes to Opensim.ini, Gloebits and birds to take effect without resetting the entire system, usually through changing a region settings.
 Max region port function would not always return the highest port, preventing multiple DOS boxes from booting w/o restarting the system
 
-V3.36 beta
+V3.36 BETA
 Possible hard crash in Check for Update if going from from V3.34 to V3.35. A variable was FALSE, should have been a number
 
-V3.35 Beta
+V3.35 BETA
 Added Search to Load OAR and Load IAR (web)
 Stopped a crash on Server 2016 if Publicity was blank.
 Several Updater and Downloader changes so updates can be skipped. Updates are automatically downloaded to a zip file in the root folder. The next startup or Help->Check For Updates, it detects the fresh zip and asks if you want to update to that version. If yes, it brings up the Backup screen, then shuts down mysql and Apache, and launches an unzipper. if you chose No, it will not prompt you again until the next version is ready.
 
-V3.34 Beta
+V3.34 BETA
 When region is not running, speed up region click from 15 seconds to 1 second by using an async TCPCLient to probe the port.
 Reset CPU usage to 90% instead of 75% for slow machines
 Crash on Server 2016 when SetMyINI value is nothing.
 
-V.33 Beta 
+V.33 BETA 
 Can always hide region DOS boxes,always show, or hide when done with an action.
 God Mode fixes where region overrides could get stuck on or off
 Disable Residents fixes where region overrides could get stuck on or off
@@ -1090,12 +1064,12 @@ Closing the settings form now closes all the child settings forms for garbage co
 15X15-sized region was not selectable, and the settings defaulted to max of 4 if you looked again after a save.
 Tests DNS name when saved.
 
-V3.32 Beta 
+V3.32 BETA 
 
 Clicking the Clear cache button could cause a crash if the fsasset folder did not exist.
 
 
-V3.31 Beta
+V3.31 BETA
 
 A major change in internal structure should speed up the region list and boot to be significantly faster. This also improves responsiveness due to fewer blocking loops.
 
@@ -1134,7 +1108,8 @@ Cache clear happens much faster. Except for scripts. Nothing more I can do there
 Selecting an OAR showed the entire row selected. Now it is just the cell, Thanks AI Austin!
 
 
-V3.3 - This is a general release and is in the Automatic Updater.
+V3.3
+ This is a general release and is in the Automatic Updater.
 
 Opensim set to Released OpenSimulator version 0.9.1.1 Snail #7bdc408caca3. This changes some LSL constants so an automatic script cache clear will be done at first boot.
 
@@ -1298,7 +1273,7 @@ Y coordinate changed when X changed - was supposed to be region size.
 God mode overrides fixed. They always overrode the global for Level 200 Gods to off, even if unselected.
 Prevent a lower versus upper case issue if the puny human entered 'Autobackup'.
 
-V3.2 Release Rollup
+V3.2 RELEASE ROLLUP
 A wrong "print" caused a crash when a backup was manually run.
 Always use English culture until translations are available.
 
@@ -1361,7 +1336,8 @@ Export Checkbox in Settings->permissions to disallow export of prims from viewer
 If an OAR is loaded into a Var region > 4X4, allow it.
 Removed lots of warnings in Visual Studio 2019.
 
-V3.17 is a release candidate for V3.2, the official release that everybody gets a notice to update to.
+V3.17 
+release candidate for V3.2, the official release that everybody gets a notice to update to.
 There is no longer an "updater versus installer". For backwards compatibility, there are still two files on the web server, but they are identical. 
 If you want to start over with a blank database, you can just delete MySQL\data and it will be rebuilt as a blank system
 New background updater process.
@@ -1377,10 +1353,10 @@ Compile instructions updated.
 Add help for ServerType, thanks to Garry Beaumont
 Access of shared member through an instance; qualifying expression will not be evaluated refactored
 
-V3.16 Beta
+V3.16 BETA
 Search improvements for local and global search - sped up Datasnapshot interval, better HGV3 link that does not require a second click. Shows # hours each sim has been online in search, and dwell time (the Second Life visitor metric). 
 
-V3.15 Beta 
+V3.15 BETA 
 Opensim Snail dev master #38dbc0328881 2019-08-31 14:36
 Ctrl-R Region Form also shows the Estate name for each region
 Search: Lots of new things! Search is integrated into Hyperica.com. You can look for Objects Marked for search in any Outworldz gird, or just your own. Also, locate Parcels, Grids, and regions in grids. These are only shown if the region owner chooses to enable search and the Prim Owner, region owner, or parcel owner has cheeked the "Show in Search button".
@@ -1397,12 +1373,12 @@ Major refactor of defaults for all region params to stop weird crashes on import
 Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable. Improve error handling here. There should be no dependency on any of my servers, except for optional services such as DYN DNS or search.
 Updated Apache to latest security SSL/TLS 1.2 and made it refuse all obsolete ciphers like TLS 1.0 and 1.1. Tested as not being vulnerable to any common attacks such as Heart bleed.
 
-V3.13 Beta
+V3.13 BETA
 Repaired OsGrid and other region types that broke in prior beta version
 Added a Disable Gloebits setting in region settings. This overrides the global setting if Gloebits are on.
 Refactored a lot of internal settings to use native types and also set defaults for all variables in Regions.
 
-V3.12 Beta
+V3.12 BETA
 Sped up Opensim using Ubit's optimized Dot Net bug fix for Windows 1903 and compiled with dev master #5b39860573 2019-08-02 12:13:53
 Robust logging set to INFO, as it was too noisy in DEBUG
 Added auto-updating Sitemap.xml for htdocs and bin/data
@@ -1411,12 +1387,12 @@ Auto firewall setup was missing the second Icecast Port
 Fixed an issue where Apache could not run properly on ports other than 80
 Datasnapshot was not registering in Local Search mode, which broke Local Search, and used wrong http port if it was changed.
 
-V3.11 Beta
+V3.11 BETA
 Aviworlds Region Server lets you attach to Aviworlds easily.
 Added Restart Robust Button
 Added logic to catch UPNP errors on some machines/routers.
 
-V3.1 Released 7/29/2019
+V3.1 RELEASED 7/29/2019
 Backup no longer blocks operation of the system
 Backup FSAssets, too.
 Xbakes enabled
@@ -1567,10 +1543,10 @@ Add RAM graph
 Add Avatar, CPU and RAM to front panel
 Save width for Main Form
 
-2.8 Release 
+2.8 RELEASE 
 2.79E = 2.8
 
-2.79A through E:
+2.79A THROUGH E:
 Avatar count shown on main form at upper right.
 Prompts before shutting down if any avatars are in any region. So you can deliberately kill then all! bwuhahaha
 Clear Caches was in Help, now is a Settings Button for consistency.

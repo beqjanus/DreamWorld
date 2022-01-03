@@ -52,14 +52,15 @@ Module IAR
 
     Public Function LoadIARContent(thing As String) As Boolean
 
+
         ' handles IARS clicks
         If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
             Return False
         End If
 
+        thing = thing.Replace("https:", "http:")
         Dim UUID As String = ""
-
         Try
             ' find one that is running
             For Each RegionUUID As String In RegionUuids()
