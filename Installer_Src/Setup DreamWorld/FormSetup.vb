@@ -3502,7 +3502,7 @@ Public Class FormSetup
 
     Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
-        ShowUpdateForm(" latest version.")
+        ShowUpdateForm()
 
     End Sub
 
@@ -3612,34 +3612,6 @@ Public Class FormSetup
                 BreakPoint.Dump(ex)
             End Try
         End Using
-    End Sub
-
-    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        ShowUpdateForm("latest version Including beta versions.")
-
-        Return
-
-        If DoStopActions() = False Then Return
-
-        Using PUpdater = New Process()
-
-            Dim pi = New ProcessStartInfo With {
-            .WindowStyle = ProcessWindowStyle.Normal,
-            .WorkingDirectory = Settings.CurrentDirectory,
-            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
-        }
-            PUpdater.StartInfo = pi
-            TextPrint(My.Resources.Do_Not_Interrupt_word)
-            Try
-                PUpdater.Start()
-                End
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-        End
-
     End Sub
 
     Private Sub G()

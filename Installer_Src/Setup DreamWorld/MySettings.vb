@@ -1829,9 +1829,13 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SkipUpdateCheck() As String
+    Public Property SkipUpdateCheck() As Double
         Get
-            Return GetMySetting("SkipUpdateCheck", "0")
+            Try
+                Return CDbl(GetMySetting("SkipUpdateCheck", "0"))
+            Catch ex As Exception
+            End Try
+            Return 0
         End Get
         Set
             SetMySetting("SkipUpdateCheck", CStr(Value))

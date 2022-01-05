@@ -1,9 +1,19 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.88 
+Detect Beta and Released versions and same versions, and show the button for each type - Update to released, update to Beta, or reinstall
+Smart Start sent people to Welcome. Should have been ParkingLot. If no parking lot is set, send them to Welcome.
+
+
+V4.87
+Added better directions and modified the update button in the Help-Update form to explain what update is available.
+
 V4.86
 The web links for Load IAR and Load OAR used https protocol, which Opensim cannot support at this time.
-A help menu item was suppressed – Show Region Stats. The stats work if Welcome is running. 
+A help menu item was suppressed for Show Region Stats. The stats work if Welcome is running. 
+Suppress a crash due to a faulty image.
+Allow a new region to boot even if made while running.
 
 V4.85
 Fixes for a crash and a compiler issue with a 3rd party tool in 4.84.  Saved back into 4.84 so is the same as the 4.84 zip now.
