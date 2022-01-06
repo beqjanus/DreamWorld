@@ -2529,8 +2529,8 @@ Public Class FormSetup
                     Continue For
                 End If
                 Dim RegionName = Region_Name(RegionUUID)
-                If RegionName = "" Then Continue For
-                If RegionName Is Nothing Then Continue For
+                ' could be a tainted region UUID leading to a crash
+                If RegionName.Length = 0 Then Continue For
 
                 ' not seen before
                 If Not CurrentLocation.ContainsKey(Avatar) Then
