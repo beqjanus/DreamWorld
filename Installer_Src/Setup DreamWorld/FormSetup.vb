@@ -2529,6 +2529,7 @@ Public Class FormSetup
                     Continue For
                 End If
                 Dim RegionName = Region_Name(RegionUUID)
+                If RegionName = "" Then Continue For
                 If RegionName Is Nothing Then Continue For
 
                 ' not seen before
