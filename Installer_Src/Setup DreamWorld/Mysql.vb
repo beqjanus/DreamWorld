@@ -12,11 +12,11 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
-'TODO SELECT inventoryname, inventoryID, assetID FROM robust.inventoryitems WHERE replace(assetID, '-', '') Not IN (SELECT hex(id) FROM opensim.fsassets);
-
 Public Module MysqlInterface
 
+#Disable Warning IDE0140 ' Object creation can be simplified
     Private WithEvents ProcessMySql As Process = New Process()
+#Enable Warning IDE0140 ' Object creation can be simplified
 
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private ReadOnly HGDict As New Dictionary(Of String, String)
@@ -523,6 +523,8 @@ Public Module MysqlInterface
             Dict.Clear()
             Try
                 NewSQLConn.Open()
+                ' TO DO
+                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
                 Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -595,7 +597,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select firstname, lastname from useraccounts"
+                Dim stm = "Select firstname, lastname FROM useraccounts "
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 

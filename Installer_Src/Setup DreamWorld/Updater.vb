@@ -75,7 +75,7 @@ Module Updater
 
             Settings.SkipUpdateCheck = 0
 
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi As New ProcessStartInfo With {
                 .WindowStyle = ProcessWindowStyle.Normal,
                 .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
             }
