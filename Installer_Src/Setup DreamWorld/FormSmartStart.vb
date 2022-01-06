@@ -825,6 +825,7 @@ Public Class FormSmartStart
 
         Try
             For Each J In FormSetup.ContentOAR.GetJson
+                If Not PropOpensimIsRunning Then Return
                 ' Get name from web site JSON
                 Dim Name = J.Name
                 Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
@@ -905,7 +906,7 @@ Public Class FormSmartStart
                 End If
 
                 ProgressPrint($"{My.Resources.Start_word} {shortname}")
-
+                If Not PropOpensimIsRunning Then Return
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                 Dim obj As New TaskObject With {
                     .TaskName = FormSetup.TaskName.LoadAllFreeOARs,

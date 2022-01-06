@@ -9,3 +9,6 @@ dotnet_diagnostic.BC30136.severity = error
 
 # CA2100: Review if the query string passed to 'Sub MySqlCommand.New(commandText As String, connection As MySqlConnection)' in 'DeleteContent', accepts any user input
 dotnet_diagnostic.CA2100.severity = suggestion
+
+# BC42025: Access of shared member, constant member, enum member or nested type through an instance; qualifying expression will not be evaluated.
+dotnet_diagnostic.BC42025.severity = none

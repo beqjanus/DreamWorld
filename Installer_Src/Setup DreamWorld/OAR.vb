@@ -120,6 +120,7 @@ Module OAR
             Return
         End If
 
+        thing = thing.Replace("https:", "http:")
         Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
 
