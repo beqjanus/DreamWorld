@@ -721,6 +721,7 @@ Public Class FormRegion
                 Else
                     WriteRegion(RegionUUID)
                     PropChangedRegionSettings = True
+                    GetAllRegions(False)
                     Firewall.SetFirewall()
                     RestartRobustIfNeeded(RegionUUID)
                     PropUpdateView() = True
@@ -755,6 +756,8 @@ Public Class FormRegion
         Else
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
+            PropChangedRegionSettings = True
+            GetAllRegions(False)
             Firewall.SetFirewall()
             RestartRobustIfNeeded(RegionUUID)
             PropUpdateView() = True
@@ -1360,11 +1363,6 @@ Public Class FormRegion
 
         SyncLock WriteLock
 
-            If Region_Port(RegionUUID) = 0 Then
-                Dim port = LargestPort() + 1
-                Region_Port(RegionUUID) = port
-                GroupPort(RegionUUID) = port
-            End If
 
             Dim Region = "; * Regions configuration file" &
                             "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &

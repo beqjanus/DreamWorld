@@ -3664,6 +3664,23 @@ Public Class FormSetup
         G()
     End Sub
 
+    Private Sub SimulatorStatsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SimulatorStatsToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim RegionPort = GroupPort(FindRegionByName(Settings.WelcomeRegion))
+        Dim webAddress As String = $"http://{Settings.PublicIP}:{CType(RegionPort, String)}/SStats/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
         Settings.ApacheEnable = True
         StartApache()
@@ -3733,7 +3750,7 @@ Public Class FormSetup
             Catch ex As Exception
             End Try
         Else
-            TextPrint(My.Resources.Not_Running)
+            TextPrint(My.Resources.Apache_Disabled)
         End If
 
     End Sub
