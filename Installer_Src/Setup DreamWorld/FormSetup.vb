@@ -1829,6 +1829,10 @@ Public Class FormSetup
 
         SkipSetup = False
 
+        TextPrint(My.Resources.Setup_Network)
+        SetPublicIP()
+        SetServerType()
+
         If SetIniData() Then
             MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Buttons(StartButton)
@@ -1876,10 +1880,6 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
-
-        TextPrint(My.Resources.Setup_Network)
-        SetPublicIP()
-        SetServerType()
 
         IsMySqlRunning()
         IsRobustRunning()
