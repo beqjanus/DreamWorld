@@ -61,10 +61,7 @@ Public Class ClassScreenpos
 
 #Region "Public Methods"
 
-#Disable Warning CA1822 ' Mark members as static
-
     Public Shared Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
-#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return size
 

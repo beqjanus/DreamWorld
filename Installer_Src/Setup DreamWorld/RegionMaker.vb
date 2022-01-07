@@ -1156,7 +1156,6 @@ Module RegionMaker
     Public Property Region_Name(uuid As String) As String
         Get
             If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._RegionName
-            BadUUID(uuid)
             Return ""
         End Get
         Set(ByVal Value As String)

@@ -1829,6 +1829,10 @@ Public Class FormSetup
 
         SkipSetup = False
 
+        TextPrint(My.Resources.Setup_Network)
+        SetPublicIP()
+        SetServerType()
+
         If SetIniData() Then
             MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Buttons(StartButton)
@@ -1876,10 +1880,6 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
-
-        TextPrint(My.Resources.Setup_Network)
-        SetPublicIP()
-        SetServerType()
 
         IsMySqlRunning()
         IsRobustRunning()
@@ -2529,7 +2529,8 @@ Public Class FormSetup
                     Continue For
                 End If
                 Dim RegionName = Region_Name(RegionUUID)
-                If RegionName Is Nothing Then Continue For
+                ' could be a tainted region UUID leading to a crash
+                If RegionName.Length = 0 Then Continue For
 
                 ' not seen before
                 If Not CurrentLocation.ContainsKey(Avatar) Then
@@ -3502,7 +3503,7 @@ Public Class FormSetup
 
     Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
-        ShowUpdateForm(" latest version.")
+        ShowUpdateForm()
 
     End Sub
 
@@ -3612,34 +3613,6 @@ Public Class FormSetup
                 BreakPoint.Dump(ex)
             End Try
         End Using
-    End Sub
-
-    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        ShowUpdateForm("latest version Including beta versions.")
-
-        Return
-
-        If DoStopActions() = False Then Return
-
-        Using PUpdater = New Process()
-
-            Dim pi = New ProcessStartInfo With {
-            .WindowStyle = ProcessWindowStyle.Normal,
-            .WorkingDirectory = Settings.CurrentDirectory,
-            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
-        }
-            PUpdater.StartInfo = pi
-            TextPrint(My.Resources.Do_Not_Interrupt_word)
-            Try
-                PUpdater.Start()
-                End
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-        End
-
     End Sub
 
     Private Sub G()
