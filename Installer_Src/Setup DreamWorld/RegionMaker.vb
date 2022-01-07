@@ -232,9 +232,6 @@ Module RegionMaker
 
         If Not RegionList.ContainsKey(r._UUID) Then
             RegionList.TryAdd(r._UUID, r)
-        Else
-            BreakPoint.Print("Region List error! " & r._UUID)
-            RegionDump()
         End If
 
         Debug.Print("Region count is " & CStr(RegionList.Count))
