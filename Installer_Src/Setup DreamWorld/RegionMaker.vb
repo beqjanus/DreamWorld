@@ -1244,7 +1244,8 @@ Module RegionMaker
 
     Private Sub BadUUID(uuid As String)
 
-        BreakPoint.Print($"Bad UUID [{uuid}]")
+
+        Debug.Print($"Bad UUID [{uuid}]")
         'RegionDump()
 
     End Sub

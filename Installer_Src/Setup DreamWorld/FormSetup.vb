@@ -2492,24 +2492,14 @@ Public Class FormSetup
 
     End Sub
 
+
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
         Dim total As Integer
         Try
-            ' Scan all the regions
-            Dim Agents = GetAgentList()
-            Dim HGAgents = GetHGAgentList()
-            Dim Combined As New Dictionary(Of String, String)
 
-            For Each item In Agents
-                Combined.Add(item.Key, item.Value)
-            Next
-            For Each item In HGAgents
-                If Not Combined.ContainsKey(item.Key) Then
-                    Combined.Add(item.Key, item.Value)
-                End If
-            Next
+            Dim combined = GetAllAgents()
 
             If Combined IsNot Nothing And Combined.Count > 0 Then
                 BuildLand(Combined)
