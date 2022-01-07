@@ -122,7 +122,7 @@
                 sim = 'Welcome';
             }
 
-            var nodate;
+            var start;
             what = gup("Start");
             if (what.length > 0) {
                 start = what;
@@ -141,7 +141,7 @@
                 person = '';
             }
 
-            $.get('/stats/simvisit.plx?q=' + escape(sim) + '&Start=' + escape(start) + '&End=' + escape(end) + '&person=' + person, null, function (tsv, stat, xhr) {
+            $.get('/stats/simvisit.plx?q=' + escape(sim) + '&Start=' + escape(start) + '&End=' + escape(end) + '&person=' + person + "&r=" + Math.random(), null, function (tsv, stat, xhr) {
 
                 $("#status").append(tsv.text);
 
