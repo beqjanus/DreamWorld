@@ -261,14 +261,14 @@ Module SmartStart
                         If AgentName.ToUpperInvariant = "UUID" Then
                             'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
-                            RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = FindRegionByName(Settings.WelcomeRegion)
+                            RPC_admin_dialog(AgentID, $"Booting your region {Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
+                            Dim u = FindRegionByName(Settings.ParkingLot)
                             Return u
                         ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = FindRegionByName(Settings.WelcomeRegion)
+                            Dim u = FindRegionByName(Settings.ParkingLot)
                             Return u
                         Else ' Its a v4 sign
 
@@ -280,7 +280,7 @@ Module SmartStart
                             RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(time)} seconds.")
                             Logger("Agent ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
-                            Return Settings.WelcomeRegion
+                            Return Settings.ParkingLot
                         End If
 
                     End If

@@ -12,9 +12,9 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 #Disable Warning CA2213
+    Private ReadOnly RegionForm As New FormRegion
     Private ReadOnly Synth As New SpeechSynthesizer()
     Private initted As Boolean
-    Private RegionForm As New FormRegion
 #Enable Warning CA2213
 
 #Region "ScreenSize"

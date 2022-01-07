@@ -164,7 +164,7 @@ Public Class FormCaches
 
         If Not IO.Directory.Exists(tmp) Then
             MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-            CacheFolder.Text = ".\assetcache"
+            CacheFolder.Text = ".\assetcache".ToString(Globalization.CultureInfo.InvariantCulture)
         End If
 
         ViewerCacheCheckbox.Checked = Settings.SupportViewerObjectsCache

@@ -12,11 +12,11 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
-'TODO SELECT inventoryname, inventoryID, assetID FROM robust.inventoryitems WHERE replace(assetID, '-', '') Not IN (SELECT hex(id) FROM opensim.fsassets);
-
 Public Module MysqlInterface
 
+#Disable Warning IDE0140 ' Object creation can be simplified
     Private WithEvents ProcessMySql As Process = New Process()
+#Enable Warning IDE0140 ' Object creation can be simplified
 
     Private ReadOnly Dict As New Dictionary(Of String, String)
 
@@ -516,7 +516,6 @@ Public Module MysqlInterface
                 End If
             End If
         End If
-
         Return Dict
 
     End Function
@@ -568,7 +567,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select firstname, lastname from useraccounts"
+                Dim stm = "Select firstname, lastname FROM useraccounts "
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 
