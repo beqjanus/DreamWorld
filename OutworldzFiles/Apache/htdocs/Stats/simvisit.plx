@@ -92,9 +92,8 @@ use  warnings;
 	$text = $q;
 	
 	my $picker1;
-	if ($start =~ /(\d+)-(\d+)-(\d+)/)
-	{
-	} elsif ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
+	
+	if ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$start = $3 . '-' . $1 . '-' . $2 ;
 		$picker1 = $start;
 	} else {
