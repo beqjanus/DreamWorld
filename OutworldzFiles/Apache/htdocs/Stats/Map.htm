@@ -104,14 +104,7 @@
 
         $(document).ready(function () {
 
-            $("#datepicker1").datepicker();
-            $("#datepicker2").datepicker();
-            $("#timepicker1").timepicker({
-                showPeriodLabels: false,
-            });
-            $("#timepicker2").timepicker({
-                showPeriodLabels: false,
-            });
+            
 
             type = 'Objects';
 
@@ -140,6 +133,15 @@
             } else {
                 person = '';
             }
+
+            $("#datepicker1").datepicker();
+            $("#datepicker2").datepicker();
+            $("#timepicker1").timepicker({
+                showPeriodLabels: false,
+            });
+            $("#timepicker2").timepicker({
+                showPeriodLabels: false,
+            });
 
             $.get('/stats/simvisit.plx?q=' + escape(sim) + '&Start=' + escape(start) + '&End=' + escape(end) + '&person=' + person + "&r=" + Math.random(), null, function (tsv, stat, xhr) {
 

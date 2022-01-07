@@ -37,14 +37,12 @@ use  warnings;
 
 	my $public = $Config->val('Data','PublicVisitorMaps')|| '';
 	if (lc($public) ne 'true') {
-		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
-		 if ($env ne '127.0.0.1')
-		 {
-			use JSON;
-			
+		my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
+		if ($env ne '127.0.0.1')
+		{
+			use JSON;			
 			print header('application/json');
 			print to_json({ 
-
 					title=>'No Data',
 					start=>'',
 					end=>'',
@@ -52,7 +50,7 @@ use  warnings;
 				});	
 			
 			 exit;
-		 }
+		}
 	}
 
 	
@@ -82,9 +80,10 @@ use  warnings;
 	
 	if ($debug) {
 
-		$q = 'Fairy_Island_by_Lost_World-3X3';
-		$start='12/18/2021';
-		$end = '12/25/2021';
+		$q = 'Welcome';
+		$start='1/1/2022';
+		$end = '1/30/2022';
+		$person = 'Nyira Machabelli';
 	}
 	
 	$s = $start;
@@ -114,20 +113,17 @@ use  warnings;
 		$picker2 = $tomorrow->mdy('/');
 	}
 	
-	
 	my $sql;
-	
-
 	if ($person)
 	{
-		my $sql = qq!select count(*) as count, name from Visitor
+		$sql = qq!select count(*) as count, name from Visitor
 		where
 		regionname = ?
 		and dateupdated >= ?
 		and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
 		and name = ?
 		group by name
-		!			;
+		!;
 
 		if ($Data->Prepare($sql))						{&Print_ODBC_Error($Data,__FILE__,__LINE__);	}
 		if ($Data->Execute($q, $start,$end, $person))	{&Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -158,34 +154,20 @@ use  warnings;
 		$visits = $Data{count};
 		my $name = $Data{name};
 
-		if ($person)
-		{
-			my $sql = qq!select LocationX,LocationY from Visitor
-				where
-				name = ?
-				and regionname = ? 
-				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				order by dateupdated
-				!;
 
-			if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-			if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-		}
-		else
-		{
-			my $sql = qq!select LocationX,LocationY from Visitor
-				where
-				name = ?
-				and regionname= ? 
-				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				order by dateupdated
-				!;
-
-			if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-			if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-		}
+		my $sql = qq!select LocationX,LocationY from Visitor
+			where
+			name = ?
+			and regionname = ? 
+			and dateupdated >= ?
+			and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+			order by dateupdated
+			!;
+	
+		if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
+		if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
+	
+		
 		my @vectors;
 		while ($Data1->FetchRow())
 		{
