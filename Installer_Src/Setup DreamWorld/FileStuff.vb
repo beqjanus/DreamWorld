@@ -46,6 +46,7 @@ Module FileStuff
         Dim files As New List(Of String) From {
          "\ReadMe",
         "\OutworldzFiles\Opensim\eZombie", ' never worked
+        "\OutworldzFiles\eZombie", ' never worked
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to OutworldzFiles
         "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
@@ -367,11 +368,13 @@ Module FileStuff
 
     Public Sub MakeFolder(folder As String)
 
-        Try
-            System.IO.Directory.CreateDirectory(folder)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
+        If Not Directory.Exists(folder) Then
+            Try
+                Directory.CreateDirectory(folder)
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End If
 
     End Sub
 

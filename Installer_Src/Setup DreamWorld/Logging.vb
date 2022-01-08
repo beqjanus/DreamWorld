@@ -39,6 +39,12 @@ Module Logging
 
     End Sub
 
+    ''' <summary>
+    ''' Logs a message to a text file
+    ''' </summary>
+    ''' <param name="category">Parameter then a delimter</param>
+    ''' <param name="message">The message</param>
+    ''' <param name="file">Filename + .txt added</param>
     Public Sub Logger(category As String, message As String, file As String)
         Dim s = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture)}:{category}:{message}"
         Debug.Print(s)

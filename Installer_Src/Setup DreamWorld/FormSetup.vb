@@ -359,7 +359,6 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                Logger("State changed to NoLogin", Region_Name(RegionUUID), "Teleport")
                 Application.DoEvents()
                 Continue While
             End If
@@ -2491,7 +2490,6 @@ Public Class FormSetup
         End If
 
     End Sub
-
 
     Private Function ScanAgents() As Integer
 
