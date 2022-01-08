@@ -280,11 +280,7 @@ Module RegionMaker
         CopyFileFast(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), IO.Path.Combine(pathtoRegion, $"{RegionName}.bak"))
         DeleteFile(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"))
         If Not Directory.Exists(pathtoRegion) Then
-            Try
-                Directory.CreateDirectory(pathtoRegion)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
+            MakeFolder(pathtoRegion)
         End If
 
         ' Change estate for Endless Land, assuming its on
@@ -1243,7 +1239,6 @@ Module RegionMaker
     End Property
 
     Private Sub BadUUID(uuid As String)
-
 
         Debug.Print($"Bad UUID [{uuid}]")
         'RegionDump()

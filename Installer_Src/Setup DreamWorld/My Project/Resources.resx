@@ -281,7 +281,7 @@
     <value>Stopping Web Server</value>
   </data>
   <data name="OAR_Load_and_Save" xml:space="preserve">
-    <value>OAR Load and Save</value>
+    <value>OAR - Region Load and Save</value>
   </data>
   <data name="SaveTerrain" xml:space="preserve">
     <value>Save Terrain</value>
@@ -1719,7 +1719,7 @@
     <value>Cypress 1</value>
   </data>
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
-    <value>OAR Load, Save and Backup</value>
+    <value>OAR - Load, Save and Backup</value>
   </data>
   <data name="_3x3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3x3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1803,7 +1803,7 @@
     <value>Avatar First and Last name</value>
   </data>
   <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
-    <value>Inventory IAR Load and Save</value>
+    <value>IAR - Inventory Load and Save</value>
   </data>
   <data name="All_Global_Settings_word" xml:space="preserve">
     <value>All Global settings</value>

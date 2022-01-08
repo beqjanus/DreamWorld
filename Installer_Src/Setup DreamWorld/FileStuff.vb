@@ -46,6 +46,7 @@ Module FileStuff
         Dim files As New List(Of String) From {
          "\ReadMe",
         "\OutworldzFiles\Opensim\eZombie", ' never worked
+        "\OutworldzFiles\eZombie", ' never worked
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to OutworldzFiles
         "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
@@ -141,11 +142,7 @@ Module FileStuff
 
         ' If the destination folder don't exist then create it
         If Not System.IO.Directory.Exists(destinationPath) Then
-            Try
-                System.IO.Directory.CreateDirectory(destinationPath)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
+            MakeFolder(destinationPath)
         End If
 
         If Not System.IO.Directory.Exists(sourcePath) Then
@@ -173,11 +170,7 @@ Module FileStuff
             Else
                 ' Recursively call the method to copy all the nested folders
                 If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
-                    Try
-                        System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
+                    MakeFolder(fileSystemInfo.FullName)
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
                 Application.DoEvents()
@@ -370,6 +363,18 @@ Module FileStuff
     Sub FixUpdater()
 
         CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.New"), IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe"))
+
+    End Sub
+
+    Public Sub MakeFolder(folder As String)
+
+        If Not Directory.Exists(folder) Then
+            Try
+                Directory.CreateDirectory(folder)
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End If
 
     End Sub
 

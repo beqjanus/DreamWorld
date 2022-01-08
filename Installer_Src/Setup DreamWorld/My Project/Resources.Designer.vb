@@ -5324,7 +5324,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Inventory IAR Load and Save.
+        '''  Looks up a localized string similar to IAR - Inventory Load and Save.
         '''</summary>
         Friend ReadOnly Property Inventory_IAR_Load_and_Save_words() As String
             Get
@@ -7177,7 +7177,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to OAR Load and Save.
+        '''  Looks up a localized string similar to OAR - Region Load and Save.
         '''</summary>
         Friend ReadOnly Property OAR_Load_and_Save() As String
             Get
@@ -7186,7 +7186,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to OAR Load, Save and Backup.
+        '''  Looks up a localized string similar to OAR - Load, Save and Backup.
         '''</summary>
         Friend ReadOnly Property OAR_load_save_backupp_word() As String
             Get

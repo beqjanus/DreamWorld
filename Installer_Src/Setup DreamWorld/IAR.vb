@@ -52,7 +52,6 @@ Module IAR
 
     Public Function LoadIARContent(thing As String) As Boolean
 
-
         ' handles IARS clicks
         If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
@@ -308,11 +307,7 @@ Module IAR
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
             If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
-                Try
-                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
+                MakeFolder(BackupPath() & "/IAR")
             End If
 
             ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
