@@ -992,7 +992,10 @@ Module RegionMaker
             Return 0
         End Get
         Set(ByVal Value As Integer)
-            RegionList(uuid)._Cores = Value
+            Try
+                RegionList(uuid)._Cores = Value
+            Catch
+            End Try
         End Set
     End Property
 
