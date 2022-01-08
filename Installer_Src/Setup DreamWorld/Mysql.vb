@@ -697,7 +697,6 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-
                             If reader.GetString(0).Length > 0 Then
                                 Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                             End If
