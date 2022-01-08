@@ -5,6 +5,8 @@
 use strict;
 use  warnings;
 
+# http://outworldz.com:8000/stats/Map.htm?person=Ferd%20Frederix&q=OSCC2021&Start=10/10/2021&End=01/09/2022
+
 	my $debug = 0; # set to any value but 0 to ber able to test parts of it.
 
 
@@ -80,10 +82,10 @@ use  warnings;
 	
 	if ($debug) {
 
-		$q = 'Welcome';
-		$start='1/1/2022';
-		$end = '1/30/2022';
-		$person = 'Nyira Machabelli';
+		$q = 'OSCC2021';
+		#$start='1/1/2021';
+		#$end = '1/30/2022';
+		$person = 'Ferd Frederix';
 	}
 	
 	$s = $start;
@@ -96,7 +98,7 @@ use  warnings;
 		$start = $3 . '-' . $1 . '-' . $2 ;
 		$picker1 = $start;
 	} else {
-		my $thirty_ago = DateTime->today->subtract(days => 90);		
+		my $thirty_ago = DateTime->today->subtract(days => 30);		
 
 		$start = $thirty_ago->ymd('/');		
 		$start = $thirty_ago->ymd('/');
@@ -120,7 +122,7 @@ use  warnings;
 		where
 		regionname = ?
 		and dateupdated >= ?
-		and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+		and dateupdated < ?
 		and name = ?
 		group by name
 		!;
@@ -135,7 +137,7 @@ use  warnings;
 		where
 		regionname = ?
 		and dateupdated >= ?
-		and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+		and dateupdated < ?
 		group by name
 		order by name
 		!;
@@ -160,7 +162,7 @@ use  warnings;
 			name = ?
 			and regionname = ? 
 			and dateupdated >= ?
-			and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+			and dateupdated < ?
 			order by dateupdated
 			!;
 	
@@ -205,9 +207,9 @@ use  warnings;
 					from Visitor where
 					regionname = ? 
 					and dateupdated >= ?
-					and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+					and dateupdated < ?
 					and name = ?
-				group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
+					group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
 
 		!;
 		if ($Data->Prepare($sql))						{	    	    &Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -219,8 +221,8 @@ use  warnings;
 					from Visitor where
 					regionname = ?
 					and dateupdated >= ?
-					and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
+					and dateupdated < ?
+					group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
 
 		!;
 		if ($Data->Prepare($sql))						{	    	    &Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -292,7 +294,7 @@ use  warnings;
 				from Visitor where
 				regionname = ?
 				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+				and dateupdated < ?
 				and name = ?
 				group by year(dateupdated) ,month(dateupdated) , day(dateupdated)
 				order  by  year(dateupdated) ,month(dateupdated) , day(dateupdated)
@@ -308,7 +310,7 @@ use  warnings;
 					from Visitor where
 					regionname = ? 
 					and dateupdated >= ?
-					and dateupdated <DATE_ADD(? , INTERVAL 1 DAY)
+					and dateupdated < ?
 
 					group by year(dateupdated) ,month(dateupdated) , day(dateupdated)
 					order  by  year(dateupdated) ,month(dateupdated) , day(dateupdated)
@@ -393,7 +395,8 @@ use  warnings;
 					text => $text,
 					XCoord => $XCoord,
 					YCoord => $YCoord,
-				});	exit;
+				});
+	exit;
 	
 
 

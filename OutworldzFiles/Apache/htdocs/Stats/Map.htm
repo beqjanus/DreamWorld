@@ -40,7 +40,19 @@
             text-align: left;
         }
 
+        #chart {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 1024px;
+            height: 1024px;
+            margin: 0 auto;
+        }
+
         #container {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
             width: 1024px;
             height: 1024px;
             margin: 0 auto;
@@ -75,6 +87,15 @@
     <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
     <script type="text/javascript">
 
+        var scale = 1.5;
+        var chartheight = 650 * scale;
+        var chartwidth = 605 * scale;
+        var imagewidth = 568 * scale;
+        var imageheight = 568 * scale ;
+        var marginleft = 50;
+        var mapleft = 46;
+        var maptop = 68;
+
         function gup(name) {
             name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
             var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -102,9 +123,7 @@
         var start;
         var person;
 
-        $(document).ready(function () {
-
-            
+        $(document).ready(function () {          
 
             type = 'Objects';
 
@@ -164,9 +183,29 @@
 		
                 jQuery.each(tsv.data, function (name, line) {
                     var point = {};
-                    var red = Math.floor(Math.random() * 200);
-                    var green = Math.floor(Math.random() * 200);
-                    var blue = Math.floor(Math.random() * 200);
+                    var red;
+                    var blue;
+                    var green ;
+                    var rand = Math.random (3);
+                    if (rand < 1) {
+                        red = Math.floor(Math.random() * 255);
+                    } else {
+                        red = 255;
+                    }
+                    var rand = Math.random(3);
+                    if (rand < 1) {
+                        blue = Math.floor(Math.random() * 255);
+                    } else {
+                        blue = 255;
+                    }
+                    var rand = Math.random(3);
+                    if (rand < 1) {
+                        green = Math.floor(Math.random() * 255);
+                    } else {
+                        green = 255;
+                    }
+
+
                     var color = 'rgba(' + red + ',' + green + ',' + blue + ', 1.0)';
 
                     point.color = color;
@@ -177,8 +216,8 @@
                     var visit = line.visits;
                     var ctr = 1;
                     jQuery.each(apoint, function (i, lines) {
-                        var y = lines.X;
-                        var x = lines.Y;
+                        var y = lines.Y;
+                        var x = lines.X;
                         var z = lines.Z;
 
                         var list = {
@@ -212,15 +251,15 @@
                 var options = {
                     chart: {                        
                         type: 'scatter',                        
-                        renderTo: 'container1',
-                        marginLeft: 50,
+                        renderTo: 'chart',
+                        //marginLeft: marginleft,
                         defaultSeriesType: 'scatter',
                         zoomType: 'xy',
-                        height: 900,
-                        width: 900,                        
+                        height: chartheight,
+                        width: chartwidth,
                         events: {
                             load: function () {
-                                this.renderer.image(mapimage, 52, 73, 840, 766).add();
+                                this.renderer.image(mapimage, mapleft, maptop, imagewidth, imageheight).add();
                             }
                         }
                     },
@@ -237,7 +276,7 @@
                     },
                     xAxis: {
                         gridLineColor: '#ffffff',
-                        gridLineWidth: 0,
+                        gridLineWidth:0,
                         max: xsize,
                         min: 0,
                         title: {
@@ -249,7 +288,7 @@
                         showLastLabel: true
                     },
                     yAxis: {
-                        gridLineColor: '#eeeeee',
+                        gridLineColor: '#ffffff',
                         gridLineWidth: 0,
                         max: ysize,
                         min: 0,
@@ -270,7 +309,7 @@
                     plotOptions: {
                         scatter: {
                             marker: {
-                                radius: 8,
+                                radius: 6,
                                 states: {
                                     hover: {
                                         enabled: true,
@@ -446,16 +485,16 @@
                         End Date: <br><input id="datepicker2" type="text" name="End" value="">
                         <input type="hidden" name="q" id="mySelect">
                     </td>
-                    <td> <br><input id="submit" type="submit" value="Search"> <input type="button" value="Back" onclick="window.history.back()" /> </td>
+                    <td> <br><input id="submit" type="submit" value="Search"> <input type="button" value="Back" onclick="window.location.href = '/Stats/';" /> </td>
                     </td>
                 </tr>
             </table>
         </form>
     </div>
 
-    <div id="container" style="margin-left: auto;margin-right: auto">
-        <div id="container1" style="height:900px; width:900px; margin-left: auto;margin-right: auto">
-            <img style="display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
+    <div id="container">
+        <div id="chart">
+            <img style="margin-top: 250px; display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
         </div>
         <br clear="all">
         <div id="daily"></div>
