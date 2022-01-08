@@ -11,7 +11,33 @@ Imports System.Threading
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
+    Public Function GetAllAgents() As Dictionary(Of String, String)
 
+        ' Scan all the regions
+        Dim FakeAgents = GetAgentList()
+        Dim AllAgents = GetGridUsers()
+        Dim Presence = GetPresence()
+
+        For Each item In FakeAgents
+            If AllAgents.ContainsKey(item.Key) Then
+                AllAgents.Item(item.Key) = item.Value
+            Else
+                AllAgents.Add(item.Key, item.Value)
+            End If
+        Next
+
+        For Each item In Presence
+            If AllAgents.ContainsKey(item.Key) Then
+                AllAgents.Item(item.Key) = item.Value
+            Else
+                AllAgents.Add(item.Key, item.Value)
+            End If
+
+        Next
+
+        Return AllAgents
+
+    End Function
     Public Sub TeleportClicked(Regionuuid As String)
 
         Dim RegionName = Region_Name(Regionuuid)

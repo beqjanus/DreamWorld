@@ -19,7 +19,7 @@ Public Module MysqlInterface
 #Enable Warning IDE0140 ' Object creation can be simplified
 
     Private ReadOnly Dict As New Dictionary(Of String, String)
-    Private ReadOnly HGDict As New Dictionary(Of String, String)
+
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
@@ -469,7 +469,7 @@ Public Module MysqlInterface
     End Function
 
     ''' <summary>
-    ''' Gets users from useraccounts
+    ''' Gets fakes in debug made
     ''' </summary>
     ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
@@ -514,38 +514,8 @@ Public Module MysqlInterface
                         End If
                     End If
                 End If
-
             End If
-            Return Dict
         End If
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Dict.Clear()
-            Try
-                NewSQLConn.Open()
-                ' TO DO
-                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1))
-                            If reader.GetString(0).Length > 0 Then
-                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
-                Return Dict
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Return Dict
-            End Try
-
-        End Using
-
         Return Dict
 
     End Function
@@ -715,7 +685,35 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function GetHGAgentList() As Dictionary(Of String, String)
+    Public Function GetPresence() As Dictionary(Of String, String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Dict.Clear()
+            Try
+                NewSQLConn.Open()
+                ' TO DO
+                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            If reader.GetString(0).Length > 0 Then
+                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+                            End If
+                        End While
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Dump(ex)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return Dict
+
+    End Function
+    Public Function GetGridUsers() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
@@ -723,7 +721,7 @@ Public Module MysqlInterface
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
-
+        Dim HGDict As New Dictionary(Of String, String)
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
             Try
@@ -740,8 +738,11 @@ Public Module MysqlInterface
                                 ' Debug.Print("Avatar {0}", m.Groups(2).Value)
                                 ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
-                                HGDict.Add(Avatar, UUID)
-
+                                If HGDict.ContainsKey(Avatar) Then
+                                    HGDict.Item(Avatar) = UUID
+                                Else
+                                    HGDict.Add(Avatar, UUID)
+                                End If
                             Next
                         End While
                     End Using
@@ -850,7 +851,7 @@ Public Module MysqlInterface
         If Not RegionEnabled(RegionUUID) Then Return False
         Dim RegionName = Region_Name(RegionUUID)
 
-        Dim l = GetAgentList()
+        Dim l = GetAllAgents()
         Return l.ContainsValue(RegionUUID)
 
     End Function
@@ -1244,7 +1245,7 @@ Public Module MysqlInterface
     '' Deprecated
     Public Function WhereisAgent(agentName As String) As String
 
-        Dim agents = GetAgentList()
+        Dim agents = GetAllAgents()
 
         If agents.ContainsKey(agentName) Then
             Return FindRegionByName(agents.Item(agentName))

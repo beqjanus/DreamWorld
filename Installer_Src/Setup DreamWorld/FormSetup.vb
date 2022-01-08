@@ -2492,27 +2492,17 @@ Public Class FormSetup
 
     End Sub
 
+
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
         Dim total As Integer
         Try
-            ' Scan all the regions
-            Dim Agents = GetAgentList()
-            Dim HGAgents = GetHGAgentList()
-            Dim Combined As New Dictionary(Of String, String)
 
-            For Each item In Agents
-                Combined.Add(item.Key, item.Value)
-            Next
-            For Each item In HGAgents
-                If Not Combined.ContainsKey(item.Key) Then
-                    Combined.Add(item.Key, item.Value)
-                End If
-            Next
+            Dim combined = GetAllAgents()
 
-            If Combined IsNot Nothing And Combined.Count > 0 Then
-                BuildLand(Combined)
+            If combined IsNot Nothing And combined.Count > 0 Then
+                BuildLand(combined)
             End If
 
             ' start with zero avatars
@@ -2522,7 +2512,7 @@ Public Class FormSetup
 
             AvatarLabel.Text = ""
 
-            For Each NameValue In Combined
+            For Each NameValue In combined
                 Dim Avatar = NameValue.Key
                 Dim RegionUUID = NameValue.Value
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
@@ -2562,7 +2552,7 @@ Public Class FormSetup
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
 
-                If Not Combined.ContainsKey(Avatar) Then
+                If Not combined.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
@@ -2576,7 +2566,7 @@ Public Class FormSetup
                 End If
             Next
 
-            total = Combined.Count
+            total = combined.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -2771,12 +2761,13 @@ Public Class FormSetup
             Chat2Speech()               ' speak of the devil
             RestartDOSboxes()
             ScanAgents()                ' update agent count
-            CheckForBootedRegions()     ' And see if any booted up
+
             'Bench.Print("1 second worker ends")
 
             ' 33 ms
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 ' Bench.Start("5 second worker")
+                CheckForBootedRegions()     ' And see if any booted up
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
                 'Bench.Print("5 second worker ends")

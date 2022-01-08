@@ -1142,9 +1142,6 @@ SetWindowOnTop_Err:
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
-        ctr += 1
-        AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
 
         'Users
         ctr = 0
@@ -1338,21 +1335,20 @@ SetWindowOnTop_Err:
             Dim Index = 0
 
             ' Create items and sub items for each item.
-            Dim L As New Dictionary(Of String, String)
+            Dim ListOfAgents As New Dictionary(Of String, String)
 
             If MysqlInterface.IsMySqlRunning() Then
-                L = MysqlInterface.GetAgentList()
+                ListOfAgents = GetAllAgents()
             End If
 
-            For Each Agent In L
+            For Each Agent In ListOfAgents
                 Dim item1 As New ListViewItem(Agent.Key, Index)
                 item1.SubItems.Add(Region_Name(Agent.Value))
-                item1.SubItems.Add(My.Resources.Local)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             Next
 
-            If L.Count = 0 Then
+            If ListOfAgents.Count = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
                 item1.SubItems.Add(My.Resources.Local_Grid)
@@ -1360,23 +1356,6 @@ SetWindowOnTop_Err:
                 Index += 1
             End If
 
-            ' Hypergrid
-            '
-            ' Create items and sub items for each item.
-            Dim M As New Dictionary(Of String, String)
-            If MysqlInterface.IsMySqlRunning() Then
-                M = GetHGAgentList()
-            End If
-
-            For Each Agent In M
-                If Agent.Value.Length > 0 Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Region_Name(Agent.Value))
-                    item1.SubItems.Add(My.Resources.Hypergrid_word)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
-            Next
 
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)

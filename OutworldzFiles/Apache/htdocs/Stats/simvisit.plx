@@ -5,6 +5,8 @@
 use strict;
 use  warnings;
 
+# http://outworldz.com:8000/stats/Map.htm?person=Ferd%20Frederix&q=OSCC2021&Start=10/10/2021&End=01/09/2022
+
 	my $debug = 0; # set to any value but 0 to ber able to test parts of it.
 
 
@@ -37,14 +39,12 @@ use  warnings;
 
 	my $public = $Config->val('Data','PublicVisitorMaps')|| '';
 	if (lc($public) ne 'true') {
-		 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
-		 if ($env ne '127.0.0.1')
-		 {
-			use JSON;
-			
+		my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
+		if ($env ne '127.0.0.1')
+		{
+			use JSON;			
 			print header('application/json');
 			print to_json({ 
-
 					title=>'No Data',
 					start=>'',
 					end=>'',
@@ -52,7 +52,7 @@ use  warnings;
 				});	
 			
 			 exit;
-		 }
+		}
 	}
 
 	
@@ -82,9 +82,10 @@ use  warnings;
 	
 	if ($debug) {
 
-		$q = 'Fairy_Island_by_Lost_World-3X3';
-		$start='12/18/2021';
-		$end = '12/25/2021';
+		$q = 'OSCC2021';
+		#$start='1/1/2021';
+		#$end = '1/30/2022';
+		$person = 'Ferd Frederix';
 	}
 	
 	$s = $start;
@@ -92,13 +93,12 @@ use  warnings;
 	$text = $q;
 	
 	my $picker1;
-	if ($start =~ /(\d+)-(\d+)-(\d+)/)
-	{
-	} elsif ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
+	
+	if ($start =~ /(\d+)\/(\d+)\/(\d+)/) {
 		$start = $3 . '-' . $1 . '-' . $2 ;
 		$picker1 = $start;
 	} else {
-		my $thirty_ago = DateTime->today->subtract(days => 90);		
+		my $thirty_ago = DateTime->today->subtract(days => 30);		
 
 		$start = $thirty_ago->ymd('/');		
 		$start = $thirty_ago->ymd('/');
@@ -115,20 +115,17 @@ use  warnings;
 		$picker2 = $tomorrow->mdy('/');
 	}
 	
-	
 	my $sql;
-	
-
 	if ($person)
 	{
-		my $sql = qq!select count(*) as count, name from Visitor
+		$sql = qq!select count(*) as count, name from Visitor
 		where
 		regionname = ?
 		and dateupdated >= ?
-		and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+		and dateupdated < ?
 		and name = ?
 		group by name
-		!			;
+		!;
 
 		if ($Data->Prepare($sql))						{&Print_ODBC_Error($Data,__FILE__,__LINE__);	}
 		if ($Data->Execute($q, $start,$end, $person))	{&Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -140,7 +137,7 @@ use  warnings;
 		where
 		regionname = ?
 		and dateupdated >= ?
-		and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+		and dateupdated < ?
 		group by name
 		order by name
 		!;
@@ -159,34 +156,20 @@ use  warnings;
 		$visits = $Data{count};
 		my $name = $Data{name};
 
-		if ($person)
-		{
-			my $sql = qq!select LocationX,LocationY from Visitor
-				where
-				name = ?
-				and regionname = ? 
-				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				order by dateupdated
-				!;
 
-			if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-			if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-		}
-		else
-		{
-			my $sql = qq!select LocationX,LocationY from Visitor
-				where
-				name = ?
-				and regionname= ? 
-				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				order by dateupdated
-				!;
-
-			if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-			if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
-		}
+		my $sql = qq!select LocationX,LocationY from Visitor
+			where
+			name = ?
+			and regionname = ? 
+			and dateupdated >= ?
+			and dateupdated < ?
+			order by dateupdated
+			!;
+	
+		if ($Data1->Prepare($sql))						{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
+		if ($Data1->Execute($name, $q, $start,$end))	{	    	    &Print_ODBC_Error($Data1,__FILE__,__LINE__);	}
+	
+		
 		my @vectors;
 		while ($Data1->FetchRow())
 		{
@@ -224,9 +207,9 @@ use  warnings;
 					from Visitor where
 					regionname = ? 
 					and dateupdated >= ?
-					and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+					and dateupdated < ?
 					and name = ?
-				group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
+					group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
 
 		!;
 		if ($Data->Prepare($sql))						{	    	    &Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -238,8 +221,8 @@ use  warnings;
 					from Visitor where
 					regionname = ?
 					and dateupdated >= ?
-					and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
-				group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
+					and dateupdated < ?
+					group by  name,year(dateupdated),month(dateupdated), day(dateupdated)
 
 		!;
 		if ($Data->Prepare($sql))						{	    	    &Print_ODBC_Error($Data,__FILE__,__LINE__);	}
@@ -311,7 +294,7 @@ use  warnings;
 				from Visitor where
 				regionname = ?
 				and dateupdated >= ?
-				and dateupdated < DATE_ADD(? , INTERVAL 1 DAY)
+				and dateupdated < ?
 				and name = ?
 				group by year(dateupdated) ,month(dateupdated) , day(dateupdated)
 				order  by  year(dateupdated) ,month(dateupdated) , day(dateupdated)
@@ -327,7 +310,7 @@ use  warnings;
 					from Visitor where
 					regionname = ? 
 					and dateupdated >= ?
-					and dateupdated <DATE_ADD(? , INTERVAL 1 DAY)
+					and dateupdated < ?
 
 					group by year(dateupdated) ,month(dateupdated) , day(dateupdated)
 					order  by  year(dateupdated) ,month(dateupdated) , day(dateupdated)
@@ -412,7 +395,8 @@ use  warnings;
 					text => $text,
 					XCoord => $XCoord,
 					YCoord => $YCoord,
-				});	exit;
+				});
+	exit;
 	
 
 

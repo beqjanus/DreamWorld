@@ -105,12 +105,13 @@ push @sims, {regionname => $row->regionname,
 }
 
 if (!@sims) {
-	push @sims, {regionname => 'No Regions Found',				 
-				 regionsize =>  0,
-				 map=> '/Stats/images/blankbox.jpg',
-				 width=>256,
-				 count=>0,
-				 };
+	push @sims, {
+		regionname => 'No Regions Found',				 
+		regionsize =>  0,
+		map=> '/Stats/images/blankbox.jpg',
+		width=>256,
+		count=>0,
+	};
 
 }
 my $vars = {sims => \@sims};
