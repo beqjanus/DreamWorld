@@ -51,7 +51,7 @@ Public Class SSL
         Dim keyAuthz = httpChallenge.KeyAuthz
         Dim token = httpChallenge.Token
         'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
-        SaveCert(keyAuthz, $"Outworldzfiles/Apache/htdocs/.well-known/acme-challenge/{token}")
+        SaveCert(keyAuthz, "Outworldzfiles/Apache/htdocs/.well-known/acme-challenge/", token)
 
         'Ask the ACME server to validate our domain ownership
         Dim result = httpChallenge.Validate()
@@ -86,8 +86,8 @@ Public Class SSL
         'Download the certificate for a finalized order.
         Dim certChain = Await order.Download()
 
-        SaveCert(privateKey.ToString, "Outworldzfiles/Apache/conf/ssl/private.key")
-        SaveCert(certChain.ToString, "Outworldzfiles/Apache/conf/ssl/freessl.key")
+        SaveCert(privateKey.ToString, "Outworldzfiles/Apache/conf/ssl/", "private.key")
+        SaveCert(certChain.ToString, "Outworldzfiles/Apache/conf/ssl/", "freessl.key")
 
         'Export PFX
         Dim pfxBuilder = cert.ToPfx(privateKey)
@@ -97,13 +97,19 @@ Public Class SSL
 
     End Function
 
-    Private Sub SaveCert(Content As String, file As String)
+    Private Sub SaveCert(Content As String, folder As String, file As String)
 
-        Dim foldername = IO.Path.Combine(Settings.CurrentDirectory, file)
+        Dim foldername As String
+        If Debugger.IsAttached Then
+            foldername = "Y:\Certs\Free"
+            foldername = IO.Path.Combine(foldername, file)
+        Else
+            foldername = IO.Path.Combine(Settings.CurrentDirectory, file)
+        End If
 
         Try
-            DeleteFile(file)
-            Dim f = My.Computer.FileSystem.OpenTextFileWriter(file, False)
+            DeleteFile(foldername)
+            Dim f = My.Computer.FileSystem.OpenTextFileWriter(foldername, False)
             f.WriteLine(Content)
             f.Close()
         Catch ex As Exception

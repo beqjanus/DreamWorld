@@ -1148,13 +1148,7 @@ Public Class FormRegion
             End If
 
             If Not Directory.Exists(RegionIniFilePath(RegionUUID)) Or RegionIniFilePath(RegionUUID).Length = 0 Then
-                Try
-                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                    TextPrint(My.Resources.Aborted_word)
-                    Return False
-                End Try
+                MakeFolder(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
             End If
 
             RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
@@ -1362,7 +1356,6 @@ Public Class FormRegion
         Dim Abort As Boolean
 
         SyncLock WriteLock
-
 
             Dim Region = "; * Regions configuration file" &
                             "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &

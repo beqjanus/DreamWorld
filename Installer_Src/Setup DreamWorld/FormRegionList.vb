@@ -540,11 +540,7 @@ SetWindowOnTop_Err:
 
                             Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
                             If Not Directory.Exists(NewFilepath) Then
-                                Try
-                                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
-                                Catch ex As Exception
-                                    BreakPoint.Dump(ex)
-                                End Try
+                                MakeFolder(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
                             End If
                             File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
                         Else
@@ -1355,7 +1351,6 @@ SetWindowOnTop_Err:
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             End If
-
 
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)

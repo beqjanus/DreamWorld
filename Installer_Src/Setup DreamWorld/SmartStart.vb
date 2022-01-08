@@ -11,6 +11,7 @@ Imports System.Threading
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
+
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
         ' Scan all the regions
@@ -38,6 +39,7 @@ Module SmartStart
         Return AllAgents
 
     End Function
+
     Public Sub TeleportClicked(Regionuuid As String)
 
         Dim RegionName = Region_Name(Regionuuid)
@@ -695,11 +697,7 @@ Module SmartStart
             Dim path = $"{Terrainfolder}\{S}x{S}"
             ' If the destination folder don't exist then create it
             If Not System.IO.Directory.Exists(path) Then
-                Try
-                    System.IO.Directory.CreateDirectory(path)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
+                MakeFolder(path)
             End If
             Terrainfolder = path
         End If
