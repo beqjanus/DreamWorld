@@ -219,8 +219,8 @@ Module SmartStart
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
             'Debug.Print($"Name={Name}")
-            Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
-            'Debug.Print($"AgentName={AgentName}")
+            Dim TeleportType As String = Uri.UnescapeDataString(match.Groups(2).Value)
+            'Debug.Print($"TeleportType={TeleportType}")
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
             'Debug.Print($"AgentID={AgentID}")
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
@@ -248,10 +248,10 @@ Module SmartStart
                 ' smart, and up
                 If RegionEnabled(RegionUUID) Then
                     If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-                        If AgentName.ToUpperInvariant = "UUID" Then
+                        If TeleportType.ToUpperInvariant = "UUID" Then
                             'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             Return RegionUUID
-                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                        ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
                             'Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name
                         Else ' Its a sign!
@@ -260,13 +260,13 @@ Module SmartStart
                         End If
                     Else  ' requires booting
 
-                        If AgentName.ToUpperInvariant = "UUID" Then
+                        If TeleportType.ToUpperInvariant = "UUID" Then
                             'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region {Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
                             Dim u = FindRegionByName(Settings.ParkingLot)
                             Return u
-                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                        ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
@@ -292,10 +292,10 @@ Module SmartStart
                 End If
             Else ' Non Smart Start
 
-                If AgentName.ToUpperInvariant = "UUID" Then
+                If TeleportType.ToUpperInvariant = "UUID" Then
                     Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                     Return RegionUUID
-                ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
                     'Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                     Return Name
                 Else     ' Its a sign!
