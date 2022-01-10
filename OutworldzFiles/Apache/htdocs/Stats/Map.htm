@@ -61,22 +61,25 @@
         #status {
             width: 900px;
             margin-left: auto;
-            margin-right: auto
+            margin-right: auto;
         }
 
         #stats {
-            width: 900px;
-            margin: 0 auto;
+            width: 900px;            
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #daily {
             width: 900px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        #people li {
-            width: 900px;
-            margin: 0 auto;
+        #people {
+            width: 1024px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -244,8 +247,8 @@
                 $('#people').append(html);
 
                 $("#people").flexigrid({
-                    width: 900,
-                    height: 250
+                    width: 1024,
+                    height: 500
                 });
 
                 var options = {
@@ -501,8 +504,7 @@
         <br clear="all">
         <div id="stats"></div>
         <br clear="all">
-        <div id="people"></div>
-        <br clear="all">
+        <div id="people"></div>     
     </div>
 </body>
 </html>
