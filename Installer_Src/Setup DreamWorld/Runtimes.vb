@@ -7,12 +7,25 @@
 
 Module Runtimes
 
+    Public Sub AddVoices()
+
+        If Environment.OSVersion.Version.Build > 1000 Then
+            Dim Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\eva.reg")
+            Dim regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
+            regeditProcess.WaitForExit()
+            Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\mark.reg")
+            regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
+            regeditProcess.WaitForExit()
+        End If
+
+    End Sub
+
     Public Sub UpgradeDotNet()
 
         ' Detect Operating System  Updates
 
         Dim V As String = "Win11"
-        If Environment.OSVersion.Version.Build < 22000 Then
+        If Environment.OSVersion.Version.Build < 22000 And Environment.OSVersion.Version.Build > 1000 Then
             V = "Win10"
         End If
 

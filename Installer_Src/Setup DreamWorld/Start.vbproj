@@ -1403,6 +1403,7 @@
     <None Include="Resources\1253433.png" />
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />
+    <None Include="Resources\loudspeaker.png" />
     <Content Include="Resources\mail.ico" />
     <Content Include="Resources\Martin-Berube-Flat-Animal-Bird.ico" />
     <None Include="Resources\Outworldz ad by Marianna Monentes.png" />

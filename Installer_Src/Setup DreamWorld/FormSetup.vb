@@ -1753,6 +1753,7 @@ Public Class FormSetup
 
         Init(True)  ' read all region data
 
+        AddVoices() ' add eva and mark voices
         UpgradeDotNet()
         Application.DoEvents()
 

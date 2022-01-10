@@ -233,13 +233,17 @@ Public Class FormAutoBackups
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+        If Settings.RegionDBName <> Settings.RobustDatabaseName Then
             Sleep(5000)
             Dim B As New Backups
-            B.BackupSQLDB(Settings.RobustDataBaseName)
+            B.BackupSQLDB(Settings.RobustDatabaseName)
         End If
         Dim C As New Backups
         C.BackupSQLDB("Joomla")
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
 
     End Sub
 

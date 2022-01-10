@@ -3,6 +3,7 @@ Imports System.Speech.Synthesis
 Imports System.Speech.Synthesis.VoiceGender
 
 Module speech
+    Public SpeechCounter As Integer
     Public SpeechBusyFlag As Boolean
     Public SpeechList As New Queue(Of String)
     Dim S As New ChatToSpeech
@@ -36,7 +37,7 @@ Public Class ChatToSpeech
     Public WithEvents Speaker As New SpeechSynthesizer
 
     ReadOnly Interlock As New Object
-    Private Counter As Integer
+
     Private disposedValue As Boolean
 
     Public Shared Function SpeechBusy() As Boolean
@@ -80,8 +81,8 @@ Public Class ChatToSpeech
                         Dim g = Guid.NewGuid()
                         fname = g.ToString + ".wav"
                     Else
-                        fname = $"{Counter:D10}.wav"
-                        Counter += 1
+                        fname = $"{SpeechCounter:D10}.wav"
+                        SpeechCounter += 1
                     End If
 
                     fname = fname.Replace("<", "")

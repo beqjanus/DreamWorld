@@ -108,6 +108,21 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles MakeSpeechButton.Click
+
+        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutwordzFiles\Apache\htdocs\TTS"))
+        DeleteFolder(folder)
+        Sleep(10)
+        MakeFolder(folder)
+        MakeSpeechButton.Text = "Busy"
+        MakeSpeech()
+        While SpeechBusyFlag
+            Sleep(100)
+        End While
+        MakeSpeechButton.Text = "Make Speech (Wav + Mp3)"
+
+    End Sub
+
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
 
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
@@ -122,9 +137,20 @@ Public Class FormRegions
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        While Synth.State = SynthesizerState.Speaking
+            Sleep(100)
+        End While
         Synth.Dispose()
         RegionForm.Dispose()
         Settings.SaveSettings()
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
+        System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
+
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -140,7 +166,10 @@ Public Class FormRegions
         NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         RegionButton.Text = Global.Outworldz.My.Resources.Configger
-
+        TextBox1.Text = $"Each line of text is saved to a wave and mp3 file.{vbCrLf}"
+        TextBox1.Text += $"The default voice selection is used.{vbCrLf}"
+        TextBox1.Text += $"M: Any line the begins with the letter M and a colon is spoken in a Male voice.{vbCrLf}"
+        TextBox1.Text += $"F: A line the begins with the letter F and a colon is spoken in a Female voice.{vbCrLf}"
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -203,6 +232,26 @@ Public Class FormRegions
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index
         End If
+
+    End Sub
+
+    Private Sub MakeSpeech()
+
+        ExpireLogsByAge()
+
+        Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
+        Using S As New ChatToSpeech
+            For Each l In arrKeywords
+                S.Speach(l, True, "file")
+            Next
+        End Using
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
+        System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
     End Sub
 
