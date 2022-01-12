@@ -11,8 +11,7 @@ Imports System.Text.RegularExpressions
 Imports System.Data
 
 Public Class FormRegionlist
-
-#Disable Warning CA2213
+    Implements IDisposable
 
     '// Constants
     Const HWND_TOP As Integer = 0
@@ -32,8 +31,8 @@ Public Class FormRegionlist
     Private detailsinitted As Boolean
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
+    Dim RegionForm As New FormRegion
     Private UseMysql As Boolean
-#Enable Warning CS2213
 
 #Region "Declarations"
 
@@ -382,8 +381,8 @@ SetWindowOnTop_Err:
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
         Try
-
-            Dim RegionForm As New FormRegion
+            RegionForm.Dispose()
+            RegionForm = New FormRegion
             RegionForm.BringToFront()
             RegionForm.Init("")
             RegionForm.Activate()
@@ -1371,6 +1370,7 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(My.Resources.Local_Grid)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
+                Index += 1
             Next
 
             If ListOfAgents.Count = 0 Then
@@ -1885,30 +1885,6 @@ SetWindowOnTop_Err:
 
 #End Region
 
-#Region "Public Enums"
-
-#End Region
-
-#Region "Loader"
-
-#End Region
-
-#Region "Timer"
-
-#End Region
-
-#Region "LoadListView"
-
-#End Region
-
-#Region "Click Methods"
-
-#End Region
-
-#Region "Private Methods"
-
-#End Region
-
 #Region "Clicks"
 
     Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles AvatarsButton.Click
@@ -1961,14 +1937,6 @@ SetWindowOnTop_Err:
         LoadMyListView()
 
     End Sub
-
-#End Region
-
-#Region "MySQL"
-
-#End Region
-
-#Region "Export"
 
 #End Region
 
