@@ -3207,6 +3207,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Each line of text is saved to a wave and mp3 file..
+        '''</summary>
+        Friend ReadOnly Property Each_Line() As String
+            Get
+                Return ResourceManager.GetString("Each_Line", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property earth_location() As System.Drawing.Icon
@@ -3749,6 +3758,15 @@ Namespace My.Resources
         Friend ReadOnly Property Fatal_word() As String
             Get
                 Return ResourceManager.GetString("Fatal_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to F: A line the begins with the letter F and a colon is spoken in a Female voice..
+        '''</summary>
+        Friend ReadOnly Property Female_Voice() As String
+            Get
+                Return ResourceManager.GetString("Female_Voice", resourceCulture)
             End Get
         End Property
         
@@ -5951,6 +5969,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Make Speech (Wav + Mp3).
+        '''</summary>
+        Friend ReadOnly Property Make_Speech() As String
+            Get
+                Return ResourceManager.GetString("Make_Speech", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Show Global Map.
         '''</summary>
         Friend ReadOnly Property MakeNewMap() As String
@@ -5965,6 +5992,15 @@ Namespace My.Resources
         Friend ReadOnly Property MakeVoices() As String
             Get
                 Return ResourceManager.GetString("MakeVoices", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to M: Any line the begins with the letter M and a colon is spoken in a Male voice..
+        '''</summary>
+        Friend ReadOnly Property Male_Voice() As String
+            Get
+                Return ResourceManager.GetString("Male_Voice", resourceCulture)
             End Get
         End Property
         
@@ -9647,7 +9683,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show Date and Time in Logs.
+        '''  Looks up a localized string similar to Log Date and Time.
         '''</summary>
         Friend ReadOnly Property ShowDateTime() As String
             Get
@@ -10436,6 +10472,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("text_marked", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The default voice selection will speak this text..
+        '''</summary>
+        Friend ReadOnly Property The_default_voice() As String
+            Get
+                Return ResourceManager.GetString("The_default_voice", resourceCulture)
             End Get
         End Property
         

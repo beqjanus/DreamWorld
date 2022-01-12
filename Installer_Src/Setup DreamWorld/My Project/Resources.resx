@@ -1428,7 +1428,7 @@
     <value>Icecast Port is Set</value>
   </data>
   <data name="ShowDateTime" xml:space="preserve">
-    <value>Show Date and Time in Logs</value>
+    <value>Log Date and Time</value>
   </data>
   <data name="flag_mexico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_mexico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -3971,5 +3971,20 @@
   </data>
   <data name="loudspeaker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loudspeaker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Each line of text is saved to a wave and mp3 file.</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: A line the begins with the letter F and a colon is spoken in a Female voice.</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Make Speech (Wav + Mp3)</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Any line the begins with the letter M and a colon is spoken in a Male voice.</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>The default voice selection will speak this text.</value>
   </data>
 </root>

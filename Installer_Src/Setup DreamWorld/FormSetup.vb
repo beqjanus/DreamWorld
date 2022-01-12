@@ -690,7 +690,7 @@ Public Class FormSetup
 
     Public Function StartOpensimulator() As Boolean
 
-        'Bench.Start("StartOpensim")
+        Bench.Print("StartOpensim")
 
         Init(False)
 
@@ -984,7 +984,8 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        TaskQue.Add(TObj)
+        ' TO DO add taskque so we can have more than one command
+        'TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
         Else
@@ -1007,45 +1008,46 @@ Public Class FormSetup
 
             Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
-            Dim T = Task.TaskName
-            Select Case T
-                Case TaskName.RPCBackupper       '1
-                    RPCBackupper(RegionUUID)
-                Case TaskName.TeleportClicked   '2
-                    TeleportClicked(RegionUUID)
-                Case TaskName.LoadOar   '2
-                    LoadOar(RegionUUID)
-                Case TaskName.LoadOneOarTask    '4
-                    LoadOneOarTask(RegionUUID, Task)
-                Case TaskName.LoadOARContent    '5
-                    LoadOARContent2(RegionUUID, Task)
-                Case TaskName.SaveOneOAR    '6
-                    SaveOneOar(RegionUUID, Task)
-                Case TaskName.RebuildTerrain    '7
-                    RebuildTerrain(RegionUUID)
-                Case TaskName.SaveTerrain  '8
-                    Save_Terrain(RegionUUID)
-                Case TaskName.ApplyTerrainEffect    '9
-                    ApplyTerrainEffect(RegionUUID)
-                Case TaskName.TerrainLoad       '10
-                    Load_Save(RegionUUID)
-                Case TaskName.ApplyPlant       '11
-                    Apply_Plant(RegionUUID)
-                Case TaskName.BakeTerrain      '12
-                    Bake_Terrain(RegionUUID)
-                Case TaskName.LoadAllFreeOARs  '13
-                    Load_AllFreeOARs(RegionUUID, Task)
-                Case TaskName.DeleteTree       '14
-                    Delete_Tree(RegionUUID)
-                Case TaskName.Revert             '15
-                    Revert(RegionUUID)
-                Case TaskName.SaveAllIARS        '16
-                    SaveThreadIARS()
-                Case Else
-                    BreakPoint.Print("Impossible task")
-            End Select
-            ToDoList.Remove(RegionUUID)
-            Application.DoEvents()
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                ToDoList.Remove(RegionUUID)
+                Dim T = Task.TaskName
+                Select Case T
+                    Case TaskName.RPCBackupper       '1
+                        Backupper(RegionUUID)
+                    Case TaskName.TeleportClicked   '2
+                        TeleportClicked(RegionUUID)
+                    Case TaskName.LoadOar   '2
+                        LoadOar(RegionUUID)
+                    Case TaskName.LoadOneOarTask    '4
+                        LoadOneOarTask(RegionUUID, Task)
+                    Case TaskName.LoadOARContent    '5
+                        LoadOARContent2(RegionUUID, Task)
+                    Case TaskName.SaveOneOAR    '6
+                        SaveOneOar(RegionUUID, Task)
+                    Case TaskName.RebuildTerrain    '7
+                        RebuildTerrain(RegionUUID)
+                    Case TaskName.SaveTerrain  '8
+                        Save_Terrain(RegionUUID)
+                    Case TaskName.ApplyTerrainEffect    '9
+                        ApplyTerrainEffect(RegionUUID)
+                    Case TaskName.TerrainLoad       '10
+                        Load_Save(RegionUUID)
+                    Case TaskName.ApplyPlant       '11
+                        Apply_Plant(RegionUUID)
+                    Case TaskName.BakeTerrain      '12
+                        Bake_Terrain(RegionUUID)
+                    Case TaskName.LoadAllFreeOARs  '13
+                        Load_AllFreeOARs(RegionUUID, Task)
+                    Case TaskName.DeleteTree       '14
+                        Delete_Tree(RegionUUID)
+                    Case TaskName.Revert             '15
+                        Revert(RegionUUID)
+                    Case TaskName.SaveAllIARS        '16
+                        SaveThreadIARS()
+                    Case Else
+                        BreakPoint.Print("Impossible task")
+                End Select
+            End If
 
         End If
 
@@ -1071,7 +1073,7 @@ Public Class FormSetup
         End If
 
         ' booted regions from web server
-        'Bench.Start("Booted list Start")
+        Bench.Print("Booted list Start")
         Try
             Dim GroupName As String = ""
 
@@ -1125,9 +1127,9 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-        'Bench.Print("Booted list End")
+        Bench.Print("Booted list End")
 
-        'Bench.Start("Scan Region State")
+        Bench.Print("Scan Region State")
         Try
             Dim L = RegionUuids()
             L.Sort()
@@ -1152,6 +1154,8 @@ Public Class FormSetup
                 If AvatarsIsInGroup(GroupName) Then
                     PokeGroupTimer(GroupName)
                 End If
+
+                RunTaskList(RegionUUID)
 
                 If Settings.Smart_Start Then
 
@@ -1276,7 +1280,7 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-        'Bench.print("Scan Region State End")
+        Bench.Print("Scan Region State End")
 
         PropBootScanIsBusy = 0
 
@@ -1435,7 +1439,7 @@ Public Class FormSetup
 
     Private Sub DidItDie()
 
-        'Bench.Print("DidItDie Begins")
+        Bench.Print("DidItDie Begins")
 
         ' check to see if a handle to all regions exists. If not, then it died.
         For Each RegionUUID As String In RegionUuids()
@@ -1467,7 +1471,7 @@ Public Class FormSetup
             End If
 
         Next
-        'Bench.Print("DidItDie Ends")
+        Bench.Print("DidItDie Ends")
 
     End Sub
 
@@ -2757,7 +2761,7 @@ Public Class FormSetup
             End If
 
             ' 9 ms I9 9900K
-            'Bench.Start("1 second worker start")
+            Bench.Print("1 second worker start")
             CalcDiskFree()              ' check for free disk space
             Chart()                     ' do charts collection each second
             CheckPost()                 ' see if anything arrived in the web server
@@ -2766,29 +2770,29 @@ Public Class FormSetup
             RestartDOSboxes()
             ScanAgents()                ' update agent count
 
-            'Bench.Print("1 second worker ends")
+            Bench.Print("1 second worker ends")
 
             ' 33 ms
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
-                ' Bench.Start("5 second worker")
+                ' Bench.Print("5 second worker")
                 CheckForBootedRegions()     ' And see if any booted up
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
-                'Bench.Print("5 second worker ends")
+                Bench.Print("5 second worker ends")
             End If
 
             ' 2  ms
             If SecondsTicker = 60 Then
-                'Bench.Start("Initial 60 second worker")
+                Bench.Print("Initial 60 second worker")
                 ScanOpenSimWorld(True)
                 Delete_all_visitor_maps()
                 MakeMaps()
-                'Bench.Print("Initial 60 second worker ends")
+                Bench.Print("Initial 60 second worker ends")
             End If
 
             '22 ms
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
-                'Bench.Start("60 second worker")
+                Bench.Print("60 second worker")
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running
@@ -2796,38 +2800,38 @@ Public Class FormSetup
                 If t.Length > 0 Then TextPrint(t)
                 RegionListHTML(Settings, "Name") ' create HTML for teleport boards
                 VisitorCount()
-                'Bench.Print("60 second work done")
+                Bench.Print("60 second work done")
             End If
 
             ' 2 ms
             ' Run Search and events once at 5 minute mark
             If SecondsTicker = 300 Then
-                'Bench.Start("300 second worker")
+                Bench.Print("300 second worker")
                 RunParser()
                 GetEvents()
-                'Bench.Print("300 second worker ends")
+                Bench.Print("300 second worker ends")
             End If
 
             '2 ms
             ' half hour
             If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
-                'Bench.Start("half hour worker")
+                Bench.Print("half hour worker")
                 ScanOpenSimWorld(True)
                 GetEvents()
                 RunParser()
                 MakeMaps()
-                'Bench.Print("half hour worker ends")
+                Bench.Print("half hour worker ends")
             End If
 
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
-                'Bench.Start("hour worker")
+                Bench.Print("hour worker")
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 SetPublicIP()
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()
-                'Bench.Print("hour worker ends")
+                Bench.Print("hour worker ends")
             End If
             SecondsTicker += 1
             TimerMain.Start()
@@ -3410,10 +3414,7 @@ Public Class FormSetup
             Return
         End If
 
-        Dim WebThread = New Thread(AddressOf BackupAllRegions)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-        WebThread.Start()
+        BackupAllRegions()
 
     End Sub
 

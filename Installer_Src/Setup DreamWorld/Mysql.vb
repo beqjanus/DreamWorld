@@ -476,7 +476,7 @@ Public Module MysqlInterface
 
         If DebugLandMaker Then
 
-            Dim HowManyAvatars As Integer = 1
+            Dim HowManyAvatars As Integer = 2
             Dim Odds As Double = 20
             ' sprinkle avatars around the system
             If Debugger.IsAttached Then
