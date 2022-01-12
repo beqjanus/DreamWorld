@@ -81,8 +81,9 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/MeshCache",
 	"$dir/OutworldzFiles/Opensim/bin/ScriptEngines",
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
-	"$dir/OutworldzFiles/Opensim/bin/bakes",	,
-	"$dir/OutworldzFiles/Apache/logs/",
+	"$dir/OutworldzFiles/Opensim/bin/bakes",
+	"$dir/OutworldzFiles/logs/",
+	"$dir/OutworldzFiles/logs/Apache",
 	"$dir/OutworldzFiles/Apache/htdocs/Stats/Maps/",
 	"$dir/OutworldzFiles/Apache/htdocs/TTS",
 );
