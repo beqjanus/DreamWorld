@@ -110,6 +110,7 @@ Public Class SSL
             Return False
         End If
 
+        ''' TO DO  its stuck here with an error, dangit
         'Download the certificate once validation is done
         Dim privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256)
         Dim cert = Await order.Generate(New CsrInfo With {
