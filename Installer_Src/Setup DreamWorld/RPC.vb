@@ -216,12 +216,7 @@ Module RPC
 
     Public Function ShutDown(RegionUUID As String) As Boolean
 
-        Dim ht = New Hashtable From {
-            {"password", Settings.MachineID},
-            {"region_id", RegionUUID}
-        }
-        Log("Info", "Shutdown " & Region_Name(RegionUUID))
-        Return SendRPC(RegionUUID, "admin_shutdown", ht)
+        Return ConsoleCommand(RegionUUID, "q")
 
     End Function
 
