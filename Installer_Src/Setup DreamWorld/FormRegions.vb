@@ -303,6 +303,10 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
+        HelpManual("Regions")
+    End Sub
+
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
 
         If Not initted Then Return
@@ -328,8 +332,12 @@ Public Class FormRegions
         Settings.HomeVectorX = X.Text
     End Sub
 
+    Private Sub TextToSpeechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TextToSpeechToolStripMenuItem.Click
+        HelpManual("Text2Speech")
+    End Sub
+
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        HelpManual("Regions")
+        'HelpManual("Regions")
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged

@@ -43,11 +43,13 @@ Partial Class FormRegions
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.MakeSpeechButton = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.MakeSpeechButton = New System.Windows.Forms.Button()
+        Me.TextToSpeechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -251,6 +253,7 @@ Partial Class FormRegions
         '
         'ToolStripMenuItem30
         '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextToSpeechToolStripMenuItem, Me.RegionsToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(72, 32)
@@ -270,6 +273,35 @@ Partial Class FormRegions
         Me.GroupBox1.TabIndex = 1888
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Speech"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(259, 33)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(34, 13)
+        Me.Label5.TabIndex = 1894
+        Me.Label5.Text = "Voice"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(65, 331)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(62, 13)
+        Me.Label4.TabIndex = 1893
+        Me.Label4.Text = "View Folder"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.document_view
+        Me.PictureBox1.Location = New System.Drawing.Point(28, 322)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(31, 23)
+        Me.PictureBox1.TabIndex = 1892
+        Me.PictureBox1.TabStop = False
         '
         'TextBox1
         '
@@ -295,34 +327,17 @@ Partial Class FormRegions
         Me.MakeSpeechButton.Text = "Make Speech (Wav + Mp3)"
         Me.MakeSpeechButton.UseVisualStyleBackColor = True
         '
-        'Label4
+        'TextToSpeechToolStripMenuItem
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(65, 331)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(62, 13)
-        Me.Label4.TabIndex = 1893
-        Me.Label4.Text = "View Folder"
+        Me.TextToSpeechToolStripMenuItem.Name = "TextToSpeechToolStripMenuItem"
+        Me.TextToSpeechToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TextToSpeechToolStripMenuItem.Text = "Text To Speech"
         '
-        'PictureBox1
+        'RegionsToolStripMenuItem
         '
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.document_view
-        Me.PictureBox1.Location = New System.Drawing.Point(28, 322)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(31, 23)
-        Me.PictureBox1.TabIndex = 1892
-        Me.PictureBox1.TabStop = False
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(259, 33)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(34, 13)
-        Me.Label5.TabIndex = 1894
-        Me.Label5.Text = "Voice"
+        Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RegionsToolStripMenuItem.Text = "Regions"
         '
         'FormRegions
         '
@@ -376,4 +391,6 @@ Partial Class FormRegions
     Friend WithEvents Label4 As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents TextToSpeechToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RegionsToolStripMenuItem As ToolStripMenuItem
 End Class
