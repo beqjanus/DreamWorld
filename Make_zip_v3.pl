@@ -159,8 +159,8 @@ if ($publish =~ /c|p/ ) {
 	say ("Cleaned");	
 }
 
-#say('Copy Manuals');
-#if (!dircopy ($dir . '/OutworldzFiles/Help/', "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"))  {die $!;}
+say('Copy Manuals');
+if (!dircopy ($dir . '/OutworldzFiles/Help/', "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"))  {die $!;}
         
     
 say("Signing Release");    
