@@ -321,6 +321,8 @@ Public Class FormRegion
             Core16Button.Checked = True
 
             Normal.Checked = True
+            Changed1 = True
+
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
@@ -716,18 +718,11 @@ Public Class FormRegion
                 If Len(message) > 0 Then
                     v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     If v = vbYes Then
-                        Me.Close()
+                        Me.Hide()
                     End If
-                Else
-                    WriteRegion(RegionUUID)
-                    PropChangedRegionSettings = True
-                    GetAllRegions(False)
-                    Firewall.SetFirewall()
-                    RestartRobustIfNeeded(RegionUUID)
-                    PropUpdateView() = True
-                    Changed1 = False
                 End If
             End If
+
         End If
 
     End Sub
