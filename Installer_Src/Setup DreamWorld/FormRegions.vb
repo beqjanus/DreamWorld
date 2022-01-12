@@ -114,12 +114,12 @@ Public Class FormRegions
         DeleteFolder(folder)
         Sleep(10)
         MakeFolder(folder)
-        MakeSpeechButton.Text = "Busy"
+        MakeSpeechButton.Text = My.Resources.Busy_word
         MakeSpeech()
         While SpeechBusyFlag
             Sleep(100)
         End While
-        MakeSpeechButton.Text = "Make Speech (Wav + Mp3)"
+        MakeSpeechButton.Text = My.Resources.Make_Speech
 
     End Sub
 
@@ -166,10 +166,10 @@ Public Class FormRegions
         NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         RegionButton.Text = Global.Outworldz.My.Resources.Configger
-        TextBox1.Text = $"Each line of text is saved to a wave and mp3 file.{vbCrLf}"
-        TextBox1.Text += $"The default voice selection is used.{vbCrLf}"
-        TextBox1.Text += $"M: Any line the begins with the letter M and a colon is spoken in a Male voice.{vbCrLf}"
-        TextBox1.Text += $"F: A line the begins with the letter F and a colon is spoken in a Female voice.{vbCrLf}"
+        TextBox1.Text = $"{My.Resources.Each_Line}{vbCrLf}"
+        TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
+        TextBox1.Text += $"{My.Resources.Male_Voice}{vbCrLf}"
+        TextBox1.Text += $"{My.Resources.Female_Voice}{vbCrLf}"
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -189,7 +189,9 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
+#Disable Warning CA1304
         For Each voice In Synth.GetInstalledVoices()
+#Enable Warning CA1304
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
