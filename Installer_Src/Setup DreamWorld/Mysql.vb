@@ -685,34 +685,10 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function GetPresence() As Dictionary(Of String, String)
+    ''' <summary>
+    ''' Returns list of people and region UUID
+    ''' </summary>
 
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Dict.Clear()
-            Try
-                NewSQLConn.Open()
-                ' TO DO
-                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            If reader.GetString(0).Length > 0 Then
-                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return Dict
-
-    End Function
     Public Function GetGridUsers() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
@@ -764,6 +740,35 @@ Public Module MysqlInterface
         'Dict.Remove("test user")
 
         Return HGDict
+
+    End Function
+
+    Public Function GetPresence() As Dictionary(Of String, String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Dict.Clear()
+            Try
+                NewSQLConn.Open()
+                ' TO DO
+                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            If reader.GetString(0).Length > 0 Then
+                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+                            End If
+                        End While
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Dump(ex)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return Dict
 
     End Function
 
