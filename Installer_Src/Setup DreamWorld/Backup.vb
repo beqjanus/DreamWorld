@@ -65,10 +65,11 @@
                 .Command = ""
             }
             FormSetup.RebootAndRunTask(RegionUUID, Obj)
+            Application.DoEvents()
         Next
     End Sub
 
-    Public Sub RPCBackupper(RegionUUID As String)
+    Public Sub Backupper(RegionUUID As String)
 
         ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """")
         ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &

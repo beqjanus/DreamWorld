@@ -36,6 +36,7 @@ Partial Class FormLogging
         Me.KeepLog = New System.Windows.Forms.RadioButton()
         Me.DeletebyAge = New System.Windows.Forms.GroupBox()
         Me.Date_Time_Checkbox = New System.Windows.Forms.CheckBox()
+        Me.LogBenchmarks = New System.Windows.Forms.CheckBox()
         Me.AnalyzeButton = New System.Windows.Forms.Button()
         Me.ViewLogButton = New System.Windows.Forms.Button()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -170,13 +171,15 @@ Partial Class FormLogging
         '
         'DeletebyAge
         '
+        Me.DeletebyAge.Controls.Add(Me.Date_Time_Checkbox)
+        Me.DeletebyAge.Controls.Add(Me.LogBenchmarks)
         Me.DeletebyAge.Controls.Add(Me.AnalyzeButton)
         Me.DeletebyAge.Controls.Add(Me.ViewLogButton)
         Me.DeletebyAge.Controls.Add(Me.KeepLog)
         Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
         Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
         Me.DeletebyAge.Name = "DeletebyAge"
-        Me.DeletebyAge.Size = New System.Drawing.Size(185, 185)
+        Me.DeletebyAge.Size = New System.Drawing.Size(178, 213)
         Me.DeletebyAge.TabIndex = 2
         Me.DeletebyAge.TabStop = False
         Me.DeletebyAge.Text = "Log Files"
@@ -184,18 +187,28 @@ Partial Class FormLogging
         'Date_Time_Checkbox
         '
         Me.Date_Time_Checkbox.AutoSize = True
-        Me.Date_Time_Checkbox.Location = New System.Drawing.Point(77, 250)
+        Me.Date_Time_Checkbox.Location = New System.Drawing.Point(16, 101)
         Me.Date_Time_Checkbox.Name = "Date_Time_Checkbox"
-        Me.Date_Time_Checkbox.Size = New System.Drawing.Size(163, 17)
+        Me.Date_Time_Checkbox.Size = New System.Drawing.Size(126, 17)
         Me.Date_Time_Checkbox.TabIndex = 4
-        Me.Date_Time_Checkbox.Text = "Show Date and Time in Logs"
+        Me.Date_Time_Checkbox.Text = "Show Date and Time"
         Me.Date_Time_Checkbox.UseVisualStyleBackColor = True
+        '
+        'LogBenchmarks
+        '
+        Me.LogBenchmarks.AutoSize = True
+        Me.LogBenchmarks.Location = New System.Drawing.Point(17, 78)
+        Me.LogBenchmarks.Name = "LogBenchmarks"
+        Me.LogBenchmarks.Size = New System.Drawing.Size(106, 17)
+        Me.LogBenchmarks.TabIndex = 5
+        Me.LogBenchmarks.Text = "Log Benchmarks"
+        Me.LogBenchmarks.UseVisualStyleBackColor = True
         '
         'AnalyzeButton
         '
         Me.AnalyzeButton.Image = Global.Outworldz.My.Resources.Resources.folder
         Me.AnalyzeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AnalyzeButton.Location = New System.Drawing.Point(6, 142)
+        Me.AnalyzeButton.Location = New System.Drawing.Point(6, 169)
         Me.AnalyzeButton.Name = "AnalyzeButton"
         Me.AnalyzeButton.Size = New System.Drawing.Size(156, 27)
         Me.AnalyzeButton.TabIndex = 3
@@ -206,7 +219,7 @@ Partial Class FormLogging
         '
         Me.ViewLogButton.Image = Global.Outworldz.My.Resources.Resources.folder
         Me.ViewLogButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewLogButton.Location = New System.Drawing.Point(6, 109)
+        Me.ViewLogButton.Location = New System.Drawing.Point(6, 136)
         Me.ViewLogButton.Name = "ViewLogButton"
         Me.ViewLogButton.Size = New System.Drawing.Size(156, 27)
         Me.ViewLogButton.TabIndex = 2
@@ -234,7 +247,6 @@ Partial Class FormLogging
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(317, 301)
-        Me.Controls.Add(Me.Date_Time_Checkbox)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.DeletebyAge)
         Me.Controls.Add(Me.GroupBox1)
@@ -271,4 +283,5 @@ Partial Class FormLogging
     Friend WithEvents Date_Time_Checkbox As CheckBox
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents LogBenchmarks As CheckBox
 End Class

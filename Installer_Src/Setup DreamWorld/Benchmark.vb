@@ -5,7 +5,8 @@
     Public Sub Print(Name As String)
 
         If _stopWatch Is Nothing Then
-            Return
+            _stopWatch = New Stopwatch()
+            _stopWatch.Start()
         End If
 
         If Settings.LogBenchmarks Then
@@ -16,19 +17,7 @@
             End If
         End If
         _stopWatch = New Stopwatch()
-
-    End Sub
-
-    Public Sub Start(Name As String)
-
-        _stopWatch = New Stopwatch()
         _stopWatch.Start()
-        If Settings.LogBenchmarks Then
-            Logger("Benchmark", Name, "Benchmark")
-        Else
-            Debug.Print("Benchmark:" & Name)
-        End If
-
     End Sub
 
 End Class

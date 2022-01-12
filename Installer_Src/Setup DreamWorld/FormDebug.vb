@@ -89,14 +89,6 @@ Public Class FormDebug
 
 #Region "Set"
 
-    Private Sub Benchmark()
-
-        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
-        Settings.LogBenchmarks = Value
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = "Debug LandMaker" Then
@@ -111,17 +103,8 @@ Public Class FormDebug
                 ProgressPrint("Land making Off")
             End If
 
-        ElseIf Command = My.Resources.MakeVoices Then
-            MakeSpeech()
-
         ElseIf Command = My.Resources.MakeNewMap Then
             MakeMap()
-
-        ElseIf Command = My.Resources.Benchmark Then
-            Benchmark()
-
-        ElseIf Command = My.Resources.Speak Then
-            Speechtest()
 
         ElseIf Command = My.Resources.TeleportAPI Then
 
@@ -131,21 +114,6 @@ Public Class FormDebug
 
             If Value = True Then
                 Dim ssl = New SSL
-            End If
-
-        ElseIf Command = My.Resources.Send_alert Then
-            If Value Then
-
-                Dim UserName = InputBox("Online Agent Name?")
-
-                Dim parts As String() = UserName.Split(" ".ToCharArray())
-                If parts.Length <> 2 Then
-                    MsgBox("Please use an avatar First and Last name", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-                    Return
-                End If
-
-                Dim UserID = GetAviUUUD(UserName)
-                RPC_admin_dialog(UserID, "Pop up Alert Test")
             End If
 
         ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
@@ -221,11 +189,7 @@ Public Class FormDebug
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
 
-        ComboBox1.Items.Add(My.Resources.Benchmark)
         ComboBox1.Items.Add("SSL Test")
-        ComboBox1.Items.Add(My.Resources.Speak)
-        ComboBox1.Items.Add(My.Resources.MakeVoices)
-        ComboBox1.Items.Add(My.Resources.Send_alert)
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
@@ -253,27 +217,6 @@ Public Class FormDebug
             NewMap.BringToFront()
         Catch
         End Try
-
-    End Sub
-
-    Private Sub MakeSpeech()
-
-        ExpireLogsByAge()
-
-        Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
-        Using S As New ChatToSpeech
-            For Each l In arrKeywords
-                S.Speach(l, True, "file")
-            Next
-        End Using
-
-    End Sub
-
-    Private Sub Speechtest()
-
-        Using S As New ChatToSpeech
-            S.Speach(My.Resources.HelloToSpeech, Value)
-        End Using
 
     End Sub
 
@@ -314,6 +257,7 @@ Public Class FormDebug
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         HelpManual("Debug")
+
     End Sub
 
     Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged

@@ -83,6 +83,8 @@ Public Class FormLogging
         DeleteOnBoot.Checked = Settings.DeleteByDate
         KeepLog.Checked = Not Settings.DeleteByDate
 
+        LogBenchmarks.Checked = Settings.LogBenchmarks
+
         SetScreen()
 
         Select Case Settings.LogLevel.ToUpperInvariant
@@ -212,6 +214,12 @@ Public Class FormLogging
         If _Err > 0 Then Process.Start(Out)
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles LogBenchmarks.CheckedChanged
+
+        Settings.LogBenchmarks = LogBenchmarks.Checked
 
     End Sub
 
