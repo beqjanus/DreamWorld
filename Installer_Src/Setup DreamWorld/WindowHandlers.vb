@@ -47,19 +47,17 @@ Module WindowHandlers
 
     End Function
 
-    Public Sub ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False)
+    Public Function ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False) As Boolean
 
         ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
         ''' <param name="command">String</param>
         ''' <returns></returns>
-        If command Is Nothing Then Return
+        If command Is Nothing Then Return True
         If command.Length > 0 Then
-
             command = ToLowercaseKeys(command)
-
             Dim PID As Integer
-            If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
+            If RegionUUID <> RobustName() Then
 
                 PID = ProcessID(RegionUUID)
 
@@ -68,11 +66,11 @@ Module WindowHandlers
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
                         'BreakPoint.Dump(ex)
-                        Return
+                        Return True
                     End Try
                 Else
                     'BreakPoint.Print("No PID")
-                    Return
+                    Return True
                 End If
                 DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
                 Sleep(1000)
@@ -86,13 +84,14 @@ Module WindowHandlers
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
                     'BreakPoint.Dump(ex)
-                    Return
+                    Return True
                 End Try
                 DoType("Robust", "{ENTER}" & command & "{ENTER}")
             End If
         End If
+        Return False
 
-    End Sub
+    End Function
 
     Public Sub DoType(RegionUUID As String, command As String)
 
