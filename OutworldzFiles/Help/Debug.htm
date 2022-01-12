@@ -12,9 +12,6 @@
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -24,22 +21,30 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#4472C4;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -67,44 +72,31 @@ div.WordSection1
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><a name="OLE_LINK1">                                                                                                                                   </a></p>
 
-<p class=MsoTitle align=center style='text-align:center'>DEBUG</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p class=MsoNormal>The Help=&gt; Debug screen contains some debugging tools. 
-The “True” radio button enables the function, and “False” disables the
-function. The function occurs when you press Apply is True is set</p>
+<h1 style='background:#4472C4'>DEBUG</h1>
+
+</div>
+
+<p class=MsoNormal>The Help=&gt; Debug screen has debugging tools.  The “True”
+radio button enables the function, and “False” disables the function. The
+function occurs when you press Apply is True is set</p>
 
 <p class=MsoNormal><img width=465 height=316 id="Picture 1"
 src="Debug_files/image001.png"
 alt="Graphical user interface, application&#10;&#10;Description automatically generated"></p>
 
-<p class=MsoNormal><b>Benchmark</b> – This saves internal benchmarks to a
-Benchmark.Log file.  These have time stamps of internal actions.  The one second
-timer starts the benchmark.</p>
-
-<p class=MsoNormal><b>Speak</b> – Uses the Text to Speech API to speak a test
-message.</p>
-
-<p class=MsoNormal><b>Make Voices -</b>  Makes wav and Mp3 files in female or
-male voices.  You add lines of text to the debug window, set the switch to
-True, and select Text to Speech in the Pulldown.   Click Apply. DreamGrid will
-save a wave file using the voice you selected in the Region Panel.  If the line
-begins with F:  this will use the female voice.  A line beginning with M: will
-use the male voice.  The files will appear in Apache\htdocs\Stats\TTS as
-44.1Khz stereo wav files that can be uploaded, and as MP3 files that can be
-streamed into Opensim via MOAP.  </p>
-
-<p class=MsoNormal><b>Send Alert</b> <b>to a User</b> – Prompts for an Avatar
-name and will then send an alert to that person, wherever they are. </p>
-
 <p class=MsoNormal><b>Teleport API</b> – Prompts for an Avatar name, locates
-the person, and send them to a region. Part of Smart Boot debugging</p>
+the person, and send them to a region. Part of Smart Boot debugging effort.</p>
 
 <p class=MsoNormal><b>Debug (off, 1 Minute …..)</b> – The system prints debug
 stats on each region every hour. You can speed this up or slow it down.
-Requires a region restart. The new setting is saved and will be used in the
-future. </p>
+Requires a region restart. The new setting is saved and is sticky across
+reboots.  Use it to get rapid glances at Opensim region performance.</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>Debug LandMaker – Requires that the Smart Boot and Endless
+land and sea be enabled.  Creates multiple avatars that go to and from regions
+to create a large area of auto generated land. USE WITH CAUTION, for debug only!</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
