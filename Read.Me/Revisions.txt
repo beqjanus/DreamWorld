@@ -1,6 +1,15 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.891
+
+Welcome region selector is sorted by name again. It was scrambled because the sorted list changed to an unsorted dictionary. Thx for the tip! richard dennis https://mewe.com/i/richarddennis14
+Region list for avatars shows the type of visitor again – HG or Local. Thx for the tip! richard dennis https://mewe.com/i/richarddennis14
+If you add a region then close the form, it would not open again. And it saved a blank-named region. Now it prompts to save, and if you say no, it’s tossed.
+If MySQL is off, it could take much longer to see the Region List. Test for MySQL, once and skip using it if offline.  Prims and estate cannot be because the db is offline.
+Added more extensive TTS capability to the Regions Setting. 
+
+
 V4.89
 This is the release candidate for 4.9, which is a full release, meaning it will tell you that it needs to update. 
 Visitor Maps are finally working as expected.  Changed the colors to be brighter and fixed the swapped X and Y axis.
