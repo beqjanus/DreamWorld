@@ -218,9 +218,16 @@ Public Class FormRegions
 
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
-
+        Dim L As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
-            WelcomeBox1.Items.Add(Region_Name(RegionUUID))
+            L.Add(Region_Name(RegionUUID))
+        Next
+        If L.Count > 0 Then
+            L.Sort()
+        End If
+
+        For Each RegionName As String In L
+            WelcomeBox1.Items.Add(RegionName)
         Next
 
         Dim s = WelcomeBox1.FindString(Settings.WelcomeRegion)

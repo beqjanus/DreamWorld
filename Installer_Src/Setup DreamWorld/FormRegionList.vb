@@ -32,7 +32,7 @@ Public Class FormRegionlist
     Private detailsinitted As Boolean
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
-    Dim RegionForm As New FormRegion
+    Private UseMysql As Boolean
 #Enable Warning CS2213
 
 #Region "Declarations"
@@ -381,11 +381,16 @@ SetWindowOnTop_Err:
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
-        RegionForm.BringToFront()
-        RegionForm.Init("")
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
+        Try
+            Dim RegionForm As New FormRegion
+
+            RegionForm.BringToFront()
+            RegionForm.Init("")
+            RegionForm.Activate()
+            RegionForm.Visible = True
+            RegionForm.Select()
+        Catch
+        End Try
 
     End Sub
 
@@ -750,8 +755,10 @@ SetWindowOnTop_Err:
         Dim MyEstate = Estate(RegionUUID)
         If TheView1 = ViewType.Details Then
             If MyEstate.Length = 0 Then
-                MyEstate = EstateName(RegionUUID)
-                Estate(RegionUUID) = MyEstate
+                If UseMysql Then
+                    MyEstate = EstateName(RegionUUID)
+                    Estate(RegionUUID) = MyEstate
+                End If
             End If
         End If
 
@@ -968,6 +975,11 @@ SetWindowOnTop_Err:
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row_note
 
+        UseMysql = False
+        If MysqlInterface.IsMySqlRunning() Then
+            UseMysql = True
+        End If
+
         ViewBusy = True
 
         AllNone.Checked = True
@@ -1137,6 +1149,9 @@ SetWindowOnTop_Err:
         AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
+        ctr += 1
+        AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
 
         'Users
@@ -1332,14 +1347,24 @@ SetWindowOnTop_Err:
 
             ' Create items and sub items for each item.
             Dim ListOfAgents As New Dictionary(Of String, String)
+            Dim Presence As New Dictionary(Of String, String)
 
             If MysqlInterface.IsMySqlRunning() Then
-                ListOfAgents = GetAllAgents()
+                ListOfAgents = GetGridUsers()
+                Presence = GetPresence()
             End If
 
             For Each Agent In ListOfAgents
                 Dim item1 As New ListViewItem(Agent.Key, Index)
                 item1.SubItems.Add(Region_Name(Agent.Value))
+                item1.SubItems.Add(My.Resources.Local_Grid)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+                Index += 1
+            Next
+            For Each Agent In Presence
+                Dim item1 As New ListViewItem(Agent.Key, Index)
+                item1.SubItems.Add(Region_Name(Agent.Value))
+                item1.SubItems.Add(My.Resources.Hypergrid_word)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             Next
@@ -1468,7 +1493,12 @@ SetWindowOnTop_Err:
                 Dim size As String = CStr(s) & "X" & CStr(s)
                 item1.SubItems.Add(size)
                 item1.SubItems.Add(Estate(RegionUUID))
-                item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
+
+                If UseMysql Then
+                    item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
+                Else
+                    item1.SubItems.Add("N/A")
+                End If
 
                 item1.SubItems.Add(Region_Port(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
                 item1.SubItems.Add(GroupPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
