@@ -110,7 +110,7 @@ Public Class FormRegions
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles MakeSpeechButton.Click
 
-        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutwordzFiles\Apache\htdocs\TTS"))
+        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS"))
         DeleteFolder(folder)
         Sleep(10)
         MakeFolder(folder)
