@@ -208,7 +208,10 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID As String In L
             RegionBox.Items.Add(Region_Name(RegionUUID))
         Next
 
@@ -282,7 +285,10 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID As String In L
 
             Dim RegionName = Region_Name(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope

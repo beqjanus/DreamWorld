@@ -53,7 +53,10 @@
 
     Public Sub BackupAllRegions()
 
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID As String In L
             If Not RegionEnabled(RegionUUID) Then Continue For
             If SkipAutobackup(RegionUUID) = "True" Then Continue For
 

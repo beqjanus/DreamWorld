@@ -382,8 +382,8 @@ SetWindowOnTop_Err:
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
         Try
-            Dim RegionForm As New FormRegion
 
+            Dim RegionForm As New FormRegion
             RegionForm.BringToFront()
             RegionForm.Init("")
             RegionForm.Activate()
@@ -1220,7 +1220,11 @@ SetWindowOnTop_Err:
         SearchBusy = True
 
         SearchArray.Clear()
-        For Each RegionUUID In RegionUuids()
+
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID In L
 
             If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
                 If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
@@ -1364,7 +1368,7 @@ SetWindowOnTop_Err:
             For Each Agent In Presence
                 Dim item1 As New ListViewItem(Agent.Key, Index)
                 item1.SubItems.Add(Region_Name(Agent.Value))
-                item1.SubItems.Add(My.Resources.Hypergrid_word)
+                item1.SubItems.Add(My.Resources.Local_Grid)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             Next
@@ -1372,7 +1376,7 @@ SetWindowOnTop_Err:
             If ListOfAgents.Count = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.Local_Grid)
+                item1.SubItems.Add(My.Resources.Hypergrid_word)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             End If

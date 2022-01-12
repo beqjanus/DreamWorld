@@ -49,7 +49,9 @@ Module Diags
 
         If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
         Dim TotalSize As Double
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+        For Each RegionUUID As String In L
             TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
         Next
 
@@ -194,7 +196,10 @@ Module Diags
 
             Application.DoEvents()
 
-            For Each RegionUUID As String In RegionUuids()
+            Dim L = RegionUuids()
+            L.Sort()
+
+            For Each RegionUUID As String In L
                 Dim R As Integer = Region_Port(RegionUUID)
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
@@ -253,7 +258,7 @@ Module Diags
         Else
             TextPrint(My.Resources.Loopback_Failed & " " & Weblink)
             Logger("INFO", Global.Outworldz.My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
-            Settings.LoopBackDiag = False
+            Settings.LoopbackDiag = False
             Settings.DiagFailed = "True"
         End If
 
@@ -306,7 +311,7 @@ Module Diags
             Logger("INFO", Global.Outworldz.My.Resources.Incoming_Works, "Diagnostics")
             TextPrint(My.Resources.Incoming_Works)
         Else
-            Settings.LoopBackDiag = False
+            Settings.LoopbackDiag = False
             Settings.DiagFailed = "True"
             Logger("INFO", Global.Outworldz.My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded, "Diagnostics")
             TextPrint(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded)
@@ -321,7 +326,9 @@ Module Diags
 
         Dim Used As New List(Of String)
         ' Boot them up
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+        For Each RegionUUID As String In L
             If IsBooted(RegionUUID) Then
                 Dim RegionName = Region_Name(RegionUUID)
 
@@ -359,7 +366,7 @@ Module Diags
         Else
             Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
             TextPrint(My.Resources.Failed_LAN & " " & weblink)
-            Settings.LoopBackDiag = False
+            Settings.LoopbackDiag = False
             Settings.DiagFailed = "True"
         End If
 

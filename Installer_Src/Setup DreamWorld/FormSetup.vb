@@ -551,7 +551,6 @@ Public Class FormSetup
         Dim TotalRunningRegions As Integer
 
         For Each RegionUUID As String In RegionUuids()
-
             If IsBooted(RegionUUID) Then
                 TotalRunningRegions += 1
             End If
@@ -726,6 +725,7 @@ Public Class FormSetup
         StartThreads()
         Application.DoEvents()
         Dim l = RegionUuids()
+        l.Sort()
 
         StartTimer()
 
@@ -734,7 +734,7 @@ Public Class FormSetup
             Dim UUID As String = FindRegionByName(RegionName)
             Dim out As New Guid
             If Guid.TryParse(UUID, out) Then
-                ReBoot(UUID)
+                Boot(RegionName)
             End If
             l.Remove(UUID)
         End If
@@ -1129,7 +1129,9 @@ Public Class FormSetup
 
         'Bench.Start("Scan Region State")
         Try
-            For Each RegionUUID As String In RegionUuids()
+            Dim L = RegionUuids()
+            L.Sort()
+            For Each RegionUUID As String In L
 
                 Application.DoEvents()
 
@@ -2125,7 +2127,10 @@ Public Class FormSetup
         AddLog("MySQL")
         AddLog("All Settings")
         AddLog("--- Regions ---")
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID As String In L
             Dim Name = Region_Name(RegionUUID)
             AddLog("Region " & Name)
         Next
@@ -3037,7 +3042,6 @@ Public Class FormSetup
         Dim Message = InputBox(My.Resources.What_2_say_To_all)
         If Message.Length > 0 Then
             For Each RegionUUID As String In RegionUuids()
-
                 If AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
                     SendMessage(RegionUUID, Message)
@@ -3168,7 +3172,9 @@ Public Class FormSetup
 
         StartTimer()
 
-        For Each RegionUUID As String In RegionUuids()
+        Dim L = RegionUuids()
+        L.Sort()
+        For Each RegionUUID As String In L
 
             If PropAborting Then
                 Return
