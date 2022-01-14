@@ -3,7 +3,7 @@
 # AGPL 3.0
 
 use strict;
-use  warnings;
+use warnings;
 
 =pod
 
@@ -46,101 +46,106 @@ If Speak is left off, a 301 Redirect to the mp3 will be sent.
 
 =cut
 
-my $debug = 0; # set to any value but 0 to be able to test parts of it.
+my $debug = 0;    # set to any value but 0 to be able to test parts of it.
 
-$|=1;
+$| = 1;
 use CGI qw(:standard);
 use Config::IniFiles;
-use File::BOM;  # fixes a bug in Perl with UTF-8
+use File::BOM;    # fixes a bug in Perl with UTF-8
+
 # get the path to the Settings.ini
 use Cwd;
 my $path = getcwd();
 
-
 $path =~ /(.*?\/Outworldzfiles)/i;
 my $file = $1 . '/Settings.ini';
 
- # Read the Right Thing from a unicode file with BOM:
-open(CONFIG , '<:via(File::BOM)', $file);   
-my $Config = Config::IniFiles->new(-file => *CONFIG);
+# Read the Right Thing from a unicode file with BOM:
+open( CONFIG, '<:via(File::BOM)', $file );
+my $Config = Config::IniFiles->new( -file => *CONFIG );
 
-if (! $Config)  {
-	print header;
-	print "Cannot read INI";
-	return;
+if ( !$Config ) {
+    print header;
+    print "Cannot read INI";
+    return;
 }
-my $APIDefault = '';
-my $TTSDefault = '';
+my $APIDefault   = '';
+my $TTSDefault   = '';
 my $VoiceDefault = '';
-my $SexDefault = '';
+my $SexDefault   = '';
 my $SpeakDefault = '';
 
 if ($debug) {
-	$APIDefault = $Config->val('Data','APIKey');
-	$TTSDefault = 'test 1,2,3';
-	$VoiceDefault = 'Zira';
-	$SexDefault = '';		# M or F for Male or female if no Voice is specified.
-	$SpeakDefault = '';
+    $APIDefault   = $Config->val( 'Data', 'APIKey' );
+    $TTSDefault   = 'test 1,2,3';
+    $VoiceDefault = 'Zira';
+    $SexDefault   = '';    # M or F for Male or female if no Voice is specified.
+    $SpeakDefault = '';
 }
-	
+
 # Read the key and text to speak
 use CGI qw(:standard);
 my $Input = CGI->new();
 
 my $APIKey = $Input->param('APIKey') || $APIDefault;
-my $TTS  = $Input->param('TTS') || $TTSDefault;
-if (!$TTS) {
-	print header;
-	print "Error, no text to speak!";
-	exit;
+my $TTS    = $Input->param('TTS')    || $TTSDefault;
+if ( !$TTS ) {
+    print header;
+    print "Error, no text to speak!";
+    exit;
 }
-my $Sex  = $Input->param('Sex') || $SexDefault;
-my $Voice  = $Input->param('Voice') || $VoiceDefault;
+my $Sex   = $Input->param('Sex')   || $SexDefault;
+my $Voice = $Input->param('Voice') || $VoiceDefault;
 my $Speak = $Input->param('Speak') || $SpeakDefault;
 
-my $key = $Config->val('Data','APIKey')|| '';
-if ($key ne $APIKey) {
-	print header();
-	print "Bad API Key";
-	exit;
+my $key = $Config->val( 'Data', 'APIKey' ) || '';
+if ( $key ne $APIKey ) {
+    print header();
+    print "Bad API Key";
+    exit;
 }
 
-my $Url =$Config->val('Data','PublicIP') || '127.0.0.1';
-my $Port = $Config->val('Data','DiagnosticPort') || '8001';
-my $Password = $Config->val('Data','MachineID') || '';
+my $Url      = $Config->val( 'Data', 'PublicIP' )       || '127.0.0.1';
+my $Port     = $Config->val( 'Data', 'DiagnosticPort' ) || '8001';
+my $Password = $Config->val( 'Data', 'MachineID' )      || '';
 
-my $url = "http://$Url:$Port/TTS?TTS=$TTS&Voice=$Voice&Password=$Password&Sex=$Sex";
+my $url =
+  "http://$Url:$Port/TTS?TTS=$TTS&Voice=$Voice&Password=$Password&Sex=$Sex";
 if ($Speak) {
-	$url .= "&Speak=$Speak";
+    $url .= "&Speak=$Speak";
 }
 
 #print $url;
 
 use LWP::UserAgent;
 my $ua = LWP::UserAgent->new;
-$ua->agent("DreamGrid");	 
- 
+$ua->agent("DreamGrid");
+
 # Create a request
-my $req = HTTP::Request->new(GET => $url);
+my $req = HTTP::Request->new( GET => $url );
 
 # Pass request to the user agent and get a response back
 my $res = $ua->request($req);
- my $r = $res->content;
+my $r   = $res->content;
+
 # Check the outcome of the response
-if ($res->is_success) {
-	if ($Speak) {
-		print header;
-		print "Spoken";
-	} elsif (length($r) > 0 ) {				
-		# send a redirect	
-		print $Input->header(-location => $r);
-	} else {
-		print header;
-		print "Error, no file generated";
-	}
-	
+if ( $res->is_success ) {
+    if ($Speak) {
+        print header;
+        print "Spoken";
+    }
+    elsif ( length($r) > 0 ) {
+
+        # send a redirect
+        print $Input->header( -location => $r );
+    }
+    else {
+        print header;
+        print "Error, no file generated";
+    }
+
 }
 else {
-	print header();
-	print $res->status_line, "\n";
+    print header();
+    print $res->status_line, "\n";
 }
