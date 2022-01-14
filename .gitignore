@@ -103,7 +103,7 @@ Outworldzfiles/Settings.ini
 Outworldzfiles/Settings.bak
 Outworldzfiles/Mysql/Data
 Outworldzfiles/Apache/htdocs/Jopensim
-Outworldzfiles/Apache/htdocs/TTS
+Outworldzfiles/Apache/htdocs/TTS/Audio
 
 Installer_Src/Setup Dreamworld/bin/*
 **/teleports.htm
