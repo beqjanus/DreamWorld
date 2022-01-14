@@ -65,28 +65,25 @@ Module WindowHandlers
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
-                        'BreakPoint.Dump(ex)
-                        Return True
+                        ' may not be able to find the window
+                        Return RPC_Region_Command(RegionUUID, command)
                     End Try
                 Else
-                    'BreakPoint.Print("No PID")
-                    Return True
+                    Return RPC_Region_Command(RegionUUID, command)
                 End If
-                DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
-                Sleep(1000)
+                DoType(RegionUUID, command)
+
                 Try
                     If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                 End Try
             Else ' Robust
                 Try
-                    'Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
-                    'BreakPoint.Dump(ex)
                     Return True
                 End Try
-                DoType("Robust", "{ENTER}" & command & "{ENTER}")
+                DoType("Robust", command)
             End If
         End If
         Return False
@@ -95,15 +92,6 @@ Module WindowHandlers
 
     Public Sub DoType(RegionUUID As String, command As String)
 
-        Dim PID As Integer
-        If RegionUUID = "Robust" Then
-            If IsRobustRunning() Then
-                PID = GetPIDofRobust()
-            End If
-        Else
-            PID = ProcessID(RegionUUID)
-        End If
-
         'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
         command = command.Replace("+", "{+}")
         command = command.Replace("^", "{^}")
@@ -111,19 +99,41 @@ Module WindowHandlers
         command = command.Replace("(", "{(}")
         command = command.Replace(")", "{)}")
 
-        If PID <> 0 Then
+        Dim PID As Integer
+        If RegionUUID = "Robust" Then
+            If IsRobustRunning() Then
+                PID = GetPIDofRobust()
+                If PID = 0 And command = "q" Then
+                    Zap("Robust")
+                    Return
+                End If
+                If PID = 0 Then
+                    Return
+                End If
+                AppActivate(PID)
+                Sleep(100)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+                Return
+            End If
+        End If
+
+        ' Regions
+        PID = ProcessID(RegionUUID)
+        If PID = 0 Then
+            ' try a direct way
+            RPC_Region_Command(RegionUUID, command)
+        Else
             Try
                 AppActivate(PID)
                 Sleep(100)
-
+                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
+                RPC_Region_Command(RegionUUID, command)
             End Try
-        ElseIf RegionUUID = "Robust" And command = "{ENTER}q{ENTER}" Then
-            Zap("Robust")
-        Else
-            BreakPoint.Print("No PID for this window")
         End If
 
     End Sub

@@ -214,11 +214,11 @@ Module RPC
 
     End Function
 
-    Public Function ShutDown(RegionUUID As String) As Boolean
+    Public Sub ShutDown(RegionUUID As String)
 
-        Return ConsoleCommand(RegionUUID, "q")
+        ConsoleCommand(RegionUUID, "q")
 
-    End Function
+    End Sub
 
     Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
 

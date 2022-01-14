@@ -1612,6 +1612,7 @@ Module RegionMaker
             For Each pair In RegionList
                 If pair.Value._Group = Gname Then
                     L.Add(pair.Value._UUID)
+                    L.Add(pair.Value._UUID)
                 End If
             Next
             Return L
@@ -1641,9 +1642,26 @@ Module RegionMaker
 
 #Region "POST"
 
-    Public Function ParsePost(post As String, settings As MySettings) As String
+    Public Function CheckPassword(post As String, machine As String) As Boolean
 
-        If settings Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If machine Is Nothing Then Return False
+
+        ' Returns true is password is blank or matching
+        Dim pattern1 = New Regex("(?i)pw=(.*?)&", RegexOptions.IgnoreCase)
+        Dim match1 As Match = pattern1.Match(post, RegexOptions.IgnoreCase)
+        If match1.Success Then
+            Dim p1 As String = match1.Groups(1).Value
+            If p1.Length = 0 Then Return True
+            If machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+                Return True
+            End If
+        End If
+        Return False
+
+    End Function
+
+    Public Function ParsePost(post As String) As String
+
         If post Is Nothing Then Return "<html><head></head><body>Error</html>"
         ' set Region.Booted to true if the POST from the region indicates it is online requires a section in Opensim.ini where [RegionReady] has this:
 
@@ -1691,27 +1709,11 @@ Module RegionMaker
             Return SetPartner(post)
         ElseIf post.ToUpperInvariant.Contains("GET_PARTNER") Then
             Return GetPartner(post)
+        ElseIf post.ToUpperInvariant.Contains("TTS") Then
+            Return Text2Speech(post)
         End If
 
         Return "Test Completed"
-
-    End Function
-
-    Private Function CheckPassword(post As String, machine As String) As Boolean
-
-        If machine Is Nothing Then Return False
-
-        ' Returns true is password is blank or matching
-        Dim pattern1 = New Regex("(?i)pw=(.*?)&", RegexOptions.IgnoreCase)
-        Dim match1 As Match = pattern1.Match(post, RegexOptions.IgnoreCase)
-        If match1.Success Then
-            Dim p1 As String = match1.Groups(1).Value
-            If p1.Length = 0 Then Return True
-            If machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
-                Return True
-            End If
-        End If
-        Return False
 
     End Function
 
@@ -1778,30 +1780,7 @@ Module RegionMaker
 
 #Region "Partners"
 
-    Private Function GetPartner(post As String) As String
-
-        Debug.Print("Get Partner")
-        Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
-        If Not PWok Then Return ""
-
-        Dim pattern1 = New Regex("User=(.*)", RegexOptions.IgnoreCase)
-        Dim match1 As Match = pattern1.Match(post)
-        Dim p1 As String
-        If match1.Success Then
-            p1 = match1.Groups(1).Value
-            Dim s = MysqlGetPartner(p1, Settings)
-            Debug.Print(s)
-            Return s
-        Else
-            Debug.Print("No partner")
-
-            Return ""
-            '"00000000-0000-0000-0000-000000000000"
-        End If
-
-    End Function
-
-    Private Function SetPartner(post As String) As String
+    Public Function SetPartner(post As String) As String
 
         Debug.Print("set Partner")
         Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))
@@ -1852,6 +1831,29 @@ Module RegionMaker
         End If
         Debug.Print("NULL response")
         Return ""
+
+    End Function
+
+    Private Function GetPartner(post As String) As String
+
+        Debug.Print("Get Partner")
+        Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
+        If Not PWok Then Return ""
+
+        Dim pattern1 = New Regex("User=(.*)", RegexOptions.IgnoreCase)
+        Dim match1 As Match = pattern1.Match(post)
+        Dim p1 As String
+        If match1.Success Then
+            p1 = match1.Groups(1).Value
+            Dim s = MysqlGetPartner(p1, Settings)
+            Debug.Print(s)
+            Return s
+        Else
+            Debug.Print("No partner")
+
+            Return ""
+            '"00000000-0000-0000-0000-000000000000"
+        End If
 
     End Function
 

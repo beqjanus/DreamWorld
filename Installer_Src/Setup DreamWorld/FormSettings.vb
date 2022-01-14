@@ -27,6 +27,7 @@ Public Class FormSettings
     Dim FormRegions As New FormRegions
     Dim FormRestart As New FormRestart
     Dim FormServerType As New FormServerType
+    Dim FormSpeech As New FormSpeech
     Dim FsAssets As New FormFsAssets
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
@@ -155,8 +156,6 @@ Public Class FormSettings
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-            BreakPoint.Dump(ex)
-
         End Try
 
     End Sub
@@ -182,6 +181,7 @@ Public Class FormSettings
         FormRegions.Dispose()
         FormRestart.Dispose()
         FormServerType.Dispose()
+        FormSpeech.Dispose()
         Gloebits.Dispose()
         Icecast.Dispose()
         Logging.Dispose()
@@ -506,6 +506,18 @@ Public Class FormSettings
         SS.Visible = True
         SS.Select()
         SS.BringToFront()
+
+    End Sub
+
+    Private Sub SpeechButton_Click(sender As Object, e As EventArgs) Handles SpeechButton.Click
+
+        FormSpeech.Close()
+        FormSpeech.Dispose()
+        FormSpeech = New FormSpeech With {
+            .Visible = True
+        }
+        FormSpeech.Select()
+        FormSpeech.BringToFront()
 
     End Sub
 

@@ -7,13 +7,12 @@
 
 Option Explicit On
 
-Imports System.Speech.Synthesis
 Imports System.Text.RegularExpressions
 
 Public Class FormRegions
+
 #Disable Warning CA2213
     Private ReadOnly RegionForm As New FormRegion
-    Private ReadOnly Synth As New SpeechSynthesizer()
     Private initted As Boolean
 #Enable Warning CA2213
 
@@ -108,21 +107,6 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles MakeSpeechButton.Click
-
-        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS"))
-        DeleteFolder(folder)
-        Sleep(10)
-        MakeFolder(folder)
-        MakeSpeechButton.Text = My.Resources.Busy_word
-        MakeSpeech()
-        While SpeechBusyFlag
-            Sleep(100)
-        End While
-        MakeSpeechButton.Text = My.Resources.Make_Speech
-
-    End Sub
-
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
 
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
@@ -138,15 +122,12 @@ Public Class FormRegions
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        While Synth.State = SynthesizerState.Speaking
-            Sleep(100)
-        End While
-        Synth.Dispose()
         RegionForm.Dispose()
         Settings.SaveSettings()
+
     End Sub
 
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+    Private Sub Label4_Click(sender As Object, e As EventArgs)
 
         Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
@@ -166,10 +147,7 @@ Public Class FormRegions
         NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         RegionButton.Text = Global.Outworldz.My.Resources.Configger
-        TextBox1.Text = $"{My.Resources.Each_Line}{vbCrLf}"
-        TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
-        TextBox1.Text += $"{My.Resources.Male_Voice}{vbCrLf}"
-        TextBox1.Text += $"{My.Resources.Female_Voice}{vbCrLf}"
+
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -188,17 +166,6 @@ Public Class FormRegions
         Z.Text = Settings.HomeVectorZ
 
         ConciergeCheckbox.Checked = Settings.Concierge
-
-#Disable Warning CA1304
-        For Each voice In Synth.GetInstalledVoices()
-#Enable Warning CA1304
-            SpeechBox.Items.Add(voice.VoiceInfo.Name)
-        Next
-        SpeechBox.Items.Add("No Speech")
-
-        ' set the speech box to the saved voice
-        Dim Index = SpeechBox.FindString(Settings.VoiceName)
-        SpeechBox.SelectedIndex = Index
 
         HelpOnce("Regions")
         SetScreen()
@@ -244,26 +211,6 @@ Public Class FormRegions
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index
         End If
-
-    End Sub
-
-    Private Sub MakeSpeech()
-
-        ExpireLogsByAge()
-
-        Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
-        Using S As New ChatToSpeech
-            For Each l In arrKeywords
-                S.Speach(l, True, "file")
-            Next
-        End Using
-
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
-        System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
     End Sub
 
@@ -315,37 +262,14 @@ Public Class FormRegions
         HelpManual("Regions")
     End Sub
 
-    Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
-
-        If Not initted Then Return
-
-        Dim selected = SpeechBox.SelectedItem.ToString
-        Settings.VoiceName = selected
-        Settings.SaveSettings()
-        If selected = "No Speech" Then Return
-        Try
-            Synth.SelectVoice(selected)
-            Using S As New ChatToSpeech
-                S.Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", False)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-    End Sub
-
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
         Settings.HomeVectorX = X.Text
     End Sub
 
-    Private Sub TextToSpeechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TextToSpeechToolStripMenuItem.Click
-        HelpManual("Text2Speech")
-    End Sub
-
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        'HelpManual("Regions")
+        HelpManual("Regions")
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged

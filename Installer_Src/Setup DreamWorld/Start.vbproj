@@ -342,6 +342,7 @@
     <Compile Include="ClassIni.vb" />
     <Compile Include="ClassLoopback.vb" />
     <Compile Include="Clear_Cache.vb" />
+    <Compile Include="Crypto.vb" />
     <Compile Include="Disk.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="FormDebug.Designer.vb">
@@ -609,6 +610,12 @@
     <Compile Include="FormSmartStart.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSpeech.Designer.vb">
+      <DependentUpon>FormSpeech.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSpeech.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTide.Designer.vb">
       <DependentUpon>FormTide.vb</DependentUpon>
     </Compile>
@@ -872,6 +879,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSmartStart.resx">
       <DependentUpon>FormSmartStart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSpeech.resx">
+      <DependentUpon>FormSpeech.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTide.resx">
       <DependentUpon>FormTide.vb</DependentUpon>

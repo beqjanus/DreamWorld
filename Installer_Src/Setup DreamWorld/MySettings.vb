@@ -145,10 +145,6 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' Show the Robocopy window
-    ''' </summary>
-
     Public Property AllPlants() As Boolean
         Get
             Return CType(GetMySetting("AllPlants", "False"), Boolean)
@@ -158,6 +154,9 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Show the Robocopy window
+    ''' </summary>
     Public Property AltDnsName() As String
         Get
             Return GetMySetting("AltDnsName", "")
@@ -200,6 +199,16 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ApacheService", CStr(Value))
+        End Set
+    End Property
+
+    Public Property APIKey() As String
+        Get
+            Dim Key = Random()
+            Return GetMySetting("APIKey")
+        End Get
+        Set
+            SetMySetting("APIKey", Value)
         End Set
     End Property
 
@@ -1436,7 +1445,7 @@ Public Class MySettings
 
     Public Property PrivatePort() As Integer
         Get
-            Return CInt("0" & GetMySetting("PrivatePort", "8003"))
+            Return CInt(Settings.GetIni("Data", "PrivatePort", "8003", "Integer"))
         End Get
         Set
             SetMySetting("PrivatePort", CStr(Value))
@@ -1445,10 +1454,10 @@ Public Class MySettings
 
     Public Property PublicIP() As String
         Get
-            Return _PublicIP
+            Return GetMySetting("PublicIP")
         End Get
         Set
-            _PublicIP = Value
+            SetMySetting("PublicIP", Value)
         End Set
     End Property
 

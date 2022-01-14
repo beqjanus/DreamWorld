@@ -563,16 +563,15 @@ Public Class FormSetup
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
              RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                Dim s As Boolean = ShutDown(RegionUUID)
+                ShutDown(RegionUUID)
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Dim Group = Group_Name(RegionUUID)
-                If s Then
-                    For Each UUID In RegionUuidListByName(Group)
-                        RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                    Next
-                    PropUpdateView = True ' make form refresh
-                    Application.DoEvents()
-                End If
+
+                For Each UUID In RegionUuidListByName(Group)
+                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
+                Next
+                PropUpdateView = True ' make form refresh
+                Application.DoEvents()
             End If
         Next
 
@@ -1788,6 +1787,7 @@ Public Class FormSetup
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
+        If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
         ' WebUI Menu
         ViewWebUI.Visible = Settings.WifiEnabled

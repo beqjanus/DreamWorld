@@ -80,9 +80,9 @@ Public Class NetServer
                 Else
                     If (request.HasEntityBody) Then
                         Dim POST As String = reader.ReadToEnd()
-                        responseString = ParsePost(POST, Setting)
+                        responseString = ParsePost(POST)
                     Else
-                        responseString = ParsePost(original, Setting)
+                        responseString = ParsePost(original)
                     End If
                 End If
 

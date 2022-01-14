@@ -8,7 +8,6 @@ Partial Class FormRegions
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-                Synth.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)
@@ -39,27 +38,20 @@ Partial Class FormRegions
         Me.WelcomeBox1 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AddRegion = New System.Windows.Forms.Button()
-        Me.SpeechBox = New System.Windows.Forms.ComboBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.MakeSpeechButton = New System.Windows.Forms.Button()
         Me.TextToSpeechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ConciergeGroup = New System.Windows.Forms.GroupBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ConciergeGroup.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.ConciergeCheckbox)
         Me.GroupBox2.Controls.Add(Me.PictureBox2)
         Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.NormalizeButton1)
@@ -77,7 +69,7 @@ Partial Class FormRegions
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Size = New System.Drawing.Size(216, 387)
+        Me.GroupBox2.Size = New System.Drawing.Size(216, 324)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
@@ -85,7 +77,7 @@ Partial Class FormRegions
         'ConciergeCheckbox
         '
         Me.ConciergeCheckbox.AutoSize = True
-        Me.ConciergeCheckbox.Location = New System.Drawing.Point(16, 332)
+        Me.ConciergeCheckbox.Location = New System.Drawing.Point(15, 29)
         Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
         Me.ConciergeCheckbox.Size = New System.Drawing.Size(178, 17)
         Me.ConciergeCheckbox.TabIndex = 9
@@ -228,18 +220,6 @@ Partial Class FormRegions
         Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
         '
-        'SpeechBox
-        '
-        Me.SpeechBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
-        Me.SpeechBox.FormattingEnabled = True
-        Me.SpeechBox.Location = New System.Drawing.Point(17, 30)
-        Me.SpeechBox.Margin = New System.Windows.Forms.Padding(1)
-        Me.SpeechBox.MaxDropDownItems = 15
-        Me.SpeechBox.Name = "SpeechBox"
-        Me.SpeechBox.Size = New System.Drawing.Size(232, 21)
-        Me.SpeechBox.Sorted = True
-        Me.SpeechBox.TabIndex = 1889
-        '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
@@ -247,7 +227,7 @@ Partial Class FormRegions
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(687, 34)
+        Me.MenuStrip2.Size = New System.Drawing.Size(235, 34)
         Me.MenuStrip2.TabIndex = 1887
         Me.MenuStrip2.Text = "0"
         '
@@ -259,85 +239,27 @@ Partial Class FormRegions
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(72, 32)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.PictureBox1)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
-        Me.GroupBox1.Controls.Add(Me.MakeSpeechButton)
-        Me.GroupBox1.Controls.Add(Me.SpeechBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(253, 37)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(434, 360)
-        Me.GroupBox1.TabIndex = 1888
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Speech"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(259, 33)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(34, 13)
-        Me.Label5.TabIndex = 1894
-        Me.Label5.Text = "Voice"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(65, 331)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(62, 13)
-        Me.Label4.TabIndex = 1893
-        Me.Label4.Text = "View Folder"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.document_view
-        Me.PictureBox1.Location = New System.Drawing.Point(28, 322)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(31, 23)
-        Me.PictureBox1.TabIndex = 1892
-        Me.PictureBox1.TabStop = False
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(17, 132)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(386, 174)
-        Me.TextBox1.TabIndex = 1891
-        Me.TextBox1.Text = "M: Speaks with a Male Voice"
-        '
-        'MakeSpeechButton
-        '
-        Me.MakeSpeechButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.MakeSpeechButton.Image = Global.Outworldz.My.Resources.Resources.loudspeaker
-        Me.MakeSpeechButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MakeSpeechButton.Location = New System.Drawing.Point(17, 71)
-        Me.MakeSpeechButton.Margin = New System.Windows.Forms.Padding(1)
-        Me.MakeSpeechButton.Name = "MakeSpeechButton"
-        Me.MakeSpeechButton.Size = New System.Drawing.Size(232, 35)
-        Me.MakeSpeechButton.TabIndex = 1890
-        Me.MakeSpeechButton.Text = "Make Speech (Wav + Mp3)"
-        Me.MakeSpeechButton.UseVisualStyleBackColor = True
-        '
         'TextToSpeechToolStripMenuItem
         '
         Me.TextToSpeechToolStripMenuItem.Name = "TextToSpeechToolStripMenuItem"
-        Me.TextToSpeechToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TextToSpeechToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.TextToSpeechToolStripMenuItem.Text = "Text To Speech"
         '
         'RegionsToolStripMenuItem
         '
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.RegionsToolStripMenuItem.Text = "Regions"
+        '
+        'ConciergeGroup
+        '
+        Me.ConciergeGroup.Controls.Add(Me.ConciergeCheckbox)
+        Me.ConciergeGroup.Location = New System.Drawing.Point(9, 365)
+        Me.ConciergeGroup.Name = "ConciergeGroup"
+        Me.ConciergeGroup.Size = New System.Drawing.Size(200, 60)
+        Me.ConciergeGroup.TabIndex = 1888
+        Me.ConciergeGroup.TabStop = False
+        Me.ConciergeGroup.Text = "Concierge"
         '
         'FormRegions
         '
@@ -345,8 +267,8 @@ Partial Class FormRegions
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(687, 420)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(235, 442)
+        Me.Controls.Add(Me.ConciergeGroup)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -359,9 +281,8 @@ Partial Class FormRegions
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ConciergeGroup.ResumeLayout(False)
+        Me.ConciergeGroup.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -384,13 +305,8 @@ Partial Class FormRegions
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents ConciergeCheckbox As CheckBox
-    Friend WithEvents SpeechBox As ComboBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents MakeSpeechButton As Button
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Label5 As Label
     Friend WithEvents TextToSpeechToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ConciergeGroup As GroupBox
 End Class

@@ -1,6 +1,6 @@
 
 # Print 'show stats via perl on each region
-# edit thios to popint to Opensim folder,. slashed to the right
+# edit this to point to Opensim folder,. slashed to the right
 my $Opensim = "E:/Outworldz Dreamgrid/Outworldzfiles/Opensim";
 
 

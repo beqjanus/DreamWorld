@@ -481,6 +481,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to API Key.
+        '''</summary>
+        Friend ReadOnly Property APIKey() As String
+            Get
+                Return ResourceManager.GetString("APIKey", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to An application exception has occurred. Do you want to try to continue, or abort/exit?.
         '''</summary>
         Friend ReadOnly Property Appexception() As String
@@ -10472,6 +10481,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("text_marked", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Text To Speech for Media on a prim .
+        '''</summary>
+        Friend ReadOnly Property Text2Speech() As String
+            Get
+                Return ResourceManager.GetString("Text2Speech", resourceCulture)
             End Get
         End Property
         

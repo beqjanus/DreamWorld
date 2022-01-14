@@ -3987,4 +3987,10 @@
   <data name="The_default_voice" xml:space="preserve">
     <value>The default voice selection will speak this text.</value>
   </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text To Speech for Media on a prim </value>
+  </data>
 </root>
