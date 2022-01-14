@@ -69,10 +69,11 @@ if ( !$Config ) {
     print "Cannot read INI";
     return;
 }
-my $APIDefault   = '';
-my $TTSDefault   = '';
-my $VoiceDefault = '';
-my $SexDefault   = '';
+my $APIDefault = '123';
+my $TTSDefault = 'Hello there!';
+my $VoiceDefault = 'eva';
+my $SexDefault = '';
+
 my $SpeakDefault = '';
 
 if ($debug) {
