@@ -133,6 +133,7 @@ Module Speech
 
             Dim HttpPathInfo As String = ""
             If Settings.VoiceName = "No Speech" Then Return ""
+            If Settings.VoiceName = "No Speech" Then Return ""
             If Params.TTS.Length = 0 Then Return ""
 
             SyncLock Interlock
@@ -141,9 +142,9 @@ Module Speech
                     Sleep(1000)
                 End While
 
-
                 Dim fname As String = ""
                 Try
+
                     Dim DiskFilepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS\Audio")
 
                     ' Numbers if from form, else MD5 for security
@@ -155,7 +156,7 @@ Module Speech
                     End If
 
                     ' Make path to Cache
-                    HttpPathInfo = $"http://{Settings.PublicIP}:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}/TTS/Data"
+                    HttpPathInfo = $"http://{Settings.PublicIP}:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}/TTS/Audio"
                     HttpPathInfo = IO.Path.Combine(HttpPathInfo, fname)
                     HttpPathInfo = HttpPathInfo.Replace("\", "/")
                     HttpPathInfo = HttpPathInfo.Replace(".wav", ".mp3")
@@ -223,7 +224,9 @@ Module Speech
                     Sleep(10)
                 End While
 
-                If Params.FileName IsNot Nothing Then ConvertWavMP3(fname, True)
+                If Params.SaveWave Then
+                    ConvertWavMP3(fname, True)
+                End If
 
             End SyncLock
 
@@ -252,7 +255,7 @@ Module Speech
             Dim psi = New System.Diagnostics.ProcessStartInfo With {
                 .FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\lame.exe"),
                 .Arguments = $"-b 128 --resample 44.1 {fileName} {fileName.Replace(".wav", ".mp3")}",
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\TTS"),
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\TTS\Audio"),
                 .WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
             }
             Dim p As New Process()

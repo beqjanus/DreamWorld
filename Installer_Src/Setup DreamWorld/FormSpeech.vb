@@ -38,9 +38,7 @@ Public Class FormSpeech
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles MakeSpeechButton.Click
 
-        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS"))
-        DeleteFolder(folder)
-        Sleep(10)
+        Dim folder = (IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio"))
         MakeFolder(folder)
         MakeSpeechButton.Text = My.Resources.Busy_word
         MakeSpeech()
@@ -116,7 +114,7 @@ Public Class FormSpeech
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
+        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
     End Sub

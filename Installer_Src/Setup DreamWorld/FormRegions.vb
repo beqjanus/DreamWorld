@@ -129,7 +129,7 @@ Public Class FormRegions
 
     Private Sub Label4_Click(sender As Object, e As EventArgs)
 
-        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS")
+        Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
     End Sub
