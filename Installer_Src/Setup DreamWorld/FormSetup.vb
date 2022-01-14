@@ -2793,6 +2793,7 @@ Public Class FormSetup
             '22 ms
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
+                DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
                 ' print how many backups are running

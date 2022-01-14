@@ -5,7 +5,7 @@ Imports System.Text.RegularExpressions
 Imports System.Security.Cryptography
 Imports System.Text
 
-Module speech
+Module Speech
 
     Public SpeechBusyFlag As Boolean
 
@@ -24,14 +24,34 @@ Module speech
 
     End Sub
 
-    Function getMd5Hash(ByVal input As String) As String
+    Public Sub DeleteOldWave(LogPath As String)
+
+        Try
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
+            FileIO.FileSystem.CreateDirectory(LogPath)
+            Dim directory As New System.IO.DirectoryInfo(LogPath)
+            ' get each file's last modified date
+            For Each File As System.IO.FileInfo In directory.GetFiles()
+                ' get  file's last modified date
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+                If Datedifference > 1 Then
+                    DeleteFile(File.FullName)
+                End If
+            Next
+        Catch
+        End Try
+
+    End Sub
+
+    Public Function GetMd5Hash(input As String) As String
         ' Create a new instance of the MD5 object.
         Dim md5Hasher As MD5 = MD5.Create()
 
         ' Convert the input string to a byte array and compute the hash.
         Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input))
 
-        ' Create a new Stringbuilder to collect the bytes
+        ' Create a new String builder to collect the bytes
         ' and create a string.
         Dim sBuilder As New StringBuilder()
 
@@ -53,17 +73,16 @@ Module speech
         Dim M = Settings.MachineID
         If M <> P Then Return $"Bad Password {P}"
         Dim OutLoud = GetParam(POST, "Speak")
-        Dim Spoken As Boolean
+        Dim Save2File As Boolean
         If OutLoud.Length = 0 Then
-            Spoken = True
+            Save2File = True
         End If
 
         Dim Par = New SpeechParameters With {
             .Voice = GetParam(POST, "Voice"),
             .TTS = GetParam(POST, "TTS"),
             .Sex = GetParam(POST, "Sex"),
-            .SaveWave = Spoken,
-            .FileName = "Text"
+            .SaveWave = Save2File
         }
 
         Dim Filename = S.Speach(Par)
@@ -132,7 +151,7 @@ Module speech
         ''' <returns>path to wave file</returns>
         Public Function Speach(Params As SpeechParameters) As String
 
-            Dim pathinfo As String = ""
+            Dim HttpPathInfo As String = ""
             If Settings.VoiceName = "No Speech" Then Return ""
             If Params.TTS.Length = 0 Then Return ""
 
@@ -145,36 +164,39 @@ Module speech
                 Dim fname As String = ""
                 Try
 
-                    Dim filepath = ""
-                    DeleteOldWave(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS"))
-                    pathinfo = "http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "TTS"
+                    Dim DiskFilepath = ""
+                    HttpPathInfo = $"http://{Settings.PublicIP}:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}/TTS/Data"
+
+                    ' Numbers if from form, else MD5 for security
 
                     If Params.FileName IsNot Nothing Then
-                        Dim g = Guid.NewGuid()
-                        fname = Params.FileName & g.ToString + ".wav"
+                        fname = Params.FileName + ".wav"
                     Else
-                        fname = $"{SpeechCounter:D10}.wav"
+                        fname = $"TTS_{SpeechCounter:D10}.wav"
                         SpeechCounter += 1
                     End If
 
-                    fname = fname.Replace("<", "")
-                    fname = fname.Replace("?", "")
-                    fname = fname.Replace("""", "")
-                    fname = fname.Replace("/", "")
-                    fname = fname.Replace("\", "")
-                    fname = fname.Replace("|", "")
-                    fname = fname.Replace(">", "")
-                    fname = fname.Replace("*", "")
+                    ' Make path to Cache
+                    HttpPathInfo = IO.Path.Combine(HttpPathInfo, fname)
+                    HttpPathInfo = HttpPathInfo.Replace("\", "/")
+                    HttpPathInfo = HttpPathInfo.Replace(".wav", ".mp3")
 
-                    pathinfo = IO.Path.Combine(pathinfo, fname)
-                    filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
-                    FileIO.FileSystem.CreateDirectory(filepath)
-                    filepath = IO.Path.Combine(filepath, fname)
+                    DiskFilepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS\Audio")
+                    If Not FileIO.FileSystem.FileExists(DiskFilepath) Then
+                        FileIO.FileSystem.CreateDirectory(DiskFilepath)
+                    End If
 
-                    Debug.Print(filepath)
+                    DiskFilepath = IO.Path.Combine(DiskFilepath, fname)
+                    Debug.Print(DiskFilepath)
+
+                    ' check if it is in cache
+                    Dim Mp3FilePath = DiskFilepath.Replace(".wav", ".mp3")
+                    If FileIO.FileSystem.FileExists(Mp3FilePath) Then
+                        Return HttpPathInfo
+                    End If
 
                     If Params.SaveWave Then
-                        Speaker.SetOutputToWaveFile(filepath)
+                        Speaker.SetOutputToWaveFile(DiskFilepath)
                     Else
                         Speaker.SetOutputToDefaultAudioDevice()
                     End If
@@ -190,11 +212,9 @@ Module speech
 
                     ElseIf Params.Sex = "M" Then
                         Speaker.SelectVoiceByHints(Male, System.Speech.Synthesis.VoiceAge.Adult, 0, System.Globalization.CultureInfo.CurrentCulture)
-                        Params.TTS = Params.TTS.Replace("M:", "")
 
                     ElseIf Params.Sex = "F" Then
                         Speaker.SelectVoiceByHints(Female, System.Speech.Synthesis.VoiceAge.Adult, 0, System.Globalization.CultureInfo.CurrentCulture)
-                        Params.TTS = Params.TTS.Replace("F:", "")
 
                     ElseIf Params.TTS.Contains(":") Then
                         SpecificVoice(Params)
@@ -203,12 +223,12 @@ Module speech
                         ' Code can call for a specific voice
 #Disable Warning CA1304
                         For Each voice In Speaker.GetInstalledVoices()
-#Enable Warning CA1304
                             If voice.VoiceInfo.Name.Contains(Params.Voice) Then
                                 Speaker.SelectVoice(voice.VoiceInfo.Name)
                                 Exit For
                             End If
                         Next
+#Enable Warning CA1304
 
                         ' Lines can begin with a subset of a voice name, such as "Zira:'
                     Else
@@ -229,9 +249,7 @@ Module speech
 
             End SyncLock
 
-            pathinfo = pathinfo.Replace("\", "/")
-            pathinfo = pathinfo.Replace(".wav", ".mp3")
-            Return pathinfo
+            Return HttpPathInfo
 
         End Function
 
@@ -270,25 +288,6 @@ Module speech
                 p.WaitForExit()
             End If
             If p IsNot Nothing Then p.Dispose()
-
-        End Sub
-
-        Private Sub DeleteOldWave(LogPath As String)
-
-            Try
-                FileIO.FileSystem.CreateDirectory(LogPath)
-                Dim directory As New System.IO.DirectoryInfo(LogPath)
-                ' get each file's last modified date
-                For Each File As System.IO.FileInfo In directory.GetFiles()
-                    ' get  file's last modified date
-                    Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-                    Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
-                    If Datedifference > 1 Then
-                        DeleteFile(File.FullName)
-                    End If
-                Next
-            Catch
-            End Try
 
         End Sub
 

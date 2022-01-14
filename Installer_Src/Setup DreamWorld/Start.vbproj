@@ -342,7 +342,6 @@
     <Compile Include="ClassIni.vb" />
     <Compile Include="ClassLoopback.vb" />
     <Compile Include="Clear_Cache.vb" />
-    <Compile Include="Crypto.vb" />
     <Compile Include="Disk.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="FormDebug.Designer.vb">

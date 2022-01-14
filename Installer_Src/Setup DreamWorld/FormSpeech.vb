@@ -98,10 +98,10 @@ Public Class FormSpeech
         Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
         Using S As New ChatToSpeech
             For Each l In arrKeywords
-
+                Dim T = GetMd5Hash(l)
                 Dim Par = New SpeechParameters With {
                     .TTS = l,
-                    .FileName = "Text",
+                    .FileName = "TTS_" & T,
                     .Voice = Settings.VoiceName,
                     .SaveWave = True
                 }
