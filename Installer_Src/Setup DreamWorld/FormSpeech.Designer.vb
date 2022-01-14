@@ -23,10 +23,12 @@ Partial Class FormSpeech
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBoxSpeech = New System.Windows.Forms.GroupBox()
+        Me.CacheSizeLabel = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.APILabel = New System.Windows.Forms.Label()
         Me.APIKeyTextBox = New System.Windows.Forms.TextBox()
         Me.SpeakButton = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.CacheFolderLabel = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.MakeSpeechButton = New System.Windows.Forms.Button()
@@ -40,10 +42,12 @@ Partial Class FormSpeech
         '
         'GroupBoxSpeech
         '
+        Me.GroupBoxSpeech.Controls.Add(Me.CacheSizeLabel)
+        Me.GroupBoxSpeech.Controls.Add(Me.TextBox2)
         Me.GroupBoxSpeech.Controls.Add(Me.APILabel)
         Me.GroupBoxSpeech.Controls.Add(Me.APIKeyTextBox)
         Me.GroupBoxSpeech.Controls.Add(Me.SpeakButton)
-        Me.GroupBoxSpeech.Controls.Add(Me.Label4)
+        Me.GroupBoxSpeech.Controls.Add(Me.CacheFolderLabel)
         Me.GroupBoxSpeech.Controls.Add(Me.PictureBox1)
         Me.GroupBoxSpeech.Controls.Add(Me.TextBox1)
         Me.GroupBoxSpeech.Controls.Add(Me.MakeSpeechButton)
@@ -55,10 +59,26 @@ Partial Class FormSpeech
         Me.GroupBoxSpeech.TabStop = False
         Me.GroupBoxSpeech.Text = "Speech"
         '
+        'CacheSizeLabel
+        '
+        Me.CacheSizeLabel.AutoSize = True
+        Me.CacheSizeLabel.Location = New System.Drawing.Point(265, 327)
+        Me.CacheSizeLabel.Name = "CacheSizeLabel"
+        Me.CacheSizeLabel.Size = New System.Drawing.Size(103, 13)
+        Me.CacheSizeLabel.TabIndex = 1899
+        Me.CacheSizeLabel.Text = "Cache Size in Hours"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(206, 324)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(46, 20)
+        Me.TextBox2.TabIndex = 1898
+        '
         'APILabel
         '
         Me.APILabel.AutoSize = True
-        Me.APILabel.Location = New System.Drawing.Point(259, 17)
+        Me.APILabel.Location = New System.Drawing.Point(259, 14)
         Me.APILabel.Name = "APILabel"
         Me.APILabel.Size = New System.Drawing.Size(24, 13)
         Me.APILabel.TabIndex = 1897
@@ -66,7 +86,7 @@ Partial Class FormSpeech
         '
         'APIKeyTextBox
         '
-        Me.APIKeyTextBox.Location = New System.Drawing.Point(250, 33)
+        Me.APIKeyTextBox.Location = New System.Drawing.Point(250, 30)
         Me.APIKeyTextBox.Name = "APIKeyTextBox"
         Me.APIKeyTextBox.Size = New System.Drawing.Size(141, 20)
         Me.APIKeyTextBox.TabIndex = 1896
@@ -84,14 +104,14 @@ Partial Class FormSpeech
         Me.SpeakButton.Text = "Speak"
         Me.SpeakButton.UseVisualStyleBackColor = True
         '
-        'Label4
+        'CacheFolderLabel
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(65, 331)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(62, 13)
-        Me.Label4.TabIndex = 1893
-        Me.Label4.Text = "View Folder"
+        Me.CacheFolderLabel.AutoSize = True
+        Me.CacheFolderLabel.Location = New System.Drawing.Point(65, 331)
+        Me.CacheFolderLabel.Name = "CacheFolderLabel"
+        Me.CacheFolderLabel.Size = New System.Drawing.Size(64, 13)
+        Me.CacheFolderLabel.TabIndex = 1893
+        Me.CacheFolderLabel.Text = "View Cache"
         '
         'PictureBox1
         '
@@ -178,7 +198,7 @@ Partial Class FormSpeech
     End Sub
 
     Friend WithEvents GroupBoxSpeech As GroupBox
-    Friend WithEvents Label4 As Label
+    Friend WithEvents CacheFolderLabel As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents MakeSpeechButton As Button
@@ -188,4 +208,6 @@ Partial Class FormSpeech
     Friend WithEvents SpeakButton As Button
     Friend WithEvents APILabel As Label
     Friend WithEvents APIKeyTextBox As TextBox
+    Friend WithEvents CacheSizeLabel As Label
+    Friend WithEvents TextBox2 As TextBox
 End Class

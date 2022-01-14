@@ -302,7 +302,7 @@ Module WindowHandlers
             Return False
         End Try
 
-        Dim status As Boolean = False
+        Dim status As Boolean
         WindowCounter = 0
         While True
             Try

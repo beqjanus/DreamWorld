@@ -332,6 +332,29 @@ Module FileStuff
 
     End Sub
 
+    ''' <summary>
+    ''' Deletes MP3 ands wav files older then 1 Hour or the setting  TTSHours
+    ''' </summary>
+    Public Sub DeleteOldWave()
+
+        Try
+            Dim LogPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
+            FileIO.FileSystem.CreateDirectory(LogPath)
+            Dim directory As New System.IO.DirectoryInfo(LogPath)
+            ' get each file's last modified date
+            For Each File As System.IO.FileInfo In directory.GetFiles()
+                ' get  file's last modified date
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+                If Datedifference > Settings.TTSHours Then
+                    DeleteFile(File.FullName)
+                End If
+            Next
+        Catch
+        End Try
+
+    End Sub
+
     Public Sub DelPidFile(RegionUUID As String)
 
         Dim Path = OpensimIniPath(RegionUUID)

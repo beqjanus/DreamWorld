@@ -1319,6 +1319,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cache Size In Hours.
+        '''</summary>
+        Friend ReadOnly Property CacheSizeInHours() As String
+            Get
+                Return ResourceManager.GetString("CacheSizeInHours", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
         Friend ReadOnly Property calendar() As System.Drawing.Icon
@@ -11353,6 +11362,15 @@ Namespace My.Resources
         Friend ReadOnly Property ViewAllMaps() As String
             Get
                 Return ResourceManager.GetString("ViewAllMaps", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View Cache Folder.
+        '''</summary>
+        Friend ReadOnly Property ViewCacheFolder() As String
+            Get
+                Return ResourceManager.GetString("ViewCacheFolder", resourceCulture)
             End Get
         End Property
         

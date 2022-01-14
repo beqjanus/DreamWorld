@@ -3993,4 +3993,10 @@
   <data name="Text2Speech" xml:space="preserve">
     <value>Text To Speech for Media on a prim </value>
   </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cache Size In Hours</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>View Cache Folder</value>
+  </data>
 </root>

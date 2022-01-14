@@ -13,7 +13,7 @@ Module Speech
 
     Public SpeechList As New Queue(Of String)
 
-    Dim S As New ChatToSpeech
+    Private ReadOnly S As New ChatToSpeech
 
     Public Sub Chat2Speech()
 
@@ -21,26 +21,6 @@ Module Speech
         Dim WebThread = New Thread(AddressOf SpeakArrival)
         WebThread.SetApartmentState(ApartmentState.STA)
         WebThread.Start()
-
-    End Sub
-
-    Public Sub DeleteOldWave(LogPath As String)
-
-        Try
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
-            FileIO.FileSystem.CreateDirectory(LogPath)
-            Dim directory As New System.IO.DirectoryInfo(LogPath)
-            ' get each file's last modified date
-            For Each File As System.IO.FileInfo In directory.GetFiles()
-                ' get  file's last modified date
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
-                If Datedifference > 1 Then
-                    DeleteFile(File.FullName)
-                End If
-            Next
-        Catch
-        End Try
 
     End Sub
 
@@ -161,14 +141,12 @@ Module Speech
                     Sleep(1000)
                 End While
 
+
                 Dim fname As String = ""
                 Try
-
-                    Dim DiskFilepath = ""
-                    HttpPathInfo = $"http://{Settings.PublicIP}:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}/TTS/Data"
+                    Dim DiskFilepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS\Audio")
 
                     ' Numbers if from form, else MD5 for security
-
                     If Params.FileName IsNot Nothing Then
                         fname = Params.FileName + ".wav"
                     Else
@@ -177,11 +155,11 @@ Module Speech
                     End If
 
                     ' Make path to Cache
+                    HttpPathInfo = $"http://{Settings.PublicIP}:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}/TTS/Data"
                     HttpPathInfo = IO.Path.Combine(HttpPathInfo, fname)
                     HttpPathInfo = HttpPathInfo.Replace("\", "/")
                     HttpPathInfo = HttpPathInfo.Replace(".wav", ".mp3")
 
-                    DiskFilepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS\Audio")
                     If Not FileIO.FileSystem.FileExists(DiskFilepath) Then
                         FileIO.FileSystem.CreateDirectory(DiskFilepath)
                     End If

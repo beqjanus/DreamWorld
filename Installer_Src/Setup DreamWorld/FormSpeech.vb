@@ -7,10 +7,7 @@ Public Class FormSpeech
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly Synth As New SpeechSynthesizer()
     Private _screenPosition As ClassScreenpos
-
-#Disable Warning CA2213
     Private initted As Boolean
-#Enable Warning CA2213
 
     Public Property ScreenPosition As ClassScreenpos
         Get
@@ -65,13 +62,19 @@ Public Class FormSpeech
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        APILabel.Text = My.Resources.APIKey
+        CacheFolderLabel.Text = My.Resources.ViewCacheFolder
+        CacheSizeLabel.Text = My.Resources.CacheSizeInHours
+        GroupBoxSpeech.Text = My.Resources.Text2Speech
+        SpeakButton.Text = My.Resources.Speak
+
+        ' must be in this order
         TextBox1.Text = $"{My.Resources.Each_Line}{vbCrLf}"
-        TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
         TextBox1.Text += $"{My.Resources.Male_Voice}{vbCrLf}"
         TextBox1.Text += $"{My.Resources.Female_Voice}{vbCrLf}"
-        SpeakButton.Text = My.Resources.Speak
-        APILabel.Text = My.Resources.APIKey
-        GroupBoxSpeech.Text = My.Resources.Text2Speech
+        TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
+
+        TextBox2.Text = Settings.TTSHours
 
 #Disable Warning CA1304
         For Each voice In Synth.GetInstalledVoices()
@@ -167,6 +170,13 @@ Public Class FormSpeech
         If Not initted Then Return
         Settings.APIKey = APIKeyTextBox.Text
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub TextBox2_TextChanged_1(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+
+        If Not initted Then Return
+        Settings.TTSHours = CDbl("0" + TextBox2.Text)
 
     End Sub
 

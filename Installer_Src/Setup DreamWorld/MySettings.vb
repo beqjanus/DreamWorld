@@ -20,7 +20,6 @@ Public Class MySettings
     Private _ExternalHostName As String
     Private _LANIP As String
     Private _MacAddress As String
-    Private _PublicIP As String
     Private _RamUsed As Double
     Private _Settings As LoadIni
 
@@ -2085,6 +2084,22 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("TOSEnabled", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>Hours that TTS/Audio keeps files before expiring</summary>
+    Public Property TTSHours() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("TTSHours", "1"))
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+            Return 1
+        End Get
+        Set
+            If Value < 1 Then Value = 1
+            SetMySetting("TTSHours", CStr(Value))
         End Set
     End Property
 

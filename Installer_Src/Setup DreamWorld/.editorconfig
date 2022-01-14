@@ -12,3 +12,6 @@ dotnet_diagnostic.CA2100.severity = suggestion
 
 # BC42025: Access of shared member, constant member, enum member or nested type through an instance; qualifying expression will not be evaluated.
 dotnet_diagnostic.BC42025.severity = none
+
+# CA1305: Specify IFormatProvider
+dotnet_diagnostic.CA1305.severity = suggestion
