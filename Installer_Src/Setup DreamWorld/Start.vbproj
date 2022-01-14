@@ -339,6 +339,7 @@
     <Compile Include="Benchmark.vb" />
     <Compile Include="Birds.vb" />
     <Compile Include="BreakPoint.vb" />
+    <Compile Include="ClassChatToSpeech.vb" />
     <Compile Include="ClassIni.vb" />
     <Compile Include="ClassLoopback.vb" />
     <Compile Include="Clear_Cache.vb" />
@@ -779,6 +780,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormInitialSetup.resx">
       <DependentUpon>FormInitialSetup.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormJoomla.resx">
       <DependentUpon>FormJoomla.vb</DependentUpon>
@@ -884,6 +886,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTide.resx">
       <DependentUpon>FormTide.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTOS.ca.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>

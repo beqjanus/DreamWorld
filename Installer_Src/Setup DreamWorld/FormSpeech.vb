@@ -5,9 +5,10 @@ Public Class FormSpeech
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly Synth As New SpeechSynthesizer()
+
     Private _screenPosition As ClassScreenpos
     Private initted As Boolean
+    Private ReadOnly Synth As New ChatToSpeech
 
     Public Property ScreenPosition As ClassScreenpos
         Get
@@ -51,11 +52,13 @@ Public Class FormSpeech
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        While Synth.State = SynthesizerState.Speaking
+        While Synth.SpeechBusy
             Sleep(100)
         End While
-        Synth.Dispose()
+
         Settings.SaveSettings()
+
+        Synth.Dispose()
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -72,11 +75,10 @@ Public Class FormSpeech
         TextBox1.Text += $"{My.Resources.Female_Voice}{vbCrLf}"
         TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
 
-        TextBox2.Text = Settings.TTSHours
+        TextBox2.Text = CStr(Settings.TTSHours)
 
-#Disable Warning CA1304
-        For Each voice In Synth.GetInstalledVoices()
-#Enable Warning CA1304
+
+        For Each voice In Synth.GetVoices
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
@@ -99,14 +101,13 @@ Public Class FormSpeech
         Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
         Using S As New ChatToSpeech
             For Each l In arrKeywords
-                Dim T = GetMd5Hash(l)
                 Dim Par = New SpeechParameters With {
                     .TTS = l,
-                    .FileName = "TTS_" & T,
+                    .FileName = GetMd5Hash(l),
                     .Voice = Settings.VoiceName,
                     .SaveWave = True
                 }
-                S.Speach(Par)
+                Synth.Speach(Par)
             Next
         End Using
 
@@ -121,8 +122,7 @@ Public Class FormSpeech
 
     Private Sub SpeakButton_Click(sender As Object, e As EventArgs) Handles SpeakButton.Click
 
-        ExpireLogsByAge()
-
+        Dim Synth As New ChatToSpeech
         Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
         Using S As New ChatToSpeech
             For Each l In arrKeywords
@@ -132,16 +132,19 @@ Public Class FormSpeech
                     .Voice = Settings.VoiceName
                 }
 
-                S.Speach(Par) ' speak it out loud
+                Synth.Speach(Par)
+
             Next
         End Using
+
+        Synth.Dispose()  ' !!! ?
+
 
     End Sub
 
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
 
         If Not initted Then Return
-
         Dim selected = SpeechBox.SelectedItem.ToString
         Settings.VoiceName = selected
         Settings.SaveSettings()
@@ -154,12 +157,14 @@ Public Class FormSpeech
                     .TTS = $"This is {selected}. I will speak the region name and visitor name when I am selected.",
                     .Voice = Settings.VoiceName
                 }
-
-                S.Speach(Par)
+                Synth.Speach(Par)
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
+        Synth.Dispose() '!!! ???
+
 
     End Sub
 
