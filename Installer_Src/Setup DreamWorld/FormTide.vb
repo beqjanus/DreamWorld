@@ -90,15 +90,15 @@ Public Class FormTide
     End Sub
 
     Private Sub TideHghLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHighLevelTextBox.TextChanged
-        Settings.TideHighLevel() = CType(TideHighLevelTextBox.Text, Single)
+        Settings.TideHighLevel() = CType("0" & TideHighLevelTextBox.Text, Single)
     End Sub
 
     Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
-        Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
+        Settings.TideLevelChannel = CType("0" & TideHiLoChannelTextBox.Text, Integer)
     End Sub
 
     Private Sub TideInfoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideInfoChannelTextBox.TextChanged
-        Settings.TideInfoChannel = CType(TideInfoChannelTextBox.Text, Integer)
+        Settings.TideInfoChannel = CType("0" & TideInfoChannelTextBox.Text, Integer)
     End Sub
 
     Private Sub TideInfoDebugCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TideInfoDebugCheckBox.CheckedChanged
@@ -106,7 +106,7 @@ Public Class FormTide
     End Sub
 
     Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
-        Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
+        Settings.TideLowLevel() = CType("0" & TideLowLevelTextBox.Text, Single)
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
