@@ -178,7 +178,7 @@ Partial Class FormGloebits
         Me.GroupBox2.Controls.Add(Me.ProductionReqAppButton)
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(262, 115)
+        Me.GroupBox2.Location = New System.Drawing.Point(20, 116)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(225, 209)
         Me.GroupBox2.TabIndex = 5
@@ -304,12 +304,13 @@ Partial Class FormGloebits
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.SandBoxSignUpButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(20, 115)
+        Me.GroupBox1.Location = New System.Drawing.Point(266, 116)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(235, 209)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Sandbox Mode"
+        Me.GroupBox1.Visible = False
         '
         'SandboxButton
         '
