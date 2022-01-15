@@ -45,7 +45,7 @@ Public Class FormTide
     End Sub
 
     Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
-        Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
+        Settings.CycleTime = CType("0" & CycleTimeTextBox.Text, Integer)
     End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
