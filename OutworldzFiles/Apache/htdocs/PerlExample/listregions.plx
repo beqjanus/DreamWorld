@@ -15,14 +15,13 @@ my $Input = CGI->new(); # read data from the web
 #      -charset =>  'utf-8',
 #   );
 
-
-
-use Robust::Util; # Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
+# Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
+use Robust::Util; 
 my $schema = Robust::Util::mysql_connect;
 $schema->storage->debug(0);   # set to 1 to see detailed database SQL as it is generated
 
 # See the fabulous Template::Toolkit at http://template-toolkit.org/
-use Template;
+use Template ;
 my $tt = Template->new({
        INTERPOLATE  => 0,
    }) || die "$Template::ERROR\n";

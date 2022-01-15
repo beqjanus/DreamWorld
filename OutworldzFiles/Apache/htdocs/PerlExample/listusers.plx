@@ -1,9 +1,9 @@
 #!perl.exe
 
 
-use strict;
+#use strict;
 use warnings;
-use lib qw(lib); # look in lib for modules and databases
+use lib qw(. lib); # look in lib for modules and databases
 binmode (STDOUT,':utf8'); # we can use unicode
 use CGI qw(:standard); # so we can read and write to the web
 my $Input = CGI->new();
@@ -17,9 +17,8 @@ my $Input = CGI->new();
 #      -charset =>  'utf-8',
 #   );
 
-
-
-use Robust::Util; # Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
+# Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
+use Robust::Util; 
 my $schema = Robust::Util::mysql_connect;
 $schema->storage->debug(0);   # set to 1 to see detailed database SQL as it is generated
 
