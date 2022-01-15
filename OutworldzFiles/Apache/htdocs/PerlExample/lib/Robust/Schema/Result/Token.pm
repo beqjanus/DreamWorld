@@ -73,8 +73,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->add_unique_constraint("uuid_token", ["uuid", "token"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-04-03 15:12:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A44cPsKdu1kEvEEu+7UR6g
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:23:40
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:q6gC32fnOmLQDAhCR7RCYg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

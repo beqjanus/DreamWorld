@@ -1,12 +1,9 @@
 
 # Print 'show stats via perl on each region
-# edit this to point to Opensim folder,. slashed to the right
-my $Opensim = "E:/Outworldz Dreamgrid/Outworldzfiles/Opensim";
 
-
-# uncomment these next lines if you wish to run this via Apache. COmmented out, it secure this example, which shows your users.
+use CGI;
+# uncomment these next lines if you wish to run this via Apache. Commented out, it secure this example.
 # if you uncomment out line example should run on Apache over the web.
-# see README  for how to install Strawberry Perl and the necessary Perl modules
 
 #print $Input->header(   # and print it as UTF-8
 #      -type    => 'text/html',
@@ -14,11 +11,25 @@ my $Opensim = "E:/Outworldz Dreamgrid/Outworldzfiles/Opensim";
 #   );
 
 
+use Config::IniFiles;
+use File::BOM;    # fixes a bug in Perl with UTF-8
 
+# get the path to the Settings.ini
+use Cwd;
+my $path = getcwd();
+
+$path =~ /(.*?\/Outworldzfiles)/i;
+my $file = $1 . '/Settings.ini';
+
+# Read the Right Thing from a unicode file with BOM:
+open( CONFIG, '<:via(File::BOM)', $file );
+my $Config = Config::IniFiles->new( -file => *CONFIG );
+
+my $Path =$Config->val( 'Data', 'Myfolder' );
+# edit this to point to Opensim folder,. slashed to the right
+my $Opensim = "$Path/Outworldzfiles/Opensim";
 
 use Win32::GuiTest qw(FindWindowLike GetWindowText SetForegroundWindow SendKeys);
-
-
 $Win32::GuiTest::debug = 0; # Set to "1" to enable verbose mode
 
 my @sims =glob ("'$Opensim/bin/regions/*'");

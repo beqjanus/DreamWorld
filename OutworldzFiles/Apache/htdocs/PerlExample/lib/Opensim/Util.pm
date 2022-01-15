@@ -1,4 +1,4 @@
-package Util;
+package Opensim::Util;
 use strict;use warnings;
 
 # Edit this to set your Opensim database name, username, and password.
@@ -8,7 +8,7 @@ use strict;use warnings;
 sub mysql_connect {
         
    use Config::IniFiles;
-   use File::BOM;  # fixes a bug in Pertl with UTF-8
+   use File::BOM;  # fixes a bug in Perl with UTF-8
    
    # get the path to the Settings.ini
    use Cwd;
@@ -37,7 +37,7 @@ sub mysql_connect {
    my $user = $Config->val('Data','RobustUsername')      || 'robustuser';
    my $password = $Config->val('Data','password')         || 'robustpassword';   
          
-   use Schema;
+   use Opensim::Schema;
    if ($dbname) {
       Schema->connect("dbi:mysql:dbname=$dbname;host=$host;port=$port",$user,$password,{quote_names => 1,});
    }

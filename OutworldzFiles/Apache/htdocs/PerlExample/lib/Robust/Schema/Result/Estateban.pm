@@ -53,6 +53,19 @@ __PACKAGE__->table("estateban");
   is_nullable: 1
   size: 64
 
+=head2 banninguuid
+
+  data_type: 'varchar'
+  default_value: '00000000-0000-0000-0000-000000000000'
+  is_nullable: 0
+  size: 36
+
+=head2 bantime
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -66,11 +79,20 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 16 },
   "bannednamemask",
   { data_type => "varchar", is_nullable => 1, size => 64 },
+  "banninguuid",
+  {
+    data_type => "varchar",
+    default_value => "00000000-0000-0000-0000-000000000000",
+    is_nullable => 0,
+    size => 36,
+  },
+  "bantime",
+  { data_type => "integer", default_value => 0, is_nullable => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-04-03 15:12:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oDRvDxDB6pBafjHx23vlrQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:23:40
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mqW/Yr2H0sGaxHjn5jU80w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

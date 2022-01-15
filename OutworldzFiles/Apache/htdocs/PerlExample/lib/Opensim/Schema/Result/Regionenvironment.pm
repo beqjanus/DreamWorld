@@ -31,8 +31,8 @@ __PACKAGE__->table("regionenvironment");
 
 =head2 llsd_settings
 
-  data_type: 'text'
-  is_nullable: 0
+  data_type: 'mediumtext'
+  is_nullable: 1
 
 =cut
 
@@ -40,7 +40,7 @@ __PACKAGE__->add_columns(
   "region_id",
   { data_type => "varchar", is_nullable => 0, size => 36 },
   "llsd_settings",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "mediumtext", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -56,8 +56,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("region_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2014-10-14 12:09:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XnVqzitSgSC6H2y0k5J8ng
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:22:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:g5+aPsie7GD7A+C2qG0BLQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

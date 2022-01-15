@@ -155,8 +155,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("classifieduuid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-04-03 15:12:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WBl8uFxRx8mqN3T8n+FPYw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:23:40
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jQIAik8ll4vGfml/KskMUw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

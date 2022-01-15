@@ -1025,8 +1025,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("region_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-04-03 15:12:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NVSzB5AnTV87L7Qf8RXQvA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:22:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OHFaIkq6F2fuVPv+uy+S6g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

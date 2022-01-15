@@ -90,132 +90,158 @@ __PACKAGE__->table("prims");
 
 =head2 positionx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 positiony
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 positionz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 grouppositionx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 grouppositiony
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 grouppositionz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 velocityx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 velocityy
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 velocityz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 angularvelocityx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 angularvelocityy
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 angularvelocityz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 accelerationx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 accelerationy
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 accelerationz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 rotationx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 rotationy
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 rotationz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 rotationw
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetoffsetx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetoffsety
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetoffsetz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetorientw
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetorientx
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetorienty
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 sittargetorientz
 
-  data_type: 'double precision'
+  data_type: 'float'
+  default_value: 0
   is_nullable: 1
 
 =head2 uuid
@@ -301,9 +327,9 @@ __PACKAGE__->table("prims");
 
 =head2 loopedsoundgain
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 textureanimation
 
@@ -312,57 +338,57 @@ __PACKAGE__->table("prims");
 
 =head2 omegax
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 omegay
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 omegaz
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraeyeoffsetx
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraeyeoffsety
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraeyeoffsetz
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraatoffsetx
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraatoffsety
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 cameraatoffsetz
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 forcemouselook
 
@@ -485,27 +511,27 @@ __PACKAGE__->table("prims");
 
 =head2 density
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 1000
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 gravitymodifier
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 friction
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0.6
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 restitution
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0.5
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 keyframemotion
 
@@ -514,19 +540,19 @@ __PACKAGE__->table("prims");
 
 =head2 attachedposx
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
   is_nullable: 1
 
 =head2 attachedposy
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
   is_nullable: 1
 
 =head2 attachedposz
 
-  data_type: 'double precision'
+  data_type: 'float'
   default_value: 0
   is_nullable: 1
 
@@ -558,6 +584,41 @@ __PACKAGE__->table("prims");
   data_type: 'text'
   is_nullable: 1
 
+=head2 sopanims
+
+  data_type: 'blob'
+  is_nullable: 1
+
+=head2 standtargetx
+
+  data_type: 'float'
+  default_value: 0
+  is_nullable: 1
+
+=head2 standtargety
+
+  data_type: 'float'
+  default_value: 0
+  is_nullable: 1
+
+=head2 standtargetz
+
+  data_type: 'float'
+  default_value: 0
+  is_nullable: 1
+
+=head2 sitactrange
+
+  data_type: 'float'
+  default_value: 0
+  is_nullable: 1
+
+=head2 pseudocrc
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -586,57 +647,57 @@ __PACKAGE__->add_columns(
   "basemask",
   { data_type => "integer", is_nullable => 1 },
   "positionx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "positiony",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "positionz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "grouppositionx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "grouppositiony",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "grouppositionz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "velocityx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "velocityy",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "velocityz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "angularvelocityx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "angularvelocityy",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "angularvelocityz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "accelerationx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "accelerationy",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "accelerationz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "rotationx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "rotationy",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "rotationz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "rotationw",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetoffsetx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetoffsety",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetoffsetz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetorientw",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetorientx",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetorienty",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "sittargetorientz",
-  { data_type => "double precision", is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "uuid",
   { data_type => "char", default_value => "", is_nullable => 0, size => 36 },
   "regionuuid",
@@ -669,27 +730,27 @@ __PACKAGE__->add_columns(
     size => 36,
   },
   "loopedsoundgain",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "textureanimation",
   { data_type => "blob", is_nullable => 1 },
   "omegax",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "omegay",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "omegaz",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraeyeoffsetx",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraeyeoffsety",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraeyeoffsetz",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraatoffsetx",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraatoffsety",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "cameraatoffsetz",
-  { data_type => "double precision", default_value => 0, is_nullable => 0 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "forcemouselook",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "scriptaccesspin",
@@ -736,25 +797,21 @@ __PACKAGE__->add_columns(
   "physicsshapetype",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "density",
-  {
-    data_type     => "double precision",
-    default_value => 1000,
-    is_nullable   => 0,
-  },
+  { data_type => "float", default_value => 1000, is_nullable => 1 },
   "gravitymodifier",
-  { data_type => "double precision", default_value => 1, is_nullable => 0 },
+  { data_type => "float", default_value => 1, is_nullable => 1 },
   "friction",
-  { data_type => "double precision", default_value => 0.6, is_nullable => 0 },
+  { data_type => "float", default_value => 0.6, is_nullable => 1 },
   "restitution",
-  { data_type => "double precision", default_value => 0.5, is_nullable => 0 },
+  { data_type => "float", default_value => 0.5, is_nullable => 1 },
   "keyframemotion",
   { data_type => "blob", is_nullable => 1 },
   "attachedposx",
-  { data_type => "double precision", default_value => 0, is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "attachedposy",
-  { data_type => "double precision", default_value => 0, is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "attachedposz",
-  { data_type => "double precision", default_value => 0, is_nullable => 1 },
+  { data_type => "float", default_value => 0, is_nullable => 1 },
   "passcollisions",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "vehicle",
@@ -765,6 +822,18 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 36 },
   "physinertia",
   { data_type => "text", is_nullable => 1 },
+  "sopanims",
+  { data_type => "blob", is_nullable => 1 },
+  "standtargetx",
+  { data_type => "float", default_value => 0, is_nullable => 1 },
+  "standtargety",
+  { data_type => "float", default_value => 0, is_nullable => 1 },
+  "standtargetz",
+  { data_type => "float", default_value => 0, is_nullable => 1 },
+  "sitactrange",
+  { data_type => "float", default_value => 0, is_nullable => 1 },
+  "pseudocrc",
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -780,8 +849,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("uuid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2019-04-03 15:12:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7NSn7AHBI9xQ62nx9W7sYQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-01-14 22:22:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CgiAnVjWENbdbm9CYLqyzA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
