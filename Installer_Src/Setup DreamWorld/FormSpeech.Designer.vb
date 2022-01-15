@@ -23,6 +23,8 @@ Partial Class FormSpeech
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBoxSpeech = New System.Windows.Forms.GroupBox()
+        Me.ViewWebLabel = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.CacheSizeLabel = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.APILabel = New System.Windows.Forms.Label()
@@ -36,12 +38,15 @@ Partial Class FormSpeech
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBoxSpeech.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBoxSpeech
         '
+        Me.GroupBoxSpeech.Controls.Add(Me.ViewWebLabel)
+        Me.GroupBoxSpeech.Controls.Add(Me.PictureBox2)
         Me.GroupBoxSpeech.Controls.Add(Me.CacheSizeLabel)
         Me.GroupBoxSpeech.Controls.Add(Me.TextBox2)
         Me.GroupBoxSpeech.Controls.Add(Me.APILabel)
@@ -59,10 +64,30 @@ Partial Class FormSpeech
         Me.GroupBoxSpeech.TabStop = False
         Me.GroupBoxSpeech.Text = "Speech"
         '
+        'ViewWebLabel
+        '
+        Me.ViewWebLabel.AutoSize = True
+        Me.ViewWebLabel.Location = New System.Drawing.Point(289, 109)
+        Me.ViewWebLabel.Name = "ViewWebLabel"
+        Me.ViewWebLabel.Size = New System.Drawing.Size(56, 13)
+        Me.ViewWebLabel.TabIndex = 1901
+        Me.ViewWebLabel.Text = "View Web"
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.PictureBox2.Location = New System.Drawing.Point(252, 103)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(29, 30)
+        Me.PictureBox2.TabIndex = 1900
+        Me.PictureBox2.TabStop = False
+        '
         'CacheSizeLabel
         '
         Me.CacheSizeLabel.AutoSize = True
-        Me.CacheSizeLabel.Location = New System.Drawing.Point(265, 327)
+        Me.CacheSizeLabel.Location = New System.Drawing.Point(299, 76)
         Me.CacheSizeLabel.Name = "CacheSizeLabel"
         Me.CacheSizeLabel.Size = New System.Drawing.Size(103, 13)
         Me.CacheSizeLabel.TabIndex = 1899
@@ -70,9 +95,9 @@ Partial Class FormSpeech
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(206, 324)
+        Me.TextBox2.Location = New System.Drawing.Point(251, 69)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(46, 20)
+        Me.TextBox2.Size = New System.Drawing.Size(33, 20)
         Me.TextBox2.TabIndex = 1898
         '
         'APILabel
@@ -96,7 +121,7 @@ Partial Class FormSpeech
         Me.SpeakButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.SpeakButton.Image = Global.Outworldz.My.Resources.Resources.loudspeaker
         Me.SpeakButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SpeakButton.Location = New System.Drawing.Point(250, 71)
+        Me.SpeakButton.Location = New System.Drawing.Point(17, 109)
         Me.SpeakButton.Margin = New System.Windows.Forms.Padding(1)
         Me.SpeakButton.Name = "SpeakButton"
         Me.SpeakButton.Size = New System.Drawing.Size(141, 35)
@@ -107,7 +132,7 @@ Partial Class FormSpeech
         'CacheFolderLabel
         '
         Me.CacheFolderLabel.AutoSize = True
-        Me.CacheFolderLabel.Location = New System.Drawing.Point(65, 331)
+        Me.CacheFolderLabel.Location = New System.Drawing.Point(289, 145)
         Me.CacheFolderLabel.Name = "CacheFolderLabel"
         Me.CacheFolderLabel.Size = New System.Drawing.Size(64, 13)
         Me.CacheFolderLabel.TabIndex = 1893
@@ -118,9 +143,9 @@ Partial Class FormSpeech
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.document_view
-        Me.PictureBox1.Location = New System.Drawing.Point(28, 322)
+        Me.PictureBox1.Location = New System.Drawing.Point(252, 139)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(31, 23)
+        Me.PictureBox1.Size = New System.Drawing.Size(31, 30)
         Me.PictureBox1.TabIndex = 1892
         Me.PictureBox1.TabStop = False
         '
@@ -128,10 +153,10 @@ Partial Class FormSpeech
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(17, 132)
+        Me.TextBox1.Location = New System.Drawing.Point(17, 175)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(374, 174)
+        Me.TextBox1.Size = New System.Drawing.Size(374, 169)
         Me.TextBox1.TabIndex = 1891
         Me.TextBox1.Text = "M: Speaks with a Male Voice"
         '
@@ -140,7 +165,7 @@ Partial Class FormSpeech
         Me.MakeSpeechButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.MakeSpeechButton.Image = Global.Outworldz.My.Resources.Resources.loudspeaker
         Me.MakeSpeechButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MakeSpeechButton.Location = New System.Drawing.Point(17, 71)
+        Me.MakeSpeechButton.Location = New System.Drawing.Point(17, 65)
         Me.MakeSpeechButton.Margin = New System.Windows.Forms.Padding(1)
         Me.MakeSpeechButton.Name = "MakeSpeechButton"
         Me.MakeSpeechButton.Size = New System.Drawing.Size(208, 35)
@@ -189,6 +214,7 @@ Partial Class FormSpeech
         Me.Text = "FormSpeech"
         Me.GroupBoxSpeech.ResumeLayout(False)
         Me.GroupBoxSpeech.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
@@ -210,4 +236,6 @@ Partial Class FormSpeech
     Friend WithEvents APIKeyTextBox As TextBox
     Friend WithEvents CacheSizeLabel As Label
     Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents ViewWebLabel As Label
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

@@ -1,6 +1,4 @@
-﻿Imports System.Speech.Synthesis
-
-Public Class FormSpeech
+﻿Public Class FormSpeech
 
 #Region "ScreenSize"
 
@@ -8,7 +6,7 @@ Public Class FormSpeech
 
     Private _screenPosition As ClassScreenpos
     Private initted As Boolean
-    Private ReadOnly Synth As New ChatToSpeech
+    Private Synth As ChatToSpeech
 
     Public Property ScreenPosition As ClassScreenpos
         Get
@@ -56,12 +54,13 @@ Public Class FormSpeech
             Sleep(100)
         End While
 
-        Settings.SaveSettings()
-
         Synth.Dispose()
+
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        SetScreen()
 
         APILabel.Text = My.Resources.APIKey
         CacheFolderLabel.Text = My.Resources.ViewCacheFolder
@@ -76,8 +75,9 @@ Public Class FormSpeech
         TextBox1.Text += $"{My.Resources.The_default_voice}{vbCrLf}"
 
         TextBox2.Text = CStr(Settings.TTSHours)
+        ViewWebLabel.Text = My.Resources.View_Web_Interface
 
-
+        Synth = New ChatToSpeech
         For Each voice In Synth.GetVoices
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
@@ -89,27 +89,24 @@ Public Class FormSpeech
         APIKeyTextBox.Text = Settings.APIKey
 
         HelpOnce("Text2Speech")
-        SetScreen()
+
         initted = True
 
     End Sub
 
     Private Sub MakeSpeech()
 
-        ExpireLogsByAge()
-
         Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
-        Using S As New ChatToSpeech
-            For Each l In arrKeywords
-                Dim Par = New SpeechParameters With {
-                    .TTS = l,
-                    .FileName = GetMd5Hash(l),
-                    .Voice = Settings.VoiceName,
-                    .SaveWave = True
-                }
-                Synth.Speach(Par)
-            Next
-        End Using
+
+        For Each l In arrKeywords
+            Dim Par = New SpeechParameters With {
+                .TTS = l,
+                .FileName = GetMd5Hash(l),
+                .Voice = Settings.VoiceName,
+                .SaveWave = True
+            }
+            Synth.Speach(Par)
+        Next
 
     End Sub
 
@@ -120,31 +117,35 @@ Public Class FormSpeech
 
     End Sub
 
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+
+        Dim webAddress As String = $"http://{Settings.PublicIP}:{Settings.ApachePort}/TTS/Audio/?{Random()}"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Sub SpeakButton_Click(sender As Object, e As EventArgs) Handles SpeakButton.Click
 
-        Dim Synth As New ChatToSpeech
         Dim arrKeywords As String() = Split(TextBox1.Text, vbCrLf)
-        Using S As New ChatToSpeech
-            For Each l In arrKeywords
 
-                Dim Par = New SpeechParameters With {
-                    .TTS = l,
-                    .Voice = Settings.VoiceName
-                }
-
-                Synth.Speach(Par)
-
-            Next
-        End Using
-
-        Synth.Dispose()  ' !!! ?
-
+        For Each l In arrKeywords
+            Dim Par = New SpeechParameters With {
+                .TTS = l,
+                .Voice = Settings.VoiceName
+            }
+            Synth.Speach(Par)
+        Next
 
     End Sub
 
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
 
         If Not initted Then Return
+
         Dim selected = SpeechBox.SelectedItem.ToString
         Settings.VoiceName = selected
         Settings.SaveSettings()
@@ -163,9 +164,6 @@ Public Class FormSpeech
             BreakPoint.Dump(ex)
         End Try
 
-        Synth.Dispose() '!!! ???
-
-
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles APIKeyTextBox.TextChanged
@@ -180,6 +178,7 @@ Public Class FormSpeech
 
         If Not initted Then Return
         Settings.TTSHours = CDbl("0" + TextBox2.Text)
+        Settings.SaveSettings()
 
     End Sub
 
