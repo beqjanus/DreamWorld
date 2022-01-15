@@ -1,14 +1,14 @@
-package Util;
-use strict;use warnings;
+package Robust::Util;
+use strict;
+use warnings;
 
-# Edit this to set your Opensim database name, username, and password.
-# These can be found in your GridCommon.ini or StandaloneCommon.ini files in the "ConnectionString" area
-# ConnectionString = "Data Source=localhost;Database=opensim;User ID=opensimuser;Password=opensimpassword;"
+# Read your Opensim database name, username, and password.
 
 sub mysql_connect {
         
+   use lib qw (. lib);
    use Config::IniFiles;
-   use File::BOM;  # fixes a bug in Pertl with UTF-8
+   use File::BOM;  # fixes a bug in Perl with UTF-8
    
    # get the path to the Settings.ini
    use Cwd;
@@ -37,7 +37,7 @@ sub mysql_connect {
    my $user = $Config->val('Data','RobustUsername')      || 'robustuser';
    my $password = $Config->val('Data','password')         || 'robustpassword';   
          
-   use Schema;
+   use Robust::Schema;
    if ($dbname) {
       Schema->connect("dbi:mysql:dbname=$dbname;host=$host;port=$port",$user,$password,{quote_names => 1,});
    }
