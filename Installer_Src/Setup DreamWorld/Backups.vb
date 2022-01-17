@@ -69,22 +69,22 @@ Public Class Backups
                 Dim password As String
                 Dim user As String
                 Dim dbname As String
-                If OP.ToString Is Settings.RobustDataBaseName Then
+                If OP.ToString = Settings.RobustDatabaseName Then
                     port = CStr(Settings.MySqlRobustDBPort)
                     host = Settings.RobustServerIP
-                    user = Settings.RobustUsername
+                    user = Settings.RobustUserName
                     password = Settings.RobustPassword
-                    dbname = Settings.RobustDataBaseName
+                    dbname = Settings.RobustDatabaseName
                 ElseIf OP.ToString Is "Joomla" Then
                     port = CStr(Settings.MySqlRegionDBPort)
                     host = Settings.RegionServer
-                    user = Settings.RegionDBUsername
+                    user = Settings.RegionDBUserName
                     password = Settings.RegionDbPassword
                     dbname = "jOpensim"
                 Else
                     port = CStr(Settings.MySqlRegionDBPort)
                     host = Settings.RegionServer
-                    user = Settings.RegionDBUsername
+                    user = Settings.RegionDBUserName
                     password = Settings.RegionDbPassword
                     dbname = Settings.RegionDBName
                 End If
@@ -131,18 +131,20 @@ Public Class Backups
                 Zip.AddFile(SQLFile, "/")
                 Zip.Save()
             End Using
-            Sleep(1000)
+            While Not File.Exists(Bak)
+                Sleep(1000)
+            End While
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
-            Sleep(1000)
+            Sleep(100)
             DeleteFile(SQLFile)
-            Sleep(1000)
+            Sleep(100)
             DeleteFolder(_folder)
         Catch ex As Exception
             Break(ex.Message)
         End Try
 
-        If Name = Settings.RegionDBName And Settings.RegionDBName <> Settings.RobustDataBaseName Then
-            BackupSQLDB(Settings.RobustDataBaseName)
+        If Name = Settings.RegionDBName And Settings.RegionDBName <> Settings.RobustDatabaseName Then
+            BackupSQLDB(Settings.RobustDatabaseName)
         End If
 
     End Sub
