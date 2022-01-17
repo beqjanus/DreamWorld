@@ -32,7 +32,7 @@ h2
 	margin-top:5.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
-	margin-left:0in;
+	margin-left:.5in;
 	line-height:115%;
 	background:#D9E2F3;
 	border:none;
@@ -54,7 +54,6 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
-	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
@@ -83,21 +82,26 @@ div.WordSection1
 -->
 </style>
 
-<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" -->
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-<!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-lang=EN>Robust and Server Type</span></p>
+<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><a
+name="OLE_LINK30"><span lang=EN>Robust and Server Type</span></a></p>
 
 <p class=MsoNormal style='margin-left:.5in'><span style='color:black'>This menu
 item “Server Type” lets you choose from either a Grid Server with Robust, or
 from different Region Server choices to connect to another grid. </span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b>You MUST first run as a regular
+grid, then switch to a region server. DreamGrid needs certain tables in robust,
+even though regions do not use them.</b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b>After it boots, stop the grid, drop
+the Welcome region it created, and make a new region at a free spot coordinate on
+the OsGrid map. Then you can change to a region server.</b></p>
 
 <p class=MsoNormal style='margin-left:.5in'><img width=337 height=340
 id=rectole0000000024 src="ServerType_files/image001.jpg"></p>
@@ -105,80 +109,102 @@ id=rectole0000000024 src="ServerType_files/image001.jpg"></p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2><span lang=EN style='color:black'>Grid Server with Robust</span></h2>
+<h2 style='margin-left:0in;background:#D9E2F3'><span lang=EN style='color:black'>Grid
+Server with Robust</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>A grid server is
-modeled after the World Wide Web, with independent domains. Content is spread
-across small, independent and on large domains, independently, yet interlinks. 
-Robust is the service that lets HyperGrid users enter each world.  A Grid
-Server can also support regions locally.  A grid server can host as many Region
-servers as its memory and CPU capacity allows.</span></p>
+<p class=MsoNormal style='margin-left:.5in'><span lang=EN>A grid server is modeled
+after the World Wide Web, with independent domains. Content is spread across
+small, independent and on large domains, independently, yet interlinks. Robust
+is the service that lets Hypergrid users enter each world. A Grid Server can
+also support regions locally. A grid server can host as many Region servers as
+its memory and CPU capacity allows.</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2><span lang=EN style='color:black'>Region Server</span></h2>
+<h2 style='margin-left:0in;background:#D9E2F3'><span lang=EN style='color:black'>Region
+Server</span></h2>
 
 </div>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN>A Region server uses
 a separate DreamGrid Robust Grid Server for all assets and login services. Only
-regions and their content is stored locally.  The grid server may be located on
-the same LAN, or on another WAN. A Region Server always uses the same Domain
-Name and port as the Hosting server.  </span></p>
+regions and their content are stored locally. The grid server may be on the
+same LAN, or on another WAN. A Region Server always uses the same Domain Name
+and port as the Hosting server. </span></p>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN>In cases where the
-Grid server is on a different WAN IP address, you must also enter the Region
-Servers IP address or domain name in the Region Ports setting:</span></p>
+Grid server is on a different WAN IP address, you must also enter the Region Servers
+IP address or domain name in the Region Ports setting:</span></p>
 
-<p class=MsoNormal><img width=242 height=312 src="ServerType_files/image002.png"
-align=left hspace=12 alt=Image><span lang=EN>The Diagnostic port default is 8001.  
-</span></p>
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN>The HTTP port MUST be the same as the Robust Server
-Port.   Default 8002.</span></p>
+<p class=MsoNormal>
 
-<p class=MsoNormal><span lang=EN>Private Port MUST be the same as the Robust Private
-Port. Default is 8003. This port is normally clocked at the Robust server.  You
-need to port forward that Port 8003 and make sure that the Windows firewall
-only allow the region server in by its IP Address.</span></p>
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=27 height=0></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=242 height=312 src="ServerType_files/image002.png" alt=Image></td>
+ </tr>
+</table>
+
+<br clear=ALL>
+<span lang=EN>UPNP may be checked, if so, there is no need to port forward. It
+will be unchecked if it does not work. If you have more than a few regions, it
+is faster to port forward all ports and leave UPNP off.</span></p>
+
+<p class=MsoNormal><span lang=EN>The Diagnostic port default is 8001. This is </span></p>
+
+<p class=MsoNormal><span lang=EN>The HTTP port is set to 8002, or whatever your
+Host server is set to. 8002 is the default.</span></p>
+
+<p class=MsoNormal><span lang=EN>Private Port MUST be the same as the Robust
+Private Port. Default is 8003. This port is blocked at the Robust server. You must
+go to the host server and port forward that Port 8003 and make sure that the
+Windows firewall only allow the region server in by its IP Address.</span></p>
 
 <p class=MsoNormal><span lang=EN>Region Port Start # Default is 8004.</span></p>
 
 <p class=MsoNormal><span lang=EN>Highest Used shows how many ports MUST be open
-and forwarded.  DreamGrid can do this with UPNP in the router and it does it
+and forwarded. DreamGrid can do this with UPNP in the router and it does it
 automatically in the Windows Firewall.</span></p>
 
 <p class=MsoNormal><span lang=EN>External Hostname: If on the same LAN as the
-Host Robust machine, this can be left alone, as port forwards do the work.  If
-on a Different WAN, the IP address of DNS name of the Region Server MUST be
-enetered here.</span></p>
+Host Robust machine, this can be left alone, as port forwards do the work. If
+on a Different WAN, the IP address of DNS name of the Region Server MUST be entered
+here.</span></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>&nbsp;</span></p>
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2><span lang=EN style='color:black'>OsGrid Region Server</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>The <b>OsGrid </b>region
-server is a preconfigured region server already set up to connect to <b>OsGrid</b>.</span></p>
-
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
-
-<h2><span lang=EN style='color:black'>Hypergrid.org Region Server</span></h2>
+<h2 style='margin-left:0in;background:#D9E2F3'><span lang=EN style='color:black'>OsGrid
+Region Server</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>The <b>Hypergrid.org </b>region
-server is a preconfigured region server already set up to connect to <b>Hypergrid.org</b>.</span></p>
+<p class=MsoNormal><span lang=EN>The <b>OsGrid </b>region server is a
+preconfigured region server already set up to connect to <b>OsGrid</b>.</span></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>&nbsp;</span></p>
+<p class=MsoNormal><b><span lang=EN>The port values are hard coded in a
+separate set of INI files used for OsGrid.</span></b></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2 style='margin-left:0in;background:#D9E2F3'><span lang=EN style='color:black'>Hypergrid.org
+Region Server</span></h2>
+
+</div>
+
+<p class=MsoNormal><span lang=EN>The <b>Hypergrid.org </b>region server is a
+preconfigured region server already set up to connect to <b>Hypergrid.org</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN>&nbsp;</span></p>
 

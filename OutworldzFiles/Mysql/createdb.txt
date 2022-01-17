@@ -12,12 +12,11 @@ create database opensim character set = 'utf8' collate = 'utf8_general_ci';
 use opensim;
 create user 'opensimuser'@'localhost' identified by 'opensimpassword';
 grant all on opensim.* to 'opensimuser'@'localhost';
-
-create database robust character set = 'utf8' collate = 'utf8_general_ci';
+create database opensim character set = 'utf8' collate = 'utf8_general_ci';
 use robust;
 create user 'robustuser'@'localhost' identified by 'robustpassword';
 grant all on robust.* to 'robustuser'@'localhost';
 
-quit;
+quit
 
 
