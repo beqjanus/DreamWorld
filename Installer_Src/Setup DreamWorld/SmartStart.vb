@@ -12,6 +12,40 @@ Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
 
+    Public Sub BuildLand(Avatars As Dictionary(Of String, String))
+
+        If Not Settings.AutoFill Then Return
+        If Avatars.Count = 0 Then Return
+
+        For Each Agent In Avatars
+            If Agent.Value.Length > 0 Then
+
+                Dim RegionUUID = Agent.Value
+                Dim RegionName As String
+
+                RegionName = Region_Name(RegionUUID)
+                If RegionName Is Nothing Then Continue For
+
+                If RegionName.Length > 0 Then
+                    Dim X = Coord_X(RegionUUID)
+                    Dim Y = Coord_Y(RegionUUID)
+                    If X = 0 Or Y = 0 Then Continue For
+
+                    Try
+                        SurroundingLandMaker(RegionUUID)
+                    Catch ex As Exception
+                        BreakPoint.Dump(ex)
+                    End Try
+
+                End If
+            Else
+                BreakPoint.Print("Region Name cannot be located")
+            End If
+
+        Next
+
+    End Sub
+
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
         ' Scan all the regions

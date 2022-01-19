@@ -106,7 +106,7 @@ Module Logging
         End If
 
         If name = "MySQL" Or AllLogs Then
-            Dim MysqlLog As String = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data") & """"
+            Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
             Dim files As Array
             Try
                 files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)

@@ -92,6 +92,29 @@ Module Updater
 
     End Sub
 
+    Public Sub UpdaterGo(Filename As String)
+
+        FormSetup.KillAll()
+        StopApache(True) 'really stop it, even if a service
+        StopMysql()
+        Application.DoEvents()
+        Dim pUpdate = New Process()
+        Dim pi = New ProcessStartInfo With {
+            .Arguments = Filename,
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
+        }
+        pUpdate.StartInfo = pi
+        TextPrint(My.Resources.SeeYouSoon)
+        Try
+            pUpdate.Start()
+        Catch ex As Exception
+
+            ErrorLog(My.Resources.ErrInstall)
+        End Try
+        End ' program
+
+    End Sub
+
 #End Region
 
 End Module
