@@ -36,8 +36,10 @@ Public Class Backups
         End If
 
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/WordPress")) Then DoBackup("WordPress")
-        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/joomla")) Then DoBackup("Joomla")
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/Joomla")) Then DoBackup("Joomla")
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/ossearch")) Then DoBackup("ossearch")
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/osmodules")) Then DoBackup("osmodules")
+
 
     End Sub
 

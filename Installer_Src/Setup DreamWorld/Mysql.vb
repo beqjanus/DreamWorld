@@ -1139,7 +1139,7 @@ Public Module MysqlInterface
         If Settings.ServerType <> "Robust" Then Return
 
         ' modify this to migrate search database upwards a rev
-        If Not Settings.SearchMigration = 3 Then
+        If Settings.SearchMigration < 3 Then
 
             MysqlInterface.DeleteSearchDatabase()
 
