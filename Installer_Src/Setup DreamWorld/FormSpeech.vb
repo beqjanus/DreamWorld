@@ -6,7 +6,9 @@
 
     Private _screenPosition As ClassScreenpos
     Private initted As Boolean
+#Disable Warning CA2213 ' Disposable fields should be disposed
     Private Synth As ChatToSpeech
+#Enable Warning CA2213 ' Disposable fields should be disposed
 
     Public Property ScreenPosition As ClassScreenpos
         Get

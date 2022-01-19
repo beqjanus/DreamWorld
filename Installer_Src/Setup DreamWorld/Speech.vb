@@ -95,19 +95,18 @@ Module Speech
 
     Private Sub SpeakArrival()
 
-        Dim Synth = New ChatToSpeech
-        While SpeechList.Count > 0
-            If Settings.VoiceName = "No Speech" Then Return
-            Dim ProcessString As String = SpeechList.Dequeue
+        Using Synth = New ChatToSpeech
+            While SpeechList.Count > 0
+                If Settings.VoiceName = "No Speech" Then Return
+                Dim ProcessString As String = SpeechList.Dequeue
 
-            Dim Par = New SpeechParameters With {
+                Dim Par = New SpeechParameters With {
                 .TTS = ProcessString,
                 .Voice = Settings.VoiceName
             }
-            Synth.Speach(Par)
-        End While
-
-        Synth.Dispose()
+                Synth.Speach(Par)
+            End While
+        End Using
 
     End Sub
 

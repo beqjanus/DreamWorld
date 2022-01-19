@@ -36,8 +36,6 @@ Public Class FormRegionlist
 
 #Region "Declarations"
 
-#Disable Warning CA2213 ' Disposable fields should be disposed
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean

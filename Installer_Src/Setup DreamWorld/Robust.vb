@@ -183,12 +183,8 @@ Module Robust
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                 If (yesno = vbYes) Then
-                    Dim Log As String = """" & Settings.OpensimBinPath & "Robust.log" & """"
-                    Try
-                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe " & Log))
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
+
+                    Baretail("""" & Settings.OpensimBinPath & "Robust.log" & """")
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
                 MarkRobustOffline()
@@ -472,12 +468,7 @@ Module Robust
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
-            Dim MysqlLog As String = Settings.OpensimBinPath & "Robust.log"
-            Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
+            Baretail("""" & Settings.OpensimBinPath & "Robust.log" & """")
         End If
 
     End Sub

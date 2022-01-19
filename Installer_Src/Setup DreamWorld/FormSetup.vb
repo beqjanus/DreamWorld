@@ -13,110 +13,75 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 
 Public Class FormSetup
+    Public exitList As New ConcurrentDictionary(Of String, String)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
+    Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
 
 #Region "Resize"
 
-    Public Property ScreenPosition1 As ClassScreenpos
-        Get
-            Return ScreenPosition
-        End Get
-        Set(value As ClassScreenpos)
-            ScreenPosition = value
-        End Set
-    End Property
-
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
-        ScreenPosition1.SaveXY(Me.Left, Me.Top)
-        ScreenPosition1.SaveHW(Me.Height, Me.Width)
-    End Sub
-
-    ''' <summary>Sets H,W and pos of screen on load</summary>
-    Private Sub SetScreen()
-        '351, 200 default
-        ScreenPosition1 = New ClassScreenpos("Form1")
-        AddHandler ResizeEnd, HandlerSetup
-        Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
-        Left = xy.Item(0)
-        Top = xy.Item(1)
-
-        Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
-
-        If hw.Item(0) = 0 Then
-            Me.Height = 200
-        Else
-            Try
-                Me.Height = hw.Item(0)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End If
-
-        If hw.Item(1) = 0 Then
-            Me.Width = 351
-        Else
-            Me.Width = hw.Item(1)
-        End If
-
-        ScreenPosition1.SaveHW(Me.Height, Me.Width)
-
-    End Sub
-
-#End Region
-
-#Region "Private Declarations"
-
-    Public exitList As New ConcurrentDictionary(Of String, String)
+#Disable Warning CA2213 ' Disposable fields should be disposed
     ReadOnly BackupThread As New Backups
+#Enable Warning CA2213 ' Disposable fields should be disposed
 
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
+
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
+
+    ' we can stack up multiple commands to send to regions when they boot
+    Private ReadOnly TaskQue As New List(Of TaskObject)
+
+    Private ReadOnly TimerLock As New Object
+
     Private _Adv As FormSettings
+
     Private _ContentIAR As FormOAR
+
     Private _ContentOAR As FormOAR
+
     Private _CurSlashDir As String
+
     Private _DNSSTimer As Integer
+
     Private _IcecastCrashCounter As Integer
+
     Private _IceCastExited As Boolean
+
     Private _IPv4Address As String
+
     Private _KillSource As Boolean
+
     Private _PropBootScanIsBusy As Integer
+
     Private _regionForm As FormRegionlist
+
     Private _RestartApache As Boolean
+
     Private _RestartMysql As Boolean
+
     Private _speed As Double = 50
+
     Private _timerBusy1 As Integer
-
-    Private ScreenPosition As ClassScreenpos
-    Private searcher As ManagementObjectSearcher
-
-#End Region
-
-#Region "NonDisposable fields "
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
-#End Region
+    Private ScreenPosition As ClassScreenpos
 
-#Region "Globals"
-
-    Public ToDoList As New Dictionary(Of String, TaskObject)
+    Private searcher As ManagementObjectSearcher
 
     Private speed As Double
+
     Private speed1 As Double
+
     Private speed2 As Double
+
     Private speed3 As Double
 
     Private ws As NetServer
-
-#End Region
-
-#Region "Events"
 
     Public Event ApacheExited As EventHandler
 
@@ -124,9 +89,30 @@ Public Class FormSetup
 
     Public Event RobustExited As EventHandler
 
-#End Region
+    ''' <summary>
+    ''' The list of commands
+    ''' </summary>
+    Public Enum TaskName As Integer
 
-#Region "Public Properties"
+        None = 0
+        RPCBackupper = 1        ' run backups via XMLRPC
+        TeleportClicked = 2     ' click the teleport button in the region pop up
+        LoadOar = 3             ' for Loading a series of OARS
+        LoadOneOarTask = 4      ' loading One Oar
+        LoadOARContent = 5      ' From the map click
+        SaveOneOAR = 6          ' Save this one OAR click
+        RebuildTerrain = 7      ' Smart Terrain
+        SaveTerrain = 8        ' Dump one region to disk
+        ApplyTerrainEffect = 9 ' Change the terrain
+        TerrainLoad = 10      ' Change one of them
+        ApplyPlant = 11        ' Plant trees
+        BakeTerrain = 12       ' save it permanently
+        LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
+        DeleteTree = 14        ' kill off all trees
+        Revert = 15             ' revert terrain
+        SaveAllIARS = 16        ' save all IARS after making a TEMP region
+
+    End Enum
 
     Public Property Adv1 As FormSettings
         Get
@@ -265,6 +251,15 @@ Public Class FormSetup
         End Set
     End Property
 
+    Public Property ScreenPosition1 As ClassScreenpos
+        Get
+            Return ScreenPosition
+        End Get
+        Set(value As ClassScreenpos)
+            ScreenPosition = value
+        End Set
+    End Property
+
     Public Property Searcher1 As ManagementObjectSearcher
         Get
             Return Searcher2
@@ -301,177 +296,39 @@ Public Class FormSetup
         End Set
     End Property
 
-#End Region
+    Public Shared Sub BuildLand(Avatars As Dictionary(Of String, String))
 
-#Region "Public Function"
+        If Not Settings.AutoFill Then Return
+        If Avatars.Count = 0 Then Return
 
-    Public Sub Buttons(b As Control)
+        For Each Agent In Avatars
+            If Agent.Value.Length > 0 Then
 
-        If b Is Nothing Then Return
-        ' Turns off all 3 stacked buttons, then enables one of them
-        BusyButton.Visible = False
-        StopButton.Visible = False
-        StartButton.Visible = False
+                Dim RegionUUID = Agent.Value
+                Dim RegionName As String
 
-        b.Visible = True
+                RegionName = Region_Name(RegionUUID)
+                If RegionName Is Nothing Then Continue For
 
-    End Sub
+                If RegionName.Length > 0 Then
+                    Dim X = Coord_X(RegionUUID)
+                    Dim Y = Coord_Y(RegionUUID)
+                    If X = 0 Or Y = 0 Then Continue For
 
-#End Region
+                    Try
+                        SurroundingLandMaker(RegionUUID)
+                    Catch ex As Exception
+                        BreakPoint.Dump(ex)
+                    End Try
 
-#Region "ExitList"
-
-    Public Sub ProcessQuit()
-
-        ' now look at the exit stack
-        While Not exitList.IsEmpty
-
-            Dim GroupName = exitList.Keys.First
-            Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
-            Dim out As String = ""
-            exitList.TryRemove(GroupName, out)
-            TextPrint(GroupName & " " & Reason)
-
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
-            Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-
-            Dim PID As Integer
-            Dim RegionUUID As String = ""
-            If GroupList.Count > 0 Then
-                RegionUUID = GroupList(0)
-                DelPidFile(RegionUUID) 'kill the disk PID
-
-                ' Already done, just being safe here
-                PID = ProcessID(RegionUUID)
-                If PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Remove(PID)
                 End If
             Else
-                BreakPoint.Print("No UUID!")
-                Application.DoEvents()
-                Continue While
+                BreakPoint.Print("Region Name cannot be located")
             End If
 
-            If ToDoList.ContainsKey(RegionUUID) Then
-                ToDoList.Remove(RegionUUID)
-            End If
-
-            If Reason = "NoLogin" Then
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
-                PropUpdateView = True
-                Application.DoEvents()
-                Continue While
-            End If
-
-            Dim Status = RegionStatus(RegionUUID)
-            Dim RegionName = Region_Name(RegionUUID)
-
-            Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
-
-            If Not RegionEnabled(RegionUUID) Then
-                Application.DoEvents()
-                Continue While
-            End If
-
-            If Status = SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In RegionUuidListByName(GroupName)
-                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped
-                Next
-
-                If Settings.TempRegion And EstateName(RegionUUID) = "SimSurround" Then
-                    DeleteAllRegionData(RegionUUID)
-                End If
-
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
-                Continue While
-
-            ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
-                StopGroup(GroupName)
-                PropUpdateView = True
-                Logger("State", $"Changed to Stopped {Region_Name(RegionUUID)}", "State")
-                Application.DoEvents()
-                Continue While
-
-            ElseIf Status = SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
-                'RecyclingDown = 4
-                Logger("State", $"Is RecyclingDown for {GroupName}", "State")
-                TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
-                For Each R In GroupList
-                    RegionStatus(R) = SIMSTATUSENUM.RestartStage2
-                Next
-                Logger("State", "is changed to RestartStage2 for {Region_Name(RegionUUID)}", "State")
-                PropUpdateView = True
-                Application.DoEvents()
-                Continue While
-
-            ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
-            Status = SIMSTATUSENUM.Booting Or
-            Status = SIMSTATUSENUM.Booted) And
-            Not PropAborting Then
-
-                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
-                Status = SIMSTATUSENUM.Error
-                PropUpdateView = True
-
-                Logger("Crash", GroupName & " Crashed", "State")
-                If Settings.RestartOnCrash Then
-
-                    If CrashCounter(RegionUUID) > 4 Then
-                        Logger("Crash", $"{GroupName} Crashed 4 times", "State")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                        StopGroup(GroupName)
-                        CrashCounter(RegionUUID) = 0
-                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
-                        PropUpdateView = True
-                        Application.DoEvents()
-                        Continue While
-                    End If
-
-                    CrashCounter(RegionUUID) += 1
-
-                    ' shut down all regions in the DOS box
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                    StopGroup(GroupName)
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
-                    For Each R In GroupList
-                        RegionStatus(R) = SIMSTATUSENUM.RestartStage2
-                    Next
-                    Logger("Stopped", $"{GroupName} is stopped", "State")
-                    PropUpdateView = True
-                    Continue While
-                    Application.DoEvents()
-                Else
-                    If PropAborting Then
-                        Application.DoEvents()
-                        Continue While
-                    End If
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                    ErrorGroup(GroupName)
-
-                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
-                    If (yesno = vbYes) Then
-                        Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{ OpensimIniPath(RegionUUID)}\Opensim.log""")
-                        Catch ex As Exception
-                            BreakPoint.Dump(ex)
-                        End Try
-                    End If
-                    Application.DoEvents()
-                End If
-            Else
-                StopGroup(GroupName)
-            End If
-            PropUpdateView = True
-            Application.DoEvents()
-        End While
+        Next
 
     End Sub
-
-#End Region
-
-#Region "Misc"
 
     Public Shared Sub ErrorGroup(Groupname As String)
 
@@ -505,556 +362,17 @@ Public Class FormSetup
 
     End Sub
 
-    ''' <summary>Event handler for Icecast</summary>
-    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub Buttons(b As Control)
 
-        If PropAborting Then Return
+        If b Is Nothing Then Return
+        ' Turns off all 3 stacked buttons, then enables one of them
+        BusyButton.Visible = False
+        StopButton.Visible = False
+        StartButton.Visible = False
 
-        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
-            IcecastCrashCounter += 1
-            PropIceCastExited = True
-            Return
-        End If
-        IcecastCrashCounter = 0
-
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-
-        If (yesno = vbYes) Then
-            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\error.log")
-            Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IceCastLog}""")
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End If
+        b.Visible = True
 
     End Sub
-
-    Public Function KillAll() As Boolean
-
-        If ScanAgents() > 0 Then
-            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
-            If response = vbNo Then Return False
-        End If
-
-        ToDoList.Clear()
-
-        AvatarLabel.Text = ""
-        PropAborting = True
-        ToolBar(False)
-        ' close everything as gracefully as possible.
-
-        StopIcecast()
-
-        Dim n As Integer = RegionCount()
-
-        Dim TotalRunningRegions As Integer
-
-        For Each RegionUUID As String In RegionUuids()
-            If IsBooted(RegionUUID) Then
-                TotalRunningRegions += 1
-            End If
-        Next
-        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
-
-        For Each RegionUUID As String In RegionUuids()
-
-            If RegionEnabled(RegionUUID) And
-            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
-             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
-                SequentialPause()
-                ShutDown(RegionUUID)
-                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                Dim Group = Group_Name(RegionUUID)
-
-                For Each UUID In RegionUuidListByName(Group)
-                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                Next
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
-            End If
-        Next
-
-        Dim LastCount As Integer = 0
-        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
-
-        ' only wait if the port 8001 is working
-        If PropUseIcons Then
-            If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
-
-            While (counter > 0 And PropOpensimIsRunning())
-                Application.DoEvents()
-                counter -= 1
-
-                Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
-                Dim ListofPIDs = RegionPIDs()
-                Dim CountisRunning As New List(Of Integer)
-                For Each P In RunningTasks
-                    If ListofPIDs.Contains(P.Id) Then
-                        CountisRunning.Add(P.Id)
-                    End If
-                Next
-
-                If CountisRunning.Count <> LastCount Then
-                    If CountisRunning.Count = 1 Then
-                        TextPrint(My.Resources.One_region)
-                    Else
-                        TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
-                    End If
-                End If
-
-                LastCount = CountisRunning.Count
-
-                If CountisRunning.Count = 0 Then
-                    counter = 0
-                End If
-
-                ProcessQuit()   '  check if any processes exited
-                CheckForBootedRegions()
-
-                Sleep(1000)
-            End While
-            PropUpdateView = True ' make form refresh
-        End If
-
-        ClearAllRegions()
-        StopRobust()
-        Zap("baretail")
-        Zap("cports")
-
-        TimerMain.Stop()
-        TimerBusy = 0
-
-        PropOpensimIsRunning() = False
-        PropUpdateView = True ' make form refresh
-
-        Settings.SaveSettings()
-
-        ToolBar(False)
-
-        Return True
-
-    End Function
-
-    Public Sub SequentialPause()
-
-        If Settings.Sequential Then
-            Dim ctr = 5 * 60  ' 5 minute max to start a region
-            While True
-                Dim wait As Boolean = False
-                For Each RegionUUID As String In RegionUuids()
-
-                    Dim status = RegionStatus(RegionUUID)
-                    If RegionEnabled(RegionUUID) _
-                        And Not PropAborting _
-                        And (status = SIMSTATUSENUM.Booting Or
-                        status = SIMSTATUSENUM.ShuttingDown Or
-                        status = SIMSTATUSENUM.ShuttingDownForGood Or
-                        status = SIMSTATUSENUM.RecyclingDown
-                        ) Then
-                        'Diagnostics.Debug.Print( Region_Name(RegionUUID))
-                        wait = True
-                        Application.DoEvents()
-                    End If
-                Next
-
-                If wait Then
-                    ctr -= 1
-                Else
-                    Exit While
-                End If
-                If ctr <= 0 Then Exit While
-                Sleep(1000)
-            End While
-        Else
-
-            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
-            While True
-                If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
-                    Exit While
-                End If
-                Sleep(1000)
-                Application.DoEvents()
-                ctr -= 1
-                If ctr <= 0 Then Exit While
-            End While
-
-        End If
-
-    End Sub
-
-#End Region
-
-#Region "StartOpensim"
-
-    Public Function StartOpensimulator() As Boolean
-
-        Bench.Print("StartOpensim")
-
-        Init(False)
-
-        OpenPorts()
-
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
-        Grep(ini, Settings.LogLevel)
-
-        If Not Settings.DeregisteredOnce Then
-            DeregisterRegions(True)
-            Settings.DeregisteredOnce = True
-        End If
-
-        'Redo all the region ports
-        UpdateAllRegionPorts()
-
-        PropBootScanIsBusy = 0
-        PropAborting = False
-
-        Buttons(BusyButton)
-
-        DoEstates() ' has to be done after MySQL starts up.
-        PropOpensimIsRunning = True
-
-        If Not StartRobust() Then
-            Buttons(StopButton)
-            Return False
-        End If
-
-        CheckOverLap()
-
-        StartThreads()
-        Application.DoEvents()
-        Dim l = RegionUuids()
-        l.Sort()
-
-        StartTimer()
-
-        If Settings.ServerType = RobustServerName Then
-            Dim RegionName = Settings.WelcomeRegion
-            Dim UUID As String = FindRegionByName(RegionName)
-            Dim out As New Guid
-            If Guid.TryParse(UUID, out) Then
-                Boot(RegionName)
-            End If
-            l.Remove(UUID)
-        End If
-
-        If Settings.GraphVisible Then
-            G()
-        End If
-
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
-
-        ' Boot them up
-        For Each RegionUUID As String In l
-
-            Diagnostics.Debug.Print($"Scanning  {Region_Name(RegionUUID)}")
-
-            If RegionEnabled(RegionUUID) Then
-                Dim BootNeeded As Boolean = False
-                Select Case Settings.Smart_Start
-                    Case True
-                        ' Really Smart Start, not in Region table
-                        If Smart_Start(RegionUUID) = "True" Then
-                            If Not RegionIsRegistered(RegionUUID) Then
-                                BootNeeded = True
-                            End If
-                        End If
-
-                        ' if set to default, which is true
-                        If Smart_Start(RegionUUID).Length = 0 Or
-                             Smart_Start(RegionUUID) = "False" Then
-                            BootNeeded = True
-                        End If
-                    Case False
-                        BootNeeded = True
-                End Select
-
-                ' A region in initial boot up may be really running, but showing as stopped in SS made
-                ' And so it needs to be shut down by timers. But first we have to show it as Booted.
-
-                If Not BootNeeded And PropOpensimIsRunning And RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
-                    If Smart_Start(RegionUUID) = "True" Then
-                        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                        End If
-                    End If
-                End If
-
-                If BootNeeded And PropOpensimIsRunning Then
-                    Boot(Region_Name(RegionUUID))
-                End If
-            End If
-
-        Next
-
-        Settings.SaveSettings()
-
-        Buttons(StopButton)
-        TextPrint(My.Resources.Ready)
-
-        Return True
-
-    End Function
-
-    Public Sub StartTimer()
-
-        TimerMain.Interval = 1000
-        TimerMain.Start() 'Timer starts functioning
-        TimerBusy = 0
-
-    End Sub
-
-    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
-    Public Sub Startup()
-
-        Buttons(BusyButton)
-
-        Dim DefaultName As String = ""
-
-        Dim RegionUUID As String = FindRegionByName(Settings.WelcomeRegion)
-        If RegionUUID.Length = 0 And Settings.ServerType = RobustServerName Then
-            MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, My.Resources.Information_word)
-            TextPrint(My.Resources.Stopped_word)
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim FormRegions = New FormRegions
-#Enable Warning CA2000 ' Dispose objects before losing scope
-            FormRegions.Activate()
-            FormRegions.Select()
-            FormRegions.Visible = True
-            FormRegions.BringToFront()
-            Buttons(StartButton)
-            Return
-        End If
-
-        TextPrint(My.Resources.Starting_word)
-
-        PropBootScanIsBusy = 0
-        PropAborting = False  ' suppress exit warning messages
-
-        ToolBar(False)
-
-        If Settings.Language.Length = 0 Then
-            Settings.Language = "en-US"
-        End If
-
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-
-        If Settings.AutoBackup Then
-            ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
-            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
-                Settings.AutoRestartInterval = BTime + 30
-                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
-            End If
-        End If
-
-        If SetIniData() Then
-            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Error_word)
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
-        If Not StartMySQL() Then
-            ToolBar(False)
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
-        ' create tables in case we need them
-        SetupWordPress()    ' in case they want to use WordPress
-        SetupMutelist()     ' old way of doing mutes
-        SetupSimStats()     ' Perl code
-        SetupLocalSearch()  ' local search database
-
-        StartApache()
-        StartIcecast()
-        UploadPhoto()
-        SetBirdsOnOrOff()
-
-        If Not StartRobust() Then
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
-        If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
-
-            Using InitialSetup As New FormInitialSetup ' form for use and password
-                Dim ret = InitialSetup.ShowDialog()
-                If ret = DialogResult.Cancel Then
-                    Buttons(StartButton)
-                    TextPrint(My.Resources.Stopped_word)
-                    Return
-                End If
-
-                ' Read the chosen sim name
-
-                ConsoleCommand(RobustName, $"create user {InitialSetup.FirstName} {InitialSetup.LastName} {InitialSetup.Password} {InitialSetup.Email}{vbCrLf}{vbCrLf}")
-
-                Settings.RunOnce = True
-                Settings.SaveSettings()
-
-            End Using
-        End If
-
-        ToolBar(True)
-        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
-
-        ' Launch the rockets
-        TextPrint(My.Resources.Start_Regions_word)
-
-        If Not StartOpensimulator() Then
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
-        Buttons(StopButton)
-        TextPrint(My.Resources.Finished_word)
-        ' done with boot up
-
-    End Sub
-
-    ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
-    ''' </summary>
-    Private Sub StartThreads()
-
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
-#Enable Warning BC42016 ' Implicit conversion
-        Dim WebThread = New Thread(start1)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-
-        Dim O As New CPUStuff With {
-            .CounterList = CounterList,
-            .CPUValues = CPUValues,
-            .PropInstanceHandles = PropInstanceHandles
-        }
-        WebThread.Start(O)
-
-    End Sub
-
-#End Region
-
-#Region "TaskList"
-
-    ' we can stack up multiple commands to send to regions when they boot
-    Private ReadOnly TaskQue As New List(Of TaskObject)
-
-    ''' <summary>
-    ''' The list of commands
-    ''' </summary>
-    Public Enum TaskName As Integer
-
-        None = 0
-        RPCBackupper = 1        ' run backups via XMLRPC
-        TeleportClicked = 2     ' click the teleport button in the region pop up
-        LoadOar = 3             ' for Loading a series of OARS
-        LoadOneOarTask = 4      ' loading One Oar
-        LoadOARContent = 5      ' From the map click
-        SaveOneOAR = 6          ' Save this one OAR click
-        RebuildTerrain = 7      ' Smart Terrain
-        SaveTerrain = 8        ' Dump one region to disk
-        ApplyTerrainEffect = 9 ' Change the terrain
-        TerrainLoad = 10      ' Change one of them
-        ApplyPlant = 11        ' Plant trees
-        BakeTerrain = 12       ' save it permanently
-        LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
-        DeleteTree = 14        ' kill off all trees
-        Revert = 15             ' revert terrain
-        SaveAllIARS = 16        ' save all IARS after making a TEMP region
-
-    End Enum
-
-    ''' <summary>
-    ''' Queue a task to occur after a region is booted.
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <param name="Taskname">A Task Name</param>
-    Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
-
-        Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
-
-        ' TO DO add taskque so we can have more than one command
-        'TaskQue.Add(TObj)
-        If ToDoList.ContainsKey(RegionUUID) Then
-            ToDoList(RegionUUID) = TObj
-        Else
-            ToDoList.Add(RegionUUID, TObj)
-        End If
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            RunTaskList(RegionUUID)
-        End If
-        ReBoot(RegionUUID)
-
-    End Sub
-
-    ''' <summary>
-    ''' Run a task after region boots
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    Public Sub RunTaskList(RegionUUID As String)
-
-        If ToDoList.ContainsKey(RegionUUID) Then
-
-            Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
-            Dim Task = ToDoList.Item(RegionUUID)
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-                ToDoList.Remove(RegionUUID)
-                Dim T = Task.TaskName
-                Select Case T
-                    Case TaskName.RPCBackupper       '1
-                        Backupper(RegionUUID)
-                    Case TaskName.TeleportClicked   '2
-                        TeleportClicked(RegionUUID)
-                    Case TaskName.LoadOar   '2
-                        LoadOar(RegionUUID)
-                    Case TaskName.LoadOneOarTask    '4
-                        LoadOneOarTask(RegionUUID, Task)
-                    Case TaskName.LoadOARContent    '5
-                        LoadOARContent2(RegionUUID, Task)
-                    Case TaskName.SaveOneOAR    '6
-                        SaveOneOar(RegionUUID, Task)
-                    Case TaskName.RebuildTerrain    '7
-                        RebuildTerrain(RegionUUID)
-                    Case TaskName.SaveTerrain  '8
-                        Save_Terrain(RegionUUID)
-                    Case TaskName.ApplyTerrainEffect    '9
-                        ApplyTerrainEffect(RegionUUID)
-                    Case TaskName.TerrainLoad       '10
-                        Load_Save(RegionUUID)
-                    Case TaskName.ApplyPlant       '11
-                        Apply_Plant(RegionUUID)
-                    Case TaskName.BakeTerrain      '12
-                        Bake_Terrain(RegionUUID)
-                    Case TaskName.LoadAllFreeOARs  '13
-                        Load_AllFreeOARs(RegionUUID, Task)
-                    Case TaskName.DeleteTree       '14
-                        Delete_Tree(RegionUUID)
-                    Case TaskName.Revert             '15
-                        Revert(RegionUUID)
-                    Case TaskName.SaveAllIARS        '16
-                        SaveThreadIARS()
-                    Case Else
-                        BreakPoint.Print("Impossible task")
-                End Select
-            End If
-
-        End If
-
-    End Sub
-
-#End Region
-
-#Region "misc"
 
     Public Sub CheckForBootedRegions()
 
@@ -1300,6 +618,698 @@ Public Class FormSetup
 
     End Function
 
+    ''' <summary>Event handler for Icecast</summary>
+    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+
+        If PropAborting Then Return
+
+        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
+            IcecastCrashCounter += 1
+            PropIceCastExited = True
+            Return
+        End If
+        IcecastCrashCounter = 0
+
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+
+        If (yesno = vbYes) Then
+            Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\error.log") & """")
+        End If
+
+    End Sub
+
+    Public Function KillAll() As Boolean
+
+        If ScanAgents() > 0 Then
+            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
+            If response = vbNo Then Return False
+        End If
+
+        ToDoList.Clear()
+
+        AvatarLabel.Text = ""
+        PropAborting = True
+        ToolBar(False)
+        ' close everything as gracefully as possible.
+
+        StopIcecast()
+
+        Dim n As Integer = RegionCount()
+
+        Dim TotalRunningRegions As Integer
+
+        For Each RegionUUID As String In RegionUuids()
+            If IsBooted(RegionUUID) Then
+                TotalRunningRegions += 1
+            End If
+        Next
+        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
+
+        For Each RegionUUID As String In RegionUuids()
+
+            If RegionEnabled(RegionUUID) And
+            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
+                SequentialPause()
+                ShutDown(RegionUUID)
+                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                Dim Group = Group_Name(RegionUUID)
+
+                For Each UUID In RegionUuidListByName(Group)
+                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
+                Next
+                PropUpdateView = True ' make form refresh
+                Application.DoEvents()
+            End If
+        Next
+
+        Dim LastCount As Integer = 0
+        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
+
+        ' only wait if the port 8001 is working
+        If PropUseIcons Then
+            If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
+
+            While (counter > 0 And PropOpensimIsRunning())
+                Application.DoEvents()
+                counter -= 1
+
+                Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
+                Dim ListofPIDs = RegionPIDs()
+                Dim CountisRunning As New List(Of Integer)
+                For Each P In RunningTasks
+                    If ListofPIDs.Contains(P.Id) Then
+                        CountisRunning.Add(P.Id)
+                    End If
+                Next
+
+                If CountisRunning.Count <> LastCount Then
+                    If CountisRunning.Count = 1 Then
+                        TextPrint(My.Resources.One_region)
+                    Else
+                        TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
+                    End If
+                End If
+
+                LastCount = CountisRunning.Count
+
+                If CountisRunning.Count = 0 Then
+                    counter = 0
+                End If
+
+                ProcessQuit()   '  check if any processes exited
+                CheckForBootedRegions()
+
+                Sleep(1000)
+            End While
+            PropUpdateView = True ' make form refresh
+        End If
+
+        ClearAllRegions()
+        StopRobust()
+        Zap("baretail")
+        Zap("cports")
+
+        TimerMain.Stop()
+        TimerBusy = 0
+
+        PropOpensimIsRunning() = False
+        PropUpdateView = True ' make form refresh
+
+        Settings.SaveSettings()
+
+        ToolBar(False)
+
+        Return True
+
+    End Function
+
+    Public Sub Language(sender As Object, e As EventArgs)
+        Settings.SaveSettings()
+
+        'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
+        'Diagnostics.Debug.Print("")
+        'Diagnostics.Debug.Print(ci.Name)
+        'Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
+        'Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
+        'Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
+        'Diagnostics.Debug.Print(ci.DisplayName)
+        'Diagnostics.Debug.Print(ci.EnglishName)
+        'Next
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        FrmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
+
+    Public Sub ProcessQuit()
+
+        ' now look at the exit stack
+        While Not exitList.IsEmpty
+
+            Dim GroupName = exitList.Keys.First
+            Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
+            Dim out As String = ""
+            exitList.TryRemove(GroupName, out)
+            TextPrint(GroupName & " " & Reason)
+
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+            Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
+
+            Dim PID As Integer
+            Dim RegionUUID As String = ""
+            If GroupList.Count > 0 Then
+                RegionUUID = GroupList(0)
+                DelPidFile(RegionUUID) 'kill the disk PID
+
+                ' Already done, just being safe here
+                PID = ProcessID(RegionUUID)
+                If PropInstanceHandles.ContainsKey(PID) Then
+                    PropInstanceHandles.Remove(PID)
+                End If
+            Else
+                BreakPoint.Print("No UUID!")
+                Application.DoEvents()
+                Continue While
+            End If
+
+            If ToDoList.ContainsKey(RegionUUID) Then
+                ToDoList.Remove(RegionUUID)
+            End If
+
+            If Reason = "NoLogin" Then
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
+                PropUpdateView = True
+                Application.DoEvents()
+                Continue While
+            End If
+
+            Dim Status = RegionStatus(RegionUUID)
+            Dim RegionName = Region_Name(RegionUUID)
+
+            Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
+
+            If Not RegionEnabled(RegionUUID) Then
+                Application.DoEvents()
+                Continue While
+            End If
+
+            If Status = SIMSTATUSENUM.ShuttingDownForGood Then
+                For Each UUID In RegionUuidListByName(GroupName)
+                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped
+                Next
+
+                If Settings.TempRegion And EstateName(RegionUUID) = "SimSurround" Then
+                    DeleteAllRegionData(RegionUUID)
+                End If
+
+                PropUpdateView = True ' make form refresh
+                Application.DoEvents()
+                Continue While
+
+            ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
+                StopGroup(GroupName)
+                PropUpdateView = True
+                Logger("State", $"Changed to Stopped {Region_Name(RegionUUID)}", "State")
+                Application.DoEvents()
+                Continue While
+
+            ElseIf Status = SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
+                'RecyclingDown = 4
+                Logger("State", $"Is RecyclingDown for {GroupName}", "State")
+                TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
+                For Each R In GroupList
+                    RegionStatus(R) = SIMSTATUSENUM.RestartStage2
+                Next
+                Logger("State", "is changed to RestartStage2 for {Region_Name(RegionUUID)}", "State")
+                PropUpdateView = True
+                Application.DoEvents()
+                Continue While
+
+            ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
+            Status = SIMSTATUSENUM.Booting Or
+            Status = SIMSTATUSENUM.Booted) And
+            Not PropAborting Then
+
+                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
+                Status = SIMSTATUSENUM.Error
+                PropUpdateView = True
+
+                Logger("Crash", GroupName & " Crashed", "State")
+                If Settings.RestartOnCrash Then
+
+                    If CrashCounter(RegionUUID) > 4 Then
+                        Logger("Crash", $"{GroupName} Crashed 4 times", "State")
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                        StopGroup(GroupName)
+                        CrashCounter(RegionUUID) = 0
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
+                        PropUpdateView = True
+                        Application.DoEvents()
+                        Continue While
+                    End If
+
+                    CrashCounter(RegionUUID) += 1
+
+                    ' shut down all regions in the DOS box
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                    StopGroup(GroupName)
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
+                    For Each R In GroupList
+                        RegionStatus(R) = SIMSTATUSENUM.RestartStage2
+                    Next
+                    Logger("Stopped", $"{GroupName} is stopped", "State")
+                    PropUpdateView = True
+                    Continue While
+                    Application.DoEvents()
+                Else
+                    If PropAborting Then
+                        Application.DoEvents()
+                        Continue While
+                    End If
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                    ErrorGroup(GroupName)
+
+                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
+                    If (yesno = vbYes) Then
+                        Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
+                    End If
+                    Application.DoEvents()
+                End If
+            Else
+                StopGroup(GroupName)
+            End If
+            PropUpdateView = True
+            Application.DoEvents()
+        End While
+
+    End Sub
+
+    ''' <summary>
+    ''' Queue a task to occur after a region is booted.
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <param name="Taskname">A Task Name</param>
+    Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
+
+        Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
+
+        ' TO DO add taskque so we can have more than one command
+        'TaskQue.Add(TObj)
+        If ToDoList.ContainsKey(RegionUUID) Then
+            ToDoList(RegionUUID) = TObj
+        Else
+            ToDoList.Add(RegionUUID, TObj)
+        End If
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            RunTaskList(RegionUUID)
+        End If
+        ReBoot(RegionUUID)
+
+    End Sub
+
+    Public Sub RestartAllRegions()
+
+        PropOpensimIsRunning() = True
+        If Not StartMySQL() Then Return
+        If Not StartRobust() Then Return
+
+        StartTimer()
+
+        Dim L = RegionUuids()
+        L.Sort()
+        For Each RegionUUID As String In L
+
+            If PropAborting Then
+                Return
+            End If
+
+            If Not RegionEnabled(RegionUUID) Then
+                Continue For
+            End If
+
+            Dim GroupName = Group_Name(RegionUUID)
+            Dim Status = RegionStatus(RegionUUID)
+
+            If AvatarsIsInGroup(GroupName) Then
+                TextPrint($"{My.Resources.Avatars_are_in} {GroupName}")
+                Continue For
+            End If
+
+            If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
+                Dim hwnd = GetHwnd(GroupName)
+                ShowDOSWindow(hwnd, MaybeShowWindow())
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
+                ShutDown(RegionUUID)
+                PropUpdateView = True ' make form refresh
+            Else
+                ' Smart Start Enabled and stopped
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+            End If
+            Application.DoEvents()
+        Next
+
+    End Sub
+
+    ''' <summary>
+    ''' Run a task after region boots
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub RunTaskList(RegionUUID As String)
+
+        If ToDoList.ContainsKey(RegionUUID) Then
+
+            Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
+            Dim Task = ToDoList.Item(RegionUUID)
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                ToDoList.Remove(RegionUUID)
+                Dim T = Task.TaskName
+                Select Case T
+                    Case TaskName.RPCBackupper       '1
+                        Backupper(RegionUUID)
+                    Case TaskName.TeleportClicked   '2
+                        TeleportClicked(RegionUUID)
+                    Case TaskName.LoadOar   '2
+                        LoadOar(RegionUUID)
+                    Case TaskName.LoadOneOarTask    '4
+                        LoadOneOarTask(RegionUUID, Task)
+                    Case TaskName.LoadOARContent    '5
+                        LoadOARContent2(RegionUUID, Task)
+                    Case TaskName.SaveOneOAR    '6
+                        SaveOneOar(RegionUUID, Task)
+                    Case TaskName.RebuildTerrain    '7
+                        RebuildTerrain(RegionUUID)
+                    Case TaskName.SaveTerrain  '8
+                        Save_Terrain(RegionUUID)
+                    Case TaskName.ApplyTerrainEffect    '9
+                        ApplyTerrainEffect(RegionUUID)
+                    Case TaskName.TerrainLoad       '10
+                        Load_Save(RegionUUID)
+                    Case TaskName.ApplyPlant       '11
+                        Apply_Plant(RegionUUID)
+                    Case TaskName.BakeTerrain      '12
+                        Bake_Terrain(RegionUUID)
+                    Case TaskName.LoadAllFreeOARs  '13
+                        Load_AllFreeOARs(RegionUUID, Task)
+                    Case TaskName.DeleteTree       '14
+                        Delete_Tree(RegionUUID)
+                    Case TaskName.Revert             '15
+                        Revert(RegionUUID)
+                    Case TaskName.SaveAllIARS        '16
+                        SaveThreadIARS()
+                    Case Else
+                        BreakPoint.Print("Impossible task")
+                End Select
+            End If
+
+        End If
+
+    End Sub
+
+    Public Sub SequentialPause()
+
+        If Settings.Sequential Then
+            Dim ctr = 5 * 60  ' 5 minute max to start a region
+            While True
+                Dim wait As Boolean = False
+                For Each RegionUUID As String In RegionUuids()
+
+                    Dim status = RegionStatus(RegionUUID)
+                    If RegionEnabled(RegionUUID) _
+                        And Not PropAborting _
+                        And (status = SIMSTATUSENUM.Booting Or
+                        status = SIMSTATUSENUM.ShuttingDown Or
+                        status = SIMSTATUSENUM.ShuttingDownForGood Or
+                        status = SIMSTATUSENUM.RecyclingDown
+                        ) Then
+                        'Diagnostics.Debug.Print( Region_Name(RegionUUID))
+                        wait = True
+                        Application.DoEvents()
+                    End If
+                Next
+
+                If wait Then
+                    ctr -= 1
+                Else
+                    Exit While
+                End If
+                If ctr <= 0 Then Exit While
+                Sleep(1000)
+            End While
+        Else
+
+            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
+            While True
+                If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
+                    Exit While
+                End If
+                Sleep(1000)
+                Application.DoEvents()
+                ctr -= 1
+                If ctr <= 0 Then Exit While
+            End While
+
+        End If
+
+    End Sub
+
+    Public Function StartOpensimulator() As Boolean
+
+        Bench.Print("StartOpensim")
+
+        Init(False)
+
+        OpenPorts()
+
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
+        Grep(ini, Settings.LogLevel)
+
+        If Not Settings.DeregisteredOnce Then
+            DeregisterRegions(True)
+            Settings.DeregisteredOnce = True
+        End If
+
+        'Redo all the region ports
+        UpdateAllRegionPorts()
+
+        PropBootScanIsBusy = 0
+        PropAborting = False
+
+        Buttons(BusyButton)
+
+        DoEstates() ' has to be done after MySQL starts up.
+        PropOpensimIsRunning = True
+
+        If Not StartRobust() Then
+            Buttons(StopButton)
+            Return False
+        End If
+
+        CheckOverLap()
+
+        StartThreads()
+        Application.DoEvents()
+        Dim l = RegionUuids()
+        l.Sort()
+
+        StartTimer()
+
+        If Settings.ServerType = RobustServerName Then
+            Dim RegionName = Settings.WelcomeRegion
+            Dim UUID As String = FindRegionByName(RegionName)
+            Dim out As New Guid
+            If Guid.TryParse(UUID, out) Then
+                Boot(RegionName)
+            End If
+            l.Remove(UUID)
+        End If
+
+        If Settings.GraphVisible Then
+            G()
+        End If
+
+        If Settings.RegionListVisible Then
+            ShowRegionform()
+        End If
+
+        ' Boot them up
+        For Each RegionUUID As String In l
+
+            Diagnostics.Debug.Print($"Scanning  {Region_Name(RegionUUID)}")
+
+            If RegionEnabled(RegionUUID) Then
+                Dim BootNeeded As Boolean = False
+                Select Case Settings.Smart_Start
+                    Case True
+                        ' Really Smart Start, not in Region table
+                        If Smart_Start(RegionUUID) = "True" Then
+                            If Not RegionIsRegistered(RegionUUID) Then
+                                BootNeeded = True
+                            End If
+                        End If
+
+                        ' if set to default, which is true
+                        If Smart_Start(RegionUUID).Length = 0 Or
+                             Smart_Start(RegionUUID) = "False" Then
+                            BootNeeded = True
+                        End If
+                    Case False
+                        BootNeeded = True
+                End Select
+
+                ' A region in initial boot up may be really running, but showing as stopped in SS made
+                ' And so it needs to be shut down by timers. But first we have to show it as Booted.
+
+                If Not BootNeeded And PropOpensimIsRunning And RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
+                    If Smart_Start(RegionUUID) = "True" Then
+                        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                        End If
+                    End If
+                End If
+
+                If BootNeeded And PropOpensimIsRunning Then
+                    Boot(Region_Name(RegionUUID))
+                End If
+            End If
+
+        Next
+
+        Settings.SaveSettings()
+
+        Buttons(StopButton)
+        TextPrint(My.Resources.Ready)
+
+        Return True
+
+    End Function
+
+    Public Sub StartTimer()
+
+        TimerMain.Interval = 1000
+        TimerMain.Start() 'Timer starts functioning
+        TimerBusy = 0
+
+    End Sub
+
+    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
+    Public Sub Startup()
+
+        Buttons(BusyButton)
+
+        Dim DefaultName As String = ""
+
+        Dim RegionUUID As String = FindRegionByName(Settings.WelcomeRegion)
+        If RegionUUID.Length = 0 And Settings.ServerType = RobustServerName Then
+            MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, My.Resources.Information_word)
+            TextPrint(My.Resources.Stopped_word)
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim FormRegions = New FormRegions
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            FormRegions.Activate()
+            FormRegions.Select()
+            FormRegions.Visible = True
+            FormRegions.BringToFront()
+            Buttons(StartButton)
+            Return
+        End If
+
+        TextPrint(My.Resources.Starting_word)
+
+        PropBootScanIsBusy = 0
+        PropAborting = False  ' suppress exit warning messages
+
+        ToolBar(False)
+
+        If Settings.Language.Length = 0 Then
+            Settings.Language = "en-US"
+        End If
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+
+        If Settings.AutoBackup Then
+            ' add 30 minutes to allow time to auto backup and then restart
+            Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
+            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+                Settings.AutoRestartInterval = BTime + 30
+                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
+            End If
+        End If
+
+        If SetIniData() Then
+            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Error_word)
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
+        If Not StartMySQL() Then
+            ToolBar(False)
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
+        ' create tables in case we need them
+        SetupWordPress()    ' in case they want to use WordPress
+        SetupMutelist()     ' old way of doing mutes
+        SetupSimStats()     ' Perl code
+        SetupLocalSearch()  ' local search database
+
+        StartApache()
+        StartIcecast()
+        UploadPhoto()
+        SetBirdsOnOrOff()
+
+        If Not StartRobust() Then
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
+        If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
+
+            Using InitialSetup As New FormInitialSetup ' form for use and password
+                Dim ret = InitialSetup.ShowDialog()
+                If ret = DialogResult.Cancel Then
+                    Buttons(StartButton)
+                    TextPrint(My.Resources.Stopped_word)
+                    Return
+                End If
+
+                ' Read the chosen sim name
+
+                ConsoleCommand(RobustName, $"create user {InitialSetup.FirstName} {InitialSetup.LastName} {InitialSetup.Password} {InitialSetup.Email}{vbCrLf}{vbCrLf}")
+
+                Settings.RunOnce = True
+                Settings.SaveSettings()
+
+            End Using
+        End If
+
+        ToolBar(True)
+        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
+
+        ' Launch the rockets
+        TextPrint(My.Resources.Start_Regions_word)
+
+        If Not StartOpensimulator() Then
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
+        Buttons(StopButton)
+        TextPrint(My.Resources.Finished_word)
+        ' done with boot up
+
+    End Sub
+
     Public Sub ToolBar(visible As Boolean)
 
         AvatarLabel.Visible = visible
@@ -1323,6 +1333,106 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub AddLog(name As String)
+        Dim LogMenu As New ToolStripMenuItem With {
+                .Text = name,
+                .ToolTipText = Global.Outworldz.My.Resources.Click_to_View_this_word,
+                .Size = New Size(269, 26),
+                .Image = Global.Outworldz.My.Resources.document_view,
+                .DisplayStyle = ToolStripItemDisplayStyle.Text
+            }
+        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
+        ViewLogsToolStripMenuItem.Visible = True
+        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
+
+    End Sub
+
+    Private Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
+
+        If Not Visitor.ContainsKey(Avatar) Then
+            Visitor.Add(Avatar, RegionName)
+        Else
+            Visitor.Item(Avatar) = RegionName
+        End If
+
+    End Sub
+
+    Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
+
+        ConsoleCommand(RobustName, "create user")
+
+    End Sub
+
+    Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
+
+        If PropOpensimIsRunning() Then
+
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" &
+                        Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            Else
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
+            End If
+        Else
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            Else
+                TextPrint(My.Resources.Not_Running)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
+
+        SkipSetup = False
+        Adv1.Activate()
+        Adv1.Visible = True
+        Adv1.Select()
+        Adv1.Init()
+        Adv1.BringToFront()
+
+    End Sub
+
+    Private Sub AllUsersAllSimsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustOneRegionToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length > 0 Then
+            Dim Message = InputBox(My.Resources.What_to_say_2_region)
+            If Message.Length = 0 Then Return
+
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
+                SendMessage(RegionUUID, Message)
+                SendAdminMessage(RegionUUID, Message)
+            End If
+
+        End If
+
+    End Sub
+
     Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs)
 
         If Not IsApacheRunning() Then
@@ -1330,6 +1440,34 @@ Public Class FormSetup
         Else
             StopApache(True) 'Do Stop, even If a service
         End If
+
+    End Sub
+
+    Private Sub BackupAllIARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupAllIARsToolStripMenuItem.Click
+
+        SaveIARTaskAll()
+
+    End Sub
+
+    Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim CriticalForm As New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
+
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+        CriticalForm.Select()
+        CriticalForm.BringToFront()
+
+    End Sub
+
+    Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
+
+        Using Backup As New Backups
+            Backup.SqlBackup()
+        End Using
+        Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log") & """")
 
     End Sub
 
@@ -1346,6 +1484,12 @@ Public Class FormSetup
         ToolBar(False)
         TextPrint(My.Resources.Stopped_word)
         Buttons(StartButton)
+
+    End Sub
+
+    Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
+
+        ConsoleCommand(RobustName, "reset user password")
 
     End Sub
 
@@ -1381,7 +1525,7 @@ Public Class FormSetup
 
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
-            PercentCPU.Text = $"CPU: {CPUAverageSpeed / 100:P1}"
+            PercentCPU.Text = $"CPU {CPUAverageSpeed / 100:P1}"
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -1395,12 +1539,43 @@ Public Class FormSetup
                 If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
                 value = Math.Round(value)
                 Settings.Ramused = value
-                PercentRAM.Text = $"RAM: {value / 100:p1}"
+                PercentRAM.Text = $"RAM {value / 100:p1}"
             Next
             results.Dispose()
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
+
+    End Sub
+
+    Private Sub CheckAndRepairDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
+
+        If Not StartMySQL() Then
+            ToolBar(False)
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
+        Dim pi = New ProcessStartInfo()
+
+        ChDir(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"))
+        pi.WindowStyle = ProcessWindowStyle.Normal
+        pi.Arguments = CStr(Settings.MySqlRobustDBPort)
+
+        pi.FileName = "CheckAndRepair.bat"
+        Using pMySqlDiag1 = New Process With {
+        .StartInfo = pi
+    }
+            Try
+                pMySqlDiag1.Start()
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+            pMySqlDiag1.WaitForExit()
+        End Using
+
+        ChDir(Settings.CurrentDirectory)
 
     End Sub
 
@@ -1410,16 +1585,22 @@ Public Class FormSetup
         TextPrint(My.Resources.Check_Diag)
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort} : {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             PropUseIcons = False
         End If
+
+    End Sub
+
+    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
+
+        ShowUpdateForm()
 
     End Sub
 
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
-            Logger("State", "is Stopped in {Region_Name(RegionUUID)}", "State")
+            Logger("State", "Is Stopped in {Region_Name(RegionUUID)}", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
@@ -1433,6 +1614,155 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
+    End Sub
+
+    Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
+
+        ContentIAR.Activate()
+        ContentIAR.ShowForm()
+        ContentIAR.Select()
+        ContentIAR.BringToFront()
+
+    End Sub
+
+    Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItemMySQL.Click
+        MysqlConsole()
+    End Sub
+
+    Private Sub ConnectToIceCastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToIceCastToolStripMenuItemIcecast.Click
+
+        If Settings.SCEnable Then
+            Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.SCPortBase, Globalization.CultureInfo.InvariantCulture)
+            Try
+                Process.Start(webAddress)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItemApache.Click
+
+        If PropOpensimIsRunning() Then
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            Else
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+                TextPrint($"{My.Resources.User_Name_word}{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}{Settings.Password}")
+            End If
+        Else
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            Else
+                TextPrint(My.Resources.Not_Running)
+            End If
+        End If
+    End Sub
+
+    Private Sub ConsoleCOmmandsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConsoleCOmmandsToolStripMenuItem1.Click
+        Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+    End Sub
+
+    Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
+
+        Settings.LogLevel = "DEBUG"
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim FormInput As New FormDebug
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        FormInput.Activate()
+        FormInput.Visible = True
+        FormInput.Select()
+        FormInput.BringToFront()
+
+    End Sub
+
+    Private Sub DeleteServiceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem.Click
+
+        StopApache(True)
+        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
+        Dim pi = New ProcessStartInfo With {
+    .WindowStyle = ProcessWindowStyle.Hidden,
+    .CreateNoWindow = True,
+    .FileName = win,
+    .Arguments = "delete ApacheHTTPServer"
+}
+        Using p As New Process
+            p.StartInfo = pi
+            Try
+                p.Start()
+                p.WaitForExit()
+                ApacheIcon(False)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub DeleteServiceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem1.Click
+
+        StopMysql()
+        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
+        Dim pi = New ProcessStartInfo With {
+    .WindowStyle = ProcessWindowStyle.Hidden,
+    .CreateNoWindow = True,
+    .FileName = win,
+    .Arguments = "delete MySQLDreamGrid"
+}
+        Using p As New Process
+            p.StartInfo = pi
+            Try
+                p.Start()
+                p.WaitForExit()
+                MySQLIcon(False)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub DiagnosticsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiagnosticsToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Click_Start)
+            Return
+        End If
+
+        DoDiag()
+        If Settings.DiagFailed = "True" Then
+            TextPrint(My.Resources.HG_Failed)
+        Else
+            TextPrint(My.Resources.HG_Works)
+        End If
 
     End Sub
 
@@ -1474,9 +1804,40 @@ Public Class FormSetup
 
     End Sub
 
-#End Region
+    Private Sub ErrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ErrorToolStripMenuItem.Click
 
-#Region "StartStop"
+        Settings.LogLevel = "ERROR"
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
+
+        Settings.LogLevel = "FATAL"
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub FindIARsOnOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindIARsOnOutworldzToolStripMenuItem.Click
+
+        Dim webAddress As String = PropHttpsDomain & "/outworldz_installer/IAR"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
+    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
+
+        Me.TopMost = False
+        Settings.KeepOnTopMain = False
+        KeepOnTopToolStripMenuItem.Image = My.Resources.table
+        OnTopToolStripMenuItem.Checked = False
+        FloatToolStripMenuItem.Checked = True
+
+    End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
@@ -1515,7 +1876,7 @@ Public Class FormSetup
     }
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
-        Log("Startup:", DisplayObjectInfo(Me))
+        Log("Startup", DisplayObjectInfo(Me))
 
         Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
         Try
@@ -1745,7 +2106,7 @@ Public Class FormSetup
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
-        AssemblyV = "Assembly version: " + displayableVersion
+        AssemblyV = "Assembly version " + displayableVersion
 
         SetupPerl()
         SetupPerlModules() ' may require  a restart due to path
@@ -1908,96 +2269,18 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub SetupPerl()
+    Private Sub G()
 
-        If Settings.VisitorsEnabled = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = path
-                }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-        End If
-        Settings.VisitorsEnabled = True
-        Settings.SaveSettings()
-        Sleep(1000)
+        Graphs.Close()
+        Graphs.Dispose()
+        Graphs = New FormGraphs With {
+    .Visible = True
+}
+        Graphs.Activate()
+        Graphs.Select()
+        Graphs.BringToFront()
 
     End Sub
-
-    Private Sub SetupPerlModules()
-
-        ' needed for DBIX::Class in util.pm
-        If Settings.VisitorsEnabledModules = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "Config::IniFiles",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "File::BOM",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                    Settings.VisitorsEnabledModules = True
-                    Settings.SaveSettings()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-        End If
-    End Sub
-
-#End Region
-
-#Region "Language"
-
-    Public Sub Language(sender As Object, e As EventArgs)
-        Settings.SaveSettings()
-
-        'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
-        'Diagnostics.Debug.Print("")
-        'Diagnostics.Debug.Print(ci.Name)
-        'Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
-        'Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
-        'Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
-        'Diagnostics.Debug.Print(ci.DisplayName)
-        'Diagnostics.Debug.Print(ci.EnglishName)
-        'Next
-
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-        Me.Controls.Clear() 'removes all the controls on the form
-        InitializeComponent() 'load all the controls again
-        FrmHome_Load(sender, e) 'Load everything in your form load event again
-    End Sub
-
-#End Region
-
-#Region "Help"
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
@@ -2057,47 +2340,76 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = PropHttpsDomain & "/Outworldz_installer/technical.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
+    Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
+
+        Settings.LogLevel = "INFO"
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
-#End Region
+    Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
+        For Each RegionUUID As String In RegionUuidListByName("*")
+            If Not RPC_Region_Command(RegionUUID, "debug jobengine status") Then Return
+        Next
+    End Sub
 
-#Region "Parser"
+    Private Sub JustOneRegionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllUsersAllSimsToolStripMenuItem.Click
 
-    Private Sub RunParser()
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
 
-        If Settings.SearchOptions <> "Local" Then Return
-        Using Parser As New Process
-            Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
-            Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
-            Parser.StartInfo.FileName = "php.exe"
-            Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
-            If Debugger.IsAttached Then
-                Parser.StartInfo.CreateNoWindow = False
-                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+        Dim HowManyAreOnline As Integer = 0
+        Dim Message = InputBox(My.Resources.What_2_say_To_all)
+        If Message.Length > 0 Then
+            For Each RegionUUID As String In RegionUuids()
+                If AvatarCount(RegionUUID) > 0 Then
+                    HowManyAreOnline += 1
+                    SendMessage(RegionUUID, Message)
+                End If
+            Next
+            If HowManyAreOnline = 0 Then
+                TextPrint(My.Resources.Nobody_Online)
             Else
-                Parser.StartInfo.CreateNoWindow = True
-                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                TextPrint($"{My.Resources.Message_sent_word}{CStr(HowManyAreOnline)} regions")
             End If
-
-            Try
-                Parser.Start()
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
+        End If
 
     End Sub
 
-#End Region
+    ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
+    Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
-#Region "Help"
+        TextPrint("Zzzz...")
+        Thread.Sleep(100)
+        End
+
+    End Sub
+
+    Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
+
+#Disable Warning CA2000
+        Dim Lang As New Language
+#Enable Warning CA2000
+        Lang.Activate()
+        Lang.Visible = True
+        Lang.Select()
+        Lang.BringToFront()
+
+    End Sub
+
+    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
+
+        Try
+            ContentOAR.Activate()
+            ContentOAR.ShowForm()
+            ContentOAR.Select()
+            ContentOAR.BringToFront()
+        Catch
+        End Try
+
+    End Sub
 
     Private Sub LoadHelp()
 
@@ -2141,51 +2453,170 @@ Public Class FormSetup
 
     End Sub
 
-#End Region
+    Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
 
-#Region "Clicks"
-
-    Public Shared Sub BuildLand(Avatars As Dictionary(Of String, String))
-
-        If Not Settings.AutoFill Then Return
-        If Avatars.Count = 0 Then Return
-
-        For Each Agent In Avatars
-            If Agent.Value.Length > 0 Then
-
-                Dim RegionUUID = Agent.Value
-                Dim RegionName As String
-
-                RegionName = Region_Name(RegionUUID)
-                If RegionName Is Nothing Then Continue For
-
-                If RegionName.Length > 0 Then
-                    Dim X = Coord_X(RegionUUID)
-                    Dim Y = Coord_Y(RegionUUID)
-                    If X = 0 Or Y = 0 Then Continue For
-
-                    Try
-                        SurroundingLandMaker(RegionUUID)
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
-
-                End If
-            Else
-                BreakPoint.Print("Region Name cannot be located")
-            End If
-
-        Next
+        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
+        If LoadIARContent(File) Then
+            TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
+        End If
 
     End Sub
 
-    Private Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
+    Private Sub LoadInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem1.Click
 
-        If Not Visitor.ContainsKey(Avatar) Then
-            Visitor.Add(Avatar, RegionName)
-        Else
-            Visitor.Item(Avatar) = RegionName
+        LoadIAR()
+
+    End Sub
+
+    Private Sub LoadLocalIAROAR()
+
+        ''' <summary>Loads OAR and IAR to the menu</summary>
+        ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
+
+        LoadLocalOARToolStripMenuItem.DropDownItems.Clear()
+        Dim MaxFileNum As Integer = 25
+        Dim counter = MaxFileNum
+        Dim Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\OAR\")
+        Dim OARs As Array = Nothing
+        Try
+            OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+        Try
+            For Each OAR As String In OARs
+                counter -= 1
+
+                If counter > 0 Then
+                    Dim Name = Path.GetFileName(OAR)
+                    Dim OarMenu As New ToolStripMenuItem With {
+            .Text = Name,
+            .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+            .DisplayStyle = ToolStripItemDisplayStyle.Text,
+            .Image = My.Resources.box_new
+        }
+                    AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
+                    LoadLocalOARToolStripMenuItem.Visible = True
+                    LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                End If
+
+            Next
+        Catch
+        End Try
+
+        Dim AutoOARs As Array = Nothing
+        Try
+            AutoOARs = Directory.GetFiles(BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
+
+            counter = MaxFileNum
+
+            If AutoOARs IsNot Nothing Then
+                For Each OAR As String In AutoOARs
+                    counter -= 1
+                    If counter > 0 Then
+                        Dim Name = Path.GetFileName(OAR)
+                        Dim OarMenu As New ToolStripMenuItem With {
+                .Text = Name,
+                .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                .Image = My.Resources.box_new
+            }
+                        AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
+                        LoadLocalOARToolStripMenuItem.Visible = True
+                        LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+        Dim IARs As Array = Nothing
+        ' now for the IARs
+        Try
+            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\IAR\")
+            IARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
+
+            LoadLocalIARToolStripMenuItem.DropDownItems.Clear()
+            counter = MaxFileNum
+            For Each IAR As String In IARs
+                counter -= 1
+                If counter > 0 Then
+                    Dim Name = Path.GetFileName(IAR)
+                    Dim IarMenu As New ToolStripMenuItem With {
+                .Text = Name,
+                .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                .Image = My.Resources.box_new
+            }
+                    AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
+                    LoadLocalIARToolStripMenuItem.Visible = True
+                    LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
+
+                End If
+            Next
+        Catch
+        End Try
+
+        Dim AutoIARs As Array = Nothing
+        Try
+            AutoIARs = Directory.GetFiles(BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
+
+            If AutoIARs IsNot Nothing Then
+                counter = MaxFileNum
+                For Each IAR As String In AutoIARs
+                    counter -= 1
+                    If counter > 0 Then
+                        Dim Name = Path.GetFileName(IAR)
+                        Dim IarMenu As New ToolStripMenuItem With {
+                    .Text = Name,
+                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                }
+                        AddHandler IarMenu.Click, New EventHandler(AddressOf LoadIarClick)
+                        LoadLocalIARToolStripMenuItem.Visible = True
+                        LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
+                    End If
+
+                Next
+            End If
+        Catch
+        End Try
+
+    End Sub
+
+    Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
+
+        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
+        LoadOARContent(File)
+        TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
+
+    End Sub
+
+    Private Sub LoadOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOARToolStripMenuItem.Click
+
+        LoadOar("")
+
+    End Sub
+
+    Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
+
+        Dim thing As String = sender.text.ToString
+
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
+        If LoadIARContent(File) Then
+            TextPrint(My.Resources.Opensimulator_is_loading & CStr(thing))
         End If
+
+    End Sub
+
+    Private Sub LocalOarClick(sender As Object, e As EventArgs)
+
+        Dim thing As String = sender.text.ToString
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & thing) 'make a real URL
+        LoadOARContent(File)
+        TextPrint(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
 
     End Sub
 
@@ -2266,6 +2697,31 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
+
+        Settings.LogLevel = "OFF"
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
+
+        Me.TopMost = True
+        Settings.KeepOnTopMain = True
+        KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+        OnTopToolStripMenuItem.Checked = True
+        FloatToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub PercentCPU_Click(sender As Object, e As EventArgs) Handles PercentCPU.Click
+        G()
+    End Sub
+
+    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
+        G()
+    End Sub
+
     Private Sub ReallyQuit()
 
         If Not KillAll() Then Return
@@ -2301,6 +2757,17 @@ Public Class FormSetup
     Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
 
         ShowRegionform()
+
+    End Sub
+
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
+        ScreenPosition1.SaveXY(Me.Left, Me.Top)
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
+    End Sub
+
+    Private Sub RestartAllRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartAllRegionsToolStripMenuItem.Click
+
+        RestartAllRegions()
 
     End Sub
 
@@ -2501,6 +2968,54 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub RunParser()
+
+        If Settings.SearchOptions <> "Local" Then Return
+        Using Parser As New Process
+            Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
+            Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
+            Parser.StartInfo.FileName = "php.exe"
+            Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
+            If Debugger.IsAttached Then
+                Parser.StartInfo.CreateNoWindow = False
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                Parser.StartInfo.CreateNoWindow = True
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End If
+
+            Try
+                Parser.Start()
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub SaveAllRunningRegiondsAsOARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegiondsAsOARSToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        BackupAllRegions()
+
+    End Sub
+
+    Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
+
+        SaveIARTask()
+
+    End Sub
+
+    Private Sub SaveRegionOARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveRegionOARToolStripMenuItem1.Click
+
+        SaveOar("")
+
+    End Sub
+
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
@@ -2601,6 +3116,28 @@ Public Class FormSetup
         SendScriptCmd("scripts suspend")
     End Sub
 
+    Private Sub SearchForOarsAtOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForOarsAtOutworldzToolStripMenuItem.Click
+
+        Dim webAddress As String = PropHttpsDomain & "/Outworldz_Installer/OAR"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
+    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
+
+        Dim webAddress As String = IO.Path.Combine(PropHttpsDomain, "Search/")
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Sub SeePortsInUseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SeePortsInUseToolStripMenuItem.Click
 
         Using CPortsProcess As New Process
@@ -2618,9 +3155,135 @@ Public Class FormSetup
 
     End Sub
 
+    ''' <summary>Sets H,W and pos of screen on load</summary>
+    Private Sub SetScreen()
+        '351, 200 default
+        ScreenPosition1 = New ClassScreenpos("Form1")
+        AddHandler ResizeEnd, HandlerSetup
+        Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
+        Left = xy.Item(0)
+        Top = xy.Item(1)
+
+        Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
+
+        If hw.Item(0) = 0 Then
+            Me.Height = 200
+        Else
+            Try
+                Me.Height = hw.Item(0)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End If
+
+        If hw.Item(1) = 0 Then
+            Me.Width = 351
+        Else
+            Me.Width = hw.Item(1)
+        End If
+
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
+
+    End Sub
+
 #End Region
 
-#Region "Things"
+#Region "Private Declarations"
+
+#End Region
+
+#Region "NonDisposable fields "
+
+#End Region
+
+#Region "Globals"
+
+#End Region
+
+#Region "Events"
+
+#End Region
+
+#Region "Public Properties"
+
+#End Region
+
+#Region "Public Function"
+
+#End Region
+
+#Region "ExitList"
+
+#End Region
+
+#Region "Misc"
+
+#End Region
+
+#Region "StartOpensim"
+
+    Private Sub SetupPerl()
+
+        If Settings.VisitorsEnabled = False Then
+            TextPrint(My.Resources.Setup_Perl)
+            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                    .Arguments = "",
+                    .FileName = path
+                }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+        End If
+        Settings.VisitorsEnabled = True
+        Settings.SaveSettings()
+        Sleep(1000)
+
+    End Sub
+
+    Private Sub SetupPerlModules()
+
+        ' needed for DBIX::Class in util.pm
+        If Settings.VisitorsEnabledModules = False Then
+            TextPrint(My.Resources.Setup_Perl)
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                .Arguments = "Config::IniFiles",
+                .FileName = "cpan"
+            }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                .Arguments = "File::BOM",
+                .FileName = "cpan"
+            }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                    Settings.VisitorsEnabledModules = True
+                    Settings.SaveSettings()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+
+        End If
+    End Sub
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
@@ -2668,8 +3331,87 @@ Public Class FormSetup
         End If
     End Sub
 
+    Private Sub SimulatorStatsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SimulatorStatsToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim RegionPort = GroupPort(FindRegionByName(Settings.WelcomeRegion))
+        Dim webAddress As String = $"http://{Settings.PublicIP}:{CType(RegionPort, String)}/SStats/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Sub StartButton_Click(sender As System.Object, e As EventArgs) Handles StartButton.Click
         Startup()
+    End Sub
+
+    ''' <summary>
+    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
+    ''' </summary>
+    Private Sub StartThreads()
+
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
+#Enable Warning BC42016 ' Implicit conversion
+        Dim WebThread = New Thread(start1)
+        WebThread.SetApartmentState(ApartmentState.STA)
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+
+        Dim O As New CPUStuff With {
+            .CounterList = CounterList,
+            .CPUValues = CPUValues,
+            .PropInstanceHandles = PropInstanceHandles
+        }
+        WebThread.Start(O)
+
+    End Sub
+
+#End Region
+
+#Region "TaskList"
+
+#End Region
+
+#Region "misc"
+
+#End Region
+
+#Region "StartStop"
+
+#End Region
+
+#Region "Language"
+
+#End Region
+
+#Region "Help"
+
+    Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+        Settings.ApacheEnable = True
+        StartApache()
+    End Sub
+
+    Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
+        StartMySQL()
+    End Sub
+
+    Private Sub StartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem2.Click
+
+        StartRobust()
+
+    End Sub
+
+    Private Sub StartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem3.Click
+
+        StartIcecast()
+
     End Sub
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
@@ -2687,15 +3429,65 @@ Public Class FormSetup
         End If
     End Sub
 
-#End Region
-
-#Region "Stopping"
-
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
 
         DoStopActions()
 
     End Sub
+
+    Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
+        StopApache(True)
+    End Sub
+
+    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
+
+        StopMysql()
+
+    End Sub
+
+    Private Sub StopToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem2.Click
+
+        StopRobust()
+
+    End Sub
+
+    Private Sub StopToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem3.Click
+
+        PropAborting = True
+        StopIcecast()
+        Sleep(2000)
+        PropAborting = False
+
+    End Sub
+
+    Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
+        Dim webAddress As String = PropHttpsDomain & "/Outworldz_installer/technical.htm"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Parser"
+
+#End Region
+
+#Region "Help"
+
+#End Region
+
+#Region "Clicks"
+
+#End Region
+
+#Region "Things"
+
+#End Region
+
+#Region "Stopping"
 
 #End Region
 
@@ -2711,34 +3503,11 @@ Public Class FormSetup
 
 #Region "Updater"
 
-    Private Sub UpdaterGo(Filename As String)
-
-        KillAll()
-        StopApache(True) 'really stop it, even if a service
-        StopMysql()
-        Application.DoEvents()
-        Dim pUpdate = New Process()
-        Dim pi = New ProcessStartInfo With {
-        .Arguments = Filename,
-        .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
-    }
-        pUpdate.StartInfo = pi
-        TextPrint(My.Resources.SeeYouSoon)
-        Try
-            pUpdate.Start()
-        Catch ex As Exception
-
-            ErrorLog(My.Resources.ErrInstall)
-        End Try
-        End ' program
-
+    Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
+        For Each RegionUUID As String In RegionUuidListByName("*")
+            If Not RPC_Region_Command(RegionUUID, "show threads") Then Return
+        Next
     End Sub
-
-#End Region
-
-#Region "Timer"
-
-    Private ReadOnly TimerLock As New Object
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
@@ -2840,236 +3609,13 @@ Public Class FormSetup
 
     End Sub
 
-#End Region
-
-#Region "Toolbars"
-
-    Private Sub AddLog(name As String)
-        Dim LogMenu As New ToolStripMenuItem With {
-            .Text = name,
-            .ToolTipText = Global.Outworldz.My.Resources.Click_to_View_this_word,
-            .Size = New Size(269, 26),
-            .Image = Global.Outworldz.My.Resources.document_view,
-            .DisplayStyle = ToolStripItemDisplayStyle.Text
-        }
-        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
-        ViewLogsToolStripMenuItem.Visible = True
-        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
-
-    End Sub
-
-    Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
-
-        ConsoleCommand(RobustName, "create user")
-
-    End Sub
-
-    Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
-
-        If PropOpensimIsRunning() Then
-
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" &
-                    Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            Else
-                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
-                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
-            End If
-        Else
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            Else
-                TextPrint(My.Resources.Not_Running)
-            End If
-        End If
-
-    End Sub
-
-    Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
-
-        SkipSetup = False
-        Adv1.Activate()
-        Adv1.Visible = True
-        Adv1.Select()
-        Adv1.Init()
-        Adv1.BringToFront()
-
-    End Sub
-
-    Private Sub AllUsersAllSimsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustOneRegionToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
-        Dim RegionName = ChooseRegion(True)
-        If RegionName.Length > 0 Then
-            Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            If Message.Length = 0 Then Return
-
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                SendMessage(RegionUUID, Message)
-                SendAdminMessage(RegionUUID, Message)
-            End If
-
-        End If
-
-    End Sub
-
-    Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim CriticalForm As New FormBackupCheckboxes
-#Enable Warning CA2000 ' Dispose objects before losing scope
-
-        CriticalForm.Activate()
-        CriticalForm.Visible = True
-        CriticalForm.Select()
-        CriticalForm.BringToFront()
-
-    End Sub
-
-    Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
-
-        Using Backup As New Backups
-            Backup.SqlBackup()
-        End Using
-
-    End Sub
-
-    Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-
-        ConsoleCommand(RobustName, "reset user password")
-
-    End Sub
-
-    Private Sub CheckAndRepairDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
-
-        If Not StartMySQL() Then
-            ToolBar(False)
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
-        Dim pi = New ProcessStartInfo()
-
-        ChDir(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"))
-        pi.WindowStyle = ProcessWindowStyle.Normal
-        pi.Arguments = CStr(Settings.MySqlRobustDBPort)
-
-        pi.FileName = "CheckAndRepair.bat"
-        Using pMySqlDiag1 = New Process With {
-            .StartInfo = pi
-        }
-            Try
-                pMySqlDiag1.Start()
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-            pMySqlDiag1.WaitForExit()
-        End Using
-
-        ChDir(Settings.CurrentDirectory)
-
-    End Sub
-
-    Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
-
-        ContentIAR.Activate()
-        ContentIAR.ShowForm()
-        ContentIAR.Select()
-        ContentIAR.BringToFront()
-
-    End Sub
-
-    Private Sub ConsoleCOmmandsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConsoleCOmmandsToolStripMenuItem1.Click
-        Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
+    Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs)
+        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-    End Sub
-
-    Private Sub DiagnosticsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiagnosticsToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Click_Start)
-            Return
-        End If
-
-        DoDiag()
-        If Settings.DiagFailed = "True" Then
-            TextPrint(My.Resources.HG_Failed)
-        Else
-            TextPrint(My.Resources.HG_Works)
-        End If
-
-    End Sub
-
-    Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "debug jobengine status") Then Return
-        Next
-    End Sub
-
-    Private Sub JustOneRegionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllUsersAllSimsToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
-
-        Dim HowManyAreOnline As Integer = 0
-        Dim Message = InputBox(My.Resources.What_2_say_To_all)
-        If Message.Length > 0 Then
-            For Each RegionUUID As String In RegionUuids()
-                If AvatarCount(RegionUUID) > 0 Then
-                    HowManyAreOnline += 1
-                    SendMessage(RegionUUID, Message)
-                End If
-            Next
-            If HowManyAreOnline = 0 Then
-                TextPrint(My.Resources.Nobody_Online)
-            Else
-                TextPrint($"{My.Resources.Message_sent_word}:{CStr(HowManyAreOnline)} regions")
-            End If
-        End If
-
-    End Sub
-
-    ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
-    Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
-
-        TextPrint("Zzzz...")
-        Thread.Sleep(100)
-        End
-
-    End Sub
-
-    Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "show threads") Then Return
-        Next
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
@@ -3084,6 +3630,50 @@ Public Class FormSetup
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
 
         HelpManual("TroubleShooting")
+
+    End Sub
+
+    Private Sub UpdaterGo(Filename As String)
+
+        KillAll()
+        StopApache(True) 'really stop it, even if a service
+        StopMysql()
+        Application.DoEvents()
+        Dim pUpdate = New Process()
+        Dim pi = New ProcessStartInfo With {
+            .Arguments = Filename,
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
+        }
+        pUpdate.StartInfo = pi
+        TextPrint(My.Resources.SeeYouSoon)
+        Try
+            pUpdate.Start()
+        Catch ex As Exception
+
+            ErrorLog(My.Resources.ErrInstall)
+        End Try
+        End ' program
+
+    End Sub
+
+#End Region
+
+    Private Sub ViewGoogleMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewGoogleMapToolStripMenuItem.Click
+
+        Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
+        Dim Str = "/wifi/map.html?X=" & CStr(Coord_X(WelcomeUUID) - 15) &
+                "&Y=" & CStr(Coord_Y(WelcomeUUID) + 5)
+
+        If Settings.ApacheEnable Then
+            Dim webAddress As String = $"http://{Settings.PublicIP}:{Settings.HttpPort}{Str}"
+
+            Try
+                Process.Start(webAddress)
+            Catch ex As Exception
+            End Try
+        Else
+            TextPrint(My.Resources.Apache_Disabled)
+        End If
 
     End Sub
 
@@ -3109,618 +3699,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
-        Next
-    End Sub
-
-#End Region
-
-#Region "Logging"
-
-    Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
-
-        Settings.LogLevel = "DEBUG"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub ErrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ErrorToolStripMenuItem.Click
-
-        Settings.LogLevel = "ERROR"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
-
-        Settings.LogLevel = "FATAL"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
-
-        Settings.LogLevel = "INFO"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
-
-        Settings.LogLevel = "OFF"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
-
-        Settings.LogLevel = "WARN"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-#End Region
-
-#Region "IAR OAR"
-
-    Public Sub RestartAllRegions()
-
-        PropOpensimIsRunning() = True
-        If Not StartMySQL() Then Return
-        If Not StartRobust() Then Return
-
-        StartTimer()
-
-        Dim L = RegionUuids()
-        L.Sort()
-        For Each RegionUUID As String In L
-
-            If PropAborting Then
-                Return
-            End If
-
-            If Not RegionEnabled(RegionUUID) Then
-                Continue For
-            End If
-
-            Dim GroupName = Group_Name(RegionUUID)
-            Dim Status = RegionStatus(RegionUUID)
-
-            If AvatarsIsInGroup(GroupName) Then
-                TextPrint($"{My.Resources.Avatars_are_in} {GroupName}")
-                Continue For
-            End If
-
-            If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
-                Dim hwnd = GetHwnd(GroupName)
-                ShowDOSWindow(hwnd, MaybeShowWindow())
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
-                ShutDown(RegionUUID)
-                PropUpdateView = True ' make form refresh
-            Else
-                ' Smart Start Enabled and stopped
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-            End If
-            Application.DoEvents()
-        Next
-
-    End Sub
-
-    Private Sub FindIARsOnOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindIARsOnOutworldzToolStripMenuItem.Click
-
-        Dim webAddress As String = PropHttpsDomain & "/outworldz_installer/IAR"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-    End Sub
-
-    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
-
-        Try
-            ContentOAR.Activate()
-            ContentOAR.ShowForm()
-            ContentOAR.Select()
-            ContentOAR.BringToFront()
-        Catch
-        End Try
-
-    End Sub
-
-    Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
-
-        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
-        If LoadIARContent(File) Then
-            TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
-        End If
-
-    End Sub
-
-    Private Sub LoadInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem1.Click
-
-        LoadIAR()
-
-    End Sub
-
-    Private Sub LoadLocalIAROAR()
-
-        ''' <summary>Loads OAR and IAR to the menu</summary>
-        ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
-
-        LoadLocalOARToolStripMenuItem.DropDownItems.Clear()
-        Dim MaxFileNum As Integer = 25
-        Dim counter = MaxFileNum
-        Dim Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\OAR\")
-        Dim OARs As Array = Nothing
-        Try
-            OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-        Try
-            For Each OAR As String In OARs
-                counter -= 1
-
-                If counter > 0 Then
-                    Dim Name = Path.GetFileName(OAR)
-                    Dim OarMenu As New ToolStripMenuItem With {
-                .Text = Name,
-                .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                .Image = My.Resources.box_new
-            }
-                    AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
-                    LoadLocalOARToolStripMenuItem.Visible = True
-                    LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                End If
-
-            Next
-        Catch
-        End Try
-
-        Dim AutoOARs As Array = Nothing
-        Try
-            AutoOARs = Directory.GetFiles(BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
-
-            counter = MaxFileNum
-
-            If AutoOARs IsNot Nothing Then
-                For Each OAR As String In AutoOARs
-                    counter -= 1
-                    If counter > 0 Then
-                        Dim Name = Path.GetFileName(OAR)
-                        Dim OarMenu As New ToolStripMenuItem With {
-                    .Text = Name,
-                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.box_new
-                }
-                        AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
-                        LoadLocalOARToolStripMenuItem.Visible = True
-                        LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                    End If
-                Next
-            End If
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-        Dim IARs As Array = Nothing
-        ' now for the IARs
-        Try
-            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\IAR\")
-            IARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
-
-            LoadLocalIARToolStripMenuItem.DropDownItems.Clear()
-            counter = MaxFileNum
-            For Each IAR As String In IARs
-                counter -= 1
-                If counter > 0 Then
-                    Dim Name = Path.GetFileName(IAR)
-                    Dim IarMenu As New ToolStripMenuItem With {
-                    .Text = Name,
-                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.box_new
-                }
-                    AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
-                    LoadLocalIARToolStripMenuItem.Visible = True
-                    LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-
-                End If
-            Next
-        Catch
-        End Try
-
-        Dim AutoIARs As Array = Nothing
-        Try
-            AutoIARs = Directory.GetFiles(BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
-
-            If AutoIARs IsNot Nothing Then
-                counter = MaxFileNum
-                For Each IAR As String In AutoIARs
-                    counter -= 1
-                    If counter > 0 Then
-                        Dim Name = Path.GetFileName(IAR)
-                        Dim IarMenu As New ToolStripMenuItem With {
-                        .Text = Name,
-                        .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
-                    }
-                        AddHandler IarMenu.Click, New EventHandler(AddressOf LoadIarClick)
-                        LoadLocalIARToolStripMenuItem.Visible = True
-                        LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                    End If
-
-                Next
-            End If
-        Catch
-        End Try
-
-    End Sub
-
-    Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
-
-        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
-        LoadOARContent(File)
-        TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
-
-    End Sub
-
-    Private Sub LoadOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOARToolStripMenuItem.Click
-
-        LoadOar("")
-
-    End Sub
-
-    Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
-
-        Dim thing As String = sender.text.ToString
-
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
-        If LoadIARContent(File) Then
-            TextPrint(My.Resources.Opensimulator_is_loading & CStr(thing))
-        End If
-
-    End Sub
-
-    Private Sub LocalOarClick(sender As Object, e As EventArgs)
-
-        Dim thing As String = sender.text.ToString
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & thing) 'make a real URL
-        LoadOARContent(File)
-        TextPrint(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
-
-    End Sub
-
-    Private Sub RestartAllRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartAllRegionsToolStripMenuItem.Click
-
-        RestartAllRegions()
-
-    End Sub
-
-    Private Sub SaveAllRunningRegiondsAsOARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegiondsAsOARSToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
-
-        BackupAllRegions()
-
-    End Sub
-
-    Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
-
-        SaveIARTask()
-
-    End Sub
-
-    Private Sub SaveRegionOARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveRegionOARToolStripMenuItem1.Click
-
-        SaveOar("")
-
-    End Sub
-
-    Private Sub SearchForOarsAtOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForOarsAtOutworldzToolStripMenuItem.Click
-
-        Dim webAddress As String = PropHttpsDomain & "/Outworldz_Installer/OAR"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region "Toolstrip"
-
-    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
-
-        Me.TopMost = False
-        Settings.KeepOnTopMain = False
-        KeepOnTopToolStripMenuItem.Image = My.Resources.table
-        OnTopToolStripMenuItem.Checked = False
-        FloatToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
-
-#Disable Warning CA2000
-        Dim Lang As New Language
-#Enable Warning CA2000
-        Lang.Activate()
-        Lang.Visible = True
-        Lang.Select()
-        Lang.BringToFront()
-
-    End Sub
-
-    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
-
-        Me.TopMost = True
-        Settings.KeepOnTopMain = True
-        KeepOnTopToolStripMenuItem.Image = My.Resources.tables
-        OnTopToolStripMenuItem.Checked = True
-        FloatToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
-
-        Dim webAddress As String = IO.Path.Combine(PropHttpsDomain, "Search/")
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region "Testing"
-
-    Private Sub BackupAllIARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupAllIARsToolStripMenuItem.Click
-
-        SaveIARTaskAll()
-
-    End Sub
-
-    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
-
-        ShowUpdateForm()
-
-    End Sub
-
-    Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItemMySQL.Click
-        MysqlConsole()
-    End Sub
-
-    Private Sub ConnectToIceCastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToIceCastToolStripMenuItemIcecast.Click
-
-        If Settings.SCEnable Then
-            Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.SCPortBase, Globalization.CultureInfo.InvariantCulture)
-            Try
-                Process.Start(webAddress)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End If
-
-    End Sub
-
-    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItemApache.Click
-
-        If PropOpensimIsRunning() Then
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            Else
-                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
-                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
-            End If
-        Else
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            Else
-                TextPrint(My.Resources.Not_Running)
-            End If
-        End If
-    End Sub
-
-    Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim FormInput As New FormDebug
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        FormInput.Activate()
-        FormInput.Visible = True
-        FormInput.Select()
-        FormInput.BringToFront()
-
-    End Sub
-
-    Private Sub DeleteServiceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem.Click
-
-        StopApache(True)
-        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
-        Dim pi = New ProcessStartInfo With {
-        .WindowStyle = ProcessWindowStyle.Hidden,
-        .CreateNoWindow = True,
-        .FileName = win,
-        .Arguments = "delete ApacheHTTPServer"
-    }
-        Using p As New Process
-            p.StartInfo = pi
-            Try
-                p.Start()
-                p.WaitForExit()
-                ApacheIcon(False)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-    End Sub
-
-    Private Sub DeleteServiceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem1.Click
-
-        StopMysql()
-        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
-        Dim pi = New ProcessStartInfo With {
-        .WindowStyle = ProcessWindowStyle.Hidden,
-        .CreateNoWindow = True,
-        .FileName = win,
-        .Arguments = "delete MySQLDreamGrid"
-    }
-        Using p As New Process
-            p.StartInfo = pi
-            Try
-                p.Start()
-                p.WaitForExit()
-                MySQLIcon(False)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub G()
-
-        Graphs.Close()
-        Graphs.Dispose()
-        Graphs = New FormGraphs With {
-        .Visible = True
-    }
-        Graphs.Activate()
-        Graphs.Select()
-        Graphs.BringToFront()
-
-    End Sub
-
-    Private Sub PercentCPU_Click(sender As Object, e As EventArgs) Handles PercentCPU.Click
-        G()
-    End Sub
-
-    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
-        G()
-    End Sub
-
-    Private Sub SimulatorStatsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SimulatorStatsToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
-
-        Dim RegionPort = GroupPort(FindRegionByName(Settings.WelcomeRegion))
-        Dim webAddress As String = $"http://{Settings.PublicIP}:{CType(RegionPort, String)}/SStats/"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-
-    End Sub
-
-    Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
-        Settings.ApacheEnable = True
-        StartApache()
-    End Sub
-
-    Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
-        StartMySQL()
-    End Sub
-
-    Private Sub StartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem2.Click
-
-        StartRobust()
-
-    End Sub
-
-    Private Sub StartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem3.Click
-
-        StartIcecast()
-
-    End Sub
-
-    Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
-        StopApache(True)
-    End Sub
-
-    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
-
-        StopMysql()
-
-    End Sub
-
-    Private Sub StopToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem2.Click
-
-        StopRobust()
-
-    End Sub
-
-    Private Sub StopToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem3.Click
-
-        PropAborting = True
-        StopIcecast()
-        Sleep(2000)
-        PropAborting = False
-
-    End Sub
-
-    Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs)
-        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-    End Sub
-
-    Private Sub ViewGoogleMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewGoogleMapToolStripMenuItem.Click
-
-        Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
-        Dim Str = "/wifi/map.html?X=" & CStr(Coord_X(WelcomeUUID) - 15) &
-                    "&Y=" & CStr(Coord_Y(WelcomeUUID) + 5)
-
-        If Settings.ApacheEnable Then
-            Dim webAddress As String = $"http://{Settings.PublicIP}:{Settings.HttpPort}{Str}"
-
-            Try
-                Process.Start(webAddress)
-            Catch ex As Exception
-            End Try
-        Else
-            TextPrint(My.Resources.Apache_Disabled)
-        End If
-
-    End Sub
-
     Private Sub ViewVisitorMapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewVisitorMapsToolStripMenuItem.Click
 
         Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
@@ -3731,6 +3709,21 @@ Public Class FormSetup
         End Try
 
     End Sub
+
+    Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
+
+        Settings.LogLevel = "WARN"
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
+        For Each RegionUUID As String In RegionUuidListByName("*")
+            If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
+        Next
+    End Sub
+
+#Region "Timer"
 
 #End Region
 

@@ -11,6 +11,26 @@ Imports System.Threading
 Module FileStuff
 
     ''' <summary>
+    ''' Shows baretail logger of file inside this folder
+    ''' </summary>
+    ''' <param name="file">Full Path </param>
+    Public Sub Baretail(filepath As String)
+
+        Try
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim myProcess = New Process()
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            myProcess.StartInfo.UseShellExecute = False
+            myProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe")
+            myProcess.StartInfo.Arguments = filepath
+            myProcess.Start()
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
+        End Try
+
+    End Sub
+
+    ''' <summary>
     ''' ' Delete old code and files
     ''' </summary>
     Public Sub Cleanup() ' old files

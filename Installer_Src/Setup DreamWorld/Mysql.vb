@@ -230,11 +230,7 @@ Public Module MysqlInterface
                         End Try
 
                         For Each FileName As String In files
-                            Try
-                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
-                            Catch ex As Exception
-                                BreakPoint.Dump(ex)
-                            End Try
+                            Baretail("""" & FileName & """")
                             Application.DoEvents()
                         Next
                     End If
@@ -1398,11 +1394,7 @@ Public Module MysqlInterface
             If (yesno = vbYes) Then
 
                 For Each FileName As String In files
-                    Try
-                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{FileName}""")
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
+                    Baretail("""" & FileName & """")
                 Next
             End If
         Else

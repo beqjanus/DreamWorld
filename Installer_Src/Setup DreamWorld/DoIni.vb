@@ -244,7 +244,7 @@ Module DoIni
 
         Dim INI = New LoadIni(d, ";", System.Text.Encoding.UTF8)
 
-        INI.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
+        INI.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutboundPermissions))
         INI.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
         ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
@@ -339,7 +339,7 @@ Module DoIni
     Public Function DoPerlDBSetup() As Boolean
 
         Try
-            Dim perltext = $"DSN={Settings.RobustDataBaseName}:localhost:{Settings.MySqlRobustDBPort};UID={Settings.RobustUsername};PWD={Settings.RobustPassword};"
+            Dim perltext = $"DSN={Settings.RobustDatabaseName}:localhost:{Settings.MySqlRobustDBPort};UID={Settings.RobustUserName};PWD={Settings.RobustPassword};"
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\MySQL.txt"), False)
                 outputFile.WriteLine(perltext)
             End Using
@@ -353,7 +353,7 @@ Module DoIni
 
     Public Function DoPHPDBSetup() As Boolean
 
-        TextPrint("->Set PHP")
+        TextPrint("->Set PHP7")
         Dim phptext = "<?php " & vbCrLf &
 "/* General Domain */" & vbCrLf &
 "$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
@@ -362,9 +362,9 @@ Module DoIni
 "$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf & "/* MySQL Database */ " & vbCrLf &
 "$CONF_db_server     = " & """" & Settings.RobustServerIP & """" & "; // Address Of Robust Server " & vbCrLf &
 "$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
+"$CONF_db_user       = " & """" & Settings.RobustUserName & """" & ";  // login " & vbCrLf &
 "$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
-"$CONF_db_database   = " & """" & Settings.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
+"$CONF_db_database   = " & """" & Settings.RobustDatabaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
 "/* The Coordinates Of the Grid-Center */ " & vbCrLf &
 "$CONF_center_coord_x = " & """" & CStr(Settings.MapCenterX) & """" & ";		// the Center-X-Coordinate " & vbCrLf &
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
@@ -386,7 +386,7 @@ Module DoIni
 "$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
 "$DB_HOST = " & """" & Settings.RobustServerIP & """" & ";" & vbCrLf &
 "$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$DB_USER = " & """" & Settings.RobustUsername & """" & ";" & vbCrLf &
+"$DB_USER = " & """" & Settings.RobustUserName & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
@@ -579,7 +579,6 @@ Module DoIni
 
     Private Function DoPHP() As Boolean
 
-        TextPrint("->Set PHP7")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\php.ini")
 
         Settings.LoadLiteralIni(ini)

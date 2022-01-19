@@ -51,7 +51,9 @@ Public Class FormBackupCheckboxes
     ''' </summary>
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim b As New Backups()
+#Enable Warning CA2000 ' Dispose objects before losing scope
 
         BackupButton.Text = My.Resources.Running_word
 

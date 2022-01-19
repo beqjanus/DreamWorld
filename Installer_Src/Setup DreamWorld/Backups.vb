@@ -81,16 +81,15 @@ Public Class Backups
                 Dim user As String
                 Dim dbname As String
                 If Name = Settings.RobustDatabaseName Or
-                        Name = Settings.RobustDatabaseName Or
-                        Name = "Joomla" Or
-                        Name = "ossearch" Or
-                        Name = "osmodules" Or
-                        Name = "WordPress" Then
+                   Name = "Joomla" Or
+                   Name = "ossearch" Or
+                   Name = "osmodules" Or
+                   Name = "WordPress" Then
                     port = CStr(Settings.MySqlRobustDBPort)
                     host = Settings.RobustServerIP
                     user = Settings.RobustUserName
                     password = Settings.RobustPassword
-                    dbname = Settings.RobustDatabaseName
+                    dbname = Name
                 ElseIf Name = Settings.RegionDBName Then
                     port = CStr(Settings.MySqlRegionDBPort)
                     host = Settings.RegionServer
