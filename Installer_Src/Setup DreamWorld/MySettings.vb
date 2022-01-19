@@ -780,6 +780,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property DoSQLBackup() As Boolean
+        Get
+            Return CType(GetMySetting("DoSQLBackup", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DoSQLBackup", CStr(Value))
+        End Set
+
+    End Property
+
     Public Property DotnetUpgraded() As Boolean
         Get
             Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)

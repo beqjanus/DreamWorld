@@ -10,6 +10,7 @@ Imports System.Threading
 Imports Ionic.Zip
 
 Public Class Backups
+    Implements IDisposable
 
     Private _folder As String
     Private _initted As Boolean
@@ -25,25 +26,34 @@ Public Class Backups
 
 #Region "SQL Backup"
 
-    Public Sub BackupSQLDB(DBName As String)
+    Public Sub RunAllSQLBackups()
 
-        If Settings.BackupSQL Then
-            If Not StartMySQL() Then
-                FormSetup.ToolBar(False)
-                FormSetup.Buttons(FormSetup.StartButton)
-                TextPrint(My.Resources.Stopped_word)
-                Return
-            End If
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles/Mysql/Data/{Settings.RegionDBName}")) Then DoBackup(Settings.RegionDBName)
 
-            SqlBackup(DBName)
+        'its possible they are the same db when ported from a DreamWorld
+        If Settings.RegionDBName <> Settings.RobustDatabaseName Then
+            If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles/Mysql/Data/{Settings.RobustDatabaseName}")) Then DoBackup(Settings.RobustDatabaseName)
         End If
+
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/WordPress")) Then DoBackup("WordPress")
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/joomla")) Then DoBackup("Joomla")
+        If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/ossearch")) Then DoBackup("ossearch")
+
     End Sub
 
-    Public Sub RunSQLBackup(OP As Object)
+    Public Sub SqlBackup()
 
-        If OP Is Nothing Then Return
+        Dim currentdatetime As Date = Date.Now()
 
-        Dim Name As String = OP.ToString
+        _WebThread1 = New Thread(AddressOf RunAllSQLBackups)
+        _WebThread1.SetApartmentState(ApartmentState.STA)
+        _WebThread1.Priority = ThreadPriority.BelowNormal
+        _WebThread1.Start()
+
+    End Sub
+
+    Private Sub DoBackup(Name As String)
+
         Try
             Dim currentdatetime As Date = Date.Now()
             Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
@@ -69,24 +79,24 @@ Public Class Backups
                 Dim password As String
                 Dim user As String
                 Dim dbname As String
-                If OP.ToString = Settings.RobustDatabaseName Then
+                If Name = Settings.RobustDatabaseName Or
+                        Name = Settings.RobustDatabaseName Or
+                        Name = "Joomla" Or
+                        Name = "WordPress" Then
                     port = CStr(Settings.MySqlRobustDBPort)
                     host = Settings.RobustServerIP
                     user = Settings.RobustUserName
                     password = Settings.RobustPassword
                     dbname = Settings.RobustDatabaseName
-                ElseIf OP.ToString Is "Joomla" Then
-                    port = CStr(Settings.MySqlRegionDBPort)
-                    host = Settings.RegionServer
-                    user = Settings.RegionDBUserName
-                    password = Settings.RegionDbPassword
-                    dbname = "jOpensim"
-                Else
+                ElseIf Name = Settings.RegionDBName Then
                     port = CStr(Settings.MySqlRegionDBPort)
                     host = Settings.RegionServer
                     user = Settings.RegionDBUserName
                     password = Settings.RegionDbPassword
                     dbname = Settings.RegionDBName
+                Else
+                    ErrorLog($"Bad name for database backup of {Name}")
+                    Return
                 End If
 
                 Dim options = " --host=" & host & " --port=" & port _
@@ -131,8 +141,9 @@ Public Class Backups
                 Zip.AddFile(SQLFile, "/")
                 Zip.Save()
             End Using
+            ' stupid windows does not flush buffers!
             While Not File.Exists(Bak)
-                Sleep(1000)
+                Sleep(100)
             End While
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
             Sleep(100)
@@ -143,28 +154,20 @@ Public Class Backups
             Break(ex.Message)
         End Try
 
-        If Name = Settings.RegionDBName And Settings.RegionDBName <> Settings.RobustDatabaseName Then
-            BackupSQLDB(Settings.RobustDatabaseName)
-        End If
-
-    End Sub
-
-    Public Sub SqlBackup(dbName As String)
-
-        Dim currentdatetime As Date = Date.Now()
-
-        _WebThread1 = New Thread(AddressOf RunSQLBackup)
-        _WebThread1.SetApartmentState(ApartmentState.STA)
-        _WebThread1.Priority = ThreadPriority.BelowNormal
-        _WebThread1.Start(dbName)
-
     End Sub
 
 #End Region
 
 #Region "File Backup"
 
-    Dim IARLock As New Object
+    ReadOnly IARLock As New Object
+    Private disposedValue As Boolean
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Dispose(disposing:=True)
+        GC.SuppressFinalize(Me)
+    End Sub
 
     Public Sub RunAllBackups(run As Boolean)
 
@@ -195,6 +198,18 @@ Public Class Backups
             End If
         End If
 
+    End Sub
+
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: dispose managed state (managed objects)
+            End If
+
+            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            ' TODO: set large fields to null
+            disposedValue = True
+        End If
     End Sub
 
     Private Shared Sub BackupFsassets()
@@ -263,7 +278,7 @@ Public Class Backups
     Private Sub FullBackupThread()
 
         RunMainZip()
-        BackupSQLDB(Settings.RegionDBName)
+        RunAllSQLBackups()
         BackupFsassets()
 
     End Sub
@@ -393,6 +408,13 @@ Public Class Backups
         End Using
 
     End Sub
+
+    ' ' TODO: override finalizer only if 'Dispose(disposing As Boolean)' has code to free unmanaged resources
+    ' Protected Overrides Sub Finalize()
+    '     ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+    '     Dispose(disposing:=False)
+    '     MyBase.Finalize()
+    ' End Sub
 
 #End Region
 

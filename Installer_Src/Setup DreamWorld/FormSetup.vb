@@ -2949,13 +2949,9 @@ Public Class FormSetup
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
-        Dim A As New Backups
-        A.BackupSQLDB(Settings.RegionDBName)
-        If Settings.RegionDBName <> Settings.RobustDatabaseName Then
-            Sleep(5000)
-            Dim B As New Backups
-            B.BackupSQLDB(Settings.RobustDatabaseName)
-        End If
+        Using Backup As New Backups
+            Backup.SqlBackup()
+        End Using
 
     End Sub
 
