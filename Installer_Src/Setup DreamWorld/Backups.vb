@@ -40,7 +40,6 @@ Public Class Backups
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/ossearch")) Then DoBackup("ossearch")
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/osmodules")) Then DoBackup("osmodules")
 
-
     End Sub
 
     Public Sub SqlBackup()
@@ -84,6 +83,8 @@ Public Class Backups
                 If Name = Settings.RobustDatabaseName Or
                         Name = Settings.RobustDatabaseName Or
                         Name = "Joomla" Or
+                        Name = "ossearch" Or
+                        Name = "osmodules" Or
                         Name = "WordPress" Then
                     port = CStr(Settings.MySqlRobustDBPort)
                     host = Settings.RobustServerIP
