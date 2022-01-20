@@ -1624,6 +1624,7 @@ Public Class FormSetup
         If Settings.Sequential Then
             Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
+                If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
 
@@ -1651,8 +1652,10 @@ Public Class FormSetup
             End While
         Else
 
-            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
+            Dim ctr = 60 ' 1 minute max to start a region at 100% CPU
             While True
+                If Not PropOpensimIsRunning Then Return
+
                 If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
                     Exit While
                 End If

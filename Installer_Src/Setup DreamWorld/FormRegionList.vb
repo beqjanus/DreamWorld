@@ -464,7 +464,6 @@ SetWindowOnTop_Err:
                 Try
                     Dim result = Process.Start(webAddress)
                 Catch ex As Exception
-                    BreakPoint.Dump(ex)
                 End Try
             End If
         Next

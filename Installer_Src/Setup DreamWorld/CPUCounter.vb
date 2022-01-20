@@ -102,7 +102,7 @@ Module CPUCounter
                     O.CPUValues.Clear()
                 End Try
             End If
-            Thread.Sleep(10000)
+            Thread.Sleep(5000)
 
         End While
 
