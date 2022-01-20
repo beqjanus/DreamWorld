@@ -155,6 +155,10 @@ Public Class FormFSAssets
         Me.Close()
     End Sub
 
+    Private Sub DataFolder_TextChanged(sender As Object, e As EventArgs) Handles DataFolder.TextChanged
+        Changed = True
+    End Sub
+
 #End Region
 
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormFsAssets
+Partial Class FormFSAssets
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class FormFsAssets
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFsAssets))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFSAssets))
         Me.EnableFsAssetsCheckbox = New System.Windows.Forms.CheckBox()
         Me.FSAssetsGroupBox = New System.Windows.Forms.GroupBox()
         Me.SaveButton = New System.Windows.Forms.Button()
@@ -97,7 +97,7 @@ Partial Class FormFsAssets
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox2.Location = New System.Drawing.Point(221, 94)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(23, 17)
+        Me.PictureBox2.Size = New System.Drawing.Size(38, 27)
         Me.PictureBox2.TabIndex = 1887
         Me.PictureBox2.TabStop = False
         '
@@ -125,7 +125,7 @@ Partial Class FormFsAssets
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'FormFsAssets
+        'FormFSAssets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -135,7 +135,7 @@ Partial Class FormFsAssets
         Me.Controls.Add(Me.FSAssetsGroupBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.Name = "FormFsAssets"
+        Me.Name = "FormFSAssets"
         Me.Text = "Fie System Assets Server"
         Me.FSAssetsGroupBox.ResumeLayout(False)
         Me.FSAssetsGroupBox.PerformLayout()

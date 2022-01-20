@@ -154,7 +154,6 @@ Module Apache
                 ApacheProcess.Start()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-                BreakPoint.Dump(ex)
             End Try
             Application.DoEvents()
 
