@@ -135,11 +135,10 @@ Module Clear_Cache
             Dim ctr As Integer = 0
             Dim folders() = Nothing
             Dim src As String = Path.Combine(Settings.OpensimBinPath, "ScriptEngines")
+            TextPrint(My.Resources.Clearing_Script)
             If Directory.Exists(src) Then
                 folders = IO.Directory.GetFiles(src, "*", SearchOption.AllDirectories)
                 If folders IsNot Nothing Then
-                    TextPrint(My.Resources.Clearing_Script)
-
                     For Each script As String In folders
                         If script.EndsWith("Yengine", StringComparison.OrdinalIgnoreCase) Then Continue For
 
