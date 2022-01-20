@@ -403,7 +403,7 @@ SetWindowOnTop_Err:
 
             For Each X As ListViewItem In UserView.Items
 
-                If ItemsAreChecked1 Then
+                If Not ItemsAreChecked1 Then
                     If X.ForeColor = Color.Black Then
                         X.Checked = CType(CheckState.Checked, Boolean)
                     End If
@@ -426,7 +426,7 @@ SetWindowOnTop_Err:
                     If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
 
                     RegionEnabled(RegionUUID) = X.Checked
-                    If ItemsAreChecked1 Then
+                    If Not ItemsAreChecked1 Then
                         X.Checked = CType(CheckState.Checked, Boolean)
                     Else
                         X.Checked = CType(CheckState.Unchecked, Boolean)
@@ -438,6 +438,7 @@ SetWindowOnTop_Err:
                 End If
 
             Next
+
         End If
 
         If ItemsAreChecked1 Then
@@ -979,7 +980,7 @@ SetWindowOnTop_Err:
 
         ViewBusy = True
 
-        AllNone.Checked = True
+        AllNone.Checked = False
         AllNone.Visible = False
 
         AllButton.Checked = True
@@ -1335,6 +1336,8 @@ SetWindowOnTop_Err:
     Private Sub ShowAvatars()
         Try
             Me.Text = ""
+            AllNone.Visible = False
+            AllNone.Checked = False
             ViewBusy = True
             AvatarView.Show()
             ListView1.Hide()
@@ -1411,7 +1414,7 @@ SetWindowOnTop_Err:
         ShowTitle()
         Users.Text = My.Resources.Users_word
         AllNone.Visible = True
-
+        AllNone.Checked = False
         If ViewBusy = True Then
             Return
         End If
@@ -1649,7 +1652,7 @@ SetWindowOnTop_Err:
         ShowTitle()
         Users.Text = My.Resources.Users_word
         AllNone.Visible = False
-
+        AllNone.Checked = False
         IconView.TabIndex = 0
         IconView.Show()
         UserView.Visible = True
@@ -1721,6 +1724,7 @@ SetWindowOnTop_Err:
 
         Me.Text = ""
         AllNone.Visible = True
+        AllNone.Checked = False
         Users.Text = My.Resources.Email_word
         UserView.TabIndex = 0
         ViewBusy = True
