@@ -13,6 +13,7 @@ Module Global_Properties
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
     Public MapY As Integer = 100
+    Public RunningBackups As New List(Of String)
 
 #End Region
 
@@ -188,6 +189,8 @@ Module Global_Properties
         End Get
 
     End Property
+
+
 
     Public Property PropAborting() As Boolean
         Get

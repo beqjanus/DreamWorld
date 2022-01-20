@@ -877,6 +877,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to backup running.
+        '''</summary>
+        Friend ReadOnly Property backup_running() As String
+            Get
+                Return ResourceManager.GetString("backup_running", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to set up your Backup Schedule.
         '''</summary>
         Friend ReadOnly Property Backup_Schedule() As String

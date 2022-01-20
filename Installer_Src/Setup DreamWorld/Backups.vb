@@ -55,6 +55,7 @@ Public Class Backups
 
     Private Sub DoBackup(Name As String)
 
+        If Not RunningBackups.Contains(Name) Then RunningBackups.Add(Name)
         Try
             Dim currentdatetime As Date = Date.Now()
             Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
@@ -125,12 +126,12 @@ Public Class Backups
                 }
 
                 ProcessSqlDump.StartInfo = pi
+
                 Try
                     ProcessSqlDump.Start()
                 Catch ex As Exception
                     Break(ex.Message)
                 End Try
-
                 ProcessSqlDump.WaitForExit()
             End Using
 
@@ -148,13 +149,16 @@ Public Class Backups
                 Sleep(100)
             End While
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
+
             Sleep(100)
             DeleteFile(SQLFile)
             Sleep(100)
             DeleteFolder(_folder)
+
         Catch ex As Exception
             Break(ex.Message)
         End Try
+        RunningBackups.Remove(Name)
 
     End Sub
 
@@ -217,60 +221,62 @@ Public Class Backups
     Private Shared Sub BackupFsassets()
 
         If Settings.BackupFSAssets Then
-
+            Dim Name = "FsAssets"
+            If Not RunningBackups.Contains(Name) Then RunningBackups.Add(Name)
             Try
-                Dim f As String
-                If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
-                    f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
-                Else
-                    f = Settings.BaseDirectory
-                End If
-                If Directory.Exists(f) Then
-                    Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                    Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
+                    Dim f As String
+                    If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
+                        f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
+                    Else
+                        f = Settings.BaseDirectory
+                    End If
+                    If Directory.Exists(f) Then
+                        Dim dest = IO.Path.Combine(BackupPath, "FSassets")
+                        Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
 
-                    '/E  Everything including empty folders
-                    '/M Modified with the A bit set, then clears the bit
-                    '/TBD wait for share names to be defined
-                    '/IM include files with modified times
-                    '/J Unbuffered IO
+                        '/E  Everything including empty folders
+                        '/M Modified with the A bit set, then clears the bit
+                        '/TBD wait for share names to be defined
+                        '/IM include files with modified times
+                        '/J Unbuffered IO
 
-                    Dim rev = System.Environment.OSVersion.Version.Major
-                    ' Only on 10
-                    If rev = 10 Then args += "/LFSM:50M"
+                        Dim rev = System.Environment.OSVersion.Version.Major
+                        ' Only on 10
+                        If rev = 10 Then args += "/LFSM:50M"
 
-                    Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
-                    Debug.Print(args)
-                    Using ProcessRobocopy As New Process With {
+                        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
+                        Debug.Print(args)
+                        Using ProcessRobocopy As New Process With {
                             .EnableRaisingEvents = True
                         }
-                        Dim pi = New ProcessStartInfo With {
+                            Dim pi = New ProcessStartInfo With {
                             .Arguments = args,
                             .FileName = win,
                             .UseShellExecute = True,
                             .CreateNoWindow = True
                         }
-                        ProcessRobocopy.StartInfo = pi
+                            ProcessRobocopy.StartInfo = pi
 
-                        If Settings.ShowFsAssetBackup Then
-                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                            ProcessRobocopy.StartInfo.CreateNoWindow = False
-                        Else
-                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                            ProcessRobocopy.StartInfo.CreateNoWindow = True
-                        End If
+                            If Settings.ShowFsAssetBackup Then
+                                ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                                ProcessRobocopy.StartInfo.CreateNoWindow = False
+                            Else
+                                ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                                ProcessRobocopy.StartInfo.CreateNoWindow = True
+                            End If
 
-                        Try
-                            ProcessRobocopy.Start()
-                        Catch ex As Exception
-                            Break(ex.Message)
-                        End Try
-                    End Using
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
-        End If
+                            Try
+                                ProcessRobocopy.Start()
+                            Catch ex As Exception
+                                Break(ex.Message)
+                            End Try
+                        End Using
+                    End If
+                Catch ex As Exception
+                    Break(ex.Message)
+                End Try
+                RunningBackups.Remove(Name)
+            End If
 
     End Sub
 
@@ -291,6 +297,8 @@ Public Class Backups
     Private Sub RunBackupIARThread()
 
         If Settings.BackupIARs Then
+            Dim Name = "IAR"
+            If Not RunningBackups.Contains(Name) Then RunningBackups.Add(Name)
             SyncLock IARLock
                 ' Make IAR options
                 Dim RegionName = "TEMP"
@@ -310,6 +318,7 @@ Public Class Backups
                 }
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
             End SyncLock
+            RunningBackups.Remove(Name)
         End If
 
     End Sub
@@ -327,6 +336,8 @@ Public Class Backups
 
     Private Sub RunMainZip()
 
+        Dim Name = "Settings"
+        If Not RunningBackups.Contains(Name) Then RunningBackups.Add(Name)
         Dim zipused As Boolean
         'used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
@@ -380,9 +391,8 @@ Public Class Backups
                         Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
                         Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
                         For Each Region In RegionDirectoryInfo.GetFileSystemInfos
-                            Dim name = Region.Name
-                            If name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
-                                Dim shortname = name.Replace("ini", "")
+                            If Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
+                                Dim shortname = Region.Name.Replace("ini", "")
                                 Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
                                 zipused = True
                             End If
@@ -390,7 +400,6 @@ Public Class Backups
                     Catch ex As Exception
                         Break(ex.Message)
                     End Try
-
                 Next
             End If
 
@@ -408,15 +417,9 @@ Public Class Backups
             End Try
 
         End Using
+        RunningBackups.Remove(Name)
 
     End Sub
-
-    ' ' TODO: override finalizer only if 'Dispose(disposing As Boolean)' has code to free unmanaged resources
-    ' Protected Overrides Sub Finalize()
-    '     ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
-    '     Dispose(disposing:=False)
-    '     MyBase.Finalize()
-    ' End Sub
 
 #End Region
 

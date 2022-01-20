@@ -3999,4 +3999,7 @@
   <data name="ViewCacheFolder" xml:space="preserve">
     <value>View Cache Folder</value>
   </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>backup running</value>
+  </data>
 </root>

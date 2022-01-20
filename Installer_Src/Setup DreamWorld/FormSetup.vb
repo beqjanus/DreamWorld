@@ -36,6 +36,7 @@ Public Class FormSetup
     Private ReadOnly TimerLock As New Object
 
     Private _Adv As FormSettings
+    Private _WasRunning As Integer
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
@@ -816,6 +817,7 @@ Public Class FormSetup
         Application.EnableVisualStyles()
         Buttons(BusyButton)
 
+
         If Settings.KeepOnTopMain Then
             Me.TopMost = True
             KeepOnTopToolStripMenuItem.Image = My.Resources.tables
@@ -844,10 +846,15 @@ Public Class FormSetup
 
         Me.Show()
 
+        RunningBackups.Clear()
+
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
         AssemblyV = "Assembly version " + displayableVersion
+
+        Me.Text += " V" & PropMyVersion
+        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
         SetupPerl()
         SetupPerlModules() ' may require  a restart due to path
@@ -994,8 +1001,6 @@ Public Class FormSetup
         IsApacheRunning()
         IsIceCastRunning()
 
-        Me.Text += " V" & PropMyVersion
-        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
@@ -2500,6 +2505,15 @@ Public Class FormSetup
             RestartDOSboxes()
             ScanAgents()                ' update agent count
 
+            If RunningBackups.count <> 0 Then
+                If RunningBackups.Count <> _WasRunning Then
+                    For Each S In RunningBackups
+                        TextPrint($"{S} {My.Resources.backup_running}")
+                    Next
+                    _WasRunning = RunningBackups.Count
+                End If
+            End If
+
             Bench.Print("1 second worker ends")
 
             ' 33 ms
@@ -2671,10 +2685,12 @@ Public Class FormSetup
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
+        Dim Log = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log") & """"
+        DeleteFile(Log)
         Using Backup As New Backups
             Backup.SqlBackup()
         End Using
-        Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log") & """")
+        Baretail(Log)
 
     End Sub
 
