@@ -6916,6 +6916,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to No.
+        '''</summary>
+        Friend ReadOnly Property No() As String
+            Get
+                Return ResourceManager.GetString("No", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No Automatic OAR backup.
         '''</summary>
         Friend ReadOnly Property No_Autobackup() As String

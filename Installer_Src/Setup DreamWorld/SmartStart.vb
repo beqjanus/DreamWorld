@@ -172,7 +172,7 @@ Module SmartStart
 
 #Region "HTML"
 
-    Public Function RegionListHTML(Settings As MySettings, Data As String) As String
+    Public Function RegionListHTML(Data As String) As String
 
         ' TODO add parameter for start and length
 
@@ -181,7 +181,6 @@ Module SmartStart
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String = ""
-
         Dim ToSort As New Dictionary(Of String, String)
 
         Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
@@ -234,7 +233,6 @@ Module SmartStart
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-            ' BreakPoint.Dump(ex)
         End Try
 
         Return HTML

@@ -76,7 +76,7 @@ Public Class NetServer
                 Dim original = request.Url.OriginalString
 
                 If original.ToUpperInvariant.Contains("TELEPORTS.HTM") Then
-                    responseString = RegionListHTML(Setting, original)
+                    responseString = RegionListHTML(original)
                 Else
                     If (request.HasEntityBody) Then
                         Dim POST As String = reader.ReadToEnd()

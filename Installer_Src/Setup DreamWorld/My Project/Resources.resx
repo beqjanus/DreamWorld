@@ -4002,4 +4002,7 @@
   <data name="backup_running" xml:space="preserve">
     <value>backup running</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>

@@ -36,7 +36,7 @@ Public Class FormSetup
     Private ReadOnly TimerLock As New Object
 
     Private _Adv As FormSettings
-    Private _WasRunning As Integer
+    Private _WasRunning As String = ""
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
@@ -509,7 +509,6 @@ Public Class FormSetup
         Dim l = RegionUuids()
         l.Sort()
 
-        StartTimer()
 
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
@@ -846,7 +845,7 @@ Public Class FormSetup
 
         Me.Show()
 
-        RunningBackups.Clear()
+        RunningBackups = ""
 
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
@@ -854,7 +853,7 @@ Public Class FormSetup
         AssemblyV = "Assembly version " + displayableVersion
 
         Me.Text += " V" & PropMyVersion
-        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
+        TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
         SetupPerl()
         SetupPerlModules() ' may require  a restart due to path
@@ -1012,6 +1011,8 @@ Public Class FormSetup
             Application.DoEvents()
             Buttons(StartButton)
         End If
+
+        StartTimer()
 
     End Sub
 
@@ -2431,7 +2432,19 @@ Public Class FormSetup
         End Try
 
     End Sub
+    Private Sub PrintBackups()
 
+        If _WasRunning.Length > 0 And RunningBackups.Length = 0 Then
+            TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
+            _WasRunning = ""
+        End If
+        If RunningBackups.Length > 0 Then
+            If RunningBackups <> _WasRunning Then
+                TextPrint($"{RunningBackups} {My.Resources.backup_running}")
+                _WasRunning = RunningBackups
+            End If
+        End If
+    End Sub
     ''' <summary>
     ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
     ''' </summary>
@@ -2482,6 +2495,10 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
+        PrintBackups()
+        CalcDiskFree()              ' check for free disk space
+        Chart()                     ' do charts collection each second
+
         If Not PropOpensimIsRunning() Then
             Return
         End If
@@ -2497,28 +2514,16 @@ Public Class FormSetup
 
             ' 9 ms I9 9900K
             Bench.Print("1 second worker start")
-            CalcDiskFree()              ' check for free disk space
-            Chart()                     ' do charts collection each second
             CheckPost()                 ' see if anything arrived in the web server
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
             RestartDOSboxes()
             ScanAgents()                ' update agent count
-
-            If RunningBackups.count <> 0 Then
-                If RunningBackups.Count <> _WasRunning Then
-                    For Each S In RunningBackups
-                        TextPrint($"{S} {My.Resources.backup_running}")
-                    Next
-                    _WasRunning = RunningBackups.Count
-                End If
-            End If
-
             Bench.Print("1 second worker ends")
 
             ' 33 ms
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
-                ' Bench.Print("5 second worker")
+                Bench.Print("5 second worker")
                 CheckForBootedRegions()     ' And see if any booted up
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
@@ -2540,10 +2545,8 @@ Public Class FormSetup
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
-                ' print how many backups are running
-                Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
-                If t.Length > 0 Then TextPrint(t)
-                RegionListHTML(Settings, "Name") ' create HTML for teleport boards
+
+                RegionListHTML("Name") ' create HTML for teleport boards
                 VisitorCount()
                 Bench.Print("60 second work done")
             End If
@@ -2685,12 +2688,11 @@ Public Class FormSetup
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
-        Dim Log = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log") & """"
+        Dim Log = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log")
         DeleteFile(Log)
         Using Backup As New Backups
             Backup.SqlBackup()
         End Using
-        Baretail(Log)
 
     End Sub
 
