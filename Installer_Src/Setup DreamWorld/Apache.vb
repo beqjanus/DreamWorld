@@ -296,7 +296,6 @@ Module Apache
 
         Dim yesno = MsgBox(My.Resources.Apache_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
-
             Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Apache\error*.log") & """")
         End If
 
