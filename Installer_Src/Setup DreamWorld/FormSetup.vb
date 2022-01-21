@@ -148,14 +148,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropBootScanIsBusy() As Integer
-        Get
-            Return _PropBootScanIsBusy
-        End Get
-        Set(ByVal Value As Integer)
-            _PropBootScanIsBusy = Value
-        End Set
-    End Property
 
     Public Property PropCurSlashDir As String
         Get
@@ -338,7 +330,6 @@ Public Class FormSetup
         Buttons(StartButton)
         TextPrint(My.Resources.Stopped_word)
         ToolBar(False)
-        PropBootScanIsBusy = 0
 
         Return True
 
@@ -489,9 +480,7 @@ Public Class FormSetup
         'Redo all the region ports
         UpdateAllRegionPorts()
 
-        PropBootScanIsBusy = 0
         PropAborting = False
-
         Buttons(BusyButton)
 
         DoEstates() ' has to be done after MySQL starts up.
@@ -506,7 +495,6 @@ Public Class FormSetup
 
         StartThreads()
         Application.DoEvents()
-        Dim l = RegionUuids()
 
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
@@ -515,7 +503,6 @@ Public Class FormSetup
             If Guid.TryParse(UUID, out) Then
                 Boot(RegionName)
             End If
-            l.Remove(UUID)
         End If
 
         If Settings.GraphVisible Then
@@ -526,10 +513,20 @@ Public Class FormSetup
             ShowRegionform()
         End If
 
-        ' Boot them up
-        For Each RegionUUID As String In l
+        Dim ListOfNames As New List(Of String)
 
-            Diagnostics.Debug.Print($"Scanning  {Region_Name(RegionUUID)}")
+        ' Boot them up sorted in Alphabetcal Order
+        For Each RegionUUID As String In RegionUuids()
+            ListOfNames.Add(Region_Name(RegionUUID))
+        Next
+
+        ListOfNames.Sort()
+
+        For Each RegionName As String In ListOfNames
+
+            Dim RegionUUID = FindRegionByName(RegionName)
+
+            Diagnostics.Debug.Print($"Starting {RegionName}")
 
             If RegionEnabled(RegionUUID) Then
                 Dim BootNeeded As Boolean = False
@@ -563,7 +560,7 @@ Public Class FormSetup
                 End If
 
                 If BootNeeded And PropOpensimIsRunning Then
-                    Boot(Region_Name(RegionUUID))
+                    Boot(RegionName)
                 End If
             End If
 
@@ -1237,19 +1234,6 @@ Public Class FormSetup
 
     Public Sub CheckForBootedRegions()
 
-        Dim t = 60
-
-        If PropBootScanIsBusy > 0 And PropBootScanIsBusy < t Then
-            BreakPoint.Print("ExitHandlerPoll timeout")
-            PropBootScanIsBusy += 1
-            Return
-        End If
-
-        If PropBootScanIsBusy >= t Then
-            PropBootScanIsBusy = 0
-            BreakPoint.Print("CheckForBootedRegions timeout")
-        End If
-
         ' booted regions from web server
         Bench.Print("Booted list Start")
         Try
@@ -1459,8 +1443,6 @@ Public Class FormSetup
             BreakPoint.Dump(ex)
         End Try
         Bench.Print("Scan Region State End")
-
-        PropBootScanIsBusy = 0
 
     End Sub
 
@@ -1704,7 +1686,6 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Starting_word)
 
-        PropBootScanIsBusy = 0
         PropAborting = False  ' suppress exit warning messages
 
         ToolBar(False)
@@ -2525,6 +2506,7 @@ Public Class FormSetup
             ' 9 ms I9 9900K
             Bench.Print("1 second worker start")
             CheckPost()                 ' see if anything arrived in the web server
+            CheckForBootedRegions()     ' And see if any booted up
             TeleportAgents()            ' send them onward
             Chat2Speech()               ' speak of the devil
             RestartDOSboxes()
@@ -2534,7 +2516,7 @@ Public Class FormSetup
             ' 33 ms
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
-                CheckForBootedRegions()     ' And see if any booted up
+
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
                 Bench.Print("5 second worker ends")

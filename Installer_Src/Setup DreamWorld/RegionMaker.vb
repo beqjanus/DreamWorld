@@ -28,7 +28,8 @@ Module RegionMaker
 #Region "Declarations"
 
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
-    Private ReadOnly _webserverList As New List(Of String)
+
+    Public ReadOnly WebserverList As New ConcurrentDictionary(Of String, String)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
 
@@ -95,75 +96,62 @@ Module RegionMaker
 
     Public Sub CheckPost()
 
-        If WebserverList.Count = 0 Then Return
+        For Each TKey In WebserverList
 
-        While WebserverList.Count > 0
+            Dim ProcessString As String = TKey.Key ' recover the PID as string
+            WebserverList.TryRemove(TKey.Key, "")
+
+            ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
+            Dim POST As String = Uri.UnescapeDataString(ProcessString)
+            Dim first As Integer = POST.IndexOf("{", StringComparison.OrdinalIgnoreCase)
+            Dim last As Integer = POST.LastIndexOf("}", StringComparison.OrdinalIgnoreCase)
+
+            Dim rawJSON As String = ""
+            If first > -1 And last > -1 Then
+                rawJSON = POST.Substring(first, last - first + 1)
+            Else
+                Logger("RegionReady", "Malformed Web request: " & POST, "Teleport")
+                Continue For
+            End If
 
             Try
-                Dim ProcessString As String = WebserverList(0) ' recover the PID as string
-                WebserverList.RemoveAt(0)
-
-                ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
-                Dim POST As String = Uri.UnescapeDataString(ProcessString)
-                Dim first As Integer = POST.IndexOf("{", StringComparison.OrdinalIgnoreCase)
-                Dim last As Integer = POST.LastIndexOf("}", StringComparison.OrdinalIgnoreCase)
-
-                Dim rawJSON As String = ""
-                If first > -1 And last > -1 Then
-                    rawJSON = POST.Substring(first, last - first + 1)
-                Else
-                    Logger("RegionReady", "Malformed Web request: " & POST, "Teleport")
-                    Continue While
-                End If
-
-                Try
-                    json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                    Debug.Print(ex.Message)
-                    Logger("RegionReady", "Malformed JSON: " & ProcessString, "Teleport")
-                    Continue While
-                End Try
-
-                ' rawJSON "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
-
-                '2020-12-27 04:31:52:RegionReady: Enabled:Aurora
-                '2020-12-27 04:31:52:RegionReady Heard: Aurora
-                '2020-12-27 04:31:52:Ready : Aurora
-                '2020-12-27 04:31:52:RegionReady Booted: Aurora
-
-                If json.login = "enabled" Then
-
-                    Logger("RegionReady: Enabled", json.region_name, "Teleport")
-                    Dim uuid As String = FindRegionByName(json.region_name)
-                    Dim out As New Guid
-                    If Not Guid.TryParse(uuid, out) Then
-                        Logger("RegionReady Error, no UUID", json.region_name, "Teleport")
-                        Continue While
-                    End If
-
-                    BootedList.Add(uuid)
-
-                ElseIf json.login = "shutdown" Then
-                    Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
-                ElseIf json.login = "disabled" Then
-                    Continue While
-                Else
-                    Continue While
-                End If
+                json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
             Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Logger("RegionReady", "Exception:" & ex.Message, "Teleport")
-                Try
-                    WebserverList.Clear()
-                Catch
-                End Try
+                Debug.Print(ex.Message)
+                Logger("RegionReady", "Malformed JSON: " & ProcessString, "Teleport")
+                Continue For
             End Try
-        End While
 
-        PropUpdateView() = True
+            ' rawJSON "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
+            ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
+            ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
+
+            '2020-12-27 04:31:52:RegionReady: Enabled:Aurora
+            '2020-12-27 04:31:52:RegionReady Heard: Aurora
+            '2020-12-27 04:31:52:Ready : Aurora
+            '2020-12-27 04:31:52:RegionReady Booted: Aurora
+
+            If json.login = "enabled" Then
+
+                Logger("RegionReady: Enabled", json.region_name, "Teleport")
+                Dim uuid As String = FindRegionByName(json.region_name)
+                Dim out As New Guid
+                If Not Guid.TryParse(uuid, out) Then
+                    Logger("RegionReady Error, no UUID", json.region_name, "Teleport")
+                    Continue For
+                End If
+
+                BootedList.Add(uuid)
+
+            ElseIf json.login = "shutdown" Then
+                Continue For   ' this bit below interferes with restarting multiple regions in a DOS box
+            ElseIf json.login = "disabled" Then
+                Continue For
+            Else
+                Continue For
+            End If
+
+        Next
 
     End Sub
 
@@ -1249,11 +1237,6 @@ Module RegionMaker
 
 #Region "Options"
 
-    Public ReadOnly Property WebserverList As List(Of String)
-        Get
-            Return _webserverList
-        End Get
-    End Property
 
     Public Property AllowGods(uuid As String) As String
         Get
@@ -1700,7 +1683,7 @@ Module RegionMaker
 
         ' WarmingUp(0) = True ShuttingDown(1) = True
         If post.Contains("""alert"":""region_ready""") Then
-            WebserverList.Add(post)
+            WebserverList.TryAdd(post, "")
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then
             Return SmartStartParse(post)
         ElseIf post.ToUpperInvariant.Contains("TOS") Then
