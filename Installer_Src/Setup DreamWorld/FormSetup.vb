@@ -507,8 +507,6 @@ Public Class FormSetup
         StartThreads()
         Application.DoEvents()
         Dim l = RegionUuids()
-        l.Sort()
-
 
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
@@ -2401,6 +2399,7 @@ Public Class FormSetup
                     BreakPoint.Dump(ex)
                 End Try
             End Using
+
 
             Using pPerl As New Process()
                 Dim pi = New ProcessStartInfo With {
