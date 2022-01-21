@@ -583,9 +583,17 @@ Public Class FormSetup
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
-        If result = vbYes Then
-            ReallyQuit()
+        If result <> vbYes Then
+            Return
         End If
+
+        If RunningBackupName.Length > 0 Then
+            Dim response = MsgBox($"{RunningBackupName} {My.Resources.backup_running} .  {My.Resources.Quit_Now_Word}?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
+            If response = vbNo Then Return
+        End If
+
+        ReallyQuit()
+
 
     End Sub
 
@@ -845,7 +853,7 @@ Public Class FormSetup
 
         Me.Show()
 
-        RunningBackups = ""
+        RunningBackupName = ""
 
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
@@ -2437,14 +2445,14 @@ Public Class FormSetup
     End Sub
     Private Sub PrintBackups()
 
-        If _WasRunning.Length > 0 And RunningBackups.Length = 0 Then
+        If _WasRunning.Length > 0 And RunningBackupName.Length = 0 Then
             TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
             _WasRunning = ""
         End If
-        If RunningBackups.Length > 0 Then
-            If RunningBackups <> _WasRunning Then
-                TextPrint($"{RunningBackups} {My.Resources.backup_running}")
-                _WasRunning = RunningBackups
+        If RunningBackupName.Length > 0 Then
+            If RunningBackupName <> _WasRunning Then
+                TextPrint($"{RunningBackupName} {My.Resources.backup_running}")
+                _WasRunning = RunningBackupName
             End If
         End If
     End Sub
