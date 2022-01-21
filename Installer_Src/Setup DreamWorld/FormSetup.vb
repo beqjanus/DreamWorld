@@ -583,9 +583,17 @@ Public Class FormSetup
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
-        If result = vbYes Then
-            ReallyQuit()
+        If result <> vbYes Then
+            Return
         End If
+
+        If RunningBackupName.Length > 0 Then
+            Dim response = MsgBox($"{RunningBackupName} {My.Resources.backup_running} .  {My.Resources.Quit_Now_Word}?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
+            If response = vbNo Then Return
+        End If
+
+        ReallyQuit()
+
 
     End Sub
 

@@ -13,7 +13,7 @@ Module Global_Properties
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
     Public MapY As Integer = 100
-    Public RunningBackups As String = ""
+    Public RunningBackupName As String = ""
 
 #End Region
 

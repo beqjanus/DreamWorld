@@ -55,7 +55,7 @@ Public Class Backups
 
     Private Sub DoBackup(Name As String)
 
-        RunningBackups = Name
+        RunningBackupName = Name
         Try
             Dim currentdatetime As Date = Date.Now()
             Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
@@ -158,7 +158,7 @@ Public Class Backups
         Catch ex As Exception
             Break(ex.Message)
         End Try
-        RunningBackups = ""
+        RunningBackupName = ""
 
     End Sub
 
@@ -222,7 +222,7 @@ Public Class Backups
 
         If Settings.BackupFSAssets Then
             Dim Name = "FsAssets"
-            RunningBackups = Name
+            RunningBackupName = Name
             Try
                     Dim f As String
                     If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
@@ -275,7 +275,7 @@ Public Class Backups
                 Catch ex As Exception
                     Break(ex.Message)
                 End Try
-            RunningBackups = ""
+            RunningBackupName = ""
         End If
 
     End Sub
@@ -298,7 +298,7 @@ Public Class Backups
 
         If Settings.BackupIARs Then
             Dim Name = "IAR"
-            RunningBackups = Name
+            RunningBackupName = Name
             SyncLock IARLock
                 ' Make IAR options
                 Dim RegionName = "TEMP"
@@ -318,7 +318,7 @@ Public Class Backups
                 }
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
             End SyncLock
-            RunningBackups = ""
+            RunningBackupName = ""
         End If
 
     End Sub
@@ -337,7 +337,7 @@ Public Class Backups
     Private Sub RunMainZip()
 
         Dim Name = "Settings"
-        RunningBackups = Name
+        RunningBackupName = Name
         Dim zipused As Boolean
         'used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
@@ -417,7 +417,7 @@ Public Class Backups
             End Try
 
         End Using
-        RunningBackups = ""
+        RunningBackupName = ""
 
     End Sub
 
