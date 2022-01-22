@@ -3308,11 +3308,11 @@ Public Class FormSetup
 
         ' Create an instance of the open file dialog box. Set filter options and filter index.
         Dim openFileDialog1 = New OpenFileDialog With {
-        .InitialDirectory = BackupPath(),
-        .Filter = Global.Outworldz.My.Resources.Backup_Folder & "(*.sql)|*.sql|All Files (*.*)|*.*",
-        .FilterIndex = 1,
-        .Multiselect = False
-    }
+            .InitialDirectory = BackupPath(),
+            .Filter = Global.Outworldz.My.Resources.Backup_Folder & "(*.sql)|*.sql|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+        }
 
         ' Call the ShowDialog method to show the dialogbox.
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
@@ -3454,12 +3454,17 @@ Public Class FormSetup
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+
         Settings.ApacheEnable = True
+        Settings.SaveSettings()
         StartApache()
+
     End Sub
 
     Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
+
         StartMySQL()
+
     End Sub
 
     Private Sub StartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem2.Click
@@ -3470,11 +3475,14 @@ Public Class FormSetup
 
     Private Sub StartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem3.Click
 
+        Settings.SCEnable = True
+        Settings.SaveSettings()
         StartIcecast()
 
     End Sub
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
+
         If PropOpensimIsRunning() Then
             Dim RegionUUID As String = FindRegionByName(CStr(sender.Text))
             Dim port As String = CStr(Region_Port(RegionUUID))
@@ -3487,6 +3495,7 @@ Public Class FormSetup
         Else
             TextPrint(My.Resources.Not_Running)
         End If
+
     End Sub
 
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
@@ -3521,36 +3530,44 @@ Public Class FormSetup
     End Sub
 
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
+
         Dim webAddress As String = PropHttpsDomain & "/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
+
         For Each RegionUUID As String In RegionUuidListByName("*")
             If Not RPC_Region_Command(RegionUUID, "show threads") Then Return
         Next
+
     End Sub
 
     Private Sub TodoManualToolStripMenuItem_Click_1(sender As Object, e As EventArgs)
+
         Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\To Do List.pdf")
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+
         Dim webAddress As String = PropHttpsDomain & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
     End Sub
 
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
@@ -3579,6 +3596,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
+
         If PropOpensimIsRunning() And Settings.SCEnable Then
             Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.SCPortBase)
             TextPrint($"{My.Resources.Icecast_Desc}{vbCrLf}{webAddress}/stream")
@@ -3592,6 +3610,7 @@ Public Class FormSetup
         Else
             TextPrint(My.Resources.Not_Running)
         End If
+
     End Sub
 
     Private Sub ViewRegionMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewRegionMapToolStripMenuItem.Click
@@ -3619,9 +3638,11 @@ Public Class FormSetup
     End Sub
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
+
         For Each RegionUUID As String In RegionUuidListByName("*")
             If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
         Next
+
     End Sub
 
 #End Region
