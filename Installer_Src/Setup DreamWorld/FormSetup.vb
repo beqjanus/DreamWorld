@@ -329,7 +329,6 @@ Public Class FormSetup
         If Not KillAll() Then Return False
         Buttons(StartButton)
         TextPrint(My.Resources.Stopped_word)
-        ToolBar(False)
 
         Return True
 
@@ -344,9 +343,8 @@ Public Class FormSetup
 
         ToDoList.Clear()
 
-        AvatarLabel.Text = ""
         PropAborting = True
-        ToolBar(False)
+
         ' close everything as gracefully as possible.
 
         StopIcecast()
@@ -435,7 +433,6 @@ Public Class FormSetup
 
         Settings.SaveSettings()
 
-        ToolBar(False)
 
         Return True
 
@@ -819,7 +816,6 @@ Public Class FormSetup
         Application.EnableVisualStyles()
         Buttons(BusyButton)
 
-
         If Settings.KeepOnTopMain Then
             Me.TopMost = True
             KeepOnTopToolStripMenuItem.Image = My.Resources.tables
@@ -841,8 +837,6 @@ Public Class FormSetup
         TextBox1.SelectionBackColor = TextBox1.BackColor
 
         ' initialize the scrolling text box
-
-        ToolBar(False)
 
         Adv1 = New FormSettings
 
@@ -892,7 +886,7 @@ Public Class FormSetup
         PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
         Application.DoEvents()
 
-        ' Ruin Diagnostics
+        ' Run Diagnostics
         CheckDiagPort()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
@@ -1016,6 +1010,7 @@ Public Class FormSetup
         End If
 
         StartTimer()
+        ToolBar(True)
 
     End Sub
 
@@ -1688,8 +1683,6 @@ Public Class FormSetup
 
         PropAborting = False  ' suppress exit warning messages
 
-        ToolBar(False)
-
         If Settings.Language.Length = 0 Then
             Settings.Language = "en-US"
         End If
@@ -1757,7 +1750,6 @@ Public Class FormSetup
             End Using
         End If
 
-        ToolBar(True)
         TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
 
         ' Launch the rockets
@@ -1859,6 +1851,9 @@ Public Class FormSetup
     End Sub
 
     Private Sub Chart()
+
+
+
         ' Graph https://github.com/sinairv/MSChartWrapper
         Try
             ' running average
@@ -2156,7 +2151,6 @@ Public Class FormSetup
                 AvatarCount(RegionUUID) = 0
             Next
 
-            AvatarLabel.Text = ""
 
             For Each NameValue In combined
                 Dim Avatar = NameValue.Key
@@ -2358,7 +2352,7 @@ Public Class FormSetup
         End If
         Settings.VisitorsEnabled = True
         Settings.SaveSettings()
-        Sleep(1000)
+
 
     End Sub
 
@@ -2698,7 +2692,6 @@ Public Class FormSetup
         PropUpdateView = True ' make form refresh
 
         PropOpensimIsRunning() = False
-        ToolBar(False)
         TextPrint(My.Resources.Stopped_word)
         Buttons(StartButton)
 

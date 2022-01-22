@@ -9,13 +9,16 @@ Module Runtimes
 
     Public Sub AddVoices()
 
-        If Environment.OSVersion.Version.Build > 1000 Then
-            Dim Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\eva.reg")
-            Dim regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
-            regeditProcess.WaitForExit()
-            Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\mark.reg")
-            regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
-            regeditProcess.WaitForExit()
+        If Not Settings.VoicesInstalled Then
+            If Environment.OSVersion.Version.Build > 1000 Then
+                Dim Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\eva.reg")
+                Dim regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
+                regeditProcess.WaitForExit()
+                Registry = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\mark.reg")
+                regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
+                regeditProcess.WaitForExit()
+                Settings.VoicesInstalled = True
+            End If
         End If
 
     End Sub

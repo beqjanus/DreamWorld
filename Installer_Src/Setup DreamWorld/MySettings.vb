@@ -98,6 +98,16 @@ Public Class MySettings
 
 #Region "Properties"
 
+
+    Public Property VoicesInstalled() As Boolean
+        Get
+            Return CType(GetMySetting("VoicesInstalled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VoicesInstalled", CStr(Value))
+        End Set
+    End Property
+
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
