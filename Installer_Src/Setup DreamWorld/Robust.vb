@@ -94,8 +94,6 @@ Module Robust
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
-        PropOpensimIsRunning = True
-        ' prevent recursion
 
         For Each p In Process.GetProcessesByName("Robust")
             Try
@@ -105,6 +103,7 @@ Module Robust
                     RobustIcon(True)
                     p.EnableRaisingEvents = True
                     AddHandler p.Exited, AddressOf RobustProcess_Exited
+                    PropOpensimIsRunning = True
                     Return True
                 End If
             Catch ex As Exception
@@ -114,11 +113,13 @@ Module Robust
         ' Check the HTTP port
         If IsRobustRunning() Then
             RobustIcon(True)
+            PropOpensimIsRunning = True
             Return True
         End If
 
         If Settings.ServerType <> RobustServerName Then
             RobustIcon(True)
+            PropOpensimIsRunning = True
             Return True
         End If
 
@@ -171,19 +172,18 @@ Module Robust
         Dim counter = 0
         While Not IsRobustRunning() And PropOpensimIsRunning
 
-            Sleep(5000)
+            Sleep(1000)
             ' wait a minute for it to start
             If counter > 0 And counter Mod 30 = 0 Then
                 TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
             End If
             counter += 1
             ' 2 minutes to boot on bad hardware at 5 sec per spin
-            If counter > 90 Then
+            If counter > 120 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                 If (yesno = vbYes) Then
-
                     Baretail("""" & Settings.OpensimBinPath & "Robust.log" & """")
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
@@ -196,6 +196,7 @@ Module Robust
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)
+        PropOpensimIsRunning = True
         TextPrint(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
 

@@ -53,14 +53,15 @@ Partial Class FormMaps
         Me.Days2KeepBox = New System.Windows.Forms.TextBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Visitor = New System.Windows.Forms.GroupBox()
-        Me.K4Days = New System.Windows.Forms.Label()
+        Me.VisitorGroup = New System.Windows.Forms.GroupBox()
         Me.PublicMapsCheckbox = New System.Windows.Forms.CheckBox()
+        Me.K4Days = New System.Windows.Forms.Label()
+        Me.ApacheRunning = New System.Windows.Forms.Label()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
-        Me.Visitor.SuspendLayout()
+        Me.VisitorGroup.SuspendLayout()
         Me.SuspendLayout()
         '
         'MapBox
@@ -336,27 +337,19 @@ Partial Class FormMaps
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'Visitor
+        'VisitorGroup
         '
-        Me.Visitor.Controls.Add(Me.PublicMapsCheckbox)
-        Me.Visitor.Controls.Add(Me.K4Days)
-        Me.Visitor.Controls.Add(Me.Days2KeepBox)
-        Me.Visitor.Controls.Add(Me.ViewVisitorMapButton)
-        Me.Visitor.Location = New System.Drawing.Point(395, 34)
-        Me.Visitor.Name = "Visitor"
-        Me.Visitor.Size = New System.Drawing.Size(171, 120)
-        Me.Visitor.TabIndex = 3
-        Me.Visitor.TabStop = False
-        Me.Visitor.Text = "Visitors"
-        '
-        'K4Days
-        '
-        Me.K4Days.AutoSize = True
-        Me.K4Days.Location = New System.Drawing.Point(60, 54)
-        Me.K4Days.Name = "K4Days"
-        Me.K4Days.Size = New System.Drawing.Size(74, 13)
-        Me.K4Days.TabIndex = 15
-        Me.K4Days.Text = "Keep for Days"
+        Me.VisitorGroup.Controls.Add(Me.ApacheRunning)
+        Me.VisitorGroup.Controls.Add(Me.PublicMapsCheckbox)
+        Me.VisitorGroup.Controls.Add(Me.K4Days)
+        Me.VisitorGroup.Controls.Add(Me.Days2KeepBox)
+        Me.VisitorGroup.Controls.Add(Me.ViewVisitorMapButton)
+        Me.VisitorGroup.Location = New System.Drawing.Point(395, 34)
+        Me.VisitorGroup.Name = "VisitorGroup"
+        Me.VisitorGroup.Size = New System.Drawing.Size(171, 159)
+        Me.VisitorGroup.TabIndex = 3
+        Me.VisitorGroup.TabStop = False
+        Me.VisitorGroup.Text = "Visitors"
         '
         'PublicMapsCheckbox
         '
@@ -368,13 +361,31 @@ Partial Class FormMaps
         Me.PublicMapsCheckbox.Text = "Public Maps"
         Me.PublicMapsCheckbox.UseVisualStyleBackColor = True
         '
+        'K4Days
+        '
+        Me.K4Days.AutoSize = True
+        Me.K4Days.Location = New System.Drawing.Point(60, 54)
+        Me.K4Days.Name = "K4Days"
+        Me.K4Days.Size = New System.Drawing.Size(74, 13)
+        Me.K4Days.TabIndex = 15
+        Me.K4Days.Text = "Keep for Days"
+        '
+        'ApacheRunning
+        '
+        Me.ApacheRunning.AutoSize = True
+        Me.ApacheRunning.Location = New System.Drawing.Point(12, 130)
+        Me.ApacheRunning.Name = "ApacheRunning"
+        Me.ApacheRunning.Size = New System.Drawing.Size(74, 13)
+        Me.ApacheRunning.TabIndex = 17
+        Me.ApacheRunning.Text = "Keep for Days"
+        '
         'FormMaps
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(584, 345)
-        Me.Controls.Add(Me.Visitor)
+        Me.Controls.Add(Me.VisitorGroup)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MapBox)
@@ -389,8 +400,8 @@ Partial Class FormMaps
         Me.GroupBox2.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        Me.Visitor.ResumeLayout(False)
-        Me.Visitor.PerformLayout()
+        Me.VisitorGroup.ResumeLayout(False)
+        Me.VisitorGroup.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -422,9 +433,10 @@ Partial Class FormMaps
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents VieweAllMaps As Button
     Friend WithEvents ExportAllMaps As Button
-    Friend WithEvents Visitor As GroupBox
+    Friend WithEvents VisitorGroup As GroupBox
     Friend WithEvents K4Days As Label
     Friend WithEvents Days2KeepBox As TextBox
     Friend WithEvents ViewVisitorMapButton As Button
     Friend WithEvents PublicMapsCheckbox As CheckBox
+    Friend WithEvents ApacheRunning As Label
 End Class

@@ -707,9 +707,6 @@
   <data name="Network_Diagnostics" xml:space="preserve">
     <value>Network Diagnostics</value>
   </data>
-  <data name="XMLRP_start" xml:space="preserve">
-    <value>XMLRPC Port Start #</value>
-  </data>
   <data name="package_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\package_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2292,7 +2289,7 @@
     <value>Winter Pine 2</value>
   </data>
   <data name="Apache_Failed" xml:space="preserve">
-    <value>Web Server  failed to start</value>
+    <value>Web Server failed to start</value>
   </data>
   <data name="Float" xml:space="preserve">
     <value>Float</value>
@@ -3326,9 +3323,6 @@
   <data name="Auto_Startup_word" xml:space="preserve">
     <value>Automatic Startup</value>
   </data>
-  <data name="XMLRPC" xml:space="preserve">
-    <value>XMLRPC</value>
-  </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>Starting Diagnostic Port Webserver</value>
   </data>
@@ -3936,9 +3930,6 @@
   <data name="Teleport_Tooltip" xml:space="preserve">
     <value>Sends this region status to the Outworldz Teleport signs</value>
   </data>
-  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
-    <value>XMLRPC Region Port</value>
-  </data>
   <data name="text_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -4004,5 +3995,8 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="FiveMinutes_word" xml:space="preserve">
+    <value>Five Minutes Per Tick</value>
   </data>
 </root>
