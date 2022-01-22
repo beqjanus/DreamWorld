@@ -17,14 +17,20 @@ use File::Basename;
 use File::Find;
 use File::Copy::Recursive qw(dircopy);
 
+use Cwd;
+my $dir = getcwd;
+
+my $zip = '/Opensim/Zip/';
+my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
+
+
 # This requires a Authenticode Certificate to sign the files. The thumbprint comes from the cert. It is not the cert, which is privat and is saved in the windows store.
 # convert the Cert to a pfx file:  .\bin\openssl pkcs12 -export -out cert.pfx -inkey 2021.key -in 2021.cer
 # import the PK and the
 my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
 
-my $contents = io->file(
-'C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb'
-)->slurp;
+
+my $contents = io->file($src)->slurp;
 $contents =~ s/\n//;
 $contents =~ /_MyVersion As String = "(.*?)"/;
 my $v = $1;
@@ -39,8 +45,7 @@ $Version > io('GitVersion');
 say("GitVersion $Version");
 
 my $type = '-V' . $v;
-use Cwd;
-my $dir = getcwd;
+
 
 say("Building DreamGrid$type.zip");
 
@@ -50,9 +55,10 @@ chomp $publish;
 
 $v > io("$dir/Version.txt");
 
+
 my $start = GetDate() . " " . GetTime() . "\n";
 my @languages =
-  qw (ar ar-SA es-ES fa ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK    );
+  qw (ar ar-SA es ja ko es-ES fa ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK  zh-Hans zh-Hant  );
 foreach my $lang (@languages) {
     JustDelete($lang);
 }
@@ -61,13 +67,24 @@ my @a = io->dir('.')->all;
 
 foreach my $f (@a) {
     if ( $f->name =~ /tmp.*\.html/ ) {
+        say("Delete " . $f->name);
         $f->unlink;
     }
 }
 
+say("Clean up fsassets");
+
+my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets" > null"!;
+`$todo`;
+$todo = qq!RMDIR /Q/S     "$dir/OutworldzFiles/opensim/bin/fsassets"!;
+`$todo`;
+
 say("Clean up opensim");
+
+
 my @deletions = (
     "$dir/OutworldzFiles/AutoBackup",
+
     "$dir/OutworldzFiles/Opensim/WifiPages-Custom",
     "$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
     "$dir/OutworldzFiles/Opensim/WifiPages",
@@ -111,8 +128,7 @@ unlink "$dir/Outworldzfiles/Icecast/log/error.log";
 unlink "$dir/Outworldzfiles/Icecast/log/access.log";
 
 unlink "$dir/UpdateGrid.log";
-unlink "$dir/OutworldzFiles/Apache/htdocp
-s/Search/flog.log";
+unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log";
 unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log";
 unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log";
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log";
@@ -155,7 +171,7 @@ if ( $publish =~ /c|p/ ) {
     say("Mysql");
     chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
     print `mysqladmin.exe --port 3306 -u root shutdown`;
-    sleep(5);
+    sleep(1);
     chdir($dir);
     say("Cleaned");
 }
@@ -173,7 +189,7 @@ if (
 
 say("Signing Release");
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
-sign($exes);
+#sign($exes);
 
 use File::Copy::Recursive qw(dircopy);
 dircopy( $exes, $dir ) or die("$!\n");
@@ -212,7 +228,6 @@ say("Drop mysql files from update");
 
 # now delete the mysql from the UPDATE
 
-my $zip = '/Opensim/Zip/';
 
 say("Drop Mysql from update");
 DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
@@ -331,6 +346,7 @@ if (
     die $!;
 }
 
+
 if ( $publish =~ /p/ ) {
 
     say("Unlinking");
@@ -417,8 +433,7 @@ sub ProcessDir {
     my $file = shift;
     return if $file =~ /\.rtf$/;
 
-    my $x =
-`xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
+    my $x =`xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
     my $y = $x;
     $x =~ s/\n//g;
     if ( $x =~ /(\d+) File\(s\) copied/ ) {
