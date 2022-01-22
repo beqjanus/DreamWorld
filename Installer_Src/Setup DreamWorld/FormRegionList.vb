@@ -275,7 +275,7 @@ SetWindowOnTop_Err:
 
             FormSetup.Buttons(FormSetup.StopButton)
             PropOpensimIsRunning() = True
-            FormSetup.ToolBar(True)
+
 
         ElseIf chosen = "Stop" Then
 
