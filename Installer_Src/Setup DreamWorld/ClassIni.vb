@@ -34,6 +34,9 @@ Public Class LoadIni
         _parser.Parser.Configuration.AssigmentSpacer = ""
         _parser.Parser.Configuration.CommentString = Sep ' Opensim uses semicolons
         _SettingsData = ReadINIFile()
+        If _SettingsData Is Nothing Then
+            ErrorLog($"No Data in {FileName}")
+        End If
 
     End Sub
 
@@ -46,7 +49,7 @@ Public Class LoadIni
         End Set
     End Property
 
-    Public Property FileName As String
+    Private Property FileName As String
         Get
             Return _filename
         End Get
@@ -110,7 +113,7 @@ Public Class LoadIni
 
     Public Sub SaveINI()
 
-        Dim Retry As Integer = 10 ' 1 sec
+        Dim Retry As Integer = 100 ' 1 sec
         While Retry > 0
             Try
                 _parser.WriteFile(FileName, _SettingsData, Encoding)
@@ -118,8 +121,14 @@ Public Class LoadIni
             Catch ex As Exception
                 BreakPoint.Print("Error:" + ex.Message)
                 Retry -= 1
-                Thread.Sleep(100)
+                Thread.Sleep(10)
             End Try
+
+            If Retry < 0 Then
+                ErrorLog($"Region INI filed to save: {FileName}")
+                Dim result = MsgBox($"Region INI filed to save: {FileName}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
+                Throw New System.Exception("A INI File Exception has occurred.")
+            End If
         End While
 
     End Sub
@@ -196,6 +205,9 @@ Public Class LoadIni
             End Try
         End While
 
+        If waiting < -0 Then
+            ErrorLog($" Cannot load INI file: FileName")
+        End If
         Return Nothing
 
     End Function

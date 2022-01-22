@@ -819,7 +819,6 @@ Public Class FormSetup
         Application.EnableVisualStyles()
         Buttons(BusyButton)
 
-
         If Settings.KeepOnTopMain Then
             Me.TopMost = True
             KeepOnTopToolStripMenuItem.Image = My.Resources.tables
@@ -892,7 +891,7 @@ Public Class FormSetup
         PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
         Application.DoEvents()
 
-        ' Ruin Diagnostics
+        ' Run Diagnostics
         CheckDiagPort()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
@@ -2358,7 +2357,7 @@ Public Class FormSetup
         End If
         Settings.VisitorsEnabled = True
         Settings.SaveSettings()
-        Sleep(1000)
+
 
     End Sub
 
