@@ -132,7 +132,7 @@ Module FileStuff
 
         'Create the file stream for the source file
         Try
-            Using streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+            Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
                 'Create the file stream for the destination file
                 Using streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
                     'Determine the size in bytes of the source file (-1 as our position starts at 0)
