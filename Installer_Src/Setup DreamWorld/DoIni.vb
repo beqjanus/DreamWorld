@@ -190,6 +190,7 @@ Module DoIni
                 GridCommon = "Region\Gridcommon.ini"
             Case OsgridServer
                 GridCommon = "OsGrid\Gridcommon.ini"
+                Settings.HttpPort = 80
             Case MetroServer
                 GridCommon = "Metro\Gridcommon.ini"
         End Select
