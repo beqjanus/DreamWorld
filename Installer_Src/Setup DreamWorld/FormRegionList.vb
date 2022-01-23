@@ -11,7 +11,6 @@ Imports System.Text.RegularExpressions
 Imports System.Data
 
 Public Class FormRegionlist
-    Implements IDisposable
 
     '// Constants
     Const HWND_TOP As Integer = 0
@@ -275,7 +274,6 @@ SetWindowOnTop_Err:
 
             FormSetup.Buttons(FormSetup.StopButton)
             PropOpensimIsRunning() = True
-
 
         ElseIf chosen = "Stop" Then
 

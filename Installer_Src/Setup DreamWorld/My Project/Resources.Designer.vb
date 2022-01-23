@@ -391,7 +391,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Web Server  failed to start.
+        '''  Looks up a localized string similar to Web Server failed to start.
         '''</summary>
         Friend ReadOnly Property Apache_Failed() As String
             Get
@@ -3857,6 +3857,15 @@ Namespace My.Resources
         Friend ReadOnly Property First_name_word() As String
             Get
                 Return ResourceManager.GetString("First_name_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Five Minutes Per Tick.
+        '''</summary>
+        Friend ReadOnly Property FiveMinutes_word() As String
+            Get
+                Return ResourceManager.GetString("FiveMinutes_word", resourceCulture)
             End Get
         End Property
         
@@ -11885,33 +11894,6 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("xls-icon-3398", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XMLRPC Port Start #.
-        '''</summary>
-        Friend ReadOnly Property XMLRP_start() As String
-            Get
-                Return ResourceManager.GetString("XMLRP_start", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XMLRPC.
-        '''</summary>
-        Friend ReadOnly Property XMLRPC() As String
-            Get
-                Return ResourceManager.GetString("XMLRPC", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XMLRPC Region Port.
-        '''</summary>
-        Friend ReadOnly Property XMLRPC_TCP_is_set_word() As String
-            Get
-                Return ResourceManager.GetString("XMLRPC_TCP_is_set_word", resourceCulture)
             End Get
         End Property
         

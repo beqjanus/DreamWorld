@@ -36,7 +36,6 @@ Public Class FormSetup
     Private ReadOnly TimerLock As New Object
 
     Private _Adv As FormSettings
-    Private _WasRunning As String = ""
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
@@ -45,13 +44,12 @@ Public Class FormSetup
     Private _IceCastExited As Boolean
     Private _IPv4Address As String
     Private _KillSource As Boolean
-    Private _PropBootScanIsBusy As Integer
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
     Private _timerBusy1 As Integer
-
+    Private _WasRunning As String = ""
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
@@ -147,7 +145,6 @@ Public Class FormSetup
             _IcecastCrashCounter = value
         End Set
     End Property
-
 
     Public Property PropCurSlashDir As String
         Get
@@ -433,7 +430,6 @@ Public Class FormSetup
 
         Settings.SaveSettings()
 
-
         Return True
 
     End Function
@@ -481,7 +477,6 @@ Public Class FormSetup
         Buttons(BusyButton)
 
         DoEstates() ' has to be done after MySQL starts up.
-        PropOpensimIsRunning = True
 
         If Not StartRobust() Then
             Buttons(StopButton)
@@ -585,7 +580,6 @@ Public Class FormSetup
         End If
 
         ReallyQuit()
-
 
     End Sub
 
@@ -897,8 +891,6 @@ Public Class FormSetup
         ' WebUI Menu
         ViewWebUI.Visible = Settings.WifiEnabled
 
-        PropOpensimIsRunning() = False ' true when opensim is running
-
         CheckForUpdates()
         Application.DoEvents()
 
@@ -996,7 +988,6 @@ Public Class FormSetup
         IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
-
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
@@ -1237,15 +1228,11 @@ Public Class FormSetup
             While BootedList.Count > 0
 
                 Dim RegionUUID As String = ""
-                Try
-                    RegionUUID = BootedList(0)
-                    BootedList.RemoveAt(0)
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
+                RegionUUID = BootedList(0)
+                BootedList.RemoveAt(0)
 
-                If PropAborting Then Continue While
-                If Not PropOpensimIsRunning() Then Continue While
+                If PropAborting Then Return
+                If Not PropOpensimIsRunning() Then Return
                 If Not RegionEnabled(RegionUUID) Then Continue While
 
                 Dim RegionName = Region_Name(RegionUUID)
@@ -1462,15 +1449,11 @@ Public Class FormSetup
                     Or (status = SIMSTATUSENUM.Suspended)) Then
 
                 Dim Groupname = Group_Name(RegionUUID)
-
                 If GetHwnd(Groupname) = IntPtr.Zero Then
-                    Try
-                        If Not exitList.ContainsKey(Groupname) Then
-                            exitList.TryAdd(Groupname, "Exit")
-                        End If
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
+
+                    If Not exitList.ContainsKey(Groupname) Then
+                        exitList.TryAdd(Groupname, "Exit")
+                    End If
                 End If
             End If
 
@@ -1748,6 +1731,8 @@ Public Class FormSetup
                 Settings.SaveSettings()
 
             End Using
+        Else
+            ForceBackupOnce()
         End If
 
         TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
@@ -1765,6 +1750,16 @@ Public Class FormSetup
         TextPrint(My.Resources.Finished_word)
         ' done with boot up
 
+    End Sub
+
+    Private Sub ForceBackupOnce()
+        'once and only once, do a backup
+        If Not Settings.DoSQLBackup Then
+            Using Backup As New Backups
+                Backup.SqlBackup()
+            End Using
+            Settings.DoSQLBackup = True
+        End If
     End Sub
 
     Private Sub ReallyQuit()
@@ -1851,8 +1846,6 @@ Public Class FormSetup
     End Sub
 
     Private Sub Chart()
-
-
 
         ' Graph https://github.com/sinairv/MSChartWrapper
         Try
@@ -2032,11 +2025,11 @@ Public Class FormSetup
                     If counter > 0 Then
                         Dim Name = Path.GetFileName(OAR)
                         Dim OarMenu As New ToolStripMenuItem With {
-                .Text = Name,
-                .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                .Image = My.Resources.box_new
-            }
+                            .Text = Name,
+                            .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                            .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                            .Image = My.Resources.box_new
+                        }
                         AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
                         LoadLocalOARToolStripMenuItem.Visible = True
                         LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
@@ -2060,11 +2053,11 @@ Public Class FormSetup
                 If counter > 0 Then
                     Dim Name = Path.GetFileName(IAR)
                     Dim IarMenu As New ToolStripMenuItem With {
-                .Text = Name,
-                .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                .Image = My.Resources.box_new
-            }
+                        .Text = Name,
+                        .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = My.Resources.box_new
+                    }
                     AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                     LoadLocalIARToolStripMenuItem.Visible = True
                     LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
@@ -2085,10 +2078,10 @@ Public Class FormSetup
                     If counter > 0 Then
                         Dim Name = Path.GetFileName(IAR)
                         Dim IarMenu As New ToolStripMenuItem With {
-                    .Text = Name,
-                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
-                }
+                            .Text = Name,
+                            .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                            .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        }
                         AddHandler IarMenu.Click, New EventHandler(AddressOf LoadIarClick)
                         LoadLocalIARToolStripMenuItem.Visible = True
                         LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
@@ -2150,7 +2143,6 @@ Public Class FormSetup
             For Each RegionUUID As String In RegionUuids()
                 AvatarCount(RegionUUID) = 0
             Next
-
 
             For Each NameValue In combined
                 Dim Avatar = NameValue.Key
@@ -2353,7 +2345,6 @@ Public Class FormSetup
         Settings.VisitorsEnabled = True
         Settings.SaveSettings()
 
-
     End Sub
 
     Private Sub SetupPerlModules()
@@ -2374,7 +2365,6 @@ Public Class FormSetup
                     BreakPoint.Dump(ex)
                 End Try
             End Using
-
 
             Using pPerl As New Process()
                 Dim pi = New ProcessStartInfo With {
@@ -2397,6 +2387,20 @@ Public Class FormSetup
 
 #End Region
 
+    Private Sub PrintBackups()
+
+        If _WasRunning.Length > 0 And RunningBackupName.Length = 0 Then
+            TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
+            _WasRunning = ""
+        End If
+        If RunningBackupName.Length > 0 Then
+            If RunningBackupName <> _WasRunning Then
+                TextPrint($"{RunningBackupName} {My.Resources.backup_running}")
+                _WasRunning = RunningBackupName
+            End If
+        End If
+    End Sub
+
     Private Sub ShowRegionform()
 
         Try
@@ -2417,19 +2421,7 @@ Public Class FormSetup
         End Try
 
     End Sub
-    Private Sub PrintBackups()
 
-        If _WasRunning.Length > 0 And RunningBackupName.Length = 0 Then
-            TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
-            _WasRunning = ""
-        End If
-        If RunningBackupName.Length > 0 Then
-            If RunningBackupName <> _WasRunning Then
-                TextPrint($"{RunningBackupName} {My.Resources.backup_running}")
-                _WasRunning = RunningBackupName
-            End If
-        End If
-    End Sub
     ''' <summary>
     ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
     ''' </summary>
@@ -2482,10 +2474,6 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
-        PrintBackups()
-        CalcDiskFree()              ' check for free disk space
-        Chart()                     ' do charts collection each second
-
         If Not PropOpensimIsRunning() Then
             Return
         End If
@@ -2499,26 +2487,33 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
-            ' 9 ms I9 9900K
-            Bench.Print("1 second worker start")
-            CheckPost()                 ' see if anything arrived in the web server
-            CheckForBootedRegions()     ' And see if any booted up
-            TeleportAgents()            ' send them onward
 
-            RestartDOSboxes()
-            ScanAgents()                ' update agent count
-            Bench.Print("1 second worker ends")
+            If SecondsTicker Mod 2 = 0 And SecondsTicker > 0 Then
+                Bench.Print("2 second worker start")
+                PrintBackups()
+                CalcDiskFree()              ' check for free disk space
+                CheckPost()                 ' see if anything arrived in the web server
+                CheckForBootedRegions()     ' And see if any booted up
+                TeleportAgents()            ' send them onward
+                Chat2Speech()               ' speak of the devil
+                RestartDOSboxes()
+            End If
 
-            ' 33 ms
+
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
-
-                DidItDie()
-                ProcessQuit()               ' check if any processes exited
+                Chart()                     ' do charts collection each second
+                ScanAgents()                ' update agent count
                 Bench.Print("5 second worker ends")
             End If
 
-            ' 2  ms
+            If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
+                Bench.Print("10 second worker")
+                DidItDie()
+                ProcessQuit()               ' check if any processes exited
+                Bench.Print("10 second worker ends")
+            End If
+
             If SecondsTicker = 60 Then
                 Bench.Print("Initial 60 second worker")
                 ScanOpenSimWorld(True)
@@ -2527,7 +2522,6 @@ Public Class FormSetup
                 Bench.Print("Initial 60 second worker ends")
             End If
 
-            '22 ms
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
                 DeleteOldWave()
@@ -2539,7 +2533,6 @@ Public Class FormSetup
                 Bench.Print("60 second work done")
             End If
 
-            ' 2 ms
             ' Run Search and events once at 5 minute mark
             If SecondsTicker = 300 Then
                 Bench.Print("300 second worker")
@@ -2548,7 +2541,6 @@ Public Class FormSetup
                 Bench.Print("300 second worker ends")
             End If
 
-            '2 ms
             ' half hour
             If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
                 Bench.Print("half hour worker")

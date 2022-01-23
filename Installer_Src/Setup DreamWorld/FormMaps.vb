@@ -162,6 +162,14 @@ Public Class FormMaps
 
         PublicMapsCheckbox.Checked = Settings.PublicVisitorMaps
 
+        If Settings.ApacheEnable Then
+            VisitorGroup.Enabled = True
+            ApacheRunning.Text = ""
+        Else
+            VisitorGroup.Enabled = False
+            ApacheRunning.Text = My.Resources.Apache_Disabled
+        End If
+
         If Settings.MapType = "None" Then
             MapNone.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox

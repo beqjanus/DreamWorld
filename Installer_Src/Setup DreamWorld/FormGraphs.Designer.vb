@@ -56,7 +56,7 @@ Partial Class FormGraphs
         Me.ChartWrapper1.AddMarkers = True
         Me.ChartWrapper1.AutoSize = True
         Me.ChartWrapper1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        Me.ChartWrapper1.AxisXTitle = "5 Minutes per tick"
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -65,7 +65,7 @@ Partial Class FormGraphs
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
-        Me.ChartWrapper1.MarkerSize = 1
+        Me.ChartWrapper1.MarkerSize = 2
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
         Me.ChartWrapper1.Size = New System.Drawing.Size(800, 218)
@@ -77,7 +77,7 @@ Partial Class FormGraphs
         Me.ChartWrapper2.AddMarkers = True
         Me.ChartWrapper2.AutoSize = True
         Me.ChartWrapper2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        Me.ChartWrapper2.AxisXTitle = "5 Minutes per tick"
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ChartWrapper2.LegendVisible = False
@@ -91,6 +91,9 @@ Partial Class FormGraphs
         Me.ChartWrapper2.Size = New System.Drawing.Size(800, 228)
         Me.ChartWrapper2.TabIndex = 0
         Me.ChartWrapper2.Title = ""
+        '
+        'TimerGraph
+        '
         '
         'FormGraphs
         '

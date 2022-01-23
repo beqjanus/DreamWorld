@@ -57,7 +57,6 @@ Public Module MysqlInterface
 
         Log("INFO", "Checking MySQL")
         If MysqlInterface.IsMySqlRunning() Then
-            ForceBackupOnce()
             Return True
         End If
 
@@ -255,21 +254,9 @@ Public Module MysqlInterface
 
         PropMysqlExited = False
 
-        ForceBackupOnce()
-
         Return True
 
     End Function
-
-    Private Sub ForceBackupOnce()
-        'once and only once, do a backup
-        If Not Settings.DoSQLBackup Then
-            Using Backup As New Backups
-                Backup.SqlBackup()
-            End Using
-            Settings.DoSQLBackup = True
-        End If
-    End Sub
 
 #End Region
 
@@ -734,7 +721,7 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Dump(ex)
+                ErrorLog(ex.Message)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

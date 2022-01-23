@@ -190,8 +190,6 @@ Module Global_Properties
 
     End Property
 
-
-
     Public Property PropAborting() As Boolean
         Get
             Return _PropAborting

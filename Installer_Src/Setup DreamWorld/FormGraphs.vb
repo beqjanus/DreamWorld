@@ -55,8 +55,8 @@
         TimerGraph.Interval = 1000
         TimerGraph.Enabled = True
 
-        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
-        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
+        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.FiveMinutes_word
+        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.FiveMinutes_word
 
         Dim msChart = ChartWrapper1.TheChart
         msChart.ChartAreas(0).AxisX.Maximum = 180
