@@ -2491,7 +2491,7 @@ Public Class FormSetup
                 CheckPost()                 ' see if anything arrived in the web server
                 CheckForBootedRegions()     ' And see if any booted up
                 TeleportAgents()            ' send them onward
-                Chat2Speech()               ' speak of the devil
+
                 RestartDOSboxes()
             End If
 

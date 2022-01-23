@@ -234,6 +234,7 @@ DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
 say("Drop JOpensim Folder");
 
 DeleteandKeep("$zip/Outworldzfiles/Apache/htdocs/jOpensim");
+
 if (
     !copy(
         "$zip/Outworldzfiles/jOpensim_Files/default.htm",

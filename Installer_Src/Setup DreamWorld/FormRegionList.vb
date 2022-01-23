@@ -1216,19 +1216,55 @@ SetWindowOnTop_Err:
 
         SearchArray.Clear()
 
-        Dim L = RegionUuids()
-        L.Sort()
+        Select Case TheView1
+            Case ViewType.Avatars
 
-        For Each RegionUUID In L
+                Dim L = RegionUuids()
+                L.Sort()
 
-            If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
-                If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                    SearchArray.Add(RegionUUID)
-                End If
-            Else
-                SearchArray.Add(RegionUUID)
-            End If
-        Next
+                For Each RegionUUID In L
+                    If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
+                        If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                            SearchArray.Add(RegionUUID)
+                        End If
+                    Else
+                        SearchArray.Add(RegionUUID)
+                    End If
+                Next
+
+            Case ViewType.Users
+            Case ViewType.Details
+
+                Dim L = RegionUuids()
+                L.Sort()
+
+                For Each RegionUUID In L
+                    If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
+                        If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                            SearchArray.Add(RegionUUID)
+                        End If
+                    Else
+                        SearchArray.Add(RegionUUID)
+                    End If
+                Next
+
+            Case ViewType.Icons
+
+                Dim L = RegionUuids()
+                L.Sort()
+
+                For Each RegionUUID In L
+                    If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
+                        If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                            SearchArray.Add(RegionUUID)
+                        End If
+                    Else
+                        SearchArray.Add(RegionUUID)
+                    End If
+                Next
+
+        End Select
+
         SearchBusy = False
         Search()
 
@@ -1356,19 +1392,23 @@ SetWindowOnTop_Err:
             End If
 
             For Each Agent In ListOfAgents
-                Dim item1 As New ListViewItem(Agent.Key, Index)
-                item1.SubItems.Add(Region_Name(Agent.Value))
-                item1.SubItems.Add(My.Resources.Local_Grid)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index += 1
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Region_Name(Agent.Value))
+                    item1.SubItems.Add(My.Resources.Local_Grid)
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
+
             Next
             For Each Agent In Presence
-                Dim item1 As New ListViewItem(Agent.Key, Index)
-                item1.SubItems.Add(Region_Name(Agent.Value))
-                item1.SubItems.Add(My.Resources.Local_Grid)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index += 1
-                Index += 1
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Region_Name(Agent.Value))
+                    item1.SubItems.Add(My.Resources.Local_Grid)
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
             Next
 
             If ListOfAgents.Count = 0 Then
@@ -1747,32 +1787,37 @@ SetWindowOnTop_Err:
             End If
 
             For Each Agent In M
-                Dim item1 As New ListViewItem(Agent.Key, Index)
 
-                Dim parts As String() = Agent.Value.Split("|".ToCharArray())
-                Dim email = parts(0).Trim
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
 
-                If email.Length = 0 Then
-                    item1.BackColor = Color.DarkGray
-                    item1.ForeColor = Color.White
-                Else
-                    item1.BackColor = Color.White
-                    item1.ForeColor = Color.Black
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+
+                    Dim parts As String() = Agent.Value.Split("|".ToCharArray())
+                    Dim email = parts(0).Trim
+
+                    If email.Length = 0 Then
+                        item1.BackColor = Color.DarkGray
+                        item1.ForeColor = Color.White
+                    Else
+                        item1.BackColor = Color.White
+                        item1.ForeColor = Color.Black
+                    End If
+
+                    Dim UUID As String = parts(1)
+                    Dim Level As String = parts(2)
+                    Dim Birthdate As String = parts(3)
+                    Dim age As Integer = CInt(parts(4))
+
+                    item1.SubItems.Add(email)
+                    item1.SubItems.Add(MysqlInterface.AssetCount(UUID).ToString("000000", Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(Level)
+                    item1.SubItems.Add(Birthdate)
+                    item1.SubItems.Add(age.ToString("000000", Globalization.CultureInfo.CurrentCulture))
+                    UserView.Items.AddRange(New ListViewItem() {item1})
+
+                    Index += 1
                 End If
 
-                Dim UUID As String = parts(1)
-                Dim Level As String = parts(2)
-                Dim Birthdate As String = parts(3)
-                Dim age As Integer = CInt(parts(4))
-
-                item1.SubItems.Add(email)
-                item1.SubItems.Add(MysqlInterface.AssetCount(UUID).ToString("000000", Globalization.CultureInfo.CurrentCulture))
-                item1.SubItems.Add(Level)
-                item1.SubItems.Add(Birthdate)
-                item1.SubItems.Add(age.ToString("000000", Globalization.CultureInfo.CurrentCulture))
-                UserView.Items.AddRange(New ListViewItem() {item1})
-
-                Index += 1
             Next
 
             Me.Text = M.Count & " " & My.Resources.Users_word

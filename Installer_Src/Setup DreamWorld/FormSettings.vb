@@ -142,8 +142,6 @@ Public Class FormSettings
 
         SetScreen()
 
-        HelpOnce("Settings")
-
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
 
@@ -409,11 +407,6 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-
-        HelpManual("Settings")
-
-    End Sub
 
     Private Sub LanguageButton_Click(sender As Object, e As EventArgs) Handles LanguageButton.Click
 
