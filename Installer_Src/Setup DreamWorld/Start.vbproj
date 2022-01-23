@@ -616,6 +616,12 @@
     <Compile Include="FormSpeech.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSSL.Designer.vb">
+      <DependentUpon>FormSSL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSSL.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTide.Designer.vb">
       <DependentUpon>FormTide.vb</DependentUpon>
     </Compile>
@@ -883,6 +889,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSpeech.resx">
       <DependentUpon>FormSpeech.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSSL.resx">
+      <DependentUpon>FormSSL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTide.resx">
       <DependentUpon>FormTide.vb</DependentUpon>
@@ -1416,6 +1425,7 @@
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />
     <None Include="Resources\loudspeaker.png" />
+    <None Include="Resources\line-chart.png" />
     <Content Include="Resources\mail.ico" />
     <Content Include="Resources\Martin-Berube-Flat-Animal-Bird.ico" />
     <None Include="Resources\Outworldz ad by Marianna Monentes.png" />

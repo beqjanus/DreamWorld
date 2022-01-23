@@ -127,9 +127,6 @@
   <data name="tt_Apache_Other" xml:space="preserve">
     <value>The name of the "other" folder. Must be located in Apache\htdocs folder. All web traffic to the / page will be redirected to this folder.</value>
   </data>
-  <data name="Cache_Directory_word" xml:space="preserve">
-    <value>Cache Directory</value>
-  </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Region Stats</value>
   </data>
@@ -148,6 +145,9 @@
   <data name="Click_Icecast" xml:space="preserve">
     <value>Click to Setup Shoutcast/Icecast</value>
   </data>
+  <data name="data_into" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\data_into.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EnableJOpensim" xml:space="preserve">
     <value>Enable JOpensim</value>
   </data>
@@ -160,17 +160,20 @@
   <data name="media_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="navigate_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigate_down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="View_Statistics_Word" xml:space="preserve">
     <value>View Statistics</value>
   </data>
-  <data name="Norwegian" xml:space="preserve">
-    <value>Norwegian</value>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
   </data>
   <data name="Load_Local_IARs" xml:space="preserve">
     <value>Load Local IARs from the IAR folder</value>
   </data>
-  <data name="Backing_up_Settings_word" xml:space="preserve">
-    <value>Backing up Settings</value>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Click to Set up Start/Stop/Recycle and Crash options</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>The TOS module shows your users and/or visitors this HTML text.</value>
@@ -178,8 +181,11 @@
   <data name="workplace" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\workplace.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NTSuspend" xml:space="preserve">
-    <value>Error: Could Not launch NtSuspendProcess64.exe.</value>
+  <data name="tt_Bird_Border_size" xml:space="preserve">
+    <value>How close to the sim border the birds will fly.  iff they get too close thay will fly intoi anothert sim.  And die. And die. And die until it fills up the sim</value>
+  </data>
+  <data name="Checking_LAN_Loopback_word" xml:space="preserve">
+    <value>Checking LAN Loopback</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
     <value>Setting Loopback Adapter to Public IP address</value>
@@ -190,23 +196,29 @@
   <data name="No_Locate_FSassets" xml:space="preserve">
     <value>Cannot locate FSasset folder:</value>
   </data>
+  <data name="Diag_Port_word" xml:space="preserve">
+    <value>Diagnostics port</value>
+  </data>
   <data name="Search_Events" xml:space="preserve">
     <value>Search for Objects and Events (www)</value>
   </data>
   <data name="Increasing_time_to_word" xml:space="preserve">
     <value>Increasing Time to</value>
   </data>
-  <data name="Quit_unexpectedly" xml:space="preserve">
-    <value>has stopped.</value>
+  <data name="webserver_Search_map" xml:space="preserve">
+    <value>Web Server + Search and Map</value>
   </data>
   <data name="Deregister_All" xml:space="preserve">
     <value>All Regions are deregistered</value>
   </data>
-  <data name="Seconds_word" xml:space="preserve">
-    <value>seconds</value>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Load Help Files</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
     <value>Grid address is</value>
+  </data>
+  <data name="All_word" xml:space="preserve">
+    <value>All</value>
   </data>
   <data name="Pending_word" xml:space="preserve">
     <value>Pending</value>
@@ -223,14 +235,14 @@
   <data name="Max_Phys" xml:space="preserve">
     <value>You cannot make a physical prim bigger than this</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Caution! This will load 150+ OARS and regions into your system. This will take a long time.</value>
-  </data>
   <data name="Minute" xml:space="preserve">
     <value>Minute</value>
   </data>
   <data name="ClicktoInsertPhoto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ClicktoInsertPhoto.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Run_All_word" xml:space="preserve">
+    <value>Run All</value>
   </data>
   <data name="Parcels" xml:space="preserve">
     <value>Parcels</value>
@@ -253,11 +265,14 @@
   <data name="View_Map_word" xml:space="preserve">
     <value>View Map</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options</value>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Enter the Grid Owner Information</value>
   </data>
   <data name="tt_Backup_SQL" xml:space="preserve">
     <value>Backup MySQL to two MySQLDump files, one for robust, one for regions. This is a portable, human readioable format</value>
+  </data>
+  <data name="GlobalSettings_word" xml:space="preserve">
+    <value>Global Settings</value>
   </data>
   <data name="STComment" xml:space="preserve">
     <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
@@ -265,8 +280,14 @@
   <data name="Help_On_LoopBack_word" xml:space="preserve">
     <value>Help On Loopback</value>
   </data>
+  <data name="loudspeaker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loudspeaker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Group_word" xml:space="preserve">
     <value>Group</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: A line the begins with the letter F and a colon is spoken in a Female voice.</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
@@ -304,17 +325,11 @@
   <data name="document_connection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_connection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Must_be_A_Number" xml:space="preserve">
-    <value>Must be a number</value>
-  </data>
-  <data name="Regions_Are_Running" xml:space="preserve">
-    <value>regions are still running</value>
-  </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Viewer stops counting at 45,000</value>
   </data>
-  <data name="Boot_Time" xml:space="preserve">
-    <value>Boot Time</value>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>Only Owners and Estate Managers will be allowed in this region</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. Reset to default</value>
@@ -331,14 +346,14 @@
   <data name="Catalan" xml:space="preserve">
     <value>Catalan</value>
   </data>
+  <data name="Enable_word" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
   <data name="CreateApp" xml:space="preserve">
     <value>Create App and Get Keys</value>
-  </data>
-  <data name="Load_Parcel" xml:space="preserve">
-    <value>Load Parcel</value>
-  </data>
-  <data name="Restart_Pending_word" xml:space="preserve">
-    <value>Restart Pending</value>
   </data>
   <data name="users2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\users2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -352,11 +367,14 @@
   <data name="navigate_minus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigate_minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>How long Opensim runs before an Auto backup occurs</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>This does not appear to be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help-&gt;Port Forwards.</value>
+  </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
     <value>Enable this is you have a small system and want the router ports to be automatically set</value>
-  </data>
-  <data name="Click_Ports" xml:space="preserve">
-    <value>Click to set up your Ports</value>
   </data>
   <data name="Owner_God" xml:space="preserve">
     <value>Owner God</value>
@@ -364,8 +382,8 @@
   <data name="document_dirty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_dirty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Irish" xml:space="preserve">
-    <value>Irish</value>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>Show Gloebits authorization Instant Message to user at session start?</value>
   </data>
   <data name="JOpensimSearch_word" xml:space="preserve">
     <value>JOpensim Search</value>
@@ -385,9 +403,6 @@
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>The Web Interface can be used to add new users</value>
   </data>
-  <data name="is_already_running_word" xml:space="preserve">
-    <value>is already running</value>
-  </data>
   <data name="Send_alert" xml:space="preserve">
     <value>Send Alert to a User</value>
     <comment>Changed</comment>
@@ -395,11 +410,11 @@
   <data name="Free_DLC_word" xml:space="preserve">
     <value>Free DLC</value>
   </data>
-  <data name="Help_Technical_text" xml:space="preserve">
-    <value>Technical Mumbo Jumbo on how to configure things</value>
-  </data>
   <data name="Step2_word" xml:space="preserve">
     <value>Step 2:</value>
+  </data>
+  <data name="Float" xml:space="preserve">
+    <value>Float</value>
   </data>
   <data name="Caches_word" xml:space="preserve">
     <value>Caches</value>
@@ -409,9 +424,6 @@
   </data>
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
-  </data>
-  <data name="Palm11" xml:space="preserve">
-    <value>Palm 1</value>
   </data>
   <data name="water" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\water.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -425,14 +437,11 @@
   <data name="High_Water_Level" xml:space="preserve">
     <value>High Water Level</value>
   </data>
-  <data name="Voice" xml:space="preserve">
-    <value>Voice</value>
-  </data>
   <data name="Install_Icon" xml:space="preserve">
     <value>Installing Desktop icon</value>
   </data>
-  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
-    <value>IAR - Inventory Load and Save</value>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>Clear Region List</value>
   </data>
   <data name="Clearing_Bake_Cache_word" xml:space="preserve">
     <value>Clearing Bake Cache</value>
@@ -448,6 +457,9 @@
   </data>
   <data name="Min_time" xml:space="preserve">
     <value>Minimum time is 0 seconds. Default is 15 seconds.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>0 - (Error) Errors only, Requires Restart</value>
   </data>
   <data name="View_Simulator_Stats" xml:space="preserve">
     <value>View Simulator Stats</value>
@@ -467,14 +479,14 @@
   <data name="basque" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\basque.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Region_Names_Special" xml:space="preserve">
-    <value>Region name can't use special characters</value>
+  <data name="tt_Backup_Now" xml:space="preserve">
+    <value>Runs the selected backups now.</value>
   </data>
   <data name="Publish_Items" xml:space="preserve">
     <value>Publish Items marked for search</value>
   </data>
-  <data name="Click_Caches" xml:space="preserve">
-    <value>Click to set up Caches for scripts, assets, and images</value>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>Load Inventory IAR</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>Restart periodically</value>
@@ -490,9 +502,6 @@
   </data>
   <data name="Issue_Commands" xml:space="preserve">
     <value>Issue Console Commands</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Yes</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Server Type</value>
@@ -539,14 +548,14 @@
   <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
   </data>
-  <data name="Swedish" xml:space="preserve">
-    <value>Swedish</value>
-  </data>
   <data name="DeleteSims" xml:space="preserve">
     <value>*** This will delete all regions in the Estate 'SimSurround' !</value>
   </data>
   <data name="On_Top" xml:space="preserve">
     <value>On Top</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Frame Rate</value>
   </data>
   <data name="Region_Already_Exists" xml:space="preserve">
     <value>Region already exists</value>
@@ -569,32 +578,29 @@
   <data name="Stopping_Apache" xml:space="preserve">
     <value>Stopping Apache Web Server</value>
   </data>
-  <data name="welcome_toolbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\welcome_toolbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Auto_Restart_word" xml:space="preserve">
     <value>Auto Restart</value>
-  </data>
-  <data name="Public_Photo_Word" xml:space="preserve">
-    <value>Public Photo</value>
   </data>
   <data name="BeachGrass" xml:space="preserve">
     <value>Beach Grass</value>
   </data>
-  <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Restart one instance</value>
-  </data>
   <data name="flag_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>More Free Islands and Parts</value>
   </data>
   <data name="Click_For_Help" xml:space="preserve">
     <value>Click For Help</value>
   </data>
-  <data name="Load_Local_IARs_word" xml:space="preserve">
-    <value>Load Local IARs</value>
+  <data name="Logging_word" xml:space="preserve">
+    <value>Logging</value>
   </data>
   <data name="flag_usa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_usa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>Backup Databases</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR files are backups of entire Islands</value>
@@ -629,9 +635,6 @@
   <data name="View_Logs" xml:space="preserve">
     <value>View Logs</value>
   </data>
-  <data name="Automatic_Site_map_word" xml:space="preserve">
-    <value>Automatic Site Map</value>
-  </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>Keep for days</value>
   </data>
@@ -652,6 +655,9 @@
   </data>
   <data name="SmartStartEnable" xml:space="preserve">
     <value>Smart Start (Alpha code) setting</value>
+  </data>
+  <data name="Auto_Startup_word" xml:space="preserve">
+    <value>Automatic Startup</value>
   </data>
   <data name="No_Autobackup" xml:space="preserve">
     <value>No Automatic OAR backup</value>
@@ -677,11 +683,20 @@
   <data name="jar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\jar.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Shutdown_word" xml:space="preserve">
+    <value>Shutdown</value>
+  </data>
   <data name="Group_Ports_word" xml:space="preserve">
     <value>Group Port</value>
   </data>
+  <data name="FiveMinutes_word" xml:space="preserve">
+    <value>Five Minutes Per Tick</value>
+  </data>
   <data name="check2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\check2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Viewer_Greeting_word" xml:space="preserve">
+    <value>Viewer Greeting</value>
   </data>
   <data name="Use_Default_word" xml:space="preserve">
     <value>Use Default</value>
@@ -700,6 +715,12 @@
   </data>
   <data name="redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="About_word" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="NoLogin_word" xml:space="preserve">
     <value>No Login</value>
@@ -731,11 +752,14 @@
   <data name="Allow_LSL" xml:space="preserve">
     <value>Allow LSL to contact the server</value>
   </data>
-  <data name="Enter_Dos_Name" xml:space="preserve">
-    <value>Enter the new Dos Box name</value>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
   </data>
-  <data name="printer3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\printer3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Add_User_word" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>Subject</value>
   </data>
   <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
     <value>Clearing Mesh Cache</value>
@@ -758,8 +782,8 @@
   <data name="Error_word" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="Skip_word" xml:space="preserve">
-    <value>Skip</value>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Very Time consuming IAR backup of All Users. CAUTION ** USES LARGE AMOUNTS OF DISK SPACE **</value>
   </data>
   <data name="New_Content" xml:space="preserve">
     <value>New content Is loading</value>
@@ -773,14 +797,14 @@
   <data name="DBName_word" xml:space="preserve">
     <value>Database Name</value>
   </data>
-  <data name="Diags_Failed" xml:space="preserve">
-    <value>Diagnostics failed. Do you want to see the log?</value>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>Waiting on Robust to start</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>Local</value>
   </data>
-  <data name="Type_word" xml:space="preserve">
-    <value>Type</value>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text To Speech for Media on a prim </value>
   </data>
   <data name="UBODE_words" xml:space="preserve">
     <value>Ubit Open Dynamic Engine</value>
@@ -797,14 +821,11 @@
   <data name="Running_word" xml:space="preserve">
     <value>Running</value>
   </data>
-  <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\calendar.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Do_Not_Interrupt_word" xml:space="preserve">
     <value>Do not interrupt!</value>
   </data>
-  <data name="Default_Not_SS" xml:space="preserve">
-    <value>The default region cannot be enabled as Smart Start.</value>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>Click to Start or Stop Robust</value>
   </data>
   <data name="Scripts_Stop_word" xml:space="preserve">
     <value>Scripts Stop</value>
@@ -812,14 +833,11 @@
   <data name="selection_view" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\selection_view.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Finished_with_backup_word" xml:space="preserve">
-    <value>Finished with backup:</value>
-  </data>
   <data name="data_copy1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\data_copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Spanish_Mexico" xml:space="preserve">
-    <value>Spanish (Mexico)</value>
+  <data name="navigate_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigate_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Error: Could not launch DreamGridInstaller.exe.</value>
@@ -829,6 +847,9 @@
   </data>
   <data name="Stopsall" xml:space="preserve">
     <value>Stops all checked Regions</value>
+  </data>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>emails selected</value>
   </data>
   <data name="Hide_Allways_word" xml:space="preserve">
     <value>Always Hide Regions</value>
@@ -869,11 +890,14 @@
   <data name="Arriving_word" xml:space="preserve">
     <value>arriving</value>
   </data>
-  <data name="icecast_help" xml:space="preserve">
-    <value>Click for Help on setting up Icecast</value>
+  <data name="flag_denmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_denmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UPnP_Enabled_word" xml:space="preserve">
     <value>UPnP Enabled</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Flat</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Folder to save to</value>
@@ -884,20 +908,29 @@
   <data name="View_word" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="Starting_WebServer_word" xml:space="preserve">
+    <value>Starting webserver</value>
+  </data>
   <data name="DelayAfterRegionReady" xml:space="preserve">
     <value>Region Ready Delay</value>
   </data>
-  <data name="LargeMap" xml:space="preserve">
-    <value>Large Metro map</value>
+  <data name="Interval_word" xml:space="preserve">
+    <value>Interval</value>
   </data>
   <data name="ubODE_Hybrid_word" xml:space="preserve">
     <value>ubODE Hybrid</value>
   </data>
-  <data name="Web_Download_Link_Word" xml:space="preserve">
-    <value>Web Download Link</value>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>Starting Icecast</value>
   </data>
   <data name="text_marked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_marked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignore the new parcel data.</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
     <value>Port Forwarding Help</value>
@@ -917,9 +950,6 @@
   <data name="Bullet_Physics_word" xml:space="preserve">
     <value>Bullet physics</value>
   </data>
-  <data name="InstallNow" xml:space="preserve">
-    <value>Install Now</value>
-  </data>
   <data name="Diag_Broken" xml:space="preserve">
     <value>This port is not working. DreamGrid is  blocked by firewall or anti virus, so region icons are disabled.</value>
   </data>
@@ -938,8 +968,11 @@
   <data name="HelpTerrains" xml:space="preserve">
     <value>Help Terrains</value>
   </data>
-  <data name="Set_Debug_Level_word" xml:space="preserve">
-    <value>Set Debug Level</value>
+  <data name="Brazilian" xml:space="preserve">
+    <value>Brazilian (Portguese)</value>
+  </data>
+  <data name="Mode_word" xml:space="preserve">
+    <value>Mode</value>
   </data>
   <data name="Unchanged" xml:space="preserve">
     <value>Unchanged</value>
@@ -971,9 +1004,6 @@
   <data name="RAM_Word" xml:space="preserve">
     <value>RAM</value>
   </data>
-  <data name="CoordX" xml:space="preserve">
-    <value>The East-West position on the world map</value>
-  </data>
   <data name="flag_vietnam" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_vietnam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -982,9 +1012,6 @@
   </data>
   <data name="Pine22" xml:space="preserve">
     <value>Pine 2</value>
-  </data>
-  <data name="question_and_answer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\question_and_answer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>Opensim will save OARS after running this long</value>
@@ -997,9 +1024,6 @@
   </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS Box</value>
-  </data>
-  <data name="Best" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Best.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Avatar_Name_word" xml:space="preserve">
     <value>Avatar Name</value>
@@ -1016,6 +1040,15 @@
   <data name="SeaSword" xml:space="preserve">
     <value>Sea Sword</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Setup Search Database</value>
+  </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>Password is too short</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>Theme set to Custom</value>
+  </data>
   <data name="Server_Type_is" xml:space="preserve">
     <value>Server Type is</value>
   </data>
@@ -1031,20 +1064,11 @@
   <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
     <value>Load Free DreamGrid OARs (www)</value>
   </data>
-  <data name="YEngine_word" xml:space="preserve">
-    <value>Y Engine</value>
-  </data>
-  <data name="StartSizeXYZ" xml:space="preserve">
-    <value>Start Size XYZ</value>
-  </data>
   <data name="AdministerJoomla_word" xml:space="preserve">
     <value>Administer</value>
   </data>
-  <data name="flag_france" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_france.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Loaded_word" xml:space="preserve">
-    <value>loaded.</value>
+  <data name="KeepOnTop_word" xml:space="preserve">
+    <value>Keep On Top</value>
   </data>
   <data name="Quantity_word" xml:space="preserve">
     <value>Quantity</value>
@@ -1061,17 +1085,11 @@
   <data name="Good" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Good.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Disable_Foreigners_word" xml:space="preserve">
-    <value>Disable Foreign Visitors</value>
-  </data>
   <data name="Click_Fsassets" xml:space="preserve">
     <value>Click to Set up the File System Asset Database (FSassets) which is a fast and reliable database of files</value>
   </data>
   <data name="ViewJoomla_word" xml:space="preserve">
     <value>View</value>
-  </data>
-  <data name="Update_is_available" xml:space="preserve">
-    <value>Update is available. Do you wish to update?</value>
   </data>
   <data name="Starting_word" xml:space="preserve">
     <value>Starting</value>
@@ -1097,14 +1115,11 @@
   <data name="Icecast" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icecast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="View_Maps" xml:space="preserve">
-    <value>View Region Maps</value>
+  <data name="Checking_Router_word" xml:space="preserve">
+    <value>Checking Router</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Click to request Voice Service</value>
-  </data>
-  <data name="UUID" xml:space="preserve">
-    <value>UUID</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Ignore Parcel</value>
@@ -1127,8 +1142,8 @@
   <data name="View_Console_word" xml:space="preserve">
     <value>View Console</value>
   </data>
-  <data name="tt_BirdsFlockSize" xml:space="preserve">
-    <value>How manuy birds will appear, 1-100, the more biords the better the CPU and network is needed</value>
+  <data name="Restart_All_word" xml:space="preserve">
+    <value>Restart All</value>
   </data>
   <data name="EnableGloebit_word" xml:space="preserve">
     <value>Enable Gloebit</value>
@@ -1139,11 +1154,11 @@
   <data name="microsoft_edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\microsoft-edge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cubes_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cubes_green.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Start_word" xml:space="preserve">
     <value>Start</value>
-  </data>
-  <data name="Window_Word" xml:space="preserve">
-    <value>Window</value>
   </data>
   <data name="Save_Inventory_IAR_word" xml:space="preserve">
     <value>Save Inventory IAR</value>
@@ -1157,12 +1172,6 @@
   <data name="Disable_Suitcase_txt" xml:space="preserve">
     <value>This will be less secure If you disable the suitcase, but will be easier to rez objects on foreign grids</value>
   </data>
-  <data name="Show_Grid_Address" xml:space="preserve">
-    <value>Show Grid Address</value>
-  </data>
-  <data name="Region_Name" xml:space="preserve">
-    <value>Alpha-Numeric plus Spaces</value>
-  </data>
   <data name="Scripts_Resume_word" xml:space="preserve">
     <value>Scripts Resume</value>
   </data>
@@ -1171,6 +1180,9 @@
   </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>Load Local OARs from the OAR folder</value>
+  </data>
+  <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
+    <value>Allow Region owner gods</value>
   </data>
   <data name="flag_china" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_china.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1187,11 +1199,8 @@
   <data name="JOpensimSettings" xml:space="preserve">
     <value>JOpensim Settings</value>
   </data>
-  <data name="No_Email" xml:space="preserve">
-    <value>Email Server not yet set up</value>
-  </data>
-  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Items_word" xml:space="preserve">
+    <value>Items</value>
   </data>
   <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
     <value>Region Coordinate Y Is too large</value>
@@ -1208,6 +1217,9 @@
   <data name="Help_Troubleshooting_word" xml:space="preserve">
     <value>Help Troubleshooting</value>
   </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Kelp 2</value>
+  </data>
   <data name="Portuguese" xml:space="preserve">
     <value>Portuguese</value>
   </data>
@@ -1220,6 +1232,9 @@
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>Clear Cache</value>
   </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>View Cache Folder</value>
+  </data>
   <data name="Clear_and_Load_word" xml:space="preserve">
     <value>Clear and Load</value>
   </data>
@@ -1228,9 +1243,6 @@
   </data>
   <data name="nav_plain_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nav_plain_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>Get a free DYN DNS Name</value>
   </data>
   <data name="Clouds_word" xml:space="preserve">
     <value>Clouds</value>
@@ -1243,6 +1255,9 @@
   </data>
   <data name="potential_overlap" xml:space="preserve">
     <value>potential overlapping regions</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Plants</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
     <value>Open Router Ports using Universal Plug and Play</value>
@@ -1268,14 +1283,8 @@
   <data name="Enable_Events_word" xml:space="preserve">
     <value>Enable Events</value>
   </data>
-  <data name="Default_8001_word" xml:space="preserve">
-    <value>Default 8001</value>
-  </data>
   <data name="Load_Bird_IAR_word" xml:space="preserve">
     <value>Load Bird IAR</value>
-  </data>
-  <data name="Tide_Enable" xml:space="preserve">
-    <value>Enable the tide to come in and out?</value>
   </data>
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
@@ -1313,8 +1322,8 @@
   <data name="Click_Publicity" xml:space="preserve">
     <value>Click to set up Publicity</value>
   </data>
-  <data name="Load_Inventory_IAR" xml:space="preserve">
-    <value>Load Inventory IAR</value>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Load Local IARs</value>
   </data>
   <data name="BP" xml:space="preserve">
     <value>Bullet physics in separate thread</value>
@@ -1342,9 +1351,6 @@
   </data>
   <data name="ClearReg" xml:space="preserve">
     <value>Clear All Registrations</value>
-  </data>
-  <data name="Network_Change" xml:space="preserve">
-    <value>A network change occured. A restart may be necessary.</value>
   </data>
   <data name="Normal_Prim" xml:space="preserve">
     <value>You cannot make a regular prim bigger than this.</value>
@@ -1397,8 +1403,14 @@
   <data name="ViewTerrainFolder" xml:space="preserve">
     <value>View Terrain Folder</value>
   </data>
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+    <value>Grid TCP Port is set</value>
+  </data>
   <data name="Default_8002_word" xml:space="preserve">
     <value>Default 8002</value>
+  </data>
+  <data name="flag_spain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_spain.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Sandbox Mode</value>
@@ -1411,6 +1423,9 @@
   </data>
   <data name="tt_Click_to_Set_Backup_Types" xml:space="preserve">
     <value>Click to Setup Backup types.  Usually all of them should be set to On.</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>Script timer speed setting. 0.2 is default</value>
   </data>
   <data name="Click_Birds" xml:space="preserve">
     <value>Click to set up the Birds module</value>
@@ -1430,8 +1445,8 @@
   <data name="flag_mexico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_mexico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tt_Bird_Border_size" xml:space="preserve">
-    <value>How close to the sim border the birds will fly.  iff they get too close thay will fly intoi anothert sim.  And die. And die. And die until it fills up the sim</value>
+  <data name="Home_word" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="Hypergrid" xml:space="preserve">
     <value>Hypergrid DNS Name</value>
@@ -1442,8 +1457,8 @@
   <data name="Quit_Now_Word" xml:space="preserve">
     <value>Quit Now</value>
   </data>
-  <data name="Recycling_Down_word" xml:space="preserve">
-    <value>Recycling Down</value>
+  <data name="Modify_word" xml:space="preserve">
+    <value>Modify</value>
   </data>
   <data name="no_Default_sim" xml:space="preserve">
     <value>Could not set default sim for visitors. See Regions Panel.</value>
@@ -1454,8 +1469,8 @@
   <data name="EnableDiva" xml:space="preserve">
     <value>Enable Diva Page</value>
   </data>
-  <data name="Low_Water_Level" xml:space="preserve">
-    <value>Low Water Level</value>
+  <data name="text_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nav_plain_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nav_plain_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1469,11 +1484,8 @@
   <data name="Merge_Objects_word" xml:space="preserve">
     <value>Merge Objects</value>
   </data>
-  <data name="Home_word" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Available" xml:space="preserve">
-    <value>Available</value>
+  <data name="tt_BirdsFlockSize" xml:space="preserve">
+    <value>How manuy birds will appear, 1-100, the more biords the better the CPU and network is needed</value>
   </data>
   <data name="Restarting_word" xml:space="preserve">
     <value>Restarting</value>
@@ -1481,8 +1493,11 @@
   <data name="Quitting_word" xml:space="preserve">
     <value>Quitting</value>
   </data>
-  <data name="cubes_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cubes_green.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Quit_Message0" xml:space="preserve">
+    <value>The system and other applications have not been affected. A report has been created to help identify this problem.</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>Technical Mumbo Jumbo on how to configure things</value>
   </data>
   <data name="New_is_Done" xml:space="preserve">
     <value>New content just loaded</value>
@@ -1493,11 +1508,14 @@
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
   </data>
+  <data name="Updating_Ports_word" xml:space="preserve">
+    <value>Updating Ports</value>
+  </data>
   <data name="Not_Normal" xml:space="preserve">
     <value>Not normally enforced by Opensim.  Viewer will not show more than 45,000. Setting this here and enabling this in settings will enforce the limit and may return prims!</value>
   </data>
-  <data name="ViewVisitorMaps" xml:space="preserve">
-    <value>View Visitor Maps</value>
+  <data name="Database_Help_word" xml:space="preserve">
+    <value>Database Help</value>
   </data>
   <data name="Help_Technical" xml:space="preserve">
     <value>Help with Technical Info</value>
@@ -1514,8 +1532,8 @@
   <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Grid Server With Robust</value>
   </data>
-  <data name="Clear_objects_tooltip" xml:space="preserve">
-    <value>Clears all the objects in all squares and loads the OAR</value>
+  <data name="Enable_Hypergrid_word" xml:space="preserve">
+    <value>Enable Hypergrid</value>
   </data>
   <data name="picfilter" xml:space="preserve">
     <value>PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*</value>
@@ -1523,8 +1541,11 @@
   <data name="Restart_word" xml:space="preserve">
     <value>Restart</value>
   </data>
-  <data name="Checking_MySql_word" xml:space="preserve">
-    <value>Checking MySql</value>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Clamp Prim Size' is an option to ensure no prim can exceed the set size</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Choose a folder</value>
   </data>
   <data name="table_sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table_sql.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1532,8 +1553,8 @@
   <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
     <value>Region Coordinate X Is too large</value>
   </data>
-  <data name="cubes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cubes.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="tt_Apache_EnableDiva" xml:space="preserve">
+    <value>Enables a redirect of the home page to the "Dreamgrid" folder in htdocs</value>
   </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>Minutes</value>
@@ -1541,14 +1562,14 @@
   <data name="Max_Height" xml:space="preserve">
     <value>Max Height (default=45.0)</value>
   </data>
-  <data name="tt_Backup_Fsassets" xml:space="preserve">
-    <value>Backs up the FSassets  folder. Thjsi is a very large  backup. It will do an incremental backup, of just changes.</value>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>New User Home X,Y,Z</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>How long in seconds for a complete cycle time. low-&gt;high-&gt;low</value>
   </data>
   <data name="Default_Region_word" xml:space="preserve">
     <value>Default region</value>
-  </data>
-  <data name="CSOD" xml:space="preserve">
-    <value>Current Size on Disk</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
     <value>Theme set to White</value>
@@ -1562,11 +1583,8 @@
   <data name="SearchOptions_word" xml:space="preserve">
     <value>Search Options</value>
   </data>
-  <data name="Smart_Start_Enable_word" xml:space="preserve">
-    <value>Smart Start Enable</value>
-  </data>
-  <data name="WebServerPanel" xml:space="preserve">
-    <value>Web Server Panel</value>
+  <data name="Checking_for_Updates_word" xml:space="preserve">
+    <value>Checking for Updates</value>
   </data>
   <data name="tt_Apache_Sitemap" xml:space="preserve">
     <value>Creates a basic sitemap for search engines to find and index your grid.</value>
@@ -1595,8 +1613,8 @@
   <data name="disks" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="flatland" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flatland.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cache Size In Hours</value>
   </data>
   <data name="Region_Owner_Is_God_word" xml:space="preserve">
     <value>Region Owner is God</value>
@@ -1634,8 +1652,8 @@
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>Export backup file</value>
   </data>
-  <data name="Choose_folder" xml:space="preserve">
-    <value>Choose folder</value>
+  <data name="box_tall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\box_tall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>MySQL was running when I was started, so I am leaving MySQL on.</value>
@@ -1646,26 +1664,26 @@
   <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\index.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>How long a running Region will stay up after an avatrar has left</value>
+  </data>
   <data name="Bird_help" xml:space="preserve">
     <value>Click for Help on Birds</value>
   </data>
   <data name="tt_Backup_Regions" xml:space="preserve">
     <value>Backs up all the region INI files</value>
   </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Editor</value>
+  </data>
   <data name="Region_Server_word" xml:space="preserve">
     <value>Region Server</value>
-  </data>
-  <data name="See_Ports_In_Use_word" xml:space="preserve">
-    <value>See Ports In Use</value>
   </data>
   <data name="Icecast_Exited" xml:space="preserve">
     <value>Icecast exited. Do you want to see the error log file?</value>
   </data>
-  <data name="Pine21" xml:space="preserve">
-    <value>Pine 2</value>
-  </data>
-  <data name="Backup_Schedule" xml:space="preserve">
-    <value>Click to set up your Backup Schedule</value>
+  <data name="How_Close" xml:space="preserve">
+    <value>How close to the edges of things can we get without being worried?</value>
   </data>
   <data name="Erase_all" xml:space="preserve">
     <value>This will erase the ENTIRE sim and load a new sim. Are you sure?</value>
@@ -1688,6 +1706,9 @@
   <data name="Cypress1" xml:space="preserve">
     <value>Cypress 1</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR - Load, Save and Backup</value>
+  </data>
   <data name="tt_Backup_OARs" xml:space="preserve">
     <value>Backup All regions to OAR files</value>
   </data>
@@ -1700,14 +1721,17 @@
   <data name="Maps_word" xml:space="preserve">
     <value>Maps</value>
   </data>
+  <data name="printer3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\printer3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HG_Failed" xml:space="preserve">
     <value>Hypergrid Diagnostics failed. These can be re-run at any time.  See Help-&gt;Network Diagnostics', 'Loopback', and 'Port Forwards'</value>
   </data>
   <data name="Fern" xml:space="preserve">
     <value>Fern</value>
   </data>
-  <data name="Changes_Made" xml:space="preserve">
-    <value>Changes have been made.  Save?</value>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>Passed LAN Loopback Test</value>
   </data>
   <data name="Delete_and_then_Apply" xml:space="preserve">
     <value>Delete and then Apply</value>
@@ -1715,26 +1739,26 @@
   <data name="Updated_word" xml:space="preserve">
     <value>Updated</value>
   </data>
-  <data name="Add_User_word" xml:space="preserve">
-    <value>Add User</value>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Backup Custom Web Pages</value>
   </data>
   <data name="cube_blue_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cube_blue_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Modules_word" xml:space="preserve">
+    <value>Modules</value>
+  </data>
   <data name="Choose_folder_for_backups" xml:space="preserve">
     <value>Choose a  folder</value>
-  </data>
-  <data name="ors" xml:space="preserve">
-    <value>Or:</value>
-  </data>
-  <data name="JobEngine_word" xml:space="preserve">
-    <value>Job Engine</value>
   </data>
   <data name="navigate_up2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigate_up2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="False_word" xml:space="preserve">
     <value>False</value>
+  </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Diva_Panel_word" xml:space="preserve">
     <value>Diva Panel</value>
@@ -1747,9 +1771,6 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
-  </data>
-  <data name="Next_Name" xml:space="preserve">
-    <value>Next Name</value>
   </data>
   <data name="Teleporting_word" xml:space="preserve">
     <value>Teleporting</value>
@@ -1772,8 +1793,8 @@
   <data name="Avatar_First_and_Last_Name_word" xml:space="preserve">
     <value>Avatar First and Last name</value>
   </data>
-  <data name="Run_All_word" xml:space="preserve">
-    <value>Run All</value>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>IAR - Inventory Load and Save</value>
   </data>
   <data name="All_Global_Settings_word" xml:space="preserve">
     <value>All Global settings</value>
@@ -1789,12 +1810,6 @@
   </data>
   <data name="Backup_Folder" xml:space="preserve">
     <value>Backup Folder</value>
-  </data>
-  <data name="Configger" xml:space="preserve">
-    <value>Configure All Regions</value>
-  </data>
-  <data name="Error_Region" xml:space="preserve">
-    <value>Error: Cannot understand the contents of region file :</value>
   </data>
   <data name="XEngine_word" xml:space="preserve">
     <value>X Engine</value>
@@ -1829,14 +1844,14 @@
   <data name="Agents_word" xml:space="preserve">
     <value>Agents</value>
   </data>
-  <data name="flag_saudi_arabia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_saudi_arabia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Determines" xml:space="preserve">
     <value>This determines whether the module does anything</value>
   </data>
-  <data name="Script_Engine_word" xml:space="preserve">
-    <value>Script Engine</value>
+  <data name="Apply_word" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="Please_type" xml:space="preserve">
     <value>Please type the Grid Owner's avatar name into the Robust window. Press &lt;enter&gt; for UUID and Model name. Then press this OK button</value>
@@ -1844,14 +1859,20 @@
   <data name="Setup_Network" xml:space="preserve">
     <value>Setting up Network</value>
   </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>DNS Name &amp; Hypergrid</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>Loopback Test Failed. Web address did not respond.</value>
+  </data>
   <data name="Checking_Apache_service_word" xml:space="preserve">
     <value>Checking Apache service</value>
   </data>
   <data name="Cache_Enabled_word" xml:space="preserve">
     <value>Cache Enabled</value>
   </data>
-  <data name="Selectallnone" xml:space="preserve">
-    <value>Selects all or none of the check boxes</value>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>Delete tmp folder</value>
   </data>
   <data name="Search_word" xml:space="preserve">
     <value>Search</value>
@@ -1862,11 +1883,11 @@
   <data name="document_text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ScriptsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScriptsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="disk_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disk_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LandMaker" xml:space="preserve">
-    <value>Land Maker</value>
   </data>
   <data name="Landscaping" xml:space="preserve">
     <value>Landscaping</value>
@@ -1883,8 +1904,8 @@
   <data name="flag_germany" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_germany.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Restore_Database_word" xml:space="preserve">
-    <value>Restore Database</value>
+  <data name="Region_word" xml:space="preserve">
+    <value>Region</value>
   </data>
   <data name="BanList_string" xml:space="preserve">
     <value>Click to set up Grid, MAC address and IP bans</value>
@@ -1922,23 +1943,20 @@
   <data name="TropicalBush1" xml:space="preserve">
     <value>Tropical Bush 1</value>
   </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Click to set up the MySQL Database</value>
+  </data>
   <data name="GBoids" xml:space="preserve">
     <value>The global Bird settings will apply to this region</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
     <value>Flotsam Asset Cache</value>
   </data>
-  <data name="Region_full_msg" xml:space="preserve">
-    <value>Max number of Avatars + NPCs</value>
+  <data name="navigate_plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigate_plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RandomTerrain" xml:space="preserve">
     <value>Random Terrain</value>
-  </data>
-  <data name="Plumeria" xml:space="preserve">
-    <value>Plumeria</value>
-  </data>
-  <data name="Simple_but_Fast_word" xml:space="preserve">
-    <value>Simple but fast</value>
   </data>
   <data name="Saving_word" xml:space="preserve">
     <value>Saving</value>
@@ -1958,6 +1976,9 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>Grid address</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
   <data name="Publicity_Word" xml:space="preserve">
     <value>Publicity</value>
   </data>
@@ -1967,8 +1988,11 @@
   <data name="Wrong" xml:space="preserve">
     <value>Something is wrong with the Internet</value>
   </data>
-  <data name="View_Icecast" xml:space="preserve">
-    <value>View Icecast Web Page</value>
+  <data name="tt_Apache_EnableOther" xml:space="preserve">
+    <value>Enables a redirect of the home page to the "Other" folder in htdocs</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
   </data>
   <data name="Thread_pools_word" xml:space="preserve">
     <value>Thread pools</value>
@@ -1979,14 +2003,11 @@
   <data name="Assets_as_Files_word" xml:space="preserve">
     <value>Assets as Files</value>
   </data>
-  <data name="Blank256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Blank256.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Message_sent_word" xml:space="preserve">
     <value>Message sent</value>
   </data>
-  <data name="Broadcast_Tide_Chat" xml:space="preserve">
-    <value>Chat tide info to the region so scripts can move with the tide?</value>
+  <data name="map_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="flag_iran" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_iran.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2003,11 +2024,11 @@
   <data name="Scripts_word" xml:space="preserve">
     <value>Scripts</value>
   </data>
-  <data name="Best_Prims" xml:space="preserve">
-    <value>Best (Prims + Mesh, Very Slow)</value>
+  <data name="Restart_one_region_word" xml:space="preserve">
+    <value>Restart one region</value>
   </data>
-  <data name="package_preferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\package_preferences.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="package_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\package_error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MakeVoices" xml:space="preserve">
     <value>Make Voices</value>
@@ -2033,17 +2054,26 @@
   <data name="data_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\data_copy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>Provide tide information on the console?</value>
+  </data>
   <data name="TropicalBush2" xml:space="preserve">
     <value>Tropical Bush 2</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Desired Separation (default=5.0)</value>
   </data>
   <data name="Czech" xml:space="preserve">
     <value>Czech</value>
   </data>
-  <data name="user3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ubODE_word" xml:space="preserve">
     <value>ubODE</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>backup running</value>
+  </data>
+  <data name="blankbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blankbox.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gear_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gear_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2066,9 +2096,6 @@
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
-  <data name="Backup_OARs" xml:space="preserve">
-    <value>Backup OARs</value>
-  </data>
   <data name="Reserve_Password" xml:space="preserve">
     <value>Reserve your DYN DNS name. This is a password for your Grid name.</value>
   </data>
@@ -2083,9 +2110,6 @@
   </data>
   <data name="Max_PrimLimit" xml:space="preserve">
     <value>This will limit the number of prims on a parcel.  There is no limit except memory when disabled.</value>
-  </data>
-  <data name="View_Log_word" xml:space="preserve">
-    <value>View Log</value>
   </data>
   <data name="SMTPPort_word" xml:space="preserve">
     <value>SMTP Port</value>
@@ -2117,17 +2141,20 @@
   <data name="Apache_Exited" xml:space="preserve">
     <value>Apache exited. Do you want to see the error log file?</value>
   </data>
+  <data name="Chinese_Simplifed" xml:space="preserve">
+    <value>Chinese Simplifed</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate  Manager is God - Estate managers can become gods, but just for this estate</value>
   </data>
-  <data name="All_Caches_Cleared_word" xml:space="preserve">
-    <value>All Caches cleared</value>
+  <data name="transform" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\transform.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cypress_2" xml:space="preserve">
     <value>Cypress 2</value>
   </data>
-  <data name="Enable_word" xml:space="preserve">
-    <value>Enable</value>
+  <data name="Best" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Best.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="disk_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disk_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2144,11 +2171,8 @@
   <data name="Region_Manager_is_God" xml:space="preserve">
     <value>Region Manager is God - Estate managers can become gods, but just for this estate</value>
   </data>
-  <data name="Someone_is_in_word" xml:space="preserve">
-    <value>Someone is in</value>
-  </data>
-  <data name="How_Long_runs" xml:space="preserve">
-    <value>How long Opensim runs before an Auto backup occurs</value>
+  <data name="View_Maps" xml:space="preserve">
+    <value>View Region Maps</value>
   </data>
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>Make a backup?</value>
@@ -2162,14 +2186,17 @@
   <data name="Size_word" xml:space="preserve">
     <value>Size</value>
   </data>
-  <data name="No_Publish_Items" xml:space="preserve">
-    <value>Do not publish this region</value>
+  <data name="Save_IAR_word" xml:space="preserve">
+    <value>Save IAR</value>
   </data>
   <data name="minkeepalive" xml:space="preserve">
     <value>Minimum time is 0 seconds. Default is 60 seconds.</value>
   </data>
   <data name="Help_Manuals_word" xml:space="preserve">
     <value>Help Manuals</value>
+  </data>
+  <data name="Random" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Randomn.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SSDelay" xml:space="preserve">
     <value>Shutdown in seconds</value>
@@ -2204,17 +2231,14 @@
   <data name="More_Help" xml:space="preserve">
     <value>Click for More Help on the Website</value>
   </data>
-  <data name="window_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\window_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Click to set up Caches for scripts, assets, and images</value>
   </data>
   <data name="Sim_Size_word" xml:space="preserve">
     <value>Sim Size</value>
   </data>
-  <data name="All_Users_All_Sims_word" xml:space="preserve">
-    <value>All Users, All Sims</value>
-  </data>
-  <data name="Brazilian" xml:space="preserve">
-    <value>Brazilian (Portguese)</value>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alpha-Numeric plus Spaces</value>
   </data>
   <data name="Click_Start" xml:space="preserve">
     <value>Cannot run diagnostics unless the system is running. Click 'Start' and try again.</value>
@@ -2227,9 +2251,6 @@
   </data>
   <data name="Temporary_Regions" xml:space="preserve">
     <value>Use Temporary Regions</value>
-  </data>
-  <data name="RenderMax" xml:space="preserve">
-    <value>Render Max Height</value>
   </data>
   <data name="media_stop_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media_stop_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2246,9 +2267,6 @@
   <data name="Border_Size" xml:space="preserve">
     <value>Border Size (default=25.0)</value>
   </data>
-  <data name="Load_Terrain_tooltip" xml:space="preserve">
-    <value>Force terrain loading on --merge. Normally, --merge does not overwrite the existing region's terrain.</value>
-  </data>
   <data name="No_Avatars" xml:space="preserve">
     <value>No Avatars</value>
   </data>
@@ -2263,6 +2281,9 @@
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
     <value>Nonphysical Prim Size</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Load Local OARs</value>
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>Automatic Restart</value>
@@ -2282,6 +2303,9 @@
   <data name="Click_Maps" xml:space="preserve">
     <value>Click to set up Maps, clear maps,  or choose map types</value>
   </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Palm 1</value>
+  </data>
   <data name="user2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -2291,11 +2315,11 @@
   <data name="Apache_Failed" xml:space="preserve">
     <value>Web Server failed to start</value>
   </data>
-  <data name="Float" xml:space="preserve">
-    <value>Float</value>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>Region name can't use special characters</value>
   </data>
-  <data name="map_1_9510_10006_objects" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map-1-9510-10006-objects.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>The default region cannot be enabled as Smart Start.</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
     <value>Fie System Assets Server</value>
@@ -2327,9 +2351,6 @@
   <data name="UPnP_Setup_Program" xml:space="preserve">
     <value>UPnP Setup Program</value>
   </data>
-  <data name="tt_Backup_IARs" xml:space="preserve">
-    <value>Very Time consuming IAR backup of All Users. CAUTION ** USES LARGE AMOUNTS OF DISK SPACE **</value>
-  </data>
   <data name="UpdateNow" xml:space="preserve">
     <value>Update Now</value>
   </data>
@@ -2345,8 +2366,14 @@
   <data name="Backup_Regions" xml:space="preserve">
     <value>Backing up Regions Folder</value>
   </data>
+  <data name="cubes_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cubes_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Debug_word" xml:space="preserve">
     <value>Debug</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Make Speech (Wav + Mp3)</value>
   </data>
   <data name="Chat_Channel_word" xml:space="preserve">
     <value>Chat Channel</value>
@@ -2360,8 +2387,8 @@
   <data name="Backup_word" xml:space="preserve">
     <value>Backup</value>
   </data>
-  <data name="Region_ServerName" xml:space="preserve">
-    <value>The server to connect to. 'localhost' is the default.</value>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>Choose where to put the OAR:</value>
   </data>
   <data name="Avatarview" xml:space="preserve">
     <value>Click to view avatars</value>
@@ -2369,11 +2396,8 @@
   <data name="Click_Tides" xml:space="preserve">
     <value>Click to set up Tides</value>
   </data>
-  <data name="Apache_word" xml:space="preserve">
-    <value>Apache</value>
-  </data>
-  <data name="Network_Ports" xml:space="preserve">
-    <value>Network Ports</value>
+  <data name="Enable_Search_word" xml:space="preserve">
+    <value>Enable Search</value>
   </data>
   <data name="Photo_Word" xml:space="preserve">
     <value>Photo</value>
@@ -2381,8 +2405,8 @@
   <data name="Seconds" xml:space="preserve">
     <value>Seconds</value>
   </data>
-  <data name="Diag_Port_word" xml:space="preserve">
-    <value>Diagnostics port</value>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>Web Download Link</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>
@@ -2423,8 +2447,8 @@
   <data name="Save_changes_word" xml:space="preserve">
     <value>Save changes?</value>
   </data>
-  <data name="Settings_word" xml:space="preserve">
-    <value>Settings</value>
+  <data name="data" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\data.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CoordY" xml:space="preserve">
     <value>The North_South position on the world map</value>
@@ -2435,11 +2459,11 @@
   <data name="EnterEstateName" xml:space="preserve">
     <value>Set the Estate name in the DOS box.</value>
   </data>
-  <data name="NoImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Image1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Timeout_in_hours_word" xml:space="preserve">
+    <value>Timeout in hours</value>
   </data>
-  <data name="Updating_Ports_word" xml:space="preserve">
-    <value>Updating Ports</value>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>Restart Pending</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>Check and Repair Database</value>
@@ -2447,20 +2471,20 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>Theme set to Black</value>
   </data>
-  <data name="ClickStartStop" xml:space="preserve">
-    <value>Click to Start or Stop Robust</value>
-  </data>
-  <data name="Robust_word" xml:space="preserve">
-    <value>Robust</value>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>Network Ports</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Click to set up your Terms of Service</value>
   </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Each line of text is saved to a wave and mp3 file.</value>
+  </data>
   <data name="Log_Level" xml:space="preserve">
     <value>Log Level</value>
   </data>
-  <data name="TechInfo" xml:space="preserve">
-    <value>Technical Information</value>
+  <data name="Running_Network" xml:space="preserve">
+    <value>Running Network Diagnostics</value>
   </data>
   <data name="1253433" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1253433.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2480,8 +2504,8 @@
   <data name="Step3_word" xml:space="preserve">
     <value>Step 3:</value>
   </data>
-  <data name="Web_UI" xml:space="preserve">
-    <value>The Web UI lets you add or view settings for any avatar.</value>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>The number of birds to flock</value>
   </data>
   <data name="Database_word" xml:space="preserve">
     <value>Database</value>
@@ -2492,8 +2516,14 @@
   <data name="Max_NumPrims" xml:space="preserve">
     <value>Max Number of Prims in a Parcel</value>
   </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Bulk Load Regions</value>
+  </data>
   <data name="Saved_Word" xml:space="preserve">
     <value>Saved</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Delete All</value>
   </data>
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
@@ -2501,8 +2531,8 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirmation required to log in?</value>
   </data>
-  <data name="Shutdown_word" xml:space="preserve">
-    <value>Shutdown</value>
+  <data name="No_Email" xml:space="preserve">
+    <value>Email Server not yet set up</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
     <value>Are you sure? Your database will loaded from the backup and all existing content replaced. Avatars, sims, inventory, everyting will be written over.</value>
@@ -2510,14 +2540,11 @@
   <data name="Is_Shown" xml:space="preserve">
     <value>The Opensimulator Console will be shown when Opensim is running.</value>
   </data>
-  <data name="Chinese_Simplifed" xml:space="preserve">
-    <value>Chinese Simplifed</value>
+  <data name="flag_saudi_arabia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_saudi_arabia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="document_chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="table_sql_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\table_sql_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
     <value>Restart Settings</value>
@@ -2537,14 +2564,14 @@
   <data name="BadCoordinates" xml:space="preserve">
     <value>Bad coordinates</value>
   </data>
-  <data name="Merge_objectstooltip" xml:space="preserve">
-    <value>Merges the OAR without clearing any objects</value>
-  </data>
   <data name="Click_Currency" xml:space="preserve">
     <value>Click to set up Currency</value>
   </data>
   <data name="Robust_running" xml:space="preserve">
     <value>Robust is running</value>
+  </data>
+  <data name="ODE_text" xml:space="preserve">
+    <value>Open Dynamic Engine</value>
   </data>
   <data name="MapsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapText.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -2558,14 +2585,11 @@
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Region UUID Is invalid</value>
   </data>
-  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
-    <value>Enter the Grid Owner Information</value>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Click to set up your Ports</value>
   </data>
   <data name="Http_Port_word" xml:space="preserve">
     <value>Http Port</value>
-  </data>
-  <data name="Set_Owner_word" xml:space="preserve">
-    <value>Set Owner</value>
   </data>
   <data name="Sim_Rate" xml:space="preserve">
     <value>This defines the rate of several simulation events. It can be reduced to improve the simulation of moving objects, with possible increase of cpu and network load.</value>
@@ -2582,9 +2606,6 @@
   <data name="ViewAllMaps" xml:space="preserve">
     <value>View All Maps</value>
   </data>
-  <data name="AutomaticBackupIsRunning" xml:space="preserve">
-    <value>Automatic Backup Is Running</value>
-  </data>
   <data name="Click_HG" xml:space="preserve">
     <value>Click to Enable Hypergrid or change DNS Name</value>
   </data>
@@ -2594,8 +2615,11 @@
   <data name="Ignore_Terrain_word" xml:space="preserve">
     <value>Ignore Terrain</value>
   </data>
-  <data name="EditorWord" xml:space="preserve">
-    <value>Editor</value>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Error: Cannot understand the contents of region file :</value>
+  </data>
+  <data name="Custom_word" xml:space="preserve">
+    <value>Custom</value>
   </data>
   <data name="Enter_1_2" xml:space="preserve">
     <value>Enter the First and Last name of the user</value>
@@ -2603,14 +2627,14 @@
   <data name="White_word" xml:space="preserve">
     <value>White</value>
   </data>
-  <data name="Passwordtooshort_word" xml:space="preserve">
-    <value>Password is too short</value>
+  <data name="View_Log_word" xml:space="preserve">
+    <value>View Log</value>
   </data>
   <data name="Bullet_Threaded_word" xml:space="preserve">
     <value>Bullet Threaded</value>
   </data>
-  <data name="Subject_word" xml:space="preserve">
-    <value>Subject</value>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Merges the OAR without clearing any objects</value>
   </data>
   <data name="Add_word" xml:space="preserve">
     <value>Add</value>
@@ -2618,8 +2642,8 @@
   <data name="package_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\package_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Basque_word" xml:space="preserve">
-    <value>Basque</value>
+  <data name="is_already_running_word" xml:space="preserve">
+    <value>is already running</value>
   </data>
   <data name="Max4096" xml:space="preserve">
     <value>Maximum of 4096</value>
@@ -2642,8 +2666,8 @@
   <data name="View_as_Icons" xml:space="preserve">
     <value>View as Icons</value>
   </data>
-  <data name="Starting_up" xml:space="preserve">
-    <value>Starting up the first time</value>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Enter the new Dos Box name</value>
   </data>
   <data name="MustY" xml:space="preserve">
     <value>Must be the same as Y</value>
@@ -2651,8 +2675,8 @@
   <data name="String1" xml:space="preserve">
     <value>Boot Time</value>
   </data>
-  <data name="Waiting_on_Robust" xml:space="preserve">
-    <value>Waiting on Robust to start</value>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>View Icecast Web Page</value>
   </data>
   <data name="Wait_For_scripts" xml:space="preserve">
     <value>Wait for Scripts</value>
@@ -2663,17 +2687,20 @@
   <data name="Recycle1" xml:space="preserve">
     <value>Recycle</value>
   </data>
-  <data name="Enable_Hypergrid_word" xml:space="preserve">
-    <value>Enable Hypergrid</value>
+  <data name="cubes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cubes.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Registering Dynamic DNS address</value>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Total Area</value>
   </data>
-  <data name="Ports" xml:space="preserve">
-    <value>Ports</value>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>The default voice selection will speak this text.</value>
   </data>
-  <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script timer speed setting. 0.2 is default</value>
+  <data name="Cache_Directory_word" xml:space="preserve">
+    <value>Cache Directory</value>
+  </data>
+  <data name="Type_word" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="MergeParcels_tooltip" xml:space="preserve">
     <value>Overwrite the existing region's parcel data.</value>
@@ -2681,8 +2708,8 @@
   <data name="Icelandic" xml:space="preserve">
     <value>Icelandic</value>
   </data>
-  <data name="flag_denmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_denmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Settings_word" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>Do Not Show Again</value>
@@ -2696,11 +2723,8 @@
   <data name="Z" xml:space="preserve">
     <value>Z</value>
   </data>
-  <data name="GTide" xml:space="preserve">
-    <value>The global Tide settings will apply to this region</value>
-  </data>
-  <data name="Name_of_Region_Word" xml:space="preserve">
-    <value>Name of Region</value>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Any line the begins with the letter M and a colon is spoken in a Male voice.</value>
   </data>
   <data name="Cancel_word" xml:space="preserve">
     <value>Cancel</value>
@@ -2714,8 +2738,8 @@
   <data name="UPNP_Disabled" xml:space="preserve">
     <value>UPnP Disabled</value>
   </data>
-  <data name="tt_Apache_EnableOther" xml:space="preserve">
-    <value>Enables a redirect of the home page to the "Other" folder in htdocs</value>
+  <data name="Smart_Start_Enable_word" xml:space="preserve">
+    <value>Smart Start Enable</value>
   </data>
   <data name="Create_DB" xml:space="preserve">
     <value>Creating a new, blank database</value>
@@ -2741,8 +2765,11 @@
   <data name="Info_word" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="Delete_All" xml:space="preserve">
-    <value>Delete All</value>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>Name of Region</value>
+  </data>
+  <data name="Stop_All_word" xml:space="preserve">
+    <value>Stop All</value>
   </data>
   <data name="Content_Manager_Word" xml:space="preserve">
     <value>Content Manager</value>
@@ -2762,20 +2789,23 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Image Cache</value>
   </data>
-  <data name="Consoles_word" xml:space="preserve">
-    <value>Consoles</value>
-  </data>
-  <data name="Age" xml:space="preserve">
-    <value>Age</value>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Caution! This will load 150+ OARS and regions into your system. This will take a long time.</value>
   </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Allow items to leave</value>
   </data>
-  <data name="ErrorLevel0" xml:space="preserve">
-    <value>0 - (Error) Errors only, Requires Restart</value>
+  <data name="icecast_help" xml:space="preserve">
+    <value>Click for Help on setting up Icecast</value>
   </data>
-  <data name="Restart_one_region_word" xml:space="preserve">
-    <value>Restart one region</value>
+  <data name="Basque_word" xml:space="preserve">
+    <value>Basque</value>
+  </data>
+  <data name="gear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache has been removed as a service</value>
   </data>
   <data name="flag_finland" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_finland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2789,32 +2819,26 @@
   <data name="WheretoStart" xml:space="preserve">
     <value>Where to start? (Regions grow to the right and upward)</value>
   </data>
-  <data name="Revert" xml:space="preserve">
-    <value>Revert</value>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>Load IAR canceled - must use the full user name and password.</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
     <value>Tolerance (default=25.0)</value>
   </data>
-  <data name="Icecast_starting" xml:space="preserve">
-    <value>Starting Icecast</value>
+  <data name="Palm11" xml:space="preserve">
+    <value>Palm 1</value>
   </data>
-  <data name="Items_word" xml:space="preserve">
-    <value>Items</value>
+  <data name="Consoles_word" xml:space="preserve">
+    <value>Consoles</value>
   </data>
-  <data name="Separation" xml:space="preserve">
-    <value>Desired Separation (default=5.0)</value>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Clears all the objects in all squares and loads the OAR</value>
   </data>
   <data name="Theme_word" xml:space="preserve">
     <value>Theme:</value>
   </data>
-  <data name="Cannot_find_region_word" xml:space="preserve">
-    <value>Cannot find region</value>
-  </data>
   <data name="users3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\users3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Click_To_Load_Here" xml:space="preserve">
-    <value>Click to load the lower left corner of the file into this location. Regions grow up and to the right </value>
   </data>
   <data name="MustHaveName" xml:space="preserve">
     <value>Must have a name of an inventory item</value>
@@ -2822,8 +2846,8 @@
   <data name="Discard_Exit" xml:space="preserve">
     <value>Discard all changes and Exit?</value>
   </data>
-  <data name="Apache_has_been_removed" xml:space="preserve">
-    <value>Apache has been removed as a service</value>
+  <data name="Next_Name" xml:space="preserve">
+    <value>Next Name</value>
   </data>
   <data name="pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pdf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2834,11 +2858,8 @@
   <data name="Public_IP_Setup_Word" xml:space="preserve">
     <value>Public IP setup</value>
   </data>
-  <data name="navigate_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigate_down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Connect2Console" xml:space="preserve">
-    <value>Connect to Console</value>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automatic Backup Is Running</value>
   </data>
   <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
     <value>Show Gloebits welcome message when entering a region?</value>
@@ -2846,11 +2867,8 @@
   <data name="Caution_word" xml:space="preserve">
     <value>Caution!</value>
   </data>
-  <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
-    <value>Tide Hi/Lo Channel</value>
-  </data>
-  <data name="Ready_to_Launch" xml:space="preserve">
-    <value>Ready to Launch!</value>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>All map tiles have been erased. Set the map setting  and reboot to make new maps</value>
   </data>
   <data name="AllowGodsTooltip" xml:space="preserve">
     <value>If this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with **Allow Gods In This Region**.  This setting has nothing to do with the other two settings.</value>
@@ -2858,17 +2876,23 @@
   <data name="Unable_2_Save" xml:space="preserve">
     <value>Unable to save settings:</value>
   </data>
+  <data name="OptionsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OptionsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Max_Force" xml:space="preserve">
     <value>Max Force (default=0.2)</value>
   </data>
   <data name="Avatars_in_World" xml:space="preserve">
     <value>Avatars are in the  world! Do you really wish to quit?</value>
   </data>
-  <data name="About_word" xml:space="preserve">
-    <value>About</value>
+  <data name="CSOD" xml:space="preserve">
+    <value>Current Size on Disk</value>
   </data>
-  <data name="box_tall" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\box_tall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Max Speed (default=1.0)</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Revert</value>
   </data>
   <data name="PublicityHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PublicityHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -2879,14 +2903,11 @@
   <data name="Send_report" xml:space="preserve">
     <value>Send Report</value>
   </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>Object Path and name</value>
+  </data>
   <data name="Objects_word" xml:space="preserve">
     <value>Objects</value>
-  </data>
-  <data name="LoadHelp" xml:space="preserve">
-    <value>Load Help Files</value>
-  </data>
-  <data name="Setup_Wordpress" xml:space="preserve">
-    <value>Setup WordPress database</value>
   </data>
   <data name="AI" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AI.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2897,8 +2918,8 @@
   <data name="Click_2_Choose" xml:space="preserve">
     <value>Click to choose a DOS box to hold this region</value>
   </data>
-  <data name="Apply_word" xml:space="preserve">
-    <value>Apply</value>
+  <data name="welcome_toolbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\welcome_toolbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EnableApache" xml:space="preserve">
     <value>Enable Apache Web server</value>
@@ -2921,8 +2942,8 @@
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Refreshing Free Content (IAR)</value>
   </data>
-  <data name="ClampSize" xml:space="preserve">
-    <value>Clamp Prim Size' is an option to ensure no prim can exceed the set size</value>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Choose folder</value>
   </data>
   <data name="MakeNewMap" xml:space="preserve">
     <value>Show Global Map</value>
@@ -2936,14 +2957,14 @@
   <data name="RunasaService_word" xml:space="preserve">
     <value>Run as a Service</value>
   </data>
-  <data name="data" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\data.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
+    <value>Tide Hi/Lo Channel</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF Manual</value>
   </data>
-  <data name="navigate_plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigate_plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>Automatic Site Map</value>
   </data>
   <data name="Spanish_Spain" xml:space="preserve">
     <value>Spanish (Spain)</value>
@@ -2951,8 +2972,8 @@
   <data name="SeeYouSoon" xml:space="preserve">
     <value>I'll see you again when I wake up all fresh and new!</value>
   </data>
-  <data name="Click_Start_2_Begin" xml:space="preserve">
-    <value>Click 'Start' to begin.</value>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>There is one avatar in</value>
   </data>
   <data name="Help_Forward" xml:space="preserve">
     <value>Help On Port Forwarding</value>
@@ -2990,8 +3011,8 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="Custom_word" xml:space="preserve">
-    <value>Custom</value>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>Update is available. Do you wish to update?</value>
   </data>
   <data name="No_Overlaps" xml:space="preserve">
     <value>No overlapping regions</value>
@@ -3005,8 +3026,14 @@
   <data name="Global_Map" xml:space="preserve">
     <value>Global Map</value>
   </data>
-  <data name="Click_Database" xml:space="preserve">
-    <value>Click to set up the MySQL Database</value>
+  <data name="flatland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flatland.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>Apache Webserver</value>
+  </data>
+  <data name="window_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\window_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Do_you_still_want_to_Stop_word" xml:space="preserve">
     <value>Do you still want to stop?</value>
@@ -3014,11 +3041,11 @@
   <data name="Clear_Selected_Caches_word" xml:space="preserve">
     <value>Clear Selected Caches</value>
   </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
+  <data name="Swedish" xml:space="preserve">
+    <value>Swedish</value>
   </data>
-  <data name="picture_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picture_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Public_Photo_Word" xml:space="preserve">
+    <value>Public Photo</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>Neighbor Distance (default=25.0)</value>
@@ -3032,14 +3059,11 @@
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
   </data>
-  <data name="Modules_word" xml:space="preserve">
-    <value>Modules</value>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>has stopped.</value>
   </data>
-  <data name="flag_sweden" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_sweden.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Num_Birds" xml:space="preserve">
-    <value>The number of birds to flock</value>
+  <data name="Pine21" xml:space="preserve">
+    <value>Pine 2</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Troubleshooting</value>
@@ -3047,11 +3071,11 @@
   <data name="External" xml:space="preserve">
     <value>External HostName For Region Servers</value>
   </data>
-  <data name="ScriptsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ScriptsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Connect to Console</value>
   </data>
-  <data name="Cycle_time_text" xml:space="preserve">
-    <value>How long in seconds for a complete cycle time. low-&gt;high-&gt;low</value>
+  <data name="Finished_with_backup_word" xml:space="preserve">
+    <value>Finished with backup:</value>
   </data>
   <data name="View_Details" xml:space="preserve">
     <value>View Region Details</value>
@@ -3062,14 +3086,14 @@
   <data name="SSisDisabled" xml:space="preserve">
     <value>Smart Start  (Alpha code) in Settings-&gt;Smart Start is disabled.</value>
   </data>
-  <data name="flag_portugal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_portugal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
   </data>
   <data name="Change_UUID" xml:space="preserve">
     <value>Changing the UUID will lose all data in the old sim and create a new, empty sim. Are you sure you wish to change the UUID?</value>
   </data>
-  <data name="OAR_load_save_backupp_word" xml:space="preserve">
-    <value>OAR - Load, Save and Backup</value>
+  <data name="RenderMax" xml:space="preserve">
+    <value>Render Max Height</value>
   </data>
   <data name="ErrUpdate" xml:space="preserve">
     <value>Error: Could Not Launch DreamGridUpdater.exe.  Perhaps you can launch it manually?</value>
@@ -3086,14 +3110,11 @@
   <data name="Robust_not_Running" xml:space="preserve">
     <value>Robust is not running on this machine</value>
   </data>
-  <data name="Click_Restart" xml:space="preserve">
-    <value>Click to Set up Start/Stop/Recycle and Crash options</value>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Backup OARs</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Send Alert Message</value>
-  </data>
-  <data name="Show_Stats" xml:space="preserve">
-    <value>Show stats on console</value>
   </data>
   <data name="Status_word" xml:space="preserve">
     <value>Status</value>
@@ -3101,26 +3122,23 @@
   <data name="Information_word" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="Choose_a_Folder_word" xml:space="preserve">
-    <value>Choose a folder</value>
+  <data name="Robust_word" xml:space="preserve">
+    <value>Robust</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Center of the map coordinate</value>
   </data>
-  <data name="leaving_word" xml:space="preserve">
-    <value>leaving</value>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>Clearing Script Cache. This may take a long time.</value>
   </data>
-  <data name="Plants" xml:space="preserve">
-    <value>Plants</value>
+  <data name="Best_Prims" xml:space="preserve">
+    <value>Best (Prims + Mesh, Very Slow)</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>IPV4 Address</value>
   </data>
-  <data name="flag_taiwan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_taiwan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="package_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\package_ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>View Visitor Maps</value>
   </data>
   <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
     <value>Load Free Avatar Inventory</value>
@@ -3131,11 +3149,11 @@
   <data name="Simple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Simple.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>Global Tide Settings</value>
+  <data name="flag_sweden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_sweden.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Running_Network" xml:space="preserve">
-    <value>Running Network Diagnostics</value>
+  <data name="TechInfo" xml:space="preserve">
+    <value>Technical Information</value>
   </data>
   <data name="Physics_Engine" xml:space="preserve">
     <value>Physics Engine</value>
@@ -3143,11 +3161,11 @@
   <data name="MAC_Address_word" xml:space="preserve">
     <value>MAC Address</value>
   </data>
-  <data name="Description_word" xml:space="preserve">
-    <value>Description</value>
+  <data name="Simple_but_Fast_word" xml:space="preserve">
+    <value>Simple but fast</value>
   </data>
-  <data name="SecondsTips" xml:space="preserve">
-    <value>How long a running Region will stay up after an avatrar has left</value>
+  <data name="CoordX" xml:space="preserve">
+    <value>The East-West position on the world map</value>
   </data>
   <data name="High_Water_Level_text" xml:space="preserve">
     <value>High water marks in metres</value>
@@ -3155,20 +3173,23 @@
   <data name="Request_App" xml:space="preserve">
     <value>Request App Creation</value>
   </data>
-  <data name="Help_On_IARS_word" xml:space="preserve">
-    <value>Help On IARS</value>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Are you sure you want to delete this region?</value>
   </data>
-  <data name="IgnoreParcels_tooltip" xml:space="preserve">
-    <value>Ignore the new parcel data.</value>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Boot Time</value>
   </data>
   <data name="How_Far" xml:space="preserve">
     <value>How far away from other birds we would like to stay?</value>
   </data>
-  <data name="DeleteTmp_word" xml:space="preserve">
-    <value>Delete tmp folder</value>
+  <data name="tt_Backup_Fsassets" xml:space="preserve">
+    <value>Backs up the FSassets  folder. Thjsi is a very large  backup. It will do an incremental backup, of just changes.</value>
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>Cannot save region :</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast did not start</value>
   </data>
   <data name="KeepAlways" xml:space="preserve">
     <value>Keep Always</value>
@@ -3185,6 +3206,12 @@
   <data name="Click_to_change_the_folder" xml:space="preserve">
     <value>Click to change the folder</value>
   </data>
+  <data name="picture_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picture_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Announce_visitors" xml:space="preserve">
+    <value>Announce Visitors in region chat</value>
+  </data>
   <data name="ODE_word_NT" xml:space="preserve">
     <value>ODE</value>
   </data>
@@ -3200,8 +3227,8 @@
   <data name="Not_Shown" xml:space="preserve">
     <value>The Opensimulator Console will not be shown. You can still interact with it with Help-&gt;Opensim Console</value>
   </data>
-  <data name="Kelp2" xml:space="preserve">
-    <value>Kelp 2</value>
+  <data name="question_and_answer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\question_and_answer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>Choose Region</value>
@@ -3209,8 +3236,8 @@
   <data name="Small_Map" xml:space="preserve">
     <value>Small Metro map</value>
   </data>
-  <data name="blankbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blankbox.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Apache_word" xml:space="preserve">
+    <value>Apache</value>
   </data>
   <data name="NormalizeRegions" xml:space="preserve">
     <value>Normalize Regions</value>
@@ -3218,8 +3245,8 @@
   <data name="Importtext" xml:space="preserve">
     <value>Import Region INI files</value>
   </data>
-  <data name="All_word" xml:space="preserve">
-    <value>All</value>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>Do not publish this region</value>
   </data>
   <data name="FSassets" xml:space="preserve">
     <value>File System Database</value>
@@ -3232,6 +3259,9 @@
   </data>
   <data name="Dutch" xml:space="preserve">
     <value>Dutch</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>checking</value>
   </data>
   <data name="SQL_Database_Backup_Restore" xml:space="preserve">
     <value>SQL Database Backup/Restore</value>
@@ -3260,14 +3290,17 @@
   <data name="German" xml:space="preserve">
     <value>German</value>
   </data>
-  <data name="StartAll" xml:space="preserve">
-    <value>Start all checked regions</value>
+  <data name="map_1_9510_10006_objects" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map-1-9510-10006-objects.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>loaded.</value>
   </data>
   <data name="Local_Grid" xml:space="preserve">
     <value>Local_Grid</value>
   </data>
-  <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Global Settings</value>
+  <data name="user3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Choose which cache to empty</value>
@@ -3293,23 +3326,23 @@
   <data name="Cache_Most_Cleared" xml:space="preserve">
     <value>All Server Caches except Scripts and Avatar bakes were cleared. Opensim must be stopped to clear script and bake caches.</value>
   </data>
-  <data name="Enable_Search_word" xml:space="preserve">
-    <value>Enable Search</value>
+  <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calendar.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup Data Files</value>
   </data>
-  <data name="Setup_word" xml:space="preserve">
-    <value>Setup</value>
+  <data name="flag_taiwan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_taiwan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="No_Estate_Word" xml:space="preserve">
     <value>No Estate</value>
   </data>
-  <data name="Starting_WebServer_word" xml:space="preserve">
-    <value>Starting webserver</value>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>Load Parcel</value>
   </data>
-  <data name="Only_Owners" xml:space="preserve">
-    <value>Only Owners and Estate Managers will be allowed in this region</value>
+  <data name="package_preferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\package_preferences.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="flag_israel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_israel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -3317,11 +3350,8 @@
   <data name="Home_Stopped" xml:space="preserve">
     <value>Home Stopped</value>
   </data>
-  <data name="Setup_Firewall_word" xml:space="preserve">
-    <value>Setup Firewall</value>
-  </data>
-  <data name="Auto_Startup_word" xml:space="preserve">
-    <value>Automatic Startup</value>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>Show stats on console</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>Starting Diagnostic Port Webserver</value>
@@ -3329,8 +3359,8 @@
   <data name="Start_Regions_word" xml:space="preserve">
     <value>Start Regions</value>
   </data>
-  <data name="No_Regions_Ready" xml:space="preserve">
-    <value>No regions are ready, so cannot load the IAR"</value>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>Selects all or none of the check boxes</value>
   </data>
   <data name="Cancelled_word" xml:space="preserve">
     <value>Cancelled</value>
@@ -3344,8 +3374,8 @@
   <data name="StartUPNP" xml:space="preserve">
     <value>Starting the Control Panel</value>
   </data>
-  <data name="Backup_Custom" xml:space="preserve">
-    <value>Backup Custom Web Pages</value>
+  <data name="Disable_Foreigners_word" xml:space="preserve">
+    <value>Disable Foreign Visitors</value>
   </data>
   <data name="Diskspacelow" xml:space="preserve">
     <value>Disk space is critically low, less than 50 M left!   All regions are frozen.  Please free up disk space and the regions will thaw.</value>
@@ -3360,20 +3390,20 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>View list of Avatars</value>
   </data>
-  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
-    <value>Show Gloebits authorization Instant Message to user at session start?</value>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>Diagnostics failed. Do you want to see the log?</value>
   </data>
-  <data name="Checking_for_Updates_word" xml:space="preserve">
-    <value>Checking for Updates</value>
+  <data name="Script_Engine_word" xml:space="preserve">
+    <value>Script Engine</value>
   </data>
-  <data name="Timeout_in_hours_word" xml:space="preserve">
-    <value>Timeout in hours</value>
+  <data name="DynDNS" xml:space="preserve">
+    <value>Registering Dynamic DNS address</value>
   </data>
   <data name="Enable_Birds_word" xml:space="preserve">
     <value>Enable Bird Module</value>
   </data>
-  <data name="Passed_LAN" xml:space="preserve">
-    <value>Passed LAN Loopback Test</value>
+  <data name="FreeName" xml:space="preserve">
+    <value>Get a free DYN DNS Name</value>
   </data>
   <data name="DNSAltWords" xml:space="preserve">
     <value>Alternate name for use by Apache or Jopensim</value>
@@ -3384,11 +3414,8 @@
   <data name="Max_Accel" xml:space="preserve">
     <value>The maximum acceleration allowed to the current velocity of the bird</value>
   </data>
-  <data name="Select_word" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Off</value>
+  <data name="StartAll" xml:space="preserve">
+    <value>Start all checked regions</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim Is not running.</value>
@@ -3402,50 +3429,56 @@
   <data name="None1" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="WifiMap" xml:space="preserve">
     <value>This is the standard Wifi Map page</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>did not start</value>
   </data>
-  <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Force terrain loading on --merge. Normally, --merge does not overwrite the existing region's terrain.</value>
   </data>
   <data name="OSGrid_Region_Server" xml:space="preserve">
     <value>OSGrid Region Server</value>
   </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>Enable the tide to come in and out?</value>
+  </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Backing up MySql\Data Folder. Please Wait. Screen will appear frozen.</value>
   </data>
-  <data name="gear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Setup_word" xml:space="preserve">
+    <value>Setup</value>
   </data>
-  <data name="More_Free_Islands" xml:space="preserve">
-    <value>More Free Islands and Parts</value>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>Global Tide Settings</value>
   </data>
   <data name="SMTP" xml:space="preserve">
     <value>SMTP Send Email Account</value>
   </data>
-  <data name="Loopback_Failed" xml:space="preserve">
-    <value>Loopback Test Failed. Web address did not respond.</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Must be a number</value>
   </data>
-  <data name="Theme_Custom" xml:space="preserve">
-    <value>Theme set to Custom</value>
+  <data name="Voice" xml:space="preserve">
+    <value>Voice</value>
   </data>
   <data name="One_region" xml:space="preserve">
     <value>One region is still running</value>
   </data>
-  <data name="package_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\package_error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>Click to load the lower left corner of the file into this location. Regions grow up and to the right </value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
     <value>Your system Hypergrid name has been reset. You can change the name in the Setup-Settings-&gt;DNS menu</value>
   </data>
-  <data name="Random" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Randomn.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>Low Water Level</value>
   </data>
-  <data name="tt_Backup_Now" xml:space="preserve">
-    <value>Runs the selected backups now.</value>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Install Now</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>Cannot normalize map as a Region will be at a location less than 0</value>
@@ -3498,8 +3531,8 @@
   <data name="Contact_Name_word" xml:space="preserve">
     <value>Contact Name</value>
   </data>
-  <data name="Checking_Router_word" xml:space="preserve">
-    <value>Checking Router</value>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>See Ports In Use</value>
   </data>
   <data name="Port1" xml:space="preserve">
     <value>Port 1</value>
@@ -3516,8 +3549,8 @@
   <data name="ErrorLevel2" xml:space="preserve">
     <value>2 - (Debug) Cache Activity, Requires Restart</value>
   </data>
-  <data name="tt_Apache_EnableDiva" xml:space="preserve">
-    <value>Enables a redirect of the home page to the "Dreamgrid" folder in htdocs</value>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>Chat tide info to the region so scripts can move with the tide?</value>
   </data>
   <data name="tt_Apache_Port" xml:space="preserve">
     <value>Typically Port 80, the WWW port.  If port 80 blocked by your ISP, 8000 is a good choice.</value>
@@ -3543,23 +3576,23 @@
   <data name="navigate_check" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigate_check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Eelgrass" xml:space="preserve">
-    <value>Eelgrass</value>
+  <data name="Stop_word" xml:space="preserve">
+    <value>Stop</value>
   </data>
-  <data name="Terrain_word" xml:space="preserve">
-    <value>Terrain</value>
+  <data name="Skip_word" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Delete_word" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="Benchmark" xml:space="preserve">
     <value>Benchmark</value>
   </data>
-  <data name="Backup_Databases" xml:space="preserve">
-    <value>Backup Databases</value>
-  </data>
   <data name="Default_Checked_word" xml:space="preserve">
     <value>Default: Checked</value>
   </data>
-  <data name="Palm1" xml:space="preserve">
-    <value>Palm 1</value>
+  <data name="Yes_word" xml:space="preserve">
+    <value>Yes</value>
   </data>
   <data name="Save_Region_OAR_word" xml:space="preserve">
     <value>Save Region OAR</value>
@@ -3567,23 +3600,20 @@
   <data name="Arabic_Saudi" xml:space="preserve">
     <value>Arabic (Saudi)</value>
   </data>
-  <data name="Allow_objects" xml:space="preserve">
-    <value>Objects can be taken from your grid via Hypergrid</value>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>Y Engine</value>
   </data>
-  <data name="Icecast_failed" xml:space="preserve">
-    <value>Icecast did not start</value>
-  </data>
-  <data name="New_User_Home" xml:space="preserve">
-    <value>New User Home X,Y,Z</value>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
   </data>
   <data name="User_ID_word" xml:space="preserve">
     <value>User ID</value>
   </data>
-  <data name="Clearing_Script" xml:space="preserve">
-    <value>Clearing Script Cache. This may take a long time.</value>
+  <data name="Web_UI" xml:space="preserve">
+    <value>The Web UI lets you add or view settings for any avatar.</value>
   </data>
-  <data name="ClearRegion" xml:space="preserve">
-    <value>Clear Region List</value>
+  <data name="Terrain_word" xml:space="preserve">
+    <value>Terrain</value>
   </data>
   <data name="Scripts_Start_word" xml:space="preserve">
     <value>Scripts Start</value>
@@ -3594,11 +3624,11 @@
   <data name="Help_Startup" xml:space="preserve">
     <value>Help on Starting Up the first time</value>
   </data>
-  <data name="Modify_word" xml:space="preserve">
-    <value>Modify</value>
+  <data name="Restart_one_instance_word" xml:space="preserve">
+    <value>Restart one instance</value>
   </data>
-  <data name="Delete_word" xml:space="preserve">
-    <value>Delete</value>
+  <data name="package_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\package_ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="window_colors" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\window_colors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -3609,8 +3639,8 @@
   <data name="earth_location" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\earth_location.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cubes_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cubes_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Window_Word" xml:space="preserve">
+    <value>Window</value>
   </data>
   <data name="Aborted_word" xml:space="preserve">
     <value>Aborted</value>
@@ -3621,8 +3651,8 @@
   <data name="Click_Server" xml:space="preserve">
     <value>Click to choose  a Server type. Default = Grid, but you can connect as Region server, OsGrid or Metro Region servers</value>
   </data>
-  <data name="Viewer_Greeting_word" xml:space="preserve">
-    <value>Viewer Greeting</value>
+  <data name="Restore_Database_word" xml:space="preserve">
+    <value>Restore Database</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
     <value>Help On Console Commands</value>
@@ -3633,11 +3663,11 @@
   <data name="Slash" xml:space="preserve">
     <value>/</value>
   </data>
-  <data name="Choose_Where" xml:space="preserve">
-    <value>Choose where to put the OAR:</value>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>Error: Could Not launch NtSuspendProcess64.exe.</value>
   </data>
-  <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>Spanish (Mexico)</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Update is available.  Do you want to exit DreamGrid and install the update?</value>
@@ -3651,8 +3681,8 @@
   <data name="ApacheFailed" xml:space="preserve">
     <value>Service failed to install</value>
   </data>
-  <data name="How_Close" xml:space="preserve">
-    <value>How close to the edges of things can we get without being worried?</value>
+  <data name="GTide" xml:space="preserve">
+    <value>The global Tide settings will apply to this region</value>
   </data>
   <data name="Disable_Gloebits_text" xml:space="preserve">
     <value>The global saetting  Gloebits will not apply to this region if checked.</value>
@@ -3669,11 +3699,11 @@
   <data name="DelMaps" xml:space="preserve">
     <value>Delete All Maps</value>
   </data>
-  <data name="transform" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transform.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>Objects can be taken from your grid via Hypergrid</value>
   </data>
-  <data name="nav_plain_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nav_plain_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Default_8001_word" xml:space="preserve">
+    <value>Default 8001</value>
   </data>
   <data name="Backup_Region" xml:space="preserve">
     <value>Backup Region INI files</value>
@@ -3681,17 +3711,20 @@
   <data name="Dogwood" xml:space="preserve">
     <value>Dogwood</value>
   </data>
-  <data name="Announce_visitors" xml:space="preserve">
-    <value>Announce Visitors in region chat</value>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>regions are still running</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Map  X:</value>
   </data>
-  <data name="navigate_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigate_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
   </data>
-  <data name="Interval_word" xml:space="preserve">
-    <value>Interval</value>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API Key</value>
   </data>
   <data name="Import_word" xml:space="preserve">
     <value>Import INI</value>
@@ -3699,14 +3732,14 @@
   <data name="Version_word" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="flag_spain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_spain.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Irish" xml:space="preserve">
+    <value>Irish</value>
   </data>
-  <data name="Stop_All_word" xml:space="preserve">
-    <value>Stop All</value>
+  <data name="Cannot_find_region_word" xml:space="preserve">
+    <value>Cannot find region</value>
   </data>
-  <data name="View_Stats" xml:space="preserve">
-    <value>View a web page showing statistics for each region</value>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>Max number of Avatars + NPCs</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Setup Graphs</value>
@@ -3714,65 +3747,65 @@
   <data name="No_Emails_Selected" xml:space="preserve">
     <value>No emails were selected</value>
   </data>
-  <data name="Emails_Selected" xml:space="preserve">
-    <value>emails selected</value>
+  <data name="Someone_is_in_word" xml:space="preserve">
+    <value>Someone is in</value>
   </data>
   <data name="Desired_Separation_word" xml:space="preserve">
     <value>Desired Separation (default=5.0)</value>
   </data>
-  <data name="Provide_Info" xml:space="preserve">
-    <value>Provide tide information on the console?</value>
+  <data name="View_Stats" xml:space="preserve">
+    <value>View a web page showing statistics for each region</value>
   </data>
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regions Deleted</value>
   </data>
-  <data name="BulkLoad" xml:space="preserve">
-    <value>Bulk Load Regions</value>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>Changes have been made.  Save?</value>
   </data>
   <data name="Installed_word" xml:space="preserve">
     <value>Installed</value>
   </data>
-  <data name="picture_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\picture_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="table_sql_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\table_sql_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Save_word" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Region_word" xml:space="preserve">
-    <value>Region</value>
+  <data name="Blank256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Blank256.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Canceled_IAR" xml:space="preserve">
-    <value>Load IAR canceled - must use the full user name and password.</value>
+  <data name="Checking_MySql_word" xml:space="preserve">
+    <value>Checking MySql</value>
   </data>
-  <data name="Not_Forwarded" xml:space="preserve">
-    <value>This does not appear to be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help-&gt;Port Forwards.</value>
+  <data name="ors" xml:space="preserve">
+    <value>Or:</value>
   </data>
   <data name="registry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\registry.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icons_word" xml:space="preserve">
-    <value>Icons</value>
-  </data>
   <data name="Tides_word" xml:space="preserve">
     <value>Tides</value>
   </data>
-  <data name="Apache_Webserver" xml:space="preserve">
-    <value>Apache Webserver</value>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recycling Down</value>
   </data>
-  <data name="OneAvatar" xml:space="preserve">
-    <value>There is one avatar in</value>
+  <data name="JobEngine_word" xml:space="preserve">
+    <value>Job Engine</value>
   </data>
-  <data name="Logging_word" xml:space="preserve">
-    <value>Logging</value>
+  <data name="Configger" xml:space="preserve">
+    <value>Configure All Regions</value>
   </data>
   <data name="EstateManagerIsGod_word" xml:space="preserve">
     <value>Estate Manager is god</value>
   </data>
-  <data name="Object_Path" xml:space="preserve">
-    <value>Object Path and name</value>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Click to set up your Backup Schedule</value>
   </data>
-  <data name="ODE_text" xml:space="preserve">
-    <value>Open Dynamic Engine</value>
+  <data name="Ports" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>leaving</value>
   </data>
   <data name="StartingLocation" xml:space="preserve">
     <value>Starting Location?</value>
@@ -3801,32 +3834,32 @@
   <data name="Bird_Settings_word" xml:space="preserve">
     <value>Bird Settings</value>
   </data>
-  <data name="Mode_word" xml:space="preserve">
-    <value>Mode</value>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Start Size XYZ</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
     <value>1 - (Info)  Hit Rate Stats, Requires Restart</value>
   </data>
-  <data name="map_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>Ready to Launch!</value>
   </data>
-  <data name="KeepOnTop_word" xml:space="preserve">
-    <value>Keep On Top</value>
+  <data name="flag_france" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_france.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="data_into" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\data_into.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>Show Grid Address</value>
   </data>
-  <data name="Restart_All_word" xml:space="preserve">
-    <value>Restart All</value>
+  <data name="Icons_word" xml:space="preserve">
+    <value>Icons</value>
   </data>
   <data name="Splash" xml:space="preserve">
     <value>Viewer Splash Screen URL:</value>
   </data>
-  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
-    <value>Are you sure you want to delete this region?</value>
+  <data name="Select_word" xml:space="preserve">
+    <value>Select</value>
   </data>
-  <data name="RegenTerrains" xml:space="preserve">
-    <value>Regen Terrains</value>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>No regions are ready, so cannot load the IAR"</value>
   </data>
   <data name="Disabled_word" xml:space="preserve">
     <value>Disabled</value>
@@ -3843,29 +3876,29 @@
   <data name="tt_Apache_Enable" xml:space="preserve">
     <value>Enables Apache Web server to run as a service.</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>Frame Rate</value>
+  <data name="All_Caches_Cleared_word" xml:space="preserve">
+    <value>All Caches cleared</value>
   </data>
   <data name="How_High" xml:space="preserve">
     <value>How high are we allowed to flock?</value>
   </data>
-  <data name="Quit_Message0" xml:space="preserve">
-    <value>The system and other applications have not been affected. A report has been created to help identify this problem.</value>
+  <data name="LargeMap" xml:space="preserve">
+    <value>Large Metro map</value>
   </data>
-  <data name="Maps_Erased" xml:space="preserve">
-    <value>All map tiles have been erased. Set the map setting  and reboot to make new maps</value>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>Web Server Panel</value>
   </data>
   <data name="Stopping_word" xml:space="preserve">
     <value>Stopping</value>
   </data>
-  <data name="Stop_word" xml:space="preserve">
-    <value>Stop</value>
+  <data name="NoImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Image1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Generated_word" xml:space="preserve">
     <value>Generated</value>
   </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>Setup Search Database</value>
+  <data name="Set_Debug_Level_word" xml:space="preserve">
+    <value>Set Debug Level</value>
   </data>
   <data name="Creating_INI_Files_word" xml:space="preserve">
     <value>Creating INI Files</value>
@@ -3876,8 +3909,8 @@
   <data name="MySQL_Port_Default" xml:space="preserve">
     <value>Default = 3306</value>
   </data>
-  <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
-    <value>Allow Region owner gods</value>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
   </data>
   <data name="Avatar_Bakes_Cache_word" xml:space="preserve">
     <value>Avatar Bakes Cache</value>
@@ -3888,32 +3921,35 @@
   <data name="MySQLDidNotStop" xml:space="preserve">
     <value>MySQL did not stop when commanded to stop</value>
   </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>Prim Limits</value>
+  </data>
   <data name="Refresh_word" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="Load_Local_OARs_word" xml:space="preserve">
-    <value>Load Local OARs</value>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>The server to connect to. 'localhost' is the default.</value>
   </data>
-  <data name="Checking_LAN_Loopback_word" xml:space="preserve">
-    <value>Checking LAN Loopback</value>
+  <data name="picture_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picture_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="webserver_Search_map" xml:space="preserve">
-    <value>Web Server + Search and Map</value>
+  <data name="Backing_up_Settings_word" xml:space="preserve">
+    <value>Backing up Settings</value>
   </data>
-  <data name="TotalArea_word" xml:space="preserve">
-    <value>Total Area</value>
+  <data name="Starting_up" xml:space="preserve">
+    <value>Starting up the first time</value>
   </data>
-  <data name="Save_IAR_word" xml:space="preserve">
-    <value>Save IAR</value>
+  <data name="flag_portugal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flag_portugal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flat" xml:space="preserve">
-    <value>Flat</value>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>Click 'Start' to begin.</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
-    <value>Grid TCP Port is set</value>
+  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="checking_word" xml:space="preserve">
-    <value>checking</value>
+  <data name="Set_Owner_word" xml:space="preserve">
+    <value>Set Owner</value>
   </data>
   <data name="media_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\media_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -3930,73 +3966,40 @@
   <data name="Teleport_Tooltip" xml:space="preserve">
     <value>Sends this region status to the Outworldz Teleport signs</value>
   </data>
-  <data name="text_find" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\text_find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Network_Change" xml:space="preserve">
+    <value>A network change occured. A restart may be necessary.</value>
   </data>
-  <data name="Prim_Limits" xml:space="preserve">
-    <value>Prim Limits</value>
+  <data name="Setup_Firewall_word" xml:space="preserve">
+    <value>Setup Firewall</value>
   </data>
   <data name="books" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\books.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="OptionsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OptionsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="All_Users_All_Sims_word" xml:space="preserve">
+    <value>All Users, All Sims</value>
   </data>
-  <data name="Max_Speed" xml:space="preserve">
-    <value>Max Speed (default=1.0)</value>
+  <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MustSetSS" xml:space="preserve">
     <value>Must set the owner of the Sim Surrounds first!</value>
   </data>
+  <data name="nav_plain_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nav_plain_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icecube" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icecube.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DNS_HG_Name" xml:space="preserve">
-    <value>DNS Name &amp; Hypergrid</value>
+  <data name="Help_On_IARS_word" xml:space="preserve">
+    <value>Help On IARS</value>
   </data>
-  <data name="Database_Help_word" xml:space="preserve">
-    <value>Database Help</value>
+  <data name="Setup_Wordpress" xml:space="preserve">
+    <value>Setup WordPress database</value>
   </data>
   <data name="NVPhysPrim" xml:space="preserve">
     <value>Not a valid Physical Prim Max Value. Must be greater than 0.</value>
   </data>
-  <data name="loudspeaker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loudspeaker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Each_Line" xml:space="preserve">
-    <value>Each line of text is saved to a wave and mp3 file.</value>
-  </data>
-  <data name="Female_Voice" xml:space="preserve">
-    <value>F: A line the begins with the letter F and a colon is spoken in a Female voice.</value>
-  </data>
-  <data name="Make_Speech" xml:space="preserve">
-    <value>Make Speech (Wav + Mp3)</value>
-  </data>
-  <data name="Male_Voice" xml:space="preserve">
-    <value>M: Any line the begins with the letter M and a colon is spoken in a Male voice.</value>
-  </data>
-  <data name="The_default_voice" xml:space="preserve">
-    <value>The default voice selection will speak this text.</value>
-  </data>
-  <data name="APIKey" xml:space="preserve">
-    <value>API Key</value>
-  </data>
-  <data name="Text2Speech" xml:space="preserve">
-    <value>Text To Speech for Media on a prim </value>
-  </data>
-  <data name="CacheSizeInHours" xml:space="preserve">
-    <value>Cache Size In Hours</value>
-  </data>
-  <data name="ViewCacheFolder" xml:space="preserve">
-    <value>View Cache Folder</value>
-  </data>
-  <data name="backup_running" xml:space="preserve">
-    <value>backup running</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="FiveMinutes_word" xml:space="preserve">
-    <value>Five Minutes Per Tick</value>
+  <data name="line-chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\line-chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

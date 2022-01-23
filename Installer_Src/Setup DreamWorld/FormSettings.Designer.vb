@@ -52,18 +52,22 @@ Partial Class FormSettings
         Me.JoomlaButton = New System.Windows.Forms.Button()
         Me.SearchButton = New System.Windows.Forms.Button()
         Me.SmartStartButton = New System.Windows.Forms.Button()
+        Me.SpeechButton = New System.Windows.Forms.Button()
+        Me.SSLButton = New System.Windows.Forms.Button()
         Me.LanguageButton = New System.Windows.Forms.Button()
         Me.FSAssetsButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox = New System.Windows.Forms.GroupBox()
-        Me.SpeechButton = New System.Windows.Forms.Button()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GlobalSettingsGroupbox.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TOSButton
         '
         Me.TOSButton.Image = Global.Outworldz.My.Resources.Resources.document_text
         Me.TOSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.TOSButton.Location = New System.Drawing.Point(421, 260)
+        Me.TOSButton.Location = New System.Drawing.Point(420, 300)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(180, 35)
         Me.TOSButton.TabIndex = 25
@@ -75,7 +79,7 @@ Partial Class FormSettings
         '
         Me.TideButton.Image = Global.Outworldz.My.Resources.Resources.wave
         Me.TideButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.TideButton.Location = New System.Drawing.Point(421, 220)
+        Me.TideButton.Location = New System.Drawing.Point(420, 260)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(180, 35)
         Me.TideButton.TabIndex = 24
@@ -99,7 +103,7 @@ Partial Class FormSettings
         '
         Me.VoiceButton1.Image = Global.Outworldz.My.Resources.Resources.users1
         Me.VoiceButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.VoiceButton1.Location = New System.Drawing.Point(420, 300)
+        Me.VoiceButton1.Location = New System.Drawing.Point(419, 340)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(180, 35)
         Me.VoiceButton1.TabIndex = 26
@@ -171,7 +175,7 @@ Partial Class FormSettings
         '
         Me.DivaButton1.Image = Global.Outworldz.My.Resources.Resources.earth_view
         Me.DivaButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DivaButton1.Location = New System.Drawing.Point(421, 341)
+        Me.DivaButton1.Location = New System.Drawing.Point(420, 381)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(180, 35)
         Me.DivaButton1.TabIndex = 27
@@ -371,6 +375,30 @@ Partial Class FormSettings
         Me.ToolTip1.SetToolTip(Me.SmartStartButton, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.SmartStartButton.UseVisualStyleBackColor = True
         '
+        'SpeechButton
+        '
+        Me.SpeechButton.Image = Global.Outworldz.My.Resources.Resources.loudspeaker
+        Me.SpeechButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SpeechButton.Location = New System.Drawing.Point(421, 181)
+        Me.SpeechButton.Name = "SpeechButton"
+        Me.SpeechButton.Size = New System.Drawing.Size(180, 35)
+        Me.SpeechButton.TabIndex = 28
+        Me.SpeechButton.Text = "Speech"
+        Me.ToolTip1.SetToolTip(Me.SpeechButton, "!!!")
+        Me.SpeechButton.UseVisualStyleBackColor = True
+        '
+        'SSLButton
+        '
+        Me.SSLButton.Image = CType(resources.GetObject("SSLButton.Image"), System.Drawing.Image)
+        Me.SSLButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SSLButton.Location = New System.Drawing.Point(421, 219)
+        Me.SSLButton.Name = "SSLButton"
+        Me.SSLButton.Size = New System.Drawing.Size(180, 35)
+        Me.SSLButton.TabIndex = 29
+        Me.SSLButton.Text = "SSL"
+        Me.ToolTip1.SetToolTip(Me.SSLButton, "!!!")
+        Me.SSLButton.UseVisualStyleBackColor = True
+        '
         'LanguageButton
         '
         Me.LanguageButton.Image = Global.Outworldz.My.Resources.Resources.flag_usa
@@ -396,6 +424,7 @@ Partial Class FormSettings
         '
         'GlobalSettingsGroupbox
         '
+        Me.GlobalSettingsGroupbox.Controls.Add(Me.SSLButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.SpeechButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.SmartStartButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.LanguageButton)
@@ -425,24 +454,28 @@ Partial Class FormSettings
         Me.GlobalSettingsGroupbox.Controls.Add(Me.CurrencyButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.TOSButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.IcecastButton)
-        Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 12)
+        Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 47)
         Me.GlobalSettingsGroupbox.Name = "GlobalSettingsGroupbox"
         Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(617, 429)
         Me.GlobalSettingsGroupbox.TabIndex = 1870
         Me.GlobalSettingsGroupbox.TabStop = False
         Me.GlobalSettingsGroupbox.Text = "Global Settings"
         '
-        'SpeechButton
+        'MenuStrip1
         '
-        Me.SpeechButton.Image = Global.Outworldz.My.Resources.Resources.loudspeaker
-        Me.SpeechButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SpeechButton.Location = New System.Drawing.Point(421, 181)
-        Me.SpeechButton.Name = "SpeechButton"
-        Me.SpeechButton.Size = New System.Drawing.Size(180, 35)
-        Me.SpeechButton.TabIndex = 28
-        Me.SpeechButton.Text = "Speech"
-        Me.ToolTip1.SetToolTip(Me.SpeechButton, "!!!")
-        Me.SpeechButton.UseVisualStyleBackColor = True
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(646, 24)
+        Me.MenuStrip1.TabIndex = 1871
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'FormSettings
         '
@@ -450,14 +483,19 @@ Partial Class FormSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(646, 453)
+        Me.ClientSize = New System.Drawing.Size(646, 499)
         Me.Controls.Add(Me.GlobalSettingsGroupbox)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "FormSettings"
         Me.Text = "Settings"
         Me.GlobalSettingsGroupbox.ResumeLayout(False)
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As ToolTip
@@ -491,4 +529,7 @@ Partial Class FormSettings
     Friend WithEvents LanguageButton As Button
     Friend WithEvents SmartStartButton As Button
     Friend WithEvents SpeechButton As Button
+    Friend WithEvents SSLButton As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -15,6 +15,9 @@ Module Global_Properties
     Public MapY As Integer = 100
     Public RunningBackupName As String = ""
 
+    Public SSLLog As New List(Of String)
+    Public SSLRunning As Boolean
+
 #End Region
 
 #Region "Private"

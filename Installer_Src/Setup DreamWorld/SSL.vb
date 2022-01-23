@@ -21,20 +21,21 @@ Public Class SSL
             context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2, accountKey)
         Else
             context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2)
-            Dim result = context.NewAccount("fred@outworldz.com", True)
+            Dim result = context.NewAccount(Settings.SSLEmail, True)
             ' Save the account key for later use
             PemKey = context.AccountKey.ToPem()
         End If
-
-        Dim accountInfo = MyAccountAsync()
-        Dim orderUri = NewOrderAsync()
 
     End Sub
 
     Private Property PemKey As String
         Get
+
+            Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
+            If Not IO.File.Exists(File) Then Return ""
+
             Dim d As String = ""
-            Using Reader As New StreamReader(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key"))
+            Using Reader As New StreamReader(File)
                 While Not Reader.EndOfStream
                     d += Reader.ReadLine
                 End While
@@ -50,6 +51,15 @@ Public Class SSL
         End Set
 
     End Property
+
+    Public Sub DoSSL()
+
+        Dim accountInfo = MyAccountAsync()
+        Dim orderUri = NewOrderAsync()
+
+        SSLRunning = False
+
+    End Sub
 
     Private Async Function MyAccountAsync() As Task(Of Account)
 
@@ -74,8 +84,6 @@ Public Class SSL
 
         'Ask the ACME server to validate our domain ownership
         Await httpChallenge.Validate()
-
-        Dim attempts = 10
         Dim result = Await httpChallenge.Resource
 
         ' Invalid      The invalid status.
@@ -84,19 +92,18 @@ Public Class SSL
         ' Valid        The valid status
 
         If result.Status = ChallengeStatus.Invalid Then
-            ' debug
-            Dim uri = result.Url
+            SSLLog.Add(result.Error.Detail)
             Logger("SSL", result.Error.Detail, "SSL")
             Return True
         End If
 
+        Dim attempts = 10
         While attempts > 0 And (result.Status = ChallengeStatus.Pending Or result.Status = ChallengeStatus.Processing)
             If result.Status <> ChallengeStatus.Valid Then
-
                 Dim retry = httpChallenge.RetryAfter
-
                 Sleep(1000)
                 attempts -= 1
+                SSLLog.Add($"Retry {CStr(attempts)}")
                 result = Await httpChallenge.Resource()
             Else
                 Exit While
@@ -104,21 +111,26 @@ Public Class SSL
 
         End While
 
-        If attempts = 0 Then Return False
-
-        If result.Status <> ChallengeStatus.Valid Then
+        If attempts = 0 Then
+            SSLLog.Add($"Timed Out at Challenge")
             Return False
         End If
 
-        ''' TO DO  its stuck here with an error, dangit
+        If result.Status <> ChallengeStatus.Valid Then
+            SSLLog.Add($"Challenge Invalid")
+            Return False
+        End If
+
+        ''' TO DO  its stuck here with an error, dang it
+        '''
         'Download the certificate once validation is done
         Dim privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256)
         Dim cert = Await order.Generate(New CsrInfo With {
             .CountryName = "US",
-            .State = "Texas",
-            .Locality = "Allen",
-            .Organization = "Outworldz, LLC.",
-            .OrganizationUnit = "Outworldz",
+            .State = Settings.SSLState,
+            .Locality = Settings.SSLLocale,
+            .Organization = Settings.SSLOrganization,
+            .OrganizationUnit = "Outworldz, LLC",
             .CommonName = Settings.DNSName
         }, privateKey)
 
@@ -149,13 +161,9 @@ Public Class SSL
     Private Function SaveCert(keyAuthz As String, folder As String, token As String) As Boolean
 
         Dim file As String = ""
-        If Debugger.IsAttached Then
-            folder = "Y:/Inetpub/Secondlife/.well-known/acme-challenge"
-            file = IO.Path.Combine(folder, token)
-            Debug.Print($"http://.well-known/acme-challenge/{token}")
-        Else
-            file = IO.Path.Combine(Settings.CurrentDirectory, token)
-        End If
+        folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Apache/htdocs/.well-known/acme-challenge")
+        file = IO.Path.Combine(folder, token)
+        Debug.Print($"http://{Settings.PublicIP}:{Settings.ApachePort}/.well-known/acme-challenge/{token}")
 
         DeleteFolder(folder)
         MakeFolder(folder)

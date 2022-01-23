@@ -2,8 +2,11 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
 V4.893
-Major Glitch in Backups for SQL Backup types  - did not do the RObust correctly! Please update and run a SQL backup!
+Glitch in Backups for SQL Backup types  - did not do the Robust correctly. System will make a new set if SQL backups when it boots
 Added an API for Chat To Speech
+V4.892 has an older Mysql in it - it has been removed.
+Lots of small performance tweaks to reduce CPU use by DreamGrid GUI
+
 
 
 V4.892

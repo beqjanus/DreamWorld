@@ -98,16 +98,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-
-    Public Property VoicesInstalled() As Boolean
-        Get
-            Return CType(GetMySetting("VoicesInstalled", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("VoicesInstalled", CStr(Value))
-        End Set
-    End Property
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -1943,6 +1933,56 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SSLCountry() As String
+        Get
+            Dim mail As String = GetMySetting("SSLCountry", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("SSLCountry", Value)
+        End Set
+    End Property
+
+    Public Property SSLEmail() As String
+        Get
+            Dim mail As String = GetMySetting("SSLEmail", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("SSLEmail", Value)
+        End Set
+    End Property
+
+    Public Property SSLLocale() As String
+        Get
+            Dim mail As String = GetMySetting("SSLLocale", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("SSLLocale", Value)
+        End Set
+    End Property
+
+    Public Property SSLOrganization() As String
+        Get
+            Dim mail As String = GetMySetting("SSLOrganization", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("SSLOrganization", Value)
+        End Set
+    End Property
+
+    Public Property SSLState() As String
+        Get
+            Dim mail As String = GetMySetting("SSLState", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("SSLState", Value)
+        End Set
+    End Property
+
     Public Property SSVisible() As Boolean
         Get
             Return CType(GetMySetting("SSVisible", "False"), Boolean)
@@ -2194,6 +2234,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("VoiceName", Value)
+        End Set
+    End Property
+
+    Public Property VoicesInstalled() As Boolean
+        Get
+            Return CType(GetMySetting("VoicesInstalled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VoicesInstalled", CStr(Value))
         End Set
     End Property
 

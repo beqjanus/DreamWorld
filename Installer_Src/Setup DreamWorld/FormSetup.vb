@@ -3315,6 +3315,7 @@ Public Class FormSetup
         }
 
         ' Call the ShowDialog method to show the dialogbox.
+        ' Call the ShowDialog method to show the dialogbox.
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()
         ' Process input if the user clicked OK.

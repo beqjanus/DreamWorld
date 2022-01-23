@@ -28,7 +28,7 @@ Public Class FormSettings
     Dim FormRestart As New FormRestart
     Dim FormServerType As New FormServerType
     Dim FormSpeech As New FormSpeech
-    Dim FsAssets As New FormFsAssets
+    Dim FsAssets As New FormFSAssets
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
     Dim Lang As New Language
@@ -37,6 +37,7 @@ Public Class FormSettings
     Dim Scripts As New FormScripts
     Dim Search As New FormSearch
     Dim SS As New FormSmartStart
+    Dim SSL As New FormSSL
     Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
@@ -132,9 +133,16 @@ Public Class FormSettings
         ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
         ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
 
+        SSLButton.Enabled = False
+        If Debugger.IsAttached Then
+            SSLButton.Enabled = True
+        End If
+
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
         SetScreen()
+
+        HelpOnce("Settings")
 
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
@@ -144,6 +152,7 @@ Public Class FormSettings
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Init()
+
     End Sub
 
 #End Region
@@ -196,6 +205,7 @@ Public Class FormSettings
         FsAssets.Dispose()
         Lang.Dispose()
         SS.Dispose()
+        SSL.Dispose()
 
     End Sub
 
@@ -343,7 +353,7 @@ Public Class FormSettings
 
         FsAssets.Close()
         FsAssets.Dispose()
-        FsAssets = New FormFsAssets
+        FsAssets = New FormFSAssets
         FsAssets.Activate()
         FsAssets.Visible = True
         FsAssets.Select()
@@ -396,6 +406,12 @@ Public Class FormSettings
         FormDNSName.Visible = True
         FormDNSName.Select()
         FormDNSName.BringToFront()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
+        HelpManual("Settings")
 
     End Sub
 
@@ -518,6 +534,18 @@ Public Class FormSettings
         }
         FormSpeech.Select()
         FormSpeech.BringToFront()
+
+    End Sub
+
+    Private Sub SSLButton_Click(sender As Object, e As EventArgs) Handles SSLButton.Click
+
+        SSL.Close()
+        SSL.Dispose()
+        SSL = New FormSSL
+        SSL.Activate()
+        SSL.Visible = True
+        SSL.Select()
+        SSL.BringToFront()
 
     End Sub
 
