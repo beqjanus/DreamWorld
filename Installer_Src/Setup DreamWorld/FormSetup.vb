@@ -1597,15 +1597,11 @@ Public Class FormSetup
                     Dim status = RegionStatus(RegionUUID)
                     If RegionEnabled(RegionUUID) _
                         And Not PropAborting _
-                        And (status = SIMSTATUSENUM.Booting Or
-                        status = SIMSTATUSENUM.ShuttingDown Or
-                        status = SIMSTATUSENUM.ShuttingDownForGood Or
-                        status = SIMSTATUSENUM.RecyclingDown
-                        ) Then
-                        'Diagnostics.Debug.Print( Region_Name(RegionUUID))
+                        And status = SIMSTATUSENUM.Booting Then
+                        Diagnostics.Debug.Print(Region_Name(RegionUUID))
                         wait = True
-                        Application.DoEvents()
                     End If
+                    Application.DoEvents()
                 Next
 
                 If wait Then
