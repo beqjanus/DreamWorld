@@ -57,10 +57,7 @@ Partial Class FormSettings
         Me.LanguageButton = New System.Windows.Forms.Button()
         Me.FSAssetsButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox = New System.Windows.Forms.GroupBox()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GlobalSettingsGroupbox.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TOSButton
@@ -454,48 +451,28 @@ Partial Class FormSettings
         Me.GlobalSettingsGroupbox.Controls.Add(Me.CurrencyButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.TOSButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.IcecastButton)
-        Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 47)
+        Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 12)
         Me.GlobalSettingsGroupbox.Name = "GlobalSettingsGroupbox"
         Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(617, 429)
         Me.GlobalSettingsGroupbox.TabIndex = 1870
         Me.GlobalSettingsGroupbox.TabStop = False
         Me.GlobalSettingsGroupbox.Text = "Global Settings"
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(646, 24)
-        Me.MenuStrip1.TabIndex = 1871
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
         'FormSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.AutoScroll = True
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(646, 499)
+        Me.ClientSize = New System.Drawing.Size(640, 447)
         Me.Controls.Add(Me.GlobalSettingsGroupbox)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "FormSettings"
         Me.Text = "Settings"
         Me.GlobalSettingsGroupbox.ResumeLayout(False)
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As ToolTip
@@ -530,6 +507,4 @@ Partial Class FormSettings
     Friend WithEvents SmartStartButton As Button
     Friend WithEvents SpeechButton As Button
     Friend WithEvents SSLButton As Button
-    Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class
