@@ -3861,7 +3861,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Five Minutes Per Tick.
+        '''  Looks up a localized string similar to Five Seconds Per Tick.
         '''</summary>
         Friend ReadOnly Property FiveMinutes_word() As String
             Get
