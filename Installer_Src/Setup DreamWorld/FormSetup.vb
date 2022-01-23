@@ -2435,6 +2435,8 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
+        Chat2Speech()               ' speak of the devil
+
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
@@ -2502,7 +2504,7 @@ Public Class FormSetup
             CheckPost()                 ' see if anything arrived in the web server
             CheckForBootedRegions()     ' And see if any booted up
             TeleportAgents()            ' send them onward
-            Chat2Speech()               ' speak of the devil
+
             RestartDOSboxes()
             ScanAgents()                ' update agent count
             Bench.Print("1 second worker ends")
