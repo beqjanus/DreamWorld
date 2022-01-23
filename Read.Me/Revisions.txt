@@ -1,12 +1,34 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+
+V4.894
+
+Memory Leak in Text 2 Speech. Oops! I was creating a Speech class every second. Would have seen it earlier but my grid has been down for an entire week.
+Added an API for Chat To Speech.
+Added a Form for you to create arbitrary Text 2 Speech.  The wav files can be uploaded and played in world, or you can use the mP3 files directly in world using Media On A Prim.  More documentation and a sample script are in the works.
+Boot sequence of regions is back in alphabetical order.
+Lots of small tweaks to loading INI files to detect or prevent potential crashes.
+Remove useless Apache Icons.
+Speedups for slow PC’s by not scanning as fast. You will likely notice the graphs update only every 5 seconds. 
+Clicking Apache or Icecast start buttons enables them, then boots.
+OsGrid HTTP port 80 was not set. It printed wrong, otherwise this was harmless.
+I expose the until-now-in-debug-mode-only button, because the system looks like it has a missing tooth without it. This button will remain disabled until I finish it. It runs only in Visual Studio.  
+Security is important! This will add a free SSL certificate to Opensim and Apache/jOpensim.
+FsAssets textbox did not save if you copied/pasted a path.
+Several crash fixes if you blanked out an integer text field.
+
 V4.893
-Glitch in Backups for SQL Backup types  - did not do the Robust correctly. System will make a new set if SQL backups when it boots
-Added an API for Chat To Speech
+Backups Run sequentially to be nicer to CPU and MySQL. Status shows in the console, and if you attempt to stop the system before it is done, it must bitch or it will explode, like Donna, my purchasing agent at work.  
+Added test for jOpensim db and back it up if it exists.
+The baretail logger program did not gracefully handle paths with spaces in them.
+Prettify the Nav bars in the Web site.  
+Region screen checkbox for all or none was flipped. 
+Remove Gloebit Sandbox, 
+Deep stuff: Perl DBIX::Class schema updated. This is a no-SQL interface to MySQL.
+Glitch in Backups for SQL Backup types - did not do the Robust correctly. System will make a new set if SQL backups when it boots
 V4.892 has an older Mysql in it - it has been removed.
 Lots of small performance tweaks to reduce CPU use by DreamGrid GUI
-
 
 
 V4.892

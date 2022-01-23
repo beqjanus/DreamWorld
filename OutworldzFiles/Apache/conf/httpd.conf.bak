@@ -65,7 +65,7 @@ Define ENABLE_TLS13 "Yes"
 # prevent Apache from glomming onto all bound IP addresses.
 #
 #Listen 12.34.56.78:80
-Listen 8000
+Listen 80
 
 #
 # Dynamic Shared Object (DSO) Support
@@ -238,7 +238,7 @@ Group daemon
 # e-mailed.  This address appears on some server-generated pages, such
 # as error documents.  e.g. admin@your-domain.com
 #
-ServerAdmin fred.beckhusen@gmail.com
+ServerAdmin not@set.yet
 
 #
 # ServerName gives the name and port that the server uses to identify itself.
@@ -248,7 +248,7 @@ ServerAdmin fred.beckhusen@gmail.com
 # If your host doesn't have a registered DNS name, enter its IP address here.
 #
 # changed by Dreamgrid
-ServerName www.outworldz.com
+ServerName 10.242.2.4
 
 # This fixes a bug with the OS
 AcceptFilter http none
@@ -326,7 +326,7 @@ Require all granted
 Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 
-<VirtualHost  *:8000>
+<VirtualHost  *:80>
 #two minutes for wp to install
 TimeOut 240
 #
@@ -339,7 +339,7 @@ DirectoryIndex  index.php index.htm index.html default.htm
 
 # must be flush aligned left
 # changed by Dreamgrid
-ServerName www.outworldz.com
+ServerName 10.242.2.4
 
 # in case you want a different URL for your servers Web site yet still have Apache on.
 #Redirect permanent / https://google.com
