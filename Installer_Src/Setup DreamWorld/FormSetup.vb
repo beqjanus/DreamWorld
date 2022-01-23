@@ -2427,6 +2427,8 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
+        Chat2Speech()               ' speak of the devil
+
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
@@ -2485,6 +2487,7 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
+
             If SecondsTicker Mod 2 = 0 And SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
                 PrintBackups()
@@ -2496,7 +2499,6 @@ Public Class FormSetup
                 RestartDOSboxes()
             End If
 
-            Bench.Print("1 second worker ends")
 
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
