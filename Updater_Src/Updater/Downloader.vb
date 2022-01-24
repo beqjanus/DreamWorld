@@ -9,14 +9,11 @@ Imports System.Threading
 
 Public Class Downloader
 
+
 #Region "Private Fields"
 
-    ReadOnly debugfolder = "C:\Opensim\TestDreamgridInstaller"
+    ReadOnly debugfolder = "C:\Users\Fred\Downloads\dg"
     Dim gCurDir = Nothing
-
-    ' Holds the current folder that we are running in
-    ReadOnly gFileName As String = "http://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
-    ' Outworldz_Installer/Grid/DreamGrid.zip
     Dim whereToSave As String = Nothing
 
 #End Region
@@ -51,7 +48,12 @@ Public Class Downloader
 #End Region
 
 #Region "Private Methods"
+    Private Function Random() As String
 
+        Dim value As Integer = CInt(Int((600000000 * Rnd(System.DateTime.Now.Millisecond)) + 1))
+        Random = System.Convert.ToString(value, Globalization.CultureInfo.InvariantCulture)
+
+    End Function
     Private Sub Cancel(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.FormClosing
 
         DialogResult = DialogResult.OK
@@ -81,6 +83,10 @@ Public Class Downloader
         Label1.Text = "Downloading DreamGrid.zip"
 
         Dim client As New WebClient()
+        ' Holds the current folder that we are running in
+        Dim gFileName As String = "http://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip?r=" & Random()
+
+
         Dim urlContents As Byte() = Await GetURLContentsAsync(gFileName)
 
         Using DestinationStream As New IO.FileStream(whereToSave, IO.FileMode.Create)
