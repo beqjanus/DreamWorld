@@ -43,7 +43,7 @@ Public Class UpdateGrid
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
         If Debugger.IsAttached = True Then
-            MyFolder = "C:\Opensim\TestDreamgridInstaller"
+            MyFolder = "C:\Users\Fred\Downloads\dg"
             If Not IO.Directory.Exists(MyFolder) Then
                 IO.Directory.CreateDirectory(MyFolder)
             End If
