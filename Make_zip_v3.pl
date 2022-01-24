@@ -378,7 +378,7 @@ if ( $publish =~ /p/ ) {
     if (
         !copy(
             "../Zips/DreamGrid$type.zip",
-            "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"
+            "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"
         )
       )
     {
