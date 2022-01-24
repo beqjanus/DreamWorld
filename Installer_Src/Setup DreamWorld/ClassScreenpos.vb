@@ -167,7 +167,6 @@ Public Class ClassScreenpos
     End Sub
 
 #Disable Warning CA1822 ' Mark members as static
-
     Public Sub PutSize(name As String, size As Integer)
 #Enable Warning CA1822 ' Mark members as static
 

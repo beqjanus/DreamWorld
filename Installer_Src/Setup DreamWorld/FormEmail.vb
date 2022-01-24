@@ -4,8 +4,7 @@ Imports MimeKit
 
 Public Class FormEmail
 
-    Private ReadOnly Contacts As New Dictionary(Of String, String
-        )
+    Private ReadOnly Contacts As New Dictionary(Of String, String)
 
 #Region "ScreenSize"
 

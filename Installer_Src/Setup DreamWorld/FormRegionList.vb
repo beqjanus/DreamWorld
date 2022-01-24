@@ -72,9 +72,6 @@ Public Class FormRegionlist
 
 #End Region
 
-#Region "Const"
-
-#End Region
 
 #Region "Properties"
 
@@ -127,6 +124,9 @@ Public Class FormRegionlist
 
 #Region "ScreenSize"
 
+#End Region
+
+#Region "Data"
     Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
         If (includeHeaders) Then
@@ -847,7 +847,7 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub IconClick(sender As Object, e As EventArgs) Handles IconView.Click
+    Private Sub IconViewClick(sender As Object, e As EventArgs) Handles IconView.Click
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
         Dim item As ListViewItem
@@ -856,6 +856,22 @@ SetWindowOnTop_Err:
             Dim RegionUUID As String = FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
+
+        Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
+        Dim item As ListViewItem
+        For Each item In User
+            Dim Username = item.SubItems(0).Text.Trim
+            Dim UUID = item.SubItems(5).Text.Trim
+            If Username.Length > 0 Then
+                Dim UserData As New FormEditUser
+                UserData.Init(Username, UUID)
+                UserData.BringToFront()
             End If
         Next
 
@@ -951,6 +967,7 @@ SetWindowOnTop_Err:
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
         StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
         Users.Text = Global.Outworldz.My.Resources.Users_word
+        Emails.Text = Global.Outworldz.My.Resources.Email_word
 
         IconView.SmallImageList = ImageListSmall
         ImageListSmall.ImageSize = New Drawing.Size(16, 16)
@@ -1168,6 +1185,9 @@ SetWindowOnTop_Err:
         ctr += 1
         UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "UserUUID" & ctr & "_" & CStr(ViewType.Users)
 
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler ListView1.ColumnClick, AddressOf ColumnClick
@@ -1233,6 +1253,8 @@ SetWindowOnTop_Err:
                 Next
 
             Case ViewType.Users
+
+
             Case ViewType.Details
 
                 Dim L = RegionUuids()
@@ -1449,7 +1471,7 @@ SetWindowOnTop_Err:
     Private Sub ShowDetails()
 
         ShowTitle()
-        Users.Text = My.Resources.Users_word
+
         AllNone.Visible = True
         AllNone.Checked = False
         If ViewBusy = True Then
@@ -1687,7 +1709,7 @@ SetWindowOnTop_Err:
         ViewBusy = True
 
         ShowTitle()
-        Users.Text = My.Resources.Users_word
+
         AllNone.Visible = False
         AllNone.Checked = False
         IconView.TabIndex = 0
@@ -1762,7 +1784,7 @@ SetWindowOnTop_Err:
         Me.Text = ""
         AllNone.Visible = True
         AllNone.Checked = False
-        Users.Text = My.Resources.Email_word
+
         UserView.TabIndex = 0
         ViewBusy = True
 
@@ -1788,12 +1810,13 @@ SetWindowOnTop_Err:
 
             For Each Agent In M
 
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
+                Dim parts As String() = Agent.Value.Split("|".ToCharArray())
+                Dim email = parts(0).Trim
+                Dim theiruuid = parts(1).Trim
+
+                If Agent.Key.Contains(SearchBox.Text) Or email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
 
                     Dim item1 As New ListViewItem(Agent.Key, Index)
-
-                    Dim parts As String() = Agent.Value.Split("|".ToCharArray())
-                    Dim email = parts(0).Trim
 
                     If email.Length = 0 Then
                         item1.BackColor = Color.DarkGray
@@ -1808,11 +1831,13 @@ SetWindowOnTop_Err:
                     Dim Birthdate As String = parts(3)
                     Dim age As Integer = CInt(parts(4))
 
+
                     item1.SubItems.Add(email)
                     item1.SubItems.Add(MysqlInterface.AssetCount(UUID).ToString("000000", Globalization.CultureInfo.CurrentCulture))
                     item1.SubItems.Add(Level)
                     item1.SubItems.Add(Birthdate)
                     item1.SubItems.Add(age.ToString("000000", Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(theiruuid)
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
                     Index += 1
@@ -1846,8 +1871,44 @@ SetWindowOnTop_Err:
         ViewBusy = False
         PropUpdateView() = False
 
+
+
     End Sub
 
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+
+        If TheView1 = ViewType.Users Then
+            Timer1.Stop()
+            Return
+        End If
+
+        If PropUpdateView() Then ' force a refresh
+            If ViewBusy = True Then
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
+                Return
+            End If
+            LoadMyListView()
+
+        End If
+
+    End Sub
+
+
+    Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
+
+        Dim w = UserView.Columns(e.ColumnIndex).Width
+        Dim name = UserView.Columns(e.ColumnIndex).Name
+        If name.Length = 0 Or w = 0 Then Return
+
+        ScreenPosition.PutSize(name, w)
+        ScreenPosition.SaveFormSettings()
+
+    End Sub
+
+#End Region
+
+#Region "Clicks"
     Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
         LoadMyListView()
     End Sub
@@ -1868,68 +1929,6 @@ SetWindowOnTop_Err:
         LoadMyListView()
 
     End Sub
-
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-
-        If TheView1 = ViewType.Users Then
-            Timer1.Stop()
-            Return
-        End If
-
-        If PropUpdateView() Then ' force a refresh
-            If ViewBusy = True Then
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
-                Return
-            End If
-            LoadMyListView()
-
-        End If
-
-    End Sub
-
-    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
-
-        If Users.Text = My.Resources.Email_word Then
-
-            Try
-#Disable Warning CA2000
-                Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-                EmailForm.BringToFront()
-                EmailForm.Init(UserView)
-                EmailForm.Visible = True
-                EmailForm.Select()
-                EmailForm.Activate()
-                Return
-            Catch
-            End Try
-        End If
-
-        Settings.RegionListView() = ViewType.Users
-        Settings.SaveSettings()
-        TheView1 = ViewType.Users
-        SetScreen(TheView1)
-        ListView1.View = View.List
-        ListView1.Hide()
-        UserView.Show()
-        AvatarView.Hide()
-        LoadMyListView()
-    End Sub
-
-    Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
-
-        Dim w = UserView.Columns(e.ColumnIndex).Width
-        Dim name = UserView.Columns(e.ColumnIndex).Name
-        If name.Length = 0 Or w = 0 Then Return
-
-        ScreenPosition.PutSize(name, w)
-        ScreenPosition.SaveFormSettings()
-
-    End Sub
-
-#End Region
-
-#Region "Clicks"
 
     Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles AvatarsButton.Click
 
@@ -1978,6 +1977,37 @@ SetWindowOnTop_Err:
 
         ListView1.CheckBoxes = True
         Timer1.Start()
+        LoadMyListView()
+
+    End Sub
+
+
+    Private Sub Email_Click(sender As Object, e As EventArgs) Handles Emails.Click
+
+#Disable Warning CA2000
+        Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+        EmailForm.BringToFront()
+        EmailForm.Init(UserView)
+        Try
+            EmailForm.Visible = True
+            EmailForm.Select()
+            EmailForm.Activate()
+        Catch
+        End Try
+
+    End Sub
+
+    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
+
+        Settings.RegionListView() = ViewType.Users
+        Settings.SaveSettings()
+        TheView1 = ViewType.Users
+        SetScreen(TheView1)
+        ListView1.View = View.List
+        ListView1.Hide()
+        UserView.Show()
+        AvatarView.Hide()
         LoadMyListView()
 
     End Sub

@@ -64,15 +64,36 @@ Public Class FormSettings
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
+        ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
     Private Sub SetScreen()
 
-        ScreenPosition = New ClassScreenpos(Me.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
+        Try
+            ScreenPosition = New ClassScreenpos(Me.Name)
+            AddHandler ResizeEnd, Handler
+            Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+            Me.Left = xy.Item(0)
+            Me.Top = xy.Item(1)
+            Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+
+            If hw.Item(0) = 0 Then
+                Me.Height = 500
+            Else
+                Me.Height = hw.Item(0)
+            End If
+            If hw.Item(1) = 0 Then
+                Me.Width = 600
+            Else
+                Me.Width = hw.Item(1)
+            End If
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+            Me.Height = 500
+            Me.Width = 600
+            Me.Left = 100
+            Me.Top = 100
+        End Try
     End Sub
 
 #End Region
@@ -149,6 +170,7 @@ Public Class FormSettings
 
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        SetScreen()
         Init()
 
     End Sub

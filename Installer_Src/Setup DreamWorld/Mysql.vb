@@ -644,7 +644,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select firstname, lastname , email, principalid, userlevel, created from useraccounts"
+                Dim stm = "Select firstname, lastname, email, principalid, userlevel, created from useraccounts"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 

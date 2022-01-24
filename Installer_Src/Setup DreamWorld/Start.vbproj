@@ -351,6 +351,12 @@
     <Compile Include="FormDebug.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormEditUser.Designer.vb">
+      <DependentUpon>FormEditUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEditUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormEmail.Designer.vb">
       <DependentUpon>FormEmail.vb</DependentUpon>
     </Compile>
@@ -734,6 +740,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FormDebug.resx">
       <DependentUpon>FormDebug.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditUser.resx">
+      <DependentUpon>FormEditUser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEmail.resx">
       <DependentUpon>FormEmail.vb</DependentUpon>
