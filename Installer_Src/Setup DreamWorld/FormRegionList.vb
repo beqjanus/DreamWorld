@@ -867,7 +867,7 @@ SetWindowOnTop_Err:
         Dim item As ListViewItem
         For Each item In User
             Dim Username = item.SubItems(0).Text.Trim
-            Dim UUID = item.SubItems(6).Text.Trim
+            Dim UUID = item.SubItems(7).Text.Trim
             If Username.Length > 0 Then
 #Disable Warning CA2000
                 Dim UserData As New FormEditUser
@@ -1834,13 +1834,15 @@ SetWindowOnTop_Err:
                     End If
 
                     ' Build output string                    
-
+                    If O.Email = "fred@mitsi.com" Then
+                        BreakPoint.Print("Fred")
+                    End If
                     item1.SubItems.Add(O.Email)
                     item1.SubItems.Add(O.Title)
                     item1.SubItems.Add(O.DiffDays)
                     item1.SubItems.Add(O.userlevel)
                     item1.SubItems.Add(O.Datestring)
-                    item1.SubItems.Add(O.Prims)
+                    item1.SubItems.Add(O.Assets)
                     item1.SubItems.Add(O.principalid)
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
