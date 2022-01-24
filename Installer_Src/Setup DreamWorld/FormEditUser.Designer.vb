@@ -26,28 +26,25 @@ Partial Class FormEditUser
         Me.FnameTextBox = New System.Windows.Forms.TextBox()
         Me.LastNameTextBox = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.LevelGroupBox = New System.Windows.Forms.GroupBox()
+        Me.RadioNologin = New System.Windows.Forms.RadioButton()
+        Me.RadioLogin = New System.Windows.Forms.RadioButton()
+        Me.RadioDiva = New System.Windows.Forms.RadioButton()
+        Me.RadioGod = New System.Windows.Forms.RadioButton()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.EmailTextBox = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TitleTextBox = New System.Windows.Forms.TextBox()
         Me.UUIDTextBox = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.AllowButton = New System.Windows.Forms.Button()
-        Me.BanButton = New System.Windows.Forms.Button()
-        Me.RadioGid = New System.Windows.Forms.RadioButton()
-        Me.RadioDiva = New System.Windows.Forms.RadioButton()
-        Me.RadioLogin = New System.Windows.Forms.RadioButton()
-        Me.RadioNologin = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HyperGridCheckBox = New System.Windows.Forms.CheckBox()
-        Me.LevelGroupBox = New System.Windows.Forms.GroupBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.LevelGroupBox.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FnameTextBox
@@ -61,11 +58,14 @@ Partial Class FormEditUser
         '
         Me.LastNameTextBox.Location = New System.Drawing.Point(190, 37)
         Me.LastNameTextBox.Name = "LastNameTextBox"
-        Me.LastNameTextBox.Size = New System.Drawing.Size(204, 20)
+        Me.LastNameTextBox.Size = New System.Drawing.Size(193, 20)
         Me.LastNameTextBox.TabIndex = 1
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.LevelGroupBox)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.EmailTextBox)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.TitleTextBox)
         Me.GroupBox1.Controls.Add(Me.UUIDTextBox)
@@ -76,10 +76,83 @@ Partial Class FormEditUser
         Me.GroupBox1.Controls.Add(Me.LastNameTextBox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 44)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(421, 114)
+        Me.GroupBox1.Size = New System.Drawing.Size(421, 269)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "User"
+        '
+        'LevelGroupBox
+        '
+        Me.LevelGroupBox.Controls.Add(Me.RadioNologin)
+        Me.LevelGroupBox.Controls.Add(Me.RadioLogin)
+        Me.LevelGroupBox.Controls.Add(Me.RadioDiva)
+        Me.LevelGroupBox.Controls.Add(Me.RadioGod)
+        Me.LevelGroupBox.Location = New System.Drawing.Point(205, 122)
+        Me.LevelGroupBox.Name = "LevelGroupBox"
+        Me.LevelGroupBox.Size = New System.Drawing.Size(200, 134)
+        Me.LevelGroupBox.TabIndex = 11
+        Me.LevelGroupBox.TabStop = False
+        Me.LevelGroupBox.Text = "Level"
+        '
+        'RadioNologin
+        '
+        Me.RadioNologin.AutoSize = True
+        Me.RadioNologin.Location = New System.Drawing.Point(21, 19)
+        Me.RadioNologin.Name = "RadioNologin"
+        Me.RadioNologin.Size = New System.Drawing.Size(68, 17)
+        Me.RadioNologin.TabIndex = 2
+        Me.RadioNologin.TabStop = True
+        Me.RadioNologin.Text = "No Login"
+        Me.RadioNologin.UseVisualStyleBackColor = True
+        '
+        'RadioLogin
+        '
+        Me.RadioLogin.AutoSize = True
+        Me.RadioLogin.Location = New System.Drawing.Point(21, 42)
+        Me.RadioLogin.Name = "RadioLogin"
+        Me.RadioLogin.Size = New System.Drawing.Size(90, 17)
+        Me.RadioLogin.TabIndex = 3
+        Me.RadioLogin.TabStop = True
+        Me.RadioLogin.Text = "Login allowed"
+        Me.RadioLogin.UseVisualStyleBackColor = True
+        '
+        'RadioDiva
+        '
+        Me.RadioDiva.AutoSize = True
+        Me.RadioDiva.Location = New System.Drawing.Point(21, 65)
+        Me.RadioDiva.Name = "RadioDiva"
+        Me.RadioDiva.Size = New System.Drawing.Size(100, 17)
+        Me.RadioDiva.TabIndex = 4
+        Me.RadioDiva.TabStop = True
+        Me.RadioDiva.Text = "Diva Wifi Admin"
+        Me.RadioDiva.UseVisualStyleBackColor = True
+        '
+        'RadioGod
+        '
+        Me.RadioGod.AutoSize = True
+        Me.RadioGod.Location = New System.Drawing.Point(21, 88)
+        Me.RadioGod.Name = "RadioGod"
+        Me.RadioGod.Size = New System.Drawing.Size(116, 17)
+        Me.RadioGod.TabIndex = 5
+        Me.RadioGod.TabStop = True
+        Me.RadioGod.Text = "Level God Enabled"
+        Me.RadioGod.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(18, 106)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(32, 13)
+        Me.Label5.TabIndex = 16
+        Me.Label5.Text = "Email"
+        '
+        'EmailTextBox
+        '
+        Me.EmailTextBox.Location = New System.Drawing.Point(21, 122)
+        Me.EmailTextBox.Name = "EmailTextBox"
+        Me.EmailTextBox.Size = New System.Drawing.Size(152, 20)
+        Me.EmailTextBox.TabIndex = 15
         '
         'Label4
         '
@@ -101,7 +174,7 @@ Partial Class FormEditUser
         '
         Me.UUIDTextBox.Location = New System.Drawing.Point(190, 79)
         Me.UUIDTextBox.Name = "UUIDTextBox"
-        Me.UUIDTextBox.Size = New System.Drawing.Size(204, 20)
+        Me.UUIDTextBox.Size = New System.Drawing.Size(225, 20)
         Me.UUIDTextBox.TabIndex = 12
         '
         'Label3
@@ -131,68 +204,6 @@ Partial Class FormEditUser
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Last Name"
         '
-        'AllowButton
-        '
-        Me.AllowButton.Location = New System.Drawing.Point(20, 83)
-        Me.AllowButton.Name = "AllowButton"
-        Me.AllowButton.Size = New System.Drawing.Size(109, 35)
-        Me.AllowButton.TabIndex = 7
-        Me.AllowButton.Text = "Allow"
-        Me.AllowButton.UseVisualStyleBackColor = True
-        '
-        'BanButton
-        '
-        Me.BanButton.Location = New System.Drawing.Point(20, 43)
-        Me.BanButton.Name = "BanButton"
-        Me.BanButton.Size = New System.Drawing.Size(109, 34)
-        Me.BanButton.TabIndex = 6
-        Me.BanButton.Text = "Ban"
-        Me.BanButton.UseVisualStyleBackColor = True
-        '
-        'RadioGid
-        '
-        Me.RadioGid.AutoSize = True
-        Me.RadioGid.Location = New System.Drawing.Point(21, 88)
-        Me.RadioGid.Name = "RadioGid"
-        Me.RadioGid.Size = New System.Drawing.Size(116, 17)
-        Me.RadioGid.TabIndex = 5
-        Me.RadioGid.TabStop = True
-        Me.RadioGid.Text = "Level God Enabled"
-        Me.RadioGid.UseVisualStyleBackColor = True
-        '
-        'RadioDiva
-        '
-        Me.RadioDiva.AutoSize = True
-        Me.RadioDiva.Location = New System.Drawing.Point(21, 65)
-        Me.RadioDiva.Name = "RadioDiva"
-        Me.RadioDiva.Size = New System.Drawing.Size(100, 17)
-        Me.RadioDiva.TabIndex = 4
-        Me.RadioDiva.TabStop = True
-        Me.RadioDiva.Text = "Diva Wifi Admin"
-        Me.RadioDiva.UseVisualStyleBackColor = True
-        '
-        'RadioLogin
-        '
-        Me.RadioLogin.AutoSize = True
-        Me.RadioLogin.Location = New System.Drawing.Point(21, 42)
-        Me.RadioLogin.Name = "RadioLogin"
-        Me.RadioLogin.Size = New System.Drawing.Size(90, 17)
-        Me.RadioLogin.TabIndex = 3
-        Me.RadioLogin.TabStop = True
-        Me.RadioLogin.Text = "Login allowed"
-        Me.RadioLogin.UseVisualStyleBackColor = True
-        '
-        'RadioNologin
-        '
-        Me.RadioNologin.AutoSize = True
-        Me.RadioNologin.Location = New System.Drawing.Point(21, 19)
-        Me.RadioNologin.Name = "RadioNologin"
-        Me.RadioNologin.Size = New System.Drawing.Size(68, 17)
-        Me.RadioNologin.TabIndex = 2
-        Me.RadioNologin.TabStop = True
-        Me.RadioNologin.Text = "No Login"
-        Me.RadioNologin.UseVisualStyleBackColor = True
-        '
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
@@ -209,49 +220,11 @@ Partial Class FormEditUser
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
-        'HyperGridCheckBox
-        '
-        Me.HyperGridCheckBox.AutoSize = True
-        Me.HyperGridCheckBox.Enabled = False
-        Me.HyperGridCheckBox.Location = New System.Drawing.Point(20, 20)
-        Me.HyperGridCheckBox.Name = "HyperGridCheckBox"
-        Me.HyperGridCheckBox.Size = New System.Drawing.Size(71, 17)
-        Me.HyperGridCheckBox.TabIndex = 10
-        Me.HyperGridCheckBox.Text = "Hypergrid"
-        Me.HyperGridCheckBox.UseVisualStyleBackColor = True
-        '
-        'LevelGroupBox
-        '
-        Me.LevelGroupBox.Controls.Add(Me.RadioNologin)
-        Me.LevelGroupBox.Controls.Add(Me.RadioLogin)
-        Me.LevelGroupBox.Controls.Add(Me.RadioDiva)
-        Me.LevelGroupBox.Controls.Add(Me.RadioGid)
-        Me.LevelGroupBox.Location = New System.Drawing.Point(12, 164)
-        Me.LevelGroupBox.Name = "LevelGroupBox"
-        Me.LevelGroupBox.Size = New System.Drawing.Size(200, 134)
-        Me.LevelGroupBox.TabIndex = 11
-        Me.LevelGroupBox.TabStop = False
-        Me.LevelGroupBox.Text = "Level"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.HyperGridCheckBox)
-        Me.GroupBox3.Controls.Add(Me.BanButton)
-        Me.GroupBox3.Controls.Add(Me.AllowButton)
-        Me.GroupBox3.Location = New System.Drawing.Point(233, 164)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(200, 134)
-        Me.GroupBox3.TabIndex = 12
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Level"
-        '
         'FormEditUser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(445, 315)
-        Me.Controls.Add(Me.GroupBox3)
-        Me.Controls.Add(Me.LevelGroupBox)
+        Me.ClientSize = New System.Drawing.Size(445, 322)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -259,12 +232,10 @@ Partial Class FormEditUser
         Me.Text = "FormEditUser"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.LevelGroupBox.ResumeLayout(False)
         Me.LevelGroupBox.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -273,9 +244,7 @@ Partial Class FormEditUser
     Friend WithEvents FnameTextBox As TextBox
     Friend WithEvents LastNameTextBox As TextBox
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents AllowButton As Button
-    Friend WithEvents BanButton As Button
-    Friend WithEvents RadioGid As RadioButton
+    Friend WithEvents RadioGod As RadioButton
     Friend WithEvents RadioDiva As RadioButton
     Friend WithEvents RadioLogin As RadioButton
     Friend WithEvents RadioNologin As RadioButton
@@ -284,11 +253,11 @@ Partial Class FormEditUser
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents HyperGridCheckBox As CheckBox
     Friend WithEvents Label3 As Label
     Friend WithEvents LevelGroupBox As GroupBox
-    Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label4 As Label
     Friend WithEvents TitleTextBox As TextBox
     Friend WithEvents UUIDTextBox As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents EmailTextBox As TextBox
 End Class

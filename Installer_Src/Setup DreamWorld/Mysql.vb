@@ -12,6 +12,22 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
+
+Public Class MailList
+
+    Public firstname As String = ""
+    Public LastName As String = ""
+    Public Email As String = ""
+    Public Title As String = ""
+    Public principalid As String = ""
+    Public userlevel As String = ""
+    Public DiffDays As String = ""
+    Public Datestring As String = ""
+    Public Prims As String = ""
+
+End Class
+
+
 Public Module MysqlInterface
 
 #Disable Warning IDE0140 ' Object creation can be simplified
@@ -25,12 +41,12 @@ Public Module MysqlInterface
 
     Public Class UserData
 
-        Public PrincipalID As String
-        Public FirstName As String
-        Public LastName As String
-        Public Email As String
-        Public UserTitle As String
-        Public Level As Integer
+        Public PrincipalID As String = ""
+        Public FirstName As String = ""
+        Public LastName As String = ""
+        Public Email As String = ""
+        Public UserTitle As String = ""
+        Public Level As Integer = -1
 
     End Class
 
@@ -300,7 +316,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,level=@level,firstname=@fname,lastname=@lname,where PrincipalID=@UUID;"
+                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@level", UD.Level)
                     cmd.Parameters.AddWithValue("@UUID", UD.PrincipalID)
@@ -335,6 +351,9 @@ Public Module MysqlInterface
                             UD.Email = reader.GetString(2)
                             UD.Level = reader.GetInt32(3)
                             UD.UserTitle = reader.GetString(4)
+                            UD.PrincipalID = UUID
+                        Else
+                            UD.FirstName = "No record"
                         End If
                     End Using
                 End Using
@@ -697,31 +716,47 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function GetEmailList() As Dictionary(Of String, String)
+    Public Function GetEmailList() As Dictionary(Of String, MailList)
 
-        Dim A As New Dictionary(Of String, String)
+        Dim result = New Dictionary(Of String, MailList)
+
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select firstname, lastname, email, principalid, userlevel, created from useraccounts"
+                Dim stm = "Select firstname, lastname, email, usertitle, principalid, userlevel, created from useraccounts"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Dim f = reader.GetString(0)
-                            Dim l = reader.GetString(1)
-                            Dim e = reader.GetString(2)
-                            Dim u = reader.GetString(3)
-                            Dim Level = reader.GetInt32(4)
-                            Dim c = reader.GetInt32(5)
-                            Dim Birthdate As DateTime = UnixTimestampToDateTime(c)
-                            Dim Age = DateDiff(DateInterval.Day, Birthdate, DateTime.Now)
+                            Dim Output As New MailList
+                            Output.firstname = reader.GetString(0)
+                            Output.LastName = reader.GetString(1)
+                            Output.Email = reader.GetString(2)
+                            Output.Title = reader.GetString(3)
+                            Output.principalid = reader.GetString(4)
+                            Dim Level = reader.GetInt32(5)
 
-                            '     Debug.Print("{0} {1} {2}", f, l, e)
-                            If f <> "GRID" And l <> "SERVICES" Then
-                                A.Add(f & " " & l, e & "|" & u & "|" & Level & "|" & Birthdate.ToString(CultureInfo.CurrentCulture) & "|" & Age)
+                            If Level < 0 Then
+                                Output.userlevel = "Disabled"
+                            ElseIf Level >= 0 And Level < 100 Then
+                                Output.userlevel = "Enabled"
+                            ElseIf Level >= 100 And Level < 200 Then
+                                Output.userlevel = "Wifi"
+                            ElseIf Level >= 200 Then
+                                Output.userlevel = "God"
+                            End If
+
+
+                            Dim created = reader.GetInt32(6)
+                            Dim datecreated = UnixTimestampToDateTime(created)
+                            Output.Datestring = datecreated.ToString(CultureInfo.CurrentCulture)
+                            Output.DiffDays = DateDiff(DateInterval.Day, datecreated, DateTime.Now).ToString("000000", Globalization.CultureInfo.CurrentCulture)
+                            Output.Prims = MysqlInterface.AssetCount(Output.principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
+
+                            If Output.firstname <> "GRID" And Output.LastName <> "SERVICES" Then
+                                result.Add(Output.principalid, Output)
                             End If
                         End While
                     End Using
@@ -729,15 +764,13 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
                 BreakPoint.Dump(ex)
-                Return A
             Catch ex As Exception
                 BreakPoint.Dump(ex)
-                Return A
             End Try
 
         End Using
 
-        Return A
+        Return result
 
     End Function
 
@@ -749,7 +782,7 @@ Public Module MysqlInterface
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
-        Dim pattern As String = "(.*?);.*;(.*)$"
+                                Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
         Dim HGDict As New Dictionary(Of String, String)

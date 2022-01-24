@@ -869,7 +869,9 @@ SetWindowOnTop_Err:
             Dim Username = item.SubItems(0).Text.Trim
             Dim UUID = item.SubItems(6).Text.Trim
             If Username.Length > 0 Then
+#Disable Warning CA2000
                 Dim UserData As New FormEditUser
+#Enable Warning CA2000
                 UserData.init(UUID)
                 UserData.BringToFront()
                 UserData.Activate()
@@ -1004,6 +1006,8 @@ SetWindowOnTop_Err:
 
         DoubleBuff(ListView1, True)
         DoubleBuff(IconView, True)
+        DoubleBuff(UserView, True)
+
 
         Settings.RegionListVisible = True
 
@@ -1174,7 +1178,10 @@ SetWindowOnTop_Err:
         UserView.Columns.Add(My.Resources.Avatar_Name_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
-        UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+        UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("Email" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.Title_word, colsize.ColumnWidth("Title" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Items_word, colsize.ColumnWidth("Items" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
@@ -1183,13 +1190,13 @@ SetWindowOnTop_Err:
         UserView.Columns.Add(My.Resources.Level_word, colsize.ColumnWidth("Level" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
-        UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 120), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
-        UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
         UserView.Columns(ctr).Name = "UserUUID" & ctr & "_" & CStr(ViewType.Users)
 
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -1805,23 +1812,20 @@ SetWindowOnTop_Err:
         Try
 
             ' Create items and sub items for each item.
-            Dim M As New Dictionary(Of String, String)
+            If Not IsMySqlRunning() Then Return
 
-            If MysqlInterface.IsMySqlRunning() Then
-                M = MysqlInterface.GetEmailList()
-            End If
+            Dim Mail = GetEmailList()
 
-            For Each Agent In M
+            For Each Agent In Mail
 
-                Dim parts As String() = Agent.Value.Split("|".ToCharArray())
-                Dim email = parts(0).Trim
-                Dim theiruuid = parts(1).Trim
+                Dim k = Agent.Key
+                Dim O = Agent.Value
 
-                If Agent.Key.Contains(SearchBox.Text) Or email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
+                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
 
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    Dim item1 As New ListViewItem(O.firstname & " " & O.LastName, Index)
 
-                    If email.Length = 0 Then
+                    If O.Email.Length = 0 Then
                         item1.BackColor = Color.DarkGray
                         item1.ForeColor = Color.White
                     Else
@@ -1829,18 +1833,15 @@ SetWindowOnTop_Err:
                         item1.ForeColor = Color.Black
                     End If
 
-                    Dim UUID As String = parts(1)
-                    Dim Level As String = parts(2)
-                    Dim Birthdate As String = parts(3)
-                    Dim age As Integer = CInt(parts(4))
+                    ' Build output string                    
 
-
-                    item1.SubItems.Add(email)
-                    item1.SubItems.Add(MysqlInterface.AssetCount(UUID).ToString("000000", Globalization.CultureInfo.CurrentCulture))
-                    item1.SubItems.Add(Level)
-                    item1.SubItems.Add(Birthdate)
-                    item1.SubItems.Add(age.ToString("000000", Globalization.CultureInfo.CurrentCulture))
-                    item1.SubItems.Add(theiruuid)
+                    item1.SubItems.Add(O.Email)
+                    item1.SubItems.Add(O.Title)
+                    item1.SubItems.Add(O.DiffDays)
+                    item1.SubItems.Add(O.userlevel)
+                    item1.SubItems.Add(O.Datestring)
+                    item1.SubItems.Add(O.Prims)
+                    item1.SubItems.Add(O.principalid)
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
                     Index += 1
@@ -1848,7 +1849,7 @@ SetWindowOnTop_Err:
 
             Next
 
-            Me.Text = M.Count & " " & My.Resources.Users_word
+            Me.Text = Mail.Count & " " & My.Resources.Users_word
 
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)

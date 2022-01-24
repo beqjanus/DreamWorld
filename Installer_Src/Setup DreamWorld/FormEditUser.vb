@@ -36,27 +36,34 @@ Public Class FormEditUser
 
     End Sub
 
-    Private Function HGVisitor(UUID As String) As UserData
-
-        'Dim Users = GetGridUsers(UUID)        
-
-    End Function
-
     Public Sub init(UUID As String)
 
-        Dim type As Boolean = False
 
-        If type Then
-            UD = HGVisitor(UUID)
-            HyperGridCheckBox.Checked = True
-            TitleTextBox.Enabled = False
-            LevelGroupBox.Enabled = False
+        UD = MysqlGetUserData(UUID)
+        TitleTextBox.Enabled = True
+        LevelGroupBox.Enabled = True
+
+        If UD.PrincipalID.Length > 0 Then
+            UUIDTextBox.Text = UD.PrincipalID
+            FnameTextBox.Text = UD.FirstName
+            LastNameTextBox.Text = UD.LastName
+            EmailTextBox.Text = UD.Email
+            TitleTextBox.Text = UD.UserTitle
+
+            If UD.Level < 0 Then
+                RadioNologin.Checked = True
+            ElseIf UD.Level >= 0 And UD.Level < 100 Then
+                RadioLogin.Checked = True
+            ElseIf UD.Level >= 100 And UD.Level < 200 Then
+                RadioDiva.Checked = True
+            ElseIf UD.Level >= 200 Then
+                RadioGod.Checked = True
+            End If
         Else
-            UD = MysqlGetUserData(UUID)
-            HyperGridCheckBox.Checked = False
-            TitleTextBox.Enabled = True
-            LevelGroupBox.Enabled = False
+            FnameTextBox.Text = My.Resources.Not_Found
+            LastNameTextBox.Text = My.Resources.Not_Found
         End If
+        HelpOnce("Users")
 
         initted = True
 
@@ -85,7 +92,7 @@ Public Class FormEditUser
 
     End Sub
 
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioGid.CheckedChanged
+    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioGod.CheckedChanged
 
         If Not initted Then Return
         UD.Level = 200
@@ -125,21 +132,16 @@ Public Class FormEditUser
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BanButton.Click
-
+    Private Sub EmailTextBox_TextChanged(sender As Object, e As EventArgs) Handles EmailTextBox.TextChanged
         If Not initted Then Return
-        ' TODO
+        UD.Email = EmailTextBox.Text
         changed = True
-
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AllowButton.Click
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        If Not initted Then Return
-        ' TODO
-        changed = True
+        HelpManual("Users")
 
     End Sub
-
 End Class
 

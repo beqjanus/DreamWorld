@@ -7161,6 +7161,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Not Found.
+        '''</summary>
+        Friend ReadOnly Property Not_Found() As String
+            Get
+                Return ResourceManager.GetString("Not_Found", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Not normally enforced by Opensim.  Viewer will not show more than 45,000. Setting this here and enabling this in settings will enforce the limit and may return prims!.
         '''</summary>
         Friend ReadOnly Property Not_Normal() As String
@@ -10644,6 +10653,15 @@ Namespace My.Resources
         Friend ReadOnly Property Timeout_in_hours_word() As String
             Get
                 Return ResourceManager.GetString("Timeout_in_hours_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Title.
+        '''</summary>
+        Friend ReadOnly Property Title_word() As String
+            Get
+                Return ResourceManager.GetString("Title_word", resourceCulture)
             End Get
         End Property
         
