@@ -23,7 +23,7 @@ Public Class MailList
     Public userlevel As String = ""
     Public DiffDays As String = ""
     Public Datestring As String = ""
-    Public Prims As String = ""
+    Public Assets As String = ""
 
 End Class
 
@@ -734,6 +734,11 @@ Public Module MysqlInterface
                             Output.firstname = reader.GetString(0)
                             Output.LastName = reader.GetString(1)
                             Output.Email = reader.GetString(2)
+
+                            If Output.Email = "fred@mitsi.com" Then
+                                BreakPoint.Print("Fred")
+                            End If
+
                             Output.Title = reader.GetString(3)
                             Output.principalid = reader.GetString(4)
                             Dim Level = reader.GetInt32(5)
@@ -753,7 +758,7 @@ Public Module MysqlInterface
                             Dim datecreated = UnixTimestampToDateTime(created)
                             Output.Datestring = datecreated.ToString(CultureInfo.CurrentCulture)
                             Output.DiffDays = DateDiff(DateInterval.Day, datecreated, DateTime.Now).ToString("000000", Globalization.CultureInfo.CurrentCulture)
-                            Output.Prims = MysqlInterface.AssetCount(Output.principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
+                            Output.Assets = MysqlInterface.AssetCount(Output.principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
 
                             If Output.firstname <> "GRID" And Output.LastName <> "SERVICES" Then
                                 result.Add(Output.principalid, Output)

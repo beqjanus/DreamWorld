@@ -98,6 +98,11 @@ Module Robust
         For Each p In Process.GetProcessesByName("Robust")
             Try
                 If p.MainWindowTitle = RobustName() Then
+
+                    If Not IsRobustRunning() Then
+                        Sleep(10000)
+                    End If
+
                     PropRobustProcID = p.Id
                     Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
                     RobustIcon(True)
@@ -105,6 +110,7 @@ Module Robust
                     AddHandler p.Exited, AddressOf RobustProcess_Exited
                     PropOpensimIsRunning = True
                     Return True
+
                 End If
             Catch ex As Exception
             End Try
@@ -426,7 +432,7 @@ Module Robust
         Dim Up As String = ""
 
         Using TimedClient As New TimedWebClient With {
-                .Timeout = 1000
+                .Timeout = 5000
             }
             Try
                 Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
@@ -435,16 +441,15 @@ Module Robust
 
         End Using
 
-        If Up Is Nothing Then
+        If Up = "" Then
+            Sleep(5000)
             MarkRobustOffline()
             Return False
         ElseIf Up.Contains("OpenSim") Then
+            Sleep(5000)
             Log("INFO", "Robust is running")
             RobustIcon(True)
             Return True
-        ElseIf Up.Length = 0 And PropOpensimIsRunning() Then
-            MarkRobustOffline()
-            Return False
         End If
         MarkRobustOffline()
         Return False

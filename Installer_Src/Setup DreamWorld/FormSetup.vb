@@ -478,11 +478,6 @@ Public Class FormSetup
 
         DoEstates() ' has to be done after MySQL starts up.
 
-        If Not StartRobust() Then
-            Buttons(StopButton)
-            Return False
-        End If
-
         CheckOverLap()
 
         StartThreads()

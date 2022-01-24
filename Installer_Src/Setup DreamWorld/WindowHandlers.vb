@@ -101,22 +101,21 @@ Module WindowHandlers
 
         Dim PID As Integer
         If RegionUUID = "Robust" Then
-            If IsRobustRunning() Then
-                PID = GetPIDofRobust()
-                If PID = 0 And command = "q" Then
-                    Zap("Robust")
-                    Return
-                End If
-                If PID = 0 Then
-                    Return
-                End If
-                AppActivate(PID)
-                Sleep(100)
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait(command)
-                SendKeys.SendWait("{ENTER}")
+
+            PID = GetPIDofRobust()
+            If PID = 0 And command = "q" Then
+                Zap("Robust")
                 Return
             End If
+            If PID = 0 Then
+                Return
+            End If
+            AppActivate(PID)
+            Sleep(100)
+            SendKeys.SendWait("{ENTER}")
+            SendKeys.SendWait(command)
+            SendKeys.SendWait("{ENTER}")
+            Return
         End If
 
         ' Regions
