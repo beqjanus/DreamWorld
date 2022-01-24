@@ -2,6 +2,10 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
 
+V4.895
+
+You can click any user in the Region Panel “Users” section and edit the details.  You can change a user name, change God level and give them a title.
+
 V4.894
 
 Memory Leak in Text 2 Speech. Oops! I was creating a Speech class every second. Would have seen it earlier but my grid has been down for an entire week.
