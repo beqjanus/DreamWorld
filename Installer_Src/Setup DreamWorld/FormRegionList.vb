@@ -862,16 +862,19 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
-
+        If Not initted Then Return
         Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
         Dim item As ListViewItem
         For Each item In User
             Dim Username = item.SubItems(0).Text.Trim
-            Dim UUID = item.SubItems(5).Text.Trim
+            Dim UUID = item.SubItems(6).Text.Trim
             If Username.Length > 0 Then
                 Dim UserData As New FormEditUser
-                UserData.Init(Username, UUID)
+                UserData.init(UUID)
                 UserData.BringToFront()
+                UserData.Activate()
+                UserData.Visible = True
+                UserData.Select()
             End If
         Next
 

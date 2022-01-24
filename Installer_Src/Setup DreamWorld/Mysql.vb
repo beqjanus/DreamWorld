@@ -23,9 +23,17 @@ Public Module MysqlInterface
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
-    Sub New()
-        'nothing
-    End Sub
+    Public Class UserData
+
+        Public PrincipalID As String
+        Public FirstName As String
+        Public LastName As String
+        Public Email As String
+        Public UserTitle As String
+        Public Level As Integer
+
+    End Class
+
 
 #Region "Properties"
 
@@ -286,7 +294,60 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Public"
+    Public Sub MysqlSaveUserData(UD As UserData)
 
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,level=@level,firstname=@fname,lastname=@lname,where PrincipalID=@UUID;"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@level", UD.Level)
+                    cmd.Parameters.AddWithValue("@UUID", UD.PrincipalID)
+                    cmd.Parameters.AddWithValue("@fname", UD.FirstName)
+                    cmd.Parameters.AddWithValue("@lname", UD.LastName)
+                    cmd.Parameters.AddWithValue("@email", UD.Email)
+                    cmd.Parameters.AddWithValue("@utitle", UD.UserTitle)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Print(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+    End Sub
+    Public Function MysqlGetUserData(UUID As String) As UserData
+
+        Dim UD As New UserData
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from robust.useraccounts where principalID = @UUID"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            UD.FirstName = reader.GetString(0)
+                            UD.LastName = reader.GetString(1)
+                            UD.Email = reader.GetString(2)
+                            UD.Level = reader.GetInt32(3)
+                            UD.UserTitle = reader.GetString(4)
+                        End If
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Print(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return UD
+
+    End Function
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0
@@ -536,7 +597,6 @@ Public Module MysqlInterface
                                 Return reader.GetInt32(0)
                             Catch
                                 BreakPoint.Print("Cannot read MySQL!")
-                                Return 0
                             End Try
                         End If
                     End Using
@@ -684,7 +744,6 @@ Public Module MysqlInterface
     ''' <summary>
     ''' Returns list of people and region UUID
     ''' </summary>
-
     Public Function GetGridUsers() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
@@ -739,14 +798,15 @@ Public Module MysqlInterface
 
     End Function
 
+
+
     Public Function GetPresence() As Dictionary(Of String, String)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Dict.Clear()
             Try
                 NewSQLConn.Open()
-                ' TO DO
-                'SELECT concat(FirstName, ' ', LastName) AS 'Online Users' FROM useraccounts INNER JOIN griduser ON useraccounts.PrincipalID = griduser.UserID WHERE griduser.Online = 'True';
+
                 Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()

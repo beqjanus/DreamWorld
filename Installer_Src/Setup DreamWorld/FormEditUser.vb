@@ -1,44 +1,145 @@
-﻿Public Class FormEditUser
+﻿
+Public Class FormEditUser
 
+    Private initted As Boolean
+    Private _UD As New UserData
+    Private changed As Boolean
+    Private Property UD As UserData
+        Get
+            Return _UD
+        End Get
+        Set(value As UserData)
+            _UD = value
+        End Set
+    End Property
 
-    Private _Username As String
-    Private _UUID As String
+    Private Sub SaveUD()
+
+        MysqlSaveUserData(UD)
+
+    End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
+        'TO DO translations
 
     End Sub
-    Public Sub init(Username As String, UUID As String)
 
-        _Username = Username
-        _UUID = UUID
+    Private Sub Form1_Close(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closing
+
+        If changed Then
+            Dim response = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Information_word)
+            If response = vbYes Then
+                MysqlSaveUserData(UD)
+            End If
+        End If
+
+    End Sub
+
+    Private Function HGVisitor(UUID As String) As UserData
+
+        'Dim Users = GetGridUsers(UUID)        
+
+    End Function
+
+    Public Sub init(UUID As String)
+
+        Dim type As Boolean = False
+
+        If type Then
+            UD = HGVisitor(UUID)
+            HyperGridCheckBox.Checked = True
+            TitleTextBox.Enabled = False
+            LevelGroupBox.Enabled = False
+        Else
+            UD = MysqlGetUserData(UUID)
+            HyperGridCheckBox.Checked = False
+            TitleTextBox.Enabled = True
+            LevelGroupBox.Enabled = False
+        End If
+
+        initted = True
 
     End Sub
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioNologin.CheckedChanged
 
-        Dim stm = $"Update useraccounts set level='-1' where uuid = '{_UUID}'"
-        QueryString(stm)
+        If Not initted Then Return
+        UD.Level = -1
+        changed = True
 
     End Sub
 
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioLogin.CheckedChanged
 
-        Dim stm = $"Update useraccounts set level='0' where uuid = '{_UUID}'"
-        QueryString(stm)
+        If Not initted Then Return
+        UD.Level = 0
+        changed = True
 
     End Sub
 
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioDiva.CheckedChanged
 
-        Dim stm = $"Update useraccounts set level='100' where uuid = '{_UUID}'"
-        QueryString(stm)
+        If Not initted Then Return
+        UD.Level = 100
+        changed = True
 
     End Sub
 
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioGid.CheckedChanged
 
-        Dim stm = $"Update useraccounts set level='200' where uuid = '{_UUID}'"
-        QueryString(stm)
+        If Not initted Then Return
+        UD.Level = 200
+        changed = True
 
     End Sub
+
+    Private Sub FnameTextBox_TextChanged(sender As Object, e As EventArgs) Handles FnameTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.FirstName = FnameTextBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub LastNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles LastNameTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.LastName = LastNameTextBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub TitleTextBox_TextChanged(sender As Object, e As EventArgs) Handles TitleTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.UserTitle = TitleTextBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub UUIDTextBox_TextChanged(sender As Object, e As EventArgs) Handles UUIDTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.PrincipalID = UUIDTextBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BanButton.Click
+
+        If Not initted Then Return
+        ' TODO
+        changed = True
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AllowButton.Click
+
+        If Not initted Then Return
+        ' TODO
+        changed = True
+
+    End Sub
+
 End Class
+

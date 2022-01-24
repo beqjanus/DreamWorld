@@ -429,6 +429,15 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub SplashPage_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
+
+        If Not initted Then Return
+        _SaveNeeded = True
+
+    End Sub
+
+
+
 #End Region
 
 End Class
