@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.Net
+Imports System.Text
 Imports System.Text.RegularExpressions
 
 Module Robust
@@ -14,6 +15,8 @@ Module Robust
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustProcID As Integer
+    Private lineCount As Integer = 0
+    Private output As New StringBuilder()
 
     Public Property PropRobustExited() As Boolean
         Get
@@ -137,12 +140,14 @@ Module Robust
         TextPrint("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
-        RobustProcess.StartInfo.UseShellExecute = True
+        RobustProcess.StartInfo.UseShellExecute = False
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
 
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath
+
+        RobustProcess.StartInfo.RedirectStandardOutput = False
 
         Select Case Settings.ConsoleShow
             Case "True"
@@ -155,7 +160,6 @@ Module Robust
 
         Try
             RobustProcess.Start()
-            Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         Catch ex As Exception
             BreakPoint.Dump(ex)
             TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
@@ -164,7 +168,6 @@ Module Robust
             MarkRobustOffline()
             Return False
         End Try
-
         PropRobustProcID = WaitForPID(RobustProcess)
         If PropRobustProcID = 0 Then
             MarkRobustOffline()
@@ -173,19 +176,17 @@ Module Robust
         End If
 
         SetWindowTextCall(RobustProcess, RobustName)
-        Sleep(2000)
+
+        ConsoleCommand(RobustName, "help all")
+
         ' Wait for Robust to start listening
         Dim counter = 0
         While Not IsRobustRunning() And PropOpensimIsRunning
-
-            Sleep(1000)
-            ' wait a minute for it to start
-            If counter > 0 And counter Mod 30 = 0 Then
-                TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
-            End If
+            Dim sleeptime = 5    ' seconds
+            TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
             counter += 1
             ' 2 minutes to boot on bad hardware at 5 sec per spin
-            If counter > 120 Then
+            If counter > 60 * 2 / sleeptime Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
@@ -196,13 +197,12 @@ Module Robust
                 MarkRobustOffline()
                 Return False
             End If
-
+            Sleep(sleeptime * 1000) ' in ms
         End While
-
+        Sleep(2000)
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)
-        PropOpensimIsRunning = True
         TextPrint(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
 
@@ -230,6 +230,21 @@ Module Robust
         End If
 
         MarkRobustOffline()
+
+    End Sub
+
+    Private Sub ReadRobustLog()
+
+        Dim log = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
+
+    End Sub
+
+    Private Sub SortOutputHandler(sendingProcess As Object, outLine As DataReceivedEventArgs)
+
+        ' Collect the sort command output.
+        If Not String.IsNullOrEmpty(outLine.Data) Then
+            Debug.Print(outLine.Data)
+        End If
 
     End Sub
 
@@ -442,11 +457,10 @@ Module Robust
         End Using
 
         If Up = "" Then
-            Sleep(5000)
+
             MarkRobustOffline()
             Return False
         ElseIf Up.Contains("OpenSim") Then
-            Sleep(5000)
             Log("INFO", "Robust is running")
             RobustIcon(True)
             Return True
