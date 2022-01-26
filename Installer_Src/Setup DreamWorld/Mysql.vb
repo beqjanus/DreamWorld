@@ -734,11 +734,6 @@ Public Module MysqlInterface
                             Output.firstname = reader.GetString(0)
                             Output.LastName = reader.GetString(1)
                             Output.Email = reader.GetString(2)
-
-                            If Output.Email = "fred@mitsi.com" Then
-                                BreakPoint.Print("Fred")
-                            End If
-
                             Output.Title = reader.GetString(3)
                             Output.principalid = reader.GetString(4)
                             Dim Level = reader.GetInt32(5)

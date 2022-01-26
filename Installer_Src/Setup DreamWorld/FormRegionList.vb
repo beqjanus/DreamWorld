@@ -1248,22 +1248,7 @@ SetWindowOnTop_Err:
 
         Select Case TheView1
             Case ViewType.Avatars
-
-                Dim L = RegionUuids()
-                L.Sort()
-
-                For Each RegionUUID In L
-                    If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
-                        If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                            SearchArray.Add(RegionUUID)
-                        End If
-                    Else
-                        SearchArray.Add(RegionUUID)
-                    End If
-                Next
-
             Case ViewType.Users
-
 
             Case ViewType.Details
 
@@ -1424,7 +1409,7 @@ SetWindowOnTop_Err:
             End If
 
             For Each Agent In ListOfAgents
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Region_Name(Agent.Value))
                     item1.SubItems.Add(My.Resources.Local_Grid)
@@ -1434,7 +1419,7 @@ SetWindowOnTop_Err:
 
             Next
             For Each Agent In Presence
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Then
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "" Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Region_Name(Agent.Value))
                     item1.SubItems.Add(My.Resources.Local_Grid)
@@ -1834,9 +1819,7 @@ SetWindowOnTop_Err:
                     End If
 
                     ' Build output string                    
-                    If O.Email = "fred@mitsi.com" Then
-                        BreakPoint.Print("Fred")
-                    End If
+
                     item1.SubItems.Add(O.Email)
                     item1.SubItems.Add(O.Title)
                     item1.SubItems.Add(O.DiffDays)
