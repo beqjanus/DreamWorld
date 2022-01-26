@@ -13,7 +13,7 @@ Public Class SSL
 
     Public Sub New()
 
-        Dim Key = PemKey
+        Dim Key = PemKey()
         If Key.Length > 0 Then
             ' use an existing ACME account:
             'Load the saved account key
@@ -80,7 +80,14 @@ Public Class SSL
         Dim token = httpChallenge.Token
 
         'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
-        If Not SaveCert(keyAuthz, "Outworldzfiles/Apache/htdocs/.well-known/acme-challenge/", token) Then Return False
+        Dim folder As String
+        If Debugger.IsAttached Then
+            folder = IO.Path.Combine("Y:/Inetpub/SecondLife/.well-known/acme-challenge")
+        Else
+            folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Apache/htdocs/.well-known/acme-challenge")
+        End If
+
+        If Not SaveCert(keyAuthz, folder, token) Then Return False
 
         'Ask the ACME server to validate our domain ownership
         Await httpChallenge.Validate()
@@ -101,7 +108,7 @@ Public Class SSL
         While attempts > 0 And (result.Status = ChallengeStatus.Pending Or result.Status = ChallengeStatus.Processing)
             If result.Status <> ChallengeStatus.Valid Then
                 Dim retry = httpChallenge.RetryAfter
-                Sleep(1000)
+                Sleep(10000)
                 attempts -= 1
                 SSLLog.Add($"Retry {CStr(attempts)}")
                 result = Await httpChallenge.Resource()
@@ -121,7 +128,7 @@ Public Class SSL
             Return False
         End If
 
-        ''' TO DO  its stuck here with an error, dang it
+        Sleep(10000)
         '''
         'Download the certificate once validation is done
         Dim privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256)
@@ -158,15 +165,13 @@ Public Class SSL
     ''' <param name="folder"></param>
     ''' <param name="token"></param>
     ''' <returns></returns>
-    Private Function SaveCert(keyAuthz As String, folder As String, token As String) As Boolean
+    Private Function SaveCert(keyAuthz As String, path As String, filename As String) As Boolean
 
-        Dim file As String = ""
-        folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Apache/htdocs/.well-known/acme-challenge")
-        file = IO.Path.Combine(folder, token)
-        Debug.Print($"http://{Settings.PublicIP}:{Settings.ApachePort}/.well-known/acme-challenge/{token}")
+        Dim file = IO.Path.Combine(path, filename)
+        Debug.Print($"http://{Settings.PublicIP}:{Settings.ApachePort}/.well-known/acme-challenge/{filename}")
 
-        DeleteFolder(folder)
-        MakeFolder(folder)
+        MakeFolder(path)
+        DeleteFile(file)
 
         Try
             Dim utf8WithoutBom = New System.Text.UTF8Encoding(False)
