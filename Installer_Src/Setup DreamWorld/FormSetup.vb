@@ -48,6 +48,7 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
+    Private _ThreadsArerunning As Boolean
     Private _timerBusy1 As Integer
     Private _WasRunning As String = ""
 #Disable Warning CA2213 ' Disposable fields should be disposed
@@ -459,7 +460,6 @@ Public Class FormSetup
         Bench.Print("StartOpensim")
 
         Init(False)
-
         OpenPorts()
 
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
@@ -483,6 +483,12 @@ Public Class FormSetup
         StartThreads()
         Application.DoEvents()
 
+        Dim ctr = 60
+        While Not IsRobustRunning() And ctr > 0
+            Sleep(1000)
+            ctr -= 1
+        End While
+
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = FindRegionByName(RegionName)
@@ -502,7 +508,7 @@ Public Class FormSetup
 
         Dim ListOfNames As New List(Of String)
 
-        ' Boot them up sorted in Alphabetcal Order
+        ' Boot them up sorted in Alphabetical Order
         For Each RegionUUID As String In RegionUuids()
             ListOfNames.Add(Region_Name(RegionUUID))
         Next
@@ -512,7 +518,6 @@ Public Class FormSetup
         For Each RegionName As String In ListOfNames
 
             Dim RegionUUID = FindRegionByName(RegionName)
-
             Diagnostics.Debug.Print($"Starting {RegionName}")
 
             If RegionEnabled(RegionUUID) Then
@@ -980,7 +985,7 @@ Public Class FormSetup
         Joomla.CheckForjOpensimUpdate()
 
         IsMySqlRunning()
-        IsRobustRunning()
+        'IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
 
@@ -1687,6 +1692,12 @@ Public Class FormSetup
             Return
         End If
 
+        If Not StartRobust() Then
+            Buttons(StartButton)
+            TextPrint(My.Resources.Stopped_word)
+            Return
+        End If
+
         ' create tables in case we need them
         SetupWordPress()    ' in case they want to use WordPress
         SetupMutelist()     ' old way of doing mutes
@@ -1698,14 +1709,7 @@ Public Class FormSetup
         UploadPhoto()
         SetBirdsOnOrOff()
 
-        If Not StartRobust() Then
-            Buttons(StartButton)
-            TextPrint(My.Resources.Stopped_word)
-            Return
-        End If
-
         If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
-
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
                 If ret = DialogResult.Cancel Then
@@ -1713,14 +1717,10 @@ Public Class FormSetup
                     TextPrint(My.Resources.Stopped_word)
                     Return
                 End If
-
                 ' Read the chosen sim name
-
                 ConsoleCommand(RobustName, $"create user {InitialSetup.FirstName} {InitialSetup.LastName} {InitialSetup.Password} {InitialSetup.Email}{vbCrLf}{vbCrLf}")
-
                 Settings.RunOnce = True
                 Settings.SaveSettings()
-
             End Using
         Else
             ForceBackupOnce()
@@ -2418,6 +2418,8 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
+        If _ThreadsArerunning Then Return
+
         Chat2Speech()               ' speak of the devil
 
 #Disable Warning BC42016 ' Implicit conversion
@@ -2433,6 +2435,8 @@ Public Class FormSetup
             .PropInstanceHandles = PropInstanceHandles
         }
         WebThread.Start(O)
+
+        _ThreadsArerunning = True
 
     End Sub
 
@@ -2478,7 +2482,6 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
-
             If SecondsTicker Mod 2 = 0 And SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
                 PrintBackups()
@@ -2488,7 +2491,6 @@ Public Class FormSetup
                 TeleportAgents()            ' send them onward
                 RestartDOSboxes()
             End If
-
 
             If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
                 Bench.Print("5 second worker")

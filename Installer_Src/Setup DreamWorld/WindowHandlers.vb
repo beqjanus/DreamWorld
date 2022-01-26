@@ -98,6 +98,8 @@ Module WindowHandlers
         command = command.Replace("%", "{%}")
         command = command.Replace("(", "{(}")
         command = command.Replace(")", "{)}")
+        command = command.Replace("{", "{{}")
+        command = command.Replace("}", "{}}")
 
         Dim PID As Integer
         If RegionUUID = "Robust" Then
@@ -111,10 +113,12 @@ Module WindowHandlers
                 Return
             End If
             AppActivate(PID)
+
             Sleep(100)
             SendKeys.SendWait("{ENTER}")
             SendKeys.SendWait(command)
             SendKeys.SendWait("{ENTER}")
+            SendKeys.Flush()
             Return
         End If
 
@@ -130,6 +134,7 @@ Module WindowHandlers
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
+                SendKeys.Flush()
             Catch ex As Exception
                 RPC_Region_Command(RegionUUID, command)
             End Try

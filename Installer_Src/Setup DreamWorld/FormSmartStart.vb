@@ -818,7 +818,6 @@ Public Class FormSmartStart
         End If
 
         FormSetup.Buttons(FormSetup.BusyButton)
-        PropOpensimIsRunning() = True
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
         FormSetup.StartTimer()
