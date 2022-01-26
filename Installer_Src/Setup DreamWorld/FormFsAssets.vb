@@ -156,6 +156,7 @@ Public Class FormFSAssets
     End Sub
 
     Private Sub DataFolder_TextChanged(sender As Object, e As EventArgs) Handles DataFolder.TextChanged
+        If Not initted Then Return
         Changed = True
     End Sub
 
