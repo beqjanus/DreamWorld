@@ -183,6 +183,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Total_InnoDB_GBytes() As Integer
+        Get
+            Return CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+        End Get
+        Set
+            SetMySetting("Total_InnoDB_GBytes", CType(Value, String))
+        End Set
+    End Property
+
+
     Public Property ApachePort() As Integer
         Get
             Return CInt("0" & GetMySetting("ApachePort", "80"))

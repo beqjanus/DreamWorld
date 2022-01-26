@@ -94,6 +94,8 @@ Public Module MysqlInterface
         ' SAVE INI file
         Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
 
+        INI.SetIni("mysqld", "innodb_buffer_pool_size", $"{Settings.Total_InnoDB_GBytes()}G")
+
         If Settings.MysqlRunasaService Then
             INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
             INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
@@ -1597,6 +1599,38 @@ Public Module MysqlInterface
 
     End Sub
 
+#End Region
+
+#Region "Tuning"
+
+    Public Function Total_InnoDB_Bytes() As Integer
+
+        Dim Bytes As Integer
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = " Select Case CEILING(Total_InnoDB_Bytes * 1.6 / POWER(1024, 3)) RIBPS _
+                FROM (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes _
+                FROM information_schema.tables WHERE engine='InnoDB') A;"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Bytes = reader.GetInt32(3)
+                        End If
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Print(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return Bytes
+
+
+    End Function
 #End Region
 
 End Module
