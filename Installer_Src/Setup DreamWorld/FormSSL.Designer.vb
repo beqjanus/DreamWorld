@@ -23,7 +23,6 @@ Partial Class FormSSL
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Email = New System.Windows.Forms.TextBox()
         Me.OU = New System.Windows.Forms.TextBox()
         Me.State = New System.Windows.Forms.TextBox()
@@ -43,22 +42,12 @@ Partial Class FormSSL
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(16, 150)
+        Me.Button1.Location = New System.Drawing.Point(16, 182)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(118, 28)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "Create Certificate"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(3, 189)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(303, 121)
-        Me.TextBox1.TabIndex = 5
         '
         'Email
         '
@@ -114,7 +103,6 @@ Partial Class FormSSL
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Locale)
         Me.GroupBox1.Controls.Add(Me.CountryName)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.LabelState)
         Me.GroupBox1.Controls.Add(Me.LabelOrganization)
         Me.GroupBox1.Controls.Add(Me.Button1)
@@ -124,7 +112,7 @@ Partial Class FormSSL
         Me.GroupBox1.Controls.Add(Me.OU)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(312, 316)
+        Me.GroupBox1.Size = New System.Drawing.Size(312, 241)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "SSL"
@@ -181,7 +169,7 @@ Partial Class FormSSL
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(344, 371)
+        Me.ClientSize = New System.Drawing.Size(344, 281)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -197,7 +185,6 @@ Partial Class FormSSL
     End Sub
 
     Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Email As TextBox
     Friend WithEvents OU As TextBox
     Friend WithEvents State As TextBox

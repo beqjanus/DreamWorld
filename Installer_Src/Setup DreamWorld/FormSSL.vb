@@ -1,9 +1,22 @@
 ﻿Public Class FormSSL
 
     Private initted As Boolean
-    Private linecount As Integer = 0
+    Private changed As Boolean
 
-    Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+
+        If changed Then
+            Dim result = MsgBox(My.Resources.Changes_Made, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Save_changes_word)
+            If result <> vbYes Then
+                Return
+            End If
+        End If
+
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub SSL_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Email.Text = Settings.SSLEmail
         OU.Text = Settings.SSLOrganization
@@ -18,26 +31,9 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        SSLRunning = False
-        Sleep(1000)
-        SSLLog.Clear()
+        If changed Then Settings.SaveSettings()
         Dim ssl = New SSL
-        SSLRunning = True
         ssl.DoSSL()
-
-        While SSLRunning
-            SSLPrint()
-            Sleep(100)
-        End While
-
-    End Sub
-
-#Region "Scrolling text box"
-
-    Private Sub CountryName_TextChanged(sender As Object, e As EventArgs) Handles CountryName.TextChanged
-
-        If Not initted Then Return
-        Settings.SSLCountry = CountryName.Text
 
     End Sub
 
@@ -45,6 +41,7 @@
 
         If Not initted Then Return
         Settings.SSLEmail = Email.Text
+        changed = True
 
     End Sub
 
@@ -58,6 +55,7 @@
 
         If Not initted Then Return
         Settings.SSLLocale = Locale.Text
+        changed = True
 
     End Sub
 
@@ -65,18 +63,7 @@
 
         If Not initted Then Return
         Settings.SSLOrganization = OU.Text
-
-    End Sub
-
-    Private Sub SSLPrint()
-
-        While SSLLog.Count > linecount
-            TextBox1.Text += SSLLog.ElementAt(linecount) & vbCrLf
-            If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
-                TextBox1.Text = Mid(TextBox1.Text, 1000)
-            End If
-            Sleep(10)
-        End While
+        changed = True
 
     End Sub
 
@@ -84,15 +71,9 @@
 
         If Not initted Then Return
         Settings.SSLState = State.Text
+        changed = True
 
     End Sub
 
-    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
-        Dim ln As Integer = TextBox1.Text.Length
-        TextBox1.SelectionStart = ln
-        TextBox1.ScrollToCaret()
-    End Sub
-
-#End Region
 
 End Class

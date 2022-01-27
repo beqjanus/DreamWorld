@@ -6,7 +6,31 @@ Imports System.IO
 
 'https://github.com/fszlin/certes/blob/main/docs/APIv2.md
 'https://docs.certes.app/APIv2.html
-
+'
+' Command line tool install
+' dotnet tool install --global dotnet-certes
+' certes account new fred@outworldz.com'
+'
+' certes order new smartboot.outworldz.net
+' {"location":"https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050",
+' ' "resource":{"status":"pending",
+'   "expires":"2022-02-03T00:56:00+00:00",
+'   "identifiers":[{"type":"dns",
+'   "value":"smartboot.outworldz.net"}],
+'   "authorizations":["https://acme-v02.api.letsencrypt.org/acme/authz-v3/72254102330"],
+'   "finalize":"https://acme-v02.api.letsencrypt.org/acme/finalize/382037190/58749705050"}}
+'
+' certes order list
+' validate <order-id> <domain> <challenge-type>  Validate the authorization challenge.
+' certes validate
+'
+'  dotnet-certes [options] order validate <order-id> <domain> <challenge-type>
+'Arguments:
+'<Order-id>        The URI of the certificate order.
+'<domain> The domain.
+'<Challenge-type>  The challenge type, http Or dns.
+'  validate https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050 smartboot.outworldz.net
+'
 Public Class SSL
     Private ReadOnly context As AcmeContext
     Private order As IOrderContext
@@ -19,18 +43,24 @@ Public Class SSL
             'Load the saved account key
             Dim accountKey = KeyFactory.FromPem(Key)
             context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2, accountKey)
+            Logger("Info", "Using existing account", "SSL")
         Else
             context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2)
             Dim result = context.NewAccount(Settings.SSLEmail, True)
             ' Save the account key for later use
             PemKey = context.AccountKey.ToPem()
+            Logger("Info", $"Created new account for {Settings.SSLEmail}", "SSL")
         End If
+
+        Dim TOS = context.TermsOfService()
+        Logger("Info", "TOS: {TOS}", "SSL")
+        ' await account.UpdateUpdate(contact: New() { $"mailto:support@example.com" },agreeTermsOfService: true)
+
 
     End Sub
 
     Private Property PemKey As String
         Get
-
             Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
             If Not IO.File.Exists(File) Then Return ""
 
@@ -57,14 +87,16 @@ Public Class SSL
         Dim accountInfo = MyAccountAsync()
         Dim orderUri = NewOrderAsync()
 
-        SSLRunning = False
-
     End Sub
 
     Private Async Function MyAccountAsync() As Task(Of Account)
 
         Dim account = Await context.Account()
+        Console.WriteLine($" Location : {account.Location}")
         Dim res = Await account.Resource()
+        Console.WriteLine($" Status   : {res.Status}")
+
+        Logger("Info", "Resource created", "SSL")
         Return res
 
     End Function
@@ -78,20 +110,23 @@ Public Class SSL
         Dim httpChallenge = Await Authz.Http()
         Dim keyAuthz = httpChallenge.KeyAuthz
         Dim token = httpChallenge.Token
+        Logger("Info", "Auth token and key ready", "SSL")
 
         'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
         Dim folder As String
         If Debugger.IsAttached Then
-            folder = IO.Path.Combine("Y:/Inetpub/SecondLife/.well-known/acme-challenge")
+            folder = IO.Path.Combine("C:/Inetpub/Medvik/.well-known/acme-challenge")
         Else
             folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Apache/htdocs/.well-known/acme-challenge")
         End If
 
         If Not SaveCert(keyAuthz, folder, token) Then Return False
+        Logger("Info", "Well known challenge created", "SSL")
 
         'Ask the ACME server to validate our domain ownership
         Await httpChallenge.Validate()
         Dim result = Await httpChallenge.Resource
+        Logger("Info", "Challenge made", "SSL")
 
         ' Invalid      The invalid status.
         ' Pending      The pending status.
@@ -99,18 +134,17 @@ Public Class SSL
         ' Valid        The valid status
 
         If result.Status = ChallengeStatus.Invalid Then
-            SSLLog.Add(result.Error.Detail)
-            Logger("SSL", result.Error.Detail, "SSL")
+            Logger("Error", result.Error.Detail, "SSL")
             Return True
         End If
 
         Dim attempts = 10
         While attempts > 0 And (result.Status = ChallengeStatus.Pending Or result.Status = ChallengeStatus.Processing)
             If result.Status <> ChallengeStatus.Valid Then
-                Dim retry = httpChallenge.RetryAfter
+                Logger("Retry", result.Error.Detail, "SSL")
                 Sleep(10000)
                 attempts -= 1
-                SSLLog.Add($"Retry {CStr(attempts)}")
+                Logger("Error", $"Retry {CStr(attempts)}", "SSL")
                 result = Await httpChallenge.Resource()
             Else
                 Exit While
@@ -119,40 +153,45 @@ Public Class SSL
         End While
 
         If attempts = 0 Then
-            SSLLog.Add($"Timed Out at Challenge")
+            Logger("Error", $"Timed Out at Challenge", "SSL")
             Return False
         End If
 
         If result.Status <> ChallengeStatus.Valid Then
-            SSLLog.Add($"Challenge Invalid")
+            Logger("Error", $"Challenge Invalid", "SSL")
             Return False
         End If
 
-        Sleep(10000)
-        '''
-        'Download the certificate once validation is done
-        Dim privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256)
-        Dim cert = Await order.Generate(New CsrInfo With {
-            .CountryName = "US",
-            .State = Settings.SSLState,
-            .Locality = Settings.SSLLocale,
-            .Organization = Settings.SSLOrganization,
-            .OrganizationUnit = "Outworldz, LLC",
-            .CommonName = Settings.DNSName
-        }, privateKey)
+        Dim pk = KeyFactory.NewKey(KeyAlgorithm.RS256)
 
-        'Export full chain certification
-        Dim certPem = cert.ToPem()
+        Await order.Generate(New CsrInfo With {
+            .CountryName = "Country",
+            .State = "State",
+            .Locality = "City",
+            .Organization = "Org",
+            .CommonName = Settings.DNSName
+        }, pk, "ISRG X1 Root")
 
         'Download the certificate for a finalized order.
-        Dim certChain = Await order.Download()
+        Dim certChain = Await order.Download("ISRG X1 Root")
+        Logger("Success", $"Cert Chain received", "SSL")
 
-        SaveCert(privateKey.ToString, "Outworldzfiles/Apache/conf/ssl/", "private.key")
-        SaveCert(certChain.ToString, "Outworldzfiles/Apache/conf/ssl/", "freessl.key")
+
+        Dim Pem1 = certChain.Certificate.ToPem
+
+        SaveCert(Pem1, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Apache/Certs/"), "server.crt")
+        Logger("Success", $"Certificate PEM chain saved to Apache as server.crt", "SSL")
+
+        SaveCert(pk.ToPem, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Apache/Certs/"), "server.key")
+        Logger("Success", $"Private Key saved to Apache as server.key", "SSL")
 
         'Export PFX
-        Dim pfxBuilder = cert.ToPfx(privateKey)
-        Dim pfx = pfxBuilder.Build("my-cert", "abcd1234")
+        'Dim pfxBuilder = certChain.ToPfx(pk)
+
+        'Dim pfx() = pfxBuilder.Build("my-cert", Settings.MachineID)
+        'Dim p = pfx.ToString
+        'SaveCert(p, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Apache/Cert/"), "server-ca.crt")
+        'Logger("Success", $"PFX saved to Apache as server-ca.crt", "SSL")
 
         Return True
 
@@ -161,14 +200,13 @@ Public Class SSL
     ''' <summary>
     ''' 'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
     ''' </summary>
-    ''' <param name="keyAuthz"></param>
+    ''' <param name="Contents"></param>
     ''' <param name="folder"></param>
-    ''' <param name="token"></param>
-    ''' <returns></returns>
-    Private Function SaveCert(keyAuthz As String, path As String, filename As String) As Boolean
+    ''' <param name="filename"></param>
+    ''' <returns>true if it succeed</returns>
+    Private Function SaveCert(Contents As String, path As String, filename As String) As Boolean
 
         Dim file = IO.Path.Combine(path, filename)
-        Debug.Print($"http://{Settings.PublicIP}:{Settings.ApachePort}/.well-known/acme-challenge/{filename}")
 
         MakeFolder(path)
         DeleteFile(file)
@@ -176,7 +214,7 @@ Public Class SSL
         Try
             Dim utf8WithoutBom = New System.Text.UTF8Encoding(False)
             Dim f = My.Computer.FileSystem.OpenTextFileWriter(file, False, utf8WithoutBom)
-            f.WriteLine(keyAuthz)
+            f.WriteLine(Contents)
             f.Close()
         Catch ex As Exception
             BreakPoint.Dump(ex)
