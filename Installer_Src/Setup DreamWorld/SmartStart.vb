@@ -445,8 +445,8 @@ Module SmartStart
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim BootProcess = New Process With {
-            .EnableRaisingEvents = True
-        }
+                .EnableRaisingEvents = True
+            }
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
             BootProcess.StartInfo.UseShellExecute = True

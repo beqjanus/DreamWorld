@@ -37,6 +37,34 @@ Public Class SSL
 
     Public Sub New()
 
+        Using SSLProcess As New Process
+
+            SSLProcess.StartInfo.UseShellExecute = True
+            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
+            SSLProcess.StartInfo.FileName = "wacs.exe"
+            SSLProcess.StartInfo.CreateNoWindow = False
+
+            Select Case Settings.ConsoleShow
+                Case "True"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "False"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "None"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End Select
+
+            SSLProcess.StartInfo.Arguments = $"--source manual --host {Settings.DNSName} --validation filesystem --webroot {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFile/Apache/htdocs")} --store pemfiles --pemfilespath {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFile/Apache/Certs")}"
+
+            Try
+                SSLProcess.Start()
+                Logger("Info", "Certificate made", "SSL")
+            Catch ex As Exception
+                ErrorLog(ex.Message)
+            End Try
+
+        End Using
+        Return
+
         Dim Key = PemKey()
         If Key.Length > 0 Then
             ' use an existing ACME account:
@@ -55,7 +83,6 @@ Public Class SSL
         Dim TOS = context.TermsOfService()
         Logger("Info", "TOS: {TOS}", "SSL")
         ' await account.UpdateUpdate(contact: New() { $"mailto:support@example.com" },agreeTermsOfService: true)
-
 
     End Sub
 
@@ -176,7 +203,6 @@ Public Class SSL
         Dim certChain = Await order.Download("ISRG X1 Root")
         Logger("Success", $"Cert Chain received", "SSL")
 
-
         Dim Pem1 = certChain.Certificate.ToPem
 
         SaveCert(Pem1, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Apache/Certs/"), "server.crt")
@@ -185,7 +211,16 @@ Public Class SSL
         SaveCert(pk.ToPem, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Apache/Certs/"), "server.key")
         Logger("Success", $"Private Key saved to Apache as server.key", "SSL")
 
+        ' none of this works, docs do not match reality, CertificateInfo is not a class
         'Export PFX
+        'Dim cert = New CertificateInfo(certChain, certKey)
+        '
+        '       Dim pem = cert.ToPem()
+        '      Dim der = cert.ToDer()
+        '     Dim pfx = cert.ToPfx("cert-name", "abcd1234")
+
+        '     Dim keyPem = cert.Key.ToPem()
+
         'Dim pfxBuilder = certChain.ToPfx(pk)
 
         'Dim pfx() = pfxBuilder.Build("my-cert", Settings.MachineID)
