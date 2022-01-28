@@ -1942,23 +1942,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SSLCountry() As String
+    Public Property SSLEnabled() As Boolean
         Get
-            Dim mail As String = GetMySetting("SSLCountry", "")
-            Return mail
+            Return CType(GetMySetting("SSLEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SSLCountry", Value)
-        End Set
-    End Property
-
-    Public Property SSLEmail() As String
-        Get
-            Dim mail As String = GetMySetting("SSLEmail", "")
-            Return mail
-        End Get
-        Set
-            SetMySetting("SSLEmail", Value)
+            SetMySetting("SSLEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1968,44 +1957,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SSLIsInstalled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property SSLLocale() As String
-        Get
-            Dim mail As String = GetMySetting("SSLLocale", "")
-            Return mail
-        End Get
-        Set
-            SetMySetting("SSLLocale", Value)
-        End Set
-    End Property
-
-    Public Property SSLOrganization() As String
-        Get
-            Dim mail As String = GetMySetting("SSLOrganization", "")
-            Return mail
-        End Get
-        Set
-            SetMySetting("SSLOrganization", Value)
-        End Set
-    End Property
-
-    Public Property SSLState() As Boolean
-        Get
-            Return CType(GetMySetting("SSLState", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("SSLState", CStr(Value))
-        End Set
-    End Property
-
-    Public Property SSVisible() As Boolean
-        Get
-            Return CType(GetMySetting("SSVisible", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("SSVisible", CStr(Value))
         End Set
     End Property
 

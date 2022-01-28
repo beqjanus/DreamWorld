@@ -67,7 +67,7 @@ Module Apache
               .Timeout = 1000
             }
             Try
-                Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
+                Up = TimedClient.DownloadString("http://127.0.0.1:" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
                 If ex.Message.Contains("200 OK") Then
                     ApacheIcon(True)
@@ -83,7 +83,7 @@ Module Apache
 
         End Using
         ApacheIcon(True)
-        Return False
+        Return True
 
     End Function
 
@@ -273,7 +273,11 @@ Module Apache
 
         End Using
 
-        ApacheIcon(False)
+        If IsApacheRunning() Then
+            ApacheIcon(True)
+        Else
+            ApacheIcon(False)
+        End If
 
     End Sub
 

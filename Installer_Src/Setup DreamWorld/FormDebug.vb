@@ -110,12 +110,6 @@ Public Class FormDebug
 
             TPAPITest()
 
-        ElseIf Command = "SSL Test" Then
-
-            If Value = True Then
-                Dim ssl = New SSL
-            End If
-
         ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
 
             If Value Then
@@ -189,7 +183,6 @@ Public Class FormDebug
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
 
-        ComboBox1.Items.Add("SSL Test")
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")

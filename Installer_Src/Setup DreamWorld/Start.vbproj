@@ -726,7 +726,6 @@
     <Compile Include="SmartStart.vb" />
     <Compile Include="ClassSorter.vb" />
     <Compile Include="Speech.vb" />
-    <Compile Include="SSL.vb" />
     <Compile Include="TaskObject.vb" />
     <Compile Include="Teleport.vb" />
     <Compile Include="Testing.vb" />
@@ -1430,9 +1429,14 @@
     <None Include="Resources\cubes_blue.png" />
     <None Include="Resources\1253433.png" />
     <Content Include="Resources\exit.png" />
+    <None Include="Resources\gear_time.png" />
     <Content Include="Resources\jar.ico" />
     <None Include="Resources\loudspeaker.png" />
     <None Include="Resources\line-chart.png" />
+    <Content Include="Resources\lock_error.png" />
+    <Content Include="Resources\lock_ok.png" />
+    <Content Include="Resources\lock_open.png" />
+    <Content Include="Resources\lock_time.png" />
     <Content Include="Resources\mail.ico" />
     <Content Include="Resources\Martin-Berube-Flat-Animal-Bird.ico" />
     <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
