@@ -54,10 +54,10 @@ Module DoIni
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
 
 
-        ' Install Certificates
-        Settings.SetLiteralIni("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-chain.pem""")
-        Settings.SetLiteralIni("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-key.pem""")
-        Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-crt.pem""")
+        ' Install Certificates        
+        Settings.SetLiteralIni("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-chain.pem""")
+        Settings.SetLiteralIni("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-key.pem""")
+        Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-crt.pem""")
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 

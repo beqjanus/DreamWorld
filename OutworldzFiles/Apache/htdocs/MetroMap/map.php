@@ -91,11 +91,14 @@
   $end_x = $grid_x + 10;
   $end_y = $grid_y - 6;
   
+  
 // Datenbank anzapfen
 $con = mysqli_connect($dbort,$dbuser,$dbpw,$dbdb,$dbport); 
 
+
    // Datenbank abfragen
-  $z=mysqli_query($con,"SELECT uuid,regionName,locX,locY,serverURI,sizeX,sizeY,owner_uuid FROM regions") or die("Error: " . mysqli_error($con));
+$z=mysqli_query($con,"SELECT uuid,regionName,locX,locY,serverURI,sizeX,sizeY,owner_uuid FROM regions") or die("Error: " . mysqli_error($con));
+
   
 /* Datenbank prüfen */
 if (mysqli_connect_errno()) 
