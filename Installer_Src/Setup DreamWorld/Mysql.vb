@@ -119,8 +119,8 @@ Public Module MysqlInterface
             INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "1")
         End If
 
-        INI.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/MySQL""")
-        INI.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/MySQL/Data""")
+        INI.SetIni("mysqld", "basedir", $"""{Settings.CurrentSlashDir}/OutworldzFiles/MySQL""")
+        INI.SetIni("mysqld", "datadir", $"""{Settings.CurrentSlashDir}/OutworldzFiles/MySQL/Data""")
         INI.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         INI.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
 
@@ -134,7 +134,7 @@ Public Module MysqlInterface
             Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM A program to run MySQL manually for troubleshooting." & vbCrLf _
                              & "mysqld.exe --defaults-file=" &
-                             """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
+                             """" & Settings.CurrentSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
                              )
             End Using
         Catch ex As Exception
@@ -152,7 +152,7 @@ Public Module MysqlInterface
             }
                     MysqlProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                     MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\mysqld.exe")
-                    MysqlProcess.StartInfo.Arguments = $"--install MySQLDreamGrid --defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini"""
+                    MysqlProcess.StartInfo.Arguments = $"--install MySQLDreamGrid --defaults-file=""{Settings.CurrentSlashDir}/OutworldzFiles/mysql/my.ini"""
                     MysqlProcess.StartInfo.CreateNoWindow = True
                     MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
                     MysqlProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
@@ -224,7 +224,7 @@ Public Module MysqlInterface
             Application.DoEvents()
             ' MySQL was not running, so lets start it up.
             Dim pi = New ProcessStartInfo With {
-                .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
+                .Arguments = $"--defaults-file=""{Settings.CurrentSlashDir}/OutworldzFiles/mysql/my.ini""",
                 .WindowStyle = ProcessWindowStyle.Hidden,
                 .CreateNoWindow = True,
                 .FileName = $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe")}"""
@@ -1360,7 +1360,7 @@ Public Module MysqlInterface
         Try
             Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to run MySQL as a Service" & vbCrLf +
-            "mysqld.exe --install MySQL --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
+            "mysqld.exe --install MySQL --defaults-file=" & """" & Settings.CurrentSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)

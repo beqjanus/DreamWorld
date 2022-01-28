@@ -281,7 +281,7 @@ Public Class SSL
         End If
 
         Dim TOS = context.TermsOfService()
-        Logger("Info", "TOS: {TOS}", "SSL")
+        Logger("Info", $"TOS: {TOS}", "SSL")
         ' await account.UpdateUpdate(contact: New() { $"mailto:support@example.com" },agreeTermsOfService: true)
 
     End Sub

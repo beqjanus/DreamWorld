@@ -18,17 +18,17 @@ Module DoIni
         ' lean rightward paths for Apache
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\httpd.conf")
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetLiteralIni("Define SRVROOT", $"Define SRVROOT ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache""")
-        Settings.SetLiteralIni("DocumentRoot", $"DocumentRoot ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache/htdocs""")
-        Settings.SetLiteralIni("Use VDir", $"Use VDir ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache/htdocs""")
-        Settings.SetLiteralIni("PHPIniDir", $"PHPIniDir ""{FormSetup.PropCurSlashDir}/OutworldzFiles/PHP7""")
+        Settings.SetLiteralIni("Listen", $"Listen {Settings.LANIP()}:{Settings.ApachePort}")
+        Settings.SetLiteralIni("Define SRVROOT", $"Define SRVROOT ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache""")
+        Settings.SetLiteralIni("DocumentRoot", $"DocumentRoot ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("Use VDir", $"Use VDir ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("PHPIniDir", $"PHPIniDir ""{Settings.CurrentSlashDir}/OutworldzFiles/PHP7""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", $"<VirtualHost  *:{Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)}>")
-        Settings.SetLiteralIni("ErrorLog", $"ErrorLog ""|bin/rotatelogs.exe  -l \""{FormSetup.PropCurSlashDir}/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\"" 86400""")
-        Settings.SetLiteralIni("CustomLog", $"CustomLog ""|bin/rotatelogs.exe -l \""{FormSetup.PropCurSlashDir}/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\"" 86400"" common env=!dontlog")
-        Settings.SetLiteralIni("LoadModule php7_module", $"LoadModule php7_module ""{FormSetup.PropCurSlashDir}/OutworldzFiles/PHP7/php7apache2_4.dll""")
+        Settings.SetLiteralIni("ErrorLog", $"ErrorLog ""|bin/rotatelogs.exe  -l \""{Settings.CurrentSlashDir}/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\"" 86400""")
+        Settings.SetLiteralIni("CustomLog", $"CustomLog ""|bin/rotatelogs.exe -l \""{Settings.CurrentSlashDir}/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\"" 86400"" common env=!dontlog")
+        Settings.SetLiteralIni("LoadModule php7_module", $"LoadModule php7_module ""{Settings.CurrentSlashDir}/OutworldzFiles/PHP7/php7apache2_4.dll""")
 
         If Settings.SSLIsInstalled Then
             Settings.SetLiteralIni("UnDefine SSL", "Define SSL")
@@ -45,15 +45,19 @@ Module DoIni
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\extra\httpd-ssl.conf")
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", "Listen " & Settings.LANIP() & ": " & "443")
+        Settings.SetLiteralIni("Listen", $"Listen {Settings.LANIP()}:443")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
+        Settings.SetLiteralIni("Define SRVROOT", $"Define SRVROOT ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache""")
+        Settings.SetLiteralIni("DocumentRoot", $"DocumentRoot ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("Use VDir", $"Use VDir ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
+        Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
+
 
         ' Install Certificates
-        'SSLCertificateFile "${CERTROOT}/example.com-chain.pem"
         Settings.SetLiteralIni("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-chain.pem""")
-
-        'SSLCertificateKeyFile "${CERTROOT}/example.com-key.pem"
-        Settings.SetLiteralIni("SSLCertificateKeyFile", $"""SSLCertificateKeyFile {Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-key.pem""")
+        Settings.SetLiteralIni("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-key.pem""")
+        Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentDirectory}/Apache/Certs/{Settings.DNSName}-crt.pem""")
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 
@@ -597,8 +601,8 @@ Module DoIni
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\php.ini")
 
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7/ext/""")
-        Settings.SetLiteralIni("doc_root", "doc_root = """ & FormSetup.PropCurSlashDir & "/OutworldzFiles/Apache/htdocs/""")
+        Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & Settings.CurrentSlashDir & "/OutworldzFiles/PHP7/ext/""")
+        Settings.SetLiteralIni("doc_root", "doc_root = """ & Settings.CurrentSlashDir & "/OutworldzFiles/Apache/htdocs/""")
 
         Settings.SaveLiteralIni(ini, "php.ini")
 

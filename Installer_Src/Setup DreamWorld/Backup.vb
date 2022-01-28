@@ -11,7 +11,7 @@
         BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
 
         If Not IO.Directory.Exists(BackupPath) Then
-            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
+            BackupPath = IO.Path.Combine(Settings.CurrentSlashDir, "OutworldzFiles/Autobackup")
             FileIO.FileSystem.CreateDirectory(BackupPath)
             Settings.BackupFolder = BackupPath
         End If

@@ -37,7 +37,7 @@
 
 
 # changed by Dreamgrid
-Define SRVROOT "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache"
+Define SRVROOT "C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/Apache"
 ServerRoot "${SRVROOT}"
 
 #
@@ -65,7 +65,7 @@ Define ENABLE_TLS13 "Yes"
 # prevent Apache from glomming onto all bound IP addresses.
 #
 #Listen 12.34.56.78:80
-Listen 80
+Listen 209.126.10.78:80
 
 #
 # Dynamic Shared Object (DSO) Support
@@ -181,7 +181,6 @@ LoadModule socache_memcache_module modules/mod_socache_memcache.so
 #LoadModule socache_redis_module modules/mod_socache_redis.so
 LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
 #LoadModule speling_module modules/mod_speling.so
-#LoadModule ssl_module modules/mod_ssl.so
 LoadModule status_module modules/mod_status.so
 #LoadModule substitute_module modules/mod_substitute.so
 #LoadModule unique_id_module modules/mod_unique_id.so
@@ -192,20 +191,23 @@ LoadModule version_module modules/mod_version.so
 #LoadModule watchdog_module modules/mod_watchdog.so
 #LoadModule xml2enc_module modules/mod_xml2enc.so
 
-
 # SSL/TLS Certificates
-# uncomment for HTTPS(SSL/TLS). You need to put certs in extras\Certs
-#LoadModule ssl_module modules/mod_ssl.so
+# HTTPS(SSL/TLS). You need to put certs in extras\Certs
+# changed by Dreamgrid
+Define SSL
+<IfDefine SSL>
+LoadModule ssl_module modules/mod_ssl.so
+</IfDefine>
 
 #PHP
-LoadModule php7_module "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/PHP7/php7apache2_4.dll"
+LoadModule php7_module "C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/PHP7/php7apache2_4.dll"
 <FilesMatch \.php$>
       SetHandler application/x-httpd-php
 </FilesMatch>
 
 # configure the path to php.ini
 # changed by Dreamgrid
-PHPIniDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/PHP7"
+PHPIniDir "C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/PHP7"
 
 
 <IfModule unixd_module>
@@ -248,7 +250,7 @@ ServerAdmin not@set.yet
 # If your host doesn't have a registered DNS name, enter its IP address here.
 #
 # changed by Dreamgrid
-ServerName 10.242.2.4
+ServerName smartboot.outworldz.net
 
 # This fixes a bug with the OS
 AcceptFilter http none
@@ -280,7 +282,7 @@ AcceptFilter https none
 # symbolic links and aliases may be used to point to other locations.
 #
 # changed by Dreamgrid
-DocumentRoot "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
+DocumentRoot "C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/Apache/htdocs"
 
 <Macro VDir $root>
 <Directory "$root">
@@ -323,7 +325,7 @@ Require all granted
 
 # must be flush aligned left
 # changed by Dreamgrid
-Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
+Use VDir "C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/Apache/htdocs"
 
 
 <VirtualHost  *:80>
@@ -339,7 +341,7 @@ DirectoryIndex  index.php index.htm index.html default.htm
 
 # must be flush aligned left
 # changed by Dreamgrid
-ServerName 10.242.2.4
+ServerName smartboot.outworldz.net
 
 # in case you want a different URL for your servers Web site yet still have Apache on.
 #Redirect permanent / https://google.com
@@ -379,7 +381,7 @@ LogLevel warn
 
 # changed by Dreamgrid
 # must be flush aligned left
-ErrorLog "|bin/rotatelogs.exe  -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\" 86400"
+ErrorLog "|bin/rotatelogs.exe  -l \"C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\" 86400"
  
     #
     # The location and format of the access logfile (Common Logfile Format).
@@ -390,7 +392,7 @@ ErrorLog "|bin/rotatelogs.exe  -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFile
     #
 # must be flush aligned left
 # changed by Dreamgrid
-CustomLog "|bin/rotatelogs.exe -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\" 86400" common env=!dontlog
+CustomLog "|bin/rotatelogs.exe -l \"C:/Users/Fred/Desktop/Dreamgrid/Dreamworld/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\" 86400" common env=!dontlog
 
 
     #

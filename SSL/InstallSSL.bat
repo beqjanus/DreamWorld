@@ -1,5 +1,5 @@
 @REM program to renew SSL certificate
 @echo off
-cd C:\Opensim\Outworldz_Dreamgrid\SSL
-.\wacs.exe --accepttos --source manual --host test.outworldz.net --validation filesystem --webroot "C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\Apache\htdocs" --store pemfiles --pemfilespath "C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\Apache\Certs"   --emailaddress fred@outworldz.com  --closeonfinish --test 
+cd C:\Users\Fred\Desktop\Dreamgrid\Dreamworld\SSL
+.\wacs.exe --accepttos --source manual --host smartboot.outworldz.net --validation filesystem --webroot "C:\Users\Fred\Desktop\Dreamgrid\Dreamworld\OutworldzFiles\Apache\htdocs" --store pemfiles --pemfilespath "C:\Users\Fred\Desktop\Dreamgrid\Dreamworld\OutworldzFiles\Apache\Certs"   --emailaddress fred@outworldz.com   
 Exit /B %ERRORLEVEL%

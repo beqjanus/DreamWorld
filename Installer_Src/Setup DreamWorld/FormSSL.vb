@@ -234,7 +234,7 @@
 
     Private Sub SSL_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        If Debugger.IsAttached Then Settings.SSLIsInstalled = False
+        'If Debugger.IsAttached Then Settings.SSLIsInstalled = False
 
         LogFile = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\logs\SSL.log")
 

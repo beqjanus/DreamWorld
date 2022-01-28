@@ -13,7 +13,7 @@ Public Class MySettings
 
     Private Const DreamGrid As String = "DreamGrid"
     Private Const JOpensim As String = "JOpensim"
-
+    Private _CurSlashDir As String = ""
     Private ReadOnly Apachein As New List(Of String)
     Private ReadOnly Apacheout As New List(Of String)
     Private _DeleteTreesFirst As Boolean
@@ -81,6 +81,17 @@ Public Class MySettings
     End Sub
 
 #End Region
+
+
+    Public Property CurrentSlashDir As String
+        Get
+            Return _CurSlashDir
+        End Get
+        Set(value As String)
+            _CurSlashDir = value
+        End Set
+    End Property
+
 
     Public Sub SaveSettings()
 
@@ -2135,7 +2146,9 @@ Public Class MySettings
 
     Public Property Total_InnoDB_GBytes() As Integer
         Get
-            Return CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+            Dim amount = CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+            If amount < 1 Then amount = 1
+            Return amount
         End Get
         Set
             SetMySetting("Total_InnoDB_GBytes", CType(Value, String))

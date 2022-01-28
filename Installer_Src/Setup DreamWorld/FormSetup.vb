@@ -38,7 +38,6 @@ Public Class FormSetup
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
-    Private _CurSlashDir As String
     Private _DNSSTimer As Integer
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
@@ -147,14 +146,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropCurSlashDir As String
-        Get
-            Return _CurSlashDir
-        End Get
-        Set(value As String)
-            _CurSlashDir = value
-        End Set
-    End Property
 
     Public Property PropIceCastExited() As Boolean
         Get
@@ -600,15 +591,17 @@ Public Class FormSetup
             ' for testing, as the compiler buries itself in ../../../debug
         End If
 
-        PropCurSlashDir = _myFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
 
         If Not System.IO.File.Exists(_myFolder & "\OutworldzFiles\Settings.ini") Then
             Create_ShortCut(_myFolder & "\Start.exe")
         End If
 
         Settings = New MySettings(_myFolder) With {
-        .CurrentDirectory = _myFolder
-    }
+            .CurrentDirectory = _myFolder
+        }
+
+        Settings.CurrentSlashDir = _myFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
+
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
         Log("Startup", DisplayObjectInfo(Me))
