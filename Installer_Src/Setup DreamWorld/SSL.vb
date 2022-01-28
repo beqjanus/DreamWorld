@@ -5,36 +5,11 @@ Imports Certes.Acme.Resource
 Imports System.IO
 Imports System.Threading
 
-'https://github.com/fszlin/certes/blob/main/docs/APIv2.md
-'https://docs.certes.app/APIv2.html
-'
-' Command line tool install
-' dotnet tool install --global dotnet-certes
-' certes account new fred@outworldz.com'
-'
-' certes order new smartboot.outworldz.net
-' {"location":"https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050",
-' ' "resource":{"status":"pending",
-'   "expires":"2022-02-03T00:56:00+00:00",
-'   "identifiers":[{"type":"dns",
-'   "value":"smartboot.outworldz.net"}],
-'   "authorizations":["https://acme-v02.api.letsencrypt.org/acme/authz-v3/72254102330"],
-'   "finalize":"https://acme-v02.api.letsencrypt.org/acme/finalize/382037190/58749705050"}}
-'
-' certes order list
-' validate <order-id> <domain> <challenge-type>  Validate the authorization challenge.
-' certes validate
-'
-'  dotnet-certes [options] order validate <order-id> <domain> <challenge-type>
-'Arguments:
-'<Order-id>        The URI of the certificate order.
-'<domain> The domain.
-'<Challenge-type>  The challenge type, http Or dns.
-'  validate https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050 smartboot.outworldz.net
-'
 Public Class SSL
     Private ReadOnly context As AcmeContext
     Private order As IOrderContext
+
+#Region "Wacs"
 
     Public Sub New()
 
@@ -45,36 +20,6 @@ Public Class SSL
             WebThread.Start()
         Catch
         End Try
-
-    End Sub
-
-    Private Property PemKey As String
-        Get
-            Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
-            If Not IO.File.Exists(File) Then Return ""
-
-            Dim d As String = ""
-            Using Reader As New StreamReader(File)
-                While Not Reader.EndOfStream
-                    d += Reader.ReadLine
-                End While
-            End Using
-            Return d
-        End Get
-        Set(value As String)
-            Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
-            DeleteFile(f)
-            Using file As New System.IO.StreamWriter(f, False)
-                file.WriteLine(value)
-            End Using
-        End Set
-
-    End Property
-
-    Public Sub DoSSL()
-
-        Dim accountInfo = MyAccountAsync()
-        Dim orderUri = NewOrderAsync()
 
     End Sub
 
@@ -102,10 +47,24 @@ Public Class SSL
 
             Try
                 SSLProcess.Start()
-                Logger("Info", "Certificate made", "SSL")
+                SSLProcess.WaitForExit()
             Catch ex As Exception
                 ErrorLog(ex.Message)
             End Try
+
+            Dim Status = SSLProcess.ExitCode
+            If Status = 0 Then
+                Logger("Info", "Certificate installed", "SSL")
+                ' It was not installed, so we need to restart Apache
+                If Settings.SSLIsInstalled = False Then
+                    Settings.SSLIsInstalled = True
+
+                    StopApache()
+                    DoApache()
+                    StartApache()
+
+                End If
+            End If
 
         End Using
         Return
@@ -124,6 +83,69 @@ Public Class SSL
 
     End Sub
 
+#End Region
+
+#Region "Certes"
+
+    ''' old code
+
+    Private Property ZPemKey As String
+        Get
+            Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
+            If Not IO.File.Exists(File) Then Return ""
+
+            Dim d As String = ""
+            Using Reader As New StreamReader(File)
+                While Not Reader.EndOfStream
+                    d += Reader.ReadLine
+                End While
+            End Using
+            Return d
+        End Get
+        Set(value As String)
+            Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/PemKey.key")
+            DeleteFile(f)
+            Using file As New System.IO.StreamWriter(f, False)
+                file.WriteLine(value)
+            End Using
+        End Set
+
+    End Property
+
+    Public Sub ZDoSSL()
+
+        Dim accountInfo = MyAccountAsync()
+        Dim orderUri = NewOrderAsync()
+
+    End Sub
+
+    'https://github.com/fszlin/certes/blob/main/docs/APIv2.md
+    'https://docs.certes.app/APIv2.html
+    '
+    ' Command line tool install
+    ' dotnet tool install --global dotnet-certes
+    ' certes account new fred@outworldz.com'
+    '
+    ' certes order new smartboot.outworldz.net
+    ' {"location":"https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050",
+    ' ' "resource":{"status":"pending",
+    '   "expires":"2022-02-03T00:56:00+00:00",
+    '   "identifiers":[{"type":"dns",
+    '   "value":"smartboot.outworldz.net"}],
+    '   "authorizations":["https://acme-v02.api.letsencrypt.org/acme/authz-v3/72254102330"],
+    '   "finalize":"https://acme-v02.api.letsencrypt.org/acme/finalize/382037190/58749705050"}}
+    '
+    ' certes order list
+    ' validate <order-id> <domain> <challenge-type>  Validate the authorization challenge.
+    ' certes validate
+    '
+    '  dotnet-certes [options] order validate <order-id> <domain> <challenge-type>
+    'Arguments:
+    '<Order-id>        The URI of the certificate order.
+    '<domain> The domain.
+    '<Challenge-type>  The challenge type, http Or dns.
+    '  validate https://acme-v02.api.letsencrypt.org/acme/order/382037190/58749705050 smartboot.outworldz.net
+    '
     Private Async Function MyAccountAsync() As Task(Of Account)
 
         Dim account = Await context.Account()
@@ -243,7 +265,7 @@ Public Class SSL
     Private Sub oldstuff()
 
         Dim context As AcmeContext
-        Dim Key = PemKey()
+        Dim Key = ZPemKey()
         If Key.Length > 0 Then
             ' use an existing ACME account:
             'Load the saved account key
@@ -254,7 +276,7 @@ Public Class SSL
             context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2)
             Dim result = context.NewAccount(Settings.SSLEmail, True)
             ' Save the account key for later use
-            PemKey = context.AccountKey.ToPem()
+            ZPemKey = context.AccountKey.ToPem()
             Logger("Info", $"Created new account for {Settings.SSLEmail}", "SSL")
         End If
 
@@ -290,5 +312,7 @@ Public Class SSL
 
         Return True
     End Function
+
+#End Region
 
 End Class

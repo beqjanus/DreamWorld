@@ -29,6 +29,7 @@ Module DoIni
         Settings.SetLiteralIni("ErrorLog", $"ErrorLog ""|bin/rotatelogs.exe  -l \""{FormSetup.PropCurSlashDir}/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\"" 86400""")
         Settings.SetLiteralIni("CustomLog", $"CustomLog ""|bin/rotatelogs.exe -l \""{FormSetup.PropCurSlashDir}/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\"" 86400"" common env=!dontlog")
         Settings.SetLiteralIni("LoadModule php7_module", $"LoadModule php7_module ""{FormSetup.PropCurSlashDir}/OutworldzFiles/PHP7/php7apache2_4.dll""")
+        Settings.SetLiteralIni("Define SSL", $"Define SSL ""{CStr(Settings.SSLIsInstalled)}""")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
@@ -40,6 +41,13 @@ Module DoIni
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.LANIP() & ":" & "443")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
+
+        ' Install Certificates
+        'SSLCertificateFile "${CERTROOT}/example.com-chain.pem"
+        Settings.SetLiteralIni("SSLCertificateFile", "SSLCertificateFile " & "${CERTROOT}/" & Settings.DNSName & "-chain.pem")
+
+        'SSLCertificateKeyFile "${CERTROOT}/example.com-key.pem"
+        Settings.SetLiteralIni("SSLCertificateKeyFile", "SSLCertificateKeyFile " & "${CERTROOT}/" & Settings.DNSName & "-chain.pem")
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 

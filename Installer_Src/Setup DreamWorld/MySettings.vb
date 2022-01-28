@@ -98,15 +98,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-    Public Property QuikEditOff() As Boolean
-        Get
-            Return CType(GetMySetting("QuikEditOff", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("QuikEditOff", CStr(Value))
-        End Set
-    End Property
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -182,16 +173,6 @@ Public Class MySettings
             SetMySetting("ApacheEnabled", CStr(Value))
         End Set
     End Property
-
-    Public Property Total_InnoDB_GBytes() As Integer
-        Get
-            Return CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
-        End Get
-        Set
-            SetMySetting("Total_InnoDB_GBytes", CType(Value, String))
-        End Set
-    End Property
-
 
     Public Property ApachePort() As Integer
         Get
@@ -1499,6 +1480,15 @@ Public Class MySettings
 
     End Property
 
+    Public Property QuikEditOff() As Boolean
+        Get
+            Return CType(GetMySetting("QuikEditOff", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("QuikEditOff", CStr(Value))
+        End Set
+    End Property
+
     Public Property Ramused() As Double
         Get
             Return _RamUsed
@@ -1972,6 +1962,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SSLIsInstalled() As Boolean
+        Get
+            Return CType(GetMySetting("SSLIsInstalled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("SSLIsInstalled", CStr(Value))
+        End Set
+    End Property
+
     Public Property SSLLocale() As String
         Get
             Dim mail As String = GetMySetting("SSLLocale", "")
@@ -1992,13 +1991,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SSLState() As String
+    Public Property SSLState() As Boolean
         Get
-            Dim mail As String = GetMySetting("SSLState", "")
-            Return mail
+            Return CType(GetMySetting("SSLState", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SSLState", Value)
+            SetMySetting("SSLState", CStr(Value))
         End Set
     End Property
 
@@ -2163,6 +2161,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("TOSEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property Total_InnoDB_GBytes() As Integer
+        Get
+            Return CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+        End Get
+        Set
+            SetMySetting("Total_InnoDB_GBytes", CType(Value, String))
         End Set
     End Property
 

@@ -252,10 +252,9 @@ Module Apache
 
     End Sub
 
-    Public Sub StopApache(force As Boolean)
+    Public Sub StopApache()
 
         If Not Settings.ApacheEnable Then Return
-        If Not force Then Return
 
         Using ApacheProcess As New Process()
             TextPrint(My.Resources.Stopping_Apache)

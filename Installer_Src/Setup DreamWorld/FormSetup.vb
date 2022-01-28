@@ -2546,7 +2546,7 @@ Public Class FormSetup
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
                 Bench.Print("hour worker")
-                Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache                 
+                Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 SetPublicIP()
                 ExpireLogsByAge()
@@ -2829,7 +2829,7 @@ Public Class FormSetup
 
     Private Sub DeleteServiceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem.Click
 
-        StopApache(True)
+        StopApache()
         Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
         Dim pi = New ProcessStartInfo With {
     .WindowStyle = ProcessWindowStyle.Hidden,
@@ -3268,7 +3268,7 @@ Public Class FormSetup
             ApacheIcon(False)
             TextPrint(My.Resources.Apache_Disabled)
         End If
-        StopApache(True)
+        StopApache()
         StartApache()
         PropAborting = False
 
@@ -3501,7 +3501,9 @@ Public Class FormSetup
     End Sub
 
     Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
-        StopApache(True)
+
+        StopApache()
+
     End Sub
 
     Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click

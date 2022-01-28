@@ -95,7 +95,7 @@ Module Updater
     Public Sub UpdaterGo(Filename As String)
 
         FormSetup.KillAll()
-        StopApache(True) 'really stop it, even if a service
+        StopApache() 'really stop it, even if a service
         StopMysql()
         Application.DoEvents()
         Dim pUpdate = New Process()
