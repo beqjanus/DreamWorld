@@ -3,6 +3,7 @@ Imports Certes
 Imports Certes.Acme
 Imports Certes.Acme.Resource
 Imports System.IO
+Imports System.Threading
 
 'https://github.com/fszlin/certes/blob/main/docs/APIv2.md
 'https://docs.certes.app/APIv2.html
@@ -37,52 +38,13 @@ Public Class SSL
 
     Public Sub New()
 
-        Using SSLProcess As New Process
-
-            SSLProcess.StartInfo.UseShellExecute = True
-            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
-            SSLProcess.StartInfo.FileName = "wacs.exe"
-            SSLProcess.StartInfo.CreateNoWindow = False
-
-            Select Case Settings.ConsoleShow
-                Case "True"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                Case "False"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                Case "None"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-            End Select
-
-            SSLProcess.StartInfo.Arguments = $"--source manual --host {Settings.DNSName} --validation filesystem --webroot {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFile/Apache/htdocs")} --store pemfiles --pemfilespath {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFile/Apache/Certs")}"
-
-            Try
-                SSLProcess.Start()
-                Logger("Info", "Certificate made", "SSL")
-            Catch ex As Exception
-                ErrorLog(ex.Message)
-            End Try
-
-        End Using
-        Return
-
-        Dim Key = PemKey()
-        If Key.Length > 0 Then
-            ' use an existing ACME account:
-            'Load the saved account key
-            Dim accountKey = KeyFactory.FromPem(Key)
-            context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2, accountKey)
-            Logger("Info", "Using existing account", "SSL")
-        Else
-            context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2)
-            Dim result = context.NewAccount(Settings.SSLEmail, True)
-            ' Save the account key for later use
-            PemKey = context.AccountKey.ToPem()
-            Logger("Info", $"Created new account for {Settings.SSLEmail}", "SSL")
-        End If
-
-        Dim TOS = context.TermsOfService()
-        Logger("Info", "TOS: {TOS}", "SSL")
-        ' await account.UpdateUpdate(contact: New() { $"mailto:support@example.com" },agreeTermsOfService: true)
+        Try
+            Dim WebThread = New Thread(AddressOf InstallSSL)
+            WebThread.SetApartmentState(ApartmentState.STA)
+            WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+            WebThread.Start()
+        Catch
+        End Try
 
     End Sub
 
@@ -113,6 +75,52 @@ Public Class SSL
 
         Dim accountInfo = MyAccountAsync()
         Dim orderUri = NewOrderAsync()
+
+    End Sub
+
+    Private Sub InstallSSL()
+
+        Using SSLProcess As New Process
+
+            SSLProcess.StartInfo.UseShellExecute = True
+            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
+            SSLProcess.StartInfo.FileName = "wacs.exe"
+            SSLProcess.StartInfo.CreateNoWindow = False
+
+            Select Case Settings.ConsoleShow
+                Case "True"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "False"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                Case "None"
+                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End Select
+
+            SSLProcess.StartInfo.Arguments = $"--source manual --host {Settings.DNSName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}"""
+
+            MakeSSLbatch($".\wacs.exe {SSLProcess.StartInfo.Arguments}")
+
+            Try
+                SSLProcess.Start()
+                Logger("Info", "Certificate made", "SSL")
+            Catch ex As Exception
+                ErrorLog(ex.Message)
+            End Try
+
+        End Using
+        Return
+    End Sub
+
+    Private Sub MakeSSLbatch(stuff As String)
+
+        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "SSL\InstallSSL.bat")
+
+        Using file As New System.IO.StreamWriter(filename, False)
+            file.WriteLine("@REM program to renew SSL certificate")
+            file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "SSL")}")
+            file.WriteLine(stuff)
+            file.WriteLine("@pause")
+        End Using
 
     End Sub
 
@@ -231,6 +239,30 @@ Public Class SSL
         Return True
 
     End Function
+
+    Private Sub oldstuff()
+
+        Dim context As AcmeContext
+        Dim Key = PemKey()
+        If Key.Length > 0 Then
+            ' use an existing ACME account:
+            'Load the saved account key
+            Dim accountKey = KeyFactory.FromPem(Key)
+            context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2, accountKey)
+            Logger("Info", "Using existing account", "SSL")
+        Else
+            context = New AcmeContext(WellKnownServers.LetsEncryptStagingV2)
+            Dim result = context.NewAccount(Settings.SSLEmail, True)
+            ' Save the account key for later use
+            PemKey = context.AccountKey.ToPem()
+            Logger("Info", $"Created new account for {Settings.SSLEmail}", "SSL")
+        End If
+
+        Dim TOS = context.TermsOfService()
+        Logger("Info", "TOS: {TOS}", "SSL")
+        ' await account.UpdateUpdate(contact: New() { $"mailto:support@example.com" },agreeTermsOfService: true)
+
+    End Sub
 
     ''' <summary>
     ''' 'Save the key authorization String In a text file, And upload it to http://your.domain.name/.well-known/acme-challenge/<token>
