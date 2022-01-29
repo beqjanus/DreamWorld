@@ -238,6 +238,10 @@
 
         LogFile = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\logs\SSL.log")
 
+        If Not Settings.ApacheEnable Then
+            Settings.SSLEnabled = False
+        End If
+
         EnableSSLCheckbox.Checked = Settings.SSLEnabled
         If Settings.SSLIsInstalled Then
             Revokebutton.Enabled = True

@@ -111,7 +111,7 @@ Public Class FormHelp
 
     Private Sub SourceCodeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SourceCodeToolStripMenuItem.Click
 
-        Dim webAddress As String = "https: //github.com/Outworldz/DreamWorld"
+        Dim webAddress As String = "https://github.com/Outworldz/DreamWorld/wiki"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

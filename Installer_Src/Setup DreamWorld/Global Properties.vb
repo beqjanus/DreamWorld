@@ -19,6 +19,7 @@ Module Global_Properties
 
 #Region "Private"
 
+
     Private _IsRunning As Boolean
     Private _mySetting As MySettings
     Private _PropAborting As Boolean

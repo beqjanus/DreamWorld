@@ -5969,13 +5969,11 @@
             The default initial seed value of a Adler32 checksum calculation.
             </summary>
         </member>
-        <member name="M:MySqlConnector.Utilities.Adler32.Calculate(System.ReadOnlySpan{System.Byte},System.UInt32,System.UInt32)">
+        <member name="M:MySqlConnector.Utilities.Adler32.Calculate(System.ReadOnlySpan{System.Byte})">
             <summary>
             Calculates the Adler32 checksum with the bytes taken from the span.
             </summary>
             <param name="buffer">The readonly span of bytes.</param>
-            <param name="offset">The offset.</param>
-            <param name="length">The length.</param>
             <returns>The <see cref="T:System.UInt32"/>.</returns>
         </member>
         <member name="F:MySqlConnector.Utilities.Constants.InfiniteTimeout">

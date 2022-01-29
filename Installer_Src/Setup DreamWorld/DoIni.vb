@@ -30,12 +30,11 @@ Module DoIni
         Settings.SetLiteralIni("CustomLog", $"CustomLog ""|bin/rotatelogs.exe -l \""{Settings.CurrentSlashDir}/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\"" 86400"" common env=!dontlog")
         Settings.SetLiteralIni("LoadModule php7_module", $"LoadModule php7_module ""{Settings.CurrentSlashDir}/OutworldzFiles/PHP7/php7apache2_4.dll""")
 
-        If Settings.SSLIsInstalled Then
+        If Settings.SSLIsInstalled And Settings.SSLEnabled Then
             Settings.SetLiteralIni("UnDefine SSL", "Define SSL")
         Else
             Settings.SetLiteralIni("Define SSL", "UnDefine SSL")
         End If
-
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
@@ -53,8 +52,7 @@ Module DoIni
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
 
-
-        ' Install Certificates        
+        ' Install Certificates
         Settings.SetLiteralIni("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-chain.pem""")
         Settings.SetLiteralIni("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-key.pem""")
         Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-crt.pem""")

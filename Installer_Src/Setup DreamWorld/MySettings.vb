@@ -2144,9 +2144,9 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property Total_InnoDB_GBytes() As Integer
+    Public Property Total_InnoDB_GBytes() As Double
         Get
-            Dim amount = CInt("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+            Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
             If amount < 1 Then amount = 1
             Return amount
         End Get

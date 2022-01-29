@@ -27,28 +27,13 @@ Public Class MailList
 
 End Class
 
-
 Public Module MysqlInterface
 
-#Disable Warning IDE0140 ' Object creation can be simplified
-    Private WithEvents ProcessMySql As Process = New Process()
-#Enable Warning IDE0140 ' Object creation can be simplified
+    Public WithEvents ProcessMySql As Process = New Process()
 
     Private ReadOnly Dict As New Dictionary(Of String, String)
-
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
-
-    Public Class UserData
-
-        Public PrincipalID As String = ""
-        Public FirstName As String = ""
-        Public LastName As String = ""
-        Public Email As String = ""
-        Public UserTitle As String = ""
-        Public Level As Integer = -1
-
-    End Class
 
 
 #Region "Properties"
@@ -312,6 +297,7 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Public"
+
     Public Sub MysqlSaveUserData(UD As UserData)
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -337,6 +323,7 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+
     Public Function MysqlGetUserData(UUID As String) As UserData
 
         Dim UD As New UserData
@@ -369,6 +356,7 @@ Public Module MysqlInterface
         Return UD
 
     End Function
+
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0
@@ -750,7 +738,6 @@ Public Module MysqlInterface
                                 Output.userlevel = "God"
                             End If
 
-
                             Dim created = reader.GetInt32(6)
                             Dim datecreated = UnixTimestampToDateTime(created)
                             Output.Datestring = datecreated.ToString(CultureInfo.CurrentCulture)
@@ -784,7 +771,7 @@ Public Module MysqlInterface
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
-                                Dim pattern As String = "(.*?);.*;(.*)$"
+        Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
         Dim HGDict As New Dictionary(Of String, String)
@@ -832,8 +819,6 @@ Public Module MysqlInterface
         Return HGDict
 
     End Function
-
-
 
     Public Function GetPresence() As Dictionary(Of String, String)
 
@@ -1603,20 +1588,20 @@ Public Module MysqlInterface
 
 #Region "Tuning"
 
-    Public Function Total_InnoDB_Bytes() As Integer
+    Public Function Total_InnoDB_Bytes() As Double
 
-        Dim Bytes As Integer
+        Dim Bytes As Double
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = " Select Case CEILING(Total_InnoDB_Bytes * 1.6 / POWER(1024, 3)) RIBPS _
-                FROM (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes _
-                FROM information_schema.tables WHERE engine='InnoDB') A;"
+                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM 
+    (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes 
+    FROM information_schema.tables WHERE engine='InnoDB') A;"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            Bytes = reader.GetInt32(3)
+                            Bytes = reader.GetDouble(0)
                         End If
                     End Using
                 End Using
@@ -1629,8 +1614,18 @@ Public Module MysqlInterface
 
         Return Bytes
 
-
     End Function
+
 #End Region
 
 End Module
+Public Class UserData
+
+    Public PrincipalID As String = ""
+    Public FirstName As String = ""
+    Public LastName As String = ""
+    Public Email As String = ""
+    Public UserTitle As String = ""
+    Public Level As Integer = -1
+
+End Class

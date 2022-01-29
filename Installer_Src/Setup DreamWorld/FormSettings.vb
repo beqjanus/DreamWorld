@@ -154,10 +154,6 @@ Public Class FormSettings
         ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
         ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
 
-        SSLButton.Enabled = False
-        If Debugger.IsAttached Then
-            SSLButton.Enabled = True
-        End If
 
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
