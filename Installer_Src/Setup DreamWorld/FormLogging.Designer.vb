@@ -39,12 +39,15 @@ Partial Class FormLogging
         Me.LogBenchmarks = New System.Windows.Forms.CheckBox()
         Me.AnalyzeButton = New System.Windows.Forms.Button()
         Me.ViewLogButton = New System.Windows.Forms.Button()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.BaretailButton = New System.Windows.Forms.RadioButton()
+        Me.OutputViewerButton = New System.Windows.Forms.RadioButton()
+        Me.QuickmanagerPictureBox = New System.Windows.Forms.PictureBox()
+        Me.BaretailPictureBox = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.DeletebyAge.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        CType(Me.QuickmanagerPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BaretailPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -72,7 +75,7 @@ Partial Class FormLogging
         Me.GroupBox1.Controls.Add(Me.RadioInfo)
         Me.GroupBox1.Controls.Add(Me.RadioDebug)
         Me.GroupBox1.Controls.Add(Me.RadioOff)
-        Me.GroupBox1.Location = New System.Drawing.Point(11, 48)
+        Me.GroupBox1.Location = New System.Drawing.Point(11, 93)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 1, 2, 1)
@@ -177,7 +180,7 @@ Partial Class FormLogging
         Me.DeletebyAge.Controls.Add(Me.ViewLogButton)
         Me.DeletebyAge.Controls.Add(Me.KeepLog)
         Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
-        Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
+        Me.DeletebyAge.Location = New System.Drawing.Point(127, 93)
         Me.DeletebyAge.Name = "DeletebyAge"
         Me.DeletebyAge.Size = New System.Drawing.Size(178, 213)
         Me.DeletebyAge.TabIndex = 2
@@ -226,28 +229,56 @@ Partial Class FormLogging
         Me.ViewLogButton.Text = "View"
         Me.ViewLogButton.UseVisualStyleBackColor = True
         '
-        'ToolStripStatusLabel1
+        'BaretailButton
         '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        Me.BaretailButton.AutoSize = True
+        Me.BaretailButton.Location = New System.Drawing.Point(25, 48)
+        Me.BaretailButton.Name = "BaretailButton"
+        Me.BaretailButton.Size = New System.Drawing.Size(60, 17)
+        Me.BaretailButton.TabIndex = 4
+        Me.BaretailButton.Text = "Baretail"
+        Me.BaretailButton.UseVisualStyleBackColor = True
         '
-        'StatusStrip1
+        'OutputViewerButton
         '
-        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 279)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(317, 22)
-        Me.StatusStrip1.TabIndex = 3
-        Me.StatusStrip1.Text = "StatusStrip1"
+        Me.OutputViewerButton.AutoSize = True
+        Me.OutputViewerButton.Location = New System.Drawing.Point(134, 48)
+        Me.OutputViewerButton.Name = "OutputViewerButton"
+        Me.OutputViewerButton.Size = New System.Drawing.Size(89, 17)
+        Me.OutputViewerButton.TabIndex = 5
+        Me.OutputViewerButton.Text = "OutputViewer"
+        Me.OutputViewerButton.UseVisualStyleBackColor = True
+        Me.OutputViewerButton.Visible = False
+        '
+        'QuickmanagerPictureBox
+        '
+        Me.QuickmanagerPictureBox.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.QuickmanagerPictureBox.Location = New System.Drawing.Point(236, 38)
+        Me.QuickmanagerPictureBox.Name = "QuickmanagerPictureBox"
+        Me.QuickmanagerPictureBox.Size = New System.Drawing.Size(33, 27)
+        Me.QuickmanagerPictureBox.TabIndex = 6
+        Me.QuickmanagerPictureBox.TabStop = False
+        Me.QuickmanagerPictureBox.Visible = False
+        '
+        'BaretailPictureBox
+        '
+        Me.BaretailPictureBox.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.BaretailPictureBox.Location = New System.Drawing.Point(91, 37)
+        Me.BaretailPictureBox.Name = "BaretailPictureBox"
+        Me.BaretailPictureBox.Size = New System.Drawing.Size(33, 27)
+        Me.BaretailPictureBox.TabIndex = 7
+        Me.BaretailPictureBox.TabStop = False
         '
         'FormLogging
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(317, 301)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.ClientSize = New System.Drawing.Size(317, 315)
+        Me.Controls.Add(Me.BaretailPictureBox)
+        Me.Controls.Add(Me.QuickmanagerPictureBox)
+        Me.Controls.Add(Me.OutputViewerButton)
+        Me.Controls.Add(Me.BaretailButton)
         Me.Controls.Add(Me.DeletebyAge)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -259,8 +290,8 @@ Partial Class FormLogging
         Me.GroupBox1.PerformLayout()
         Me.DeletebyAge.ResumeLayout(False)
         Me.DeletebyAge.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
+        CType(Me.QuickmanagerPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BaretailPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -281,7 +312,9 @@ Partial Class FormLogging
     Friend WithEvents ViewLogButton As Button
     Friend WithEvents AnalyzeButton As Button
     Friend WithEvents Date_Time_Checkbox As CheckBox
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
-    Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents LogBenchmarks As CheckBox
+    Friend WithEvents BaretailButton As RadioButton
+    Friend WithEvents OutputViewerButton As RadioButton
+    Friend WithEvents QuickmanagerPictureBox As PictureBox
+    Friend WithEvents BaretailPictureBox As PictureBox
 End Class

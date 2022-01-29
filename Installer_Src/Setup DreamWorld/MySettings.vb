@@ -1177,6 +1177,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Logger() As String
+        Get
+            Return GetMySetting("Logger", "Baretail")
+        End Get
+        Set
+            SetMySetting("Logger", Value)
+        End Set
+    End Property
+
     Public Property LogLevel() As String
         Get
             Return GetMySetting("LogLevel", "INFO")

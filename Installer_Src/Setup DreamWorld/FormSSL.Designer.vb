@@ -24,6 +24,9 @@ Partial Class FormSSL
     Private Sub InitializeComponent()
         Me.CreateButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Revokebutton = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.EmailBox = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.ViewLogButton = New System.Windows.Forms.Button()
@@ -35,9 +38,6 @@ Partial Class FormSSL
         Me.StopButton = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EmailBox = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Revokebutton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -74,6 +74,31 @@ Partial Class FormSSL
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "SSL"
+        '
+        'Revokebutton
+        '
+        Me.Revokebutton.Location = New System.Drawing.Point(162, 74)
+        Me.Revokebutton.Name = "Revokebutton"
+        Me.Revokebutton.Size = New System.Drawing.Size(118, 28)
+        Me.Revokebutton.TabIndex = 12
+        Me.Revokebutton.Text = "Revoke Certificate"
+        Me.Revokebutton.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(17, 28)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(86, 13)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Email for Notices"
+        '
+        'EmailBox
+        '
+        Me.EmailBox.Location = New System.Drawing.Point(20, 44)
+        Me.EmailBox.Name = "EmailBox"
+        Me.EmailBox.Size = New System.Drawing.Size(264, 20)
+        Me.EmailBox.TabIndex = 10
         '
         'Button2
         '
@@ -175,36 +200,11 @@ Partial Class FormSSL
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
-        'EmailBox
-        '
-        Me.EmailBox.Location = New System.Drawing.Point(20, 44)
-        Me.EmailBox.Name = "EmailBox"
-        Me.EmailBox.Size = New System.Drawing.Size(264, 20)
-        Me.EmailBox.TabIndex = 10
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(17, 28)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(86, 13)
-        Me.Label2.TabIndex = 11
-        Me.Label2.Text = "Email for Notices"
-        '
-        'Revokebutton
-        '
-        Me.Revokebutton.Location = New System.Drawing.Point(162, 74)
-        Me.Revokebutton.Name = "Revokebutton"
-        Me.Revokebutton.Size = New System.Drawing.Size(118, 28)
-        Me.Revokebutton.TabIndex = 12
-        Me.Revokebutton.Text = "Revoke Certificate"
-        Me.Revokebutton.UseVisualStyleBackColor = True
-        '
         'FormSSL
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(331, 312)
+        Me.ClientSize = New System.Drawing.Size(331, 318)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1

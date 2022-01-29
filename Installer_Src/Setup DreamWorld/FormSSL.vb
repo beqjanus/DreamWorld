@@ -236,6 +236,8 @@
 
         If Debugger.IsAttached Then Settings.SSLIsInstalled = False
 
+        LogFile = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\logs\SSL.log")
+
         EnableSSLCheckbox.Checked = Settings.SSLEnabled
         If Settings.SSLIsInstalled Then
             Revokebutton.Enabled = True

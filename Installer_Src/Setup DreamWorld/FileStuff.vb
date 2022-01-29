@@ -16,12 +16,19 @@ Module FileStuff
     ''' <param name="file">Full Path </param>
     Public Sub Baretail(filepath As String)
 
+        Dim fname As String = ""
+        If Settings.Logger = "Baretail" Then
+            fname = IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe")
+        Else
+            fname = IO.Path.Combine(Settings.CurrentDirectory, "QuickManager\Quickmanager.exe")
+        End If
+
         Try
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim myProcess = New Process()
 #Enable Warning CA2000 ' Dispose objects before losing scope
             myProcess.StartInfo.UseShellExecute = False
-            myProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe")
+            myProcess.StartInfo.FileName = fname
             myProcess.StartInfo.Arguments = filepath
             myProcess.Start()
         Catch ex As Exception

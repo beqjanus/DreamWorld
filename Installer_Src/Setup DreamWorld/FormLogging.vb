@@ -104,6 +104,12 @@ Public Class FormLogging
                 RadioInfo.Checked = True
         End Select
 
+        If Settings.Logger = "Baretail" Then
+            BaretailButton.Checked = True
+        Else
+            OutputViewerButton.Checked = True
+        End If
+
         HelpOnce("Logging")
         initted = True
 
@@ -175,10 +181,6 @@ Public Class FormLogging
 
 #Region "ExamineLogs"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewLogButton.Click
-        Process.Start("explorer.exe", IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
@@ -214,12 +216,6 @@ Public Class FormLogging
         If _Err > 0 Then Process.Start(Out)
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles LogBenchmarks.CheckedChanged
-
-        Settings.LogBenchmarks = LogBenchmarks.Checked
 
     End Sub
 
@@ -373,6 +369,52 @@ Public Class FormLogging
         Return 0
 
     End Function
+
+    Private Sub OutputViewerButton_CheckedChanged(sender As Object, e As EventArgs) Handles OutputViewerButton.CheckedChanged
+
+        Settings.Logger = "Outputviewer"
+        Settings.SaveSettings()
+
+    End Sub
+
+#End Region
+
+#Region "Buttons"
+
+    Private Sub BaretailButton_CheckedChanged(sender As Object, e As EventArgs) Handles BaretailButton.CheckedChanged
+
+        Settings.Logger = "Baretail"
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub BaretailPictureBox_Click(sender As Object, e As EventArgs) Handles BaretailPictureBox.Click
+        Dim webAddress As String = "https://www.baremetalsoft.com/baretail/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewLogButton.Click
+        Process.Start("explorer.exe", IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles LogBenchmarks.CheckedChanged
+
+        Settings.LogBenchmarks = LogBenchmarks.Checked
+
+    End Sub
+
+    Private Sub QuickmanagerPictureBox_Click(sender As Object, e As EventArgs) Handles QuickmanagerPictureBox.Click
+        Dim webAddress As String = "https://github.com/itlezy/ITLezyTools#outputviewer"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+    End Sub
 
 #End Region
 
