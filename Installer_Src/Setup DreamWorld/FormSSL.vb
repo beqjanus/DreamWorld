@@ -2,17 +2,18 @@
 
     Private changed As Boolean
     Private initted As Boolean
+    Private LogFile As String = ""
 
     'https://www.win-acme.com/manual/advanced-use/examples/apache
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
 
-        Dim result = MsgBox(My.Resources.AreYouSureSSL, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL")
-
-        If result <> vbYes Then
-            Return
+        If Settings.SSLIsInstalled = True Then
+            Dim result = MsgBox(My.Resources.AreYouSureSSL, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL")
+            If result <> vbYes Then
+                Return
+            End If
         End If
 
-        Settings.SSLIsInstalled = False
         If changed Then Settings.SaveSettings()
         InstallSSL()
 
@@ -37,6 +38,25 @@
 
     End Sub
 
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles ViewLogButton.Click
+
+        If IO.File.Exists(LogFile) Then
+            Baretail(LogFile)
+        End If
+
+    End Sub
+
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Button2.Click
+
+        Dim webAddress As String = "https://crt.sh/?q=outworldz.net"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartButton.Click
 
         StopButton.Enabled = False
@@ -54,6 +74,21 @@
         StartButton.Enabled = False
         StopButton.Enabled = True
         RestartButton.Enabled = True
+
+    End Sub
+
+    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Revokebutton.Click
+
+        If changed Then
+            Dim result = MsgBox("Revoke the certificate?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Save_changes_word)
+            If result <> vbYes Then
+                Return
+            End If
+        End If
+
+        Settings.SSLIsInstalled = False
+
+        ' TODO actually revoke the certificate
 
     End Sub
 
@@ -107,28 +142,49 @@
         PictureBox1.Image = My.Resources.lock_time
         Using SSLProcess As New Process
 
-            SSLProcess.StartInfo.UseShellExecute = True
-            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
-            SSLProcess.StartInfo.FileName = "wacs.exe"
-            SSLProcess.StartInfo.CreateNoWindow = False
+            SSLProcess.StartInfo.CreateNoWindow = True
             SSLProcess.StartInfo.UseShellExecute = False
             SSLProcess.StartInfo.RedirectStandardOutput = True
+            SSLProcess.StartInfo.Arguments = $"--accepttos --source manual --host {Settings.DNSName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}""  "
+            If Settings.SSLEmail.Length > 0 Then
+                SSLProcess.StartInfo.Arguments &= $" --emailaddress {Settings.SSLEmail} "
+            End If
+            If Debugger.IsAttached Then
+                SSLProcess.StartInfo.Arguments &= " --closeonfinish --test " ' so we do not hit a rate limit
+            End If
+            SSLProcess.StartInfo.FileName = MakeSSLbatch($".\wacs.exe {SSLProcess.StartInfo.Arguments}")
+            If Debugger.IsAttached Then
 
-            SSLProcess.StartInfo.Arguments = $"--source manual --host {Settings.DNSName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}"" "
+                Using P As New Process
+                    SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
+                    Dim Address As String = "explorer.exe"
+                    Try
+                        Process.Start(Address, $"/open, {SSLProcess.StartInfo.FileName}")
+                    Catch ex As Exception
+                        BreakPoint.Print(ex.Message)
+                    End Try
+                End Using
+                Return
+            End If
 
-            MakeSSLbatch($".\wacs.exe {SSLProcess.StartInfo.Arguments}")
+            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
             Dim log As String = ""
             Try
                 SSLProcess.Start()
                 log = SSLProcess.StandardOutput.ReadToEnd()
                 SSLProcess.WaitForExit()
+                WriteLog(LogFile, log)
             Catch ex As Exception
                 ErrorLog(ex.Message)
+                Logger("Error", ex.Message, "SSL")
+                Settings.SSLIsInstalled = False
                 PictureBox1.Image = My.Resources.lock_error
+                Return
             End Try
 
             Dim Status = SSLProcess.ExitCode
             If Status = 0 Then
+                Logger("OK", log, "SSL")
                 Logger("Info", "Certificate installed", "SSL")
                 ' It was not installed, so we need to restart Apache
                 If Settings.SSLIsInstalled = False Then
@@ -136,34 +192,56 @@
                     PictureBox1.Image = My.Resources.lock_time
                 End If
             Else
-                Logger("SSL", log, "SSL")
-                Baretail(IO.Path.Combine(Settings.CurrentDirectory, "Logs\SSL.log"))
+                If Status = -1 Then Logger("Error", "Failed to make the Certificate", "SSL")
+                If Status = 1 Then Logger("Error", "Non-recognized command", "SSL")
+                If Status = 2 Then Logger("Error", "The system cannot find the file specified. ", "SSL")
+                If Status = 3 Then Logger("Error", "Non-recognized command", "SSL")
+                If Status = 4 Then Logger("Error", "The system cannot find the path specified", "SSL")
+                If Status = 5 Then Logger("Error", "Access denied", "SSL")
+                Logger("Error", log, "SSL")
+
+                If IO.File.Exists(LogFile) Then
+                    Baretail(LogFile)
+                End If
                 PictureBox1.Image = My.Resources.lock_error
+            End If
+
+            If IO.File.Exists(LogFile) Then
+                ViewLogButton.Enabled = True
             End If
 
         End Using
         Return
     End Sub
 
-    Private Sub MakeSSLbatch(stuff As String)
+    Private Function MakeSSLbatch(stuff As String) As String
 
         Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "SSL\InstallSSL.bat")
+        Try
+            Using file As New System.IO.StreamWriter(filename, False)
+                file.WriteLine("@REM program to renew SSL certificate")
+                file.WriteLine("@echo off")
+                file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "SSL")}")
+                file.WriteLine(stuff)
+                file.WriteLine("Exit /B %ERRORLEVEL%")
+            End Using
+        Catch
+        End Try
 
-        Using file As New System.IO.StreamWriter(filename, False)
-            file.WriteLine("@REM program to renew SSL certificate")
-            file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "SSL")}")
-            file.WriteLine(stuff)
-            file.WriteLine("@pause")
-        End Using
+        Return filename
 
-    End Sub
+    End Function
 
     Private Sub SSL_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        If Debugger.IsAttached Then Settings.SSLIsInstalled = False
+
         EnableSSLCheckbox.Checked = Settings.SSLEnabled
         If Settings.SSLIsInstalled Then
+            Revokebutton.Enabled = True
             PictureBox1.Image = My.Resources.lock_ok
         Else
+            Revokebutton.Enabled = False
             PictureBox1.Image = My.Resources.lock_open
         End If
 
@@ -177,6 +255,12 @@
             StartButton.Enabled = True
         End If
 
+        If IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\SSL.log")) Then
+            ViewLogButton.Enabled = True
+        End If
+
+        EmailBox.Text = Settings.SSLEmail
+
         If IsApacheRunning() Then
             PictureBox2.Image = My.Resources.gear_run
         Else
@@ -186,6 +270,23 @@
         HelpOnce("SSL")
         initted = True
 
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles EmailBox.TextChanged
+
+        If Not initted Then Return
+        Settings.SSLEmail = EmailBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub WriteLog(filename As String, contents As String)
+        Try
+            Using file As New System.IO.StreamWriter(filename, False)
+                file.WriteLine(contents)
+            End Using
+        Catch
+        End Try
     End Sub
 
 End Class

@@ -1942,6 +1942,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SSLEmail() As String
+        Get
+            Return GetMySetting("SSLEmail", "")
+        End Get
+        Set
+            SetMySetting("SSLEmail", Value)
+        End Set
+    End Property
+
     Public Property SSLEnabled() As Boolean
         Get
             Return CType(GetMySetting("SSLEnabled", "False"), Boolean)
