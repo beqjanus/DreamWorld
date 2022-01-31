@@ -110,7 +110,7 @@ Module WindowHandlers
         If RegionUUID = "Robust" Then
 
             PID = GetPIDofRobust()
-            If PID = 0 And command = "q" Then
+            If PID = 0 AndAlso command = "q" Then
                 Zap("Robust")
                 Return
             End If
@@ -349,7 +349,7 @@ Module WindowHandlers
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+        If Settings.ConsoleShow = "None" AndAlso command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
         End If
 
@@ -357,7 +357,7 @@ Module WindowHandlers
         If handle <> IntPtr.Zero Then
             Dim HandleValid As Boolean = False
 
-            While Not HandleValid And ctr > 0
+            While Not HandleValid AndAlso ctr > 0
                 Try
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
