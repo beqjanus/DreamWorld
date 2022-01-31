@@ -172,6 +172,7 @@ Partial Class FormEditUser
         '
         'UUIDTextBox
         '
+        Me.UUIDTextBox.Enabled = False
         Me.UUIDTextBox.Location = New System.Drawing.Point(190, 79)
         Me.UUIDTextBox.Name = "UUIDTextBox"
         Me.UUIDTextBox.Size = New System.Drawing.Size(225, 20)

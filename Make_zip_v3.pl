@@ -74,7 +74,7 @@ foreach my $f (@a) {
 
 say("Clean up fsassets");
 
-my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets" > null"!;
+my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets""!;
 `$todo`;
 $todo = qq!RMDIR /Q/S     "$dir/OutworldzFiles/opensim/bin/fsassets"!;
 `$todo`;
@@ -110,42 +110,42 @@ foreach my $path (@deletions) {
 DelZips();
 DelMaps();
 
-unlink "$dir/BareTail.udm";
 
-unlink "$dir/SET_externalIP-log.txt";
-unlink "$dir/OutworldzFiles/Photo.png";
-unlink "$dir/OutworldzFiles/XYSettings.ini";
-unlink "$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt";
-unlink "$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt";
-unlink "$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db";
-unlink "$dir/OutworldzFiles/BanList.txt";
+doUnlink ("$dir/BareTail.udm" );
+doUnlink ("$dir/SET_externalIP-log.txt");
+doUnlink ("$dir/OutworldzFiles/Photo.png");
+doUnlink ("$dir/OutworldzFiles/XYSettings.ini");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db");
+doUnlink ("$dir/OutworldzFiles/BanList.txt");
 
 #Setting
-unlink "$dir/Outworldzfiles/Settings.ini";
+doUnlink ("$dir/Outworldzfiles/Settings.ini");
 
 #logs
-unlink "$dir/Outworldzfiles/Icecast/log/error.log";
-unlink "$dir/Outworldzfiles/Icecast/log/access.log";
+doUnlink ("$dir/Outworldzfiles/Icecast/log/error.log");
+doUnlink ("$dir/Outworldzfiles/Icecast/log/access.log");
 
-unlink "$dir/UpdateGrid.log";
-unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log";
-unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log";
-unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log";
-unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log";
+doUnlink ("$dir/UpdateGrid.log");
+doUnlink ("$dir/OutworldzFiles/Apache/htdocs/Search/flog.log");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/Robust.log");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustStats.log");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/Opensimstats.log");
 ###
 
-unlink "$dir/OutworldzFiles/Logs/Restart.log";
-unlink "$dir/OutworldzFiles/Logs/Diagnostics.log";
-unlink "$dir/OutworldzFiles/Logs/Outworldz.log";
-unlink "$dir/OutworldzFiles/Logs/upnp.log";
-unlink "$dir/OutworldzFiles/Logs/http.log";
-unlink "$dir/OutworldzFiles/Logs/Error.log";
-unlink "$dir/OutworldzFiles/Logs/Teleport.log";
+doUnlink ("$dir/OutworldzFiles/Logs/Restart.log");
+doUnlink ("$dir/OutworldzFiles/Logs/Diagnostics.log");
+doUnlink ("$dir/OutworldzFiles/Logs/Outworldz.log");
+doUnlink ("$dir/OutworldzFiles/Logs/upnp.log");
+doUnlink ("$dir/OutworldzFiles/Logs/http.log");
+doUnlink ("$dir/OutworldzFiles/Logs/Error.log");
+doUnlink ("$dir/OutworldzFiles/Logs/Teleport.log");
 
 #zips
-unlink "../Zips/DreamGrid$type.zip";
-unlink "../Zips/Outworldz-Update$type.zip";
-unlink "$dir/DreamGrid.zip";
+doUnlink ("../Zips/DreamGrid$type.zip");
+doUnlink ("../Zips/Outworldz-Update$type.zip");
+doUnlink ("$dir/DreamGrid.zip");
 
 say "DLL List Build";
 use File::Find;
@@ -164,8 +164,8 @@ print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Modules.dll\n";
 
 close OUT;
 
-unlink "$dir/Start.exe.lastcodeanalysissucceeded";
-unlink "$dir/Start.exe.CodeAnalysisLog.xml";
+doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
+doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
 if ( $publish =~ /c|p/ ) {
     say("Mysql");
@@ -219,6 +219,7 @@ ProcessDir('MSFT_Runtimes');
 ProcessDir('Read.Me');
 ProcessDir('Licenses_to_Content');
 ProcessDir('OutworldzFiles');
+
 
 foreach my $lang (@languages) {
     ProcessDir($lang);
@@ -291,7 +292,7 @@ JustDelete("$zip/Start.vshost.exe.config");
 JustDelete("$zip/Start.vshost.exe");
 
 print "Make zip\n";
-unlink "/Opensim/Zips/DreamGrid$type.zip";
+doUnlink ("/Opensim/Zips/DreamGrid$type.zip");
 
 my $dest = "/Opensim/Zips/DreamGrid$type.zip";
 
@@ -304,15 +305,13 @@ unless ( $finalzip->writeToFileNamed($dest) == AZ_OK ) {
     die 'write error';
 }
 
-unlink
-"Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip";
-unlink
-"Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip";
+doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
+doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
 
 if (
     !copy(
         "../Zips/DreamGrid$type.zip",
-"Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip"
+        "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip"
     )
   )
 {
@@ -321,7 +320,7 @@ if (
 if (
     !copy(
         "../Zips/DreamGrid$type.zip",
-"Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip"
+        "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip"
     )
   )
 {
@@ -351,9 +350,8 @@ if (
 if ( $publish =~ /p/ ) {
 
     say("Unlinking");
-    unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
-    unlink
-      "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
+    doUnlink ("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
+    doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
 
     say("Publishing now");
 
@@ -369,7 +367,7 @@ if ( $publish =~ /p/ ) {
     if (
         !copy(
             "../Zips/DreamGrid$type.zip",
-"Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"
+            "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"
         )
       )
     {
@@ -390,7 +388,7 @@ if ( $publish =~ /p/ ) {
     if (
         !copy(
             'outworldzfiles\\Help\\Dreamgrid Manual.pdf',
-'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'
+            'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'
         )
       )
     {
@@ -468,7 +466,7 @@ sub JustDelete {
 
     my $path = shift;
     if ( !-d $path ) {
-        unlink $path;
+        doUnlink ($path);
         return;
     }
 
@@ -513,13 +511,13 @@ sub Perlunzip {
 
 sub DelZips {
     while ( $_ = glob("$dir/*.zip") ) {
-        unlink($_) or die("Can't remove $_: $!");
+        doUnlink($_) or die("Can't remove $_: $!");
     }
 }
 
 sub DelMaps {
     while ( $_ = glob("$dir/Outworldzfiles/opensim/bin/Map-*.png") ) {
-        unlink($_) or die("Can't remove $_: $!");
+        doUnlink($_) or die("Can't remove $_: $!");
     }
 }
 
@@ -608,3 +606,12 @@ sub GetTime {
     use DateTime;
     return DateTime->now->set_time_zone('America/Chicago')->hms(':');
 }
+
+sub doUnlink {
+    
+    my $file = shift;
+    if (-e $file) {
+        unlink $file || die "Cannot unlink $file";
+    }
+}
+

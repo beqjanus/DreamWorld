@@ -14,6 +14,22 @@
             End If
         End If
 
+        If Settings.DNSName.Length = 0 Then
+            MsgBox(My.Resources.MustUseDNS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL Setup")
+            Return
+        End If
+
+        If Not IsApacheRunning() Then
+            MsgBox(My.Resources.ApacheMustBeRunning, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL Setup")
+            Return
+        End If
+
+        If Settings.ApachePort <> 80 Then
+            MsgBox(My.Resources.ApacheMustBeRunning, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL Setup")
+            Return
+        End If
+
+
         If changed Then Settings.SaveSettings()
         InstallSSL()
 
@@ -48,7 +64,7 @@
 
     Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Button2.Click
 
-        Dim webAddress As String = "https://crt.sh/?q=outworldz.net"
+        Dim webAddress As String = "https: //crt.sh/?q=outworldz.net"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -167,7 +183,7 @@
                 Return
             End If
 
-            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
+            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL")
             Dim log As String = ""
             Try
                 SSLProcess.Start()
@@ -216,12 +232,12 @@
 
     Private Function MakeSSLbatch(stuff As String) As String
 
-        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "SSL\InstallSSL.bat")
+        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL\InstallSSL.bat")
         Try
             Using file As New System.IO.StreamWriter(filename, False)
                 file.WriteLine("@REM program to renew SSL certificate")
                 file.WriteLine("@echo off")
-                file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "SSL")}")
+                file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL")}")
                 file.WriteLine(stuff)
                 file.WriteLine("Exit /B %ERRORLEVEL%")
             End Using

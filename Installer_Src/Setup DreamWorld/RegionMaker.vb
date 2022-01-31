@@ -2467,7 +2467,7 @@ Module RegionMaker
 
         ElseIf Settings.SearchOptions = "Local" Then
 
-            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
+            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.LANIP}:{Settings.ApachePort}/Search/register.php")
             Dim SearchURL = $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)

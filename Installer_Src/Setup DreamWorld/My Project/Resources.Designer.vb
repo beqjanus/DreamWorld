@@ -418,6 +418,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Apache must be using port 80.
+        '''</summary>
+        Friend ReadOnly Property Apache_must_be_Running80() As String
+            Get
+                Return ResourceManager.GetString("Apache must be Running80", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Web Server is running.
         '''</summary>
         Friend ReadOnly Property Apache_running() As String
@@ -459,6 +468,15 @@ Namespace My.Resources
         Friend ReadOnly Property ApacheFailed() As String
             Get
                 Return ResourceManager.GetString("ApacheFailed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Apache must be Running.
+        '''</summary>
+        Friend ReadOnly Property ApacheMustBeRunning() As String
+            Get
+                Return ResourceManager.GetString("ApacheMustBeRunning", resourceCulture)
             End Get
         End Property
         
@@ -6664,6 +6682,15 @@ Namespace My.Resources
         Friend ReadOnly Property MustSetSS() As String
             Get
                 Return ResourceManager.GetString("MustSetSS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Must be using a DNS name - Aborting.
+        '''</summary>
+        Friend ReadOnly Property MustUseDNS() As String
+            Get
+                Return ResourceManager.GetString("MustUseDNS", resourceCulture)
             End Get
         End Property
         

@@ -137,43 +137,35 @@ ul
 <p class=MsoNormal>The SSL setup screen lets you create a free SSL certificate
 for Apache.  This certificate will automatically renew.</p>
 
-<p class=MsoNormal>The process is simple and automatic. But there are some
-rules:</p>
+<p class=MsoNormal>The process is simple and automatic. </p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
-must be running the Apache webserver.</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Apache
-must be using port 80.  After this step completes you can use port 443 for SSL.</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
-must be using a domain name in Setup-&gt;Settings-&gt;HG DNS Name.</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
-domain must be able to available to the Internet so the system name can be
-validated.</p>
-
-<p class=MsoListParagraphCxSpLast>&nbsp;</p>
+<p class=MsoListParagraph>&nbsp;</p>
 
 <p class=MsoNormal><img width=333 height=350 id="Picture 1"
 src="SSL_files/image001.jpg"
 alt="Graphical user interface&#10;&#10;Description automatically generated"></p>
 
 <p class=MsoNormal>Step 1.  Click “Create Certificate”. The System will take
-about one minute to create and authorize the certificate.</p>
+about one minute to create and authorize the certificate.  This will create the
+SSL Certificates. Wait a minute and the icon will show green or it will show it
+unlocked. </p>
+
+<p class=MsoNormal>Step 2.  Click the Show Log button. </p>
 
 <p class=MsoNormal>Step 2.  Stop and Start Apache.  Or click Restart if it is
 available.</p>
 
-<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span>
+<p class=MsoNormal>If you want to see it in action, just run the batch file in
+the \SSL folder. You need to type CMD  and run CMD as Administrator. The n type
+cd … to get to the SSL folder,  and type this.</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal>InstallSSL.bat {enter}</p>
+
+<p class=MsoNormal>That's basically what the Create Certificate button does. DreamGrid
+makes that batch file and runs it.  It captures the output to a log.  <br>
+<br>
+If the batch file  reports success, DreamGrid will enable the Apache server to
+use Certificates. These go into effect when Apache restart.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
@@ -183,64 +175,83 @@ clear=all style='page-break-before:always'>
 
 </div>
 
+<p class=MsoNormal>There are some rules:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
+must be running the Apache webserver.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Apache
+must be using port 80.  After this step completes you can use port 443 for SSL.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
+must be using a domain name in Setup-&gt;Settings-&gt;HG DNS Name.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+domain must be accessible from the Internet so the system name can be
+validated.  A simple test is to see if canyouseeme.org works on port 80.  Then
+try your domain name + :80</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
 <p class=MsoNormal>There is a log specifically for SSL issues. It is located in
 Outworldzfiles\Logs.</p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'>2022-01-29 00:53:30:OK:</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'>2022-01-29
+00:53:30:OK: A simple Windows ACMEv2 client (WACS)</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> A simple Windows ACMEv2 client (WACS)</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Software
+version 2.1.20.1185 (release, pluggable, standalone, 64-bit)</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Software version 2.1.20.1185 (release, pluggable, standalone,
-64-bit)</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Connecting
+to https://acme-v02.api.letsencrypt.org/...</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Connecting to https://acme-v02.api.letsencrypt.org/...</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Scheduled
+task looks healthy</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Scheduled task looks healthy</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Please
+report issues at https://github.com/win-acme/win-acme</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Please report issues at https://github.com/win-acme/win-acme</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Running
+in mode: Unattended</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Running in mode: Unattended</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Source
+generated using plugin Manual: smartboot.outworldz.net</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Source generated using plugin Manual: smartboot.outworldz.net</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Overwriting
+previously created renewal</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Overwriting previously created renewal</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Using
+cache for [Manual] smartboot.outworldz.net. To get a new certificate within 1
+days, run with --force.</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Using cache for [Manual] smartboot.outworldz.net. To get a new
-certificate within 1 days, run with --force.</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Store
+with PemFiles...</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Store with PemFiles...</span></p>
-
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Exporting .pem files to
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Exporting
+.pem files to
 C:\Users\Fred\Desktop\Dreamgrid\Dreamworld\OutworldzFiles\Apache\Certs</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Installing with None...</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Installing
+with None...</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Scheduled task looks healthy</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'> Scheduled
+task looks healthy</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Next renewal scheduled at 2022/3/25 5:40:43</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Courier New"'> Next renewal scheduled at 2022/3/25 5:40:43</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'> Certificate [Manual] smartboot.outworldz.net created</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Courier New"'> Certificate [Manual] smartboot.outworldz.net
+created</span></p>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'>2022-01-29 00:53:31:Info:Certificate installed</span></p>
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Courier New"'>2022-01-29 00:53:31:Info:Certificate installed</span></p>
 
-<p class=MsoNormal>&nbsp;</p>
+<p class=MsoNormal style='line-height:normal'><span style='font-family:"Courier New"'>&nbsp;</span></p>
 
 <p class=MsoNormal>&nbsp;</p>
 

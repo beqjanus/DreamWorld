@@ -1,4 +1,9 @@
-﻿Imports System.Threading.Tasks
+﻿' UNUSED
+' UNUSED
+' UNUSED
+' UNUSED
+
+' Imports System.Threading.Tasks
 Imports Certes
 Imports Certes.Acme
 Imports Certes.Acme.Resource
@@ -9,81 +14,7 @@ Public Class SSL
     Private ReadOnly context As AcmeContext
     Private order As IOrderContext
 
-#Region "Wacs"
 
-    Public Sub New()
-
-        Try
-            Dim WebThread = New Thread(AddressOf InstallSSL)
-            WebThread.SetApartmentState(ApartmentState.STA)
-            WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-            WebThread.Start()
-        Catch
-        End Try
-
-    End Sub
-
-    Private Sub InstallSSL()
-
-        Using SSLProcess As New Process
-
-            SSLProcess.StartInfo.UseShellExecute = True
-            SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
-            SSLProcess.StartInfo.FileName = "wacs.exe"
-            SSLProcess.StartInfo.CreateNoWindow = False
-
-            Select Case Settings.ConsoleShow
-                Case "True"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                Case "False"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                Case "None"
-                    SSLProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-            End Select
-
-            SSLProcess.StartInfo.Arguments = $"--source manual --host {Settings.DNSName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}"""
-
-            MakeSSLbatch($".\wacs.exe {SSLProcess.StartInfo.Arguments}")
-
-            Try
-                SSLProcess.Start()
-                SSLProcess.WaitForExit()
-            Catch ex As Exception
-                ErrorLog(ex.Message)
-            End Try
-
-            Dim Status = SSLProcess.ExitCode
-            If Status = 0 Then
-                Logger("Info", "Certificate installed", "SSL")
-                ' It was not installed, so we need to restart Apache
-                If Settings.SSLIsInstalled = False Then
-                    Settings.SSLIsInstalled = True
-
-                    StopApache()
-                    DoApache()
-                    StartApache()
-
-                End If
-            End If
-
-        End Using
-        Return
-    End Sub
-
-    Private Sub MakeSSLbatch(stuff As String)
-
-        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "SSL\InstallSSL.bat")
-
-        Using file As New System.IO.StreamWriter(filename, False)
-            file.WriteLine("@REM program to renew SSL certificate")
-            file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "SSL")}")
-            file.WriteLine(stuff)
-            file.WriteLine("@pause")
-        End Using
-
-    End Sub
-
-#End Region
 
 #Region "Certes"
 
