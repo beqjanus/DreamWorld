@@ -176,6 +176,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property BootOrSuspend() As Boolean
+        Get
+            Return CType(GetMySetting("BootOrSuspend", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BootOrSuspend", CStr(Value))
+        End Set
+    End Property
+
     Public Property ApacheEnable() As Boolean
         Get
             Return CType(GetMySetting("ApacheEnabled", "False"), Boolean)
@@ -1910,7 +1919,7 @@ Public Class MySettings
 
     Public Property SmartStartTimeout() As Integer
         Get
-            Return CInt("0" & GetMySetting("SmartStartTimeout", "60"))
+            Return CInt("0" & GetMySetting("SmartStartTimeout", "20"))
         End Get
         Set
             SetMySetting("SmartStartTimeout", CType(Value, String))

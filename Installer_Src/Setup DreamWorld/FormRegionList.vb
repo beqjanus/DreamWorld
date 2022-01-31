@@ -267,9 +267,12 @@ SetWindowOnTop_Err:
 
             PropAborting = False
 
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-
-            Application.DoEvents()
+            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+            Else
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+            End If
+            PropUpdateView() = True
             FormSetup.StartTimer()
 
             FormSetup.Buttons(FormSetup.StopButton)
@@ -277,98 +280,99 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Stop" Then
 
-            ' if any avatars in any region, give them a choice.
-            Dim StopIt As Boolean = True
-            For Each num In RegionUuidListByName(Group_Name(RegionUUID))
-                ' Ask before killing any people
-                If AvatarCount(num) > 0 Then
-                    Dim response As MsgBoxResult
-                    If AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar & " " & Region_Name(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
-                    Else
-                        response = MsgBox(AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.Avatars_are_in & " " + Region_Name(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                ' if any avatars in any region, give them a choice.
+                Dim StopIt As Boolean = True
+                For Each num In RegionUuidListByName(Group_Name(RegionUUID))
+                    ' Ask before killing any people
+                    If AvatarCount(num) > 0 Then
+                        Dim response As MsgBoxResult
+                        If AvatarCount(num) = 1 Then
+                            response = MsgBox(My.Resources.OneAvatar & " " & Region_Name(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                        Else
+                            response = MsgBox(AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.Avatars_are_in & " " + Region_Name(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                        End If
+                        If response = vbNo Then
+                            StopIt = False
+                        End If
                     End If
-                    If response = vbNo Then
-                        StopIt = False
-                    End If
-                End If
-            Next
-
-            If (StopIt) Then
-                StopRegion(RegionUUID)
-            End If
-
-        ElseIf chosen = "Console" Then
-
-            Dim hwnd = GetHwnd(Group_Name(RegionUUID))
-            If hwnd = IntPtr.Zero Then
-                ' shut down all regions in the DOS box
-                For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
-                    RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
                 Next
-                DelPidFile(RegionUUID)
-                PropUpdateView = True ' make form refresh
-            Else
-                Dim tmp As String = Settings.ConsoleShow
-                'temp show console
-                Settings.ConsoleShow = "True"
-                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+
+                If (StopIt) Then
+                    StopRegion(RegionUUID)
+                End If
+
+            ElseIf chosen = "Console" Then
+
+            ResumeRegion(RegionUUID)
+            Dim hwnd = GetHwnd(Group_Name(RegionUUID))
+                If hwnd = IntPtr.Zero Then
                     ' shut down all regions in the DOS box
                     For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
                         RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                     DelPidFile(RegionUUID)
-                    Return
+                    PropUpdateView = True ' make form refresh
+                Else
+                    Dim tmp As String = Settings.ConsoleShow
+                    'temp show console
+                    Settings.ConsoleShow = "True"
+                    If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+                        ' shut down all regions in the DOS box
+                        For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
+                            RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
+                        Next
+                        DelPidFile(RegionUUID)
+                        Return
+                    End If
+
+                    SetWindowOnTop(hwnd.ToInt32)
+                    Settings.ConsoleShow = tmp
                 End If
 
-                SetWindowOnTop(hwnd.ToInt32)
-                Settings.ConsoleShow = tmp
-            End If
-
-        ElseIf chosen = "Edit" Then
+            ElseIf chosen = "Edit" Then
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim RegionForm As New FormRegion
+                Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
-            RegionForm.BringToFront()
-            RegionForm.Init(RegionName)
-            RegionForm.Activate()
-            RegionForm.Visible = True
-            RegionForm.Select()
+                RegionForm.BringToFront()
+                RegionForm.Init(RegionName)
+                RegionForm.Activate()
+                RegionForm.Visible = True
+                RegionForm.Select()
 
-        ElseIf chosen = "Restart" Then
+            ElseIf chosen = "Restart" Then
 
-            FormSetup.Buttons(FormSetup.BusyButton)
+                FormSetup.Buttons(FormSetup.BusyButton)
 
-            ' shut down all regions in the DOS box
-            Dim GroupName = Group_Name(RegionUUID)
-            Logger("RecyclingDown", GroupName, "Teleport")
-            For Each UUID In RegionUuidListByName(GroupName)
-                RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Logger("RecyclingDown", Region_Name(UUID), "Teleport")
-            Next
+                ' shut down all regions in the DOS box
+                Dim GroupName = Group_Name(RegionUUID)
+                Logger("RecyclingDown", GroupName, "Teleport")
+                For Each UUID In RegionUuidListByName(GroupName)
+                    RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                    Logger("RecyclingDown", Region_Name(UUID), "Teleport")
+                Next
 
-            FormSetup.Buttons(FormSetup.StopButton)
+                FormSetup.Buttons(FormSetup.StopButton)
 
-            TextPrint(My.Resources.Recycle1 & "  " + Group_Name(RegionUUID))
-            ShutDown(RegionUUID)
-            PropUpdateView = True ' make form refresh
+                TextPrint(My.Resources.Recycle1 & "  " + Group_Name(RegionUUID))
+                ShutDown(RegionUUID)
+                PropUpdateView = True ' make form refresh
 
-        ElseIf chosen = "Teleport" Then
+            ElseIf chosen = "Teleport" Then
 
-            Dim Obj = New TaskObject With {
+                Dim Obj = New TaskObject With {
                             .TaskName = FormSetup.TaskName.TeleportClicked,
                             .Command = ""
                         }
-            FormSetup.RebootAndRunTask(RegionUUID, Obj)
+                FormSetup.RebootAndRunTask(RegionUUID, Obj)
 
-        ElseIf chosen = "Load" Then
+            ElseIf chosen = "Load" Then
 
-            LoadOar(RegionName)
+                LoadOar(RegionName)
 
-        ElseIf chosen = "Save" Then
+            ElseIf chosen = "Save" Then
 
-            SaveOar(RegionName)
+                SaveOar(RegionName)
 
         End If
 
@@ -1028,7 +1032,7 @@ SetWindowOnTop_Err:
         ListView1.View = View.Details
         ListView1.LabelEdit = True
         ListView1.AllowColumnReorder = True
-        ListView1.FullRowSelect = True
+        ListView1.FullRowSelect = False
         ListView1.GridLines = True
         ListView1.AllowColumnReorder = True
         ListView1.Sorting = SortOrder.Ascending
@@ -1689,8 +1693,10 @@ SetWindowOnTop_Err:
                 If w > 0 Then col.Width = w
             End Using
         Next
-        detailsinitted = True
+
         ListView1.EndUpdate()
+        detailsinitted = True
+
         PropUpdateView() = False
         ViewBusy = False
 

@@ -51,13 +51,13 @@ Module RPC
         Try
 
             Dim RPC = New XmlRpcRequest(cmd, parameters)
-            Dim o = RPC.Invoke(url)
-            If o Is Nothing Then
+            Dim r As XmlRpcResponse = RPC.Send(url, 2000)
+            If r.Value Is Nothing Then
                 Return 0
             End If
 #Disable Warning BC42016 ' Implicit conversion
 
-            For Each s In o
+            For Each s In r.Value
                 'Log("Info", s.Key & ":" & s.Value)
                 If s.key = "count" Then
                     Return CInt(s.value)
@@ -82,7 +82,7 @@ Module RPC
         Dim parameters = New List(Of Hashtable) From {ht}
         Try
             Dim RPC = New XmlRpcRequest(cmd, parameters)
-            Return RPC.Invoke(url)
+            Return RPC.Send(url, 2000).Value
         Catch ex As Exception
         End Try
         Return Nothing
@@ -243,19 +243,22 @@ Module RPC
 
         If RegionUUID.Length = 0 Then Return False
 
+        If Settings.BootOrSuspend = False Then ResumeRegion(RegionUUID)
+
         Dim RegionPort = GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
+
         Try
-            Dim o = RPC.Invoke(url)
-            If o Is Nothing Then Return True
+            Dim r = RPC.Send(url, 2000)
+            If r.Value Is Nothing Then Return True
 #Disable Warning BC42016 ' Implicit conversion
 
-            For Each s In o
+            For Each s In r.Value
                 'Log("Info", s.Key & ":" & s.Value)
-                If s.Key = "success" And s.Value = "True" Then
+                If s.Key = "success" AndAlso s.Value = "True" Then
                     Debug.Print("Teleport Sent")
                     Return True
                 End If

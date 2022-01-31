@@ -23,11 +23,19 @@ Module ProcessExtension
 
     End Enum
 
+
+    ''' <summary>
+    ''' Resumes a  suspended region
+    ''' </summary>
+    ''' <param name="PID">Process ID</param>
+    ''' <returns>false if it succeeds</returns>
     <Extension()>
-    Sub [Resume](ByVal process As Process)
+    Public Function RestoreRegion(PID As Integer) As Boolean
+
+        Dim result As Boolean = True    ' assume success
+        Dim process As Process = ProcessIdDict(PID)
         For Each thread As ProcessThread In process.Threads
             Dim pOpenThread = OpenThread(ThreadAccess.SUSPEND_RESUME, False, CUInt(thread.Id))
-
             If pOpenThread = IntPtr.Zero Then
                 Continue For
             End If
@@ -35,14 +43,16 @@ Module ProcessExtension
             suspendCount = ResumeThread(pOpenThread)
             While (suspendCount > 0)
                 suspendCount = ResumeThread(pOpenThread)
+                result = False
             End While
-
         Next
-    End Sub
+        Return result
+    End Function
 
     <Extension()>
-    Sub Suspend(ByVal process As Process)
+    Public Function SuspendRegion(PID As Integer) As Boolean
 
+        Dim process As Process = ProcessIdDict(PID)
         For Each thread As ProcessThread In process.Threads
             Dim pOpenThread = OpenThread(ThreadAccess.SUSPEND_RESUME, False, CUInt(thread.Id))
 
@@ -50,9 +60,9 @@ Module ProcessExtension
                 Continue For
             End If
 
-            '        SuspendThread(pOpenThread)
-
+            NtSuspendProcess(pOpenThread)
         Next
-    End Sub
+        Return False
+    End Function
 
 End Module

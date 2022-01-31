@@ -159,6 +159,8 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShutDownButton = New System.Windows.Forms.RadioButton()
+        Me.SuspendButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -262,6 +264,8 @@ Partial Class FormSmartStart
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.SuspendButton)
+        Me.TabPage1.Controls.Add(Me.ShutDownButton)
         Me.TabPage1.Controls.Add(Me.DelayRegionReady)
         Me.TabPage1.Controls.Add(Me.DelayLabelRegionReady)
         Me.TabPage1.Controls.Add(Me.EndlessLand)
@@ -1582,6 +1586,28 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
+        'ShutDownButton
+        '
+        Me.ShutDownButton.AutoSize = True
+        Me.ShutDownButton.Location = New System.Drawing.Point(255, 95)
+        Me.ShutDownButton.Name = "ShutDownButton"
+        Me.ShutDownButton.Size = New System.Drawing.Size(80, 17)
+        Me.ShutDownButton.TabIndex = 53
+        Me.ShutDownButton.TabStop = True
+        Me.ShutDownButton.Text = "Shuit Down"
+        Me.ShutDownButton.UseVisualStyleBackColor = True
+        '
+        'SuspendButton
+        '
+        Me.SuspendButton.AutoSize = True
+        Me.SuspendButton.Location = New System.Drawing.Point(166, 95)
+        Me.SuspendButton.Name = "SuspendButton"
+        Me.SuspendButton.Size = New System.Drawing.Size(67, 17)
+        Me.SuspendButton.TabIndex = 54
+        Me.SuspendButton.TabStop = True
+        Me.SuspendButton.Text = "Suspend"
+        Me.SuspendButton.UseVisualStyleBackColor = True
+        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1771,4 +1797,6 @@ Partial Class FormSmartStart
     Friend WithEvents EndlessLand As GroupBox
     Friend WithEvents DelayRegionReady As TextBox
     Friend WithEvents DelayLabelRegionReady As Label
+    Friend WithEvents SuspendButton As RadioButton
+    Friend WithEvents ShutDownButton As RadioButton
 End Class

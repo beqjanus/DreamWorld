@@ -62,6 +62,8 @@ Module WindowHandlers
                 PID = ProcessID(RegionUUID)
 
                 If PID > 0 Then
+                    ResumeRegion(RegionUUID)
+
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
@@ -71,6 +73,8 @@ Module WindowHandlers
                 Else
                     Return RPC_Region_Command(RegionUUID, command)
                 End If
+
+
                 DoType(RegionUUID, command)
 
                 Try
@@ -96,10 +100,11 @@ Module WindowHandlers
         command = command.Replace("+", "{+}")
         command = command.Replace("^", "{^}")
         command = command.Replace("%", "{%}")
-        command = command.Replace("(", "{(}")
-        command = command.Replace(")", "{)}")
         command = command.Replace("{", "{{}")
         command = command.Replace("}", "{}}")
+        command = command.Replace("(", "{(}")
+        command = command.Replace(")", "{)}")
+
 
         Dim PID As Integer
         If RegionUUID = "Robust" Then

@@ -2187,7 +2187,7 @@
     <value>Save IAR</value>
   </data>
   <data name="minkeepalive" xml:space="preserve">
-    <value>Minimum time is 0 seconds. Default is 60 seconds.</value>
+    <value>Minimum time is 10 seconds. Default is 20seconds.</value>
   </data>
   <data name="Help_Manuals_word" xml:space="preserve">
     <value>Help Manuals</value>

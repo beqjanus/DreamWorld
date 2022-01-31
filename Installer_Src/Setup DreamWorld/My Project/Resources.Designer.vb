@@ -6525,7 +6525,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Minimum time is 0 seconds. Default is 60 seconds..
+        '''  Looks up a localized string similar to Minimum time is 10 seconds. Default is 20seconds..
         '''</summary>
         Friend ReadOnly Property minkeepalive() As String
             Get

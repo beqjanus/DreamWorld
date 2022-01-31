@@ -374,7 +374,7 @@ Public Class FormSetup
         If PropUseIcons Then
             If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
-            While (counter > 0 And PropOpensimIsRunning())
+            While (counter > 0 AndAlso PropOpensimIsRunning())
                 Application.DoEvents()
                 counter -= 1
 
@@ -475,7 +475,7 @@ Public Class FormSetup
         Application.DoEvents()
 
         Dim ctr = 60
-        While Not IsRobustRunning() And ctr > 0
+        While Not IsRobustRunning() AndAlso ctr > 0
             Sleep(1000)
             ctr -= 1
         End While
@@ -534,7 +534,7 @@ Public Class FormSetup
                 ' A region in initial boot up may be really running, but showing as stopped in SS made
                 ' And so it needs to be shut down by timers. But first we have to show it as Booted.
 
-                If Not BootNeeded And PropOpensimIsRunning And RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
+                If Not BootNeeded AndAlso PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
                     If Smart_Start(RegionUUID) = "True" Then
                         If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
@@ -542,7 +542,7 @@ Public Class FormSetup
                     End If
                 End If
 
-                If BootNeeded And PropOpensimIsRunning Then
+                If BootNeeded AndAlso PropOpensimIsRunning Then
                     Boot(RegionName)
                 End If
             End If
@@ -1007,7 +1007,7 @@ Public Class FormSetup
 
         If PropAborting Then Return
 
-        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
+        If Settings.RestartOnCrash AndAlso IcecastCrashCounter < 10 Then
             IcecastCrashCounter += 1
             PropIceCastExited = True
             Return
@@ -1079,7 +1079,7 @@ Public Class FormSetup
                     RegionStatus(UUID) = SIMSTATUSENUM.Stopped
                 Next
 
-                If Settings.TempRegion And EstateName(RegionUUID) = "SimSurround" Then
+                If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
                     DeleteAllRegionData(RegionUUID)
                 End If
 
@@ -1095,7 +1095,7 @@ Public Class FormSetup
                 Application.DoEvents()
                 Continue While
 
-            ElseIf Status = SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
+            ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
                 'RecyclingDown = 4
                 Logger("State", $"Is RecyclingDown for {GroupName}", "State")
                 TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
@@ -1246,9 +1246,9 @@ Public Class FormSetup
                     MapTime(RegionUUID) = CInt(seconds)
                 End If
 
-                If Smart_Start(RegionUUID) = "True" Then
-                    MysqlSetRegionFlagOnline(RegionUUID)
-                End If
+                'If Smart_Start(RegionUUID) = "True" Then
+                'MysqlSetRegionFlagOnline(RegionUUID)
+                'End If
 
                 TeleportAgents()
 
@@ -1310,17 +1310,23 @@ Public Class FormSetup
                     End If
 
                     ' Smart Start Timer
-                    If Smart_Start(RegionUUID) = "True" And status = SIMSTATUSENUM.Booted Then
+                    If Smart_Start(RegionUUID) = "True" AndAlso status = SIMSTATUSENUM.Booted Then
                         Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
 
-                        If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
+                        If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
                             'Continue For
                             Diagnostics.Debug.Print("State Changed to ShuttingDown", GroupName, "Teleport")
-                            ShutDown(RegionUUID)
-
-                            For Each UUID In RegionUuidListByName(GroupName)
-                                RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                            Next
+                            If Settings.BootOrSuspend Then
+                                ShutDown(RegionUUID)
+                                For Each UUID In RegionUuidListByName(GroupName)
+                                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
+                                Next
+                            Else
+                                PauseRegion(RegionUUID)
+                                For Each UUID In RegionUuidListByName(GroupName)
+                                    RegionStatus(UUID) = SIMSTATUSENUM.Suspended
+                                Next
+                            End If
 
                             PropUpdateView = True ' make form refresh
                             Continue For
@@ -1335,9 +1341,9 @@ Public Class FormSetup
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
-            And Expired > 0 _
-            And Settings.AutoRestartInterval() > 0 _
-            And Settings.AutoRestartEnabled Then
+            AndAlso Expired > 0 _
+            AndAlso Settings.AutoRestartInterval() > 0 _
+            AndAlso Settings.AutoRestartEnabled Then
 
                     If AvatarsIsInGroup(GroupName) Then
                         ' keep smart start regions alive if someone is near
@@ -1392,7 +1398,15 @@ Public Class FormSetup
                     Diagnostics.Debug.Print("State Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
-                        Boot(RegionName)
+                        ' if boot, just do it, else try to resume it, else boot it
+                        If Settings.BootOrSuspend Then
+                            Boot(RegionName)
+                        Else
+                            If ResumeRegion(RegionUUID) Then
+                                Boot(RegionName)
+                            End If
+                        End If
+                        RunTaskList(RegionUUID)
                     Next
                     PropUpdateView = True
                     Continue For
@@ -1578,51 +1592,6 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub SequentialPause()
-
-        If Settings.Sequential Then
-            Dim ctr = 5 * 60  ' 5 minute max to start a region
-            While True
-                If Not PropOpensimIsRunning Then Return
-                Dim wait As Boolean = False
-                For Each RegionUUID As String In RegionUuids()
-
-                    Dim status = RegionStatus(RegionUUID)
-                    If RegionEnabled(RegionUUID) _
-                        And Not PropAborting _
-                        And status = SIMSTATUSENUM.Booting Then
-                        Diagnostics.Debug.Print(Region_Name(RegionUUID))
-                        wait = True
-                    End If
-                    Application.DoEvents()
-                Next
-
-                If wait Then
-                    ctr -= 1
-                Else
-                    Exit While
-                End If
-                If ctr <= 0 Then Exit While
-                Sleep(1000)
-            End While
-        Else
-
-            Dim ctr = 60 ' 1 minute max to start a region at 100% CPU
-            While True
-                If Not PropOpensimIsRunning Then Return
-
-                If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
-                    Exit While
-                End If
-                Sleep(1000)
-                Application.DoEvents()
-                ctr -= 1
-                If ctr <= 0 Then Exit While
-            End While
-
-        End If
-
-    End Sub
 
 #End Region
 
@@ -1636,7 +1605,7 @@ Public Class FormSetup
         Dim DefaultName As String = ""
 
         Dim RegionUUID As String = FindRegionByName(Settings.WelcomeRegion)
-        If RegionUUID.Length = 0 And Settings.ServerType = RobustServerName Then
+        If RegionUUID.Length = 0 AndAlso Settings.ServerType = RobustServerName Then
             MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, My.Resources.Information_word)
             TextPrint(My.Resources.Stopped_word)
 
@@ -1663,9 +1632,9 @@ Public Class FormSetup
         My.Application.ChangeCulture(Settings.Language)
 
         If Settings.AutoBackup Then
-            ' add 30 minutes to allow time to auto backup and then restart
+            ' add 30 minutes to allow time to auto backup andalso then restart
             Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
-            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+            If Settings.AutoRestartInterval > 0 AndAlso Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
                 TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
             End If
@@ -1702,7 +1671,7 @@ Public Class FormSetup
         UploadPhoto()
         SetBirdsOnOrOff()
 
-        If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
+        If Not Settings.RunOnce AndAlso Settings.ServerType = RobustServerName Then
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
                 If ret = DialogResult.Cancel Then
@@ -2119,7 +2088,7 @@ Public Class FormSetup
 
             Dim combined = GetAllAgents()
 
-            If combined IsNot Nothing And combined.Count > 0 Then
+            If combined IsNot Nothing AndAlso combined.Count > 0 Then
                 BuildLand(combined)
             End If
 
@@ -2373,7 +2342,7 @@ Public Class FormSetup
 
     Private Sub PrintBackups()
 
-        If _WasRunning.Length > 0 And RunningBackupName.Length = 0 Then
+        If _WasRunning.Length > 0 AndAlso RunningBackupName.Length = 0 Then
             TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
             _WasRunning = ""
         End If
@@ -2475,24 +2444,24 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
-            If SecondsTicker Mod 2 = 0 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
                 PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 CheckPost()                 ' see if anything arrived in the web server
-                CheckForBootedRegions()     ' And see if any booted up
+                CheckForBootedRegions()     ' andalso see if any booted up
                 TeleportAgents()            ' send them onward
                 RestartDOSboxes()
             End If
 
-            If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
                 Chart()                     ' do charts collection each second
                 ScanAgents()                ' update agent count
                 Bench.Print("5 second worker ends")
             End If
 
-            If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("10 second worker")
                 DidItDie()
                 ProcessQuit()               ' check if any processes exited
@@ -2507,7 +2476,7 @@ Public Class FormSetup
                 Bench.Print("Initial 60 second worker ends")
             End If
 
-            If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
@@ -2527,7 +2496,7 @@ Public Class FormSetup
             End If
 
             ' half hour
-            If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
+            If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("half hour worker")
                 ScanOpenSimWorld(True)
                 GetEvents()
@@ -3475,7 +3444,7 @@ Public Class FormSetup
         If PropOpensimIsRunning() Then
             Dim RegionUUID As String = FindRegionByName(CStr(sender.Text))
             Dim port As String = CStr(Region_Port(RegionUUID))
-            Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
+            Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
@@ -3588,7 +3557,7 @@ Public Class FormSetup
 
     Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
 
-        If PropOpensimIsRunning() And Settings.SCEnable Then
+        If PropOpensimIsRunning() AndAlso Settings.SCEnable Then
             Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.SCPortBase)
             TextPrint($"{My.Resources.Icecast_Desc}{vbCrLf}{webAddress}/stream")
             Try

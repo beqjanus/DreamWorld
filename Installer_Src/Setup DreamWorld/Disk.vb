@@ -55,27 +55,27 @@ Module Disk
                 Sleeping.Add(RegionUUID)
                 Select Case status
                     Case SIMSTATUSENUM.Booted
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.Booting
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.Error
                     Case SIMSTATUSENUM.NoLogin
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.RecyclingDown
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.RecyclingUp
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.RestartPending
                     Case SIMSTATUSENUM.RestartStage2
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.RetartingNow
-                        Pause(RegionUUID)
+                        PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.Stopped
                     Case SIMSTATUSENUM.Suspended
@@ -98,7 +98,7 @@ Module Disk
             Dim RegionName = Region_Name(RegionUUID)
 
             If ProcessID(RegionUUID) > 0 Then
-                FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
+                ResumeRegion(RegionUUID)
             End If
 
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
@@ -112,17 +112,56 @@ Module Disk
 
     End Sub
 
-    Public Sub Pause(RegionUUID As String)
+#End Region
 
-        Dim RegionName = Region_Name(RegionUUID)
+#Region "FreeThaw"
+
+    ''' <summary>
+    ''' Resumes Region from frozen state
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    ''' <returns>0 if success</returns>
+    Public Function ResumeRegion(RegionUUID As String) As Boolean
+
+        If Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "" Or Smart_Start(RegionUUID) = "False" Then
+            Return True
+        End If
+        If ProcessID(RegionUUID) = 0 Then
+            Return True
+        End If
+
+        Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
+
+        Dim result = FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
+        If Not result Then
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+            PropUpdateView = True ' make form refresh
+            TeleportAgents()
+        Else
+            'Todo Handle non resumed region
+        End If
+
+        Return result
+
+    End Function
+
+    ''' <summary>
+    ''' Suspends region 
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub PauseRegion(RegionUUID As String)
+
+        Diagnostics.Debug.Print($"Pausing {Region_Name(RegionUUID)}")
+
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
         RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-        Application.DoEvents()
+        PropUpdateView = True ' make form refresh
 
     End Sub
 
-    Private Sub FreezeThaw(RegionUUID As String, Arg As String)
+    Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
 
+        Dim result As Boolean
         Using SuspendProcess As New Process()
             Dim pi = New ProcessStartInfo With {
                 .Arguments = Arg,
@@ -140,10 +179,12 @@ Module Disk
                 PokeRegionTimer(RegionUUID)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
+                result = True
             End Try
         End Using
+        Return result
 
-    End Sub
+    End Function
 
 #End Region
 

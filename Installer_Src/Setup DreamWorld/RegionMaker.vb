@@ -107,7 +107,7 @@ Module RegionMaker
             Dim last As Integer = POST.LastIndexOf("}", StringComparison.OrdinalIgnoreCase)
 
             Dim rawJSON As String = ""
-            If first > -1 And last > -1 Then
+            If first > -1 AndAlso last > -1 Then
                 rawJSON = POST.Substring(first, last - first + 1)
             Else
                 Logger("RegionReady", "Malformed Web request: " & POST, "Teleport")
@@ -251,7 +251,7 @@ Module RegionMaker
     Public Sub WriteRegionObject(Group As String, RegionName As String)
 
         Dim Retry As Integer = 15
-        While Retry > 0 And WriteRegionLock
+        While Retry > 0 AndAlso WriteRegionLock
             Sleep(1000)
             Retry -= 1
         End While
@@ -277,7 +277,7 @@ Module RegionMaker
             ' nada
         End If
 
-        If Settings.AutoFill And Smart_Start(RegionUUID) = "True" And out = 0 Then
+        If Settings.AutoFill AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
             Estate(RegionUUID) = "SimSurround"
             SetEstate(RegionUUID, 1999)
         End If
@@ -388,7 +388,7 @@ Module RegionMaker
 
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
-                If XPos = Xloc And Ypos = Yloc Then Continue For
+                If XPos = Xloc AndAlso Ypos = Yloc Then Continue For
                 Dim gr As String = $"{XPos},{Ypos}"
                 If Map.ContainsKey(gr) Then
                     If IsAgentInRegion(Map.Item(gr)) Then
@@ -491,7 +491,7 @@ Module RegionMaker
         If Not PropChangedRegionSettings Then Return RegionList.Count
 
         Dim Retry = 120
-        While Retry > 0 And GetRegionsIsBusy
+        While Retry > 0 AndAlso GetRegionsIsBusy
             Sleep(1000)
             Retry -= 1
         End While
@@ -691,7 +691,7 @@ Module RegionMaker
 
         Dim Maxnum As Integer
         Dim Retry = 60
-        While Retry > 0 And PortLock
+        While Retry > 0 AndAlso PortLock
             Sleep(1000)
             Retry -= 1
         End While
@@ -756,7 +756,8 @@ Module RegionMaker
 
         Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-            FormSetup.SequentialPause()
+
+            SequentialPause()
 
             TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
             ShutDown(RegionUUID)
@@ -779,7 +780,7 @@ Module RegionMaker
     Public Sub UpdateAllRegionPorts()
 
         Dim Retry = 60
-        While Retry > 0 And UpdateAllRegion
+        While Retry > 0 AndAlso UpdateAllRegion
             Sleep(1000)
             Retry -= 1
         End While
@@ -1126,6 +1127,11 @@ Module RegionMaker
         End Set
     End Property
 
+    ''' <summary>
+    ''' Returns PID of any booted region
+    ''' </summary>
+    ''' <param name="uuid">UUID</param>
+    ''' <returns>PID</returns>
     Public Property ProcessID(uuid As String) As Integer
         Get
             If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._ProcessID
@@ -1731,7 +1737,7 @@ Module RegionMaker
                 sid = Guid.Parse(match2.Groups(1).Value)
             End If
 
-            If match.Success And match2.Success Then
+            If match.Success AndAlso match2.Success Then
 
                 ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                 Dim result As Integer = 1
@@ -1782,7 +1788,7 @@ Module RegionMaker
             End If
             Dim result1 As New Guid
             Dim result2 As New Guid
-            If Guid.TryParse(p1, result1) And Guid.TryParse(p2, result2) Then
+            If Guid.TryParse(p1, result1) AndAlso Guid.TryParse(p2, result2) Then
                 Try
 
                     Dim Partner = MysqlGetPartner(p1, Settings)
@@ -2226,10 +2232,10 @@ Module RegionMaker
 
             ' Autobackup
             If INI.SetIni("AutoBackupModule", "AutoBackup", "True") Then Return True
-            If Settings.AutoBackup And String.IsNullOrEmpty((uuid)) Then Return True
+            If Settings.AutoBackup AndAlso String.IsNullOrEmpty((uuid)) Then Return True
             If INI.SetIni("AutoBackupModule", "AutoBackup", "True") Then Return True
 
-            If Settings.AutoBackup And SkipAutobackup(uuid) = "True" Then
+            If Settings.AutoBackup AndAlso SkipAutobackup(uuid) = "True" Then
                 If INI.SetIni("AutoBackupModule", "AutoBackup", "False") Then Return True
             End If
             If Not Settings.AutoBackup Then
@@ -2440,7 +2446,7 @@ Module RegionMaker
 
         ' RegionSnapShot
         INI.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
+        If Settings.CMS = JOpensim AndAlso Settings.SearchOptions = JOpensim Then
 
             INI.SetIni("DataSnapshot", "data_services", "")
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort &

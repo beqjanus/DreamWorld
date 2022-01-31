@@ -40,8 +40,12 @@ Module Teleport
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName.Length > 0 Then
                             Bench.Print("Teleport Initiated")
-                            RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
-                            Threading.Thread.Sleep(Settings.TeleportSleepTime * 1000)
+
+                            If Settings.BootOrSuspend Then
+                                RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
+                                Sleep(Settings.TeleportSleepTime * 1000)
+                            End If
+
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                             Else

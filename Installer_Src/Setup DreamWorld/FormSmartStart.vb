@@ -22,7 +22,7 @@ Public Class FormSmartStart
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
-    Private _initted As Boolean
+
     Private _SelectedPlant As String
 
 #Region "ScreenSize"
@@ -617,6 +617,14 @@ Public Class FormSmartStart
             Settings.TempRegion = False
         End If
 
+        If Settings.BootOrSuspend Then
+            SuspendButton.Checked = False
+            ShutDownButton.Checked = True
+        Else
+            SuspendButton.Checked = True
+            ShutDownButton.Checked = False
+        End If
+
         If AviName.Text.Length = 0 Then
             AviName.BackColor = Color.Red
         End If
@@ -942,7 +950,7 @@ Public Class FormSmartStart
     Private Sub LoadPlant(Name As String)
 
         _SelectedPlant = Name
-        _initted = False
+        _initialized = False
 
         PictureBox2.Image = GetPic(Name)
 
@@ -1034,7 +1042,7 @@ Public Class FormSmartStart
             End Using
 
         End If
-        _initted = True
+        _initialized = True
 
     End Sub
 
@@ -1160,7 +1168,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
-        If Settings.SmartStartTimeout < 0 Then Settings.SmartStartTimeout = 0
+        If Settings.SmartStartTimeout < 10 Then Settings.SmartStartTimeout = 10
         ProgressPrint(My.Resources.minkeepalive)
 
     End Sub
@@ -1423,7 +1431,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         EndsizeX.Text = digitsOnly.Replace(EndsizeX.Text, "")
         If Convert.ToSingle("0" & EndsizeX.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeX.Text = CStr(255)
@@ -1431,7 +1439,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub EndsizeY_TextChanged(sender As Object, e As EventArgs) Handles EndsizeY.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         EndsizeY.Text = digitsOnly.Replace(EndsizeY.Text, "")
         If Convert.ToSingle("0" & EndsizeY.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeY.Text = CStr(255)
@@ -1439,7 +1447,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub EndsizeZ_TextChanged(sender As Object, e As EventArgs) Handles EndsizeZ.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         EndsizeZ.Text = digitsOnly.Replace(EndsizeZ.Text, "")
         If Convert.ToSingle("0" & EndsizeZ.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeZ.Text = CStr(255)
@@ -1447,7 +1455,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub MinLandHeight_TextChanged(sender As Object, e As EventArgs) Handles TreeLineLow.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         TreeLineLow.Text = digitsOnly.Replace(TreeLineLow.Text, "")
         If CInt("0" & TreeLineLow.Text) < 0 Then TreeLineLow.Text = CStr(0)
@@ -1455,7 +1463,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Qty_TextChanged(sender As Object, e As EventArgs) Handles Qty.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d]")
         Qty.Text = digitsOnly.Replace(Qty.Text, "")
         If CInt("0" & Qty.Text) > 500 Then Qty.Text = CStr(500)
@@ -1463,7 +1471,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub StartSize_TextChanged(sender As Object, e As EventArgs) Handles StartSizeX.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         StartSizeX.Text = digitsOnly.Replace(StartSizeX.Text, "")
         If Convert.ToSingle("0" & StartSizeX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeX.Text = CStr(0)
@@ -1471,7 +1479,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub StartSizeY_TextChanged(sender As Object, e As EventArgs) Handles StartSizeY.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         StartSizeY.Text = digitsOnly.Replace(StartSizeY.Text, "")
         If Convert.ToSingle("0" & StartSizeY.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeY.Text = CStr(0)
@@ -1479,7 +1487,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub StartSizeZ_TextChanged(sender As Object, e As EventArgs) Handles StartSizeZ.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         StartSizeZ.Text = digitsOnly.Replace(StartSizeZ.Text, "")
         If Convert.ToSingle("0" & StartSizeZ.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeZ.Text = CStr(0)
@@ -1487,7 +1495,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TaperTextBox_TextChanged(sender As Object, e As EventArgs) Handles TaperTextBox.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         TaperTextBox.Text = digitsOnly.Replace(TaperTextBox.Text, "")
         If Convert.ToSingle("0" & TaperTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then TaperTextBox.Text = CStr(1)
@@ -1496,7 +1504,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TreeLineHight.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
         If CInt("0" & TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
@@ -1504,7 +1512,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TextBox2_TextChanged_1(sender As Object, e As EventArgs) Handles Rad.TextChanged
-        If Not _initted Then Return
+        If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d]")
         Rad.Text = digitsOnly.Replace(Rad.Text, "")
         If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > 1024 Then Rad.Text = CStr(1024)
@@ -1603,6 +1611,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d]")
         DelayRegionReady.Text = digitsOnly.Replace(DelayRegionReady.Text, "")
         Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
+        If Settings.TeleportSleepTime < 0 Then Settings.TeleportSleepTime = 0
         ProgressPrint(My.Resources.Min_time)
 
     End Sub
@@ -1644,6 +1653,22 @@ Public Class FormSmartStart
 
         If Not _initialized Then Return
         Settings.TempRegion = TempCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShutDownButton.CheckedChanged
+
+        If Not _initialized Then Return
+        Settings.BootOrSuspend = True
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles SuspendButton.CheckedChanged
+
+        If Not _initialized Then Return
+        Settings.BootOrSuspend = False
         Settings.SaveSettings()
 
     End Sub
