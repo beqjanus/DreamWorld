@@ -108,7 +108,7 @@ if (mysqli_connect_errno())
 }
   
   
-
+ $xx = 0; # otherwise $region[$xx] will go to "" as null is a string
 
   while($region=mysqli_fetch_array($z))
   {
