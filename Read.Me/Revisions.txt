@@ -1,13 +1,16 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.898
+Prevent a crash in Dreamgrid if the Regions folder is missing. 
+MetroMap (map.php) was missing the first cell.  It moved around based on the screen view.  $xx was not defined. An undefined variable is null, so if you use array($xx), instead of the 0th index, you gets the 'null'th place. which should be to 0th, but noooooo.  Thanks for the tip and the fix, awss!
+Firewall is now open for port 443 for SSL. You need to port forward 443 in your router to use SSL!
 
 V4.897
 SSL fixes - moved the folder to Outworldzfiles\SSL, added tests for Apache is running, and on port 80.
 If Apache Port 80 is not forwarded, some brain-dead routers do not loop it back. Local Search may then be broken. Search now uses LAN IP instead of Localhost.
 Should not be able to edit the UUID in EditUser form    
 Add tests for fail to unlink files to Perl Builder
-
 
 V4.896
 A patch for avatars not showing on the Regions->Avatars screen.  You can search in the avatar names and email addresses now.
