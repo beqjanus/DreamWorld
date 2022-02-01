@@ -8,8 +8,14 @@ Module Ports
 
     Public Function GetAlreadyUsedPorts() As Integer
 
-        Dim uuid As String = ""
-        Dim folders() = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
+        Dim folders()
+        Dim uuid As String
+        Try
+            folders = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
+        Catch
+            Return 0
+        End Try
+
         System.Array.Sort(folders)
         Dim Ctr As Integer = 0
         For Each FolderName As String In folders
