@@ -350,7 +350,7 @@ Public Class FormSetup
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
         For Each RegionUUID As String In RegionUuids()
-
+            ResumeRegion(RegionUUID)
             If RegionEnabled(RegionUUID) And
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
              RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then

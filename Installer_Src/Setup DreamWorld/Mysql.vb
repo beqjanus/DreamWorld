@@ -393,12 +393,31 @@ Public Module MysqlInterface
         Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
         QueryString(stm)
 
-        Dim arr As String() = RegionUuids.ToArray
+        ' make a list of  'uuid1', 'uuid2' etc
+        Dim list2 As New List(Of String)
+        For Each item In RegionUuids()
+
+            list2.Add($"'{item}'")
+        Next
+        Dim arr As String() = list2.ToArray
         Dim clause = Join(arr, ",")
 
         stm = $"delete from stats where UUID not in ({clause})"
-
         QueryString(stm)
+
+        ' make a list of  'Welcome', 'Virunga' etc
+        list2.Clear()
+        For Each item In RegionUuids()
+            Dim r = Replace(Region_Name(item), "'", "''")  ' escape single quotes with ''
+            list2.Add($"'{r}'")
+        Next
+        arr = list2.ToArray
+        clause = Join(arr, ",")
+
+
+        stm = $"delete from visitor where regionname not in ({clause})"
+        QueryString(stm)
+
 
     End Sub
 
