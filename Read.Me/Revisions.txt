@@ -3,15 +3,17 @@ This is a high-level view of major changes. For detailed commit history, checkou
 
 
 V4.897
-SSL fixes - moved the folder to Outworldzfiles\SSL
-If Apache Port 80 is not forwarded, some brain-dead routers do not loop it back. Local Search is then broken. Search now uses LAN IP instead of public IP.
+SSL fixes - moved the folder to Outworldzfiles\SSL, added tests for Apache is running, and on port 80.
+If Apache Port 80 is not forwarded, some brain-dead routers do not loop it back. Local Search may then be broken. Search now uses LAN IP instead of Localhost.
+Should not be able to edit the UUID in EditUser form    
+Add tests for fail to unlink files to Perl Builder
 
 
 V4.896
 A patch for avatars not showing on the Regions->Avatars screen.  You can search in the avatar names and email addresses now.
 SSL certificates for Apache added to Settings.  See SSL in Help or click SSL in Settings. You must be running Apache on Port 80 for this to work!
 Added a dynamically adjusting innodb_buffer_pool_size to Mysql. Starts at 1 GB and increases as needed. Used only on very large grids.
-
+fsassets form always proimpted you to save even when nothing chnaged
 
 V4.895
 You can click any user in the Region Panel “Users” section and edit the details.  You can change a user name, change God level and give them a title.
