@@ -54,6 +54,14 @@ say('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
+system('TASKKILL /F /IM mysqld* /T ');
+system('TASKKILL /F /IM opensim* /T ');
+system('TASKKILL /F /IM robust* /T ');
+system('TASKKILL /F /IM icecast* /T ');
+
+
+
+
 $v > io("$dir/Version.txt");
 
 
@@ -109,7 +117,7 @@ foreach my $path (@deletions) {
     DeleteandKeep($path);
 }
 
-
+JustDelete('/Opensim/Zip');
 DelMaps();
 
 
@@ -169,14 +177,6 @@ close OUT;
 doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
 doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
-if ( $publish =~ /c|p/ ) {
-    say("Mysql");
-    chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-    print `mysqladmin.exe --port 3306 -u root shutdown`;
-    sleep(1);
-    chdir($dir);
-    say("Cleaned");
-}
 
 say('Copy Manuals');
 if (
@@ -202,7 +202,7 @@ sign($dir);
 
 print "Processing Main Zip\n";
 
-JustDelete('/Opensim/Zip');
+
 
 my @files = `cmd /c dir /b `;
 
@@ -614,6 +614,10 @@ sub doUnlink {
     my $file = shift;
     if (-e $file) {
         unlink $file || die "Cannot unlink $file";
+    }
+    
+    if (-e $file) {
+        die ;
     }
 }
 
