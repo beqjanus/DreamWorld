@@ -76,7 +76,7 @@ say("Clean up fsassets");
 
 my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets""!;
 `$todo`;
-$todo = qq!RMDIR /Q/S     "$dir/OutworldzFiles/opensim/bin/fsassets"!;
+$todo = qq!RMDIR /Q/S  "$dir/OutworldzFiles/opensim/bin/fsassets"!;
 `$todo`;
 
 say("Clean up opensim");
@@ -84,7 +84,6 @@ say("Clean up opensim");
 
 my @deletions = (
     "$dir/OutworldzFiles/AutoBackup",
-
     "$dir/OutworldzFiles/Opensim/WifiPages-Custom",
     "$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
     "$dir/OutworldzFiles/Opensim/WifiPages",

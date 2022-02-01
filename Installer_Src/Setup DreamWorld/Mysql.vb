@@ -12,7 +12,6 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
-
 Public Class MailList
 
     Public firstname As String = ""
@@ -386,13 +385,26 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Delete old visitors and regions that no longer exist from the stats table
+    ''' </summary>
     Public Sub DeleteOldVisitors()
 
         Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
         QueryString(stm)
 
+        Dim arr As String() = RegionUuids.ToArray
+        Dim clause = Join(arr, ",")
+
+        stm = $"delete from stats where UUID not in ({clause})"
+
+        QueryString(stm)
+
     End Sub
 
+    '''
+    ''' logs out any users when we kill the grid
+    ''' 
     Public Sub DeleteOnlineUsers()
 
         If PropOpensimIsRunning Then
@@ -1607,8 +1619,10 @@ Public Module MysqlInterface
                 End Using
             Catch ex As MySqlException
                 BreakPoint.Print(ex.Message)
+                Bytes = Settings.Total_InnoDB_GBytes
             Catch ex As Exception
                 BreakPoint.Dump(ex)
+                Bytes = Settings.Total_InnoDB_GBytes
             End Try
         End Using
 
