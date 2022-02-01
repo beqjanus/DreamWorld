@@ -702,10 +702,11 @@ Public Class FormSmartStart
             n += 1
         Next
 
-        ' If Debugger.IsAttached Then
-        ' debug
-        ' LandMaker("7408caab-9a55-4a9b-aa1a-584d95063c43")
-        ' End If
+        If Debugger.IsAttached Then
+            SuspendButton.Visible = True
+        Else
+            SuspendButton.Visible = False
+        End If
 
         HelpOnce("SmartStart")
         _initialized = True

@@ -13,11 +13,6 @@ Public Class FormEditUser
         End Set
     End Property
 
-    Private Sub SaveUD()
-
-        MysqlSaveUserData(UD)
-
-    End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
