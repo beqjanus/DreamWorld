@@ -21,6 +21,7 @@ use Cwd;
 my $dir = getcwd;
 
 my $zip = '/Opensim/Zip/';
+JustDelete($zip);
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
 
 
@@ -72,6 +73,8 @@ foreach my $f (@a) {
     }
 }
 
+DelZips();
+
 say("Clean up fsassets");
 
 my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets""!;
@@ -106,7 +109,7 @@ foreach my $path (@deletions) {
     DeleteandKeep($path);
 }
 
-DelZips();
+
 DelMaps();
 
 
@@ -382,11 +385,11 @@ if ( $publish =~ /p/ ) {
         die $!;
     }
 
-    print "Revisions\n";
+    print "Manual\n";
 
     if (
         !copy(
-            'outworldzfiles\\Help\\Dreamgrid Manual.pdf',
+            'outworldzfiles/Help/Dreamgrid Manual.pdf',
             'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'
         )
       )
