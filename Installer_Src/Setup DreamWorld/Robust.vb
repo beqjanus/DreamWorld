@@ -15,8 +15,7 @@ Module Robust
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustProcID As Integer
-    Private lineCount As Integer = 0
-    Private output As New StringBuilder()
+
 
     Public Property PropRobustExited() As Boolean
         Get

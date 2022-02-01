@@ -8,7 +8,6 @@
 Module Updater
 
     Private WithEvents UpdateProcess As New Process()
-    Public SkipUntilVersion As Double = 0
 
 #Region "Updater"
 
