@@ -790,6 +790,7 @@ Public Class FormSmartStart
             Case 3
                 PictureBox4.Image = My.Resources._7x7
         End Select
+        Settings.SaveSettings()
 
     End Sub
 
@@ -809,6 +810,7 @@ Public Class FormSmartStart
         If _StopLoading Then Return
 
         gEstateOwner = Settings.SurroundOwner
+
 
         Dim CoordX = CStr(LargestX() + 18)
         Dim CoordY = CStr(LargestY() + 18)
@@ -1182,6 +1184,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
+        Settings.SaveSettings()
         If Settings.SmartStartTimeout < 10 Then Settings.SmartStartTimeout = 10
         ProgressPrint(My.Resources.minkeepalive)
 
@@ -1214,6 +1217,7 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.Smart_Start = SmartStartEnabled.Checked
         ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
+        Settings.SaveSettings()
     End Sub
 
 #End Region
@@ -1389,20 +1393,25 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
+
         Settings.LandNoise = Noise.Checked
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub OptionRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles OptionRadioButton.CheckedChanged
+
         Settings.TerrainType = "Option"
         TerrainPic.Image = My.Resources.NoImage
+
     End Sub
 
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
+
         Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
         ProgressPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
@@ -1420,18 +1429,22 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged
+
         If Not _initialized Then Return
         Settings.LandSmooth = Smooth.Checked
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub Smooth_TextChanged_2(sender As Object, e As EventArgs) Handles SmoothTextBox.TextChanged
+
         If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         SmoothTextBox.Text = digitsOnly.Replace(SmoothTextBox.Text, "")
         If Convert.ToSingle("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then SmoothTextBox.Text = CStr(1)
         Settings.LandStrength = CDbl("0" & SmoothTextBox.Text)
         Settings.SaveSettings()
+
     End Sub
 
 #End Region
@@ -1622,12 +1635,14 @@ Public Class FormSmartStart
         Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
         If Settings.TeleportSleepTime < 0 Then Settings.TeleportSleepTime = 0
         ProgressPrint(My.Resources.Min_time)
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
 
         Settings.DeleteTreesFirst = DeletApply.Checked
+        Settings.SaveSettings()
 
     End Sub
 
