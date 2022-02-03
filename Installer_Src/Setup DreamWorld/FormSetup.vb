@@ -978,22 +978,25 @@ Public Class FormSetup
         Joomla.CheckForjOpensimUpdate()
 
         IsMySqlRunning()
-        'IsRobustRunning()
+        IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
+
+        Settings.SaveSettings()
+        StartTimer()
+
+        Application.DoEvents() ' let timer run
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
             Application.DoEvents()
             Startup()
         Else
-            Settings.SaveSettings()
             TextPrint(My.Resources.Ready_to_Launch & vbCrLf & "------------------" & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
             Application.DoEvents()
             Buttons(StartButton)
         End If
 
-        StartTimer()
         ToolBar(True)
 
     End Sub
@@ -2418,6 +2421,7 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
+        If TimerMain.Enabled Then Return
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
         TimerBusy = 0

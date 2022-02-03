@@ -35,6 +35,8 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.SuspendButton = New System.Windows.Forms.RadioButton()
+        Me.ShutDownButton = New System.Windows.Forms.RadioButton()
         Me.DelayRegionReady = New System.Windows.Forms.TextBox()
         Me.DelayLabelRegionReady = New System.Windows.Forms.Label()
         Me.EndlessLand = New System.Windows.Forms.GroupBox()
@@ -52,6 +54,8 @@ Partial Class FormSmartStart
         Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
         Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BulkLoadRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AbortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.BakeButton = New System.Windows.Forms.Button()
@@ -159,8 +163,6 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ShutDownButton = New System.Windows.Forms.RadioButton()
-        Me.SuspendButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -283,6 +285,28 @@ Partial Class FormSmartStart
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'SuspendButton
+        '
+        Me.SuspendButton.AutoSize = True
+        Me.SuspendButton.Location = New System.Drawing.Point(166, 95)
+        Me.SuspendButton.Name = "SuspendButton"
+        Me.SuspendButton.Size = New System.Drawing.Size(67, 17)
+        Me.SuspendButton.TabIndex = 54
+        Me.SuspendButton.TabStop = True
+        Me.SuspendButton.Text = "Suspend"
+        Me.SuspendButton.UseVisualStyleBackColor = True
+        '
+        'ShutDownButton
+        '
+        Me.ShutDownButton.AutoSize = True
+        Me.ShutDownButton.Location = New System.Drawing.Point(255, 95)
+        Me.ShutDownButton.Name = "ShutDownButton"
+        Me.ShutDownButton.Size = New System.Drawing.Size(80, 17)
+        Me.ShutDownButton.TabIndex = 53
+        Me.ShutDownButton.TabStop = True
+        Me.ShutDownButton.Text = "Shuit Down"
+        Me.ShutDownButton.UseVisualStyleBackColor = True
         '
         'DelayRegionReady
         '
@@ -440,10 +464,25 @@ Partial Class FormSmartStart
         '
         'BulkLoadRegionsToolStripMenuItem
         '
+        Me.BulkLoadRegionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem, Me.AbortToolStripMenuItem})
         Me.BulkLoadRegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.BulkLoadRegionsToolStripMenuItem.Name = "BulkLoadRegionsToolStripMenuItem"
         Me.BulkLoadRegionsToolStripMenuItem.Size = New System.Drawing.Size(132, 20)
         Me.BulkLoadRegionsToolStripMenuItem.Text = "Bulk Load Regions"
+        '
+        'StartToolStripMenuItem
+        '
+        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StartToolStripMenuItem.Text = "Start"
+        '
+        'AbortToolStripMenuItem
+        '
+        Me.AbortToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
+        Me.AbortToolStripMenuItem.Name = "AbortToolStripMenuItem"
+        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AbortToolStripMenuItem.Text = "Stop"
         '
         'TabPage2
         '
@@ -1586,28 +1625,6 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
-        'ShutDownButton
-        '
-        Me.ShutDownButton.AutoSize = True
-        Me.ShutDownButton.Location = New System.Drawing.Point(255, 95)
-        Me.ShutDownButton.Name = "ShutDownButton"
-        Me.ShutDownButton.Size = New System.Drawing.Size(80, 17)
-        Me.ShutDownButton.TabIndex = 53
-        Me.ShutDownButton.TabStop = True
-        Me.ShutDownButton.Text = "Shuit Down"
-        Me.ShutDownButton.UseVisualStyleBackColor = True
-        '
-        'SuspendButton
-        '
-        Me.SuspendButton.AutoSize = True
-        Me.SuspendButton.Location = New System.Drawing.Point(166, 95)
-        Me.SuspendButton.Name = "SuspendButton"
-        Me.SuspendButton.Size = New System.Drawing.Size(67, 17)
-        Me.SuspendButton.TabIndex = 54
-        Me.SuspendButton.TabStop = True
-        Me.SuspendButton.Text = "Suspend"
-        Me.SuspendButton.UseVisualStyleBackColor = True
-        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1799,4 +1816,6 @@ Partial Class FormSmartStart
     Friend WithEvents DelayLabelRegionReady As Label
     Friend WithEvents SuspendButton As RadioButton
     Friend WithEvents ShutDownButton As RadioButton
+    Friend WithEvents StartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AbortToolStripMenuItem As ToolStripMenuItem
 End Class
