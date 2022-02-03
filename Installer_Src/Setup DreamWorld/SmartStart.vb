@@ -721,9 +721,6 @@ Module SmartStart
         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
-        If Settings.MapType <> "None" Or MapType(RegionUUID).Length > 0 Then
-            ConsoleCommand(RegionUUID, "generate map")
-        End If
 
         ConsoleCommand(RegionUUID, "backup")
 

@@ -22,7 +22,7 @@ Public Class FormSmartStart
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
-
+    Private _StopLoading As Boolean
     Private _SelectedPlant As String
 
 #Region "ScreenSize"
@@ -798,11 +798,15 @@ Public Class FormSmartStart
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
+        If _StopLoading Then Return
+
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
         If Settings.SurroundOwner.Length = 0 Then
-            MsgBox("No Owner!")
+            MsgBox("Set the Owner of the Sim Surrounds and try again.")
             Return
         End If
+
+        If _StopLoading Then Return
 
         gEstateOwner = Settings.SurroundOwner
 
@@ -818,6 +822,8 @@ Public Class FormSmartStart
             Return
         End If
 
+        If _StopLoading Then Return
+
         Dim X As Integer = CInt(match.Groups(1).Value)
         Dim Y As Integer = CInt(match.Groups(2).Value)
         Dim StartX As Integer = X
@@ -831,8 +837,12 @@ Public Class FormSmartStart
         If Not StartRobust() Then Return
         FormSetup.StartTimer()
 
+        If _StopLoading Then Return
+
         Try
             For Each J In FormSetup.ContentOAR.GetJson
+                If _StopLoading Then Return
+
                 If Not PropOpensimIsRunning Then Return
                 ' Get name from web site JSON
                 Dim Name = J.Name
@@ -865,6 +875,8 @@ Public Class FormSmartStart
                     End If
                 Else ' its a new region
                     ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
+
+                    If _StopLoading Then Return
                     RegionUUID = CreateRegionStruct(shortname)
 
                     ' setup parameters for the load
@@ -906,12 +918,12 @@ Public Class FormSmartStart
                     GroupPort(RegionUUID) = port
                     Region_Port(RegionUUID) = port
                     WriteRegionObject(shortname, shortname)
-
                     Firewall.SetFirewall()
                     PropChangedRegionSettings = True
                     PropUpdateView = True ' make form refresh
 
                 End If
+                If _StopLoading Then Return
 
                 ProgressPrint($"{My.Resources.Start_word} {shortname}")
                 If Not PropOpensimIsRunning Then Return
@@ -922,7 +934,8 @@ Public Class FormSmartStart
                 }
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
 
-                Sleep(1000) ' wait 1 seconds between each.
+                Sleep(1000) ' wait 1 second between each.
+                If _StopLoading Then Return
 
             Next
         Catch ex As Exception
@@ -1425,11 +1438,6 @@ Public Class FormSmartStart
 
 #Region "Editor"
 
-    Private Sub BulkLoadRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BulkLoadRegionsToolStripMenuItem.Click
-
-        LoadAllFreeOARs()
-
-    End Sub
 
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
         If Not _initialized Then Return
@@ -1671,6 +1679,19 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.BootOrSuspend = False
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
+
+        _StopLoading = True
+
+    End Sub
+
+    Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+
+        _StopLoading = True
+        LoadAllFreeOARs()
 
     End Sub
 
