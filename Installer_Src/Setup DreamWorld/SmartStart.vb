@@ -234,16 +234,15 @@ Module SmartStart
         '  ?Start=1&End=32
 
         Dim startRegion As Integer = 1
-        Dim lastRegion As Integer = 256 ' a default for older signs
+        Dim Count As Integer = 256 ' a default for older signs
 
-        Dim pattern = New Regex("Start=(\d+?)&End=(\d+)", RegexOptions.IgnoreCase)
+        Dim pattern = New Regex("Start=(\d+?)&Count=(\d+)", RegexOptions.IgnoreCase)
         Dim match As Match = pattern.Match(Data)
         If match.Success Then
             Integer.TryParse(Uri.UnescapeDataString(match.Groups(1).Value), startRegion)
-            Integer.TryParse(Uri.UnescapeDataString(match.Groups(2).Value), lastRegion)
+            Integer.TryParse(Uri.UnescapeDataString(match.Groups(2).Value), Count)
         End If
 
-        Dim count = lastRegion - startRegion    ' usually 32
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
@@ -262,7 +261,8 @@ Module SmartStart
         Dim NewSort As New List(Of String)
         If startRegion = 1 Then        ' first sign
             NewSort.Add(Settings.WelcomeRegion)
-            lastRegion -= 1       ' we have used up a slot
+        Else
+            startRegion -= 1
         End If
 
         For Each item In ToSort
@@ -271,27 +271,26 @@ Module SmartStart
             End If
         Next
 
-        Dim Index As Integer = 1
 
+        Dim ctr = 1
+        Dim used = 1
         For Each RegionName In NewSort
 
             Dim RegionUUID = FindRegionByName(RegionName)
 
             ' only print the ones inclusive between startRegion and lastRegion
-            If Index >= startRegion And Index <= lastRegion Then
+            If ctr >= startRegion And used <= Count Then
 
                 Dim status = RegionStatus(RegionUUID)
 
-                If (Teleport_Sign(RegionUUID) = "True" AndAlso
-                        status = SIMSTATUSENUM.Booted) Or
-                       (Teleport_Sign(RegionUUID) = "True" AndAlso
-                         Smart_Start(RegionUUID) = "True" AndAlso
-                        Settings.Smart_Start) Then
+                If Teleport_Sign(RegionUUID) = "True" AndAlso RegionEnabled(RegionUUID) Or
+                  (Teleport_Sign(RegionUUID) = "True" AndAlso Smart_Start(RegionUUID) = "True" AndAlso Settings.Smart_Start) Then
 
                     HTML += $"*|{RegionName}||{Settings.PublicIP}:{Settings.HttpPort}:{RegionName}||{RegionName}|{vbCrLf}"
+                    used += 1
                 End If
             End If
-            Index += 1
+            ctr += 1
         Next
 
         Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"

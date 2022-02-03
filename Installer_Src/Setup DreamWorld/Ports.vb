@@ -8,8 +8,7 @@ Module Ports
 
     Public Function GetAlreadyUsedPorts() As Integer
 
-        Dim folders()
-        Dim uuid As String
+        Dim folders() As String
         Try
             folders = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
         Catch
