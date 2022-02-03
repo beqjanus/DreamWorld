@@ -787,6 +787,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 10 Minutes.
+        '''</summary>
+        Friend ReadOnly Property AxisXTitle() As String
+            Get
+                Return ResourceManager.GetString("AxisXTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backing up Settings.
         '''</summary>
         Friend ReadOnly Property Backing_up_Settings_word() As String
@@ -3884,15 +3893,6 @@ Namespace My.Resources
         Friend ReadOnly Property First_name_word() As String
             Get
                 Return ResourceManager.GetString("First_name_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Five Seconds Per Tick.
-        '''</summary>
-        Friend ReadOnly Property FiveMinutes_word() As String
-            Get
-                Return ResourceManager.GetString("FiveMinutes_word", resourceCulture)
             End Get
         End Property
         

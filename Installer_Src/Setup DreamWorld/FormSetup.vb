@@ -2446,6 +2446,7 @@ Public Class FormSetup
 
             If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
+                Chart()                     ' do charts collection each 2 second or s
                 PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 CheckPost()                 ' see if anything arrived in the web server
@@ -2456,7 +2457,6 @@ Public Class FormSetup
 
             If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
-                Chart()                     ' do charts collection each second
                 ScanAgents()                ' update agent count
                 Bench.Print("5 second worker ends")
             End If
