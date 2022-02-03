@@ -32,7 +32,7 @@ Public Class FormSetup
 
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly TaskQue As New List(Of TaskObject) ' TO DO we can stack up multiple commands to send to regions when they boot
+    Private ReadOnly TaskQue As New List(Of TaskObject) ' TODO we can stack up multiple commands to send to regions when they boot
     Private ReadOnly TimerLock As New Object
 
     Private _Adv As FormSettings
@@ -1483,7 +1483,7 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        ' TO DO add taskque so we can have more than one command
+        ' TODO add taskque so we can have more than one command
         'TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
@@ -2486,7 +2486,7 @@ Public Class FormSetup
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
 
-                RegionListHTML("Name") ' create HTML for teleport boards
+                RegionListHTML("Name") ' create HTML for old teleport boards
                 VisitorCount()
                 Bench.Print("60 second work done")
             End If

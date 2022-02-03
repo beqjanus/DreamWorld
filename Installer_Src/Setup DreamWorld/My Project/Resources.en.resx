@@ -154,7 +154,7 @@
     <value>All/None</value>
   </data>
   <data name="AllowGodsTooltip" xml:space="preserve">
-    <value>If this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with **Allow Gods In This Region**.  This setting has nothing to do with the other two settings.</value>
+    <value>If this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with **Allow Gods In This Region**.  This setting does not mess  with the other two settings.</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>The original Second Life clouds</value>

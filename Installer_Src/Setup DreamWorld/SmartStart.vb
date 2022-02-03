@@ -227,56 +227,71 @@ Module SmartStart
 
     Public Function RegionListHTML(Data As String) As String
 
-        ' TODO add parameter for start and length
+        ' there is only a 16KB capability in Opensim for reading a web page.
+        ' so we have to ask for a 1-32, 2-64 size chunks for larger grids
+
+        ' Added Start and End integers
+        '  ?Start=1&End=32
+
+        Dim startRegion As Integer = 1
+        Dim lastRegion As Integer = 256 ' a default for older signs
+
+        Dim pattern = New Regex("Start=(\d+?)&End=(\d+)", RegexOptions.IgnoreCase)
+        Dim match As Match = pattern.Match(Data)
+        If match.Success Then
+            Integer.TryParse(Uri.UnescapeDataString(match.Groups(1).Value), startRegion)
+            Integer.TryParse(Uri.UnescapeDataString(match.Groups(2).Value), lastRegion)
+        End If
+
+        Dim count = lastRegion - startRegion    ' usually 32
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String = ""
-        Dim ToSort As New Dictionary(Of String, String)
 
-        Dim WelcomeUUID = FindRegionByName(Settings.WelcomeRegion)
-        ToSort.Add(Settings.WelcomeRegion, "0")
-
+        ' whole lotta sorting going on as the RegionUUID list is not sorted.
+        Dim ToSort As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
+            ToSort.Add(Region_Name(RegionUUID))
+        Next
+        ToSort.Sort() ' not it is sorted
 
-            Dim Sort = ""
-            Dim Name As String
-            If Data.ToUpperInvariant.Contains("NAME") Then
-                Name = Region_Name(RegionUUID)
-            ElseIf Data.ToUpperInvariant.Contains("GROUP") Then
-                Name = Group_Name(RegionUUID)
-            ElseIf Data.ToUpperInvariant.Contains("ESTATE") Then
-                Name = EstateName(RegionUUID)
-            Else
-                Name = Region_Name(RegionUUID)
-            End If
+        ' but we want Welcome at the very beginning of the 1st sign
+        Dim NewSort As New List(Of String)
+        If startRegion = 1 Then        ' first sign
+            NewSort.Add(Settings.WelcomeRegion)
+            lastRegion -= 1       ' we have used up a slot
+        End If
 
-            'Debug.Print($"Sort by {Name}")
-
-            Dim status = RegionStatus(RegionUUID)
-
-            If (Teleport_Sign(RegionUUID) = "True" AndAlso
-                status = SIMSTATUSENUM.Booted) Or
-               (Teleport_Sign(RegionUUID) = "True" AndAlso
-                 Smart_Start(RegionUUID) = "True" AndAlso
-                Settings.Smart_Start) Then
-
-                If Settings.WelcomeRegion = Region_Name(RegionUUID) Then Continue For
-                ' Bugreport #286942400
-                If Not ToSort.ContainsKey(Region_Name(RegionUUID)) Then
-                    ToSort.Add(Region_Name(RegionUUID), Name)
-                End If
+        For Each item In ToSort
+            If item <> Settings.WelcomeRegion Then
+                NewSort.Add(item)
             End If
         Next
 
-        Dim myList As List(Of KeyValuePair(Of String, String)) = ToSort.ToList()
-        Dim sorted = ToSort.OrderBy(Function(kvp) kvp.Value, StringComparer.CurrentCultureIgnoreCase).ToDictionary(Function(kvp) kvp.Key, Function(kvp) kvp.Value)
+        Dim Index As Integer = 1
 
-        For Each S As KeyValuePair(Of String, String) In sorted
-            Dim V = S.Key
-            HTML += $"*|{V}||{Settings.PublicIP}:{Settings.HttpPort}:{V}||{V}|{vbCrLf}"
+        For Each RegionName In NewSort
+
+            Dim RegionUUID = FindRegionByName(RegionName)
+
+            ' only print the ones inclusive between startRegion and lastRegion
+            If Index >= startRegion And Index <= lastRegion Then
+
+                Dim status = RegionStatus(RegionUUID)
+
+                If (Teleport_Sign(RegionUUID) = "True" AndAlso
+                        status = SIMSTATUSENUM.Booted) Or
+                       (Teleport_Sign(RegionUUID) = "True" AndAlso
+                         Smart_Start(RegionUUID) = "True" AndAlso
+                        Settings.Smart_Start) Then
+
+                    HTML += $"*|{RegionName}||{Settings.PublicIP}:{Settings.HttpPort}:{RegionName}||{RegionName}|{vbCrLf}"
+                End If
+            End If
+            Index += 1
         Next
 
         Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"

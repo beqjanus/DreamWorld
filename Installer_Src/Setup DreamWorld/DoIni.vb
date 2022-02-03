@@ -218,7 +218,7 @@ Module DoIni
         Dim d = IO.Path.Combine(Settings.OpensimBinPath, "config-include\")
         d = IO.Path.Combine(d, "GridCommon.ini")
 
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit
+        ' set the defaults in the INI for the viewer to use. Painful as it's a Left hand side edit
         Dim reader As IO.StreamReader
         Dim line As String
 
@@ -422,7 +422,7 @@ Module DoIni
     Public Function DoSetDefaultSims() As Boolean
 
         TextPrint("->Set Default Sims")
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful  as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As IO.StreamReader
         Dim line As String
 
@@ -446,9 +446,7 @@ Module DoIni
             DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart
-
-            ' TODO:  NoDirectLogin
+            ' enabled Region_Name = FallbackRegion if not a SmartStart            
 
             Dim Welcome As String = Settings.WelcomeRegion
             Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file

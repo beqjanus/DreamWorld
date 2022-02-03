@@ -209,11 +209,10 @@ Public Class Backups
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                ' TODO: dispose managed state (managed objects)
+                IARLock.dispose
             End If
-
-            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            ' TODO: set large fields to null
+            ' free unmanaged resources (unmanaged objects) and override finalizer
+            ' set large fields to null
             disposedValue = True
         End If
     End Sub
