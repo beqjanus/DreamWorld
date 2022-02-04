@@ -191,7 +191,7 @@ Partial Class FormSmartStart
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(17, 95)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(18, 114)
         Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
@@ -289,7 +289,7 @@ Partial Class FormSmartStart
         'SuspendButton
         '
         Me.SuspendButton.AutoSize = True
-        Me.SuspendButton.Location = New System.Drawing.Point(166, 95)
+        Me.SuspendButton.Location = New System.Drawing.Point(167, 114)
         Me.SuspendButton.Name = "SuspendButton"
         Me.SuspendButton.Size = New System.Drawing.Size(67, 17)
         Me.SuspendButton.TabIndex = 54
@@ -300,7 +300,7 @@ Partial Class FormSmartStart
         'ShutDownButton
         '
         Me.ShutDownButton.AutoSize = True
-        Me.ShutDownButton.Location = New System.Drawing.Point(255, 95)
+        Me.ShutDownButton.Location = New System.Drawing.Point(256, 114)
         Me.ShutDownButton.Name = "ShutDownButton"
         Me.ShutDownButton.Size = New System.Drawing.Size(80, 17)
         Me.ShutDownButton.TabIndex = 53
@@ -412,16 +412,16 @@ Partial Class FormSmartStart
         'ListBox2
         '
         Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
+        Me.ListBox2.Items.AddRange(New Object() {"0", "1", "2", "3"})
         Me.ListBox2.Location = New System.Drawing.Point(21, 172)
         Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(56, 43)
+        Me.ListBox2.Size = New System.Drawing.Size(56, 56)
         Me.ListBox2.TabIndex = 39
         '
         'ParkingRegion
         '
         Me.ParkingRegion.AutoSize = True
-        Me.ParkingRegion.Location = New System.Drawing.Point(392, 99)
+        Me.ParkingRegion.Location = New System.Drawing.Point(398, 23)
         Me.ParkingRegion.Name = "ParkingRegion"
         Me.ParkingRegion.Size = New System.Drawing.Size(80, 13)
         Me.ParkingRegion.TabIndex = 40
@@ -430,20 +430,20 @@ Partial Class FormSmartStart
         'ParkingSpot
         '
         Me.ParkingSpot.FormattingEnabled = True
-        Me.ParkingSpot.Location = New System.Drawing.Point(395, 122)
+        Me.ParkingSpot.Location = New System.Drawing.Point(401, 46)
         Me.ParkingSpot.Name = "ParkingSpot"
-        Me.ParkingSpot.Size = New System.Drawing.Size(202, 225)
+        Me.ParkingSpot.Size = New System.Drawing.Size(202, 303)
         Me.ParkingSpot.TabIndex = 38
         '
         'TextBox1
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(17, 122)
+        Me.TextBox1.Location = New System.Drawing.Point(17, 154)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(369, 225)
+        Me.TextBox1.Size = New System.Drawing.Size(369, 193)
         Me.TextBox1.TabIndex = 34
         '
         'MenuStrip4
@@ -474,14 +474,14 @@ Partial Class FormSmartStart
         '
         Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
-        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
         Me.StartToolStripMenuItem.Text = "Start"
         '
         'AbortToolStripMenuItem
         '
         Me.AbortToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
         Me.AbortToolStripMenuItem.Name = "AbortToolStripMenuItem"
-        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
         Me.AbortToolStripMenuItem.Text = "Stop"
         '
         'TabPage2

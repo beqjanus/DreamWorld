@@ -543,7 +543,9 @@ Public Class FormSmartStart
         Label8.Text = My.Resources.Height
         Label9.Text = My.Resources.Smooth
         LandscapingToolStripMenuItem.Text = My.Resources.Landscaping
-        ListBox2.SelectedIndex = Settings.Skirtsize - 1
+
+        ListBox2.SelectedIndex = Settings.Skirtsize
+
         LoadTerrain.Text = My.Resources.LoadTerrain
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         Noise.Text = My.Resources.Noise
@@ -630,6 +632,8 @@ Public Class FormSmartStart
         End If
 
         Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1X1
             Case 1
                 PictureBox4.Image = My.Resources._3x3
             Case 2
@@ -783,6 +787,8 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
         Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1x1
             Case 1
                 PictureBox4.Image = My.Resources._3x3
             Case 2
