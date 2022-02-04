@@ -82,6 +82,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property _1X1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("_1X1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property _3x3() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("_3x3", resourceCulture)
@@ -1788,9 +1798,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Clear_Selected_Caches_word", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do not overwrite the existing region&apos;s terrain.'
+        '''  Looks up a localized string similar to Do not overwrite the existing region&apos;s terrain..
         '''</summary>
         Friend ReadOnly Property Clear_Terrain_tooltip() As String
             Get
@@ -3100,27 +3110,27 @@ Namespace My.Resources
                 Return ResourceManager.GetString("DNSNameText", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do not interrupt!'.
+        '''  Looks up a localized string similar to Do not interrupt!.
         '''</summary>
         Friend ReadOnly Property Do_Not_Interrupt_word() As String
             Get
                 Return ResourceManager.GetString("Do_Not_Interrupt_word", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do not change' unless the database has already been created.
+        '''  Looks up a localized string similar to Do not change unless the database has already been created.
         '''</summary>
         Friend ReadOnly Property Do_NotChange() As String
             Get
                 Return ResourceManager.GetString("Do_NotChange", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do you still want to stop?'.
+        '''  Looks up a localized string similar to Do you still want to stop?.
         '''</summary>
         Friend ReadOnly Property Do_you_still_want_to_Stop_word() As String
             Get
@@ -3177,36 +3187,36 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Dogwood'.
+        '''  Looks up a localized string similar to Dogwood.
         '''</summary>
         Friend ReadOnly Property Dogwood() As String
             Get
                 Return ResourceManager.GetString("Dogwood", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do Not Show Again.'
+        '''  Looks up a localized string similar to Do Not Show Again.
         '''</summary>
         Friend ReadOnly Property DoNotShowAgain() As String
             Get
                 Return ResourceManager.GetString("DoNotShowAgain", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'DOS Box.'
+        '''  Looks up a localized string similar to DOS Box.
         '''</summary>
         Friend ReadOnly Property DOS_Box_word() As String
             Get
                 Return ResourceManager.GetString("DOS_Box_word", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'A DOS Box named Robust is already running.'
+        '''  Looks up a localized string similar to A DOS Box named Robust is already running.
         '''</summary>
         Friend ReadOnly Property DosBoxRunning() As String
             Get
@@ -7119,9 +7129,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("No_Overlaps", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do not publish this region.'
+        '''  Looks up a localized string similar to Do not publish this region.
         '''</summary>
         Friend ReadOnly Property No_Publish_Items() As String
             Get
@@ -9486,9 +9496,9 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Secret_word", resourceCulture)
             End Get
         End Property
-
+        
         '''<summary>
-        '''  Looks up a localized string similar to 'Do you want to see the log file?.'
+        '''  Looks up a localized string similar to Do you want to see the log file?.
         '''</summary>
         Friend ReadOnly Property See_Log() As String
             Get

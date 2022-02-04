@@ -1430,6 +1430,7 @@
     <None Include="Resources\welcome_toolbox.png" />
     <None Include="Resources\cubes_blue.png" />
     <None Include="Resources\1253433.png" />
+    <None Include="Resources\1X1.jpg" />
     <Content Include="Resources\exit.png" />
     <None Include="Resources\gear_time.png" />
     <Content Include="Resources\jar.ico" />

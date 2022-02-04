@@ -1900,7 +1900,7 @@ Public Class MySettings
 
     Public Property Skirtsize() As Integer
         Get
-            Return CInt("0" & GetMySetting("Skirtsize", "1"))
+            Return CInt("0" & GetMySetting("Skirtsize", "0"))
         End Get
         Set
             SetMySetting("Skirtsize", CType(Value, String))

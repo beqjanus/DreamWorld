@@ -163,7 +163,7 @@ Module IAR
                     For Each RegionUUID As String In RegionUuids()
 
                         Try
-                            If IsBooted(RegionUUID) Then
+                            If IsBooted(RegionUUID) And Smart_Start(RegionUUID) = "False" Then
                                 ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
                                 TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
                                 Exit For
