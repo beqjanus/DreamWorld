@@ -839,8 +839,8 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
+        UpgradeDotNet()
         SetupPerl()
-        SetupPerlModules() ' may require  a restart due to path
 
         TextPrint(My.Resources.Getting_regions_word)
 
@@ -851,7 +851,7 @@ Public Class FormSetup
         Init(True)  ' read all region data
 
         AddVoices() ' add eva and mark voices
-        UpgradeDotNet()
+
         Application.DoEvents()
 
         ' Boot RAM Query
@@ -2290,6 +2290,7 @@ Public Class FormSetup
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
+                    SetupPerlModules()
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
