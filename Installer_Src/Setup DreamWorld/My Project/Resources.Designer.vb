@@ -82,6 +82,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property _1X1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("_1X1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property _3x3() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("_3x3", resourceCulture)
@@ -783,6 +793,15 @@ Namespace My.Resources
         Friend ReadOnly Property Avatarview() As String
             Get
                 Return ResourceManager.GetString("Avatarview", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 10 Minutes.
+        '''</summary>
+        Friend ReadOnly Property AxisXTitle() As String
+            Get
+                Return ResourceManager.GetString("AxisXTitle", resourceCulture)
             End Get
         End Property
         
@@ -3884,15 +3903,6 @@ Namespace My.Resources
         Friend ReadOnly Property First_name_word() As String
             Get
                 Return ResourceManager.GetString("First_name_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Five Seconds Per Tick.
-        '''</summary>
-        Friend ReadOnly Property FiveMinutes_word() As String
-            Get
-                Return ResourceManager.GetString("FiveMinutes_word", resourceCulture)
             End Get
         End Property
         

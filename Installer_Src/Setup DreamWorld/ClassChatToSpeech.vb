@@ -155,11 +155,12 @@ Public Class ChatToSpeech
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                ' TODO: dispose managed state (managed objects)
+                ' dispose managed state (managed objects)
+                Speaker.Dispose()
             End If
 
-            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            ' TODO: set large fields to null
+            ' free unmanaged resources (unmanaged objects) and override finalizer
+            ' set large fields to null
             disposedValue = True
         End If
     End Sub

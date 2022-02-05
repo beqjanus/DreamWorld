@@ -22,7 +22,7 @@ Public Class FormSmartStart
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
-
+    Private _StopLoading As Boolean
     Private _SelectedPlant As String
 
 #Region "ScreenSize"
@@ -543,7 +543,9 @@ Public Class FormSmartStart
         Label8.Text = My.Resources.Height
         Label9.Text = My.Resources.Smooth
         LandscapingToolStripMenuItem.Text = My.Resources.Landscaping
-        ListBox2.SelectedIndex = Settings.Skirtsize - 1
+
+        ListBox2.SelectedIndex = Settings.Skirtsize
+
         LoadTerrain.Text = My.Resources.LoadTerrain
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         Noise.Text = My.Resources.Noise
@@ -630,6 +632,8 @@ Public Class FormSmartStart
         End If
 
         Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1X1
             Case 1
                 PictureBox4.Image = My.Resources._3x3
             Case 2
@@ -783,6 +787,8 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
         Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1x1
             Case 1
                 PictureBox4.Image = My.Resources._3x3
             Case 2
@@ -790,6 +796,7 @@ Public Class FormSmartStart
             Case 3
                 PictureBox4.Image = My.Resources._7x7
         End Select
+        Settings.SaveSettings()
 
     End Sub
 
@@ -798,13 +805,18 @@ Public Class FormSmartStart
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
+        If _StopLoading Then Return
+
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
         If Settings.SurroundOwner.Length = 0 Then
-            MsgBox("No Owner!")
+            MsgBox("Set the Owner of the Sim Surrounds and try again.")
             Return
         End If
 
+        If _StopLoading Then Return
+
         gEstateOwner = Settings.SurroundOwner
+
 
         Dim CoordX = CStr(LargestX() + 18)
         Dim CoordY = CStr(LargestY() + 18)
@@ -817,6 +829,8 @@ Public Class FormSmartStart
             MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Return
         End If
+
+        If _StopLoading Then Return
 
         Dim X As Integer = CInt(match.Groups(1).Value)
         Dim Y As Integer = CInt(match.Groups(2).Value)
@@ -831,8 +845,12 @@ Public Class FormSmartStart
         If Not StartRobust() Then Return
         FormSetup.StartTimer()
 
+        If _StopLoading Then Return
+
         Try
             For Each J In FormSetup.ContentOAR.GetJson
+                If _StopLoading Then Return
+
                 If Not PropOpensimIsRunning Then Return
                 ' Get name from web site JSON
                 Dim Name = J.Name
@@ -865,6 +883,8 @@ Public Class FormSmartStart
                     End If
                 Else ' its a new region
                     ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
+
+                    If _StopLoading Then Return
                     RegionUUID = CreateRegionStruct(shortname)
 
                     ' setup parameters for the load
@@ -906,12 +926,12 @@ Public Class FormSmartStart
                     GroupPort(RegionUUID) = port
                     Region_Port(RegionUUID) = port
                     WriteRegionObject(shortname, shortname)
-
                     Firewall.SetFirewall()
                     PropChangedRegionSettings = True
                     PropUpdateView = True ' make form refresh
 
                 End If
+                If _StopLoading Then Return
 
                 ProgressPrint($"{My.Resources.Start_word} {shortname}")
                 If Not PropOpensimIsRunning Then Return
@@ -922,7 +942,8 @@ Public Class FormSmartStart
                 }
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
 
-                Sleep(1000) ' wait 1 seconds between each.
+                Sleep(1000) ' wait 1 second between each.
+                If _StopLoading Then Return
 
             Next
         Catch ex As Exception
@@ -1169,6 +1190,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
+        Settings.SaveSettings()
         If Settings.SmartStartTimeout < 10 Then Settings.SmartStartTimeout = 10
         ProgressPrint(My.Resources.minkeepalive)
 
@@ -1201,6 +1223,7 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.Smart_Start = SmartStartEnabled.Checked
         ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
+        Settings.SaveSettings()
     End Sub
 
 #End Region
@@ -1376,20 +1399,25 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
+
         Settings.LandNoise = Noise.Checked
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub OptionRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles OptionRadioButton.CheckedChanged
+
         Settings.TerrainType = "Option"
         TerrainPic.Image = My.Resources.NoImage
+
     End Sub
 
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
+
         Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
         ProgressPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
@@ -1407,29 +1435,28 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged
+
         If Not _initialized Then Return
         Settings.LandSmooth = Smooth.Checked
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub Smooth_TextChanged_2(sender As Object, e As EventArgs) Handles SmoothTextBox.TextChanged
+
         If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
         SmoothTextBox.Text = digitsOnly.Replace(SmoothTextBox.Text, "")
         If Convert.ToSingle("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then SmoothTextBox.Text = CStr(1)
         Settings.LandStrength = CDbl("0" & SmoothTextBox.Text)
         Settings.SaveSettings()
+
     End Sub
 
 #End Region
 
 #Region "Editor"
 
-    Private Sub BulkLoadRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BulkLoadRegionsToolStripMenuItem.Click
-
-        LoadAllFreeOARs()
-
-    End Sub
 
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
         If Not _initialized Then Return
@@ -1614,12 +1641,14 @@ Public Class FormSmartStart
         Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
         If Settings.TeleportSleepTime < 0 Then Settings.TeleportSleepTime = 0
         ProgressPrint(My.Resources.Min_time)
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
 
         Settings.DeleteTreesFirst = DeletApply.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -1671,6 +1700,19 @@ Public Class FormSmartStart
         If Not _initialized Then Return
         Settings.BootOrSuspend = False
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
+
+        _StopLoading = True
+
+    End Sub
+
+    Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+
+        _StopLoading = True
+        LoadAllFreeOARs()
 
     End Sub
 

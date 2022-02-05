@@ -160,17 +160,10 @@ Module IAR
                         opt += " --perm=" & Perm & " "
                     End If
 
-                    For Each RegionUUID As String In RegionUuids()
+                    Dim RegionUUID = FindRegionByName(Settings.WelcomeRegion)
+                    ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
+                    TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
 
-                        Try
-                            If IsBooted(RegionUUID) Then
-                                ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                                TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
-                                Exit For
-                            End If
-                        Catch
-                        End Try
-                    Next
                 End If
             End Using
         Else
@@ -223,7 +216,7 @@ Module IAR
                     End If
 
                     Dim p As New Params With {
-                        .RegionName = RegionName,
+                        .RegionName = Settings.WelcomeRegion,
                         .opt = opt,
                         .itemName = itemName
                     }
@@ -274,12 +267,13 @@ Module IAR
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 10 And PropOpensimIsRunning
+        While same < 30 And PropOpensimIsRunning
             Dim fi = New System.IO.FileInfo(BackupName)
             Try
                 s = fi.Length
             Catch ex As Exception
                 BreakPoint.Dump(ex)
+                Return
             End Try
             If s = oldsize And s > 0 Then
                 same += 1
@@ -314,8 +308,6 @@ Module IAR
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(ToBackup)
         Next
-
-        DeleteAllRegionData(RegionUUID)
 
         Return True
 

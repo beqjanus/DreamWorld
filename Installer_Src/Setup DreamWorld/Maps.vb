@@ -50,20 +50,20 @@ Module Maps
                 Dim Y = 0
 
                 ' Loop through the images pixels to reset color.
-                ' TO DO remove
-                If False Then
-                    For X = 0 To bmp.Width - 1
-                        For Y = 0 To bmp.Height - 1
-                            Dim newColor = Color.FromArgb(230, 230, 230)
-                            Try
-                                bmp.SetPixel(X, Y, newColor)
-                            Catch ex As Exception
-                                BreakPoint.Dump(ex)
-                            End Try
 
-                        Next
-                    Next
-                End If
+                'If False Then
+                'For X = 0 To bmp.Width - 1
+                'For Y = 0 To bmp.Height - 1
+                'Dim newColor = Color.FromArgb(230, 230, 230)
+                'Try
+                'bmp.SetPixel(X, Y, newColor)
+                'Catch ex As Exception
+                'BreakPoint.Dump(ex)
+                'End Try
+                '
+                'Next
+                'Next
+                'End If
 
                 Dim Out As Image = bmp
                 Dim Src As Image = bmp

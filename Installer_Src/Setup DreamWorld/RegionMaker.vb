@@ -717,7 +717,7 @@ Module RegionMaker
 
     End Function
 
-    ' TODO:  Fill in blank areas instead of appending to end
+
     Public Function LargestX() As Integer
 
         ' locate largest global coordinates

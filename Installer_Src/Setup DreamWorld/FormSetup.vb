@@ -32,7 +32,7 @@ Public Class FormSetup
 
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly TaskQue As New List(Of TaskObject) ' TO DO we can stack up multiple commands to send to regions when they boot
+    Private ReadOnly TaskQue As New List(Of TaskObject) ' TODO we can stack up multiple commands to send to regions when they boot
     Private ReadOnly TimerLock As New Object
 
     Private _Adv As FormSettings
@@ -978,22 +978,25 @@ Public Class FormSetup
         Joomla.CheckForjOpensimUpdate()
 
         IsMySqlRunning()
-        'IsRobustRunning()
+        IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
+
+        Settings.SaveSettings()
+        StartTimer()
+
+        Application.DoEvents() ' let timer run
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
             Application.DoEvents()
             Startup()
         Else
-            Settings.SaveSettings()
             TextPrint(My.Resources.Ready_to_Launch & vbCrLf & "------------------" & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
             Application.DoEvents()
             Buttons(StartButton)
         End If
 
-        StartTimer()
         ToolBar(True)
 
     End Sub
@@ -1480,7 +1483,7 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        ' TO DO add taskque so we can have more than one command
+        ' TODO add taskque so we can have more than one command
         'TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
@@ -2419,6 +2422,7 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
+        If TimerMain.Enabled Then Return
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
         TimerBusy = 0
@@ -2447,6 +2451,7 @@ Public Class FormSetup
 
             If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
+                Chart()                     ' do charts collection each 2 second or s
                 PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 CheckPost()                 ' see if anything arrived in the web server
@@ -2457,7 +2462,6 @@ Public Class FormSetup
 
             If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
-                Chart()                     ' do charts collection each second
                 ScanAgents()                ' update agent count
                 Bench.Print("5 second worker ends")
             End If
@@ -2483,7 +2487,7 @@ Public Class FormSetup
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
 
-                RegionListHTML("Name") ' create HTML for teleport boards
+                RegionListHTML("Name") ' create HTML for old teleport boards
                 VisitorCount()
                 Bench.Print("60 second work done")
             End If

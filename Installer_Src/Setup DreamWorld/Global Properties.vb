@@ -206,7 +206,6 @@ Module Global_Properties
             Return _RegionFilesChanged
         End Get
         Set(value As Boolean)
-            'Diagnostics.Debug.Print("ViewedSettings =" & value)
             _RegionFilesChanged = value
         End Set
     End Property
