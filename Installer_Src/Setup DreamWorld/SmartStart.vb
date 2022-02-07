@@ -106,7 +106,7 @@ Module SmartStart
                 Return
             End If
 
-            Dim ctr = 60 ' 1 minute max to start a region at 100% CPU
+            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
             While True
 
                 If Not PropOpensimIsRunning Then Return
