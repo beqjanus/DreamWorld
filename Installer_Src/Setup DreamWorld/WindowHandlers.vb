@@ -105,7 +105,6 @@ Module WindowHandlers
         command = command.Replace("(", "{(}")
         command = command.Replace(")", "{)}")
 
-
         Dim PID As Integer
         If RegionUUID = "Robust" Then
 
@@ -117,13 +116,16 @@ Module WindowHandlers
             If PID = 0 Then
                 Return
             End If
-            AppActivate(PID)
+            Try
+                AppActivate(PID)
+                Sleep(100)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.Flush()
+            Catch
+            End Try
 
-            Sleep(100)
-            SendKeys.SendWait("{ENTER}")
-            SendKeys.SendWait(command)
-            SendKeys.SendWait("{ENTER}")
-            SendKeys.Flush()
             Return
         End If
 

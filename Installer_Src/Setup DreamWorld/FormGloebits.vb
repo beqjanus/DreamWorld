@@ -42,7 +42,7 @@ Public Class FormGloebits
 
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        DoGloebits()
+        DoCurrency()
 
     End Sub
 
@@ -55,24 +55,13 @@ Public Class FormGloebits
         GloebitsEnabled.Text = Global.Outworldz.My.Resources.EnableGloebit_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        ProductionButton.Text = Global.Outworldz.My.Resources.Production_Mode_Word
         ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         ProductionCreateButton.Text = Global.Outworldz.My.Resources.Create_Account
         ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
-        SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
-        SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
-        SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Create_Sandbox_word
-        SandboxButton.Text = Global.Outworldz.My.Resources.Sandbox_Mode_word
+
 
         ContactEmailTextBox.Text = Settings.GLBOwnerEmail
         OwnerNameTextbox.Text = Settings.GLBOwnerName
-
-        SandboxButton.Checked = Not Settings.GloebitsMode
-        ProductionButton.Checked = Settings.GloebitsMode
-
-        SandKeyTextBox.Text = Settings.GLSandKey
-        SandSecretTextBox.UseSystemPasswordChar = True
-        SandSecretTextBox.Text = Settings.GLSandSecret
 
         ProdKeyTextBox.Text = Settings.GLProdKey
         ProdSecretTextBox.UseSystemPasswordChar = True
@@ -91,27 +80,12 @@ Public Class FormGloebits
 
 #Region "Mode"
 
-    Private Sub ProductionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles ProductionButton.CheckedChanged
-        If ProductionButton.Checked = True Then
-            SandboxButton.Checked = False
-            Settings.GloebitsMode = True
-            Settings.SaveSettings()
-        End If
-    End Sub
-
-    Private Sub SandboxButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles SandboxButton.CheckedChanged
-        If SandboxButton.Checked = True Then
-            ProductionButton.Checked = False
-            Settings.GloebitsMode = False
-            Settings.SaveSettings()
-        End If
-    End Sub
 
 #End Region
 
 #Region "Sandbox"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SandBoxSignUpButton.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
         Try
             Process.Start(webAddress)
@@ -120,7 +94,7 @@ Public Class FormGloebits
         End Try
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SandBoxReqAppButton.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
         Dim webAddress As String = "https://sandbox.gloebit.com/merchant-signup/"
         Try
             Process.Start(webAddress)
@@ -129,7 +103,7 @@ Public Class FormGloebits
         End Try
     End Sub
 
-    Private Sub CreateAppButton2_Click(sender As Object, e As EventArgs) Handles SandBoxCreateAppButton.Click
+    Private Sub CreateAppButton2_Click(sender As Object, e As EventArgs)
         Dim webAddress As String = "https://www.gloebit.com"
         Try
             Process.Start(webAddress)
@@ -138,19 +112,6 @@ Public Class FormGloebits
         End Try
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SandKeyTextBox.TextChanged
-        Settings.GLSandKey = SandKeyTextBox.Text
-        Settings.SaveSettings()
-    End Sub
-
-    Private Sub TextBox2_click(sender As Object, e As EventArgs) Handles SandSecretTextBox.Click
-        SandSecretTextBox.UseSystemPasswordChar = False
-    End Sub
-
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles SandSecretTextBox.TextChanged
-        Settings.GLSandSecret = SandSecretTextBox.Text
-        Settings.SaveSettings()
-    End Sub
 
 #End Region
 

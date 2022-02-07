@@ -954,14 +954,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property GloebitsMode() As Boolean
-        Get
-            Return CType(GetMySetting("GloebitsMode", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("GloebitsMode", CStr(Value))
-        End Set
-    End Property
 
     Public Property GLProdKey() As String
         Get
@@ -981,23 +973,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property GLSandKey() As String
-        Get
-            Return GetMySetting("GLSandKey")
-        End Get
-        Set
-            SetMySetting("GLSandKey", Value)
-        End Set
-    End Property
-
-    Public Property GLSandSecret() As String
-        Get
-            Return GetMySetting("GLSandSecret")
-        End Get
-        Set
-            SetMySetting("GLSandSecret", Value)
-        End Set
-    End Property
 
     Public Property GraphVisible() As Boolean
         Get

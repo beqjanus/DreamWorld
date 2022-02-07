@@ -111,7 +111,6 @@ Public Module Firewall
 
     Sub SetFirewall()
 
-        Settings.SSLIsInstalled = True ' debug
 
         Dim start As ParameterizedThreadStart = AddressOf RunFirewall
 

@@ -828,8 +828,6 @@ Module RegionMaker
             port += 1
         Next
 
-        TextPrint(My.Resources.Setup_Firewall_word)
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
         UpdateAllRegion = False
 
     End Sub
@@ -2034,10 +2032,11 @@ Module RegionMaker
                 If INI.SetIni("Economy", "CurrencyURL", "") Then Return True
             ElseIf Settings.CMS = JOpensim Then
                 If INI.SetIni("Startup", "economymodule", "jOpenSimMoneyModule") Then Return True
-                If INI.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
+                If INI.SetIni("Economy", "CurrencyURL", "{$Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
             Else
                 If INI.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule") Then Return True
-                If INI.SetIni("Economy", "CurrencyURL", "") Then Return True
+                ' Any old URL will do for any amount of money
+                If INI.SetIni("Economy", "CurrencyURL", $"{Settings.PublicIP}:{Settings.DiagnosticPort}") Then Return True
             End If
 
             ' LSL emails
@@ -2211,15 +2210,10 @@ Module RegionMaker
             If INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM)) Then Return True
             If INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage)) Then Return True
 
-            If Settings.GloebitsMode Then
-                If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
-                If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
-                If INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
-            Else
-                If INI.SetIni("Gloebit", "GLBEnvironment", "sandbox") Then Return True
-                If INI.SetIni("Gloebit", "GLBKey", Settings.GLSandKey) Then Return True
-                If INI.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret) Then Return True
-            End If
+
+            If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
+            If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
+            If INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
 
             If INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName) Then Return True
             If INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail) Then Return True

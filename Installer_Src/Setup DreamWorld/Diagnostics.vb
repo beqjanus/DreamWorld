@@ -21,7 +21,7 @@ Module Diags
             Return
         End If
 
-        TextPrint("__________")
+        TextPrint("___DIAG_START_______")
         TextPrint(My.Resources.Running_Network)
         Logger("INFO", Global.Outworldz.My.Resources.Running_Network, "Diagnostics")
         Settings.DiagFailed = "False"
@@ -41,7 +41,7 @@ Module Diags
         Else
             NewDNSName()
         End If
-        TextPrint("__________")
+        TextPrint("___DIAG_END_______")
 
     End Sub
 

@@ -209,9 +209,9 @@ Public Class Backups
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                IARLock.dispose
+
             End If
-            ' free unmanaged resources (unmanaged objects) and override finalizer
+            ' free unmanaged resources (unmanaged objects) and override finalizer            
             ' set large fields to null
             disposedValue = True
         End If

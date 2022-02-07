@@ -531,7 +531,7 @@ Module SmartStart
 
             TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
-            DoGloebits()
+            DoCurrency()
 
             If CopyOpensimProto(RegionUUID) Then Return False
 
