@@ -1711,7 +1711,7 @@ Public Class FormSmartStart
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
-        _StopLoading = True
+        _StopLoading = False
         LoadAllFreeOARs()
 
     End Sub
