@@ -933,6 +933,8 @@ Public Class FormSmartStart
                 End If
                 If _StopLoading Then Return
 
+                SequentialPause()
+
                 ProgressPrint($"{My.Resources.Start_word} {shortname}")
                 If Not PropOpensimIsRunning Then Return
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"

@@ -85,11 +85,15 @@ Module SmartStart
                     Dim status = RegionStatus(RegionUUID)
                     If RegionEnabled(RegionUUID) _
                         AndAlso Not PropAborting _
+                        AndAlso status = SIMSTATUSENUM.ShuttingDown _
+                        AndAlso status = SIMSTATUSENUM.ShuttingDownForGood _
                         AndAlso status = SIMSTATUSENUM.Booting Then
-                        Diagnostics.Debug.Print(Region_Name(RegionUUID))
+                        Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
+                    Else
+                        Diagnostics.Debug.Print($"{GetStateString(status)} {Region_Name(RegionUUID)}")
                     End If
-                    Application.DoEvents()
+
                 Next
 
                 If wait Then
@@ -97,7 +101,9 @@ Module SmartStart
                 Else
                     Exit While
                 End If
-                If ctr <= 0 Then Exit While
+                If ctr <= 0 Then
+                    Exit While
+                End If
                 Sleep(1000)
             End While
         Else
@@ -120,7 +126,9 @@ Module SmartStart
                 Sleep(1000)
                 Application.DoEvents()
                 ctr -= 1
-                If ctr <= 0 Then Exit While
+                If ctr <= 0 Then
+                    Exit While
+                End If
             End While
 
         End If
@@ -735,10 +743,8 @@ Module SmartStart
         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
-
-        ConsoleCommand(RegionUUID, "backup")
-
         RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
+        ConsoleCommand(RegionUUID, "backup")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             ConsoleCommand(RegionUUID, "q")
