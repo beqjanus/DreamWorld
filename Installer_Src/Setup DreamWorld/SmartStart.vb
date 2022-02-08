@@ -81,19 +81,16 @@ Module SmartStart
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
-
                     Dim status = RegionStatus(RegionUUID)
-                    If RegionEnabled(RegionUUID) _
-                        AndAlso Not PropAborting _
-                        AndAlso status = SIMSTATUSENUM.ShuttingDown _
-                        AndAlso status = SIMSTATUSENUM.ShuttingDownForGood _
-                        AndAlso status = SIMSTATUSENUM.Booting Then
+                    If (RegionEnabled(RegionUUID) And Not PropAborting) And
+                       (status = SIMSTATUSENUM.ShuttingDown _
+                        Or status = SIMSTATUSENUM.ShuttingDownForGood _
+                        Or status = SIMSTATUSENUM.Booting) Then
                         Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
                         Diagnostics.Debug.Print($"{GetStateString(status)} {Region_Name(RegionUUID)}")
                     End If
-
                 Next
 
                 If wait Then
