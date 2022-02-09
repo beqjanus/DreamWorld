@@ -751,12 +751,14 @@ Public Module MysqlInterface
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Dim Output As New MailList
-                            Output.firstname = reader.GetString(0)
-                            Output.LastName = reader.GetString(1)
-                            Output.Email = reader.GetString(2)
-                            Output.Title = reader.GetString(3)
-                            Output.principalid = reader.GetString(4)
+                            Dim Output As New MailList With {
+                            .firstname = reader.GetString(0),
+                            .LastName = reader.GetString(1),
+                            .Email = reader.GetString(2),
+                            .Title = reader.GetString(3),
+                            .principalid = reader.GetString(4)
+                            }
+
                             Dim Level = reader.GetInt32(5)
 
                             If Level < 0 Then

@@ -461,8 +461,6 @@ Public Class FormSetup
             Settings.DeregisteredOnce = True
         End If
 
-        'Redo all the region ports
-        UpdateAllRegionPorts()
 
         PropAborting = False
         Buttons(BusyButton)
@@ -952,8 +950,6 @@ Public Class FormSetup
             Settings.Password = Password.GeneratePass()
         End If
 
-        'Redo all the region ports
-        UpdateAllRegionPorts()
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
