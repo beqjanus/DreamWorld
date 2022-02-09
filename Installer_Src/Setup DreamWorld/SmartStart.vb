@@ -660,7 +660,6 @@ Module SmartStart
 
             For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                Diagnostics.Debug.Print("State Changed to Resume", Region_Name(RegionUUID))
                 PokeRegionTimer(RegionUUID)
             Next
             PropUpdateView = True ' make form refresh

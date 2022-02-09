@@ -273,11 +273,9 @@ Public Class FormSetup
     Public Shared Sub ErrorGroup(Groupname As String)
 
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, Region_Name(RegionUUID) & " is in Error State", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
             PokeRegionTimer(RegionUUID)
         Next
-        Logger("Error", Groupname & " is now in Error State", "State")
 
     End Sub
 
@@ -302,11 +300,9 @@ Public Class FormSetup
     Public Shared Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, Region_Name(RegionUUID) & " is Stopped", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             PokeRegionTimer(RegionUUID)
         Next
-        Logger("Info", Groupname & " Group is now stopped", "State")
 
     End Sub
 
@@ -861,6 +857,8 @@ Public Class FormSetup
 
         Cleanup() ' old files thread
 
+        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Status.log"))
+
         'UPNP create if we need it
         PropMyUPnpMap = New UPnp()
 
@@ -1090,18 +1088,16 @@ Public Class FormSetup
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
                 PropUpdateView = True
-                Logger("State", $"Changed to Stopped {Region_Name(RegionUUID)}", "State")
                 Application.DoEvents()
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
                 'RecyclingDown = 4
-                Logger("State", $"Is RecyclingDown for {GroupName}", "State")
+
                 TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
                 For Each R In GroupList
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
-                Logger("State", "is changed to RestartStage2 for {Region_Name(RegionUUID)}", "State")
                 PropUpdateView = True
                 Application.DoEvents()
                 Continue While
@@ -1138,7 +1134,6 @@ Public Class FormSetup
                     For Each R In GroupList
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
-                    Logger("Stopped", $"{GroupName} is stopped", "State")
                     PropUpdateView = True
                     Continue While
                     Application.DoEvents()
@@ -1856,7 +1851,6 @@ Public Class FormSetup
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
-            Logger("State", "Is Stopped in {Region_Name(RegionUUID)}", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
@@ -3181,8 +3175,7 @@ Public Class FormSetup
 
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            Logger("RecyclingDown", Region_Name(RegionUUID), "State")
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.            
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3200,8 +3193,7 @@ Public Class FormSetup
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            Logger("RecyclingDown", Region_Name(RegionUUID), "State")
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.            
             PropUpdateView = True ' make form refresh
         End If
 

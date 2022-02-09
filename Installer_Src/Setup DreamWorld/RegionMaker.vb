@@ -1158,11 +1158,17 @@ Module RegionMaker
 
     Public Property RegionStatus(RegionUUID As String) As Integer
         Get
-            If RegionList.ContainsKey(RegionUUID) Then Return RegionList(RegionUUID)._Status
+            If RegionList.ContainsKey(RegionUUID) Then
+                Return RegionList(RegionUUID)._Status
+            End If
+
             BadUUID(RegionUUID)
             Return -1
         End Get
         Set(ByVal Value As Integer)
+            If Debugger.IsAttached Then
+                Logger(Region_Name(RegionUUID), $"Status => {GetStateString(Value)}", "Status")
+            End If
             RegionList(RegionUUID)._Status = Value
         End Set
     End Property
@@ -1203,8 +1209,9 @@ Module RegionMaker
 
     Private Sub BadUUID(uuid As String)
 
-        Debug.Print($"Bad UUID [{uuid}]")
-        'RegionDump()
+        If Debugger.IsAttached Then
+            ErrorLog($"Bad UUID [{uuid}]")
+        End If
 
     End Sub
 
@@ -1569,7 +1576,6 @@ Module RegionMaker
             Dim pair As KeyValuePair(Of String, Region_data)
             For Each pair In RegionList
                 If pair.Value._Group = Gname Then
-                    L.Add(pair.Value._UUID)
                     L.Add(pair.Value._UUID)
                 End If
             Next

@@ -443,7 +443,7 @@ Partial Class FormSmartStart
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(369, 193)
+        Me.TextBox1.Size = New System.Drawing.Size(330, 193)
         Me.TextBox1.TabIndex = 34
         '
         'MenuStrip4
@@ -474,14 +474,14 @@ Partial Class FormSmartStart
         '
         Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
-        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.StartToolStripMenuItem.Text = "Start"
         '
         'AbortToolStripMenuItem
         '
         Me.AbortToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
         Me.AbortToolStripMenuItem.Name = "AbortToolStripMenuItem"
-        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
+        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AbortToolStripMenuItem.Text = "Stop"
         '
         'TabPage2
