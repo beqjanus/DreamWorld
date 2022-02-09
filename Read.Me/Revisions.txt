@@ -5,7 +5,7 @@ V4.9 Release
 This Rev will trigger an update popup.
 
 V4.899
-Allow Land sales fopr $0 to a specific person or any amount to anyone. Fake money.  Gloebit can be used for real money.
+Allow Land sales for $0 to a specific person or any amount to anyone. Fake money.  Gloebit can be used for real money.
 Use the Welcome region for saving IARS. Helps with Smart Boot and Smart Suspend modes, which are a part of V5
 Region folders were not being zipped up in Backups when they were selected.
 
