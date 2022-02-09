@@ -133,12 +133,14 @@ Module Disk
         Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
 
         Dim result = FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-        If Not result Then
+        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
             PropUpdateView = True ' make form refresh
             TeleportAgents()
         Else
-            'Todo Handle non resumed region
+            ReBoot(RegionUUID)
+            PropUpdateView = True ' make form refresh
+            TeleportAgents()
         End If
 
         Return result

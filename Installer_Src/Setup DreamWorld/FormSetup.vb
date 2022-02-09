@@ -1340,9 +1340,9 @@ Public Class FormSetup
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
-            AndAlso Expired > 0 _
-            AndAlso Settings.AutoRestartInterval() > 0 _
-            AndAlso Settings.AutoRestartEnabled Then
+                    AndAlso Expired > 0 _
+                    AndAlso Settings.AutoRestartInterval() > 0 _
+                    AndAlso Settings.AutoRestartEnabled Then
 
                     If AvatarsIsInGroup(GroupName) Then
                         ' keep smart start regions alive if someone is near
