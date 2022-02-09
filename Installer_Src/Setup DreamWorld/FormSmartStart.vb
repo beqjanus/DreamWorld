@@ -46,6 +46,8 @@ Public Class FormSmartStart
 
 #End Region
 
+
+
 #Region "Properties"
 
     Public Property Abort As Boolean
@@ -492,8 +494,13 @@ Public Class FormSmartStart
 
 #Region "Start/Stop"
 
-    Private Sub FormTrees_Close(sender As Object, e As EventArgs) Handles Me.Closing
+
+
+    Private Sub CloseForm(sender As Object, e As EventArgs) Handles MyBase.Closing
+
+
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub FormTrees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -805,8 +812,6 @@ Public Class FormSmartStart
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
-        If _StopLoading Then Return
-
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
         If Settings.SurroundOwner.Length = 0 Then
             MsgBox("Set the Owner of the Sim Surrounds and try again.")
@@ -816,7 +821,6 @@ Public Class FormSmartStart
         If _StopLoading Then Return
 
         gEstateOwner = Settings.SurroundOwner
-
 
         Dim CoordX = CStr(LargestX() + 18)
         Dim CoordY = CStr(LargestY() + 18)
@@ -830,11 +834,8 @@ Public Class FormSmartStart
             Return
         End If
 
-        If _StopLoading Then Return
-
         Dim X As Integer = CInt(match.Groups(1).Value)
         Dim Y As Integer = CInt(match.Groups(2).Value)
-        Dim StartX As Integer = X
 
         If Not PropOpensimIsRunning() Then
             MysqlInterface.DeregisterRegions(False)
@@ -847,11 +848,23 @@ Public Class FormSmartStart
 
         If _StopLoading Then Return
 
+        Settings.Smart_Start = True
+        Settings.BootOrSuspend = True
+
+        FormSetup.StartTimer()
+
+        Dim StartX = X ' loop begin
+
+        'Save the last so we can grow accordingly
+        Dim LastX As Integer = X
+        Dim LastSize As Integer = 0
+
         Try
             For Each J In FormSetup.ContentOAR.GetJson
                 If _StopLoading Then Return
 
                 If Not PropOpensimIsRunning Then Return
+
                 ' Get name from web site JSON
                 Dim Name = J.Name
                 Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
@@ -899,19 +912,28 @@ Public Class FormSmartStart
                         sizerow = 256
                     End If
 
+
                     ' convert 1,2,3 to 256, 512, etc
-                    Dim pattern1 = New Regex("\((\d+)[xX](\d+)\)")
+                    Dim pattern1 = New Regex("(.*?)\((\d+)[xX](\d+)\)\.")
+
                     Dim match1 As Match = pattern1.Match(Name)
                     If match1.Success Then
                         Name = match1.Groups(1).Value
                         sizerow = CInt(match1.Groups(2).Value) * 256
+                        If sizerow Mod 256 > 0 Then
+                            ErrorLog($"Cannot load OAR - bad size in {J.Name}")
+                            Continue For
+                        End If
+
                     Else
-                        ErrorLog($"Cannot load OAR {Name}")
+                        ErrorLog($"Cannot load OAR {J.Name}")
                         Continue For
                     End If
 
-                    Coord_X(RegionUUID) = X
+                    Coord_X(RegionUUID) = LastX + LastSize + 2
                     Coord_Y(RegionUUID) = Y
+
+                    LastX = X
 
                     Smart_Start(RegionUUID) = "True"
                     Teleport_Sign(RegionUUID) = "True"
@@ -1719,8 +1741,10 @@ Public Class FormSmartStart
         _StopLoading = False
         LoadAllFreeOARs()
 
+
     End Sub
 
 #End Region
 
 End Class
+
