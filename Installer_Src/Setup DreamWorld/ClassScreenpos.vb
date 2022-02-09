@@ -125,6 +125,7 @@ Public Class ClassScreenpos
             Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
             Dim ValueXOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_X"), Integer)
             Dim ValueYOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Y"), Integer)
+
             If ValueXOld <= 0 Then
                 ValueXOld = 100
             End If

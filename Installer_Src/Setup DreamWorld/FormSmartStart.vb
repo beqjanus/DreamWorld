@@ -912,7 +912,6 @@ Public Class FormSmartStart
                         sizerow = 256
                     End If
 
-
                     ' convert 1,2,3 to 256, 512, etc
                     Dim pattern1 = New Regex("(.*?)\((\d+)[xX](\d+)\)\.")
 

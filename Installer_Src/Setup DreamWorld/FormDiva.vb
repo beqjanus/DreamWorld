@@ -53,6 +53,8 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
+
+
         If _SaveNeeded = True Then
             Settings.SaveSettings()
             If IsRobustRunning() Then
