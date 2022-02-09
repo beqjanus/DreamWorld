@@ -52,7 +52,6 @@ Public Class FormMaps
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Dump(ex)
-
         End Try
     End Sub
 
@@ -79,9 +78,7 @@ Public Class FormMaps
         End Try
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
-    End Sub
 
     Private Sub ExportAllMaps_Click(sender As Object, e As EventArgs) Handles ExportAllMaps.Click
 
@@ -221,6 +218,8 @@ Public Class FormMaps
             DelMapButton.Visible = False
         End If
 
+        initted = True
+
         HelpOnce("Maps")
         SetScreen()
 
@@ -228,6 +227,7 @@ Public Class FormMaps
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
+        If Not initted Then Return
         Settings.MapType = "Best"
         MapPicture.Image = Global.Outworldz.My.Resources.Best
 
@@ -235,6 +235,7 @@ Public Class FormMaps
 
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
+        If Not initted Then Return
         Settings.MapType = "Better"
         MapPicture.Image = Global.Outworldz.My.Resources.Better
 
@@ -242,6 +243,7 @@ Public Class FormMaps
 
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
+        If Not initted Then Return
         Settings.MapType = "Good"
         MapPicture.Image = Global.Outworldz.My.Resources.Good
 
@@ -249,6 +251,7 @@ Public Class FormMaps
 
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
+        If Not initted Then Return
         Settings.MapType = "None"
         MapPicture.Image = Global.Outworldz.My.Resources.blankbox
 
@@ -256,6 +259,7 @@ Public Class FormMaps
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
+        If Not initted Then Return
         Settings.MapType = "Simple"
         MapPicture.Image = Global.Outworldz.My.Resources.Simple
 
@@ -263,6 +267,7 @@ Public Class FormMaps
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
         If Not Integer.TryParse(MapXStart.Text, Settings.MapCenterX) Then
@@ -273,6 +278,7 @@ Public Class FormMaps
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
         If Not Integer.TryParse(MapYStart.Text, Settings.MapCenterY) Then
@@ -283,6 +289,7 @@ Public Class FormMaps
 
     Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
 
+
         If Not initted Then Return
         Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked
         Settings.SaveSettings()
@@ -291,6 +298,7 @@ Public Class FormMaps
 
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
         If Not Double.TryParse(RenderMaxH.Text, Settings.RenderMaxHeight) Then
@@ -300,6 +308,8 @@ Public Class FormMaps
     End Sub
 
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
+
+        If Not initted Then Return
         Dim digitsOnly = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
         If Not Integer.TryParse(RenderMinH.Text, Settings.RenderMinHeight) Then
@@ -325,6 +335,8 @@ Public Class FormMaps
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
+
+        If Not initted Then Return
         Dim digitsOnly = New Regex("[^\d]")
         Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
 
