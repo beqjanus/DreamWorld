@@ -737,14 +737,13 @@ Module SmartStart
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
 
-        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-        ConsoleCommand(RegionUUID, "backup")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
-            ConsoleCommand(RegionUUID, "q")
+            ConsoleCommand(RegionUUID, "q", True)
         End If
 
     End Sub

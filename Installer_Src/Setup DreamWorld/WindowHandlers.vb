@@ -256,7 +256,7 @@ Module WindowHandlers
                 End If
 
             Next
-            ConsoleCommand(RobustName, "set log level " & msg)
+            ConsoleCommand(RobustName, "set log level " & msg, True)
         End If
 
     End Sub
@@ -269,7 +269,7 @@ Module WindowHandlers
         Dim rname = ChooseRegion(False)
         Dim RegionUUID As String = FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
+            ConsoleCommand(RegionUUID, "change region " & """" & rname & """", True)
             ConsoleCommand(RegionUUID, cmd)
         End If
 

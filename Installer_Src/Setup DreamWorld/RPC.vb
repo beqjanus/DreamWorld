@@ -216,7 +216,7 @@ Module RPC
 
     Public Sub ShutDown(RegionUUID As String)
 
-        ConsoleCommand(RegionUUID, "q")
+        ConsoleCommand(RegionUUID, "q", True)
 
     End Sub
 

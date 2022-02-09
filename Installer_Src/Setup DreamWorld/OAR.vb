@@ -186,17 +186,15 @@ Module OAR
 
         Try
             If backMeUp = "Yes" Then
-                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
                 ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{RegionName}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
 
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+            ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
             ConsoleCommand(RegionUUID, LoadOarStr)
-            ConsoleCommand(RegionUUID, "generate map")
-            ConsoleCommand(RegionUUID, "backup")
         Catch ex As Exception
             BreakPoint.Dump(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
@@ -212,11 +210,9 @@ Module OAR
 
         SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
         If Not PropForceParcel() Then
-            ConsoleCommand(RegionUUID, "land clear")
+            ConsoleCommand(RegionUUID, "land clear", True)
         End If
         ConsoleCommand(RegionUUID, T.Command)
-        ConsoleCommand(RegionUUID, "generate map")
-        ConsoleCommand(RegionUUID, "backup")
 
     End Sub
 
@@ -272,7 +268,7 @@ Module OAR
         If IsBooted(RegionUUID) Then
             Dim Group = Group_Name(RegionUUID)
             SendMessage(RegionUUID, "CPU Intensive Backup Started")
-            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """", True)
             ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & MyValue & """")
         End If
 

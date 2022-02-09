@@ -900,11 +900,14 @@ Public Class FormSmartStart
                     End If
 
                     ' convert 1,2,3 to 256, 512, etc
-                    Dim pattern1 = New Regex("(.*?)-(\d+)[xX](\d+)")
+                    Dim pattern1 = New Regex("\((\d+)[xX](\d+)\)")
                     Dim match1 As Match = pattern1.Match(Name)
                     If match1.Success Then
                         Name = match1.Groups(1).Value
-                        sizerow = CInt(match1.Groups(3).Value) * 256
+                        sizerow = CInt(match1.Groups(2).Value) * 256
+                    Else
+                        ErrorLog($"Cannot load OAR {Name}")
+                        Continue For
                     End If
 
                     Coord_X(RegionUUID) = X
