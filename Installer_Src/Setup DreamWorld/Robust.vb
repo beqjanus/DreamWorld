@@ -217,6 +217,7 @@ Module Robust
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
 
             ConsoleCommand(RobustName, "q", True)
+
             Dim ctr As Integer = 0
             ' wait 30 seconds for robust to quit
             While IsRobustRunning() And ctr < 30

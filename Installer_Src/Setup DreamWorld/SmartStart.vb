@@ -738,9 +738,8 @@ Module SmartStart
         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
             ConsoleCommand(RegionUUID, "q", True)
         End If
 
