@@ -353,11 +353,6 @@ Public Class FormSetup
                 SequentialPause()
                 ShutDown(RegionUUID)
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                Dim Group = Group_Name(RegionUUID)
-
-                For Each UUID In RegionUuidListByName(Group)
-                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                Next
                 PropUpdateView = True ' make form refresh
                 Application.DoEvents()
             End If
@@ -1111,11 +1106,11 @@ Public Class FormSetup
                 Status = SIMSTATUSENUM.Error
                 PropUpdateView = True
 
-                Logger("Crash", GroupName & " Crashed", "State")
+                Logger("Crash", GroupName & " Crashed", "Status")
                 If Settings.RestartOnCrash Then
 
                     If CrashCounter(RegionUUID) > 4 Then
-                        Logger("Crash", $"{GroupName} Crashed 4 times", "State")
+                        Logger("Crash", $"{GroupName} Crashed 5 times", "Status")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                         StopGroup(GroupName)
                         CrashCounter(RegionUUID) = 0
@@ -1312,9 +1307,6 @@ Public Class FormSetup
                             Diagnostics.Debug.Print("State Changed to ShuttingDown", GroupName, "Teleport")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID)
-                                For Each UUID In RegionUuidListByName(GroupName)
-                                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                                Next
                             Else
                                 PauseRegion(RegionUUID)
                                 For Each UUID In RegionUuidListByName(GroupName)
@@ -1354,10 +1346,6 @@ Public Class FormSetup
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID)
-                        Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-                        For Each UUID As String In GroupList
-                            RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                        Next
                         Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
