@@ -54,10 +54,10 @@ say('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
-system('TASKKILL /F /IM mysqld* /T ');
-system('TASKKILL /F /IM opensim* /T ');
-system('TASKKILL /F /IM robust* /T ');
-system('TASKKILL /F /IM icecast* /T ');
+system('TASKKILL /F /IM mysqld* /T ') || die $!;
+system('TASKKILL /F /IM opensim* /T ')|| die $!;
+system('TASKKILL /F /IM robust* /T ')|| die $!;
+system('TASKKILL /F /IM icecast* /T ')|| die $!;
 
 
 

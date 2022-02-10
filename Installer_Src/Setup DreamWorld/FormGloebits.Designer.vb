@@ -34,7 +34,6 @@ Partial Class FormGloebits
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GloebitsEnabled = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.ProductionButton = New System.Windows.Forms.RadioButton()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.ProdKeyTextBox = New System.Windows.Forms.TextBox()
         Me.ProdSecretTextBox = New System.Windows.Forms.TextBox()
@@ -44,32 +43,17 @@ Partial Class FormGloebits
         Me.Label11 = New System.Windows.Forms.Label()
         Me.ProductionCreateAppButton = New System.Windows.Forms.Button()
         Me.ProductionReqAppButton = New System.Windows.Forms.Button()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.ProductionCreateButton = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.SandboxButton = New System.Windows.Forms.RadioButton()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.SandBoxCreateAppButton = New System.Windows.Forms.Button()
-        Me.SandKeyTextBox = New System.Windows.Forms.TextBox()
-        Me.SandBoxReqAppButton = New System.Windows.Forms.Button()
-        Me.SandSecretTextBox = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.SandBoxSignUpButton = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(20, 67)
+        Me.Button4.Location = New System.Drawing.Point(20, 49)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(401, 27)
         Me.Button4.TabIndex = 2
@@ -87,7 +71,7 @@ Partial Class FormGloebits
         Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Location = New System.Drawing.Point(20, 331)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(465, 159)
+        Me.GroupBox3.Size = New System.Drawing.Size(424, 159)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Currency"
@@ -157,7 +141,7 @@ Partial Class FormGloebits
         'GloebitsEnabled
         '
         Me.GloebitsEnabled.AutoSize = True
-        Me.GloebitsEnabled.Location = New System.Drawing.Point(23, 44)
+        Me.GloebitsEnabled.Location = New System.Drawing.Point(30, 93)
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(95, 17)
         Me.GloebitsEnabled.TabIndex = 1
@@ -166,7 +150,6 @@ Partial Class FormGloebits
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.ProductionButton)
         Me.GroupBox2.Controls.Add(Me.Label12)
         Me.GroupBox2.Controls.Add(Me.ProdKeyTextBox)
         Me.GroupBox2.Controls.Add(Me.ProdSecretTextBox)
@@ -176,25 +159,13 @@ Partial Class FormGloebits
         Me.GroupBox2.Controls.Add(Me.Label11)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateAppButton)
         Me.GroupBox2.Controls.Add(Me.ProductionReqAppButton)
-        Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateButton)
         Me.GroupBox2.Location = New System.Drawing.Point(20, 116)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(225, 209)
+        Me.GroupBox2.Size = New System.Drawing.Size(401, 209)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Production Mode"
-        '
-        'ProductionButton
-        '
-        Me.ProductionButton.AutoSize = True
-        Me.ProductionButton.Location = New System.Drawing.Point(59, 23)
-        Me.ProductionButton.Name = "ProductionButton"
-        Me.ProductionButton.Size = New System.Drawing.Size(106, 17)
-        Me.ProductionButton.TabIndex = 1
-        Me.ProductionButton.TabStop = True
-        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
-        Me.ProductionButton.UseVisualStyleBackColor = True
         '
         'Label12
         '
@@ -209,14 +180,14 @@ Partial Class FormGloebits
         '
         Me.ProdKeyTextBox.Location = New System.Drawing.Point(63, 151)
         Me.ProdKeyTextBox.Name = "ProdKeyTextBox"
-        Me.ProdKeyTextBox.Size = New System.Drawing.Size(157, 20)
+        Me.ProdKeyTextBox.Size = New System.Drawing.Size(212, 20)
         Me.ProdKeyTextBox.TabIndex = 9
         '
         'ProdSecretTextBox
         '
         Me.ProdSecretTextBox.Location = New System.Drawing.Point(63, 181)
         Me.ProdSecretTextBox.Name = "ProdSecretTextBox"
-        Me.ProdSecretTextBox.Size = New System.Drawing.Size(157, 20)
+        Me.ProdSecretTextBox.Size = New System.Drawing.Size(212, 20)
         Me.ProdSecretTextBox.TabIndex = 11
         '
         'Label13
@@ -231,7 +202,7 @@ Partial Class FormGloebits
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(7, 120)
+        Me.Label9.Location = New System.Drawing.Point(13, 90)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(41, 13)
         Me.Label9.TabIndex = 6
@@ -248,7 +219,7 @@ Partial Class FormGloebits
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(7, 56)
+        Me.Label11.Location = New System.Drawing.Point(13, 26)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(41, 13)
         Me.Label11.TabIndex = 2
@@ -256,167 +227,30 @@ Partial Class FormGloebits
         '
         'ProductionCreateAppButton
         '
-        Me.ProductionCreateAppButton.Location = New System.Drawing.Point(59, 113)
+        Me.ProductionCreateAppButton.Location = New System.Drawing.Point(65, 83)
         Me.ProductionCreateAppButton.Name = "ProductionCreateAppButton"
-        Me.ProductionCreateAppButton.Size = New System.Drawing.Size(151, 27)
+        Me.ProductionCreateAppButton.Size = New System.Drawing.Size(210, 27)
         Me.ProductionCreateAppButton.TabIndex = 7
         Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
         Me.ProductionCreateAppButton.UseVisualStyleBackColor = True
         '
         'ProductionReqAppButton
         '
-        Me.ProductionReqAppButton.Location = New System.Drawing.Point(57, 81)
+        Me.ProductionReqAppButton.Location = New System.Drawing.Point(63, 51)
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
-        Me.ProductionReqAppButton.Size = New System.Drawing.Size(151, 25)
+        Me.ProductionReqAppButton.Size = New System.Drawing.Size(212, 25)
         Me.ProductionReqAppButton.TabIndex = 5
         Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
         Me.ProductionReqAppButton.UseVisualStyleBackColor = True
         '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 27)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(34, 13)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "Mode"
-        '
         'ProductionCreateButton
         '
-        Me.ProductionCreateButton.Location = New System.Drawing.Point(57, 49)
+        Me.ProductionCreateButton.Location = New System.Drawing.Point(63, 19)
         Me.ProductionCreateButton.Name = "ProductionCreateButton"
-        Me.ProductionCreateButton.Size = New System.Drawing.Size(151, 27)
+        Me.ProductionCreateButton.Size = New System.Drawing.Size(212, 27)
         Me.ProductionCreateButton.TabIndex = 3
         Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Resources.Create_Account
         Me.ProductionCreateButton.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.SandboxButton)
-        Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.SandBoxCreateAppButton)
-        Me.GroupBox1.Controls.Add(Me.SandKeyTextBox)
-        Me.GroupBox1.Controls.Add(Me.SandBoxReqAppButton)
-        Me.GroupBox1.Controls.Add(Me.SandSecretTextBox)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.SandBoxSignUpButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(266, 116)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(235, 209)
-        Me.GroupBox1.TabIndex = 4
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Sandbox Mode"
-        Me.GroupBox1.Visible = False
-        '
-        'SandboxButton
-        '
-        Me.SandboxButton.AutoSize = True
-        Me.SandboxButton.Location = New System.Drawing.Point(56, 25)
-        Me.SandboxButton.Name = "SandboxButton"
-        Me.SandboxButton.Size = New System.Drawing.Size(97, 17)
-        Me.SandboxButton.TabIndex = 1
-        Me.SandboxButton.TabStop = True
-        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
-        Me.SandboxButton.UseVisualStyleBackColor = True
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(5, 121)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(41, 13)
-        Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Step 3:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(5, 89)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(41, 13)
-        Me.Label7.TabIndex = 4
-        Me.Label7.Text = "Step 2:"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(0, 177)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(38, 13)
-        Me.Label2.TabIndex = 10
-        Me.Label2.Text = "Secret"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(5, 57)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 13)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "Step 1:"
-        '
-        'SandBoxCreateAppButton
-        '
-        Me.SandBoxCreateAppButton.Location = New System.Drawing.Point(57, 115)
-        Me.SandBoxCreateAppButton.Name = "SandBoxCreateAppButton"
-        Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(151, 27)
-        Me.SandBoxCreateAppButton.TabIndex = 7
-        Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
-        Me.SandBoxCreateAppButton.UseVisualStyleBackColor = True
-        '
-        'SandKeyTextBox
-        '
-        Me.SandKeyTextBox.Location = New System.Drawing.Point(60, 147)
-        Me.SandKeyTextBox.Name = "SandKeyTextBox"
-        Me.SandKeyTextBox.Size = New System.Drawing.Size(157, 20)
-        Me.SandKeyTextBox.TabIndex = 9
-        '
-        'SandBoxReqAppButton
-        '
-        Me.SandBoxReqAppButton.Location = New System.Drawing.Point(56, 84)
-        Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
-        Me.SandBoxReqAppButton.Size = New System.Drawing.Size(151, 25)
-        Me.SandBoxReqAppButton.TabIndex = 5
-        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
-        Me.SandBoxReqAppButton.UseVisualStyleBackColor = True
-        '
-        'SandSecretTextBox
-        '
-        Me.SandSecretTextBox.Location = New System.Drawing.Point(60, 177)
-        Me.SandSecretTextBox.Name = "SandSecretTextBox"
-        Me.SandSecretTextBox.Size = New System.Drawing.Size(157, 20)
-        Me.SandSecretTextBox.TabIndex = 11
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 25)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 13)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Mode"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(0, 151)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(58, 13)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "OAuth Key"
-        '
-        'SandBoxSignUpButton
-        '
-        Me.SandBoxSignUpButton.Location = New System.Drawing.Point(56, 51)
-        Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
-        Me.SandBoxSignUpButton.Size = New System.Drawing.Size(151, 27)
-        Me.SandBoxSignUpButton.TabIndex = 3
-        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
-        Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
@@ -425,7 +259,7 @@ Partial Class FormGloebits
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(513, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(454, 30)
         Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
@@ -440,13 +274,12 @@ Partial Class FormGloebits
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(513, 521)
+        Me.ClientSize = New System.Drawing.Size(454, 521)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GloebitsEnabled)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormGloebits"
@@ -455,8 +288,6 @@ Partial Class FormGloebits
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -482,20 +313,7 @@ Partial Class FormGloebits
     Friend WithEvents ProductionReqAppButton As Button
     Friend WithEvents Label14 As Label
     Friend WithEvents ProductionCreateButton As Button
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents SandBoxCreateAppButton As Button
-    Friend WithEvents SandKeyTextBox As TextBox
-    Friend WithEvents SandBoxReqAppButton As Button
-    Friend WithEvents SandSecretTextBox As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents SandBoxSignUpButton As Button
     Friend WithEvents ProductionButton As RadioButton
-    Friend WithEvents SandboxButton As RadioButton
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GLBShowNewSessionPurchaseIMCheckBox As CheckBox

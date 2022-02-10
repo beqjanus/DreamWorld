@@ -22,8 +22,8 @@ Public Class FormSmartStart
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
-    Private _StopLoading As Boolean
     Private _SelectedPlant As String
+    Private _StopLoading As Boolean
 
 #Region "ScreenSize"
 
@@ -42,6 +42,192 @@ Public Class FormSmartStart
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
+
+#Region "LoadOARS"
+
+    Public Sub StartLoading()
+
+        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
+        If Caution <> MsgBoxResult.Yes Then Return
+
+        gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+        If Settings.SurroundOwner.Length = 0 Then
+            MsgBox("Set the Owner of the Sim Surrounds and try again.")
+            Return
+        End If
+
+        gEstateOwner = Settings.SurroundOwner
+
+        Dim CoordX = CStr(LargestX())
+        Dim CoordY = CStr(LargestY() + 18)
+
+        Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
+
+        Dim pattern = New Regex("(\d+),\s?(\d+)")
+        Dim match As Match = pattern.Match(coord)
+        If Not match.Success Then
+            MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            Return
+        End If
+
+        Dim X As Integer = 0
+        Dim Y As Integer = 0
+        Try
+            X = CInt("0" & match.Groups(1).Value)
+            Y = CInt("0" & match.Groups(2).Value)
+        Catch
+        End Try
+
+        If X <= 1 Or Y < 32 Then
+            MsgBox($"{My.Resources.BadCoordinates} : X > 1 And Y > 32", MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            Return
+        End If
+
+        If Not PropOpensimIsRunning() Then
+            MysqlInterface.DeregisterRegions(False)
+        End If
+
+        FormSetup.Buttons(FormSetup.BusyButton)
+        If Not StartMySQL() Then Return
+        If Not StartRobust() Then Return
+
+        If _StopLoading Then Return
+
+        Settings.Smart_Start = True
+        Settings.BootOrSuspend = True
+
+        FormSetup.StartTimer()
+
+        ' setup parameters for the load
+        Dim StartX = X ' loop begin
+        Dim MaxSizeThisRow As Integer  ' the largest region in a row
+        Dim SizeRegion As Integer = 1 ' (1X1)
+
+        Try
+            For Each J In FormSetup.ContentOAR.GetJson
+                If _StopLoading Then Return
+
+                If Not PropOpensimIsRunning Then Return
+
+                ' Get name from web site JSON
+                Dim Name = J.Name
+                Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
+                Dim Index = shortname.IndexOf("(", StringComparison.OrdinalIgnoreCase)
+                If (Index >= 0) Then
+                    shortname = shortname.Substring(0, Index)
+                End If
+
+                If shortname.Length = 0 Then Return
+                If shortname = Settings.WelcomeRegion Then Continue For
+
+                Dim RegionUUID As String
+
+                ' it may already exists
+                Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                If IO.File.Exists(p) Then
+                    ' if so, check that it has prims
+                    RegionUUID = FindRegionByName(shortname)
+                    Dim o As New Guid
+                    If Guid.TryParse(RegionUUID, o) Then
+                        Dim Prims = GetPrimCount(RegionUUID)
+                        If Prims > 0 Then
+                            ProgressPrint($"{J.Name} {My.Resources.Ok} ")
+                            Continue For
+                        End If
+                    Else
+                        BreakPoint.Print("Bad UUID " & RegionUUID)
+                        Continue For
+                    End If
+                Else ' its a new region
+                    ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
+
+                    If _StopLoading Then Return
+                    RegionUUID = CreateRegionStruct(shortname)
+
+                    ' bump across 50 regions, then move up the Max size of that row +1
+                    If SizeRegion > MaxSizeThisRow Then
+                        MaxSizeThisRow = SizeRegion ' remember the height
+                    End If
+
+                    ' read the size from the file name (1X1), (2X2)
+                    Dim pattern1 = New Regex("(.*?)\((\d+)[xX](\d+)\)\.")
+
+                    Dim match1 As Match = pattern1.Match(Name)
+                    If match1.Success Then
+                        Name = match1.Groups(1).Value
+                        SizeRegion = CInt("0" & match1.Groups(2).Value.Trim)
+                        If SizeRegion = 0 Then
+                            ErrorLog($"Cannot load OAR - bad size in {J.Name}")
+                            Continue For
+                        End If
+                    Else
+                        ErrorLog($"Cannot load OAR {J.Name}")
+                        Continue For
+                    End If
+
+                    Coord_X(RegionUUID) = X
+                    Coord_Y(RegionUUID) = Y
+
+                    Smart_Start(RegionUUID) = "True"
+                    Teleport_Sign(RegionUUID) = "True"
+
+                    SizeX(RegionUUID) = SizeRegion * 256
+                    SizeY(RegionUUID) = SizeRegion * 256
+
+                    Group_Name(RegionUUID) = shortname
+
+                    RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                    RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                    OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
+
+                    Dim port = GetPort(RegionUUID)
+                    GroupPort(RegionUUID) = port
+                    Region_Port(RegionUUID) = port
+                    WriteRegionObject(shortname, shortname)
+                    Firewall.SetFirewall()
+                    PropChangedRegionSettings = True
+                    PropUpdateView = True ' make form refresh
+                End If
+                If _StopLoading Then Return
+
+                SequentialPause()
+
+                ProgressPrint($"{My.Resources.Start_word} {shortname}")
+                If Not PropOpensimIsRunning Then Return
+                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                Dim obj As New TaskObject With {
+                    .TaskName = FormSetup.TaskName.LoadAllFreeOARs,
+                    .Command = File
+                }
+                FormSetup.RebootAndRunTask(RegionUUID, obj)
+                AddToRegionMap(RegionUUID)
+
+                If X > (StartX + 50) Then   ' if past right border,
+                    X = StartX              ' go back to left border
+                    Y += MaxSizeThisRow + 1  ' Add the largest size +1 and move up
+                    SizeRegion = 256            ' and reset the max height
+                Else     ' we move right the size of the last sim + 1
+                    X += SizeRegion + 1
+                End If
+
+                Sleep(1000) ' wait 1 second between each.
+                If _StopLoading Then Return
+
+            Next
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
+        End Try
+
+    End Sub
+
+    Public Sub StopLoading()
+
+        _StopLoading = True
+        ProgressPrint("Stopped")
+
     End Sub
 
 #End Region
@@ -72,13 +258,14 @@ Public Class FormSmartStart
 
     Public Sub ProgressPrint(Value As String)
         Log(My.Resources.Info_word, Value)
-        TextBox1.Text += Value & vbCrLf
+        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+        TextBox1.Text += $"{dt} {Value}" & vbCrLf
         If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
             TextBox1.Text = Mid(TextBox1.Text, 1000)
         End If
     End Sub
 
-    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs)
+    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
         TextBox1.ScrollToCaret()
@@ -492,11 +679,18 @@ Public Class FormSmartStart
 
 #Region "Start/Stop"
 
-    Private Sub FormTrees_Close(sender As Object, e As EventArgs) Handles Me.Closing
+    Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+
+        If Not _StopLoading Then
+            If (MessageBox.Show("Abort Loading?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
+                e.Cancel = True
+            End If
+        End If
         Settings.SaveSettings()
+
     End Sub
 
-    Private Sub FormTrees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Loading(sender As Object, e As EventArgs) Handles MyBase.Load
 
         _initialized = False
         SetScreen()
@@ -716,6 +910,25 @@ Public Class FormSmartStart
         _initialized = True
     End Sub
 
+#End Region
+
+#Region "Terrain"
+
+    Private Sub LoadTerrain_Click(sender As Object, e As EventArgs) Handles LoadTerrain.Click
+
+        'load menu
+        Dim RegionName = ChooseRegion(False)
+        If RegionName.Length = 0 Then Return
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.TerrainLoad,
+                .Command = ""
+            }
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
+
+    End Sub
+
     Private Sub LoadTerrainList()
 
         Try
@@ -766,6 +979,8 @@ Public Class FormSmartStart
 
 #End Region
 
+#Region "Misc"
+
     Private Function GetSetting(tree As String) As Boolean
         Dim b As Boolean
         Select Case Settings.GetMySetting(tree)
@@ -782,190 +997,7 @@ Public Class FormSmartStart
 
     End Function
 
-    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
-
-        If Not _initialized Then Return
-        Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
-        Select Case Settings.Skirtsize
-            Case 0
-                PictureBox4.Image = My.Resources._1x1
-            Case 1
-                PictureBox4.Image = My.Resources._3x3
-            Case 2
-                PictureBox4.Image = My.Resources._5x5
-            Case 3
-                PictureBox4.Image = My.Resources._7x7
-        End Select
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub LoadAllFreeOARs()
-
-        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
-        If Caution <> MsgBoxResult.Yes Then Return
-
-        If _StopLoading Then Return
-
-        gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
-        If Settings.SurroundOwner.Length = 0 Then
-            MsgBox("Set the Owner of the Sim Surrounds and try again.")
-            Return
-        End If
-
-        If _StopLoading Then Return
-
-        gEstateOwner = Settings.SurroundOwner
-
-
-        Dim CoordX = CStr(LargestX() + 18)
-        Dim CoordY = CStr(LargestY() + 18)
-
-        Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
-
-        Dim pattern = New Regex("(\d+),(\d+)")
-        Dim match As Match = pattern.Match(coord)
-        If Not match.Success Then
-            MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
-            Return
-        End If
-
-        If _StopLoading Then Return
-
-        Dim X As Integer = CInt(match.Groups(1).Value)
-        Dim Y As Integer = CInt(match.Groups(2).Value)
-        Dim StartX As Integer = X
-
-        If Not PropOpensimIsRunning() Then
-            MysqlInterface.DeregisterRegions(False)
-        End If
-
-        FormSetup.Buttons(FormSetup.BusyButton)
-        If Not StartMySQL() Then Return
-        If Not StartRobust() Then Return
-        FormSetup.StartTimer()
-
-        If _StopLoading Then Return
-
-        Try
-            For Each J In FormSetup.ContentOAR.GetJson
-                If _StopLoading Then Return
-
-                If Not PropOpensimIsRunning Then Return
-                ' Get name from web site JSON
-                Dim Name = J.Name
-                Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
-                Dim Index = shortname.IndexOf("(", StringComparison.OrdinalIgnoreCase)
-                If (Index >= 0) Then
-                    shortname = shortname.Substring(0, Index)
-                End If
-
-                If shortname.Length = 0 Then Return
-                If shortname = Settings.WelcomeRegion Then Continue For
-
-                Dim RegionUUID As String
-
-                ' it may already exists
-                Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                If IO.File.Exists(p) Then
-                    ' if so, check that it has prims
-                    RegionUUID = FindRegionByName(shortname)
-                    Dim o As New Guid
-                    If Guid.TryParse(RegionUUID, o) Then
-                        Dim Prims = GetPrimCount(RegionUUID)
-                        If Prims > 0 Then
-                            ProgressPrint($"{J.Name} {My.Resources.Ok} ")
-                            Continue For
-                        End If
-                    Else
-                        BreakPoint.Print("Bad UUID " & RegionUUID)
-                        Continue For
-                    End If
-                Else ' its a new region
-                    ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
-
-                    If _StopLoading Then Return
-                    RegionUUID = CreateRegionStruct(shortname)
-
-                    ' setup parameters for the load
-                    Dim sizerow As Integer = 256
-
-                    Dim Max As Integer
-                    If sizerow > Max Then Max = sizerow
-                    X += CInt((sizerow / 256) + 1)
-                    If X > StartX + 50 Then
-                        X = StartX
-                        Y += CInt((Max / 256) + 1)
-                        sizerow = 256
-                    End If
-
-                    ' convert 1,2,3 to 256, 512, etc
-                    Dim pattern1 = New Regex("(.*?)-(\d+)[xX](\d+)")
-                    Dim match1 As Match = pattern1.Match(Name)
-                    If match1.Success Then
-                        Name = match1.Groups(1).Value
-                        sizerow = CInt(match1.Groups(3).Value) * 256
-                    End If
-
-                    Coord_X(RegionUUID) = X
-                    Coord_Y(RegionUUID) = Y
-
-                    Smart_Start(RegionUUID) = "True"
-                    Teleport_Sign(RegionUUID) = "True"
-
-                    SizeX(RegionUUID) = sizerow
-                    SizeY(RegionUUID) = sizerow
-
-                    Group_Name(RegionUUID) = shortname
-
-                    RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                    RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
-                    OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
-
-                    Dim port = LargestPort() + 1
-                    GroupPort(RegionUUID) = port
-                    Region_Port(RegionUUID) = port
-                    WriteRegionObject(shortname, shortname)
-                    Firewall.SetFirewall()
-                    PropChangedRegionSettings = True
-                    PropUpdateView = True ' make form refresh
-
-                End If
-                If _StopLoading Then Return
-
-                ProgressPrint($"{My.Resources.Start_word} {shortname}")
-                If Not PropOpensimIsRunning Then Return
-                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                Dim obj As New TaskObject With {
-                    .TaskName = FormSetup.TaskName.LoadAllFreeOARs,
-                    .Command = File
-                }
-                FormSetup.RebootAndRunTask(RegionUUID, obj)
-
-                Sleep(1000) ' wait 1 second between each.
-                If _StopLoading Then Return
-
-            Next
-        Catch ex As Exception
-            BreakPoint.Print(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub LoadTerrain_Click(sender As Object, e As EventArgs) Handles LoadTerrain.Click
-
-        'load menu
-        Dim RegionName = ChooseRegion(False)
-        If RegionName.Length = 0 Then Return
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-
-        Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.TerrainLoad,
-                .Command = ""
-            }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
-
-    End Sub
+#End Region
 
 #Region "MakeXML"
 
@@ -1158,6 +1190,24 @@ Public Class FormSmartStart
 
 #Region "Tool strip"
 
+    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
+
+        If Not _initialized Then Return
+        Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
+        Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1X1
+            Case 1
+                PictureBox4.Image = My.Resources._3x3
+            Case 2
+                PictureBox4.Image = My.Resources._5x5
+            Case 3
+                PictureBox4.Image = My.Resources._7x7
+        End Select
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
         SavedAlready.Clear()
@@ -1216,7 +1266,9 @@ Public Class FormSmartStart
 #Region "SmartStart"
 
     Private Shared Sub SetSetting(check As CheckBox)
+
         check.Checked = True
+
     End Sub
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
@@ -1457,7 +1509,6 @@ Public Class FormSmartStart
 
 #Region "Editor"
 
-
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
         If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
@@ -1556,6 +1607,10 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Help"
+
+    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
+        StopLoading()
+    End Sub
 
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
 
@@ -1668,25 +1723,6 @@ Public Class FormSmartStart
         HelpManual("Terrain")
     End Sub
 
-    Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = FindRegionByName(name)
-        If RegionUUID.Length = 0 Then Return
-
-        Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.Revert
-            }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
-    End Sub
-
-    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
-
-        If Not _initialized Then Return
-        Settings.TempRegion = TempCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShutDownButton.CheckedChanged
 
         If Not _initialized Then Return
@@ -1703,16 +1739,26 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
+    Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
+        Dim name = ChooseRegion(False)
+        Dim RegionUUID As String = FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
 
-        _StopLoading = True
-
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.Revert
+            }
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+        StartLoading()
+    End Sub
 
-        _StopLoading = True
-        LoadAllFreeOARs()
+    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
+
+        If Not _initialized Then Return
+        Settings.TempRegion = TempCheckBox.Checked
+        Settings.SaveSettings()
 
     End Sub
 

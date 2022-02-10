@@ -8,7 +8,6 @@ Imports System.Collections.Concurrent
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
-Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
@@ -146,7 +145,6 @@ Public Class FormSetup
         End Set
     End Property
 
-
     Public Property PropIceCastExited() As Boolean
         Get
             Return _IceCastExited
@@ -273,11 +271,9 @@ Public Class FormSetup
     Public Shared Sub ErrorGroup(Groupname As String)
 
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, Region_Name(RegionUUID) & " is in Error State", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
             PokeRegionTimer(RegionUUID)
         Next
-        Logger("Error", Groupname & " is now in Error State", "State")
 
     End Sub
 
@@ -302,11 +298,9 @@ Public Class FormSetup
     Public Shared Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, Region_Name(RegionUUID) & " is Stopped", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             PokeRegionTimer(RegionUUID)
         Next
-        Logger("Info", Groupname & " Group is now stopped", "State")
 
     End Sub
 
@@ -357,11 +351,6 @@ Public Class FormSetup
                 SequentialPause()
                 ShutDown(RegionUUID)
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                Dim Group = Group_Name(RegionUUID)
-
-                For Each UUID In RegionUuidListByName(Group)
-                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                Next
                 PropUpdateView = True ' make form refresh
                 Application.DoEvents()
             End If
@@ -460,9 +449,6 @@ Public Class FormSetup
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
-
-        'Redo all the region ports
-        UpdateAllRegionPorts()
 
         PropAborting = False
         Buttons(BusyButton)
@@ -590,7 +576,6 @@ Public Class FormSetup
             _myFolder = _myFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
         End If
-
 
         If Not System.IO.File.Exists(_myFolder & "\OutworldzFiles\Settings.ini") Then
             Create_ShortCut(_myFolder & "\Start.exe")
@@ -839,8 +824,8 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
+        UpgradeDotNet()
         SetupPerl()
-        SetupPerlModules() ' may require  a restart due to path
 
         TextPrint(My.Resources.Getting_regions_word)
 
@@ -851,7 +836,7 @@ Public Class FormSetup
         Init(True)  ' read all region data
 
         AddVoices() ' add eva and mark voices
-        UpgradeDotNet()
+
         Application.DoEvents()
 
         ' Boot RAM Query
@@ -862,6 +847,8 @@ Public Class FormSetup
         CopyWifi() 'Make the two folders in Wifi and Wifi bin for Diva
 
         Cleanup() ' old files thread
+
+        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Status.log"))
 
         'UPNP create if we need it
         PropMyUPnpMap = New UPnp()
@@ -951,9 +938,6 @@ Public Class FormSetup
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
-
-        'Redo all the region ports
-        UpdateAllRegionPorts()
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
@@ -1094,18 +1078,16 @@ Public Class FormSetup
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
                 PropUpdateView = True
-                Logger("State", $"Changed to Stopped {Region_Name(RegionUUID)}", "State")
                 Application.DoEvents()
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
                 'RecyclingDown = 4
-                Logger("State", $"Is RecyclingDown for {GroupName}", "State")
+
                 TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
                 For Each R In GroupList
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
-                Logger("State", "is changed to RestartStage2 for {Region_Name(RegionUUID)}", "State")
                 PropUpdateView = True
                 Application.DoEvents()
                 Continue While
@@ -1119,11 +1101,11 @@ Public Class FormSetup
                 Status = SIMSTATUSENUM.Error
                 PropUpdateView = True
 
-                Logger("Crash", GroupName & " Crashed", "State")
+                Logger("Crash", GroupName & " Crashed", "Status")
                 If Settings.RestartOnCrash Then
 
                     If CrashCounter(RegionUUID) > 4 Then
-                        Logger("Crash", $"{GroupName} Crashed 4 times", "State")
+                        Logger("Crash", $"{GroupName} Crashed 5 times", "Status")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                         StopGroup(GroupName)
                         CrashCounter(RegionUUID) = 0
@@ -1142,7 +1124,6 @@ Public Class FormSetup
                     For Each R In GroupList
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
-                    Logger("Stopped", $"{GroupName} is stopped", "State")
                     PropUpdateView = True
                     Continue While
                     Application.DoEvents()
@@ -1321,9 +1302,6 @@ Public Class FormSetup
                             Diagnostics.Debug.Print("State Changed to ShuttingDown", GroupName, "Teleport")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID)
-                                For Each UUID In RegionUuidListByName(GroupName)
-                                    RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                                Next
                             Else
                                 PauseRegion(RegionUUID)
                                 For Each UUID In RegionUuidListByName(GroupName)
@@ -1344,9 +1322,9 @@ Public Class FormSetup
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
-            AndAlso Expired > 0 _
-            AndAlso Settings.AutoRestartInterval() > 0 _
-            AndAlso Settings.AutoRestartEnabled Then
+                    AndAlso Expired > 0 _
+                    AndAlso Settings.AutoRestartInterval() > 0 _
+                    AndAlso Settings.AutoRestartEnabled Then
 
                     If AvatarsIsInGroup(GroupName) Then
                         ' keep smart start regions alive if someone is near
@@ -1363,10 +1341,6 @@ Public Class FormSetup
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID)
-                        Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-                        For Each UUID As String In GroupList
-                            RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-                        Next
                         Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
@@ -1594,7 +1568,6 @@ Public Class FormSetup
         End If
 
     End Sub
-
 
 #End Region
 
@@ -1860,7 +1833,6 @@ Public Class FormSetup
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
-            Logger("State", "Is Stopped in {Region_Name(RegionUUID)}", "State")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
@@ -2293,6 +2265,7 @@ Public Class FormSetup
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
+                    SetupPerlModules()
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
@@ -3185,7 +3158,6 @@ Public Class FormSetup
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            Logger("RecyclingDown", Region_Name(RegionUUID), "State")
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3204,7 +3176,6 @@ Public Class FormSetup
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            Logger("RecyclingDown", Region_Name(RegionUUID), "State")
             PropUpdateView = True ' make form refresh
         End If
 

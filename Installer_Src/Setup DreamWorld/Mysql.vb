@@ -34,7 +34,6 @@ Public Module MysqlInterface
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
-
 #Region "Properties"
 
     Public Property MysqlCrashCounter As Integer
@@ -414,16 +413,14 @@ Public Module MysqlInterface
         arr = list2.ToArray
         clause = Join(arr, ",")
 
-
         stm = $"delete from visitor where regionname not in ({clause})"
         QueryString(stm)
-
 
     End Sub
 
     '''
     ''' logs out any users when we kill the grid
-    ''' 
+    '''
     Public Sub DeleteOnlineUsers()
 
         If PropOpensimIsRunning Then
@@ -751,12 +748,14 @@ Public Module MysqlInterface
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Dim Output As New MailList
-                            Output.firstname = reader.GetString(0)
-                            Output.LastName = reader.GetString(1)
-                            Output.Email = reader.GetString(2)
-                            Output.Title = reader.GetString(3)
-                            Output.principalid = reader.GetString(4)
+                            Dim Output As New MailList With {
+                            .firstname = reader.GetString(0),
+                            .LastName = reader.GetString(1),
+                            .Email = reader.GetString(2),
+                            .Title = reader.GetString(3),
+                            .principalid = reader.GetString(4)
+                            }
+
                             Dim Level = reader.GetInt32(5)
 
                             If Level < 0 Then
@@ -1625,8 +1624,8 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM 
-    (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes 
+                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM
+    (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes
     FROM information_schema.tables WHERE engine='InnoDB') A;"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
@@ -1652,6 +1651,7 @@ Public Module MysqlInterface
 #End Region
 
 End Module
+
 Public Class UserData
 
     Public PrincipalID As String = ""

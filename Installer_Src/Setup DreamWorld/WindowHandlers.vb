@@ -5,9 +5,7 @@
 
 #End Region
 
-Imports System.IO
 Imports System.Threading
-Imports System.Runtime.InteropServices
 
 Module WindowHandlers
 
@@ -74,7 +72,6 @@ Module WindowHandlers
                     Return RPC_Region_Command(RegionUUID, command)
                 End If
 
-
                 DoType(RegionUUID, command)
 
                 Try
@@ -105,7 +102,6 @@ Module WindowHandlers
         command = command.Replace("(", "{(}")
         command = command.Replace(")", "{)}")
 
-
         Dim PID As Integer
         If RegionUUID = "Robust" Then
 
@@ -117,13 +113,16 @@ Module WindowHandlers
             If PID = 0 Then
                 Return
             End If
-            AppActivate(PID)
+            Try
+                AppActivate(PID)
+                Sleep(100)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.Flush()
+            Catch
+            End Try
 
-            Sleep(100)
-            SendKeys.SendWait("{ENTER}")
-            SendKeys.SendWait(command)
-            SendKeys.SendWait("{ENTER}")
-            SendKeys.Flush()
             Return
         End If
 
@@ -254,7 +253,7 @@ Module WindowHandlers
                 End If
 
             Next
-            ConsoleCommand(RobustName, "set log level " & msg)
+            ConsoleCommand(RobustName, "set log level " & msg, True)
         End If
 
     End Sub
@@ -267,7 +266,7 @@ Module WindowHandlers
         Dim rname = ChooseRegion(False)
         Dim RegionUUID As String = FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
+            ConsoleCommand(RegionUUID, "change region " & """" & rname & """", True)
             ConsoleCommand(RegionUUID, cmd)
         End If
 

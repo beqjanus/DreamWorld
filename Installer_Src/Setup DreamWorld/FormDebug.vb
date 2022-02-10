@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports System.Net
+﻿Imports System.Net
 
 Public Class FormDebug
 

@@ -5,9 +5,6 @@
 
 #End Region
 
-Imports System.ComponentModel
-Imports System.Threading
-
 Public Class FormBackupCheckboxes
 
     Private initted As Boolean

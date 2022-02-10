@@ -130,7 +130,7 @@ Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
 #   General setup for the virtual host
 
 #Set by Dreamgrid
-ServerName test.outworldz.net
+ServerName 192.168.2.139
 # ServerAdmin: Your address, where problems with the server should be
 # e-mailed.  This address appears on some server-generated pages, such
 # as error documents.  e.g. admin@your-domain.com
@@ -171,7 +171,7 @@ SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 #   parallel.
 #SSLCertificateFile "${CERTROOT}/example.com-chain.pem"
 
-SSLCertificateFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/test.outworldz.net-chain.pem"
+SSLCertificateFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-chain.pem"
 
 #   Server Private Key:
 #   If the key is not combined with the certificate, use this
@@ -180,7 +180,7 @@ SSLCertificateFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/t
 #   both in parallel (to also allow the use of DSA ciphers, etc.)
 #   ECC keys, when in use, can also be configured in parallel
 
-SSLCertificateKeyFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/test.outworldz.net-key.pem"
+SSLCertificateKeyFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-key.pem"
 
 
 #   Server Certificate Chain:
@@ -191,7 +191,7 @@ SSLCertificateKeyFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Cert
 #   when the CA certificates are directly appended to the server
 #   certificate for convenience.
 
-SSLCertificateChainFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/test.outworldz.net-crt.pem"
+SSLCertificateChainFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-crt.pem"
 
 
 #   Certificate Authority (CA):

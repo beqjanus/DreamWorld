@@ -10,6 +10,8 @@ Imports System.Text.RegularExpressions
 
 Module DoIni
 
+#Region "Apache"
+
     Public Function DoApache() As Boolean
 
         If Not Settings.ApacheEnable Then Return False
@@ -62,6 +64,10 @@ Module DoIni
         Return False
 
     End Function
+
+#End Region
+
+#Region "Birds"
 
     Public Function DoBirds() As Boolean
 
@@ -120,6 +126,10 @@ Module DoIni
 
     End Function
 
+#End Region
+
+#Region "Estates"
+
     Public Function DoEstates() As Boolean
 
         If Settings.ServerType = RobustServerName Then
@@ -136,9 +146,31 @@ Module DoIni
 
     End Function
 
-    Public Function DoGloebits() As Boolean
+#End Region
 
-        'Gloebits.ini
+#Region "Money"
+
+    Public Function DoCurrency() As Boolean
+
+        If DoGloebit() Then Return True ' error = true
+        If DoAnotherCurrency() Then Return True
+
+        ' No error
+        Return False
+
+    End Function
+
+    Private Function DoAnotherCurrency() As Boolean
+
+        Return False
+
+    End Function
+
+    Private Function DoGloebit() As Boolean
+
+        'Gloebit.ini
+
+        If Not Settings.GloebitsEnable Then Return False
 
         Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
 
@@ -147,15 +179,9 @@ Module DoIni
         INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
         INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
 
-        If Settings.GloebitsMode Then
-            INI.SetIni("Gloebit", "GLBEnvironment", "production")
-            INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-            INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
-        Else
-            INI.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            INI.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
-            INI.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
-        End If
+        INI.SetIni("Gloebit", "GLBEnvironment", "production")
+        INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+        INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
 
         INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
@@ -171,6 +197,27 @@ Module DoIni
         Return False
 
     End Function
+
+    Private Sub SetupMoney(INI As LoadIni)
+
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
+        If Settings.GCG Then
+            INI.SetIni("LoginService", "Currency", "MC$")
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        ElseIf Settings.GloebitsEnable Then
+            INI.SetIni("LoginService", "Currency", "G$")
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
+            INI.SetIni("LoginService", "Currency", "jO$")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        Else
+            INI.SetIni("LoginService", "Currency", "$")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        End If
+
+    End Sub
+
+#End Region
 
     Public Function DoGrid() As Boolean
 
@@ -446,7 +493,7 @@ Module DoIni
             DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart            
+            ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim Welcome As String = Settings.WelcomeRegion
             Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
@@ -557,7 +604,7 @@ Module DoIni
         If DoTos() Then Return True         ' term of service
         If DoFlotsamINI() Then Return True  ' cache
         If DoWifi() Then Return True        ' Diva Wifi
-        If DoGloebits() Then Return True    ' Gloebits
+        If DoCurrency() Then Return True    ' Gloebit
         If DoWhoGotWhat() Then Return True  ' add on for scripts to save events to a CSV file
         If DoTides() Then Return True       ' tides
         If DoBirds() Then Return True       ' birds

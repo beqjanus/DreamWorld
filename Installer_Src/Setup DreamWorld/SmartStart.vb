@@ -6,7 +6,6 @@
 
 Imports System.IO
 Imports System.Text.RegularExpressions
-Imports System.Threading
 
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
@@ -73,6 +72,7 @@ Module SmartStart
         Return AllAgents
 
     End Function
+
     Public Sub SequentialPause()
 
         If Settings.Sequential Then
@@ -81,15 +81,16 @@ Module SmartStart
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
-
                     Dim status = RegionStatus(RegionUUID)
-                    If RegionEnabled(RegionUUID) _
-                        AndAlso Not PropAborting _
-                        AndAlso status = SIMSTATUSENUM.Booting Then
-                        Diagnostics.Debug.Print(Region_Name(RegionUUID))
+                    If (RegionEnabled(RegionUUID) And Not PropAborting) And
+                       (status = SIMSTATUSENUM.ShuttingDown _
+                        Or status = SIMSTATUSENUM.ShuttingDownForGood _
+                        Or status = SIMSTATUSENUM.Booting) Then
+                        Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
+                    Else
+                        Diagnostics.Debug.Print($"{GetStateString(status)} {Region_Name(RegionUUID)}")
                     End If
-                    Application.DoEvents()
                 Next
 
                 If wait Then
@@ -97,7 +98,9 @@ Module SmartStart
                 Else
                     Exit While
                 End If
-                If ctr <= 0 Then Exit While
+                If ctr <= 0 Then
+                    Exit While
+                End If
                 Sleep(1000)
             End While
         Else
@@ -106,7 +109,7 @@ Module SmartStart
                 Return
             End If
 
-            Dim ctr = 60 ' 1 minute max to start a region at 100% CPU
+            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
             While True
 
                 If Not PropOpensimIsRunning Then Return
@@ -120,7 +123,9 @@ Module SmartStart
                 Sleep(1000)
                 Application.DoEvents()
                 ctr -= 1
-                If ctr <= 0 Then Exit While
+                If ctr <= 0 Then
+                    Exit While
+                End If
             End While
 
         End If
@@ -243,7 +248,6 @@ Module SmartStart
             Integer.TryParse(Uri.UnescapeDataString(match.Groups(2).Value), Count)
         End If
 
-
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
@@ -270,7 +274,6 @@ Module SmartStart
                 NewSort.Add(item)
             End If
         Next
-
 
         Dim ctr = 1
         Dim used = 1
@@ -378,7 +381,6 @@ Module SmartStart
                             End If
 
                             Return FindRegionByName(Settings.ParkingLot)
-
                         Else ' Its a v4 sign
 
                             If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
@@ -468,8 +470,6 @@ Module SmartStart
 
             SetCores(RegionUUID)
 
-            CrashCounter(RegionUUID) = 0
-
             ' Detect if a region Window is already running
             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
@@ -501,7 +501,6 @@ Module SmartStart
                     Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                     PropUpdateView = True ' make form refresh
                     Return True
-
                 Else    ' needs to be captured into the event handler
 
                     ' TextPrint(BootName & " " & My.Resources.Running_word)
@@ -531,7 +530,7 @@ Module SmartStart
 
             TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
-            DoGloebits()
+            DoCurrency()
 
             If CopyOpensimProto(RegionUUID) Then Return False
 
@@ -613,13 +612,14 @@ Module SmartStart
                     End Try
 
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
                         ShutDown(RegionUUID)
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
                     End If
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.Add(PID, GroupName)
                     End If
+
                     ' Mark them before we boot as a crash will immediately trigger the event that it exited
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         RegionStatus(UUID) = SIMSTATUSENUM.Booting
@@ -655,7 +655,6 @@ Module SmartStart
 
             For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                Diagnostics.Debug.Print("State Changed to Resume", Region_Name(RegionUUID))
                 PokeRegionTimer(RegionUUID)
             Next
             PropUpdateView = True ' make form refresh
@@ -732,16 +731,12 @@ Module SmartStart
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
 
-        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
-
-        ConsoleCommand(RegionUUID, "backup")
-
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
-            ConsoleCommand(RegionUUID, "q")
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
+            ConsoleCommand(RegionUUID, "q", True)
         End If
 
     End Sub

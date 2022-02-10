@@ -32,9 +32,11 @@ Module Runtimes
             V = "Win10"
         End If
 
+        '' detect OS Upgrade to Win11 so we need to re-install Dot net
         If V <> Settings.OperatingSystem And Settings.OperatingSystem.Length > 0 Then
             Settings.DotnetUpgraded() = False
         End If
+
         Settings.OperatingSystem = V
         Settings.SaveSettings()
 

@@ -24,7 +24,6 @@ Partial Class FormRegions
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegions))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.NormalizeButton1 = New System.Windows.Forms.Button()
@@ -38,6 +37,7 @@ Partial Class FormRegions
         Me.WelcomeBox1 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AddRegion = New System.Windows.Forms.Button()
+        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextToSpeechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,20 +69,10 @@ Partial Class FormRegions
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Size = New System.Drawing.Size(216, 324)
+        Me.GroupBox2.Size = New System.Drawing.Size(216, 329)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
-        '
-        'ConciergeCheckbox
-        '
-        Me.ConciergeCheckbox.AutoSize = True
-        Me.ConciergeCheckbox.Location = New System.Drawing.Point(15, 29)
-        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
-        Me.ConciergeCheckbox.Size = New System.Drawing.Size(178, 17)
-        Me.ConciergeCheckbox.TabIndex = 9
-        Me.ConciergeCheckbox.Text = "Announce Visitors in region chat"
-        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
         '
         'PictureBox2
         '
@@ -111,7 +101,7 @@ Partial Class FormRegions
         '
         Me.NormalizeButton1.Image = Global.Outworldz.My.Resources.Resources.package_preferences
         Me.NormalizeButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NormalizeButton1.Location = New System.Drawing.Point(14, 221)
+        Me.NormalizeButton1.Location = New System.Drawing.Point(16, 219)
         Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(185, 35)
@@ -156,7 +146,7 @@ Partial Class FormRegions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 271)
+        Me.Label1.Location = New System.Drawing.Point(15, 274)
         Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 13)
@@ -180,7 +170,7 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
-        Me.RegionBox.Location = New System.Drawing.Point(14, 287)
+        Me.RegionBox.Location = New System.Drawing.Point(16, 290)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
@@ -220,6 +210,16 @@ Partial Class FormRegions
         Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
         '
+        'ConciergeCheckbox
+        '
+        Me.ConciergeCheckbox.AutoSize = True
+        Me.ConciergeCheckbox.Location = New System.Drawing.Point(15, 29)
+        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
+        Me.ConciergeCheckbox.Size = New System.Drawing.Size(178, 17)
+        Me.ConciergeCheckbox.TabIndex = 9
+        Me.ConciergeCheckbox.Text = "Announce Visitors in region chat"
+        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
+        '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
@@ -227,7 +227,7 @@ Partial Class FormRegions
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(235, 34)
+        Me.MenuStrip2.Size = New System.Drawing.Size(464, 34)
         Me.MenuStrip2.TabIndex = 1887
         Me.MenuStrip2.Text = "0"
         '
@@ -254,7 +254,7 @@ Partial Class FormRegions
         'ConciergeGroup
         '
         Me.ConciergeGroup.Controls.Add(Me.ConciergeCheckbox)
-        Me.ConciergeGroup.Location = New System.Drawing.Point(9, 365)
+        Me.ConciergeGroup.Location = New System.Drawing.Point(240, 37)
         Me.ConciergeGroup.Name = "ConciergeGroup"
         Me.ConciergeGroup.Size = New System.Drawing.Size(200, 60)
         Me.ConciergeGroup.TabIndex = 1888
@@ -267,7 +267,7 @@ Partial Class FormRegions
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(235, 442)
+        Me.ClientSize = New System.Drawing.Size(464, 373)
         Me.Controls.Add(Me.ConciergeGroup)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)

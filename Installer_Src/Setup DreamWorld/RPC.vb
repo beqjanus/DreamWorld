@@ -216,7 +216,12 @@ Module RPC
 
     Public Sub ShutDown(RegionUUID As String)
 
-        ConsoleCommand(RegionUUID, "q")
+        ConsoleCommand(RegionUUID, "q", True)
+
+        Dim Group = Group_Name(RegionUUID)
+        For Each RegionUUID In RegionUuidListByName(Group)
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
+        Next
 
     End Sub
 

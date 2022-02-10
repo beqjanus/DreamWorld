@@ -1,6 +1,14 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.9 Release
+This Rev will trigger an update popup.
+
+V4.899
+Allow Land sales for $0 to a specific person or any amount to anyone. Fake money.  Gloebit can be used for real money.
+Use the Welcome region for saving IARS. Helps with Smart Boot and Smart Suspend modes, which are a part of V5
+Region folders were not being zipped up in Backups when they were selected.
+
 V4.898
 Prevent a crash in Dreamgrid if the Regions folder is missing. 
 MetroMap (map.php) was missing the first cell.  It moved around based on the screen view.  $xx was not defined. An undefined variable is null, so if you use array($xx), instead of the 0th index, you gets the 'null'th place. which should be to 0th, but noooooo.  Thanks for the tip and the fix, awss!

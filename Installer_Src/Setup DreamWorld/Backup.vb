@@ -20,7 +20,6 @@
 
     End Function
 
-
 #End Region
 
 #Region "Tasks"
@@ -45,7 +44,7 @@
 
     Public Sub Backupper(RegionUUID As String)
 
-        ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """")
+        ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """", True)
         ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
                            DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 

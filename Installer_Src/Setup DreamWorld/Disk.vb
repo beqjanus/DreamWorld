@@ -117,6 +117,20 @@ Module Disk
 #Region "FreeThaw"
 
     ''' <summary>
+    ''' Suspends region
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub PauseRegion(RegionUUID As String)
+
+        Diagnostics.Debug.Print($"Pausing {Region_Name(RegionUUID)}")
+
+        FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
+    ''' <summary>
     ''' Resumes Region from frozen state
     ''' </summary>
     ''' <param name="RegionUUID">RegionUUID</param>
@@ -133,31 +147,19 @@ Module Disk
         Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
 
         Dim result = FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-        If Not result Then
+        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
             PropUpdateView = True ' make form refresh
             TeleportAgents()
         Else
-            'Todo Handle non resumed region
+            ReBoot(RegionUUID)
+            PropUpdateView = True ' make form refresh
+            TeleportAgents()
         End If
 
         Return result
 
     End Function
-
-    ''' <summary>
-    ''' Suspends region 
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    Public Sub PauseRegion(RegionUUID As String)
-
-        Diagnostics.Debug.Print($"Pausing {Region_Name(RegionUUID)}")
-
-        FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-        PropUpdateView = True ' make form refresh
-
-    End Sub
 
     Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
 

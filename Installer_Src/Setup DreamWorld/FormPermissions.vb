@@ -76,7 +76,7 @@ Public Class FormPermissions
         If (v < 0) Then v = 0
         DomainUpDown1.SelectedIndex = v
 
-        OutBoundPermissionsCheckbox.Checked = Settings.OutBoundPermissions
+        OutBoundPermissionsCheckbox.Checked = Settings.OutboundPermissions
 
         SetScreen()
         HelpOnce("Permissions")
@@ -154,7 +154,7 @@ Public Class FormPermissions
     Private Sub HGExportCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles OutBoundPermissionsCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
+        Settings.OutboundPermissions = OutBoundPermissionsCheckbox.Checked
         Settings.SaveSettings()
 
     End Sub

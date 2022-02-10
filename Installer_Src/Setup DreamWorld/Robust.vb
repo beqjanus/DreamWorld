@@ -6,7 +6,6 @@
 #End Region
 
 Imports System.Net
-Imports System.Text
 Imports System.Text.RegularExpressions
 
 Module Robust
@@ -15,7 +14,6 @@ Module Robust
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustProcID As Integer
-
 
     Public Property PropRobustExited() As Boolean
         Get
@@ -176,7 +174,7 @@ Module Robust
 
         SetWindowTextCall(RobustProcess, RobustName)
 
-        ConsoleCommand(RobustName, "help all")
+        ConsoleCommand(RobustName, "help all", True)
 
         ' Wait for Robust to start listening
         Dim counter = 0
@@ -216,13 +214,14 @@ Module Robust
 
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
 
-            ConsoleCommand(RobustName, "q")
+            ConsoleCommand(RobustName, "q", True)
+
             Dim ctr As Integer = 0
             ' wait 30 seconds for robust to quit
             While IsRobustRunning() And ctr < 30
                 Application.DoEvents()
                 Sleep(1000)
-                ConsoleCommand(RobustName, "q")
+                ConsoleCommand(RobustName, "q", True)
                 ctr += 1
             End While
             If ctr = 30 Then Zap("Robust")

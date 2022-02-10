@@ -47,8 +47,7 @@ Module Ports
                         End If
 
                         Dim INI = New LoadIni(file, ";", System.Text.Encoding.ASCII)
-                        Dim RegionPort = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
-                        Dim GroupPort = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
+
                         Dim RegionUUID = CStr(INI.GetIni(fName, "RegionUUID", "", "String"))
 
                         ' check it
@@ -59,17 +58,13 @@ Module Ports
                         End If
 
                         If CBool(GetHwnd(Groupname)) Then
+                            Dim RegionPort = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                             If RegionPortList.ContainsKey(RegionPort) Then
                                 RegionPortList.Item(RegionPort) = RegionUUID  ' update
                             Else
                                 RegionPortList.TryAdd(RegionPort, RegionUUID) ' add
                             End If
-
-                            If RegionPortList.ContainsKey(GroupPort) Then
-                                RegionPortList.Item(GroupPort) = RegionUUID  ' update
-                            Else
-                                RegionPortList.TryAdd(GroupPort, RegionUUID) ' add
-                            End If
+                        Else
 
                         End If
                     Next
@@ -85,19 +80,30 @@ Module Ports
 
     End Function
 
-    Public Function GetFreePort(RegionUUID As String) As Integer
+    Public Function GetPort(regionUUID As String) As Integer
 
-        Dim StartPort = Settings.FirstRegionPort
-
-        While (True)
-            If RegionPortList.ContainsKey(StartPort) Then
-                StartPort += 1
-            Else
-                RegionPortList.TryAdd(StartPort, RegionUUID)
-                Exit While
+        For Each kp In RegionPortList
+            If kp.Value = regionUUID Then
+                Return kp.Key
             End If
-        End While
-        Return StartPort
+        Next
+
+        Return GetFreePort(regionUUID)
+
+    End Function
+
+    '' Get the larget Region Port
+    Public Function LargestPort() As Integer
+
+        Dim retval As Integer = Settings.FirstRegionPort ' start at 8004
+
+        For Each kp In RegionPortList
+            If kp.Key > retval Then
+                retval = kp.Key
+            End If
+        Next
+
+        Return retval
 
     End Function
 
@@ -112,6 +118,22 @@ Module Ports
             Return RegionPortList.TryRemove(Port, RegionUUID)
         End If
         Return True
+    End Function
+
+    Private Function GetFreePort(RegionUUID As String) As Integer
+
+        Dim StartPort = Settings.FirstRegionPort
+
+        While (True)
+            If RegionPortList.ContainsKey(StartPort) Then
+                StartPort += 1
+            Else
+                RegionPortList.TryAdd(StartPort, RegionUUID)
+                Exit While
+            End If
+        End While
+        Return StartPort
+
     End Function
 
 End Module

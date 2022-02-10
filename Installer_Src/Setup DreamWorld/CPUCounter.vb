@@ -1,5 +1,4 @@
-﻿Imports System.Diagnostics.Process
-Imports System.Threading
+﻿Imports System.Threading
 
 Module CPUCounter
 

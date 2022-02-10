@@ -27,9 +27,8 @@ Module RegionMaker
 
 #Region "Declarations"
 
-    Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
-
     Public ReadOnly WebserverList As New ConcurrentDictionary(Of String, String)
+    Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
 
@@ -106,7 +105,7 @@ Module RegionMaker
             Dim first As Integer = POST.IndexOf("{", StringComparison.OrdinalIgnoreCase)
             Dim last As Integer = POST.LastIndexOf("}", StringComparison.OrdinalIgnoreCase)
 
-            Dim rawJSON As String = ""
+            Dim rawJSON As String
             If first > -1 AndAlso last > -1 Then
                 rawJSON = POST.Substring(first, last - first + 1)
             Else
@@ -348,7 +347,7 @@ Module RegionMaker
 
 #Region "Functions"
 
-    Private PortLock As Boolean
+    Private ReadOnly PortLock As Boolean
 
     Private UpdateAllRegion As Boolean
 
@@ -620,15 +619,16 @@ Module RegionMaker
 
                                 ' Get Next Port
                                 If ThisGroup = 0 Then
-                                    ThisGroup = GetFreePort(uuid)
-                                    Region_Port(uuid) = ThisGroup
+                                    ThisGroup = GetPort(uuid)
+                                    GroupPort(uuid) = ThisGroup
                                 End If
+
+                                Region_Port(uuid) = ThisGroup
 
                                 Dim G = Group_Name(uuid)
                                 If GetHwnd(G) = IntPtr.Zero Then
                                     If Not Region_Port(uuid) = ThisGroup Then
-                                        Region_Port(uuid) = GetFreePort(uuid)
-                                        GroupPort(uuid) = ThisGroup
+                                        Region_Port(uuid) = GetPort(uuid)
                                     End If
 
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  to {fName}", "Port")
@@ -637,10 +637,10 @@ Module RegionMaker
                                     Region_Port(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                                     If Region_Port(uuid) = 0 Then Region_Port(uuid) = LargestPort() + 1
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} to {fName}", "Port")
-
+                                    '
                                     GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
                                     Diagnostics.Debug.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
-
+                                    '
                                     If GroupPort(uuid) = 0 Then
                                         GroupPort(uuid) = ThisGroup
                                         Logger("Port", $"Re-Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
@@ -649,7 +649,6 @@ Module RegionMaker
                                 End If
 
                                 ' If region Is already set, use its port as they cannot change while up.
-
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
                                 If o >= 0 Then
@@ -659,11 +658,11 @@ Module RegionMaker
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
                                 End If
-
-                                INI.SaveINI()
-                                AddToRegionMap(uuid)
-
                             End If
+
+                            INI.SaveINI()
+                            AddToRegionMap(uuid)
+
                         Next
                     Catch ex As Exception
                         BreakPoint.Dump(ex)
@@ -686,37 +685,6 @@ Module RegionMaker
         Return RegionList.Count
 
     End Function
-
-    Public Function LargestPort() As Integer
-
-        Dim Maxnum As Integer
-        Dim Retry = 60
-        While Retry > 0 AndAlso PortLock
-            Sleep(1000)
-            Retry -= 1
-        End While
-        If Retry = 0 Then BreakPoint.Print("Retry Port lock exceeded")
-        PortLock = True
-
-        ' locate largest port
-        Maxnum = Settings.FirstRegionPort - 1
-        Dim pair As KeyValuePair(Of String, Region_data)
-
-        For Each pair In RegionList
-            If pair.Value._RegionPort > Maxnum Then
-                Maxnum = pair.Value._RegionPort
-            End If
-            If pair.Value._GroupPort > Maxnum Then
-                Maxnum = pair.Value._GroupPort
-            End If
-        Next
-
-        PortLock = False
-
-        Return Maxnum
-
-    End Function
-
 
     Public Function LargestX() As Integer
 
@@ -779,6 +747,8 @@ Module RegionMaker
 
     Public Sub UpdateAllRegionPorts()
 
+        Return
+
         Dim Retry = 60
         While Retry > 0 AndAlso UpdateAllRegion
             Sleep(1000)
@@ -828,8 +798,6 @@ Module RegionMaker
             port += 1
         Next
 
-        TextPrint(My.Resources.Setup_Firewall_word)
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
         UpdateAllRegion = False
 
     End Sub
@@ -986,7 +954,10 @@ Module RegionMaker
 
     Public Property CrashCounter(uuid As String) As Integer
         Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._CrashCounter
+            If RegionList.ContainsKey(uuid) Then
+                ErrorLog($"{Region_Name(uuid)} crashed")
+                Return RegionList(uuid)._CrashCounter
+            End If
             BadUUID(uuid)
             Return 0
         End Get
@@ -1189,11 +1160,17 @@ Module RegionMaker
 
     Public Property RegionStatus(RegionUUID As String) As Integer
         Get
-            If RegionList.ContainsKey(RegionUUID) Then Return RegionList(RegionUUID)._Status
+            If RegionList.ContainsKey(RegionUUID) Then
+                Return RegionList(RegionUUID)._Status
+            End If
+
             BadUUID(RegionUUID)
             Return -1
         End Get
         Set(ByVal Value As Integer)
+            If Debugger.IsAttached Then
+                Logger(Region_Name(RegionUUID), $"Status => {GetStateString(Value)}", "Status")
+            End If
             RegionList(RegionUUID)._Status = Value
         End Set
     End Property
@@ -1234,15 +1211,15 @@ Module RegionMaker
 
     Private Sub BadUUID(uuid As String)
 
-        Debug.Print($"Bad UUID [{uuid}]")
-        'RegionDump()
+        If Debugger.IsAttached Then
+            ErrorLog($"Bad UUID [{uuid}]")
+        End If
 
     End Sub
 
 #End Region
 
 #Region "Options"
-
 
     Public Property AllowGods(uuid As String) As String
         Get
@@ -1600,7 +1577,6 @@ Module RegionMaker
             Dim pair As KeyValuePair(Of String, Region_data)
             For Each pair In RegionList
                 If pair.Value._Group = Gname Then
-                    L.Add(pair.Value._UUID)
                     L.Add(pair.Value._UUID)
                 End If
             Next
@@ -2034,10 +2010,11 @@ Module RegionMaker
                 If INI.SetIni("Economy", "CurrencyURL", "") Then Return True
             ElseIf Settings.CMS = JOpensim Then
                 If INI.SetIni("Startup", "economymodule", "jOpenSimMoneyModule") Then Return True
-                If INI.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
+                If INI.SetIni("Economy", "CurrencyURL", "{$Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
             Else
                 If INI.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule") Then Return True
-                If INI.SetIni("Economy", "CurrencyURL", "") Then Return True
+                ' Any old URL will do for any amount of money
+                If INI.SetIni("Economy", "CurrencyURL", $"{Settings.PublicIP}:{Settings.DiagnosticPort}") Then Return True
             End If
 
             ' LSL emails
@@ -2211,15 +2188,9 @@ Module RegionMaker
             If INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM)) Then Return True
             If INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage)) Then Return True
 
-            If Settings.GloebitsMode Then
-                If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
-                If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
-                If INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
-            Else
-                If INI.SetIni("Gloebit", "GLBEnvironment", "sandbox") Then Return True
-                If INI.SetIni("Gloebit", "GLBKey", Settings.GLSandKey) Then Return True
-                If INI.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret) Then Return True
-            End If
+            If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
+            If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
+            If INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
 
             If INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName) Then Return True
             If INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail) Then Return True
