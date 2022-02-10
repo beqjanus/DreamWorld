@@ -473,8 +473,6 @@ Module SmartStart
 
             SetCores(RegionUUID)
 
-            CrashCounter(RegionUUID) = 0
-
             ' Detect if a region Window is already running
             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
@@ -618,13 +616,14 @@ Module SmartStart
                     End Try
 
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
                         ShutDown(RegionUUID)
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
                     End If
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.Add(PID, GroupName)
                     End If
+
                     ' Mark them before we boot as a crash will immediately trigger the event that it exited
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         RegionStatus(UUID) = SIMSTATUSENUM.Booting
