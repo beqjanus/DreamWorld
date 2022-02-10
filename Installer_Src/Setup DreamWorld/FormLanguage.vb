@@ -42,7 +42,6 @@
             Me.Width = hw.Item(1)
         End If
 
-
     End Sub
 
 #End Region

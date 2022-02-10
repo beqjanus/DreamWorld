@@ -57,12 +57,10 @@ Public Module Firewall
                           & $"netsh advfirewall firewall delete rule name=""Opensim HTTP TCP Port {CStr(Settings.HttpPort)}""" & vbCrLf _
                           & $"netsh advfirewall firewall delete rule name=""Opensim HTTP UDP Port {CStr(Settings.HttpPort)}""" & vbCrLf
 
-
         Command += $"netsh advfirewall firewall delete rule name=""Icecast Port1 UDP {CStr(Settings.SCPortBase)}""" & vbCrLf _
                         & $"netsh advfirewall firewall delete rule name=""Icecast Port1 TCP {CStr(Settings.SCPortBase)}""" & vbCrLf _
                         & $"netsh advfirewall firewall delete rule name=""Icecast Port2 UDP {CStr(Settings.SCPortBase1)}""" & vbCrLf _
                         & $"netsh advfirewall firewall delete rule name=""Icecast Port2 TCP {CStr(Settings.SCPortBase1)}""" & vbCrLf
-
 
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTP Web Port {CStr(Settings.ApachePort)}""" & vbCrLf
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTPS Web Port 443""" & vbCrLf
@@ -110,7 +108,6 @@ Public Module Firewall
     End Sub
 
     Sub SetFirewall()
-
 
         Dim start As ParameterizedThreadStart = AddressOf RunFirewall
 

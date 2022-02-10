@@ -23,7 +23,6 @@ Module ProcessExtension
 
     End Enum
 
-
     ''' <summary>
     ''' Resumes a  suspended region
     ''' </summary>

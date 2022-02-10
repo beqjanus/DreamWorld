@@ -8,7 +8,6 @@ Imports System.Collections.Concurrent
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
-Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
@@ -145,7 +144,6 @@ Public Class FormSetup
             _IcecastCrashCounter = value
         End Set
     End Property
-
 
     Public Property PropIceCastExited() As Boolean
         Get
@@ -452,7 +450,6 @@ Public Class FormSetup
             Settings.DeregisteredOnce = True
         End If
 
-
         PropAborting = False
         Buttons(BusyButton)
 
@@ -579,7 +576,6 @@ Public Class FormSetup
             _myFolder = _myFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
         End If
-
 
         If Not System.IO.File.Exists(_myFolder & "\OutworldzFiles\Settings.ini") Then
             Create_ShortCut(_myFolder & "\Start.exe")
@@ -942,7 +938,6 @@ Public Class FormSetup
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
-
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
@@ -1573,7 +1568,6 @@ Public Class FormSetup
         End If
 
     End Sub
-
 
 #End Region
 
@@ -3163,7 +3157,7 @@ Public Class FormSetup
 
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.            
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3181,7 +3175,7 @@ Public Class FormSetup
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.            
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
             PropUpdateView = True ' make form refresh
         End If
 

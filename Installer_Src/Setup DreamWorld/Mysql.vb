@@ -34,7 +34,6 @@ Public Module MysqlInterface
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
 
-
 #Region "Properties"
 
     Public Property MysqlCrashCounter As Integer
@@ -414,16 +413,14 @@ Public Module MysqlInterface
         arr = list2.ToArray
         clause = Join(arr, ",")
 
-
         stm = $"delete from visitor where regionname not in ({clause})"
         QueryString(stm)
-
 
     End Sub
 
     '''
     ''' logs out any users when we kill the grid
-    ''' 
+    '''
     Public Sub DeleteOnlineUsers()
 
         If PropOpensimIsRunning Then
@@ -1627,8 +1624,8 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM 
-    (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes 
+                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM
+    (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes
     FROM information_schema.tables WHERE engine='InnoDB') A;"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
@@ -1654,6 +1651,7 @@ Public Module MysqlInterface
 #End Region
 
 End Module
+
 Public Class UserData
 
     Public PrincipalID As String = ""

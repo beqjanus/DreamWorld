@@ -59,7 +59,6 @@ Public Class FormGloebits
         ProductionCreateButton.Text = Global.Outworldz.My.Resources.Create_Account
         ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
 
-
         ContactEmailTextBox.Text = Settings.GLBOwnerEmail
         OwnerNameTextbox.Text = Settings.GLBOwnerName
 
@@ -79,7 +78,6 @@ Public Class FormGloebits
 #End Region
 
 #Region "Mode"
-
 
 #End Region
 
@@ -111,7 +109,6 @@ Public Class FormGloebits
             BreakPoint.Dump(ex)
         End Try
     End Sub
-
 
 #End Region
 

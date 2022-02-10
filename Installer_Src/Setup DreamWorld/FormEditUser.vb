@@ -1,9 +1,9 @@
-﻿
-Public Class FormEditUser
+﻿Public Class FormEditUser
 
-    Private initted As Boolean
     Private _UD As New UserData
     Private changed As Boolean
+    Private initted As Boolean
+
     Private Property UD As UserData
         Get
             Return _UD
@@ -13,26 +13,7 @@ Public Class FormEditUser
         End Set
     End Property
 
-
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-
-        'TO DO translations
-
-    End Sub
-
-    Private Sub Form1_Close(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closing
-
-        If changed Then
-            Dim response = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Information_word)
-            If response = vbYes Then
-                MysqlSaveUserData(UD)
-            End If
-        End If
-
-    End Sub
-
     Public Sub init(UUID As String)
-
 
         UD = MysqlGetUserData(UUID)
         TitleTextBox.Enabled = True
@@ -63,6 +44,52 @@ Public Class FormEditUser
         initted = True
 
     End Sub
+
+    Private Sub EmailTextBox_TextChanged(sender As Object, e As EventArgs) Handles EmailTextBox.TextChanged
+        If Not initted Then Return
+        UD.Email = EmailTextBox.Text
+        changed = True
+    End Sub
+
+    Private Sub FnameTextBox_TextChanged(sender As Object, e As EventArgs) Handles FnameTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.FirstName = FnameTextBox.Text
+        changed = True
+
+    End Sub
+
+    Private Sub Form1_Close(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closing
+
+        If changed Then
+            Dim response = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Information_word)
+            If response = vbYes Then
+                MysqlSaveUserData(UD)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+
+        'TO DO translations
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
+        HelpManual("Users")
+
+    End Sub
+
+    Private Sub LastNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles LastNameTextBox.TextChanged
+
+        If Not initted Then Return
+        UD.LastName = LastNameTextBox.Text
+        changed = True
+
+    End Sub
+
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioNologin.CheckedChanged
 
         If Not initted Then Return
@@ -95,22 +122,6 @@ Public Class FormEditUser
 
     End Sub
 
-    Private Sub FnameTextBox_TextChanged(sender As Object, e As EventArgs) Handles FnameTextBox.TextChanged
-
-        If Not initted Then Return
-        UD.FirstName = FnameTextBox.Text
-        changed = True
-
-    End Sub
-
-    Private Sub LastNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles LastNameTextBox.TextChanged
-
-        If Not initted Then Return
-        UD.LastName = LastNameTextBox.Text
-        changed = True
-
-    End Sub
-
     Private Sub TitleTextBox_TextChanged(sender As Object, e As EventArgs) Handles TitleTextBox.TextChanged
 
         If Not initted Then Return
@@ -127,16 +138,4 @@ Public Class FormEditUser
 
     End Sub
 
-    Private Sub EmailTextBox_TextChanged(sender As Object, e As EventArgs) Handles EmailTextBox.TextChanged
-        If Not initted Then Return
-        UD.Email = EmailTextBox.Text
-        changed = True
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-
-        HelpManual("Users")
-
-    End Sub
 End Class
-

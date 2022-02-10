@@ -5,9 +5,7 @@
 
 #End Region
 
-Imports System.IO
 Imports System.Threading
-Imports System.Runtime.InteropServices
 
 Module WindowHandlers
 
@@ -73,7 +71,6 @@ Module WindowHandlers
                 Else
                     Return RPC_Region_Command(RegionUUID, command)
                 End If
-
 
                 DoType(RegionUUID, command)
 

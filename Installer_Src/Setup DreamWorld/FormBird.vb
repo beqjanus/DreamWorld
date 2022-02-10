@@ -158,7 +158,6 @@ Public Class FormBird
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-
     End Sub
 
     Private Sub BirdsMaxHeightTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsMaxHeightTextBox.TextChanged
@@ -182,7 +181,6 @@ Public Class FormBird
             Settings.BirdsModuleStartup = False
         End If
 
-
     End Sub
 
     Private Sub BirdsNeighbourDistanceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsNeighbourDistanceTextBox.TextChanged
@@ -194,7 +192,6 @@ Public Class FormBird
         If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Settings.BirdsNeighbourDistance) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-
 
     End Sub
 
@@ -226,7 +223,6 @@ Public Class FormBird
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-
     End Sub
 
     Private Sub DesiredSeparationTextBox_TextChanged(sender As Object, e As EventArgs) Handles DesiredSeparationTextBox.TextChanged
@@ -239,7 +235,6 @@ Public Class FormBird
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-
     End Sub
 
     Private Sub MaxForceTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxForceTextBox.TextChanged
@@ -250,7 +245,6 @@ Public Class FormBird
         If Not Double.TryParse(MaxForceTextBox.Text, Settings.BirdsMaxForce) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
-
 
     End Sub
 
@@ -264,14 +258,12 @@ Public Class FormBird
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-
     End Sub
 
     Private Sub PrimNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles PrimNameTextBox.TextChanged
 
         If Not initted Then Return
         Settings.BirdsPrim = PrimNameTextBox.Text
-
 
     End Sub
 

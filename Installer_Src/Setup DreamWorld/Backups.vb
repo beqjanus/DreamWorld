@@ -154,7 +154,6 @@ Public Class Backups
             DeleteFile(SQLFile)
             Sleep(100)
             DeleteFolder(_folder)
-
         Catch ex As Exception
             Break(ex.Message)
         End Try
@@ -211,7 +210,7 @@ Public Class Backups
             If disposing Then
 
             End If
-            ' free unmanaged resources (unmanaged objects) and override finalizer            
+            ' free unmanaged resources (unmanaged objects) and override finalizer
             ' set large fields to null
             disposedValue = True
         End If
@@ -223,57 +222,57 @@ Public Class Backups
             Dim Name = "FsAssets"
             RunningBackupName = Name
             Try
-                    Dim f As String
-                    If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
-                        f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
-                    Else
-                        f = Settings.BaseDirectory
-                    End If
-                    If Directory.Exists(f) Then
-                        Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                        Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
+                Dim f As String
+                If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
+                    f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
+                Else
+                    f = Settings.BaseDirectory
+                End If
+                If Directory.Exists(f) Then
+                    Dim dest = IO.Path.Combine(BackupPath, "FSassets")
+                    Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
 
-                        '/E  Everything including empty folders
-                        '/M Modified with the A bit set, then clears the bit
-                        '/TBD wait for share names to be defined
-                        '/IM include files with modified times
-                        '/J Unbuffered IO
+                    '/E  Everything including empty folders
+                    '/M Modified with the A bit set, then clears the bit
+                    '/TBD wait for share names to be defined
+                    '/IM include files with modified times
+                    '/J Unbuffered IO
 
-                        Dim rev = System.Environment.OSVersion.Version.Major
-                        ' Only on 10
-                        If rev = 10 Then args += "/LFSM:50M"
+                    Dim rev = System.Environment.OSVersion.Version.Major
+                    ' Only on 10
+                    If rev = 10 Then args += "/LFSM:50M"
 
-                        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
-                        Debug.Print(args)
-                        Using ProcessRobocopy As New Process With {
-                            .EnableRaisingEvents = True
-                        }
-                            Dim pi = New ProcessStartInfo With {
-                            .Arguments = args,
-                            .FileName = win,
-                            .UseShellExecute = True,
-                            .CreateNoWindow = True
-                        }
-                            ProcessRobocopy.StartInfo = pi
+                    Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
+                    Debug.Print(args)
+                    Using ProcessRobocopy As New Process With {
+                        .EnableRaisingEvents = True
+                    }
+                        Dim pi = New ProcessStartInfo With {
+                        .Arguments = args,
+                        .FileName = win,
+                        .UseShellExecute = True,
+                        .CreateNoWindow = True
+                    }
+                        ProcessRobocopy.StartInfo = pi
 
-                            If Settings.ShowFsAssetBackup Then
-                                ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                                ProcessRobocopy.StartInfo.CreateNoWindow = False
-                            Else
-                                ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                                ProcessRobocopy.StartInfo.CreateNoWindow = True
-                            End If
+                        If Settings.ShowFsAssetBackup Then
+                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                            ProcessRobocopy.StartInfo.CreateNoWindow = False
+                        Else
+                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                            ProcessRobocopy.StartInfo.CreateNoWindow = True
+                        End If
 
-                            Try
-                                ProcessRobocopy.Start()
-                            Catch ex As Exception
-                                Break(ex.Message)
-                            End Try
-                        End Using
-                    End If
-                Catch ex As Exception
-                    Break(ex.Message)
-                End Try
+                        Try
+                            ProcessRobocopy.Start()
+                        Catch ex As Exception
+                            Break(ex.Message)
+                        End Try
+                    End Using
+                End If
+            Catch ex As Exception
+                Break(ex.Message)
+            End Try
             RunningBackupName = ""
         End If
 

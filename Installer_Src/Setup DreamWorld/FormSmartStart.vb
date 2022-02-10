@@ -22,8 +22,8 @@ Public Class FormSmartStart
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
-    Private _StopLoading As Boolean
     Private _SelectedPlant As String
+    Private _StopLoading As Boolean
 
 #Region "ScreenSize"
 
@@ -47,13 +47,6 @@ Public Class FormSmartStart
 #End Region
 
 #Region "LoadOARS"
-
-    Public Sub StopLoading()
-
-        _StopLoading = True
-        ProgressPrint("Stopped")
-
-    End Sub
 
     Public Sub StartLoading()
 
@@ -110,7 +103,7 @@ Public Class FormSmartStart
 
         ' setup parameters for the load
         Dim StartX = X ' loop begin
-        Dim MaxSizeThisRow As Integer  ' the largest region in a row        
+        Dim MaxSizeThisRow As Integer  ' the largest region in a row
         Dim SizeRegion As Integer = 1 ' (1X1)
 
         Try
@@ -229,6 +222,14 @@ Public Class FormSmartStart
         End Try
 
     End Sub
+
+    Public Sub StopLoading()
+
+        _StopLoading = True
+        ProgressPrint("Stopped")
+
+    End Sub
+
 #End Region
 
 #Region "Properties"
@@ -678,16 +679,18 @@ Public Class FormSmartStart
 
 #Region "Start/Stop"
 
+    Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-
-    Private Sub CloseForm(sender As Object, e As EventArgs) Handles MyBase.Closing
-
-
+        If Not _StopLoading Then
+            If (MessageBox.Show("Abort Loading?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
+                e.Cancel = True
+            End If
+        End If
         Settings.SaveSettings()
 
     End Sub
 
-    Private Sub FormTrees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Loading(sender As Object, e As EventArgs) Handles MyBase.Load
 
         _initialized = False
         SetScreen()
@@ -907,6 +910,25 @@ Public Class FormSmartStart
         _initialized = True
     End Sub
 
+#End Region
+
+#Region "Terrain"
+
+    Private Sub LoadTerrain_Click(sender As Object, e As EventArgs) Handles LoadTerrain.Click
+
+        'load menu
+        Dim RegionName = ChooseRegion(False)
+        If RegionName.Length = 0 Then Return
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.TerrainLoad,
+                .Command = ""
+            }
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
+
+    End Sub
+
     Private Sub LoadTerrainList()
 
         Try
@@ -957,6 +979,8 @@ Public Class FormSmartStart
 
 #End Region
 
+#Region "Misc"
+
     Private Function GetSetting(tree As String) As Boolean
         Dim b As Boolean
         Select Case Settings.GetMySetting(tree)
@@ -973,38 +997,7 @@ Public Class FormSmartStart
 
     End Function
 
-    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
-
-        If Not _initialized Then Return
-        Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
-        Select Case Settings.Skirtsize
-            Case 0
-                PictureBox4.Image = My.Resources._1x1
-            Case 1
-                PictureBox4.Image = My.Resources._3x3
-            Case 2
-                PictureBox4.Image = My.Resources._5x5
-            Case 3
-                PictureBox4.Image = My.Resources._7x7
-        End Select
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub LoadTerrain_Click(sender As Object, e As EventArgs) Handles LoadTerrain.Click
-
-        'load menu
-        Dim RegionName = ChooseRegion(False)
-        If RegionName.Length = 0 Then Return
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-
-        Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.TerrainLoad,
-                .Command = ""
-            }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
-
-    End Sub
+#End Region
 
 #Region "MakeXML"
 
@@ -1197,6 +1190,24 @@ Public Class FormSmartStart
 
 #Region "Tool strip"
 
+    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
+
+        If Not _initialized Then Return
+        Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
+        Select Case Settings.Skirtsize
+            Case 0
+                PictureBox4.Image = My.Resources._1X1
+            Case 1
+                PictureBox4.Image = My.Resources._3x3
+            Case 2
+                PictureBox4.Image = My.Resources._5x5
+            Case 3
+                PictureBox4.Image = My.Resources._7x7
+        End Select
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
         SavedAlready.Clear()
@@ -1255,7 +1266,9 @@ Public Class FormSmartStart
 #Region "SmartStart"
 
     Private Shared Sub SetSetting(check As CheckBox)
+
         check.Checked = True
+
     End Sub
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
@@ -1496,7 +1509,6 @@ Public Class FormSmartStart
 
 #Region "Editor"
 
-
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
         If Not _initialized Then Return
         Dim digitsOnly = New Regex("[^\d\.]")
@@ -1595,6 +1607,10 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Help"
+
+    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
+        StopLoading()
+    End Sub
 
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
 
@@ -1707,25 +1723,6 @@ Public Class FormSmartStart
         HelpManual("Terrain")
     End Sub
 
-    Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = FindRegionByName(name)
-        If RegionUUID.Length = 0 Then Return
-
-        Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.Revert
-            }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
-    End Sub
-
-    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
-
-        If Not _initialized Then Return
-        Settings.TempRegion = TempCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShutDownButton.CheckedChanged
 
         If Not _initialized Then Return
@@ -1742,18 +1739,29 @@ Public Class FormSmartStart
 
     End Sub
 
+    Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
+        Dim name = ChooseRegion(False)
+        Dim RegionUUID As String = FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+
+        Dim Obj = New TaskObject With {
+                .TaskName = FormSetup.TaskName.Revert
+            }
+        FormSetup.RebootAndRunTask(RegionUUID, Obj)
+    End Sub
+
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
         StartLoading()
     End Sub
 
-    Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
-        StopLoading()
+    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
+
+        If Not _initialized Then Return
+        Settings.TempRegion = TempCheckBox.Checked
+        Settings.SaveSettings()
+
     End Sub
-
-
-
 
 #End Region
 
 End Class
-

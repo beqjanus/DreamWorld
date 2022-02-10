@@ -154,7 +154,6 @@ Public Class FormSettings
         ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
         ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
 
-
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
         SetScreen()
@@ -424,7 +423,6 @@ Public Class FormSettings
         FormDNSName.BringToFront()
 
     End Sub
-
 
     Private Sub LanguageButton_Click(sender As Object, e As EventArgs) Handles LanguageButton.Click
 

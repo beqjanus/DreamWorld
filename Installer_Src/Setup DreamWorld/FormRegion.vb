@@ -322,7 +322,6 @@ Public Class FormRegion
 
             Normal.Checked = True
             Changed1 = True
-
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False

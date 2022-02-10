@@ -6,22 +6,6 @@ Module Ports
 
     Private ReadOnly RegionPortList As New ConcurrentDictionary(Of Integer, String)
 
-
-    '' Get the larget Region Port
-    Public Function LargestPort() As Integer
-
-        Dim retval As Integer = Settings.FirstRegionPort ' start at 8004
-
-        For Each kp In RegionPortList
-            If kp.Key > retval Then
-                retval = kp.Key
-            End If
-        Next
-
-        Return retval
-
-    End Function
-
     Public Function GetAlreadyUsedPorts() As Integer
 
         Dim folders() As String
@@ -96,19 +80,30 @@ Module Ports
 
     End Function
 
-    Private Function GetFreePort(RegionUUID As String) As Integer
+    Public Function GetPort(regionUUID As String) As Integer
 
-        Dim StartPort = Settings.FirstRegionPort
-
-        While (True)
-            If RegionPortList.ContainsKey(StartPort) Then
-                StartPort += 1
-            Else
-                RegionPortList.TryAdd(StartPort, RegionUUID)
-                Exit While
+        For Each kp In RegionPortList
+            If kp.Value = regionUUID Then
+                Return kp.Key
             End If
-        End While
-        Return StartPort
+        Next
+
+        Return GetFreePort(regionUUID)
+
+    End Function
+
+    '' Get the larget Region Port
+    Public Function LargestPort() As Integer
+
+        Dim retval As Integer = Settings.FirstRegionPort ' start at 8004
+
+        For Each kp In RegionPortList
+            If kp.Key > retval Then
+                retval = kp.Key
+            End If
+        Next
+
+        Return retval
 
     End Function
 
@@ -125,17 +120,20 @@ Module Ports
         Return True
     End Function
 
-    Public Function GetPort(regionUUID As String) As Integer
+    Private Function GetFreePort(RegionUUID As String) As Integer
 
-        For Each kp In RegionPortList
-            If kp.Value = regionUUID Then
-                Return kp.Key
+        Dim StartPort = Settings.FirstRegionPort
+
+        While (True)
+            If RegionPortList.ContainsKey(StartPort) Then
+                StartPort += 1
+            Else
+                RegionPortList.TryAdd(StartPort, RegionUUID)
+                Exit While
             End If
-        Next
-
-        Return GetFreePort(regionUUID)
+        End While
+        Return StartPort
 
     End Function
-
 
 End Module

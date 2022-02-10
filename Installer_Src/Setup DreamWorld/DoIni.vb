@@ -11,6 +11,7 @@ Imports System.Text.RegularExpressions
 Module DoIni
 
 #Region "Apache"
+
     Public Function DoApache() As Boolean
 
         If Not Settings.ApacheEnable Then Return False
@@ -64,10 +65,10 @@ Module DoIni
 
     End Function
 
-
 #End Region
 
 #Region "Birds"
+
     Public Function DoBirds() As Boolean
 
         If Not Settings.BirdsModuleStartup Then Return False
@@ -149,24 +150,21 @@ Module DoIni
 
 #Region "Money"
 
-    Private Sub SetupMoney(INI As LoadIni)
+    Public Function DoCurrency() As Boolean
 
-        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
-        If Settings.GCG Then
-            INI.SetIni("LoginService", "Currency", "MC$")
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        ElseIf Settings.GloebitsEnable Then
-            INI.SetIni("LoginService", "Currency", "G$")
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
-            INI.SetIni("LoginService", "Currency", "jO$")
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        Else
-            INI.SetIni("LoginService", "Currency", "$")
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        End If
+        If DoGloebit() Then Return True ' error = true
+        If DoAnotherCurrency() Then Return True
 
-    End Sub
+        ' No error
+        Return False
+
+    End Function
+
+    Private Function DoAnotherCurrency() As Boolean
+
+        Return False
+
+    End Function
 
     Private Function DoGloebit() As Boolean
 
@@ -200,22 +198,24 @@ Module DoIni
 
     End Function
 
-    Private Function DoAnotherCurrency() As Boolean
+    Private Sub SetupMoney(INI As LoadIni)
 
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
+        If Settings.GCG Then
+            INI.SetIni("LoginService", "Currency", "MC$")
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        ElseIf Settings.GloebitsEnable Then
+            INI.SetIni("LoginService", "Currency", "G$")
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
+            INI.SetIni("LoginService", "Currency", "jO$")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        Else
+            INI.SetIni("LoginService", "Currency", "$")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        End If
 
-        Return False
-
-    End Function
-
-    Public Function DoCurrency() As Boolean
-
-        If DoGloebit() Then Return True ' error = true
-        If DoAnotherCurrency() Then Return True
-
-        ' No error 
-        Return False
-
-    End Function
+    End Sub
 
 #End Region
 
@@ -493,7 +493,7 @@ Module DoIni
             DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart            
+            ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim Welcome As String = Settings.WelcomeRegion
             Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file

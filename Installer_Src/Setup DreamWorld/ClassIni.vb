@@ -49,21 +49,21 @@ Public Class LoadIni
         End Set
     End Property
 
-    Private Property FileName As String
-        Get
-            Return _filename
-        End Get
-        Set(value As String)
-            _filename = value
-        End Set
-    End Property
-
     Public Property Sep As String
         Get
             Return _sep
         End Get
         Set(value As String)
             _sep = value
+        End Set
+    End Property
+
+    Private Property FileName As String
+        Get
+            Return _filename
+        End Get
+        Set(value As String)
+            _filename = value
         End Set
     End Property
 

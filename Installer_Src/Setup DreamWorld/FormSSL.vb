@@ -29,7 +29,6 @@
             Return
         End If
 
-
         If changed Then Settings.SaveSettings()
         InstallSSL()
 

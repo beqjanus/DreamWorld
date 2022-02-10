@@ -6,7 +6,6 @@
 #End Region
 
 Imports System.Net
-Imports System.Text
 Imports System.Text.RegularExpressions
 
 Module Robust
@@ -15,7 +14,6 @@ Module Robust
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustProcID As Integer
-
 
     Public Property PropRobustExited() As Boolean
         Get

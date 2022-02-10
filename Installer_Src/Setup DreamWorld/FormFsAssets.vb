@@ -123,6 +123,11 @@ Public Class FormFSAssets
 
     End Sub
 
+    Private Sub DataFolder_TextChanged(sender As Object, e As EventArgs) Handles DataFolder.TextChanged
+        If Not initted Then Return
+        Changed = True
+    End Sub
+
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         HelpManual("FSAssets")
     End Sub
@@ -153,11 +158,6 @@ Public Class FormFSAssets
 
         Settings.SaveSettings()
         Me.Close()
-    End Sub
-
-    Private Sub DataFolder_TextChanged(sender As Object, e As EventArgs) Handles DataFolder.TextChanged
-        If Not initted Then Return
-        Changed = True
     End Sub
 
 #End Region

@@ -1,8 +1,8 @@
-﻿Imports System.Threading
-Imports System.Text.RegularExpressions
+﻿Imports System.Globalization
 Imports System.Security.Cryptography
 Imports System.Text
-Imports System.Globalization
+Imports System.Text.RegularExpressions
+Imports System.Threading
 
 Module Speech
 

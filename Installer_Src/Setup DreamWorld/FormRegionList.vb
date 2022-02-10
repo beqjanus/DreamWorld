@@ -8,7 +8,6 @@
 Imports System.IO
 Imports System.Reflection
 Imports System.Text.RegularExpressions
-Imports System.Data
 
 Public Class FormRegionlist
 
@@ -72,7 +71,6 @@ Public Class FormRegionlist
 
 #End Region
 
-
 #Region "Properties"
 
     Public Property ImageListSmall As ImageList
@@ -127,6 +125,7 @@ Public Class FormRegionlist
 #End Region
 
 #Region "Data"
+
     Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
         If (includeHeaders) Then
@@ -850,20 +849,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub IconViewClick(sender As Object, e As EventArgs) Handles IconView.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
-        Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                StartStopEdit(RegionUUID, RegionName)
-            End If
-        Next
-
-    End Sub
-
     Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
         If Not initted Then Return
         Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
@@ -880,6 +865,20 @@ SetWindowOnTop_Err:
                 UserData.Activate()
                 UserData.Visible = True
                 UserData.Select()
+            End If
+        Next
+
+    End Sub
+
+    Private Sub IconViewClick(sender As Object, e As EventArgs) Handles IconView.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
+        Dim item As ListViewItem
+        For Each item In regions
+            Dim RegionName = item.SubItems(0).Text.Trim
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
+                StartStopEdit(RegionUUID, RegionName)
             End If
         Next
 
@@ -1010,7 +1009,6 @@ SetWindowOnTop_Err:
         DoubleBuff(ListView1, True)
         DoubleBuff(IconView, True)
         DoubleBuff(UserView, True)
-
 
         Settings.RegionListVisible = True
 
@@ -1823,7 +1821,7 @@ SetWindowOnTop_Err:
                         item1.ForeColor = Color.Black
                     End If
 
-                    ' Build output string                    
+                    ' Build output string
 
                     item1.SubItems.Add(O.Email)
                     item1.SubItems.Add(O.Title)
@@ -1865,10 +1863,7 @@ SetWindowOnTop_Err:
         ViewBusy = False
         PropUpdateView() = False
 
-
-
     End Sub
-
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
@@ -1888,7 +1883,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-
     Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
 
         Dim w = UserView.Columns(e.ColumnIndex).Width
@@ -1903,6 +1897,23 @@ SetWindowOnTop_Err:
 #End Region
 
 #Region "Clicks"
+
+    Private Sub Email_Click(sender As Object, e As EventArgs) Handles Emails.Click
+
+#Disable Warning CA2000
+        Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+        EmailForm.BringToFront()
+        EmailForm.Init(UserView)
+        Try
+            EmailForm.Visible = True
+            EmailForm.Select()
+            EmailForm.Activate()
+        Catch
+        End Try
+
+    End Sub
+
     Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
         LoadMyListView()
     End Sub
@@ -1920,6 +1931,20 @@ SetWindowOnTop_Err:
 
     Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
 
+        LoadMyListView()
+
+    End Sub
+
+    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
+
+        Settings.RegionListView() = ViewType.Users
+        Settings.SaveSettings()
+        TheView1 = ViewType.Users
+        SetScreen(TheView1)
+        ListView1.View = View.List
+        ListView1.Hide()
+        UserView.Show()
+        AvatarView.Hide()
         LoadMyListView()
 
     End Sub
@@ -1971,37 +1996,6 @@ SetWindowOnTop_Err:
 
         ListView1.CheckBoxes = True
         Timer1.Start()
-        LoadMyListView()
-
-    End Sub
-
-
-    Private Sub Email_Click(sender As Object, e As EventArgs) Handles Emails.Click
-
-#Disable Warning CA2000
-        Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-        EmailForm.BringToFront()
-        EmailForm.Init(UserView)
-        Try
-            EmailForm.Visible = True
-            EmailForm.Select()
-            EmailForm.Activate()
-        Catch
-        End Try
-
-    End Sub
-
-    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
-
-        Settings.RegionListView() = ViewType.Users
-        Settings.SaveSettings()
-        TheView1 = ViewType.Users
-        SetScreen(TheView1)
-        ListView1.View = View.List
-        ListView1.Hide()
-        UserView.Show()
-        AvatarView.Hide()
         LoadMyListView()
 
     End Sub

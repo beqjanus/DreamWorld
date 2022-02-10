@@ -290,7 +290,6 @@ Public Class FormLogging
         ''at 74159a1f-1019-4947-943c-9686a1ccf466 using viewer Firestorm-Releasex64 6.4.12.62831, channel Firestorm-Releasex64,
         ''IP 192.168.2.100, Mac 1cd06720d0cb1737ad6e4f159e25a0db, Id0 a5e2d9cb0462874d43f24feeb248d6e7, Teleport Flags: ViaLogin, ViaRegionID.From region Unknown
 
-
         Dim pattern = New Regex("^(.*?),.*?Login request for (.*?) \@ (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?,)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
@@ -343,7 +342,6 @@ Public Class FormLogging
     End Function
 
     Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
-
 
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
         Dim match As Match = pattern.Match(line)

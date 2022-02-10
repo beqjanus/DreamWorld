@@ -1,5 +1,4 @@
-﻿
-Imports System.Speech.Synthesis
+﻿Imports System.Speech.Synthesis
 Imports System.Speech.Synthesis.VoiceGender
 Imports System.Text.RegularExpressions
 
@@ -17,11 +16,12 @@ Public Class ChatToSpeech
         Return SpeechBusyFlag
     End Function
 
-    Public Sub SelectVoice(v As String)
-
-        Speaker.SelectVoice(v)
-
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Dispose(disposing:=True)
+        GC.SuppressFinalize(Me)
     End Sub
+
     Public Function GetVoices() As ObjectModel.ReadOnlyCollection(Of InstalledVoice)
 
 #Disable Warning CA1304 ' Specify CultureInfo
@@ -30,10 +30,10 @@ Public Class ChatToSpeech
 
     End Function
 
-    Public Sub Dispose() Implements IDisposable.Dispose
-        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
-        Dispose(disposing:=True)
-        GC.SuppressFinalize(Me)
+    Public Sub SelectVoice(v As String)
+
+        Speaker.SelectVoice(v)
+
     End Sub
 
     ''' <summary>

@@ -53,8 +53,6 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-
-
         If _SaveNeeded = True Then
             Settings.SaveSettings()
             If IsRobustRunning() Then
@@ -405,6 +403,13 @@ Public Class FormDiva
         HelpManual("Diva")
     End Sub
 
+    Private Sub SplashPage_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
+
+        If Not initted Then Return
+        _SaveNeeded = True
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.LostFocus
 
         If Not initted Then Return
@@ -430,15 +435,6 @@ Public Class FormDiva
         End If
 
     End Sub
-
-    Private Sub SplashPage_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
-
-        If Not initted Then Return
-        _SaveNeeded = True
-
-    End Sub
-
-
 
 #End Region
 

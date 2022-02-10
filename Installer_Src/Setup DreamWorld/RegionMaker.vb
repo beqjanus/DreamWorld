@@ -27,9 +27,8 @@ Module RegionMaker
 
 #Region "Declarations"
 
-    Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
-
     Public ReadOnly WebserverList As New ConcurrentDictionary(Of String, String)
+    Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
 
@@ -1222,7 +1221,6 @@ Module RegionMaker
 
 #Region "Options"
 
-
     Public Property AllowGods(uuid As String) As String
         Get
             If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._AllowGods
@@ -2189,7 +2187,6 @@ Module RegionMaker
             If INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM)) Then Return True
             If INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM)) Then Return True
             If INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage)) Then Return True
-
 
             If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
             If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True

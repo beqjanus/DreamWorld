@@ -9,7 +9,6 @@ Public Class FormIARSave
 
 #Region "Private Fields"
 
-
     Private _gAvatarName As String = ""
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""

@@ -107,14 +107,14 @@ Public Class FormDatabase
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         MysqlRegionPort.Text = CStr(Settings.MySqlRegionDBPort)
         RegionDbName.Text = Settings.RegionDBName
-        RegionDBUsername.Text = Settings.RegionDBUsername
+        RegionDBUsername.Text = Settings.RegionDBUserName
         RegionMySqlPassword.Text = Settings.RegionDbPassword
         RegionServer.Text = Settings.RegionServer
-        RobustDbName.Text = Settings.RobustDataBaseName
+        RobustDbName.Text = Settings.RobustDatabaseName
         RobustDBPassword.Text = Settings.RobustPassword
         RobustDBPassword.UseSystemPasswordChar = True
         RobustDbPort.Text = Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
-        RobustDBUsername.Text = Settings.RobustUsername
+        RobustDBUsername.Text = Settings.RobustUserName
         RobustServer.Text = Settings.RobustServerIP
         RunasaServiceCheckBox.Text = My.Resources.RunasaService_word
         StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
@@ -180,7 +180,7 @@ Public Class FormDatabase
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
         If Not Initted1 Then Return
-        Settings.RegionDBUsername = RegionDBUsername.Text
+        Settings.RegionDBUserName = RegionDBUsername.Text
         Settings.SaveSettings()
 
     End Sub
@@ -220,7 +220,7 @@ Public Class FormDatabase
     Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
 
         If Not Initted1 Then Return
-        Settings.RobustUsername = RobustDBUsername.Text
+        Settings.RobustUserName = RobustDBUsername.Text
         Settings.SaveSettings()
 
     End Sub
@@ -235,7 +235,7 @@ Public Class FormDatabase
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
         If Not Initted1 Then Return
-        Settings.RobustDataBaseName = RobustDbName.Text
+        Settings.RobustDatabaseName = RobustDbName.Text
         Settings.SaveSettings()
 
     End Sub

@@ -78,8 +78,6 @@ Public Class FormMaps
         End Try
     End Sub
 
-
-
     Private Sub ExportAllMaps_Click(sender As Object, e As EventArgs) Handles ExportAllMaps.Click
 
         'export-map [<path>] - Save an image of the world map (default name is exportmap.jpg)
@@ -288,7 +286,6 @@ Public Class FormMaps
     End Sub
 
     Private Sub PublicMapsCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles PublicMapsCheckbox.CheckedChanged
-
 
         If Not initted Then Return
         Settings.PublicVisitorMaps = PublicMapsCheckbox.Checked

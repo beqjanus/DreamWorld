@@ -6,7 +6,6 @@
 
 Imports System.IO
 Imports System.Text.RegularExpressions
-Imports System.Threading
 
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
@@ -73,6 +72,7 @@ Module SmartStart
         Return AllAgents
 
     End Function
+
     Public Sub SequentialPause()
 
         If Settings.Sequential Then
@@ -248,7 +248,6 @@ Module SmartStart
             Integer.TryParse(Uri.UnescapeDataString(match.Groups(2).Value), Count)
         End If
 
-
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
@@ -275,7 +274,6 @@ Module SmartStart
                 NewSort.Add(item)
             End If
         Next
-
 
         Dim ctr = 1
         Dim used = 1
@@ -383,7 +381,6 @@ Module SmartStart
                             End If
 
                             Return FindRegionByName(Settings.ParkingLot)
-
                         Else ' Its a v4 sign
 
                             If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
@@ -504,7 +501,6 @@ Module SmartStart
                     Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                     PropUpdateView = True ' make form refresh
                     Return True
-
                 Else    ' needs to be captured into the event handler
 
                     ' TextPrint(BootName & " " & My.Resources.Running_word)

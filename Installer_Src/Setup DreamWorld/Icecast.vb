@@ -101,7 +101,7 @@ Module Icecast
     Public Function IsIceCastRunning() As Boolean
         ''' <summary>Check is Icecast port 8081 is up</summary>
         ''' <returns>boolean</returns>
-        ''' 
+        '''
         Dim Up As String
         Using TimedClient As New TimedWebClient With {
                .Timeout = 1000

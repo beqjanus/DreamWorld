@@ -13,9 +13,9 @@ Public Class MySettings
 
     Private Const DreamGrid As String = "DreamGrid"
     Private Const JOpensim As String = "JOpensim"
-    Private _CurSlashDir As String = ""
     Private ReadOnly Apachein As New List(Of String)
     Private ReadOnly Apacheout As New List(Of String)
+    Private _CurSlashDir As String = ""
     Private _DeleteTreesFirst As Boolean
     Private _ExternalHostName As String
     Private _LANIP As String
@@ -82,7 +82,6 @@ Public Class MySettings
 
 #End Region
 
-
     Public Property CurrentSlashDir As String
         Get
             Return _CurSlashDir
@@ -91,7 +90,6 @@ Public Class MySettings
             _CurSlashDir = value
         End Set
     End Property
-
 
     Public Sub SaveSettings()
 
@@ -173,15 +171,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("AltDnsName", Value)
-        End Set
-    End Property
-
-    Public Property BootOrSuspend() As Boolean
-        Get
-            Return CType(GetMySetting("BootOrSuspend", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BootOrSuspend", CStr(Value))
         End Set
     End Property
 
@@ -543,6 +532,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BirdsTolerance", CStr(Value))
+        End Set
+    End Property
+
+    Public Property BootOrSuspend() As Boolean
+        Get
+            Return CType(GetMySetting("BootOrSuspend", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BootOrSuspend", CStr(Value))
         End Set
     End Property
 
@@ -954,7 +952,6 @@ Public Class MySettings
         End Set
     End Property
 
-
     Public Property GLProdKey() As String
         Get
             Return GetMySetting("GLProdKey")
@@ -972,7 +969,6 @@ Public Class MySettings
             SetMySetting("GLProdSecret", Value)
         End Set
     End Property
-
 
     Public Property GraphVisible() As Boolean
         Get
