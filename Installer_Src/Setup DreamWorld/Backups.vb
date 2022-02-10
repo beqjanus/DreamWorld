@@ -390,7 +390,7 @@ Public Class Backups
                         Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
                         Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
                         For Each Region In RegionDirectoryInfo.GetFileSystemInfos
-                            If Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
+                            If Region.Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
                                 Dim shortname = Region.Name.Replace("ini", "")
                                 Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
                                 zipused = True
