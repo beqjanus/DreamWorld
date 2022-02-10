@@ -73,7 +73,7 @@ Public Class FormSmartStart
 
         Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
 
-        Dim pattern = New Regex("(\d+),\s+(\d+)")
+        Dim pattern = New Regex("(\d+),\s?(\d+)")
         Dim match As Match = pattern.Match(coord)
         If Not match.Success Then
             MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
