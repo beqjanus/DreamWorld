@@ -520,13 +520,13 @@ Public Class FormSetup
                 ' A region in initial boot up may be really running, but showing as stopped in SS made
                 ' And so it needs to be shut down by timers. But first we have to show it as Booted.
 
-                If Not BootNeeded AndAlso PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Then
-                    If Smart_Start(RegionUUID) = "True" Then
-                        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                        End If
-                    End If
-                End If
+                'If Not BootNeeded AndAlso PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) = Stopped Then
+                'If Smart_Start(RegionUUID) = "True" Then
+                'If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                'RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                'End If
+                'End If
+                'End If
 
                 If BootNeeded AndAlso PropOpensimIsRunning Then
                     Boot(RegionName)
