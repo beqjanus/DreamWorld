@@ -54,6 +54,12 @@ Public Class FormSmartStart
         If Caution <> MsgBoxResult.Yes Then Return
 
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+
+        If gEstateName.Length = 0 Then
+            MsgBox("Set the Estate name and try again.")
+            Return
+        End If
+
         If Settings.SurroundOwner.Length = 0 Then
             MsgBox("Set the Owner of the Sim Surrounds and try again.")
             Return
@@ -220,6 +226,8 @@ Public Class FormSmartStart
         Catch ex As Exception
             BreakPoint.Print(ex.Message)
         End Try
+
+        gEstateName = ""
 
     End Sub
 
@@ -1751,7 +1759,10 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+
         StartLoading()
+        gEstateName = ""
+
     End Sub
 
     Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
