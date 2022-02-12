@@ -44,7 +44,6 @@ Public Class FormRestart
         End Try
 
         Settings.RestartOnCrash = RestartOnCrash.Checked
-        Settings.Sequential = SequentialCheckBox1.Checked
 
         Settings.SaveSettings()
 
@@ -58,21 +57,43 @@ Public Class FormRestart
         Label25.Text = Global.Outworldz.My.Resources.Restart_Interval
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         RestartOnCrash.Text = Global.Outworldz.My.Resources.Restart_On_Crash
-        SequentialCheckBox1.Text = Global.Outworldz.My.Resources.StartSequentially
+
+        ' radio
+        SequentialRadioButton.Text = Global.Outworldz.My.Resources.StartSequentially
+        NoDelayRadioButton.Text = Global.Outworldz.My.Resources.noDelay
+        ConcurrentRadioButton.Text = Global.Outworldz.My.Resources.ParallelBooting
+
+        IntervalGroupBox.Text = Global.Outworldz.My.Resources.BootupInterval
+
         Text = Global.Outworldz.My.Resources.Restart_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+
+        ' tooltips
         ToolTip1.SetToolTip(ARTimerBox, Global.Outworldz.My.Resources.Restart_Periodically_Minutes)
         ToolTip1.SetToolTip(AutoRestartBox, Global.Outworldz.My.Resources.AutorestartBox)
         ToolTip1.SetToolTip(AutoStartCheckbox, Global.Outworldz.My.Resources.StartLaunch)
         ToolTip1.SetToolTip(RestartOnCrash, Global.Outworldz.My.Resources.Restart_On_Crash)
-        ToolTip1.SetToolTip(SequentialCheckBox1, Global.Outworldz.My.Resources.Sequentially_text)
+
+        ' radio
+        ToolTip1.SetToolTip(SequentialRadioButton, Global.Outworldz.My.Resources.Sequentially_text)
+        ToolTip1.SetToolTip(NoDelayRadioButton, Global.Outworldz.My.Resources.NoDelay_text)
+        ToolTip1.SetToolTip(ConcurrentRadioButton, Global.Outworldz.My.Resources.Concurrent_text)
 
         AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
         ARTimerBox.Checked = Settings.AutoRestartEnabled
         AutoStartCheckbox.Checked = Settings.Autostart
-        SequentialCheckBox1.Checked = Settings.Sequential
         RestartOnCrash.Checked = Settings.RestartOnCrash
+
+        If Settings.SequentialMode = 0 Then
+            NoDelayRadioButton.Checked = True
+        ElseIf Settings.SequentialMode = 1 Then
+            SequentialRadioButton.Checked = True
+        ElseIf Settings.SequentialMode = 2 Then
+            ConcurrentRadioButton.Checked = True
+        Else
+            NoDelayRadioButton.Checked = True
+        End If
 
         SetScreen()
         HelpOnce("Restart")
@@ -130,6 +151,22 @@ Public Class FormRestart
 
     End Sub
 
+    Private Sub AutoStartCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoStartCheckbox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.Autostart = AutoStartCheckbox.Checked
+
+    End Sub
+
+    Private Sub RestartOnCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnCrash.CheckedChanged
+
+        If Not initted Then Return
+        Settings.RestartOnCrash = RestartOnCrash.Checked
+
+    End Sub
+
+#Region "Help"
+
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs)
 
         HelpManual("Restart")
@@ -139,6 +176,39 @@ Public Class FormRestart
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Restart")
     End Sub
+
+#End Region
+
+#Region "TypeOfRestart"
+
+    ''' <summary>
+    ''' 0 for no waiting
+    ''' 1 for Sequential
+    ''' 2 for Concurrent
+    ''' ''' </summary>
+    '''
+    Private Sub ConcurrentRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles ConcurrentRadioButton.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SequentialMode = 2
+
+    End Sub
+
+    Private Sub NoDelayRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NoDelayRadioButton.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SequentialMode = 0
+
+    End Sub
+
+    Private Sub SequentialRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SequentialRadioButton.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SequentialMode = 1
+
+    End Sub
+
+#End Region
 
 #End Region
 

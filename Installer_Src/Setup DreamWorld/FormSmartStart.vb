@@ -23,7 +23,7 @@ Public Class FormSmartStart
     Private _Index As Integer
     Private _initialized As Boolean
     Private _SelectedPlant As String
-    Private _StopLoading As Boolean
+    Private _StopLoading As String = "Stopped"
 
 #Region "ScreenSize"
 
@@ -50,6 +50,8 @@ Public Class FormSmartStart
 
     Public Sub StartLoading()
 
+        StopLoading = "Stopped"
+
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
@@ -62,6 +64,7 @@ Public Class FormSmartStart
         gEstateOwner = Settings.SurroundOwner
 
         Dim CoordX = CStr(LargestX())
+
         Dim CoordY = CStr(LargestY() + 18)
 
         Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
@@ -94,7 +97,7 @@ Public Class FormSmartStart
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
 
-        If _StopLoading Then Return
+        If StopLoading = "StopRequested" Then Return
 
         Settings.Smart_Start = True
         Settings.BootOrSuspend = True
@@ -106,9 +109,11 @@ Public Class FormSmartStart
         Dim MaxSizeThisRow As Integer  ' the largest region in a row
         Dim SizeRegion As Integer = 1 ' (1X1)
 
+        StopLoading = "Running"
+        Dim regionList As New Dictionary(Of String, String)
         Try
             For Each J In FormSetup.ContentOAR.GetJson
-                If _StopLoading Then Return
+                If StopLoading = "StopRequested" Then Exit For
 
                 If Not PropOpensimIsRunning Then Return
 
@@ -130,6 +135,7 @@ Public Class FormSmartStart
                 If IO.File.Exists(p) Then
                     ' if so, check that it has prims
                     RegionUUID = FindRegionByName(shortname)
+                    regionList.Add(J.Name, RegionUUID)
                     Dim o As New Guid
                     If Guid.TryParse(RegionUUID, o) Then
                         Dim Prims = GetPrimCount(RegionUUID)
@@ -141,10 +147,11 @@ Public Class FormSmartStart
                         BreakPoint.Print("Bad UUID " & RegionUUID)
                         Continue For
                     End If
-                Else ' its a new region
+                Else
+                    ' its a new region
                     ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
 
-                    If _StopLoading Then Return
+                    If StopLoading = "StopRequested" Then Exit For
                     RegionUUID = CreateRegionStruct(shortname)
 
                     ' bump across 50 regions, then move up the Max size of that row +1
@@ -187,17 +194,44 @@ Public Class FormSmartStart
                     GroupPort(RegionUUID) = port
                     Region_Port(RegionUUID) = port
                     WriteRegionObject(shortname, shortname)
+
+                    If X > (StartX + 50) Then   ' if past right border,
+                        X = StartX              ' go back to left border
+                        Y += MaxSizeThisRow + 1  ' Add the largest size +1 and move up
+                        SizeRegion = 256            ' and reset the max height
+                    Else     ' we move right the size of the last sim + 1
+                        X += SizeRegion + 1
+                    End If
+
                     Firewall.SetFirewall()
                     PropChangedRegionSettings = True
                     PropUpdateView = True ' make form refresh
                 End If
-                If _StopLoading Then Return
+                If StopLoading = "StopRequested" Then Exit For
 
+            Next
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
+        End Try
+
+        ' remember the ala mode!
+        Dim oldMode = Settings.SequentialMode
+        Settings.SequentialMode = 1
+
+        Try
+            For Each line In regionList
+
+                If StopLoading = "StopRequested" Then Exit For
+
+                If Not PropOpensimIsRunning Then Exit For
                 SequentialPause()
 
-                ProgressPrint($"{My.Resources.Start_word} {shortname}")
+                Dim Region_Name = line.Key
+                Dim RegionUUID = line.Value
+
+                ProgressPrint($"{My.Resources.Start_word} {Region_Name}")
                 If Not PropOpensimIsRunning Then Return
-                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
                 Dim obj As New TaskObject With {
                     .TaskName = FormSetup.TaskName.LoadAllFreeOARs,
                     .Command = File
@@ -205,28 +239,15 @@ Public Class FormSmartStart
                 FormSetup.RebootAndRunTask(RegionUUID, obj)
                 AddToRegionMap(RegionUUID)
 
-                If X > (StartX + 50) Then   ' if past right border,
-                    X = StartX              ' go back to left border
-                    Y += MaxSizeThisRow + 1  ' Add the largest size +1 and move up
-                    SizeRegion = 256            ' and reset the max height
-                Else     ' we move right the size of the last sim + 1
-                    X += SizeRegion + 1
-                End If
-
                 Sleep(1000) ' wait 1 second between each.
-                If _StopLoading Then Return
+                If StopLoading = "StopRequested" Then Return
 
             Next
         Catch ex As Exception
             BreakPoint.Print(ex.Message)
         End Try
 
-    End Sub
-
-    Public Sub StopLoading()
-
-        _StopLoading = True
-        ProgressPrint("Stopped")
+        Settings.SequentialMode = oldMode
 
     End Sub
 
@@ -249,6 +270,15 @@ Public Class FormSmartStart
         End Get
         Set(value As ClassScreenpos)
             _screenPosition = value
+        End Set
+    End Property
+
+    Public Property StopLoading As String
+        Get
+            Return _StopLoading
+        End Get
+        Set(value As String)
+            _StopLoading = value
         End Set
     End Property
 
@@ -681,7 +711,7 @@ Public Class FormSmartStart
 
     Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        If Not _StopLoading Then
+        If StopLoading = "Running" Then
             If (MessageBox.Show("Abort Loading?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
                 e.Cancel = True
             End If
@@ -1609,7 +1639,10 @@ Public Class FormSmartStart
 #Region "Help"
 
     Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
-        StopLoading()
+
+        StopLoading = "StopRequested"
+        ProgressPrint("Stop Requested")
+
     End Sub
 
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
@@ -1751,7 +1784,10 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+
         StartLoading()
+        ProgressPrint("Loading Stopped")
+
     End Sub
 
     Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged

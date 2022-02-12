@@ -214,13 +214,15 @@ Module RPC
 
     End Function
 
-    Public Sub ShutDown(RegionUUID As String)
+    Public Sub ShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
         ConsoleCommand(RegionUUID, "q", True)
 
         Dim Group = Group_Name(RegionUUID)
+        Logger("RecyclingDown", Group, "Status")
+
         For Each RegionUUID In RegionUuidListByName(Group)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
+            RegionStatus(RegionUUID) = nextstate
         Next
 
     End Sub

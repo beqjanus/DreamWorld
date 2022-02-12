@@ -188,39 +188,6 @@ Public Class FormSettings
 
     Private Sub Form1_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        e.Cancel = True
-        Me.Visible = False
-
-        Backups.Dispose()
-        Bird.Dispose()
-        FormApache.Dispose()
-        FormCache.Dispose()
-        FormDatabase.Dispose()
-        FormDiva.Dispose()
-        FormDNSName.Dispose()
-        FormPermissions.Dispose()
-        FormPhysics.Dispose()
-        FormPorts.Dispose()
-        FormPublicity.Dispose()
-        FormRegions.Dispose()
-        FormRestart.Dispose()
-        FormServerType.Dispose()
-        FormSpeech.Dispose()
-        Gloebits.Dispose()
-        Icecast.Dispose()
-        Logging.Dispose()
-        Maps.Dispose()
-        Search.Dispose()
-        Scripts.Dispose()
-        Tide.Dispose()
-        Tos.Dispose()
-        Voice.Dispose()
-        Banlist.Dispose()
-        FormJoomla.Dispose()
-        FsAssets.Dispose()
-        Lang.Dispose()
-        SS.Dispose()
-        SSL.Dispose()
 
     End Sub
 

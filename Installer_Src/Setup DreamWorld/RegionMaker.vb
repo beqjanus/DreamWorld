@@ -728,12 +728,7 @@ Module RegionMaker
             SequentialPause()
 
             TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
-            ShutDown(RegionUUID)
-
-            ' shut down all regions in the DOS box
-            For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDown ' request a Stop
-            Next
+            ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         Else
             ' shut down all regions in the DOS box
             For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
@@ -2274,8 +2269,11 @@ Module RegionMaker
             End If
 
             If INI.SetIni("Estates", "DefaultEstateName", gEstateName) Then Return True
-            If INI.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
+            If gEstateOwner.Length = 0 Then
+                BreakPoint.Print("Oops")
+            End If
 
+            If INI.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
             INI.SaveINI()
 
             '============== Region.ini =====================

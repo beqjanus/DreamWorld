@@ -344,16 +344,12 @@ SetWindowOnTop_Err:
 
             ' shut down all regions in the DOS box
             Dim GroupName = Group_Name(RegionUUID)
-            Logger("RecyclingDown", GroupName, "Teleport")
-            For Each UUID In RegionUuidListByName(GroupName)
-                RegionStatus(UUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Logger("RecyclingDown", Region_Name(UUID), "Teleport")
-            Next
 
+            ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             FormSetup.Buttons(FormSetup.StopButton)
 
             TextPrint(My.Resources.Recycle1 & "  " + Group_Name(RegionUUID))
-            ShutDown(RegionUUID)
+
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then

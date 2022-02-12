@@ -75,22 +75,29 @@ Module SmartStart
 
     Public Sub SequentialPause()
 
-        If Settings.Sequential Then
+        ''' <summary>
+        ''' 0 for no waiting
+        ''' 1 for Sequential
+        ''' 2 for concurrent
+        ''' ''' </summary>
+        '''
+        If Settings.SequentialMode = 0 Then
+            Return
+        ElseIf Settings.SequentialMode = 1 Then
             Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
-                    Dim status = RegionStatus(RegionUUID)
-                    If (RegionEnabled(RegionUUID) And Not PropAborting) And
-                       (status = SIMSTATUSENUM.ShuttingDown _
-                        Or status = SIMSTATUSENUM.ShuttingDownForGood _
-                        Or status = SIMSTATUSENUM.Booting) Then
-                        Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
+
+                    ' see if there is a window still open. If so, its running
+                    If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                        'Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
-                        Diagnostics.Debug.Print($"{GetStateString(status)} {Region_Name(RegionUUID)}")
+                        'Diagnostics.Debug.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
                     End If
+
                 Next
 
                 If wait Then
@@ -103,7 +110,8 @@ Module SmartStart
                 End If
                 Sleep(1000)
             End While
-        Else
+
+        ElseIf Settings.SequentialMode = 2 Then ' Concurrent mode
 
             If Not Settings.BootOrSuspend Then
                 Return
@@ -118,7 +126,6 @@ Module SmartStart
                     Or Settings.BootOrSuspend = False Then
 
                     Exit While
-
                 End If
                 Sleep(1000)
                 Application.DoEvents()
@@ -158,7 +165,7 @@ Module SmartStart
         Dim RegionName = Region_Name(RegionUUID)
         Dim GroupName = Group_Name(RegionUUID)
         PropAborting = True
-        ShutDown(RegionUUID)
+        ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         ' wait 2 minute for the region to quit
         Dim ctr = 120
 
@@ -437,9 +444,6 @@ Module SmartStart
             RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
             PokeRegionTimer(UUID)
         Next
-        ShutDown(RegionUUID)
-        Application.DoEvents()
-        PropUpdateView = True ' make form refresh
 
     End Sub
 
@@ -612,8 +616,7 @@ Module SmartStart
                     End Try
 
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        ShutDown(RegionUUID)
-                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
+                        ShutDown(RegionUUID, SIMSTATUSENUM.Error)
                     End If
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
@@ -730,7 +733,7 @@ Module SmartStart
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-
+        TextPrint($"{RegionName} load oar {File}")
         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 

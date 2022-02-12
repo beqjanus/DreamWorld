@@ -771,9 +771,11 @@ Public Class FormRegion
 
             Dim RegionUUID As String = FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
+
                 If CheckPort(Settings.LANIP(), GroupPort(RegionUUID)) Then
-                    ShutDown(RegionUUID)
+                    ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 End If
+
                 Dim loopctr = 120 ' wait 2 minutes
                 While CheckPort(Settings.LANIP(), GroupPort(RegionUUID)) And loopctr > 0
                     Sleep(1000)

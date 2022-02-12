@@ -4041,4 +4041,22 @@
   <data name="_1X1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1X1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Boot Interval</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Regions start in parallel and pause loading when CPU &gt; 90% or RAM &gt; 90% (default)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Parallel, no Limits </value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Regions start in parallel  with no CPU or RAM limts enforced</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Parallel, with limits</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Sequential Order</value>
+  </data>
 </root>

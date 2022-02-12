@@ -174,6 +174,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    '''True or False that Apache will run
+    ''' </summary>
+    ''' <returns></returns>
     Public Property ApacheEnable() As Boolean
         Get
             Return CType(GetMySetting("ApacheEnabled", "False"), Boolean)
@@ -185,10 +189,10 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return CInt("0" & GetMySetting("ApachePort", "80"))
+            Return CInt("0" & GetMySetting("ApachePort", "3306".ToUpperInvariant))
         End Get
         Set
-            SetMySetting("ApachePort", CType(Value, String))
+            SetMySetting("ApachePort", CStr(Value))
         End Set
     End Property
 
@@ -1747,12 +1751,17 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property Sequential() As Boolean
+    ''' <summary>
+    ''' 0 for no waiting
+    ''' 1 for Sequential
+    ''' 2 for concurrent
+    ''' ''' </summary>
+    Public Property SequentialMode() As Integer
         Get
-            Return CType(GetMySetting("Sequential", "False"), Boolean)
+            Return CInt("0" & GetMySetting("SequentialMode", "0"))
         End Get
         Set
-            SetMySetting("Sequential", CStr(Value))
+            SetMySetting("SequentialMode", CType(Value, String))
         End Set
     End Property
 
@@ -1995,7 +2004,7 @@ Public Class MySettings
     ''' <summary>
     ''' A flag in opensim.ini that prints a dump of all on all regions status values every 10 minutes from bin\debug.txt
     ''' </summary>
-    ''' <returns>tru/false</returns>
+    ''' <returns>true/false</returns>
     Public Property Suitcase() As Boolean
         Get
             Return CType(GetMySetting("Suitcase", "True"), Boolean)

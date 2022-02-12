@@ -300,7 +300,9 @@ Public Class FormSetup
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             PokeRegionTimer(RegionUUID)
+            CrashCounter(RegionUUID) = 0
         Next
+        PropUpdateView = True
 
     End Sub
 
@@ -349,9 +351,10 @@ Public Class FormSetup
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
              RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                ShutDown(RegionUUID)
+
+                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                PropUpdateView = True ' make form refresh
                 Application.DoEvents()
             End If
         Next
@@ -1075,9 +1078,9 @@ Public Class FormSetup
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
+
                 StopGroup(GroupName)
-                PropUpdateView = True
+
                 Application.DoEvents()
                 Continue While
 
@@ -1108,9 +1111,7 @@ Public Class FormSetup
                         Logger("Crash", $"{GroupName} Crashed 5 times", "Status")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                         StopGroup(GroupName)
-                        CrashCounter(RegionUUID) = 0
                         RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
-                        PropUpdateView = True
                         Application.DoEvents()
                         Continue While
                     End If
@@ -1124,7 +1125,7 @@ Public Class FormSetup
                     For Each R In GroupList
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
-                    PropUpdateView = True
+
                     Continue While
                     Application.DoEvents()
                 Else
@@ -1144,7 +1145,7 @@ Public Class FormSetup
             Else
                 StopGroup(GroupName)
             End If
-            PropUpdateView = True
+
             Application.DoEvents()
         End While
 
@@ -1301,7 +1302,7 @@ Public Class FormSetup
                             'Continue For
                             Diagnostics.Debug.Print("State Changed to ShuttingDown", GroupName, "Teleport")
                             If Settings.BootOrSuspend Then
-                                ShutDown(RegionUUID)
+                                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                             Else
                                 PauseRegion(RegionUUID)
                                 For Each UUID In RegionUuidListByName(GroupName)
@@ -1340,7 +1341,8 @@ Public Class FormSetup
                         ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                         SequentialPause()
                         ' shut down all regions in the DOS box
-                        ShutDown(RegionUUID)
+                        ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
+
                         Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
@@ -1502,9 +1504,7 @@ Public Class FormSetup
             If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown
-                ShutDown(RegionUUID)
-                PropUpdateView = True ' make form refresh
+                ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             Else
                 ' Smart Start Enabled and stopped
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
@@ -3156,12 +3156,8 @@ Public Class FormSetup
         Dim RegionUUID As String = FindRegionByName(name)
 
         If RegionUUID.Length > 0 Then
-            ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            PropUpdateView = True ' make form refresh
+            ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
         End If
-
-        PropUpdateView = True ' make form refresh
 
     End Sub
 
@@ -3174,9 +3170,7 @@ Public Class FormSetup
         Dim name = ChooseRegion(True)
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length > 0 Then
-            ShutDown(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown ' request a recycle.
-            PropUpdateView = True ' make form refresh
+            ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
         End If
 
     End Sub

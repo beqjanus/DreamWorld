@@ -1209,6 +1209,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Boot Interval.
+        '''</summary>
+        Friend ReadOnly Property BootupInterval() As String
+            Get
+                Return ResourceManager.GetString("BootupInterval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Border Size (default=25.0).
         '''</summary>
         Friend ReadOnly Property Border_Size() As String
@@ -2211,6 +2220,15 @@ Namespace My.Resources
         Friend ReadOnly Property Common_Settings_word() As String
             Get
                 Return ResourceManager.GetString("Common_Settings_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Regions start in parallel and pause loading when CPU &gt; 90% or RAM &gt; 90% (default).
+        '''</summary>
+        Friend ReadOnly Property Concurrent_text() As String
+            Get
+                Return ResourceManager.GetString("Concurrent_text", resourceCulture)
             End Get
         End Property
         
@@ -7167,6 +7185,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Parallel, no Limits .
+        '''</summary>
+        Friend ReadOnly Property noDelay() As String
+            Get
+                Return ResourceManager.GetString("noDelay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Regions start in parallel  with no CPU or RAM limts enforced.
+        '''</summary>
+        Friend ReadOnly Property NoDelay_text() As String
+            Get
+                Return ResourceManager.GetString("NoDelay_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property NoImage() As System.Drawing.Bitmap
@@ -7743,6 +7779,15 @@ Namespace My.Resources
         Friend ReadOnly Property Palm11() As String
             Get
                 Return ResourceManager.GetString("Palm11", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Parallel, with limits.
+        '''</summary>
+        Friend ReadOnly Property ParallelBooting() As String
+            Get
+                Return ResourceManager.GetString("ParallelBooting", resourceCulture)
             End Get
         End Property
         
@@ -9622,6 +9667,15 @@ Namespace My.Resources
         Friend ReadOnly Property Sequentially_text() As String
             Get
                 Return ResourceManager.GetString("Sequentially_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Sequential Order.
+        '''</summary>
+        Friend ReadOnly Property SequentialOrder() As String
+            Get
+                Return ResourceManager.GetString("SequentialOrder", resourceCulture)
             End Get
         End Property
         
