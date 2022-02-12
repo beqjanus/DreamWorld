@@ -56,6 +56,12 @@ Public Class FormSmartStart
         If Caution <> MsgBoxResult.Yes Then Return
 
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+
+        If gEstateName.Length = 0 Then
+            MsgBox("Set the Estate name and try again.")
+            Return
+        End If
+
         If Settings.SurroundOwner.Length = 0 Then
             MsgBox("Set the Owner of the Sim Surrounds and try again.")
             Return
@@ -248,6 +254,7 @@ Public Class FormSmartStart
         End Try
 
         Settings.SequentialMode = oldMode
+        gEstateName = ""
 
     End Sub
 
@@ -1786,7 +1793,9 @@ Public Class FormSmartStart
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
         StartLoading()
+
         ProgressPrint("Loading Stopped")
+        gEstateName = ""
 
     End Sub
 
