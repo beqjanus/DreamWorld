@@ -663,8 +663,6 @@ Module SmartStart
             PropUpdateView = True ' make form refresh
         ElseIf RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             FormSetup.RunTaskList(RegionUUID)
-        Else
-            Diagnostics.Debug.Print("State unchanged " & GetStateString(RegionStatus(RegionUUID)))
         End If
 
     End Sub

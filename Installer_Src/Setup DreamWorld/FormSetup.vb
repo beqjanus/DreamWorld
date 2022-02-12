@@ -1374,7 +1374,7 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Diagnostics.Debug.Print("State Is Resuming")
+                    Diagnostics.Debug.Print($"{GroupName} Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         ' if boot, just do it, else try to resume it, else boot it
