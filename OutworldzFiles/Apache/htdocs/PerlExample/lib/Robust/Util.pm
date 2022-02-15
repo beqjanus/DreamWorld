@@ -37,9 +37,9 @@ sub mysql_connect {
    my $user = $Config->val('Data','RobustUsername')      || 'robustuser';
    my $password = $Config->val('Data','password')         || 'robustpassword';   
          
-   use Robust::Schema;
+   require Robust::Schema;
    if ($dbname) {
-      Schema->connect("dbi:mysql:dbname=$dbname;host=$host;port=$port",$user,$password,{quote_names => 1,});
+      Robust::Schema->connect->connect("dbi:mysql:dbname=$dbname;host=$host;port=$port",$user,$password,{quote_names => 1,});
    }
    
 }

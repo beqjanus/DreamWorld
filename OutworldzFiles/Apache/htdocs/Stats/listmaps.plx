@@ -1,34 +1,38 @@
-#!perl
+#!perl.exe
+use strict;     # make sire everything must be declared
+use warnings;   #complain about mall stuff
+use CGI qw(:standard);   # use the Common Gateway Interface to talk via the web server
+
 # author - Fred Beckhusen
 # Copyright Outworldz, LLC.
 # AGPL3.0  https://opensource.org/licenses/AGPL
 
-use strict;
-use warnings;
-
-#use CGI::Carp('fatalsToBrowser');
-use CGI qw(:standard);
-my $Input = CGI->new();
-$| = 1;
+my $Input = CGI->new();  # so we can read varaiables over the web and print things 
+$| = 1;     # optional - this turns off buffered I.O.
 
 my $debug;    # program scope = set to non-zero values for debug info
 $debug = 1 if ( !$ENV{REMOTE_ADDR} );    # so we can single step in Komodo
 
 #DBIx
-use lib qw(lib .);
-use Util;
-my $schema = Util::mysql_connect;
-$schema->storage->debug(0);
+use lib qw(lib .);    # This is where the DBI objecta are.
+use Util;             # the fdatabase interface
+my $schema = Util::mysql_connect;   # get a connection to Mysdql
+$schema->storage->debug(0);         # of set to a 1 this wil print a lot of debug - specically yhe SQWL that it writes.
 
-use Template;
+use Template;   # Template Toolkit to render web pages
 
 my $tt = Template->new(
     {
         ABSOLUTE => 1,
     }
 ) || die "$Template::ERROR\n";
-print header;
 
+print $Input->header(   # and print it as UTF-8
+      -type    => 'text/html',
+      -charset =>  'utf-8',
+   );
+
+# read stuff off the config ini file
 use Config::IniFiles;
 use File::BOM;    # fixes a bug in Perl with UTF-8
 
