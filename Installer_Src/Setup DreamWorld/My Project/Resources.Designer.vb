@@ -455,6 +455,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Apache Stopped.
+        '''</summary>
+        Friend ReadOnly Property Apache_Stopped() As String
+            Get
+                Return ResourceManager.GetString("Apache_Stopped", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Apache Webserver.
         '''</summary>
         Friend ReadOnly Property Apache_Webserver() As String

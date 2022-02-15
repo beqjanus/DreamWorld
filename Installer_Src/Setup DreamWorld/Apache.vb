@@ -275,8 +275,10 @@ Module Apache
 
         If IsApacheRunning() Then
             ApacheIcon(True)
+            TextPrint(My.Resources.ApacheNot_Stopping)
         Else
             ApacheIcon(False)
+            TextPrint(My.Resources.Apache_Stopped)
         End If
 
     End Sub
