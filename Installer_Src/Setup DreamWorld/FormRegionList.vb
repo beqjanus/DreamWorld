@@ -1240,12 +1240,18 @@ SetWindowOnTop_Err:
 
         If SearchBusy = True Then Return
         SearchBusy = True
+        BringToFront()
 
         SearchArray.Clear()
 
         Select Case TheView1
             Case ViewType.Avatars
+
+                ShowAvatars()
+
             Case ViewType.Users
+
+                ShowUsers()
 
             Case ViewType.Details
 
@@ -1262,6 +1268,8 @@ SetWindowOnTop_Err:
                     End If
                 Next
 
+                ShowDetails()
+
             Case ViewType.Icons
 
                 Dim L = RegionUuids()
@@ -1277,10 +1285,11 @@ SetWindowOnTop_Err:
                     End If
                 Next
 
+                ShowIcons()
+
         End Select
 
         SearchBusy = False
-        Search()
 
     End Sub
 
@@ -1319,23 +1328,6 @@ SetWindowOnTop_Err:
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
         FormSetup.StartOpensimulator()
-
-    End Sub
-
-    Private Sub Search()
-
-        BringToFront()
-
-        Select Case TheView1
-            Case ViewType.Avatars
-                ShowAvatars()
-            Case ViewType.Users
-                ShowUsers()
-            Case ViewType.Details
-                ShowDetails()
-            Case ViewType.Icons
-                ShowIcons()
-        End Select
 
     End Sub
 
@@ -1406,7 +1398,7 @@ SetWindowOnTop_Err:
             End If
 
             For Each Agent In ListOfAgents
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = My.Resources.Search_word Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Region_Name(Agent.Value))
                     item1.SubItems.Add(My.Resources.Local_Grid)
@@ -1805,7 +1797,7 @@ SetWindowOnTop_Err:
                 Dim k = Agent.Key
                 Dim O = Agent.Value
 
-                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "Search" Then
+                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = My.Resources.Search_word Then
 
                     Dim item1 As New ListViewItem(O.firstname & " " & O.LastName, Index)
 

@@ -2269,10 +2269,6 @@ Module RegionMaker
             End If
 
             If INI.SetIni("Estates", "DefaultEstateName", gEstateName) Then Return True
-            If gEstateOwner.Length = 0 Then
-                BreakPoint.Print("Oops")
-            End If
-
             If INI.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
             INI.SaveINI()
 
