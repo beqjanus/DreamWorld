@@ -189,7 +189,7 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return CInt("0" & GetMySetting("ApachePort", "3306".ToUpperInvariant))
+            Return CInt("0" & GetMySetting("ApachePort", "80".ToUpperInvariant))
         End Get
         Set
             SetMySetting("ApachePort", CStr(Value))
