@@ -900,6 +900,8 @@ Public Class FormSetup
 
         Application.DoEvents()
 
+        Firewall.SetFirewall()
+
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"

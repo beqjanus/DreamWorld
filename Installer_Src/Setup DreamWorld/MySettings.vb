@@ -839,9 +839,13 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirewallMigrated() As Boolean
+    Public Property FirewallMigrated() As Integer
         Get
-            Return CType(GetMySetting("FirewallMigrated", "False"), Boolean)
+            Try
+                Return CType(GetMySetting("FirewallMigrated", "0"), Integer)
+            Catch
+                Return 1
+            End Try
         End Get
         Set
             SetMySetting("FirewallMigrated", CStr(Value))
