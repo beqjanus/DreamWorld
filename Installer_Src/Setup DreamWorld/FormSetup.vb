@@ -535,7 +535,7 @@ Public Class FormSetup
                     Boot(RegionName)
                 End If
             End If
-
+            Application.DoEvents()
         Next
 
         Settings.SaveSettings()
