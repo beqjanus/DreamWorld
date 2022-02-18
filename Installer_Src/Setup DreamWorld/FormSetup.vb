@@ -441,7 +441,7 @@ Public Class FormSetup
     Public Function StartOpensimulator() As Boolean
 
         Bench.Print("StartOpensim")
-
+        PropOpensimIsRunning = True
         Init(False)
         OpenPorts()
 
@@ -463,13 +463,16 @@ Public Class FormSetup
         StartThreads()
         Application.DoEvents()
 
-        Dim ctr = 60
-        While Not IsRobustRunning() AndAlso ctr > 0
-            Sleep(1000)
-            ctr -= 1
-        End While
 
         If Settings.ServerType = RobustServerName Then
+
+            Dim ctr = 60
+            While Not IsRobustRunning() AndAlso ctr > 0
+                Sleep(1000)
+                ctr -= 1
+            End While
+
+
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = FindRegionByName(RegionName)
             Dim out As New Guid
@@ -896,6 +899,8 @@ Public Class FormSetup
         End Using
 
         Application.DoEvents()
+
+        Firewall.SetFirewall()
 
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
@@ -2549,12 +2554,15 @@ Public Class FormSetup
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
 
-        SkipSetup = False
-        Adv1.Activate()
-        Adv1.Visible = True
-        Adv1.Select()
-        Adv1.Init()
-        Adv1.BringToFront()
+        Try
+            SkipSetup = False
+            Adv1.Activate()
+            Adv1.Visible = True
+            Adv1.Select()
+            Adv1.Init()
+            Adv1.BringToFront()
+        Catch
+        End Try
 
     End Sub
 

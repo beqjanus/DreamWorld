@@ -35,8 +35,8 @@ Public Module Firewall
 
         ' regions need both
 
-        Command = Command & $"netsh advfirewall firewall add rule name=""Region TCP Ports"" dir=In action=allow protocol=TCP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf _
-                  & $"netsh advfirewall firewall add rule name=""Region UDP Ports"" dir=In action=allow protocol=UDP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf
+        Command = Command & $"netsh advfirewall firewall add rule name=""Region TCP Ports {Settings.MachineID}"" dir=In action=allow protocol=TCP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf _
+                  & $"netsh advfirewall firewall add rule name=""Region UDP Ports {Settings.MachineID}"" dir=In action=allow protocol=UDP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf
 
         Return Command
 
@@ -65,8 +65,8 @@ Public Module Firewall
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTP Web Port {CStr(Settings.ApachePort)}""" & vbCrLf
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTPS Web Port 443""" & vbCrLf
 
-        Command = Command & $"netsh advfirewall firewall delete rule name=""Region TCP Ports""" & vbCrLf _
-                          & $"netsh advfirewall firewall delete rule name=""Region UDP Ports""" & vbCrLf
+        Command = Command & $"netsh advfirewall firewall delete rule name=""Region TCP Ports {Settings.MachineID}""" & vbCrLf _
+                          & $"netsh advfirewall firewall delete rule name=""Region UDP Ports {Settings.MachineID}""" & vbCrLf
 
         Return Command
 
@@ -95,6 +95,11 @@ Public Module Firewall
                               & $"netsh advfirewall firewall delete rule name=""Region UDP Port {CStr(R)}""" & vbCrLf
             End If
         Next
+        ' also obsolete so we can use two or more dreamgrids on a server
+        Command = Command & $"netsh advfirewall firewall delete rule name=""Region TCP Ports""" & vbCrLf _
+                          & $"netsh advfirewall firewall delete rule name=""Region UDP Ports""" & vbCrLf
+
+        Settings.FirewallMigrated = 1
 
         Return Command
 
@@ -111,14 +116,12 @@ Public Module Firewall
 
         Dim start As ParameterizedThreadStart = AddressOf RunFirewall
 
-        If Not Settings.FirewallMigrated Then
+        If Not Settings.FirewallMigrated = 2 Then
             Dim CMD1 As Object = DeleteOldFirewallRules()
             Dim _WebThread1 = New Thread(start)
             _WebThread1.SetApartmentState(ApartmentState.STA)
             _WebThread1.Priority = ThreadPriority.BelowNormal
             _WebThread1.Start(CMD1)
-            Settings.FirewallMigrated = True
-
         End If
 
         Dim CMD2 As Object = DeleteNewFirewallRules() & AddFirewallRules()

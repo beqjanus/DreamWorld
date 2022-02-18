@@ -189,7 +189,7 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return CInt("0" & GetMySetting("ApachePort", "3306".ToUpperInvariant))
+            Return CInt("0" & GetMySetting("ApachePort", "80".ToUpperInvariant))
         End Get
         Set
             SetMySetting("ApachePort", CStr(Value))
@@ -839,9 +839,13 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirewallMigrated() As Boolean
+    Public Property FirewallMigrated() As Integer
         Get
-            Return CType(GetMySetting("FirewallMigrated", "False"), Boolean)
+            Try
+                Return CType(GetMySetting("FirewallMigrated", "0"), Integer)
+            Catch
+                Return 1
+            End Try
         End Get
         Set
             SetMySetting("FirewallMigrated", CStr(Value))
