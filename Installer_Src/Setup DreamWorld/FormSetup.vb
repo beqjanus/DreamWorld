@@ -2549,12 +2549,15 @@ Public Class FormSetup
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
 
-        SkipSetup = False
-        Adv1.Activate()
-        Adv1.Visible = True
-        Adv1.Select()
-        Adv1.Init()
-        Adv1.BringToFront()
+        Try
+            SkipSetup = False
+            Adv1.Activate()
+            Adv1.Visible = True
+            Adv1.Select()
+            Adv1.Init()
+            Adv1.BringToFront()
+        Catch
+        End Try
 
     End Sub
 

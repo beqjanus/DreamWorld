@@ -217,8 +217,7 @@ Module SmartStart
             Return False
         End If
 
-        'TextPrint(My.Resources.Smart_Start_word & " " &  Region_Name(RegionUUID))
-        'Logger("Teleport Request",  Region_Name(RegionUUID) & ":" & AgentID, "Teleport")
+        Logger("Teleport Request", Region_Name(RegionUUID) & ":" & AgentID, "Teleport")
 
         If TeleportAvatarDict.ContainsKey(AgentID) Then
             TeleportAvatarDict.Remove(AgentID)
@@ -353,7 +352,7 @@ Module SmartStart
 
             ' Smart Start below here
 
-            If Smart_Start(RegionUUID) = "True" Then
+            If Smart_Start(RegionUUID) = "True" AndAlso Settings.Smart_Start Then
 
                 ' smart, and up
                 If RegionEnabled(RegionUUID) Then

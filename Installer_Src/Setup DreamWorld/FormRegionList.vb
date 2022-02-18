@@ -950,289 +950,293 @@ SetWindowOnTop_Err:
 
         SetScreen(TheView1)
 
-        AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
-        AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
-        AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
-        Bootedbutton.Text = Global.Outworldz.My.Resources.Running_word
-        DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
-        ExportButton.Text = Global.Outworldz.My.Resources.Export_word
-        FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
-        ImportButton.Text = Global.Outworldz.My.Resources.Import_word
-        KOT.Text = Global.Outworldz.My.Resources.Window_Word
-        OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
-        RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
-        RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
-        RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
-        SearchBox.Text = Global.Outworldz.My.Resources.Search_word
-        StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
-        StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
-        Users.Text = Global.Outworldz.My.Resources.Users_word
-        Emails.Text = Global.Outworldz.My.Resources.Email_word
+        Try
+            AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
+            AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
+            AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
+            Bootedbutton.Text = Global.Outworldz.My.Resources.Running_word
+            DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
+            ExportButton.Text = Global.Outworldz.My.Resources.Export_word
+            FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
+            HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+            HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+            IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
+            ImportButton.Text = Global.Outworldz.My.Resources.Import_word
+            KOT.Text = Global.Outworldz.My.Resources.Window_Word
+            OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
+            RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
+            RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
+            RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
+            SearchBox.Text = Global.Outworldz.My.Resources.Search_word
+            StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
+            StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
+            Users.Text = Global.Outworldz.My.Resources.Users_word
+            Emails.Text = Global.Outworldz.My.Resources.Email_word
 
-        IconView.SmallImageList = ImageListSmall
-        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
-        ListView1.SmallImageList = ImageListSmall
+            IconView.SmallImageList = ImageListSmall
+            ImageListSmall.ImageSize = New Drawing.Size(16, 16)
+            ListView1.SmallImageList = ImageListSmall
 
-        ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
-        ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
-        ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
-        ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.View_Details)
-        ToolTip1.SetToolTip(ExportButton, Global.Outworldz.My.Resources.Export_list)
-        ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.View_as_Icons)
-        ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Importtext)
-        ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.ClickStartStoptxt)
-        ToolTip1.SetToolTip(RefreshButton, Global.Outworldz.My.Resources.Reload)
-        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Restart_All_Checked)
-        ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
-        ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
-        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row_note
+            ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
+            ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
+            ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
+            ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.View_Details)
+            ToolTip1.SetToolTip(ExportButton, Global.Outworldz.My.Resources.Export_list)
+            ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.View_as_Icons)
+            ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Importtext)
+            ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.ClickStartStoptxt)
+            ToolTip1.SetToolTip(RefreshButton, Global.Outworldz.My.Resources.Reload)
+            ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Restart_All_Checked)
+            ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
+            ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
+            ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row_note
 
-        UseMysql = False
-        If MysqlInterface.IsMySqlRunning() Then
-            UseMysql = True
-        End If
+            UseMysql = False
+            If MysqlInterface.IsMySqlRunning() Then
+                UseMysql = True
+            End If
 
-        ViewBusy = True
+            ViewBusy = True
 
-        AllNone.Checked = False
-        AllNone.Visible = False
+            AllNone.Checked = False
+            AllNone.Visible = False
 
-        AllButton.Checked = True
+            AllButton.Checked = True
 
-        DoubleBuff(ListView1, True)
-        DoubleBuff(IconView, True)
-        DoubleBuff(UserView, True)
+            DoubleBuff(ListView1, True)
+            DoubleBuff(IconView, True)
+            DoubleBuff(UserView, True)
 
-        Settings.RegionListVisible = True
+            Settings.RegionListVisible = True
 
-        Me.Name = "Region List"
-        Me.Text = Global.Outworldz.My.Resources.Region_List
+            Me.Name = "Region List"
+            Me.Text = Global.Outworldz.My.Resources.Region_List
 
-        AvatarView.CheckBoxes = False
-        AvatarView.TabIndex = 0
-        AvatarView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        AvatarView.GridLines = False
-        AvatarView.ShowItemToolTips = True
+            AvatarView.CheckBoxes = False
+            AvatarView.TabIndex = 0
+            AvatarView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+            AvatarView.GridLines = False
+            AvatarView.ShowItemToolTips = True
 
-        ListView1.Visible = False
-        ListView1.LabelWrap = True
-        ListView1.AutoArrange = True
-        ListView1.TabIndex = 0
-        ListView1.CheckBoxes = True
-        ListView1.View = View.Details
-        ListView1.LabelEdit = True
-        ListView1.AllowColumnReorder = True
-        ListView1.FullRowSelect = False
-        ListView1.GridLines = True
-        ListView1.AllowColumnReorder = True
-        ListView1.Sorting = SortOrder.Ascending
-        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        ListView1.ShowItemToolTips = True
+            ListView1.Visible = False
+            ListView1.LabelWrap = True
+            ListView1.AutoArrange = True
+            ListView1.TabIndex = 0
+            ListView1.CheckBoxes = True
+            ListView1.View = View.Details
+            ListView1.LabelEdit = True
+            ListView1.AllowColumnReorder = True
+            ListView1.FullRowSelect = False
+            ListView1.GridLines = True
+            ListView1.AllowColumnReorder = True
+            ListView1.Sorting = SortOrder.Ascending
+            ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+            ListView1.ShowItemToolTips = True
 
-        IconView.TabIndex = 0
-        IconView.View = View.SmallIcon
-        IconView.CheckBoxes = False
-        IconView.FullRowSelect = False
-        IconView.GridLines = True
-        IconView.AllowColumnReorder = False
-        IconView.Sorting = SortOrder.Ascending
-        IconView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        IconView.ShowItemToolTips = True
+            IconView.TabIndex = 0
+            IconView.View = View.SmallIcon
+            IconView.CheckBoxes = False
+            IconView.FullRowSelect = False
+            IconView.GridLines = True
+            IconView.AllowColumnReorder = False
+            IconView.Sorting = SortOrder.Ascending
+            IconView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+            IconView.ShowItemToolTips = True
 
-        UserView.TabIndex = 0
-        UserView.View = View.Details
-        UserView.CheckBoxes = True
-        UserView.FullRowSelect = True
-        UserView.AllowColumnReorder = True
-        UserView.GridLines = True
-        UserView.AllowColumnReorder = True
-        UserView.Sorting = SortOrder.Ascending
-        UserView.ShowItemToolTips = True
+            UserView.TabIndex = 0
+            UserView.View = View.Details
+            UserView.CheckBoxes = True
+            UserView.FullRowSelect = True
+            UserView.AllowColumnReorder = True
+            UserView.GridLines = True
+            UserView.AllowColumnReorder = True
+            UserView.Sorting = SortOrder.Ascending
+            UserView.ShowItemToolTips = True
 
-        If Settings.KeepOnTop Then
-            Me.TopMost = True
-            OnTopToolStripMenuItem.Checked = True
-            FloatToolStripMenuItem.Checked = False
-        Else
-            Me.TopMost = False
-            OnTopToolStripMenuItem.Checked = False
-            FloatToolStripMenuItem.Checked = True
-        End If
+            If Settings.KeepOnTop Then
+                Me.TopMost = True
+                OnTopToolStripMenuItem.Checked = True
+                FloatToolStripMenuItem.Checked = False
+            Else
+                Me.TopMost = False
+                OnTopToolStripMenuItem.Checked = False
+                FloatToolStripMenuItem.Checked = True
+            End If
 
-        Dim ctr = 0
+            Dim ctr = 0
 
-        'icons
-        IconView.Columns.Add(New ColumnHeader)
-        IconView.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth("Icon" & ctr & "_" & CStr(ViewType.Icons), 400), HorizontalAlignment.Left)
-        IconView.Columns(ctr).Name = "Icon" & ctr & "_" & CStr(ViewType.Icons)
+            'icons
+            IconView.Columns.Add(New ColumnHeader)
+            IconView.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth("Icon" & ctr & "_" & CStr(ViewType.Icons), 400), HorizontalAlignment.Left)
+            IconView.Columns(ctr).Name = "Icon" & ctr & "_" & CStr(ViewType.Icons)
 
-        'details
-        ListView1.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Left)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.DOS_Box_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Left)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 60), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 40), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 100), HorizontalAlignment.Left)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add("Prims", colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Left)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Group_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ' optional
-        ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Maps_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Physics_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details) & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Tides_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 60), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Teleport_word, colsize.ColumnWidth("Column" & ctr, 65), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Smart_Start_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 75), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Owner_God, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 75), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Manager_God_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 90), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Publicity_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Script_Rate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ' Timers
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Boot_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.Map_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            'details
+            ListView1.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Left)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.DOS_Box_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Left)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 60), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 40), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 100), HorizontalAlignment.Left)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add("Prims", colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Left)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Group_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ' optional
+            ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Maps_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Physics_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 120), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details) & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Tides_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 60), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Teleport_word, colsize.ColumnWidth("Column" & ctr, 65), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Smart_Start_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 75), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Owner_God, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 75), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Manager_God_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 90), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Publicity_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Script_Rate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ' Timers
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Boot_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
+            ListView1.Columns.Add(My.Resources.Map_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
 
-        'Avatars
-        ctr = 0
-        AvatarView.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
-        ctr += 1
-        AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
-        ctr += 1
-        AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
+            'Avatars
+            ctr = 0
+            AvatarView.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
+            ctr += 1
+            AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
+            ctr += 1
+            AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
 
-        'Users
-        ctr = 0
-        UserView.Columns.Add(My.Resources.Avatar_Name_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("Email" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Title_word, colsize.ColumnWidth("Title" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Items_word, colsize.ColumnWidth("Items" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Level_word, colsize.ColumnWidth("Level" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 120), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
-        ctr += 1
-        UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "UserUUID" & ctr & "_" & CStr(ViewType.Users)
+            'Users
+            ctr = 0
+            UserView.Columns.Add(My.Resources.Avatar_Name_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("Email" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Title_word, colsize.ColumnWidth("Title" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Items_word, colsize.ColumnWidth("Items" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Level_word, colsize.ColumnWidth("Level" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 120), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            ctr += 1
+            UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+            UserView.Columns(ctr).Name = "UserUUID" & ctr & "_" & CStr(ViewType.Users)
 
-        ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
-        AddHandler ListView1.ColumnClick, AddressOf ColumnClick
-        AddHandler IconView.ColumnClick, AddressOf ColumnClick
-        AddHandler UserView.ColumnClick, AddressOf ColumnClick
+            ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
+            AddHandler ListView1.ColumnClick, AddressOf ColumnClick
+            AddHandler IconView.ColumnClick, AddressOf ColumnClick
+            AddHandler UserView.ColumnClick, AddressOf ColumnClick
 
-        ' index to display icons
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_cross", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("cube_green", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2", Globalization.CultureInfo.InvariantCulture))  ' 8 - 1 User
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Globalization.CultureInfo.InvariantCulture))  ' 9 - 2 user
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogon
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
+            ' index to display icons
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_cross", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("cube_green", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2", Globalization.CultureInfo.InvariantCulture))  ' 8 - 1 User
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Globalization.CultureInfo.InvariantCulture))  ' 9 - 2 user
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogon
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
 
-        If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-            Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
-            Timer1.Start() 'Timer starts functioning
-        End If
+            If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
+                Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
+                Timer1.Start() 'Timer starts functioning
+            End If
 
-        ViewBusy = False
+            ViewBusy = False
 
-        Timer1.Start()
-        LoadMyListView()
+            Timer1.Start()
+            LoadMyListView()
 
-        initted = True
+            initted = True
+        Catch
+        End Try
+
 
     End Sub
 
@@ -1620,7 +1624,7 @@ SetWindowOnTop_Err:
                     item1.SubItems.Add("-".ToUpperInvariant)
                 End If
 
-                If Smart_Start(RegionUUID) = "True" Then
+                If Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
                     item1.SubItems.Add(My.Resources.Yes_word)
                 Else
                     item1.SubItems.Add("-".ToUpperInvariant)

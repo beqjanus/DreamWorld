@@ -276,7 +276,7 @@ Module RegionMaker
             ' nada
         End If
 
-        If Settings.AutoFill AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
+        If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
             Estate(RegionUUID) = "SimSurround"
             SetEstate(RegionUUID, 1999)
         End If
@@ -2260,11 +2260,14 @@ Module RegionMaker
 
             If Settings.Smart_Start Then
                 INI.SetIni("SmartStart", "Enabled", "True")
-                INI.SetIni("SmartStart", "URL", "http://" & Settings.LANIP() + ":" & CStr(Settings.DiagnosticPort))
+                'nope
+                'INI.SetIni("SmartStart", "URL", "http://127.0.0.1:${Const|DiagnosticsPort}")
+
                 INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
             Else
                 INI.SetIni("SmartStart", "Enabled", "False")
-                INI.SetIni("SmartStart", "URL", "")
+                'nope
+                'INI.SetIni("SmartStart", "URL", "")
                 INI.SetIni("SmartStart", "MachineID", "")
             End If
 
