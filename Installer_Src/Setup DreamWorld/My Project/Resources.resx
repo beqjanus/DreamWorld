@@ -4059,4 +4059,7 @@
   <data name="SequentialOrder" xml:space="preserve">
     <value>Sequential Order</value>
   </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache Stopped</value>
+  </data>
 </root>

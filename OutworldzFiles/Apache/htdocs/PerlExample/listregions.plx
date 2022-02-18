@@ -6,14 +6,18 @@ binmode (STDOUT,':utf8'); # we can use unicode
 use CGI qw(:standard); # so we can read and write to the web
 my $Input = CGI->new(); # read data from the web
 
-# uncomment these next lines if you wish to run this via Apache. COmmented out, it secure this example, which shows your users.
-# if you uncomment out line example should run on Apache over the web.
-# see README  for how to install Strawberry Perl and the necessary Perl modules
+print $Input->header(   # and print it as UTF-8
+      -type    => 'text/html',
+      -charset =>  'utf-8',
+   );
 
-#print $Input->header(   # and print it as UTF-8
-#      -type    => 'text/html',
-#      -charset =>  'utf-8',
-#   );
+# this is so yoiudo not leak information to the Internet
+my $env = $ENV{REMOTE_ADDR} || '127.0.0.1';
+if ( $env ne '127.0.0.1' ) {
+  print "This demo only works on Local Host at http://localhost/PerlExample/listusers.plx";
+  exit;
+}
+
 
 # Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
 use Robust::Util; 
@@ -35,13 +39,16 @@ foreach my $r ($RS->all) #  read each row object into $contact
 {
    push @data, {  regionName => $r->regionname,     # read each column and store it in a hash by ID
                   serverPort => $r->serverhttpport,
+                  serverPort => $r->serverhttpport,
+                  sizex      => $r->sizex,
+                                                  
                };
 }
 
 
 $tt->process('template/regions.tt',  {
       regions=>\@data,
-      regioncount=>$RS->count,
-      welcome => 'This is a list of registered Regions from Robust',
+      regioncount=>$RS->count,      
+   
    } ) || die $tt->error(), "\n"; # convert to a web page
 

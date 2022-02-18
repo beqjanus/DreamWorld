@@ -58,6 +58,8 @@ Module DoIni
         Settings.SetLiteralIni("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-chain.pem""")
         Settings.SetLiteralIni("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-key.pem""")
         Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-crt.pem""")
+        Settings.SetLiteralIni("SSLCACertificateFile", $"SSLCACertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/lets-encrypt-r3.pem""")
+
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 

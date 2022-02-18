@@ -17,7 +17,7 @@ Module GridNames
         ElseIf Settings.ServerType = OsgridServer Then
             Settings.DNSName = "hg.osgrid.org"
             Settings.BaseHostName = "hg.osgrid.org"
-            Settings.ExternalHostName = Settings.PublicIP
+            Settings.ExternalHostName = WANIP()
             TextPrint("--> " & My.Resources.Server_Type_is & " OSGrid")
         ElseIf Settings.ServerType = RegionServerName Then
             If Settings.OverrideName.Length > 0 Then
@@ -36,7 +36,7 @@ Module GridNames
         If Settings.OverrideName.Length > 0 Then
             Settings.ExternalHostName = Settings.OverrideName
             TextPrint("--> Region IP=" & Settings.ExternalHostName)
-        Else
+        ElseIf Settings.ServerType = RobustName Then
             Settings.ExternalHostName = Settings.PublicIP
             TextPrint("--> Region IP=" & Settings.ExternalHostName)
         End If

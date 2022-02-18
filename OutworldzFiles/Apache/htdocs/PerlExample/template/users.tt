@@ -20,7 +20,7 @@
         </script>
 </head>
 <body>
-    <p>| <a href="/">Home</a>| <a href="/Video">Video</a> | <a href="/Audio">Audio</a> | <a href="/Dreamgrid">Diva</a> | <a href="/Wordpress">Wordpress</a> | <a href="/JOpensim">JOpensim</a> | <a href="/PerlExamples">Perl Examples</a> |</p>
+    <p>| <a href="/">Home</a>| <a href="/Video">Video</a> | <a href="/Audio">Audio</a> | <a href="/Dreamgrid">Diva</a> | <a href="/Wordpress">Wordpress</a> | <a href="/JOpensim">JOpensim</a> | <a href="/PerlExample">Perl Examples</a> |</p>
 <p>[% welcome %]</p>
 <p>Total Users: [% usercount %]</p>
 <table class="striped">
