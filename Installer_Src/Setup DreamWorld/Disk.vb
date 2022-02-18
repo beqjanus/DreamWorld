@@ -151,6 +151,7 @@ Module Disk
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
             PropUpdateView = True ' make form refresh
             TeleportAgents()
+            Return False ' no need to boot as we are up.
         Else
             ReBoot(RegionUUID)
             TeleportAgents()
