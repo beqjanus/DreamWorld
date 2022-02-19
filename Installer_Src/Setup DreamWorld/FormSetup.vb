@@ -2490,9 +2490,10 @@ Public Class FormSetup
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
                 Bench.Print("hour worker")
-                Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
-                SetPublicIP()
+                ' Dynamically adjust Mysql for size of DB 
+                Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache
+                SetPublicIP() ' Adjust to any IP changes
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()

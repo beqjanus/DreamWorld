@@ -1674,6 +1674,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SayDistance() As String
+        Get
+            Return GetMySetting("SayDistance", "20")
+        End Get
+        Set
+            SetMySetting("SayDistance", Value)
+        End Set
+    End Property
+
     Public Property SCAdminPassword() As String
         Get
             Return GetMySetting("SC_AdminPassword", SCAdmin())
@@ -1784,6 +1793,15 @@ Public Class MySettings
         End Get
         Set(value As LoadIni)
             _Settings = value
+        End Set
+    End Property
+
+    Public Property ShoutDistance() As String
+        Get
+            Return GetMySetting("ShoutDistance", "100")
+        End Get
+        Set
+            SetMySetting("ShoutDistance", Value)
         End Set
     End Property
 
@@ -2265,6 +2283,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WelcomeRegion", Value)
+        End Set
+    End Property
+
+    Public Property WhisperDistance() As String
+        Get
+            Return GetMySetting("WhisperDistance", "10")
+        End Get
+        Set
+            SetMySetting("WhisperDistance", Value)
         End Set
     End Property
 

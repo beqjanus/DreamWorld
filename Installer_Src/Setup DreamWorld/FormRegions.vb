@@ -47,7 +47,7 @@ Public Class FormRegions
 
 #End Region
 
-    Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
+    Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles Button_AddRegion.Click
 
         RegionForm.Init("")
         RegionForm.Activate()
@@ -57,7 +57,7 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button_Normalize.Click
 
         If PropOpensimIsRunning Then
             TextPrint("Opensim is Running!")
@@ -103,7 +103,7 @@ Public Class FormRegions
         End If
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button_Clear.Click
 
         StartMySQL()
         MysqlInterface.DeregisterRegions(False)
@@ -119,8 +119,8 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckbox.CheckedChanged
-        Settings.Concierge = ConciergeCheckbox.Checked
+    Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckboxConcierge.CheckedChanged
+        Settings.Concierge = CheckboxConcierge.Checked
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -139,36 +139,39 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AddRegion.Text = Global.Outworldz.My.Resources.Add_Region_word
-        Button1.Text = Global.Outworldz.My.Resources.ClearReg
-
-        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        GroupBox2.Text = Global.Outworldz.My.Resources.Default_Region_word
-        Label1.Text = Global.Outworldz.My.Resources.EditRegion
-        Label2.Text = Global.Outworldz.My.Resources.New_User_Home
+        Button_AddRegion.Text = Global.Outworldz.My.Resources.Add_Region_word
+        Button_Clear.Text = Global.Outworldz.My.Resources.ClearReg
+        Button_Normalize.Text = Global.Outworldz.My.Resources.NormalizeRegions
+        Button_Region.Text = Global.Outworldz.My.Resources.Configger
+        CheckboxConcierge.Checked = Settings.Concierge
+        CheckboxConcierge.Checked = Settings.Concierge
+        CheckboxConcierge.Text = Global.Outworldz.My.Resources.Announce_visitors
+        GroupBoxChat.Text = Global.Outworldz.My.Resources.Chat_Channel_word
+        GroupBoxConcierge.Text = Global.Outworldz.My.Resources.Concierge_word
+        GroupBoxRegion.Text = Global.Outworldz.My.Resources.Default_Region_word
+        Label_whisper_distance.Text = Global.Outworldz.My.Resources.Whisper_distance
+        LabelEditRegion.Text = Global.Outworldz.My.Resources.EditRegion
+        LabelNewUser.Text = Global.Outworldz.My.Resources.New_User_Home
+        labelSay.Text = Global.Outworldz.My.Resources.Say_distance
+        LabelShout.Text = Global.Outworldz.My.Resources.Shout_distance
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
-        RegionButton.Text = Global.Outworldz.My.Resources.Configger
-
+        Say_Distance.Text = Settings.SayDistance
+        Settings.WhisperDistance = Settings.WhisperDistance
+        Shout_Distance.Text = Settings.ShoutDistance
         Text = Global.Outworldz.My.Resources.Region_word
+        TextBoxX.Name = Global.Outworldz.My.Resources.X
+        TextBoxX.Text = Settings.HomeVectorX
+        TextBoxY.Name = Global.Outworldz.My.Resources.Y
+        TextBoxY.Text = Settings.HomeVectorY
+        TextBoxZ.Name = Global.Outworldz.My.Resources.Z
+        TextBoxZ.Text = Settings.HomeVectorZ
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        ConciergeCheckbox.Text = Global.Outworldz.My.Resources.Announce_visitors
-        ConciergeCheckbox.Checked = Settings.Concierge
-
-        X.Name = Global.Outworldz.My.Resources.X
-        Y.Name = Global.Outworldz.My.Resources.Y
-        Z.Name = Global.Outworldz.My.Resources.Z
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
 
         LoadWelcomeBox()
         LoadRegionBox()
-
-        X.Text = Settings.HomeVectorX
-        Y.Text = Settings.HomeVectorY
-        Z.Text = Settings.HomeVectorZ
-
-        ConciergeCheckbox.Checked = Settings.Concierge
 
         HelpOnce("Regions")
         SetScreen()
@@ -231,7 +234,7 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles RegionButton.Click
+    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles Button_Region.Click
 
         Dim X As Integer = 300
         Dim Y As Integer = 200
@@ -265,26 +268,50 @@ Public Class FormRegions
         HelpManual("Regions")
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
-        X.Text = digitsOnly.Replace(X.Text, "")
-        Settings.HomeVectorX = X.Text
+        TextBoxX.Text = digitsOnly.Replace(TextBoxX.Text, "")
+        Settings.HomeVectorX = TextBoxX.Text
+    End Sub
+
+    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles Say_Distance.TextChanged
+
+        Dim digitsOnly = New Regex("[^\d]")
+        Say_Distance.Text = digitsOnly.Replace(Say_Distance.Text, "")
+        Settings.SayDistance = Say_Distance.Text
+
+    End Sub
+
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles Shout_Distance.TextChanged
+
+        Dim digitsOnly = New Regex("[^\d]")
+        Shout_Distance.Text = digitsOnly.Replace(Shout_Distance.Text, "")
+        Settings.ShoutDistance = Shout_Distance.Text
+
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Regions")
     End Sub
 
-    Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
+    Private Sub whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles Whisper_distance.TextChanged
+
         Dim digitsOnly = New Regex("[^\d]")
-        Y.Text = digitsOnly.Replace(Y.Text, "")
-        Settings.HomeVectorY = Y.Text
+        Whisper_distance.Text = digitsOnly.Replace(Whisper_distance.Text, "")
+        Settings.WhisperDistance = Whisper_distance.Text
+
     End Sub
 
-    Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
+    Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles TextBoxY.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
-        Z.Text = digitsOnly.Replace(Z.Text, "")
-        Settings.HomeVectorZ = Z.Text
+        TextBoxY.Text = digitsOnly.Replace(TextBoxY.Text, "")
+        Settings.HomeVectorY = TextBoxY.Text
+    End Sub
+
+    Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles TextBoxZ.TextChanged
+        Dim digitsOnly = New Regex("[^\d]")
+        TextBoxZ.Text = digitsOnly.Replace(TextBoxZ.Text, "")
+        Settings.HomeVectorZ = TextBoxZ.Text
     End Sub
 
 End Class

@@ -395,7 +395,6 @@ Public Module MysqlInterface
         ' make a list of  'uuid1', 'uuid2' etc
         Dim list2 As New List(Of String)
         For Each item In RegionUuids()
-
             list2.Add($"'{item}'")
         Next
         Dim arr As String() = list2.ToArray
@@ -404,7 +403,7 @@ Public Module MysqlInterface
         stm = $"delete from stats where UUID not in ({clause})"
         QueryString(stm)
 
-        ' make a list of  'Welcome', 'Virunga' etc
+        ' make a list of 'Welcome', 'Virunga' etc
         list2.Clear()
         For Each item In RegionUuids()
             Dim r = Replace(Region_Name(item), "'", "''")  ' escape single quotes with ''
@@ -1617,7 +1616,10 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Tuning"
-
+    ''' <summary>
+    ''' Dynamically adjust Mysql for size of DB 
+    ''' </summary>
+    ''' <returns></returns>
     Public Function Total_InnoDB_Bytes() As Double
 
         Dim Bytes As Double

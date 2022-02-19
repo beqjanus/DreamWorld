@@ -455,7 +455,6 @@ Module Robust
         End Using
 
         If Up = "" Then
-
             MarkRobustOffline()
             Return False
         ElseIf Up.Contains("OpenSim") Then

@@ -4062,4 +4062,16 @@
   <data name="Apache_Stopped" xml:space="preserve">
     <value>Apache Stopped</value>
   </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Concierge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Say distance</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Shout distance</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Whisper_distance</value>
+  </data>
 </root>

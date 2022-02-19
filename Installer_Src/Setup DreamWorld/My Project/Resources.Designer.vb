@@ -2233,6 +2233,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Concierge.
+        '''</summary>
+        Friend ReadOnly Property Concierge_word() As String
+            Get
+                Return ResourceManager.GetString("Concierge_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Regions start in parallel and pause loading when CPU &gt; 90% or RAM &gt; 90% (default).
         '''</summary>
         Friend ReadOnly Property Concurrent_text() As String
@@ -9358,6 +9367,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Say distance.
+        '''</summary>
+        Friend ReadOnly Property Say_distance() As String
+            Get
+                Return ResourceManager.GetString("Say_distance", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Script cache.
         '''</summary>
         Friend ReadOnly Property Script_cache_word() As String
@@ -9858,6 +9876,15 @@ Namespace My.Resources
         Friend ReadOnly Property Setup_Wordpress() As String
             Get
                 Return ResourceManager.GetString("Setup_Wordpress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Shout distance.
+        '''</summary>
+        Friend ReadOnly Property Shout_distance() As String
+            Get
+                Return ResourceManager.GetString("Shout_distance", resourceCulture)
             End Get
         End Property
         
@@ -11887,6 +11914,15 @@ Namespace My.Resources
         Friend ReadOnly Property Which_Channel() As String
             Get
                 Return ResourceManager.GetString("Which_Channel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Whisper_distance.
+        '''</summary>
+        Friend ReadOnly Property Whisper_distance() As String
+            Get
+                Return ResourceManager.GetString("Whisper_distance", resourceCulture)
             End Get
         End Property
         

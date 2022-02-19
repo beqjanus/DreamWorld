@@ -23,56 +23,64 @@ Partial Class FormRegions
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegions))
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxRegion = New System.Windows.Forms.GroupBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.NormalizeButton1 = New System.Windows.Forms.Button()
-        Me.Z = New System.Windows.Forms.TextBox()
-        Me.Y = New System.Windows.Forms.TextBox()
-        Me.X = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.RegionButton = New System.Windows.Forms.Button()
+        Me.Button_Clear = New System.Windows.Forms.Button()
+        Me.Button_Normalize = New System.Windows.Forms.Button()
+        Me.TextBoxZ = New System.Windows.Forms.TextBox()
+        Me.TextBoxY = New System.Windows.Forms.TextBox()
+        Me.TextBoxX = New System.Windows.Forms.TextBox()
+        Me.LabelNewUser = New System.Windows.Forms.Label()
+        Me.LabelEditRegion = New System.Windows.Forms.Label()
+        Me.Button_Region = New System.Windows.Forms.Button()
         Me.RegionBox = New System.Windows.Forms.ComboBox()
         Me.WelcomeBox1 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.AddRegion = New System.Windows.Forms.Button()
-        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
+        Me.Button_AddRegion = New System.Windows.Forms.Button()
+        Me.CheckboxConcierge = New System.Windows.Forms.CheckBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextToSpeechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.ConciergeGroup = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2.SuspendLayout()
+        Me.GroupBoxConcierge = New System.Windows.Forms.GroupBox()
+        Me.Whisper_distance = New System.Windows.Forms.TextBox()
+        Me.Label_whisper_distance = New System.Windows.Forms.Label()
+        Me.labelSay = New System.Windows.Forms.Label()
+        Me.Say_Distance = New System.Windows.Forms.TextBox()
+        Me.LabelShout = New System.Windows.Forms.Label()
+        Me.Shout_Distance = New System.Windows.Forms.TextBox()
+        Me.GroupBoxChat = New System.Windows.Forms.GroupBox()
+        Me.GroupBoxRegion.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
-        Me.ConciergeGroup.SuspendLayout()
+        Me.GroupBoxConcierge.SuspendLayout()
+        Me.GroupBoxChat.SuspendLayout()
         Me.SuspendLayout()
         '
-        'GroupBox2
+        'GroupBoxRegion
         '
-        Me.GroupBox2.Controls.Add(Me.PictureBox2)
-        Me.GroupBox2.Controls.Add(Me.Button1)
-        Me.GroupBox2.Controls.Add(Me.NormalizeButton1)
-        Me.GroupBox2.Controls.Add(Me.Z)
-        Me.GroupBox2.Controls.Add(Me.Y)
-        Me.GroupBox2.Controls.Add(Me.X)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Controls.Add(Me.RegionButton)
-        Me.GroupBox2.Controls.Add(Me.RegionBox)
-        Me.GroupBox2.Controls.Add(Me.WelcomeBox1)
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Controls.Add(Me.AddRegion)
-        Me.GroupBox2.Location = New System.Drawing.Point(10, 35)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Size = New System.Drawing.Size(216, 329)
-        Me.GroupBox2.TabIndex = 0
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Region"
+        Me.GroupBoxRegion.Controls.Add(Me.PictureBox2)
+        Me.GroupBoxRegion.Controls.Add(Me.Button_Clear)
+        Me.GroupBoxRegion.Controls.Add(Me.Button_Normalize)
+        Me.GroupBoxRegion.Controls.Add(Me.TextBoxZ)
+        Me.GroupBoxRegion.Controls.Add(Me.TextBoxY)
+        Me.GroupBoxRegion.Controls.Add(Me.TextBoxX)
+        Me.GroupBoxRegion.Controls.Add(Me.LabelNewUser)
+        Me.GroupBoxRegion.Controls.Add(Me.LabelEditRegion)
+        Me.GroupBoxRegion.Controls.Add(Me.Button_Region)
+        Me.GroupBoxRegion.Controls.Add(Me.RegionBox)
+        Me.GroupBoxRegion.Controls.Add(Me.WelcomeBox1)
+        Me.GroupBoxRegion.Controls.Add(Me.Label3)
+        Me.GroupBoxRegion.Controls.Add(Me.Button_AddRegion)
+        Me.GroupBoxRegion.Location = New System.Drawing.Point(10, 35)
+        Me.GroupBoxRegion.Margin = New System.Windows.Forms.Padding(1)
+        Me.GroupBoxRegion.Name = "GroupBoxRegion"
+        Me.GroupBoxRegion.Padding = New System.Windows.Forms.Padding(1)
+        Me.GroupBoxRegion.Size = New System.Drawing.Size(216, 329)
+        Me.GroupBoxRegion.TabIndex = 0
+        Me.GroupBoxRegion.TabStop = False
+        Me.GroupBoxRegion.Text = "Region"
         '
         'PictureBox2
         '
@@ -85,85 +93,85 @@ Partial Class FormRegions
         Me.PictureBox2.TabIndex = 1888
         Me.PictureBox2.TabStop = False
         '
-        'Button1
+        'Button_Clear
         '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.package_delete
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(16, 182)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(1)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(185, 35)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.ClearReg
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button_Clear.Image = Global.Outworldz.My.Resources.Resources.package_delete
+        Me.Button_Clear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_Clear.Location = New System.Drawing.Point(16, 182)
+        Me.Button_Clear.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button_Clear.Name = "Button_Clear"
+        Me.Button_Clear.Size = New System.Drawing.Size(185, 35)
+        Me.Button_Clear.TabIndex = 6
+        Me.Button_Clear.Text = Global.Outworldz.My.Resources.Resources.ClearReg
+        Me.Button_Clear.UseVisualStyleBackColor = True
         '
-        'NormalizeButton1
+        'Button_Normalize
         '
-        Me.NormalizeButton1.Image = Global.Outworldz.My.Resources.Resources.package_preferences
-        Me.NormalizeButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NormalizeButton1.Location = New System.Drawing.Point(16, 219)
-        Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
-        Me.NormalizeButton1.Name = "NormalizeButton1"
-        Me.NormalizeButton1.Size = New System.Drawing.Size(185, 35)
-        Me.NormalizeButton1.TabIndex = 7
-        Me.NormalizeButton1.Text = Global.Outworldz.My.Resources.Resources.NormalizeRegions
-        Me.NormalizeButton1.UseVisualStyleBackColor = True
+        Me.Button_Normalize.Image = Global.Outworldz.My.Resources.Resources.package_preferences
+        Me.Button_Normalize.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_Normalize.Location = New System.Drawing.Point(16, 219)
+        Me.Button_Normalize.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button_Normalize.Name = "Button_Normalize"
+        Me.Button_Normalize.Size = New System.Drawing.Size(185, 35)
+        Me.Button_Normalize.TabIndex = 7
+        Me.Button_Normalize.Text = Global.Outworldz.My.Resources.Resources.NormalizeRegions
+        Me.Button_Normalize.UseVisualStyleBackColor = True
         '
-        'Z
+        'TextBoxZ
         '
-        Me.Z.Location = New System.Drawing.Point(108, 73)
-        Me.Z.Margin = New System.Windows.Forms.Padding(1)
-        Me.Z.Name = "Z"
-        Me.Z.Size = New System.Drawing.Size(29, 20)
-        Me.Z.TabIndex = 3
+        Me.TextBoxZ.Location = New System.Drawing.Point(108, 73)
+        Me.TextBoxZ.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBoxZ.Name = "TextBoxZ"
+        Me.TextBoxZ.Size = New System.Drawing.Size(29, 20)
+        Me.TextBoxZ.TabIndex = 3
         '
-        'Y
+        'TextBoxY
         '
-        Me.Y.Location = New System.Drawing.Point(72, 73)
-        Me.Y.Margin = New System.Windows.Forms.Padding(1)
-        Me.Y.Name = "Y"
-        Me.Y.Size = New System.Drawing.Size(29, 20)
-        Me.Y.TabIndex = 2
+        Me.TextBoxY.Location = New System.Drawing.Point(72, 73)
+        Me.TextBoxY.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBoxY.Name = "TextBoxY"
+        Me.TextBoxY.Size = New System.Drawing.Size(29, 20)
+        Me.TextBoxY.TabIndex = 2
         '
-        'X
+        'TextBoxX
         '
-        Me.X.Location = New System.Drawing.Point(36, 73)
-        Me.X.Margin = New System.Windows.Forms.Padding(1)
-        Me.X.Name = "X"
-        Me.X.Size = New System.Drawing.Size(29, 20)
-        Me.X.TabIndex = 1
+        Me.TextBoxX.Location = New System.Drawing.Point(36, 73)
+        Me.TextBoxX.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBoxX.Name = "TextBoxX"
+        Me.TextBoxX.Size = New System.Drawing.Size(29, 20)
+        Me.TextBoxX.TabIndex = 1
         '
-        'Label2
+        'LabelNewUser
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(33, 56)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(115, 13)
-        Me.Label2.TabIndex = 1861
-        Me.Label2.Text = "New User Home X,Y,Z"
+        Me.LabelNewUser.AutoSize = True
+        Me.LabelNewUser.Location = New System.Drawing.Point(33, 56)
+        Me.LabelNewUser.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LabelNewUser.Name = "LabelNewUser"
+        Me.LabelNewUser.Size = New System.Drawing.Size(115, 13)
+        Me.LabelNewUser.TabIndex = 1861
+        Me.LabelNewUser.Text = "New User Home X,Y,Z"
         '
-        'Label1
+        'LabelEditRegion
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 274)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(62, 13)
-        Me.Label1.TabIndex = 1860
-        Me.Label1.Text = "Edit Region"
+        Me.LabelEditRegion.AutoSize = True
+        Me.LabelEditRegion.Location = New System.Drawing.Point(15, 274)
+        Me.LabelEditRegion.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LabelEditRegion.Name = "LabelEditRegion"
+        Me.LabelEditRegion.Size = New System.Drawing.Size(62, 13)
+        Me.LabelEditRegion.TabIndex = 1860
+        Me.LabelEditRegion.Text = "Edit Region"
         '
-        'RegionButton
+        'Button_Region
         '
-        Me.RegionButton.Image = Global.Outworldz.My.Resources.Resources.package_find
-        Me.RegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RegionButton.Location = New System.Drawing.Point(16, 145)
-        Me.RegionButton.Margin = New System.Windows.Forms.Padding(1)
-        Me.RegionButton.Name = "RegionButton"
-        Me.RegionButton.Size = New System.Drawing.Size(185, 35)
-        Me.RegionButton.TabIndex = 5
-        Me.RegionButton.Text = Global.Outworldz.My.Resources.Resources.Configger
-        Me.RegionButton.UseVisualStyleBackColor = True
+        Me.Button_Region.Image = Global.Outworldz.My.Resources.Resources.package_find
+        Me.Button_Region.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_Region.Location = New System.Drawing.Point(16, 145)
+        Me.Button_Region.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button_Region.Name = "Button_Region"
+        Me.Button_Region.Size = New System.Drawing.Size(185, 35)
+        Me.Button_Region.TabIndex = 5
+        Me.Button_Region.Text = Global.Outworldz.My.Resources.Resources.Configger
+        Me.Button_Region.UseVisualStyleBackColor = True
         '
         'RegionBox
         '
@@ -198,27 +206,27 @@ Partial Class FormRegions
         Me.Label3.Size = New System.Drawing.Size(0, 13)
         Me.Label3.TabIndex = 28
         '
-        'AddRegion
+        'Button_AddRegion
         '
-        Me.AddRegion.Image = Global.Outworldz.My.Resources.Resources.package_add
-        Me.AddRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegion.Location = New System.Drawing.Point(16, 108)
-        Me.AddRegion.Margin = New System.Windows.Forms.Padding(1)
-        Me.AddRegion.Name = "AddRegion"
-        Me.AddRegion.Size = New System.Drawing.Size(185, 35)
-        Me.AddRegion.TabIndex = 4
-        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
-        Me.AddRegion.UseVisualStyleBackColor = True
+        Me.Button_AddRegion.Image = Global.Outworldz.My.Resources.Resources.package_add
+        Me.Button_AddRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button_AddRegion.Location = New System.Drawing.Point(16, 108)
+        Me.Button_AddRegion.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button_AddRegion.Name = "Button_AddRegion"
+        Me.Button_AddRegion.Size = New System.Drawing.Size(185, 35)
+        Me.Button_AddRegion.TabIndex = 4
+        Me.Button_AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
+        Me.Button_AddRegion.UseVisualStyleBackColor = True
         '
-        'ConciergeCheckbox
+        'CheckboxConcierge
         '
-        Me.ConciergeCheckbox.AutoSize = True
-        Me.ConciergeCheckbox.Location = New System.Drawing.Point(15, 29)
-        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
-        Me.ConciergeCheckbox.Size = New System.Drawing.Size(178, 17)
-        Me.ConciergeCheckbox.TabIndex = 9
-        Me.ConciergeCheckbox.Text = "Announce Visitors in region chat"
-        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
+        Me.CheckboxConcierge.AutoSize = True
+        Me.CheckboxConcierge.Location = New System.Drawing.Point(15, 29)
+        Me.CheckboxConcierge.Name = "CheckboxConcierge"
+        Me.CheckboxConcierge.Size = New System.Drawing.Size(178, 17)
+        Me.CheckboxConcierge.TabIndex = 9
+        Me.CheckboxConcierge.Text = "Announce Visitors in region chat"
+        Me.CheckboxConcierge.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
@@ -251,15 +259,84 @@ Partial Class FormRegions
         Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.RegionsToolStripMenuItem.Text = "Regions"
         '
-        'ConciergeGroup
+        'GroupBoxConcierge
         '
-        Me.ConciergeGroup.Controls.Add(Me.ConciergeCheckbox)
-        Me.ConciergeGroup.Location = New System.Drawing.Point(240, 37)
-        Me.ConciergeGroup.Name = "ConciergeGroup"
-        Me.ConciergeGroup.Size = New System.Drawing.Size(200, 60)
-        Me.ConciergeGroup.TabIndex = 1888
-        Me.ConciergeGroup.TabStop = False
-        Me.ConciergeGroup.Text = "Concierge"
+        Me.GroupBoxConcierge.Controls.Add(Me.CheckboxConcierge)
+        Me.GroupBoxConcierge.Location = New System.Drawing.Point(240, 37)
+        Me.GroupBoxConcierge.Name = "GroupBoxConcierge"
+        Me.GroupBoxConcierge.Size = New System.Drawing.Size(200, 60)
+        Me.GroupBoxConcierge.TabIndex = 1888
+        Me.GroupBoxConcierge.TabStop = False
+        Me.GroupBoxConcierge.Text = "Concierge"
+        '
+        'Whisper_distance
+        '
+        Me.Whisper_distance.Location = New System.Drawing.Point(29, 35)
+        Me.Whisper_distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.Whisper_distance.Name = "Whisper_distance"
+        Me.Whisper_distance.Size = New System.Drawing.Size(29, 20)
+        Me.Whisper_distance.TabIndex = 1889
+        '
+        'Label_whisper_distance
+        '
+        Me.Label_whisper_distance.AutoSize = True
+        Me.Label_whisper_distance.Location = New System.Drawing.Point(70, 38)
+        Me.Label_whisper_distance.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.Label_whisper_distance.Name = "Label_whisper_distance"
+        Me.Label_whisper_distance.Size = New System.Drawing.Size(89, 13)
+        Me.Label_whisper_distance.TabIndex = 1889
+        Me.Label_whisper_distance.Text = "Whisper distance"
+        '
+        'labelSay
+        '
+        Me.labelSay.AutoSize = True
+        Me.labelSay.Location = New System.Drawing.Point(70, 66)
+        Me.labelSay.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.labelSay.Name = "labelSay"
+        Me.labelSay.Size = New System.Drawing.Size(68, 13)
+        Me.labelSay.TabIndex = 1890
+        Me.labelSay.Text = "Say distance"
+        '
+        'Say_Distance
+        '
+        Me.Say_Distance.Location = New System.Drawing.Point(29, 63)
+        Me.Say_Distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.Say_Distance.Name = "Say_Distance"
+        Me.Say_Distance.Size = New System.Drawing.Size(29, 20)
+        Me.Say_Distance.TabIndex = 1891
+        '
+        'LabelShout
+        '
+        Me.LabelShout.AutoSize = True
+        Me.LabelShout.Location = New System.Drawing.Point(70, 95)
+        Me.LabelShout.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LabelShout.Name = "LabelShout"
+        Me.LabelShout.Size = New System.Drawing.Size(78, 13)
+        Me.LabelShout.TabIndex = 1892
+        Me.LabelShout.Text = "Shout distance"
+        '
+        'Shout_Distance
+        '
+        Me.Shout_Distance.Location = New System.Drawing.Point(29, 92)
+        Me.Shout_Distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.Shout_Distance.Name = "Shout_Distance"
+        Me.Shout_Distance.Size = New System.Drawing.Size(29, 20)
+        Me.Shout_Distance.TabIndex = 1893
+        '
+        'GroupBoxChat
+        '
+        Me.GroupBoxChat.Controls.Add(Me.Shout_Distance)
+        Me.GroupBoxChat.Controls.Add(Me.LabelShout)
+        Me.GroupBoxChat.Controls.Add(Me.labelSay)
+        Me.GroupBoxChat.Controls.Add(Me.Say_Distance)
+        Me.GroupBoxChat.Controls.Add(Me.Whisper_distance)
+        Me.GroupBoxChat.Controls.Add(Me.Label_whisper_distance)
+        Me.GroupBoxChat.Location = New System.Drawing.Point(240, 123)
+        Me.GroupBoxChat.Name = "GroupBoxChat"
+        Me.GroupBoxChat.Size = New System.Drawing.Size(200, 143)
+        Me.GroupBoxChat.TabIndex = 1895
+        Me.GroupBoxChat.TabStop = False
+        Me.GroupBoxChat.Text = "Chat"
         '
         'FormRegions
         '
@@ -268,45 +345,55 @@ Partial Class FormRegions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(464, 373)
-        Me.Controls.Add(Me.ConciergeGroup)
+        Me.Controls.Add(Me.GroupBoxChat)
+        Me.Controls.Add(Me.GroupBoxConcierge)
         Me.Controls.Add(Me.MenuStrip2)
-        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBoxRegion)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(1)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
         Me.Text = "Region"
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GroupBoxRegion.ResumeLayout(False)
+        Me.GroupBoxRegion.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        Me.ConciergeGroup.ResumeLayout(False)
-        Me.ConciergeGroup.PerformLayout()
+        Me.GroupBoxConcierge.ResumeLayout(False)
+        Me.GroupBoxConcierge.PerformLayout()
+        Me.GroupBoxChat.ResumeLayout(False)
+        Me.GroupBoxChat.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBoxRegion As GroupBox
     Friend WithEvents WelcomeBox1 As ComboBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents AddRegion As Button
-    Friend WithEvents RegionButton As Button
-    Friend WithEvents Label1 As Label
+    Friend WithEvents Button_AddRegion As Button
+    Friend WithEvents Button_Region As Button
+    Friend WithEvents LabelEditRegion As Label
     Friend WithEvents RegionBox As ComboBox
-    Friend WithEvents Z As TextBox
-    Friend WithEvents Y As TextBox
-    Friend WithEvents X As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents NormalizeButton1 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents TextBoxZ As TextBox
+    Friend WithEvents TextBoxY As TextBox
+    Friend WithEvents TextBoxX As TextBox
+    Friend WithEvents LabelNewUser As Label
+    Friend WithEvents Button_Normalize As Button
+    Friend WithEvents Button_Clear As Button
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents ConciergeCheckbox As CheckBox
+    Friend WithEvents CheckboxConcierge As CheckBox
     Friend WithEvents TextToSpeechToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents ConciergeGroup As GroupBox
+    Friend WithEvents GroupBoxConcierge As GroupBox
+    Friend WithEvents Whisper_distance As TextBox
+    Friend WithEvents Label_whisper_distance As Label
+    Friend WithEvents labelSay As Label
+    Friend WithEvents Say_Distance As TextBox
+    Friend WithEvents LabelShout As Label
+    Friend WithEvents Shout_Distance As TextBox
+    Friend WithEvents GroupBoxChat As GroupBox
 End Class

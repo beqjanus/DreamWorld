@@ -1856,6 +1856,10 @@ Module RegionMaker
             If INI.SetIni("Const", "PrivURL", "http://" & CStr(Settings.LANIP())) Then Return True ' local IP
             If INI.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) Then Return True ' varies with region
 
+            If INI.SetIni("Chat", "whisper_distance", Settings.WhisperDistance) Then Return True
+            If INI.SetIni("Chat", "say_distance", Settings.SayDistance) Then Return True
+            If INI.SetIni("Chat", "shout_distance", Settings.ShoutDistance) Then Return True
+
             Select Case Settings.ServerType
                 Case RobustServerName
                     SetupOpensimSearchINI(INI)
