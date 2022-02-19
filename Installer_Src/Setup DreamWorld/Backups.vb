@@ -53,7 +53,13 @@ Public Class Backups
 
     End Sub
 
+    ''' <summary>
+    ''' Create a named SQL Mysqldump backup in tmp and zip it up.
+    ''' </summary>
+    ''' <param name="Name"></param>
     Private Sub DoBackup(Name As String)
+
+        StartMySQL()
 
         RunningBackupName = Name
         Try
