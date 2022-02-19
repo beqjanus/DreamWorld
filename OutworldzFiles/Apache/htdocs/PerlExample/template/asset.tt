@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+<title>User List</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+        <style type="text/css">
+            
+            tr.header
+            {
+                font-weight:bold;
+            }
+            tr.alt
+            {
+                background-color: #cccccc;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function(){
+               $('.striped tr:even').addClass('alt');
+            });
+        </script>
+</head>
+<body>
+<p>| <a href="/">Home</a>| <a href="/Video">Video</a> | <a href="/Audio">Audio</a> | <a href="/Dreamgrid">Diva</a> | <a href="/Wordpress">Wordpress</a> | <a href="/JOpensim">JOpensim</a> | <a href="/PerlExample">Perl Examples</a> |</p>
+<p>[% welcome %]</p>
+</body>
+</html>
