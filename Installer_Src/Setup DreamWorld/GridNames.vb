@@ -14,6 +14,7 @@ Module GridNames
 
         If Settings.ServerType = RobustServerName Then
             TextPrint("--> " & My.Resources.Server_Type_is & " Robust")
+            Settings.ExternalHostName = Settings.PublicIP
         ElseIf Settings.ServerType = OsgridServer Then
             Settings.DNSName = "hg.osgrid.org"
             Settings.BaseHostName = "hg.osgrid.org"
