@@ -1,8 +1,24 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
-V4.9 Release
-This Rev will trigger an update popup.
+V4.92
+Bug in region backups caused the region ini to be skipped. Please run a backup.
+Sequential boot and Parallel Boot gets a new type: No Limits. Sequential still waits up to 5 minutes for a region to start, then boots the next. Parallel waits on 90<% CPU or <90% RAM. No limits is a let-it-rip mode for Smart Boot. They load into RAM and get swapped to disk. 
+Yet another Region port bug is fixed. This could cause large numbers of region ports to be used.
+Consoles will pop up less often. Just once when it does a command you may be interested in.
+Language form is resizable
+Settings form is resizable
+Crash counter:  if you have it set to Restart on crash, 5 crashes will just turn it off.
+SSL mode now has a certificate for Let’s Encrypt that was missing. This verifies that your Domain and the Lets Encrypt certs are genuine.
+All Perl examples have been updated.  Some of them only run on localhost for security.
+OsGrid mode was broken. Could not add the IP address in Ports. No longer need to add them.
+If you ran two grids on a server at the same time, the second one to start would erase a firewall setting the other needed.  
+Missing "" in a Load OAR would prevent oars with spaces from loading.
+V4.91
+There is a new "double size" teleport sign in the Local IAR that supports 64 regions. It and the Single wide can support more than the 16536-character limit in HTTP I run into with 170 regions.  Just change the Description from 0, to 1, 2, etc.
+
+V4.9 
+Uses the Welcome region for saving IARS instead of TEMP region
 
 V4.899
 Allow Land sales for $0 to a specific person or any amount to anyone. Fake money.  Gloebit can be used for real money.
@@ -10,7 +26,7 @@ Use the Welcome region for saving IARS. Helps with Smart Boot and Smart Suspend 
 Region folders were not being zipped up in Backups when they were selected.
 
 V4.898
-Prevent a crash in Dreamgrid if the Regions folder is missing. 
+Prevent a crash in DreamGrid if the Regions folder is missing. 
 MetroMap (map.php) was missing the first cell.  It moved around based on the screen view.  $xx was not defined. An undefined variable is null, so if you use array($xx), instead of the 0th index, you gets the 'null'th place. which should be to 0th, but noooooo.  Thanks for the tip and the fix, awss!
 Firewall is now open for port 443 for SSL. You need to port forward 443 in your router to use SSL!
 
@@ -24,7 +40,7 @@ V4.896
 A patch for avatars not showing on the Regions->Avatars screen.  You can search in the avatar names and email addresses now.
 SSL certificates for Apache added to Settings.  See SSL in Help or click SSL in Settings. You must be running Apache on Port 80 for this to work!
 Added a dynamically adjusting innodb_buffer_pool_size to Mysql. Starts at 1 GB and increases as needed. Used only on very large grids.
-fsassets form always proimpted you to save even when nothing chnaged
+fsassets form always prompted you to save even when nothing changed
 
 V4.895
 You can click any user in the Region Panel “Users” section and edit the details.  You can change a user name, change God level and give them a title.
