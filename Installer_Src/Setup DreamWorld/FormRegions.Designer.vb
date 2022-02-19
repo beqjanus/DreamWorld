@@ -44,12 +44,12 @@ Partial Class FormRegions
         Me.RegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.GroupBoxConcierge = New System.Windows.Forms.GroupBox()
-        Me.Whisper_distance = New System.Windows.Forms.TextBox()
+        Me.TextBox_Whisper_distance = New System.Windows.Forms.TextBox()
         Me.Label_whisper_distance = New System.Windows.Forms.Label()
         Me.labelSay = New System.Windows.Forms.Label()
-        Me.Say_Distance = New System.Windows.Forms.TextBox()
+        Me.TextBox_Say_Distance = New System.Windows.Forms.TextBox()
         Me.LabelShout = New System.Windows.Forms.Label()
-        Me.Shout_Distance = New System.Windows.Forms.TextBox()
+        Me.TextBox_Shout_Distance = New System.Windows.Forms.TextBox()
         Me.GroupBoxChat = New System.Windows.Forms.GroupBox()
         Me.GroupBoxRegion.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -269,13 +269,13 @@ Partial Class FormRegions
         Me.GroupBoxConcierge.TabStop = False
         Me.GroupBoxConcierge.Text = "Concierge"
         '
-        'Whisper_distance
+        'TextBox_Whisper_distance
         '
-        Me.Whisper_distance.Location = New System.Drawing.Point(29, 35)
-        Me.Whisper_distance.Margin = New System.Windows.Forms.Padding(1)
-        Me.Whisper_distance.Name = "Whisper_distance"
-        Me.Whisper_distance.Size = New System.Drawing.Size(29, 20)
-        Me.Whisper_distance.TabIndex = 1889
+        Me.TextBox_Whisper_distance.Location = New System.Drawing.Point(29, 35)
+        Me.TextBox_Whisper_distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBox_Whisper_distance.Name = "TextBox_Whisper_distance"
+        Me.TextBox_Whisper_distance.Size = New System.Drawing.Size(29, 20)
+        Me.TextBox_Whisper_distance.TabIndex = 1889
         '
         'Label_whisper_distance
         '
@@ -297,13 +297,13 @@ Partial Class FormRegions
         Me.labelSay.TabIndex = 1890
         Me.labelSay.Text = "Say distance"
         '
-        'Say_Distance
+        'TextBox_Say_Distance
         '
-        Me.Say_Distance.Location = New System.Drawing.Point(29, 63)
-        Me.Say_Distance.Margin = New System.Windows.Forms.Padding(1)
-        Me.Say_Distance.Name = "Say_Distance"
-        Me.Say_Distance.Size = New System.Drawing.Size(29, 20)
-        Me.Say_Distance.TabIndex = 1891
+        Me.TextBox_Say_Distance.Location = New System.Drawing.Point(29, 63)
+        Me.TextBox_Say_Distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBox_Say_Distance.Name = "TextBox_Say_Distance"
+        Me.TextBox_Say_Distance.Size = New System.Drawing.Size(29, 20)
+        Me.TextBox_Say_Distance.TabIndex = 1891
         '
         'LabelShout
         '
@@ -315,21 +315,21 @@ Partial Class FormRegions
         Me.LabelShout.TabIndex = 1892
         Me.LabelShout.Text = "Shout distance"
         '
-        'Shout_Distance
+        'TextBox_Shout_Distance
         '
-        Me.Shout_Distance.Location = New System.Drawing.Point(29, 92)
-        Me.Shout_Distance.Margin = New System.Windows.Forms.Padding(1)
-        Me.Shout_Distance.Name = "Shout_Distance"
-        Me.Shout_Distance.Size = New System.Drawing.Size(29, 20)
-        Me.Shout_Distance.TabIndex = 1893
+        Me.TextBox_Shout_Distance.Location = New System.Drawing.Point(29, 92)
+        Me.TextBox_Shout_Distance.Margin = New System.Windows.Forms.Padding(1)
+        Me.TextBox_Shout_Distance.Name = "TextBox_Shout_Distance"
+        Me.TextBox_Shout_Distance.Size = New System.Drawing.Size(29, 20)
+        Me.TextBox_Shout_Distance.TabIndex = 1893
         '
         'GroupBoxChat
         '
-        Me.GroupBoxChat.Controls.Add(Me.Shout_Distance)
+        Me.GroupBoxChat.Controls.Add(Me.TextBox_Shout_Distance)
         Me.GroupBoxChat.Controls.Add(Me.LabelShout)
         Me.GroupBoxChat.Controls.Add(Me.labelSay)
-        Me.GroupBoxChat.Controls.Add(Me.Say_Distance)
-        Me.GroupBoxChat.Controls.Add(Me.Whisper_distance)
+        Me.GroupBoxChat.Controls.Add(Me.TextBox_Say_Distance)
+        Me.GroupBoxChat.Controls.Add(Me.TextBox_Whisper_distance)
         Me.GroupBoxChat.Controls.Add(Me.Label_whisper_distance)
         Me.GroupBoxChat.Location = New System.Drawing.Point(240, 123)
         Me.GroupBoxChat.Name = "GroupBoxChat"
@@ -389,11 +389,11 @@ Partial Class FormRegions
     Friend WithEvents RegionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents GroupBoxConcierge As GroupBox
-    Friend WithEvents Whisper_distance As TextBox
+    Friend WithEvents TextBox_Whisper_distance As TextBox
     Friend WithEvents Label_whisper_distance As Label
     Friend WithEvents labelSay As Label
-    Friend WithEvents Say_Distance As TextBox
+    Friend WithEvents TextBox_Say_Distance As TextBox
     Friend WithEvents LabelShout As Label
-    Friend WithEvents Shout_Distance As TextBox
+    Friend WithEvents TextBox_Shout_Distance As TextBox
     Friend WithEvents GroupBoxChat As GroupBox
 End Class

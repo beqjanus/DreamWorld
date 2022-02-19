@@ -156,9 +156,9 @@ Public Class FormRegions
         LabelShout.Text = Global.Outworldz.My.Resources.Shout_distance
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
-        Say_Distance.Text = Settings.SayDistance
-        Settings.WhisperDistance = Settings.WhisperDistance
-        Shout_Distance.Text = Settings.ShoutDistance
+        TextBox_Whisper_distance.Text = Settings.WhisperDistance
+        TextBox_Say_Distance.Text = Settings.SayDistance
+        TextBox_Shout_Distance.Text = Settings.ShoutDistance
         Text = Global.Outworldz.My.Resources.Region_word
         TextBoxX.Name = Global.Outworldz.My.Resources.X
         TextBoxX.Text = Settings.HomeVectorX
@@ -274,19 +274,19 @@ Public Class FormRegions
         Settings.HomeVectorX = TextBoxX.Text
     End Sub
 
-    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles Say_Distance.TextChanged
+    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles TextBox_Say_Distance.TextChanged
 
         Dim digitsOnly = New Regex("[^\d]")
-        Say_Distance.Text = digitsOnly.Replace(Say_Distance.Text, "")
-        Settings.SayDistance = Say_Distance.Text
+        TextBox_Say_Distance.Text = digitsOnly.Replace(TextBox_Say_Distance.Text, "")
+        Settings.SayDistance = TextBox_Say_Distance.Text
 
     End Sub
 
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles Shout_Distance.TextChanged
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Shout_Distance.TextChanged
 
         Dim digitsOnly = New Regex("[^\d]")
-        Shout_Distance.Text = digitsOnly.Replace(Shout_Distance.Text, "")
-        Settings.ShoutDistance = Shout_Distance.Text
+        TextBox_Shout_Distance.Text = digitsOnly.Replace(TextBox_Shout_Distance.Text, "")
+        Settings.ShoutDistance = TextBox_Shout_Distance.Text
 
     End Sub
 
@@ -294,11 +294,11 @@ Public Class FormRegions
         HelpManual("Regions")
     End Sub
 
-    Private Sub whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles Whisper_distance.TextChanged
+    Private Sub whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Whisper_distance.TextChanged
 
         Dim digitsOnly = New Regex("[^\d]")
-        Whisper_distance.Text = digitsOnly.Replace(Whisper_distance.Text, "")
-        Settings.WhisperDistance = Whisper_distance.Text
+        TextBox_Whisper_distance.Text = digitsOnly.Replace(TextBox_Whisper_distance.Text, "")
+        Settings.WhisperDistance = TextBox_Whisper_distance.Text
 
     End Sub
 
