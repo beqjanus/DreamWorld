@@ -299,7 +299,7 @@ Public Class Backups
             RunningBackupName = Name
             SyncLock IARLock
                 ' Make IAR options
-                Dim RegionName = "TEMP"
+                Dim RegionName = Settings.WelcomeRegion
                 Dim RegionUUID = FindRegionByName(RegionName)
                 If RegionUUID.Length = 0 Then
                     RegionUUID = CreateRegionStruct(RegionName)

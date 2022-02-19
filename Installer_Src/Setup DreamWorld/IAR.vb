@@ -243,7 +243,7 @@ Module IAR
         End If
 
         Dim p As New Params With {
-                                .RegionName = "TEMP",
+                                .RegionName = Settings.WelcomeRegion,
                                 .opt = opt,
                                 .itemName = "/"
                             }
@@ -259,16 +259,16 @@ Module IAR
     End Sub
 
     ''' <summary>
-    ''' Waits until an IAR stops changing length so we can type again. Quits if DreamGrid  is stopped
+    ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped
     ''' </summary>
     ''' <param name="BackupName">Name of region to watch</param>
-    Public Sub WaitforComplete(BackupName As String)
+    Public Sub WaitforComplete(FolderAndFileName As String)
 
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
         While same < 30 And PropOpensimIsRunning
-            Dim fi = New System.IO.FileInfo(BackupName)
+            Dim fi = New System.IO.FileInfo(FolderAndFileName)
             Try
                 s = fi.Length
             Catch ex As Exception

@@ -83,7 +83,7 @@ Public Class FormSetup
         LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
         DeleteTree = 14        ' kill off all trees
         Revert = 15             ' revert terrain
-        SaveAllIARS = 16        ' save all IARS after making a TEMP region
+        SaveAllIARS = 16        ' save all IARS 
 
     End Enum
 
@@ -465,7 +465,7 @@ Public Class FormSetup
 
 
         If Settings.ServerType = RobustServerName Then
-
+            StartRobust()
             Dim ctr = 60
             While Not IsRobustRunning() AndAlso ctr > 0
                 Sleep(1000)
