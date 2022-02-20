@@ -78,6 +78,24 @@ Public Class ClassScreenpos
 
     End Function
 
+    Public Shared Sub PutSize(name As String, size As Integer)
+
+        If name Is Nothing Then Return
+        name = name.Replace("\n", "")
+        name = name.Replace("\r", "")
+        name = name.Replace(" ", "_")
+        If name Is Nothing Then Return
+        If XYData Is Nothing Then
+            Return
+        End If
+
+        ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
+
+        Dim s As String = name & "_width"
+        XYData("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
+
+    End Sub
+
     Public Function Exists() As Boolean
 
         If XYData Is Nothing Then
@@ -167,27 +185,6 @@ Public Class ClassScreenpos
 
     End Sub
 
-#Disable Warning CA1822 ' Mark members as static
-
-    Public Sub PutSize(name As String, size As Integer)
-#Enable Warning CA1822 ' Mark members as static
-
-        If name Is Nothing Then Return
-        name = name.Replace("\n", "")
-        name = name.Replace("\r", "")
-        name = name.Replace(" ", "_")
-        If name Is Nothing Then Return
-        If XYData Is Nothing Then
-            Return
-        End If
-
-        ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
-
-        Dim s As String = name & "_width"
-        XYData("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
-
-    End Sub
-
     Public Function ReadIniFile(myIni As String) As IniData
         Dim waiting As Integer = 50 ' 5 sec
         While waiting > 0
@@ -241,7 +238,7 @@ Public Class ClassScreenpos
 
 #Region "Private Methods"
 
-    Private Sub SetXYIni(section As String, key As String, value As String)
+    Private Shared Sub SetXYIni(section As String, key As String, value As String)
 
         If XYData Is Nothing Then
             Return

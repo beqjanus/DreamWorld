@@ -181,6 +181,21 @@ Public Class FormLogging
 
 #Region "ExamineLogs"
 
+    Private Shared Sub LookatMac(line As String, outputfile As StreamWriter)
+
+        '2021-04-19 07:05:46,389 INFO  (99) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER SERVICE]: Login failed, reason: client with mac (.*?) is denied
+
+        Dim pattern = New Regex("^(.*?),.*?INFO.*?mac (.*?) is denied")
+        Dim match As Match = pattern.Match(line)
+        If match.Success Then
+            Dim DateTime = match.Groups(1).Value
+            Dim MAC = match.Groups(2).Value
+
+            outputfile.WriteLine($"<tr bgcolor=""gray""><td>{DateTime}</td><td>MAC BANNED</td><td></td><td></td><td></td><td></td><td>{MAC}</td><td></td><td></td><td></td></tr>")
+        End If
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
@@ -305,21 +320,6 @@ Public Class FormLogging
             _Avictr += 1
 
             outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{Avatar}</td><td>{UUID}</td><td>{Viewer}</td><td>{Channel}</td><td>{IP}</td><td>{MAC}</td><td>{Id0}</td><td>{Region}</td></tr>")
-        End If
-
-    End Sub
-
-    Private Sub LookatMac(line As String, outputfile As StreamWriter)
-
-        '2021-04-19 07:05:46,389 INFO  (99) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER SERVICE]: Login failed, reason: client with mac (.*?) is denied
-
-        Dim pattern = New Regex("^(.*?),.*?INFO.*?mac (.*?) is denied")
-        Dim match As Match = pattern.Match(line)
-        If match.Success Then
-            Dim DateTime = match.Groups(1).Value
-            Dim MAC = match.Groups(2).Value
-
-            outputfile.WriteLine($"<tr bgcolor=""gray""><td>{DateTime}</td><td>MAC BANNED</td><td></td><td></td><td></td><td></td><td>{MAC}</td><td></td><td></td><td></td></tr>")
         End If
 
     End Sub

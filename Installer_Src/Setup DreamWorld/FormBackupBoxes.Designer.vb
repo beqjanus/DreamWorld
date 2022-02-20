@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormBackupCheckboxes
+Partial Class FormBackupBoxes
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class FormBackupCheckboxes
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackupCheckboxes))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackupBoxes))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BackupIARsCheckBox = New System.Windows.Forms.CheckBox()
         Me.BackupSQlCheckBox = New System.Windows.Forms.CheckBox()
@@ -181,7 +181,7 @@ Partial Class FormBackupCheckboxes
         Me.ShowFsassets.Text = "Show"
         Me.ShowFsassets.UseVisualStyleBackColor = True
         '
-        'FormBackupCheckboxes
+        'FormBackupboxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -190,7 +190,7 @@ Partial Class FormBackupCheckboxes
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "FormBackupCheckboxes"
+        Me.Name = "FormBackupboxes"
         Me.RightToLeftLayout = True
         Me.Text = "System Backup"
         Me.GroupBox1.ResumeLayout(False)

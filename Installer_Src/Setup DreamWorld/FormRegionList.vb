@@ -56,7 +56,7 @@ Public Class FormRegionlist
         Pending = 13
         Suspended = 14
         ErrorIcon = 15
-        NoLogon = 16
+        NoLogOn = 16
         NoError = 17
         NoEstate = 18
 
@@ -800,7 +800,7 @@ SetWindowOnTop_Err:
             Num = DGICON.bootingup
         ElseIf Status = SIMSTATUSENUM.NoLogin Then
             Letter = My.Resources.NoLogin_word
-            Num = DGICON.NoLogon
+            Num = DGICON.NoLogOn
         ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
             Num = DGICON.shuttingdown
@@ -1236,7 +1236,6 @@ SetWindowOnTop_Err:
             initted = True
         Catch
         End Try
-
 
     End Sub
 

@@ -165,7 +165,7 @@ Public Class ChatToSpeech
         End If
     End Sub
 
-    Private Sub ConvertWavMP3(fileName As String, waitFlag As Boolean)
+    Private Shared Sub ConvertWavMP3(fileName As String, waitFlag As Boolean)
         Dim psi = New System.Diagnostics.ProcessStartInfo With {
             .FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\lame.exe"),
             .Arguments = $"-b 128 --resample 44.1 {fileName} {fileName.Replace(".wav", ".mp3")}",
@@ -186,7 +186,7 @@ Public Class ChatToSpeech
 
     End Sub
 
-    Private Sub EventHandler() Handles Speaker.SpeakCompleted
+    Private Shared Sub EventHandler() Handles Speaker.SpeakCompleted
 
         SpeechBusyFlag = False
 

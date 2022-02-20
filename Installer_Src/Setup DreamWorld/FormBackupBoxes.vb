@@ -5,7 +5,7 @@
 
 #End Region
 
-Public Class FormBackupCheckboxes
+Public Class FormBackupBoxes
 
     Private initted As Boolean
 

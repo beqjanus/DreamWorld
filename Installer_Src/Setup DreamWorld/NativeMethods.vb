@@ -32,8 +32,6 @@ Friend Module NativeMethods
     Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-    Declare Function GetLastError Lib "kernel32.dll" () As Long
-
     Public Declare Function SetWindowPos Lib "user32" _
             (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
             ByVal x As Integer, ByVal y As Integer, ByVal cX As Integer,

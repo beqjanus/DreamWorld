@@ -4,6 +4,33 @@
     Private initted As Boolean
     Private LogFile As String = ""
 
+    Private Shared Function MakeSSLbatch(stuff As String) As String
+
+        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL\InstallSSL.bat")
+        Try
+            Using file As New System.IO.StreamWriter(filename, False)
+                file.WriteLine("@REM program to renew SSL certificate")
+                file.WriteLine("@echo off")
+                file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL")}")
+                file.WriteLine(stuff)
+                file.WriteLine("Exit /B %ERRORLEVEL%")
+            End Using
+        Catch
+        End Try
+
+        Return filename
+
+    End Function
+
+    Private Shared Sub WriteLog(filename As String, contents As String)
+        Try
+            Using file As New System.IO.StreamWriter(filename, False)
+                file.WriteLine(contents)
+            End Using
+        Catch
+        End Try
+    End Sub
+
     'https://www.win-acme.com/manual/advanced-use/examples/apache
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
 
@@ -229,24 +256,6 @@
         Return
     End Sub
 
-    Private Function MakeSSLbatch(stuff As String) As String
-
-        Dim filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL\InstallSSL.bat")
-        Try
-            Using file As New System.IO.StreamWriter(filename, False)
-                file.WriteLine("@REM program to renew SSL certificate")
-                file.WriteLine("@echo off")
-                file.WriteLine($"cd {IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL")}")
-                file.WriteLine(stuff)
-                file.WriteLine("Exit /B %ERRORLEVEL%")
-            End Using
-        Catch
-        End Try
-
-        Return filename
-
-    End Function
-
     Private Sub SSL_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'If Debugger.IsAttached Then Settings.SSLIsInstalled = False
@@ -299,15 +308,6 @@
         Settings.SSLEmail = EmailBox.Text
         changed = True
 
-    End Sub
-
-    Private Sub WriteLog(filename As String, contents As String)
-        Try
-            Using file As New System.IO.StreamWriter(filename, False)
-                file.WriteLine(contents)
-            End Using
-        Catch
-        End Try
     End Sub
 
 End Class

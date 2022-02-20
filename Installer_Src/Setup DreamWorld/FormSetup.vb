@@ -83,7 +83,7 @@ Public Class FormSetup
         LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
         DeleteTree = 14        ' kill off all trees
         Revert = 15             ' revert terrain
-        SaveAllIARS = 16        ' save all IARS 
+        SaveAllIARS = 16        ' save all IARS
 
     End Enum
 
@@ -463,7 +463,6 @@ Public Class FormSetup
         StartThreads()
         Application.DoEvents()
 
-
         If Settings.ServerType = RobustServerName Then
             StartRobust()
             Dim ctr = 60
@@ -471,7 +470,6 @@ Public Class FormSetup
                 Sleep(1000)
                 ctr -= 1
             End While
-
 
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = FindRegionByName(RegionName)
@@ -1686,7 +1684,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub ForceBackupOnce()
+    Private Shared Sub ForceBackupOnce()
         'once and only once, do a backup
         If Not Settings.DoSQLBackup Then
             Using Backup As New Backups
@@ -1752,6 +1750,31 @@ Public Class FormSetup
         MyShortcut.IconLocation = WshShell.ExpandEnvironmentStrings(CurDir() & "\Start.exe")
         MyShortcut.WorkingDirectory = CurDir()
         MyShortcut.Save()
+
+    End Sub
+
+    Private Shared Sub RunParser()
+
+        If Settings.SearchOptions <> "Local" Then Return
+        Using Parser As New Process
+            Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
+            Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
+            Parser.StartInfo.FileName = "php.exe"
+            Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
+            If Debugger.IsAttached Then
+                Parser.StartInfo.CreateNoWindow = False
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                Parser.StartInfo.CreateNoWindow = True
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End If
+
+            Try
+                Parser.Start()
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
 
     End Sub
 
@@ -2035,31 +2058,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub RunParser()
-
-        If Settings.SearchOptions <> "Local" Then Return
-        Using Parser As New Process
-            Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
-            Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
-            Parser.StartInfo.FileName = "php.exe"
-            Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
-            If Debugger.IsAttached Then
-                Parser.StartInfo.CreateNoWindow = False
-                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Else
-                Parser.StartInfo.CreateNoWindow = True
-                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-            End If
-
-            Try
-                Parser.Start()
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-    End Sub
-
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
@@ -2256,32 +2254,7 @@ Public Class FormSetup
 
 #Region "Perl"
 
-    Private Sub SetupPerl()
-
-        If Settings.VisitorsEnabled = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = path
-                }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                    SetupPerlModules()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-        End If
-        Settings.VisitorsEnabled = True
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub SetupPerlModules()
+    Private Shared Sub SetupPerlModules()
 
         ' needed for DBIX::Class in util.pm
         If Settings.VisitorsEnabledModules = False Then
@@ -2317,6 +2290,31 @@ Public Class FormSetup
             End Using
 
         End If
+    End Sub
+
+    Private Sub SetupPerl()
+
+        If Settings.VisitorsEnabled = False Then
+            TextPrint(My.Resources.Setup_Perl)
+            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                    .Arguments = "",
+                    .FileName = path
+                }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                    SetupPerlModules()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+        End If
+        Settings.VisitorsEnabled = True
+        Settings.SaveSettings()
+
     End Sub
 
 #End Region
@@ -2491,7 +2489,7 @@ Public Class FormSetup
             If SecondsTicker Mod 3600 = 0 Then
                 Bench.Print("hour worker")
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
-                ' Dynamically adjust Mysql for size of DB 
+                ' Dynamically adjust Mysql for size of DB
                 Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache
                 SetPublicIP() ' Adjust to any IP changes
                 ExpireLogsByAge()
@@ -2597,7 +2595,7 @@ Public Class FormSetup
     Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim CriticalForm As New FormBackupCheckboxes
+        Dim CriticalForm As New FormBackupBoxes
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
         CriticalForm.Activate()

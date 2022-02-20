@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.Threading
+Imports System.Runtime.InteropServices
 
 Module WindowHandlers
 
@@ -316,7 +317,7 @@ Module WindowHandlers
             Try
                 status = SetWindowText(myhandle, windowName)
                 If Not status Then
-                    Dim err = GetLastError()
+                    Dim err = Marshal.GetLastWin32Error()
                 Else
                     If myProcess Is Nothing Then Return False
                     myProcess.Refresh()

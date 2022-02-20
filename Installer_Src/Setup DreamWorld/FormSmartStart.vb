@@ -322,6 +322,12 @@ Public Class FormSmartStart
 
     End Sub
 
+    Private Shared Sub ClrSetting(check As CheckBox)
+
+        check.Checked = False
+
+    End Sub
+
     Private Sub All_CheckedChanged(sender As Object, e As EventArgs) Handles All.CheckedChanged
 
         If All.Checked Then
@@ -358,11 +364,9 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-        Settings.AutoFill = AutoFillEnable.Checked
-    End Sub
 
-    Private Sub ClrSetting(check As CheckBox)
-        check.Checked = False
+        Settings.AutoFill = AutoFillEnable.Checked
+
     End Sub
 
     Private Sub None_CheckedChanged(sender As Object, e As EventArgs) Handles None.CheckedChanged
@@ -405,7 +409,7 @@ Public Class FormSmartStart
 
 #Region "Photos"
 
-    Private Function GetPic(Photoname As String) As Image
+    Private Shared Function GetPic(Photoname As String) As Image
 
         Dim path = IO.Path.Combine(Settings.OpensimBinPath, "Trees")
         path = IO.Path.Combine(path, Photoname & ".jpg")
@@ -1018,7 +1022,7 @@ Public Class FormSmartStart
 
 #Region "Misc"
 
-    Private Function GetSetting(tree As String) As Boolean
+    Private Shared Function GetSetting(tree As String) As Boolean
         Dim b As Boolean
         Select Case Settings.GetMySetting(tree)
             Case ""

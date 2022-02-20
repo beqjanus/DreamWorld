@@ -88,6 +88,21 @@ Public Class FormDebug
 
 #Region "Set"
 
+    Private Shared Sub MakeMap()
+
+        Try
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim NewMap = New FormGlobalMap
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            NewMap.Show()
+            NewMap.Activate()
+            NewMap.Select()
+            NewMap.BringToFront()
+        Catch
+        End Try
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = "Debug LandMaker" Then
@@ -194,21 +209,6 @@ Public Class FormDebug
         SetScreen()
 
         HelpOnce("Debug")
-
-    End Sub
-
-    Private Sub MakeMap()
-
-        Try
-#Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim NewMap = New FormGlobalMap
-#Enable Warning CA2000 ' Dispose objects before losing scope
-            NewMap.Show()
-            NewMap.Activate()
-            NewMap.Select()
-            NewMap.BringToFront()
-        Catch
-        End Try
 
     End Sub
 
