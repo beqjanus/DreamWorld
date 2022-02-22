@@ -7,7 +7,7 @@ BEGIN {
 
 use strict;
 use warnings;
-use IO::All;
+use IO::All -utf8; 
 
 use 5.010;
 
@@ -53,6 +53,48 @@ PrintDate("Building DreamGrid$type.zip");
 PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
+
+
+
+PrintDate('Copy Manuals');
+    
+my @manuals = io->dir($dir . '/OutworldzFiles/Help/')->all;
+
+foreach my $src (@manuals) {
+    
+    if ($src !~ /\.htm$/) {next};
+    
+    say($src);
+    my @data = io->file($src)->slurp;
+    my $output;
+    my $ctr = 0 ;
+    foreach my $l (@data)
+    {
+        
+        if ($l !~ /liquidscript/) {
+        
+            if ($l =~ /<\/head>/i)
+            {
+                $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" --></head><!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->';
+            }
+            if ($l =~ /<\/body>/i)
+            {
+                $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidfooter" --></body>';
+            }
+        } else
+        {
+            say "skipped";
+        }
+        $output .= $l;
+    }
+    
+    my $filename = basename($src);
+    $output > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
+    
+}
+    
+
+
 
 system('TASKKILL /F /IM mysqld* /T ') || die $!;
 system('TASKKILL /F /IM opensim* /T ')|| die $!;
@@ -176,16 +218,6 @@ doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
 doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
 
-PrintDate('Copy Manuals');
-if (
-    !dircopy(
-        $dir . '/OutworldzFiles/Help/',
-        "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"
-    )
-  )
-{
-    die $!;
-}
 
 PrintDate("Signing Release");
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
