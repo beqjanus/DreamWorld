@@ -224,6 +224,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartThreadPool", "ThirdPar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoGotWhat", "addon-modules\WhoGotWhat\WhoGotWhat.csproj", "{A23E7F0E-0000-0000-0000-000000000000}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33D9664A-C4B9-4039-AC9F-D5FA7F433E78}"
+	ProjectSection(SolutionItems) = preProject
+		OpenSim\SmartStart\SmartStart.cs = OpenSim\SmartStart\SmartStart.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
