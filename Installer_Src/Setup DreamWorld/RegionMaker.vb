@@ -2263,14 +2263,12 @@ Module RegionMaker
 
             If Settings.Smart_Start Then
                 INI.SetIni("SmartStart", "Enabled", "True")
-                'nope
-                'INI.SetIni("SmartStart", "URL", "http://127.0.0.1:${Const|DiagnosticsPort}")
-
+                INI.SetIni("SmartStart", "URL", $"http://{Settings.LANIP}:{Settings.DiagnosticPort}")
                 INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
             Else
                 INI.SetIni("SmartStart", "Enabled", "False")
                 'nope
-                'INI.SetIni("SmartStart", "URL", "")
+                INI.SetIni("SmartStart", "URL", "")
                 INI.SetIni("SmartStart", "MachineID", "")
             End If
 

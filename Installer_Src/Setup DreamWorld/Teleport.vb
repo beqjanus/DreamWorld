@@ -38,27 +38,28 @@ Module Teleport
                         Dim DestinationName = Region_Name(RegionToUUID)
                         Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                         Dim fromName = Region_Name(FromRegionUUID)
+                        If fromName Is Nothing Then Fin.Add(AgentID)
                         If fromName.Length > 0 Then
                             Bench.Print("Teleport Initiated")
 
-                            If Settings.BootOrSuspend Then
+                            If Settings.BootOrSuspend And Settings.TeleportSleepTime > 0 Then
                                 RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                                 Sleep(Settings.TeleportSleepTime * 1000)
                             End If
 
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                                    Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                                Else
+                                    Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                                    BreakPoint.Print("Unable to locate region " & RegionToUUID)
+                                    RPC_admin_dialog(AgentID, $"Unable to locate region { Region_Name(RegionToUUID)}.")
+                                End If
+                                Fin.Add(AgentID)
                             Else
-                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
-                                BreakPoint.Print("Unable to locate region " & RegionToUUID)
-                                RPC_admin_dialog(AgentID, $"Unable to locate region { Region_Name(RegionToUUID)}.")
+                                Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                             End If
-                            Fin.Add(AgentID)
-                        Else
-                            Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
                     End If
-                End If
 
             Next
         Catch

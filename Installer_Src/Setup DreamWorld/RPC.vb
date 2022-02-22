@@ -240,7 +240,8 @@ Module RPC
         }
 
         If FromRegionUUID.Length > 0 Then
-            Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
+            Dim Status = SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
+            Return Status
         End If
         Return False
 
