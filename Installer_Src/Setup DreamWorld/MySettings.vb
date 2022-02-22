@@ -2159,6 +2159,7 @@ Public Class MySettings
         Get
             Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
             If amount < 1 Then amount = 1
+            If amount > 4 Then amount = 4
             Return amount
         End Get
         Set
