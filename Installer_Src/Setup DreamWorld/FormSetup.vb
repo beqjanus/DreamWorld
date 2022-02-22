@@ -2560,6 +2560,14 @@ Public Class FormSetup
             Adv1.Init()
             Adv1.BringToFront()
         Catch
+            SkipSetup = False
+            Adv1 = New FormSettings
+            Adv1.Activate()
+            Adv1.Visible = True
+            Adv1.Select()
+            Adv1.Init()
+            Adv1.BringToFront()
+
         End Try
 
     End Sub
