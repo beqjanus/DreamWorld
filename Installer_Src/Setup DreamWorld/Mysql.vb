@@ -12,24 +12,8 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
-Public Class MailList
-
-    Public firstname As String = ""
-    Public LastName As String = ""
-    Public Email As String = ""
-    Public Title As String = ""
-    Public principalid As String = ""
-    Public userlevel As String = ""
-    Public DiffDays As String = ""
-    Public Datestring As String = ""
-    Public Assets As String = ""
-
-End Class
-
 Public Module MysqlInterface
-
     Public WithEvents ProcessMySql As Process = New Process()
-
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
@@ -295,65 +279,6 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Public"
-
-    Public Sub MysqlSaveUserData(UD As UserData)
-
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-
-                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@level", UD.Level)
-                    cmd.Parameters.AddWithValue("@UUID", UD.PrincipalID)
-                    cmd.Parameters.AddWithValue("@fname", UD.FirstName)
-                    cmd.Parameters.AddWithValue("@lname", UD.LastName)
-                    cmd.Parameters.AddWithValue("@email", UD.Email)
-                    cmd.Parameters.AddWithValue("@utitle", UD.UserTitle)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Print(ex.Message)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-
-        End Using
-
-    End Sub
-
-    Public Function MysqlGetUserData(UUID As String) As UserData
-
-        Dim UD As New UserData
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from robust.useraccounts where principalID = @UUID"
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            UD.FirstName = reader.GetString(0)
-                            UD.LastName = reader.GetString(1)
-                            UD.Email = reader.GetString(2)
-                            UD.Level = reader.GetInt32(3)
-                            UD.UserTitle = reader.GetString(4)
-                            UD.PrincipalID = UUID
-                        Else
-                            UD.FirstName = "No record"
-                        End If
-                    End Using
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Print(ex.Message)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return UD
-
-    End Function
 
     Public Function AssetCount(UUID As String) As Integer
 
@@ -1035,6 +960,39 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function MysqlGetUserData(UUID As String) As UserData
+
+        Dim UD As New UserData
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from robust.useraccounts where principalID = @UUID"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            UD.FirstName = reader.GetString(0)
+                            UD.LastName = reader.GetString(1)
+                            UD.Email = reader.GetString(2)
+                            UD.Level = reader.GetInt32(3)
+                            UD.UserTitle = reader.GetString(4)
+                            UD.PrincipalID = UUID
+                        Else
+                            UD.FirstName = "No record"
+                        End If
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Print(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return UD
+
+    End Function
+
     Public Sub MySQLIcon(Running As Boolean)
 
         If Not Running Then
@@ -1043,6 +1001,32 @@ Public Module MysqlInterface
             FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
         End If
         Application.DoEvents()
+
+    End Sub
+
+    Public Sub MysqlSaveUserData(UD As UserData)
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@level", UD.Level)
+                    cmd.Parameters.AddWithValue("@UUID", UD.PrincipalID)
+                    cmd.Parameters.AddWithValue("@fname", UD.FirstName)
+                    cmd.Parameters.AddWithValue("@lname", UD.LastName)
+                    cmd.Parameters.AddWithValue("@email", UD.Email)
+                    cmd.Parameters.AddWithValue("@utitle", UD.UserTitle)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Print(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
 
     End Sub
 
@@ -1500,6 +1484,19 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Class MailList
+
+        Public Assets As String = ""
+        Public Datestring As String = ""
+        Public DiffDays As String = ""
+        Public Email As String = ""
+        Public firstname As String = ""
+        Public LastName As String = ""
+        Public principalid As String = ""
+        Public Title As String = ""
+        Public userlevel As String = ""
+    End Class
+
 #End Region
 
 #Region "Visitors"
@@ -1616,8 +1613,9 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Tuning"
+
     ''' <summary>
-    ''' Dynamically adjust Mysql for size of DB 
+    ''' Dynamically adjust Mysql for size of DB
     ''' </summary>
     ''' <returns></returns>
     Public Function Total_InnoDB_Bytes() As Double
@@ -1638,7 +1636,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Print(ex.Message)
                 Bytes = Settings.Total_InnoDB_GBytes
             Catch ex As Exception
                 BreakPoint.Dump(ex)
@@ -1656,11 +1653,10 @@ End Module
 
 Public Class UserData
 
-    Public PrincipalID As String = ""
+    Public Email As String = ""
     Public FirstName As String = ""
     Public LastName As String = ""
-    Public Email As String = ""
-    Public UserTitle As String = ""
     Public Level As Integer = -1
-
+    Public PrincipalID As String = ""
+    Public UserTitle As String = ""
 End Class
