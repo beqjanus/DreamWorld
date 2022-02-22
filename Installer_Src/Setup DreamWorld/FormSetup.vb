@@ -1111,9 +1111,13 @@ Public Class FormSetup
 
                     If CrashCounter(RegionUUID) > 4 Then
                         Logger("Crash", $"{GroupName} Crashed 5 times", "Status")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                        StopGroup(GroupName)
+                        TextPrint($"{GroupName} Crashed 5 times - Stopped with Errors")
+                        ErrorGroup(GroupName)
                         RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
+                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
+                        If (yesno = vbYes) Then
+                            Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
+                        End If
                         Application.DoEvents()
                         Continue While
                     End If
@@ -1121,7 +1125,7 @@ Public Class FormSetup
                     CrashCounter(RegionUUID) += 1
 
                     ' shut down all regions in the DOS box
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " #" & CrashCounter(RegionUUID).ToString)
                     StopGroup(GroupName)
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
                     For Each R In GroupList
