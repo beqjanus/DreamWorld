@@ -718,8 +718,21 @@ Public Class FormRegion
                     v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     If v = vbYes Then
                         Me.Hide()
+                        Return
                     End If
                 End If
+
+                DeregisterRegionUUID(RegionUUID)
+                WriteRegion(RegionUUID)
+                PropChangedRegionSettings = True
+                GetAllRegions(False)
+                Firewall.SetFirewall()
+                RestartRobustIfNeeded(RegionUUID)
+                PropUpdateView() = True
+                Changed1 = False
+                Close()
+
+
             End If
 
         End If
