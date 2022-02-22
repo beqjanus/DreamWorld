@@ -71,17 +71,18 @@ Module FileStuff
         Next
 
         Dim files As New List(Of String) From {
-         "\ReadMe",
-        "\OutworldzFiles\Opensim\eZombie", ' never worked
-        "\OutworldzFiles\eZombie", ' never worked
-        "\Shoutcast", ' deprecated
-        "\Icecast",   ' moved to OutworldzFiles
-        "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
-        "\OutworldzFiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
-        "\OutworldzFiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
-        "\OutworldzFiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "\OutworldzFiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
-        "\OutworldzFiles\Opensim\eZombie" ' Non working library
+         "ReadMe",
+        "OutworldzFiles\Opensim\eZombie", ' never worked
+        "OutworldzFiles\eZombie", ' never worked
+        "Shoutcast", ' deprecated
+        "Icecast",   ' moved to OutworldzFiles
+        "OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
+        "OutworldzFiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
+        "Outworldzfiles\Mysql\Dieter Mueller - Fred",
+        "OutworldzFiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
+        "OutworldzFiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
+        "OutworldzFiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
+        "OutworldzFiles\Opensim\eZombie" ' Non working library
         }
 
         If FormSetup.PropKillSource Then
@@ -91,11 +92,10 @@ Module FileStuff
             files.Add("OutworldzFiles\Opensim\Prebuild")
             files.Add("OutworldzFiles\Opensim\share")
             files.Add("OutworldzFiles\Opensim\Thirdparty")
-
         End If
 
         For Each N In files
-            DeleteFolder(N)   ' wipe these folders out
+            DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, N))   ' wipe these folders out
         Next
 
         ' crap load of old DLLS have to be eliminated

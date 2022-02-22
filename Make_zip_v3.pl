@@ -36,21 +36,21 @@ $contents =~ s/\n//;
 $contents =~ /_MyVersion As String = "(.*?)"/;
 my $v = $1;
 if ( !$v ) {
-    say('no version!');
+    PrintDate('no version!');
     exit;
 }
 
 my $Version = ` git rev-parse --short HEAD `;
 chomp $Version;
 $Version > io('GitVersion');
-say("GitVersion $Version");
+PrintDate("GitVersion $Version");
 
 my $type = '-V' . $v;
 
 
-say("Building DreamGrid$type.zip");
+PrintDate("Building DreamGrid$type.zip");
 
-say('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
+PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
@@ -74,21 +74,21 @@ my @a = io->dir('.')->all;
 
 foreach my $f (@a) {
     if ( $f->name =~ /tmp.*\.html/ ) {
-        say("Delete " . $f->name);
+        PrintDate("Delete " . $f->name);
         $f->unlink;
     }
 }
 
 DelZips();
 
-say("Clean up fsassets");
+PrintDate("Clean up fsassets");
 
 my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets""!;
 `$todo`;
 $todo = qq!RMDIR /Q/S  "$dir/OutworldzFiles/opensim/bin/fsassets"!;
 `$todo`;
 
-say("Clean up opensim");
+PrintDate("Clean up opensim");
 
 
 my @deletions = (
@@ -111,7 +111,7 @@ my @deletions = (
 );
 
 foreach my $path (@deletions) {
-    say($path);
+    PrintDate($path);
     DeleteandKeep($path);
 }
 
@@ -120,7 +120,7 @@ DelMaps();
 
 
 doUnlink ("$dir/BareTail.udm" );
-doUnlink ("$dir/SET_externalIP-log.txt");
+doUnlink ("$dir/SET_externalIP-PrintDate.txt");
 doUnlink ("$dir/OutworldzFiles/Photo.png");
 doUnlink ("$dir/OutworldzFiles/XYSettings.ini");
 doUnlink ("$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt");
@@ -132,23 +132,23 @@ doUnlink ("$dir/OutworldzFiles/BanList.txt");
 doUnlink ("$dir/Outworldzfiles/Settings.ini");
 
 #logs
-doUnlink ("$dir/Outworldzfiles/Icecast/log/error.log");
-doUnlink ("$dir/Outworldzfiles/Icecast/log/access.log");
+doUnlink ("$dir/Outworldzfiles/Icecast/PrintDate/error.PrintDate");
+doUnlink ("$dir/Outworldzfiles/Icecast/PrintDate/access.PrintDate");
 
-doUnlink ("$dir/UpdateGrid.log");
-doUnlink ("$dir/OutworldzFiles/Apache/htdocs/Search/flog.log");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/Robust.log");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustStats.log");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/Opensimstats.log");
+doUnlink ("$dir/UpdateGrid.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Apache/htdocs/Search/flog.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/Robust.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustStats.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Opensim/bin/Opensimstats.PrintDate");
 ###
 
-doUnlink ("$dir/OutworldzFiles/Logs/Restart.log");
-doUnlink ("$dir/OutworldzFiles/Logs/Diagnostics.log");
-doUnlink ("$dir/OutworldzFiles/Logs/Outworldz.log");
-doUnlink ("$dir/OutworldzFiles/Logs/upnp.log");
-doUnlink ("$dir/OutworldzFiles/Logs/http.log");
-doUnlink ("$dir/OutworldzFiles/Logs/Error.log");
-doUnlink ("$dir/OutworldzFiles/Logs/Teleport.log");
+doUnlink ("$dir/OutworldzFiles/Logs/Restart.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/Diagnostics.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/Outworldz.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/upnp.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/http.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/Error.PrintDate");
+doUnlink ("$dir/OutworldzFiles/Logs/Teleport.PrintDate");
 
 #zips
 doUnlink ("../Zips/DreamGrid$type.zip");
@@ -176,7 +176,7 @@ doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
 doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
 
-say('Copy Manuals');
+PrintDate('Copy Manuals');
 if (
     !dircopy(
         $dir . '/OutworldzFiles/Help/',
@@ -187,18 +187,18 @@ if (
     die $!;
 }
 
-say("Signing Release");
+PrintDate("Signing Release");
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
 #sign($exes);
 
 use File::Copy::Recursive qw(dircopy);
 dircopy( $exes, $dir ) or die("$!\n");
 
-say("Signing copies");
+PrintDate("Signing copies");
 use IO::All;
 sign($dir);
 
-print "Processing Main Zip\n";
+say "Processing Main Zip\n";
 
 
 
@@ -212,7 +212,7 @@ foreach my $file (@files) {
     next if $file =~ /^\./;
     ProcessFile("\"$dir\\$file\"");
 }
-say("Adding folders");
+PrintDate("Adding folders");
 
 # just dirs
 ProcessDir('MSFT_Runtimes');
@@ -225,14 +225,14 @@ foreach my $lang (@languages) {
     ProcessDir($lang);
 }
 
-say("Drop mysql files from update");
+PrintDate("Drop mysql files from update");
 
 # now delete the mysql from the UPDATE
 
 
-say("Drop Mysql from update");
+PrintDate("Drop Mysql from update");
 DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
-say("Drop JOpensim Folder");
+PrintDate("Drop JOpensim Folder");
 
 DeleteandKeep("$zip/Outworldzfiles/Apache/htdocs/jOpensim");
 
@@ -246,11 +246,11 @@ if (
     die $!;
 }
 
-say("Drop bin Folders");
+PrintDate("Drop bin Folders");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/Regions");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/fsassets");
 
-say("Drop Opensim Source code from update");
+PrintDate("Drop Opensim Source code from update");
 JustDelete("$zip/Outworldzfiles/Opensim/Opensim");
 JustDelete("$zip/Outworldzfiles/Opensim/packages");
 JustDelete("$zip/Outworldzfiles/Opensim/runprebuild19.sh");
@@ -291,7 +291,7 @@ JustDelete("$zip/Start.vshost.exe.manifest");
 JustDelete("$zip/Start.vshost.exe.config");
 JustDelete("$zip/Start.vshost.exe");
 
-print "Make zip\n";
+say "Make zip\n";
 doUnlink ("/Opensim/Zips/DreamGrid$type.zip");
 
 my $dest = "/Opensim/Zips/DreamGrid$type.zip";
@@ -349,11 +349,11 @@ if (
 
 if ( $publish =~ /p/ ) {
 
-    say("Unlinking");
+    PrintDate("Unlinking");
     doUnlink ("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
 
-    say("Publishing now");
+    PrintDate("Publishing now");
 
     if (
         !copy(
@@ -378,12 +378,12 @@ if ( $publish =~ /p/ ) {
             "../Zips/DreamGrid$type.zip",
             "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"
         )
-      )
+     )
     {
         die $!;
     }
 
-    print "Manual\n";
+    say "Manual\n";
 
     if (
         !copy(
@@ -401,9 +401,19 @@ foreach my $lang (@languages) {
     JustDelete($lang);
 }
 
-print $start . "\n";
+say $start . "\n";
 print GetDate() . " " . GetTime() . "\n";
 say "Done!";
+
+
+sub PrintDate {
+    my $msg = shift;
+    say (dt() . $msg);
+}
+
+sub dt {
+    return GetDate() . " " . GetTime() . ' ';
+}
 
 sub Write {
     my $dest    = shift;
@@ -419,10 +429,10 @@ sub ProcessFile {
     my $x = `xcopy $file ..\\Zip\\`;
     $x =~ s/\n//g;
     if ( $x =~ /File\(s\) copied/ ) {
-        print "$file ok\n";
+        say "$file ok\n";
     }
     else {
-        print "$file Fail: $x\n";
+        say "$file Fail: $x\n";
         exit;
     }
 
@@ -436,14 +446,14 @@ sub ProcessDir {
     my $y = $x;
     $x =~ s/\n//g;
     if ( $x =~ /(\d+) File\(s\) copied/ ) {
-        print "$y\n";
+        say "$y\n";
         if ( $1 == 0 ) {
-            say( $file . " failed to copy\n $y" );
+            PrintDate( $file . " failed to copy\n $y" );
             die;
         }
     }
     else {
-        print "$file Fail: $y\n";
+        say "$file Fail: $y\n";
         exit;
     }
 
@@ -481,7 +491,7 @@ sub DeleteandKeep {
     rmtree $path;
     while ( -e $path ) {
         rmtree $path;
-        print "Directory '$path' still exists\n";
+        say "Directory '$path' still exists\n";
         sleep(1);
     }
 
@@ -539,10 +549,10 @@ sub sign {
         if ( $name =~ /dll$|exe$/ ) {
 
             my $r = qq!../Certs/sigcheck64.exe "$name"!;
-            print $r. "\n";
+            say $r. "\n";
             my $result1 = `$r`;
 
-            print $result1;
+            say $result1;
 
             if ( $result1 !~ /Unsigned/ ) {
                 next;
@@ -554,30 +564,30 @@ sub sign {
 
             my $f =
 qq!../Certs/digicertutil.exe sign /noInput /sha1 $thumbprint "$name"!;
-            print $f . "\n";
+            say $f . "\n";
             my $result = `$f`;
-            print $result. "\n";
+            say $result. "\n";
             $result =~ s/\n/|/g;
 
             $r = qq!../Certs/sigcheck64.exe "$name"!;
-            print $r. "\n";
+            say $r. "\n";
             $result1 = `$r`;
 
-            print $result1;
+            say $result1;
 
             if ( $result1 !~ /Verified:	Signed/ ) {
-                say("***** Failed to sign!");
+                PrintDate("***** Failed to sign!");
                 die;
             }
 
             if ( $result !~ /success/ ) {
-                say("***** Failed to sign!");
+                PrintDate("***** Failed to sign!");
                 die;
             }
         }
     }
 
-    say( join( "\n", @signs ) );
+    PrintDate( join( "\n", @signs ) );
 }
 
 sub process_file {

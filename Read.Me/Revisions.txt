@@ -1,10 +1,14 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.93 some fixes got left out of 4.92 
+Whisper distance showed up as blank
+Yet another Region port bug is fixed. This could cause large numbers of region ports to be used and possible region crashes.
+SQL backups when the system is not booted would do nothing.  It now starts Mysql when run.
+
 V4.92
 Bug in region backups caused the region ini to be skipped. Please run a backup.
 Sequential boot and Parallel Boot gets a new type: No Limits. Sequential still waits up to 5 minutes for a region to start, then boots the next. Parallel waits on 90<% CPU or <90% RAM. No limits is a let-it-rip mode for Smart Boot. They load into RAM and get swapped to disk. 
-Yet another Region port bug is fixed. This could cause large numbers of region ports to be used.
 Consoles will pop up less often. Just once when it does a command you may be interested in.
 Language form is resizable
 Settings form is resizable
@@ -14,6 +18,7 @@ All Perl examples have been updated.  Some of them only run on localhost for sec
 OsGrid mode was broken. Could not add the IP address in Ports. No longer need to add them.
 If you ran two grids on a server at the same time, the second one to start would erase a firewall setting the other needed.  
 Missing "" in a Load OAR would prevent oars with spaces from loading.
+
 V4.91
 There is a new "double size" teleport sign in the Local IAR that supports 64 regions. It and the Single wide can support more than the 16536-character limit in HTTP I run into with 170 regions.  Just change the Description from 0, to 1, 2, etc.
 

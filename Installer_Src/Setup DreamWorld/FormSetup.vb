@@ -898,8 +898,6 @@ Public Class FormSetup
 
         Application.DoEvents()
 
-        Firewall.SetFirewall()
-
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"
@@ -957,6 +955,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
+        Firewall.SetFirewall()
 
         ' Get the names of all the lands
         InitLand()
