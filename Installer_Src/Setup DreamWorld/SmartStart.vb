@@ -293,7 +293,7 @@ Module SmartStart
                 Dim status = RegionStatus(RegionUUID)
 
                 If Teleport_Sign(RegionUUID) = "True" AndAlso RegionEnabled(RegionUUID) Or
-                  (Teleport_Sign(RegionUUID) = "True" AndAlso Smart_Start(RegionUUID) = "True" AndAlso Settings.Smart_Start) Then
+                  (Teleport_Sign(RegionUUID) = "True" AndAlso RegionEnabled(RegionUUID) AndAlso Smart_Start(RegionUUID) = "True" AndAlso Settings.Smart_Start) Then
 
                     HTML += $"*|{RegionName}||{Settings.PublicIP}:{Settings.HttpPort}:{RegionName}||{RegionName}|{vbCrLf}"
                     used += 1
