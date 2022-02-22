@@ -941,11 +941,7 @@ Public Class FormSmartStart
             n += 1
         Next
 
-        If Debugger.IsAttached Then
-            SuspendButton.Visible = True
-        Else
-            SuspendButton.Visible = False
-        End If
+        SuspendButton.Visible = True
 
         HelpOnce("SmartStart")
         _initialized = True
