@@ -188,6 +188,7 @@ Public Class FormSettings
 
     Private Sub Form1_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
+        e.Cancel = True
 
     End Sub
 
