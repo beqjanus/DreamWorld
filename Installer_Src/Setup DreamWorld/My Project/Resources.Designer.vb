@@ -4381,6 +4381,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Frozen.
+        '''</summary>
+        Friend ReadOnly Property Frozen() As String
+            Get
+                Return ResourceManager.GetString("Frozen", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.0909, or 1/11.
         '''</summary>
         Friend ReadOnly Property FRText() As String
@@ -5232,6 +5241,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("icecube", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property icecube1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("icecube1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

@@ -48,19 +48,18 @@ Module Teleport
                             End If
 
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                                    Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
-                                Else
-                                    Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
-                                    BreakPoint.Print("Unable to locate region " & RegionToUUID)
-                                    RPC_admin_dialog(AgentID, $"Unable to locate region { Region_Name(RegionToUUID)}.")
-                                End If
+                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                                 Fin.Add(AgentID)
                             Else
-                                Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
+                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                                BreakPoint.Print($"{DestinationName} failed to receive teleport")
+                                RPC_admin_dialog(AgentID, $"Unable to locate region { Region_Name(RegionToUUID)}.")
                             End If
+                        Else
+                            Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
                     End If
-
+                End If
             Next
         Catch
         End Try

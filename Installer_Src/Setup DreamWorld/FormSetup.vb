@@ -498,6 +498,7 @@ Public Class FormSetup
 
         For Each RegionName As String In ListOfNames
 
+
             Dim RegionUUID = FindRegionByName(RegionName)
             Diagnostics.Debug.Print($"Starting {RegionName}")
 
@@ -505,9 +506,20 @@ Public Class FormSetup
                 Dim BootNeeded As Boolean = False
                 Select Case Settings.Smart_Start
                     Case True
+
+                        ' Suspend mode needs to always run regions, even smart start
+                        If Smart_Start(RegionUUID) = "True" And Not Settings.BootOrSuspend Then
+                            BootNeeded = True
+                        End If
+
                         ' Really Smart Start, not in Region table
                         If Smart_Start(RegionUUID) = "True" Then
                             If Not RegionIsRegistered(RegionUUID) Then
+                                BootNeeded = True
+                            End If
+
+                            ' If running, make them boot so we can hook on and shut them doen
+                            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                                 BootNeeded = True
                             End If
                         End If
@@ -520,17 +532,6 @@ Public Class FormSetup
                     Case False
                         BootNeeded = True
                 End Select
-
-                ' A region in initial boot up may be really running, but showing as stopped in SS made
-                ' And so it needs to be shut down by timers. But first we have to show it as Booted.
-
-                'If Not BootNeeded AndAlso PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) = Stopped Then
-                'If Smart_Start(RegionUUID) = "True" Then
-                'If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                'RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                'End If
-                'End If
-                'End If
 
                 If BootNeeded AndAlso PropOpensimIsRunning Then
                     Boot(RegionName)
