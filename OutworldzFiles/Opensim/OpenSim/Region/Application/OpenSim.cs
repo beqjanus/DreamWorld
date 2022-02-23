@@ -484,8 +484,8 @@ namespace OpenSim
         private void WatchdogTimeoutHandler(Watchdog.ThreadWatchdogInfo twi)
         {
             int now = Environment.TickCount & Int32.MaxValue;
-            return; // fkb
-            m_log.ErrorFormat(
+            // fkb
+            m_log.DebugFormat(
                 "[WATCHDOG]: Timeout detected for thread \"{0}\". ThreadState={1}. Last tick was {2}ms ago.  {3}",
                 twi.Thread.Name,
                 twi.Thread.ThreadState,

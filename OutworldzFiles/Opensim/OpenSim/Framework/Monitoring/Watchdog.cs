@@ -345,7 +345,7 @@ namespace OpenSim.Framework.Monitoring
             int msElapsed = now - LastWatchdogThreadTick;
 
             if (msElapsed > WATCHDOG_INTERVAL_MS * 2)
-                m_log.WarnFormat(
+                m_log.DebugFormat(
                     "[WATCHDOG]: {0} ms since Watchdog last ran.  Interval should be approximately {1} ms",
                     msElapsed, WATCHDOG_INTERVAL_MS);
 
