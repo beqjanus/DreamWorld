@@ -1433,7 +1433,6 @@
     <None Include="Resources\1X1.jpg" />
     <Content Include="Resources\exit.png" />
     <None Include="Resources\gear_time.png" />
-    <None Include="Resources\icecube.png" />
     <Content Include="Resources\jar.ico" />
     <None Include="Resources\loudspeaker.png" />
     <None Include="Resources\line-chart.png" />
