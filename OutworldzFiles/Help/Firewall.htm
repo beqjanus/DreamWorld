@@ -10,12 +10,6 @@
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
-@font-face
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
  /* Style Definitions */
@@ -26,31 +20,33 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
-	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
-strong
-	{font-family:"Times New Roman",serif;}
-p
-	{margin-right:0in;
+	font-family:"Verdana",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
 	margin-left:0in;
 	line-height:115%;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Verdana",sans-serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
+strong
+	{font-family:"Times New Roman",serif;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#4472C4;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -68,215 +64,167 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'>FIREWALL</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>DreamGrid Automatically adds rules to the Windows firewall for Robust,
-Opensim, Icecast, and Apache.  There is no need to adjust these rules.</span></p>
+<h1><a name="OLE_LINK9">FIREWALL</a></h1>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>If you accidently denied the firewall rule request, you will have
-to locate the NO symbol in the firewall and delete it.</span></p>
+</div>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>You may want to block certain IP addresses from accessing your
-system. This manual shows how. <b>The Banlist Manual shows how to do it with
-DreamGrid.</b></span></p>
+<p class=MsoNormal>DreamGrid Automatically adds rules to the Windows firewall
+for Robust, Opensim, Icecast, and Apache.  There is no need to adjust these
+rules.</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>The Windows firewall is automatically opened for TCP and UDP for
-any ports that DreamGrid needs.  It closes those ports if you reduce the number
-of regions and increases the open port count if you add regions.  This also
-works on Icecast and Apache.</span></p>
+<p class=MsoNormal>If you accidently denied the firewall rule request, you will
+have to locate the NO symbol in the firewall and delete it.</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>You can use the Windows firewall to block specific IP addresses
-and ranges of Ip addresses.&nbsp; </span></p>
+<p class=MsoNormal>You may want to block certain IP addresses from accessing
+your system. This manual shows how. <b>The Banlist Manual shows how to do it
+with DreamGrid.</b></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Open the windows firewall and click <b>Advanced Settings</b> on
-the upper left side.</span></p>
+<p class=MsoNormal>The Windows firewall is automatically opened for TCP and UDP
+for any ports that DreamGrid needs.  It closes those ports if you reduce the
+number of regions and increases the open port count if you add regions.  This
+also works on Icecast and Apache.</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=575 height=485 id="Picture 13"
-src="Firewall_files/image001.jpg" alt="Open the firewall"></span></p>
+<p class=MsoNormal>You can use the Windows firewall to block specific IP
+addresses and ranges of Ip addresses.&nbsp; </p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;<br clear=all style='page-break-before:always'>
-Advanced settings screen:</span></p>
+<p class=MsoNormal>Open the windows firewall and click <b>Advanced Settings</b>
+on the upper left side.</p>
 
-<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-background:white;vertical-align:baseline'><span style='color:black'><a
+<p class=MsoNormal><img width=460 height=388 id="Picture 13"
+src="Firewall_files/image001.jpg" alt="Open the firewall"></p>
+
+<p class=MsoNormal>&nbsp;<br clear=all style='page-break-before:always'>
+Advanced settings screen:</p>
+
+<p class=MsoNormal><a
 href="https://outworldz.com/opensim/posts/firewall/imgD.jpg"><span
-style='font-family:"Verdana",sans-serif;color:#5973CC;text-decoration:none'><img
-border=0 width=564 height=426 id="Picture 12" src="Firewall_files/image002.jpg"
-alt="Advanced settings"></span></a></span></p>
+style='color:#5973CC;text-decoration:none'><img border=0 width=564 height=426
+id="Picture 12" src="Firewall_files/image002.jpg" alt="Advanced settings"></span></a></p>
 
-<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Right click <b>Inbound Rules</b> and select <b>New Rule:</b></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=576 height=493 id="Picture 10"
-src="Firewall_files/image003.jpg" alt="New Rule"></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Select <b>Custom Rule</b></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=454 id="Picture 9"
-src="Firewall_files/image004.jpg" alt="Custom Rule"></span><span
-style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
-
-<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
-color:black'><br clear=all style='page-break-before:always'>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
 </span>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>Select <b>All programs:</b></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=454 id="Picture 8"
-src="Firewall_files/image005.jpg" alt="All programs"></span></p>
+<p class=MsoNormal>Right click <b>Inbound Rules</b> and select <b>New Rule:</b></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p class=MsoNormal><img border=0 width=576 height=493 id="Picture 10"
+src="Firewall_files/image003.jpg" alt="New Rule"></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Enter the port for your grid login. Yours is likely to be <b>8002</b>.
-TCP is used to log in, so we will block it.</span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=454 id="Picture 7"
-src="Firewall_files/image006.jpg" alt="TCP port"></span><span style='font-family:
-"Verdana",sans-serif;color:black'>&nbsp;</span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
-background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Select&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Which
-Remote IP does this rule belong to</span></strong>&nbsp;and click&nbsp;<strong><span
-style='font-family:"Verdana",sans-serif'>These IP addresses&nbsp;</span></strong>and
-click&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Add</span></strong></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=454 id="Picture 6"
-src="Firewall_files/image007.jpg"></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Enter the IP or range of IP's. </span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=340 height=375 id="Picture 5"
-src="Firewall_files/image008.png"></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Click <b>OK</b></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=454 id="Picture 4"
-src="Firewall_files/image009.jpg"></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Click Next</span></p>
-
-<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
-color:black'><br clear=all style='page-break-before:always'>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
 </span>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>Click &quot;<b>Block this connection</b>&quot;</span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=572 height=464 id="Picture 3"
-src="Firewall_files/image010.jpg" alt="Block The Connection"></span></p>
+<p class=MsoNormal>Select <b>Custom Rule</b></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Which&nbsp;firewalls? Do all of them. These are for machines that
-may travel to public places such as a McDonalds. Your grid should be set for
-Private. In corporate environments, it would be Domain.</span></p>
+<p class=MsoNormal><img border=0 width=574 height=454 id="Picture 9"
+src="Firewall_files/image004.jpg" alt="Custom Rule">&nbsp;</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Is safe to just do them all.</span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=575 height=456 id="Picture 2"
-src="Firewall_files/image011.jpg" alt="Which Firewalls?"></span></p>
-
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
-color:black'><br clear=all style='page-break-before:always'>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
 </span>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p class=MsoNormal>Select <b>All programs:</b></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Enter a descriptive name.</span></p>
+<p class=MsoNormal><img border=0 width=574 height=454 id="Picture 8"
+src="Firewall_files/image005.jpg" alt="All programs"></p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'><img border=0 width=574 height=448 id="Picture 1"
-src="Firewall_files/image012.jpg" alt="Specify Name"></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
-.5in;background:white;vertical-align:baseline'><span style='font-family:"Verdana",sans-serif;
-color:black'>Click <b>Finish</b>.&nbsp;</span></p>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Enter the port for your grid login. Yours is likely to be <b>8002</b>.
+TCP is used to log in, so we will block it.</p>
+
+<p class=MsoNormal><img border=0 width=574 height=454 id="Picture 7"
+src="Firewall_files/image006.jpg" alt="TCP port">&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Select&nbsp;<strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Which Remote IP does this rule belong to</span></strong>&nbsp;and
+click&nbsp;<strong><span style='font-family:"Verdana",sans-serif;color:black'>These
+IP addresses&nbsp;</span></strong>and click&nbsp;<strong><span
+style='font-family:"Verdana",sans-serif;color:black'>Add</span></strong></p>
+
+<p class=MsoNormal><img border=0 width=574 height=454 id="Picture 6"
+src="Firewall_files/image007.jpg"></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Enter the IP or range of IP's. </p>
+
+<p class=MsoNormal><img border=0 width=340 height=375 id="Picture 5"
+src="Firewall_files/image008.png"></p>
+
+<p class=MsoNormal>Click <b>OK</b></p>
+
+<p class=MsoNormal><img border=0 width=574 height=454 id="Picture 4"
+src="Firewall_files/image009.jpg"></p>
+
+<p class=MsoNormal>Click Next</p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>Click &quot;<b>Block this connection</b>&quot;</p>
+
+<p class=MsoNormal><img border=0 width=572 height=464 id="Picture 3"
+src="Firewall_files/image010.jpg" alt="Block The Connection"></p>
+
+<p class=MsoNormal>Which&nbsp;firewalls? Do all of them. These are for machines
+that may travel to public places such as a McDonalds. Your grid should be set for
+Private. In corporate environments, it would be Domain.</p>
+
+<p class=MsoNormal>Is safe to just do them all.</p>
+
+<p class=MsoNormal><img border=0 width=575 height=456 id="Picture 2"
+src="Firewall_files/image011.jpg" alt="Which Firewalls?"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Enter a descriptive name.</p>
+
+<p class=MsoNormal><img border=0 width=574 height=448 id="Picture 1"
+src="Firewall_files/image012.jpg" alt="Specify Name"></p>
+
+<p class=MsoNormal>Click <b>Finish</b>.&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
 
 </div>
 

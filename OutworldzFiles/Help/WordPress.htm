@@ -12,9 +12,6 @@
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -24,15 +21,22 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:blue;
@@ -69,13 +73,14 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#4472C4;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -98,80 +103,79 @@ ul
 -->
 </style>
 
-
 </head>
 
 <body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
 
-
-
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='text-align:center'>Setting Up WordPress
-with DreamGrid</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p class=MsoNormal style='margin-left:.5in'>Download WordPress from <a
+<h1><a name="OLE_LINK39">Setting Up WordPress with DreamGrid</a></h1>
+
+</div>
+
+<p class=MsoNormal>Download WordPress from <a
 href="https://wordpress.org/download/">https://wordpress.org/download/</a></p>
 
-<p class=MsoNormal style='margin-left:.5in'>Extract the zip file into wherever
-you installed your Grid in the Outworldzfiles\Apache\htdocs\WordPress folder. 
-Do not put a second ‘wordpress’ flder in there.  If you do, just drag and drop
-the contents of the wordpress folder  to the htdocs\ WordPress folder.  It
-should look like this:</p>
+<p class=MsoNormal>Extract the zip file into wherever you installed your Grid
+in the Outworldzfiles\Apache\htdocs\WordPress folder.  Do not put a second
+‘wordpress’ folder in there.  If you do, just drag and drop the contents of the
+wordpress folder  to the htdocs\ WordPress folder.  It should look like this:</p>
 
-<p class=MsoNormal style='margin-left:.5in'><img border=0 width=509 height=401
-id="Picture 3" src="WordPress_files/image001.png"></p>
+<p class=MsoNormal><img border=0 width=509 height=401 id="Picture 3"
+src="WordPress_files/image001.png"></p>
 
-<p class=MsoListParagraphCxSpFirst style='margin-left:1.0in;text-indent:-.25in'>1.<span
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Go
 to DreamGrid settings -&gt; Apache.  Set the WordPress switch on.  </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>2.<span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Enable
 the Apache Webserver on port 80 to run as a service. </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>3.<span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>If
 you have not yet done so, install the necessary Visual C++ runtimes by clicking
 the button. **WARNING* This may suddenly reboot your machine, so save your
 work.   </p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>4.<span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>If
 it does reboot, make your way back the Settings Apache page and , install the
 necessary Visual C++ runtimes by clicking the button.</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'>5.<span
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Stop
 the grid, exit the app, and start it again.</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'>6.<span
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>6.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Using
-a web browser, navigate to <a href="http://localhost/">http://localhost</a>.
-You should see a language choice screen:</p>
+a web browser, navigate to <a href="http://localhost">http://localhost</a>. You
+should see a language choice screen:</p>
 
-<p class=MsoNormal style='margin-left:.5in'><img border=0 width=284 height=454
-id="Picture 7" src="WordPress_files/image002.png"> </p>
+<p class=MsoNormal><img border=0 width=284 height=454 id="Picture 7"
+src="WordPress_files/image002.png"> </p>
 
-<p class=MsoNormal style='margin-left:.5in'>After choosing your language, use
-these settings to set up WordPress and then Click Submit:</p>
+<p class=MsoNormal>After choosing your language, use these settings to set up
+WordPress and then Click Submit:</p>
 
-<p class=MsoNormal style='margin-left:.5in'><img border=0 width=548 height=311
-id="Picture 5" src="WordPress_files/image003.png"> </p>
+<p class=MsoNormal><img border=0 width=548 height=311 id="Picture 5"
+src="WordPress_files/image003.png"> </p>
 
 <p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in'>You should get this screen:</p>
+<p class=MsoNormal>You should get this screen:</p>
 
-<p class=MsoNormal style='margin-left:.5in'><img border=0 width=613 height=133
-id="Picture 6" src="WordPress_files/image004.png"> </p>
+<p class=MsoNormal><img border=0 width=613 height=133 id="Picture 6"
+src="WordPress_files/image004.png"> </p>
 
-<p class=MsoNormal style='margin-left:.5in'>After this WordPress will ask for
-your name, password and email.  Please a very strong password you have never
-used before!  It is extremely importatnt that this be a long, strong password.</p>
+<p class=MsoNormal>After this WordPress will ask for your name, password and
+email.  Please a very strong password you have never used before!  It is
+extremely importatnt that this be a long, strong password.</p>
 
-<p class=MsoNormal style='margin-left:.5in'>You can now navigate to <a
-href="http://localhost/">http://localhost</a>  to view your new web site.</p>
+<p class=MsoNormal>You can now navigate to <a href="http://localhost">http://localhost</a> 
+to view your new web site.</p>
 
 <p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
 

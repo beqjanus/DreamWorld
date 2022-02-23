@@ -7,6 +7,9 @@
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
@@ -55,15 +58,21 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	background:#DEEAF6;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -72,21 +81,15 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#5B9BD5;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
@@ -101,188 +104,105 @@ ul
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-top:0in;margin-right:205.5pt;
-margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:center'><a
-name="OLE_LINK8">Maps</a></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Opensim has many different maps settings. DreamGrid has multiple
-easy-to-use combinations.   Opensimulator has several Map tile makers which
-vary in quality, and speed.  It can take an exceedingly long time to boot when
-using the Better and Best maps.  These maps which use the Warp3D engine must
-load all prims, mesh, and textures, so it takes a long time to generate new
-maps.  Also, any bad textures may cause harmless errors from corrupted assets
-to appear on your console. </span></p>
+<h1><a name="OLE_LINK8">Maps</a></h1>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>I recommend you run all maps at Best setting once, then set Maps
-to None.  You can remake maps when enough changes have been made. </span></p>
+</div>
+
+<p class=MsoNormal>Opensim has many different maps settings. DreamGrid has
+multiple easy-to-use combinations.   Opensimulator has several Map tile makers
+which vary in quality, and speed.  It can take an exceedingly long time to boot
+when using the Better and Best maps.  These maps which use the Warp3D engine
+must load all prims, mesh, and textures, so it takes a long time to generate
+new maps.  Also, any bad textures may cause harmless errors from corrupted
+assets to appear on your console. </p>
+
+<p class=MsoNormal>I recommend you run all maps at Best setting once, then set
+Maps to None.  You can remake maps when enough changes have been made. </p>
 
 <p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
 6.0pt;margin-left:.5in;background:white'><span style='color:black'><img
 width=425 height=398 id="Picture 1" src="Maps_files/image001.png"></span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>None</span></b><span
-style='font-family:"Verdana",sans-serif;color:black'>:  No maps will be made.
-This is a good setting as the regions will boot very quickly.  Any existing
-maps are not deleted.</span></p>
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal><b>None</b>:  No maps will be made. This is a good setting
+     as the regions will boot very quickly.  Any existing maps are not deleted.</li>
+ <li class=MsoNormal><b>Simple but Fast</b>: MapImageModule is used with just
+     Land showing</li>
+ <li class=MsoNormal><b>Good</b>:  Uses Warp3D module with just Land showing</li>
+ <li class=MsoNormal><b>Better</b>: Uses Warp3D module with Land, Prims, and
+     land Textures showing</li>
+ <li class=MsoNormal><b>Best</b>: Uses Warp3D module with Land, Prims, Mesh,
+     Sculpts, and all Textures including prims showing.</li>
+ <li class=MsoNormal><b>Delete All Maps:</b><span style='font-family:"Arial Unicode MS",sans-serif'> 
+     </span>If you delete a region the map will remain. Click this to clear out
+     all maps.  You will need to regenerate all maps again by choosing a
+     setting and restarting all regions. </li>
+ <li class=MsoNormal><b>View Map Web page: </b>Enabled if your system is running. 
+     Opens a web browser to <a href="http://localhost:8002/wifi/map.htm"><span
+     style='color:windowtext;text-decoration:none'>http://localhost:8002/wifi/map.htm</span></a>.</li>
+ <li class=MsoNormal><b>Small Metro Map and Large Metro Maps: </b> Available
+     only if your Apache/PHP is enabled in Settings Web Pages. These maps are
+     generated by PHP and Apache web server.</li>
+ <li class=MsoNormal><b>View All Maps</b> displays all maps. You can save or
+     print them. Clicking a map causes it to exit.</li>
+ <li class=MsoNormal><b>Render Max Height</b> can be changed to not show
+     skyboxes.</li>
+ <li class=MsoNormal><b>Render Min Height </b>can be changed to not show water
+     or ground structure.</li>
+</ul>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Simple
-but Fast</span></b><span style='font-family:"Verdana",sans-serif;color:black'>:
-MapImageModule is used with just Land showing</span></p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Good</span></b><span
-style='font-family:"Verdana",sans-serif;color:black'>:  Uses Warp3D module with
-just Land showing</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Better</span></b><span
-style='font-family:"Verdana",sans-serif;color:black'>: Uses Warp3D module with
-Land, Prims, and land Textures showing</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Best</span></b><span
-style='font-family:"Verdana",sans-serif;color:black'>: Uses Warp3D module with
-Land, Prims, Mesh, Sculpts, and all Textures including prims showing.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Delete
-All Maps:</span></b><span style='font-family:"Arial Unicode MS",sans-serif;
-color:black'>  </span><span style='font-family:"Verdana",sans-serif;color:black'>If
-you delete a region the map will remain. Click this to clear out all maps.  You
-will need to regenerate all maps again by choosing a setting and restarting all
-regions. </span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>View
-Map Web page: </span></b><span style='font-family:"Verdana",sans-serif;
-color:black'>Enabled if your system is running.  Opens a web browser to </span><a
-href="http://localhost:8002/wifi/map.htm"><span style='font-family:"Verdana",sans-serif;
-color:black;text-decoration:none'>http://localhost:8002/wifi/map.htm</span></a><span
-style='font-family:"Verdana",sans-serif;color:black'>.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Small
-Metro Map and Large Metro Maps: </span></b><span style='font-family:"Verdana",sans-serif;
-color:black'> Available only if your Apache/PHP is enabled in Settings Web
-Pages. These maps are generated by PHP and Apache web server.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>View
-All Maps</span></b><span style='font-family:"Verdana",sans-serif;color:black'>
-displays all maps. You can save or print them. Clicking a map causes it to
-exit.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Render
-Max </span></b><b><span style='font-family:"Verdana",sans-serif;color:black'>Height</span></b><span
-style='font-family:"Verdana",sans-serif;color:black'> can be changed to</span><span
-style='font-family:"Verdana",sans-serif;color:black'> not show skyboxes.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Render
-Min Height </span></b><span style='font-family:"Verdana",sans-serif;color:black'>can
-be changed to</span><span style='font-family:"Verdana",sans-serif;color:black'>
-not show water or ground structure.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.25in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:40.5pt;margin-right:205.5pt'>
-
-<h1 style='background:#5B9BD5'>Manual regeneration</h1>
+<h2><span style='color:black'>Manual regeneration</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Normally you would generate map tiles at startup. You can also
-manually force map tile regeneration with the console command '</span><span
-style='font-family:"Arial Unicode MS",sans-serif;color:black'>generate
-map&lt;enter&gt;'.</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>Normally you would
+generate map tiles at startup. You can also manually force map tile
+regeneration with the console command '</span>generate map&lt;enter&gt;'.</p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>A) Go to Setup Settings-&gt;Maps and erase them all with
-&quot;Delete All Maps&quot;</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>A) Go to
+Setup Settings-&gt;Maps and erase them all with &quot;Delete All Maps&quot;</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>B) Now choose &quot;Best (prims + Mesh Very Slow)&quot;</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>B) Now choose
+&quot;Best (prims + Mesh Very Slow)&quot;</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>C) Close this window which saves the new Global setting.</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>C) Close this
+window which saves the new Global setting.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>D) Press Start. </span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>D) Press
+Start. </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>E) Once all the regions have booted to the DOS boxes,&nbsp;set map
-back to &quot;None&quot;.&nbsp; They can still be making maps. They just need
-to all be starting up and then you can change the Global Settings.&nbsp; </span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>E) Once all
+the regions have booted to the DOS boxes,</span>&nbsp;<span style='font-family:
+"Verdana",sans-serif'>set map back to &quot;None&quot;.</span>&nbsp;<span
+style='font-family:"Verdana",sans-serif'> They can still be making maps. They
+just need to all be starting up and then you can change the Global Settings.</span>&nbsp;<span
+style='font-family:"Verdana",sans-serif'> </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>The next time you boot, the regions will load very quickly as the
-maps will not be remade. Maps only need to be cleared when you delete a region
-or move them around.</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>The next time
+you boot, the regions will load very quickly as the maps will not be remade.
+Maps only need to be cleared when you delete a region or move them around.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>F) Each region has an override setting.&nbsp;&nbsp; If set, the
-override will choose a different setting for maps. </span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>F) Each
+region has an override setting.</span>&nbsp;&nbsp;<span style='font-family:
+"Verdana",sans-serif'> If set, the override will choose a different setting for
+maps. </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Example: I leave the global maps off all the time.&nbsp;&nbsp; But
-I may be working heavily on a region and changing it around, and want that to
-appear after every reboot.&nbsp; I go to the Regions List and click the Region
-and set the override to the desired setting, and reboot the region.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p class=MsoNormal><span style='font-family:"Verdana",sans-serif'>Example: I
+leave the global maps off all the time.</span>&nbsp;&nbsp;<span
+style='font-family:"Verdana",sans-serif'> But I may be working heavily on a
+region and changing it around, and want that to appear after every reboot.</span>&nbsp;<span
+style='font-family:"Verdana",sans-serif'> I go to the Regions List and click
+the Region and set the override to the desired setting, and reboot the region</span></p>
 
 </div>
 

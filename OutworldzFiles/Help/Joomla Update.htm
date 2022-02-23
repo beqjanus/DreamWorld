@@ -12,12 +12,6 @@
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -43,15 +37,21 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -60,13 +60,13 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -84,54 +84,51 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
 <body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
 
-
-
 <div class=WordSection1>
-
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-style='background:white'>JOOMLA/JOPENSIM UPDATE</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span style='font-size:10.5pt;
-line-height:115%;font-family:"Segoe UI",sans-serif;color:#333333;background:
-white'><br>
-IMPORTANT: this version required changes in DreamGrid, Joomla and in jOpensim. 
-This also the reason why this version will not update as usual with the Joomla
-updater. Clicking on update in Joomla without following these instructions will
-result in a broken jOpensim installation.</span><span style='font-size:10.5pt;
-line-height:115%;font-family:"Segoe UI",sans-serif;color:#333333'>  <span
-style='background:white'>If you also have jOpenSim PayPal in use, you will need
-to update this component as well.</span></span></p>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1>How to Update:</h1>
+<h1><a name="OLE_LINK4">JOOMLA/JOPENSIM UPDATE</a></h1>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'>First, update your Joomla
-installation to version 3.9.23.  This can be done by logging into the
-Administrator panel and clicking the notice. Or click on Components-&gt;Joomla
-Update.  <b>Do not update past Version 3.9.23 to V 4!</b></p>
+<p class=MsoNormal><span style='color:black;background:white'><br>
+IMPORTANT: this version required changes in DreamGrid, Joomla and in jOpensim. 
+This also the reason why this version will not update as usual with the Joomla
+updater. Clicking on update in Joomla without following these instructions will
+result in a broken jOpensim installation.</span>  <span style='color:black;
+background:white'>If you also have jOpenSim PayPal in use, you will need to
+update this component as well.</span></p>
 
-<p class=MsoNormal style='margin-left:.5in'>In DreamGrid, go to
-Setup-&gt;Settings-&gt; and then to Joomla/jOpensim.</p>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoNormal style='margin-left:.5in'>Press the [Update] button to update
-to the latest jOpensim. This will take you to this screen:<br>
+<h2><span style='color:black'>How to Update:</span></h2>
+
+</div>
+
+<p class=MsoNormal>First, update your Joomla installation to version 3.9.23. 
+This can be done by logging into the Administrator panel and clicking the
+notice. Or click on Components-&gt;Joomla Update.  <b>Do not update past Version
+3.9.23 to V 4!</b></p>
+
+<p class=MsoNormal>In DreamGrid, go to Setup-&gt;Settings-&gt; and then to
+Joomla/jOpensim.</p>
+
+<p class=MsoNormal>Press the [Update] button to update to the latest jOpensim.
+This will take you to this screen:<br>
 <br>
 <img width=530 height=393 id="Picture 23"
 src="Joomla%20Update_files/image001.png"></p>
 
 <p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in'>Click the big green “Or Browse for
-file” and navigate to the Outworldzfiles\jOpensimfiles\ folder.  Select “pkg_jopensim.0.3.2.0.zip”
-and click Ok.    This will update you to jOpensim V3.0.2.0.</p>
+<p class=MsoNormal>Click the big green “Or Browse for file” and navigate to the
+Outworldzfiles\jOpensimfiles\ folder.  Select “pkg_jopensim.0.3.2.0.zip” and
+click Ok.    This will update you to jOpensim V3.0.2.0.</p>
 
 <p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
 

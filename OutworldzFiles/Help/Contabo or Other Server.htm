@@ -40,6 +40,21 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -47,15 +62,23 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
-	{font-size:10.0pt;}
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
 .MsoPapDefault
 	{margin-top:5.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;}
-@page WordSection1
+ /* Page Definitions */
+ @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
@@ -63,17 +86,15 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
 <body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
 
 <div class=WordSection1>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1 style='background:#4472C4'>Running DreamGrid On A Server</h1>
+<h1><a name="OLE_LINK1">Running DreamGrid On A Server</a></h1>
 
 </div>
 
@@ -94,15 +115,16 @@ remote server can appear as a local disk, such as X: or Z: with SMB file shares
 so you can copy and paste files.&nbsp; This makes it trivially easy to make
 backups and move OARs and backups off Contabo and store them at your home.</span></p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h1 style='background:#4472C4'>Log Into Your Server</h1>
+<h2><span style='color:black'>Log Into Your Server</span></h2>
 
 </div>
 
 <p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black;
 background:white'>Log in with remote desktop or VNC&nbsp; as an
-Administrator.&nbsp;&nbsp;&nbsp;You need a strong password for your account!&nbsp;&nbsp;
+Administrator.&nbsp;&nbsp;&nbsp;<span style='border:none windowtext 1.0pt;
+padding:0in'>You need a strong password for your account!</span>&nbsp;&nbsp;
 Don't skimp on this step, as your server is exposed to the internet in an
 intimate way, and it will be probed constantly for weaknesses.</span><span
 style='font-family:"Verdana",sans-serif;color:black'><br>
@@ -117,7 +139,7 @@ Properties.</span><br>
 <br>
 </span><span style='font-family:"Times New Roman",serif'><img width=260
 height=365 id="Picture 15"
-src="Contabo%20or%20Other%20Server_files/image001.png" alt=Share></span></p>
+src="Contabo%20or%20Other%20Server_files/image001.gif" alt=Share></span></p>
 
 <span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
 color:black'><br clear=all style='page-break-before:always'>
@@ -131,7 +153,7 @@ color:black'><br clear=all style='page-break-before:always'>
 <br>
 </span><span style='font-family:"Times New Roman",serif'><img width=282
 height=298 id="Picture 14"
-src="Contabo%20or%20Other%20Server_files/image002.png" alt="SMB File sharing"></span><span
+src="Contabo%20or%20Other%20Server_files/image002.gif" alt="SMB File sharing"></span><span
 style='font-family:"Verdana",sans-serif;color:black'><br>
 <br>
 <span style='background:white'>Click Add and give it a name, such as
@@ -141,7 +163,7 @@ style='font-family:"Verdana",sans-serif;color:black'><br>
 <br>
 </span><span style='font-family:"Times New Roman",serif'><img width=289
 height=349 id="Picture 13"
-src="Contabo%20or%20Other%20Server_files/image003.png" alt="SMB permissions"></span><span
+src="Contabo%20or%20Other%20Server_files/image003.gif" alt="SMB permissions"></span><span
 style='font-family:"Verdana",sans-serif;color:black'><br>
 <br>
 <br>
@@ -168,17 +190,17 @@ permissions are lit up.</span><br>
 <br>
 </span></p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h1 style='background:#4472C4'>Firewall Rules</h1>
+<h2><span style='color:black'>Firewall Rules</span></h2>
 
 </div>
 
 <p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black;
 background:white'>You </span><span style='font-family:"Verdana",sans-serif;
 color:black;background:white'> need</span><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'> to enable some ports in Windows Server.&nbsp;&nbsp;
-Go to Control panel or search for Advanced Firewall.</span><span
+color:black;background:white'> to enable some ports in Windows
+Server.&nbsp;&nbsp; Go to Control panel or search for Advanced Firewall.</span><span
 style='font-family:"Verdana",sans-serif;color:black'><br>
 </span><span style='font-family:"Times New Roman",serif'><img width=270
 height=386 id="Picture 10"
@@ -220,8 +242,9 @@ height=221 id="Picture 7" src="Contabo%20or%20Other%20Server_files/image009.jpg"
 alt="Graphical user interface, text, application&#10;&#10;Description automatically generated"></span><span
 style='font-family:"Verdana",sans-serif;color:black'><br>
 <br>
-<span style='background:white'>In Protocols and Ports&nbsp; Select&nbsp;TCP&nbsp;and
-add the following ports:  134-139, 445, 389, 88</span><br>
+<span style='background:white'>In Protocols and Ports&nbsp; Select&nbsp;<span
+style='border:none windowtext 1.0pt;padding:0in'>TCP</span>&nbsp;and add the
+following ports:  134-139, 445, 389, 88</span><br>
 <br>
 </span><span style='font-family:"Times New Roman",serif'><img width=303
 height=293 id="Picture 6" src="Contabo%20or%20Other%20Server_files/image010.jpg"
@@ -230,7 +253,7 @@ color:black'><br>
 <br>
 <br>
 <span style='background:white'>Repeat the above steps for a name such as
-&quot;File Sharing&nbsp;UDP&quot;</span><br>
+&quot;File Sharing&nbsp;<span style='border:none windowtext 1.0pt;padding:0in'>UDP</span>&quot;</span><br>
 <br>
 <br>
 </span><span style='font-family:"Times New Roman",serif'><img width=259
@@ -238,7 +261,8 @@ height=261 id="Picture 5" src="Contabo%20or%20Other%20Server_files/image011.jpg"
 alt=UDP></span><span style='font-family:"Verdana",sans-serif;color:black'><br>
 <br>
 <span style='background:white'>Repeat the step &quot;Protocols and Ports&quot;
-Select&nbsp;UDP&nbsp;and add the following ports:</span><br>
+Select&nbsp;<span style='border:none windowtext 1.0pt;padding:0in'>UDP&nbsp;</span>and
+add the following ports:</span><br>
 <br>
 <span style='background:white'>134-139, 445, 389, 88</span><br>
 <br>
@@ -260,7 +284,7 @@ clear=all style='page-break-before:always'>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1 style='background:#4472C4'>Sharing Files To And From Your Server</h1>
+<h1>Sharing Files To And From Your Server</h1>
 
 </div>
 
@@ -319,7 +343,7 @@ color:black'><br clear=all style='page-break-before:always'>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1 style='background:#4472C4'>Backups:</h1>
+<h1>Backups:</h1>
 
 </div>
 
@@ -335,11 +359,11 @@ named Backup.bat.</span></p>
 <p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>I
 then ran this from the server as X:/backup.bat and it copied my Servers&nbsp;</span><a
 href="file:///X:/tm,p"><span style='font-family:"Verdana",sans-serif;
-color:#5973CC'>X:\tmp</span></a><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;folder to my home PC&nbsp;</span><a
-href="../../../../../../tmp"><span style='font-family:"Verdana",sans-serif;
-color:#5973CC'>C:\tmp</span></a><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;folder.</span></p>
+color:#5973CC;border:none windowtext 1.0pt;padding:0in'>X:\tmp</span></a><span
+style='font-family:"Verdana",sans-serif;color:black'>&nbsp;folder to my home
+PC&nbsp;</span><a href="../../../../../../tmp"><span style='font-family:"Verdana",sans-serif;
+color:#5973CC;border:none windowtext 1.0pt;padding:0in'>C:\tmp</span></a><span
+style='font-family:"Verdana",sans-serif;color:black'>&nbsp;folder.</span></p>
 
 <p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>You
 can now use robocopy to backup your entire grid, or the Backup folder with one
@@ -347,7 +371,8 @@ simple command &quot;X:/Backup&quot; by changing the folder names in the batch
 file.</span></p>
 
 <p class=MsoNormal><span style='font-family:"Courier New";color:black;
-background:white'>PS X:\&gt;&nbsp;.\Backup.bat<br>
+border:none windowtext 1.0pt;padding:0in;background:white'>PS
+X:\&gt;&nbsp;.\Backup.bat<br>
 <br>
 X:\&gt;robocopy X:\tmp c:\tmp /e<br>
 <br>

@@ -13,9 +13,6 @@
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
-@font-face
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
  /* Style Definitions */
@@ -43,15 +40,6 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
-	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -60,13 +48,6 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -85,62 +66,48 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-lang=EN>Cache Deletion</span></p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1 style='background:#4472C4'><a name="OLE_LINK5"><span lang=EN>Cache Deletion</span></a></h1>
+
+</div>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN style='font-family:
 "Times New Roman",serif'> </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Opensimulator
-has many caches of data to improve performance. You may optionally clear these
-caches.  The system will refresh them on the next startup. This will slow your
-system down dramatically on the next boot as it must re-fetch all assets the
-next time it starts.</span></p>
+<p class=MsoNormal><span lang=EN>Opensimulator has many caches of data to
+improve performance. You may optionally clear these caches.  The system will
+refresh them on the next startup. This will slow your system down dramatically
+on the next boot as it must re-fetch all assets the next time it starts.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Opensim
-must be stopped to clear script and the Avatar Bake caches.</span></p>
+<p class=MsoNormal><span lang=EN>Opensim must be stopped to clear script and
+the Avatar Bake caches.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><img width=221 height=200 id="Picture 5"
+<p class=MsoNormal><img width=221 height=200 id="Picture 5"
 src="Cache_files/image001.png"
 alt="Graphical user interface, text, application&#10;&#10;Description automatically generated"></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Script
-cache: </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>Clearing
+<p class=MsoNormal><b><span lang=EN>Script cache: </span></b><span lang=EN>Clearing
 the script cache is only necessary after an update to Opensim binaries.  DreamGrid
 will not delete the “.STATE” files so your virtual pets will not die.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Avatars
-bakes cache:  </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>this
-folder holds the various baked skin layers.</span></p>
+<p class=MsoNormal><b><span lang=EN>Avatars bakes cache:  </span></b><span
+lang=EN>this folder holds the various baked skin layers.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Asset
-cache: </span></b><span lang=EN style='font-family:"Verdana",sans-serif'> holds
+<p class=MsoNormal><b><span lang=EN>Asset cache: </span></b><span lang=EN> holds
 the assets (mesh, prims, textures) and is typically exceptionally large. It
 automatically flushes itself every 48 hours.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Image
-cache: </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>holds
+<p class=MsoNormal><b><span lang=EN>Image cache: </span></b><span lang=EN>holds
 the images and is typically exceptionally large. </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Mesh
-cache: </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>holds
+<p class=MsoNormal><b><span lang=EN>Mesh cache: </span></b><span lang=EN>holds
 mesh pieces.</span></p>
 
 <span lang=EN style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
@@ -155,45 +122,32 @@ clear=all style='page-break-before:always'>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
-background:white'><br>
-</span><span lang=EN style='font-family:"Verdana",sans-serif'>OpenSimulator has
-an asset cache that stores the assets retrieved from an asset service. This
-reduces the load on a possibly remote asset service and improves OpenSimulator
-responsiveness.</span></p>
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif;background:
+white'><br>
+</span><span lang=EN>OpenSimulator has an asset cache that stores the assets
+retrieved from an asset service. This reduces the load on a possibly remote
+asset service and improves OpenSimulator responsiveness.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Viewer
-cache</span></b><span lang=EN style='font-family:"Verdana",sans-serif'> is for
-modern viewers. If you use old viewers you may have issues.  Turn this off for
-old viewers.</span></p>
+<p class=MsoNormal><b><span lang=EN>Viewer cache</span></b><span lang=EN> is
+for modern viewers. If you use old viewers you may have issues.  Turn this off
+for old viewers.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Cache
-Enabled</span></b><span lang=EN style='font-family:"Verdana",sans-serif'>: The
+<p class=MsoNormal><b><span lang=EN>Cache Enabled</span></b><span lang=EN>: The
 cache should always be enabled.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Cache
-Directory</span></b><span lang=EN style='font-family:"Verdana",sans-serif'> man
-be moved to another disk. It is best practice to save all large folders such as
-this cache to another disk.</span></p>
+<p class=MsoNormal><b><span lang=EN>Cache Directory</span></b><span lang=EN>
+man be moved to another disk. It is best practice to save all large folders
+such as this cache to another disk.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Log
-level </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>is for
+<p class=MsoNormal><b><span lang=EN>Log level </span></b><span lang=EN>is for
 debugging.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Timeout
-in Hours </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>is
+<p class=MsoNormal><b><span lang=EN>Timeout in Hours </span></b><span lang=EN>is
 how you set how much disk it uses. Lower numbers = less disk space. The larger
-the number, the better performance you will get.   Typical numbers are 24 hours
+the number, the better performance you will get.   Typical numbers are 24 hours
 for small grids, a few hours for large grids.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><img width=330 height=225 id="Picture 6"
+<p class=MsoNormal><img width=330 height=225 id="Picture 6"
 src="Cache_files/image002.png"
 alt="Graphical user interface, text, application&#10;&#10;Description automatically generated"></p>
 
@@ -210,47 +164,35 @@ white'>&nbsp;</span></p>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Note:
-You must run the Flotsam asset cache if you are running the FSassets file
-system database.</span></p>
+<p class=MsoNormal><span lang=EN>Note: You must run the Flotsam asset cache if
+you are running the FSassets file system database.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>The
-Flotsam asset cache stores assets on disk and in memory. </span></p>
+<p class=MsoNormal><span lang=EN>The Flotsam asset cache stores assets on disk
+and in memory. </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>At
-the moment, the amount of memory or filesystem storage used by the cache can
-only be limited via manual actions (wiping all or part of cached assets from
-the filesystem), by console commands (e.g. &quot;fcache clear&quot;) or by
-timeout settings (e.g. FileCacheTimeout = 1 to automatically remove cache files
-not accessed for 1 hours). </span></p>
+<p class=MsoNormal><span lang=EN>At the moment, the amount of memory or
+filesystem storage used by the cache can only be limited via manual actions
+(wiping all or part of cached assets from the filesystem), by console commands
+(e.g. &quot;fcache clear&quot;) or by timeout settings (e.g. FileCacheTimeout =
+1 to automatically remove cache files not accessed for 1 hours). </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>General
-principles</span></b></p>
+<p class=MsoNormal><b><span lang=EN>General principles</span></b></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>When
-OpenSimulator requires an asset (e.g. in response to a viewer request for a
-notecard), then it first asks the cache for this data. If the data is not found
-in the cache, then it asks the grid asset service (or possibly a foreign asset
-service in the case of Hypergrid). If the asset is found, then it is both
-stored in the cache and returned to the user.</span></p>
+<p class=MsoNormal><span lang=EN>When OpenSimulator requires an asset (e.g. in
+response to a viewer request for a notecard), then it first asks the cache for
+this data. If the data is not found in the cache, then it asks the grid asset
+service (or possibly a foreign asset service in the case of Hypergrid). If the
+asset is found, then it is both stored in the cache and returned to the user.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>If
-an asset is uploaded to OpenSimulator (e.g. by the viewer uploading an
-animation), then the asset is immediately both kept in cache (if there is room
-and the asset is not temporary) and sent to the asset service (if the asset is
-not temporary).</span></p>
+<p class=MsoNormal><span lang=EN>If an asset is uploaded to OpenSimulator (e.g.
+by the viewer uploading an animation), then the asset is immediately both kept
+in cache (if there is room and the asset is not temporary) and sent to the
+asset service (if the asset is not temporary).</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Therefore,
-at any point you can wipe any temporary data stored by the asset cache (e.g. on
-the filesystem), since the next request for that asset will simply query the
-asset service as the asset will not be found in cache.</span></p>
+<p class=MsoNormal><span lang=EN>Therefore, at any point you can wipe any
+temporary data stored by the asset cache (e.g. on the filesystem), since the
+next request for that asset will simply query the asset service as the asset
+will not be found in cache.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>

@@ -35,7 +35,7 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 h1
 	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
@@ -47,30 +47,30 @@ h1
 	border:none;
 	padding:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	background:#DEEAF6;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:#0563C1;
 	text-decoration:underline;}
-p
-	{margin-right:0in;
-	margin-left:0in;
-	line-height:115%;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -78,21 +78,14 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#5B9BD5;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
@@ -109,231 +102,182 @@ text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-lang=EN>Hypergrid and Domain Name Setup</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><a name="_Hlk20139849"><span
-lang=EN style='font-family:"Verdana",sans-serif'>Hypergrid requires a DNS name
-or a Public IP. You can register  and use your own domain, or use your routers
-public IP, or use the Outworldz system’s’ free Dynamic DNS system (DYN DNS). </span></a></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><img width=423 height=363
-id="Picture 1" src="DNS_files/image001.png"></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>DNS name:  </span></b><span lang=EN style='font-family:
-"Verdana",sans-serif'>For a Free Dynamic DNS name, use the format &quot;somename.outworldz.net&quot;
-or “Somename.inworldz.net”. You can a;so just make up a name, so choose a name
-and add  &quot;.outworldz.net&quot; or “.inworldz.net”.   For domain names, the
-letters, numbers a-z, digits 0-9 and a dash (-) are the only allowed
-characters.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>You may add an alternate name to be registered in the dynamic
-DNS system. This is typically used for the WWW function in Apache’s web server.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>Do not add anything else other than a name, periods ‘.’ and
-either ‘inworldz.net’, or ‘.outworldz.net’.  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>IP addresses may be used.  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>If blank, the PC's LAN address will be used.  Hypergrid
-will not be available, but other LAN PC's will be able to connect.  This is
-ideal for schools and other types of private work grids.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Running on the LAN only</span></b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>When there is no network connection, such as when
-travelling, use localhost, or 127.0.0.1.  These allow only the viewer on the
-server to connect.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>DynDNS Password</span></b><span lang=EN style='font-family:
-"Verdana",sans-serif'>: This is a random number that may be used to keep your
-DNS Name from being used by others.  It is first come, first served.   Your
-password must be copied from one installation to another to use the same DYN
-DNS name.  If you need help with this, or wish to delete your DNS name, please
-email me at </span><a href="mailto:fred@outworldz.net"><span lang=EN
-style='font-family:"Verdana",sans-serif;color:black'><span style='color:black'>fred@outworldz.net</span></span></a><span
-lang=EN style='font-family:"Verdana",sans-serif'>.  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Enable Hypergrid</span></b><span lang=EN
-style='font-family:"Verdana",sans-serif'>:  If unchecked, the Hypergrid will
-not be available. The grid will be only a Private Grid, with access possible
-only by logging into the grid directly.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Enable My Suitcase</span></b><span lang=EN
-style='font-family:"Verdana",sans-serif'>:  If checked, Hypergrid travel uses a
-viewer suitcase. The purpose of the Suitcase is to prevent a foreign
-&quot;rogue&quot; grid from stealing your inventory while you are visiting.  
-However, any items in your suitcase are exposed to other grids.  you can only
-rez or give items in other grids that are already in your suitcase.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>The My Suitcase folder is special: it is the folder tree
-that receives objects you collect while you are visiting other grids. But now
-it is even more special: it is the&nbsp;<b>only</b>&nbsp;folder tree that is
-accessible to you (and therefore to the rest of the Internet) while you are
-traveling. Period</span><span style='font-size:10.5pt;line-height:115%;
-font-family:"Helvetica",sans-serif;color:#444444;background:white'>.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>If you disable the suitcase by unchecking this box, as
-OsGrid does, you will be able to rez and give items while on other grids from
-anywhere in your inventory.   Items you take or are given will still end up in
-your suitcase.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Next Name</span></b><span lang=EN style='font-family:
-"Verdana",sans-serif'>: to use the free Outworldz Dynamic DNS, click &quot;Next
-Name&quot; to get a name.  The Dreamgrid Dynamic DNS system will automatically
-register your PC's ever-changing IP address and keep your sim running.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Test DNS</span></b><span lang=EN style='font-family:"Verdana",sans-serif'>: 
-Will register the DNS name and check that it is resolvable. The result should
-be the Public IP address of your router.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>&nbsp;</span></p>
-
 <div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5'>
 
-<h1><span lang=EN>Troubleshooting Network:</span></h1>
+<h1><a name="OLE_LINK7"></a><a name="_Hlk96092919"><span lang=EN>Hypergrid and
+Domain Name Setup</span></a></h1>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'>1) Go back to running
-locally.&nbsp; Set the DNS name or IP to 127.0.0.1 and press Save.</p>
+<p class=MsoNormal><a name="_Hlk20139849"><span lang=EN>Hypergrid requires a
+DNS name or a Public IP. You can register and use your own domain, or use your
+routers public IP, or use the Outworldz system’s’ free Dynamic DNS system (DYN
+DNS). </span></a></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'>Start the grid up.</p>
+<p class=MsoNormal><img width=423 height=363 id="Picture 1"
+src="DNS_files/image001.png"></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'>2) Now that the grid is running,
-use http://www.canyouseeme.org on port 8002 to verify your router has ports
+<p class=MsoNormal><b><span lang=EN>DNS name:  </span></b><span lang=EN>For a
+Free Dynamic DNS name, use the format &quot;somename.outworldz.net&quot; or
+“Somename.inworldz.net”. You can a;so just make up a name, so choose a name and
+add  &quot;.outworldz.net&quot; or “.inworldz.net”.   For domain names, the
+letters, numbers a-z, digits 0-9 and a dash (-) are the only allowed
+characters.</span></p>
+
+<p class=MsoNormal><span lang=EN>You may add an alternate name to be registered
+in the dynamic DNS system. This is typically used for the WWW function in
+Apache’s web server.</span></p>
+
+<p class=MsoNormal><span lang=EN>Do not add anything else other than a name,
+periods ‘.’ and either ‘inworldz.net’, or ‘.outworldz.net’.  </span></p>
+
+<p class=MsoNormal><span lang=EN>IP addresses may be used.  </span></p>
+
+<p class=MsoNormal><span lang=EN>If blank, the PC's LAN address will be used. 
+Hypergrid will not be available, but other LAN PC's will be able to connect. 
+This is ideal for schools and other types of private work grids.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><span lang=EN style='color:black'>Running on the LAN only</span></h2>
+
+</div>
+
+<p class=MsoNormal><span lang=EN>When there is no network connection, such as
+when travelling, use localhost, or 127.0.0.1.  These allow only the viewer on
+the server to connect.</span></p>
+
+<p class=MsoNormal><b><span lang=EN>DynDNS Password</span></b><span lang=EN>:
+This is a random number that may be used to keep your DNS Name from being used
+by others.  It is first come, first served.   Your password must be copied from
+one installation to another to use the same DYN DNS name.  If you need help
+with this, or wish to delete your DNS name, please email me at </span><a
+href="mailto:fred@outworldz.net"><span lang=EN>fred@outworldz.net</span></a><span
+lang=EN>.  </span></p>
+
+<p class=MsoNormal><b><span lang=EN>Enable Hypergrid</span></b><span lang=EN>: 
+If unchecked, the Hypergrid will not be available. The grid will be only a
+Private Grid, with access possible only by logging into the grid directly.</span></p>
+
+<p class=MsoNormal><b><span lang=EN>Enable My Suitcase</span></b><span lang=EN>: 
+If checked, Hypergrid travel uses a viewer suitcase. The purpose of the
+Suitcase is to prevent a foreign &quot;rogue&quot; grid from stealing your
+inventory while you are visiting.   However, any items in your suitcase are
+exposed to other grids.  you can only rez or give items in other grids that are
+already in your suitcase.</span></p>
+
+<p class=MsoNormal><span lang=EN>The My Suitcase folder is special: it is the
+folder tree that receives objects you collect while you are visiting other
+grids. But now it is even more special: it is the&nbsp;<b>only</b>&nbsp;folder
+tree that is accessible to you (and therefore to the rest of the Internet)
+while you are traveling. Period</span><span style='font-size:10.5pt;line-height:
+115%;font-family:"Helvetica",sans-serif;color:#444444;background:white'>.</span></p>
+
+<p class=MsoNormal><span lang=EN>If you disable the suitcase by unchecking this
+box, as OsGrid does, you will be able to rez and give items while on other
+grids from anywhere in your inventory.   Items you take or are given will still
+end up in your suitcase.</span></p>
+
+<p class=MsoNormal><b><span lang=EN>Next Name</span></b><span lang=EN>: to use
+the free Outworldz Dynamic DNS, click &quot;Next Name&quot; to get a name.  The
+Dreamgrid Dynamic DNS system will automatically register your PC's
+ever-changing IP address and keep your sim running.</span></p>
+
+<p class=MsoNormal><b><span lang=EN>Test DNS</span></b><span lang=EN>:  Will
+register the DNS name and check that it is resolvable. The result should be the
+Public IP address of your router.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><span lang=EN style='color:black'>Troubleshooting Network:</span></h2>
+
+</div>
+
+<p class=MsoNormal>1) Go back to running locally.&nbsp; Set the DNS name or IP
+to 127.0.0.1 and press Save.</p>
+
+<p class=MsoNormal>Start the grid up.</p>
+
+<p class=MsoNormal>2) Now that the grid is running, use
+http://www.canyouseeme.org on port 8002 to verify your router has ports
 forwarded.&nbsp; if not, work on the router/firewalls so you can see the
 Opensim Robust service on 8002.</p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'>3)&nbsp;&nbsp; Try to get to that same IP address plus :8002 in a web
-browser from the server. My IP was 24.173.0.66, so I would try
+<p class=MsoNormal>3)&nbsp;&nbsp; Try to get to that same IP address plus :8002
+in a web browser from the server. My IP was 24.173.0.66, so I would try
 http://24.173.0.66:8002</p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'>If you get no web page, your router does not support loopback.</p>
+<p class=MsoNormal>If you get no web page, your router does not support
+loopback.</p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'>4)Add the Windows Device driver for loopback. Use the exact same IP
-address that http://www.canyouseeme.org reported.&nbsp; This is what mine looks
-like</p>
+<p class=MsoNormal>4)Add the Windows Device driver for loopback. Use the exact
+same IP address that http://www.canyouseeme.org reported.&nbsp; This is what
+mine looks like</p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'><img border=0
-width=400 height=455 src="DNS_files/image002.png"></span></b></p>
+<p class=MsoNormal><span lang=EN><img border=0 width=400 height=455
+src="DNS_files/image002.png"></span></p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'><br>
+<p class=MsoNormal><br>
 <br>
-<span style='font-family:"Verdana",sans-serif;color:black;background:white'>1.
-Click Start, then type cmd in the search box.</span><span style='font-family:
-"Verdana",sans-serif;color:black'><br>
-<span style='background:white'>2. In the command prompt, type hdwwiz.exe and
-press Enter.</span><br>
-<span style='background:white'>3. Click Next.</span><br>
-<span style='background:white'>4. Select Install the hardware that I manually
-select from a list (Advanced), then click Next.</span><br>
-<span style='background:white'>5. Select Network adapters, then click Next.</span><br>
-<span style='background:white'>6. Select Microsoft as the manufacturer, select
-Microsoft KM-TEST Loopback Adapter as the adapter for Windows10 , then click
-Next.</span><br>
-<span style='background:white'>7. Select Next to confirm the installation.</span><br>
-<span style='background:white'>9. Select Finish to complete the installation.</span><br>
+<span style='color:black;background:white'>1. Click Start, then type cmd in the
+search box.</span><br>
+<span style='color:black;background:white'>2. In the command prompt, type
+hdwwiz.exe and press Enter.</span><br>
+<span style='color:black;background:white'>3. Click Next.</span><br>
+<span style='color:black;background:white'>4. Select Install the hardware that
+I manually select from a list (Advanced), then click Next.</span><br>
+<span style='color:black;background:white'>5. Select Network adapters, then
+click Next.</span><br>
+<span style='color:black;background:white'>6. Select Microsoft as the
+manufacturer, select Microsoft KM-TEST Loopback Adapter as the adapter for
+Windows10 , then click Next.</span><br>
+<span style='color:black;background:white'>7. Select Next to confirm the installation.</span><br>
+<span style='color:black;background:white'>9. Select Finish to complete the
+installation.</span><br>
 <br>
-<span style='background:white'>To configure the newly created adapter:</span><br>
+<span style='color:black;background:white'>To configure the newly created
+adapter:</span><br>
 <br>
-<span style='background:white'>1. Click Start &gt; Control Panel &gt; Network
-Connections.</span><br>
-<span style='background:white'>2,. Select the newly created connection (named
-Local Area Connection #, where # is its order number).</span><br>
-<span style='background:white'>4. Right-click on the selected connection and
-choose Properties from the menu.</span><br>
-<span style='background:white'>4. Confirm that Microsoft Loopback Adapter or
-Microsoft Loopback Adapter # is displayed in the Connect Using: field.</span><br>
-<span style='background:white'>5. If it is not, return to step 2 and retry
-properties for another adapter.</span><br>
-<span style='background:white'>7. Select Internet Protocol IPV4 and click
-Properties to open Internet Protocol (TCP/IP) Properties.</span><br>
-<span style='background:white'>8. Select Use the following IP address. Fill in
-the IP address and Subnet mask fields.</span><br>
+<span style='color:black;background:white'>1. Click Start &gt; Control Panel
+&gt; Network Connections.</span><br>
+<span style='color:black;background:white'>2,. Select the newly created
+connection (named Local Area Connection #, where # is its order number).</span><br>
+<span style='color:black;background:white'>4. Right-click on the selected
+connection and choose Properties from the menu.</span><br>
+<span style='color:black;background:white'>4. Confirm that Microsoft Loopback
+Adapter or Microsoft Loopback Adapter # is displayed in the Connect Using:
+field.</span><br>
+<span style='color:black;background:white'>5. If it is not, return to step 2
+and retry properties for another adapter.</span><br>
+<span style='color:black;background:white'>7. Select Internet Protocol IPV4 and
+click Properties to open Internet Protocol (TCP/IP) Properties.</span><br>
+<span style='color:black;background:white'>8. Select Use the following IP
+address. Fill in the IP address and Subnet mask fields.</span><br>
 <br>
-<span style='background:white'>Example: 10.10.10.10, 255.255.255.0 &lt;=====But
-use the IP address shown by http://www.canyouseeme.org</span><br>
+<span style='color:black;background:white'>Example: 10.10.10.10, 255.255.255.0
+&lt;=====But use the IP address shown by http://www.canyouseeme.org</span><br>
 <br>
-<span style='background:white'>9. Click OK to close the Internet Protocol
-(TCP/IP) Properties.</span><br>
-<span style='background:white'>10. Click OK to close the connection properties.</span><br>
-<span style='background:white'>11. Right click the Microsoft Driver and rename
-it to just &quot;Loopback&quot;. DreamGrid will automatically update the driver
-if your Public IP changes.</span></span></p>
+<span style='color:black;background:white'>9. Click OK to close the Internet
+Protocol (TCP/IP) Properties.</span><br>
+<span style='color:black;background:white'>10. Click OK to close the connection
+properties.</span><br>
+<span style='color:black;background:white'>11. Right click the Microsoft Driver
+and rename it to just &quot;Loopback&quot;. DreamGrid will automatically update
+the driver if your Public IP changes.</span></p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'><span style='font-family:"Verdana",sans-serif;color:black;background:
-white'>12. &nbsp; You should be able to reach your grid at the IP Address:8002
-now.&nbsp;&nbsp; If so, you can now go back to the HyperGrid Setting and choose
-a DNS name. </span></p>
+<p class=MsoNormal><span style='color:black;background:white'>12. &nbsp; You
+should be able to reach your grid at the IP Address:8002 now.&nbsp;&nbsp; If
+so, you can now go back to the Hypergrid Setting and choose a DNS name. </span></p>
 
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in'><span style='font-family:"Verdana",sans-serif;color:black;background:
-white'>&nbsp;</span></p>
+<p class=MsoNormal><span style='background:white'>&nbsp;</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>links:</span></p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><a
-href="http://www.canyouseeme.org/"><span lang=EN style='font-family:"Verdana",sans-serif;
-color:black'><span style='color:black'>http://www.canyouseeme.org</span></span></a></p>
+<h2><span lang=EN style='color:black'>links:</span></h2>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>&nbsp;</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>&nbsp;</span></p>
+<p class=MsoNormal><a href="http://www.canyouseeme.org"><span lang=EN>http://www.canyouseeme.org</span></a></p>
 
 </div>
 

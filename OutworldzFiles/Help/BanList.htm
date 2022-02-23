@@ -19,6 +19,9 @@
 	{font-family:"Calibri Light";
 	panose-1:2 15 3 2 2 2 4 3 2 4;}
 @font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
 	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
  /* Style Definitions */
@@ -29,7 +32,7 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 h1
 	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
@@ -41,20 +44,26 @@ h1
 	border:none;
 	padding:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	background:#DEEAF6;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:#0563C1;
@@ -66,21 +75,14 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#5B9BD5;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
@@ -89,152 +91,139 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
+<body lang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='text-align:center'>Ban Lists</p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5'>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>Bans
-can be set for Grids, IP addresses, Viewers, and MAC addresses.  MAC addresses
-are a serial number found in Ethernet cards.    These bans shut off incoming
-traffic by using Opensim Robust capabilities, and by adding entries to the
-Windows Firewall.  They are not a total solution but can work in many cases.  
-This may not be effective as the login name can be changed, the Viewer Name can
-be tweaked, they may have another PC with a different MAC or they may have changes
-it, and the IP may change by the ISP or come from a VPN.    People who bypass
-this DRM restriction are breaking into a computer, which is a felony, so
-penalties far beyond copyright laws could apply.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><img width=624 height=251
-id="Picture 1" src="BanList_files/image001.png"></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><u><span style='font-family:
-"Times New Roman",serif'>Note that # is a Comment</span></u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>Settings
-go into effect when </span>you save the screen<span style='font-family:"Times New Roman",serif'>
-after making changes.  For OsGrid, Metro and region servers, only IP bans will
-work since no robust is running on your Region server.  </span></p>
-
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:.5in;margin-right:0in'>
-
-<h1 style='background:#5B9BD5'>Getting Ban Data</h1>
+<h1><a name="OLE_LINK3">Ban Lists</a></h1>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>You
-can get the Login Name and Grid http://name:port, IP address, and MAC address
-of people from the Robust log as it happens. You can also look in the menu
-system at Help -&gt;View Logs-&gt;Robust to view the log with Baretail.exe.</span></p>
+<p class=MsoNormal>Bans can be set for Grids, IP addresses, Viewers, and MAC
+addresses.  MAC addresses are a serial number found in Ethernet cards.    These
+bans shut off incoming traffic by using Opensim Robust capabilities, and by
+adding entries to the Windows Firewall.  They are not a total solution but can
+work in many cases.   This may not be effective as the login name can be
+changed, the Viewer Name can be tweaked, they may have another PC with a
+different MAC or they may have changes it, and the IP may change by the ISP or
+come from a VPN.    People who bypass this DRM restriction are breaking into a
+computer, which is a felony, so penalties far beyond copyright laws could
+apply.</p>
 
-<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Times New Roman",serif'>Its
-is best to run the Robust log with log level set to INFO.</span></b></p>
+<p class=MsoNormal><img width=624 height=251 id="Picture 1"
+src="BanList_files/image001.png"></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>A
-typical Robust Log entry would be as follows: (highlights are mine)</span></p>
+<p class=MsoNormal><b><u><span style='font-family:"Times New Roman",serif'>Note
+that # is a Comment</span></u></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Courier New"'>INFO 
-(104) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER
-SERVICE]: Login request for Jo.Blow@<b><u> www.xyz.com</u></b>:8002 @ http://<u>www.xyz.com</u>:8002/
-(3be47575-06dd-46b0-8637-87a8967c432c) at ab8d7770-3782-21e4-8c41-1813211c9b88
-using viewer <b><u>Firestorm-Releasex64 5.2.8.58205</u></b>, channel
-Firestorm-Releasex64, IP <b><u>52.8.203.221</u></b>, Mac <b><u>d5af8bee7e6a265c41e729416d570f57</u></b>,
-Id0 dac5b5d03d9bbe2225d2c91c3238d59f, Teleport Flags: ViaLogin. From region Her
-Place (2c53df18-143f-4340-ae73-f2885d9694d8) @ <a
-href="http://grid.nope.com:8002/"><span style='color:black'><span
-style='color:black'>http://grid.nope.com:8002/</span></span></a></span></p>
+<p class=MsoNormal>Settings go into effect when you save the screen after
+making changes.  For OsGrid, Metro and region servers, only IP bans will work
+since no robust is running on your Region server.  </p>
 
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<h1 style='background:#5B9BD5'>Grid Ban</h1>
+<h2><span style='color:black'>Getting Ban Data</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Times New Roman",serif'> </span></b><span
-style='font-family:"Times New Roman",serif'>To ban the grid that the avatar who
-originally logged  on, add <b><a href="http://www.xyz.com:8002/"><span
-style='color:black'><span style='color:black'>http://www.xyz.com</span></span><span
-style='color:black;font-weight:normal'><span style='color:black'>:8002</span></span></a></b>.
-The “http://” and “:port” number is required.</span></p>
+<p class=MsoNormal>You can get the Login Name and Grid http://name:port, IP
+address, and MAC address of people from the Robust log as it happens. You can
+also look in the menu system at Help -&gt;View Logs-&gt;Robust to view the log
+with Baretail.exe.</p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>To
-ban the grid that the avatar teleported from (not necessarily her home grid) ,
-add <b><a href="http://grid.nope.com:8002/"><span style='color:black'><span
-style='color:black'>http://grid.nope.com</span></span><span style='color:black;
-font-weight:normal'><span style='color:black'>:8002</span></span></a></b>. The
-“http://” and “:port” number is required.</span></p>
+<p class=MsoNormal><b>Its is best to run the Robust log with log level set to
+INFO.</b></p>
 
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:.5in;margin-right:0in'>
+<p class=MsoNormal>A typical Robust Log entry would be as follows: (highlights are
+mine)</p>
 
-<h1 style='background:#5B9BD5'>IP Ban</h1>
+<p class=MsoNormal><span style='font-family:"Courier New"'>INFO  (104) - OpenSim.Services.HypergridService.GatekeeperService
+[GATEKEEPER SERVICE]: Login request for Jo.Blow@<b><u> www.xyz.com</u></b>:8002
+@ http://<u>www.xyz.com</u>:8002/ (3be47575-06dd-46b0-8637-87a8967c432c) at
+ab8d7770-3782-21e4-8c41-1813211c9b88 using viewer <b><u>Firestorm-Releasex64
+5.2.8.58205</u></b>, channel Firestorm-Releasex64, IP <b><u>52.8.203.221</u></b>,
+Mac <b><u>d5af8bee7e6a265c41e729416d570f57</u></b>, Id0
+dac5b5d03d9bbe2225d2c91c3238d59f, Teleport Flags: ViaLogin. From region Her
+Place (2c53df18-143f-4340-ae73-f2885d9694d8) @ </span><a
+href="http://grid.nope.com:8002/"><span style='font-family:"Courier New"'>http://grid.nope.com:8002/</span></a></p>
 
-</div>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>To
-ban an IP, add the IP  like this:  52.8.203.221.    You can also add a /24 to
-the end to ban all IP addresses in the same range of 256 IP addresses. Use IP
-“52.8.203.0/24” to ban all users from IP 52.8.203.0 to IP 52.8.203.255.</span></p>
-
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:.5in;margin-right:0in'>
-
-<h1 style='background:#5B9BD5'>MAC Address Ban</h1>
+<h2><span style='color:black'>Grid Ban</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Times New Roman",serif'> 
-</span></b><span style='font-family:"Times New Roman",serif'>To ban a PC by the
-Ethernet card MAC address, add the MAC address from the robust log: “<b>d5af8bee7e6a265c41e729416d570f57</b>”.   
-</span></p>
+<p class=MsoNormal><b> </b>To ban the grid that the avatar who originally
+logged  on, add <a href="http://www.xyz.com:8002"><b><span style='font-family:
+"Times New Roman",serif'>http://www.xyz.com</span></b><span style='font-family:
+"Times New Roman",serif'>:8002</span></a>. The “http://” and “:port” number is
+required.</p>
 
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:.5in;margin-right:0in'>
+<p class=MsoNormal>To ban the grid that the avatar teleported from (not
+necessarily her home grid) , add <a href="http://grid.nope.com:8002"><b><span
+style='font-family:"Times New Roman",serif'>http://grid.nope.com</span></b><span
+style='font-family:"Times New Roman",serif'>:8002</span></a>. The “http://” and
+“:port” number is required.</p>
 
-<h1 style='background:#5B9BD5'>Viewer Ban</h1>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-</div>
-
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>To
-ban a specific  viewer, add the name and Revision. “Firestorm-Releasex64
-5.2.8.58205”.  To ban all version 5 Firestorms, add “Firestorm-Releasex64 5”. </span></p>
-
-<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
-margin-left:31.5pt;margin-right:0in'>
-
-<h1 style='background:#5B9BD5'>Copybot Viewers</h1>
+<h2><span style='color:black'>IP Ban</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>To
-ban old copybot viewers such as Darkstorm, add “Firestorm-Releasex64 5.0.11”. 
-These old viewers are rarely in use, except by copybotters.</span></p>
+<p class=MsoNormal>To ban an IP, add the IP  like this:  52.8.203.221.    You
+can also add a /24 to the end to ban all IP addresses in the same range of 256
+IP addresses. Use IP “52.8.203.0/24” to ban all users from IP 52.8.203.0 to IP
+52.8.203.255.</p>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=616 height=184 id="Picture 3" src="BanList_files/image002.jpg"></span></p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>There
-are several ways get data to ban by viewer. One way is to look in the Stats for
-your Welcome region.  Another is to copy and paste it from the robust screen,
-or robust.log.    Click your Welcome region in the Regions menu, then select
-the Statistics Button.  This screen shows the “Sessions” tab, so you can see if
-someone is still using an old viewer recently. If so, they are a candidate to
-be a copybotter. </span></p>
+<h2><span style='color:black'>MAC Address Ban</span></h2>
 
-<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Times New Roman",serif'>There
-is a Analyze Log button in the Log settings that will show you all MAC and Disk
-ID0’s that were seen.</span></p>
+</div>
 
-<p class=MsoNormal style='margin-left:4.5pt'><s><span style='font-family:"Times New Roman",serif'><span
- style='text-decoration:none'>&nbsp;</span></span></s></p>
+<p class=MsoNormal><b>  </b>To ban a PC by the Ethernet card MAC address, add
+the MAC address from the robust log: “<b>d5af8bee7e6a265c41e729416d570f57</b>”.   
+</p>
 
-<p class=MsoNormal style='margin-left:4.5pt'><s><span style='font-family:"Times New Roman",serif'><span
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><span style='color:black'>Viewer Ban</span></h2>
+
+</div>
+
+<p class=MsoNormal>To ban a specific viewer, add the name and Revision.
+“Firestorm-Releasex64 5.2.8.58205”.  To ban all version 5 Firestorms, add
+“Firestorm-Releasex64 5”. </p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><span style='color:black'>Copybot Viewers</span></h2>
+
+</div>
+
+<p class=MsoNormal>To ban old copybot viewers such as DarkStorm, add
+“Firestorm-Releasex64 5.0.11”.  These old viewers are rarely in use, except by
+copybotters.</p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'><img
+border=0 width=616 height=185 id="Picture 3" src="BanList_files/image002.jpg"></span></p>
+
+<p class=MsoNormal>There are several ways get data to ban by viewer. One way is
+to look in the Stats for your Welcome region.  Another is to copy and paste it
+from the robust screen, or robust.log.    Click your Welcome region in the
+Regions menu, then select the Statistics Button.  This screen shows the
+“Sessions” tab, so you can see if someone is still using an old viewer
+recently. If so, they are a candidate to be a copybotter. </p>
+
+<p class=MsoNormal>There is a Analyze Log button in the Log settings that will
+show you all MAC and Disk ID0’s that were seen.</p>
+
+<p class=MsoNormal><s><span style='font-family:"Times New Roman",serif'><span
  style='text-decoration:none'>&nbsp;</span></span></s></p>
 
 </div>

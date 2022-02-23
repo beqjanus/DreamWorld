@@ -10,9 +10,6 @@
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
  /* Style Definitions */
@@ -23,7 +20,7 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 h1
 	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
@@ -35,8 +32,23 @@ h1
 	border:none;
 	padding:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
@@ -47,6 +59,12 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -64,117 +82,90 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1>Migration From Dreamworld To Dreamgrid</h1>
+<h1><a name="OLE_LINK9">Migration From Dreamworld To Dreamgrid</a></h1>
 
 </div>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+<p class=MsoNormal>Migrating from a Standalone Dreamworld to a Gridded Dreamgrid
+requires you to take special steps.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Migrating
-from a Standalone Dreamworld to a Gridded Dreamgrid requires you to take
-special steps.</span></p>
+<p class=MsoNormal>Start your original Dreamworld.  Dump the database by
+clicking the Content-&gt; Backup Database menu. This makes a backup in the
+AutoBackup folder in the Standalone Dreamworld.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Start
-your original Dreamworld.  Dump the database by clicking the Content-&gt;
-Backup Database menu. This makes a backup in the AutoBackup folder in the
-Standalone Dreamworld.</span></p>
+<p class=MsoNormal>Created a new DreamGrid, but before you start, set the
+robust name to opensim and the robust userid to opensimuser and the robust
+password to opensimpassword. These are the same as in the lower section for the
+Regions database.  Also fill in the various Setting menus for the name and
+ports to match the original Standalone Dreamworld.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Created
-a new DreamGrid, but before you start, set the robust name to opensim and the
-robust userid to opensimuser and the robust password to opensimpassword. These
-are the same as in the lower section for the Regions database.  Also fill in
-the various Setting menus for the name and ports to match the original
-Standalone Dreamworld.</span></p>
+<p class=MsoNormal>Then click [Start]. This boots Mysql on the new grid. It will
+start Robust and a new Welcome region (even if it has the same name, it has a
+random UUID so will be different). Then shut the grid down gracefully by
+clicking [Stop]. This left the DreamGrid menu enabled and MySQL running.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Then
-click [Start]. This boots Mysql on the new grid. It will start Robust and a new
-Welcome region (even if it has the same name, it has a random UUID so will be
-different). Then shut the grid down gracefully by clicking [Stop]. This left
-the DreamGrid menu enabled and MySQL running.</span></p>
+<p class=MsoNormal>Navigate to the DreamGrid’s Content-&gt;Restore Database
+menu and browse to the original Dreamworld's AutoBackup folder. Click the .sql
+file you just made. This will load the OpenSim.sql file into the new grid.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Navigate
-to the DreamGrid’s Content-&gt;Restore Database menu and browse to the original
-Dreamworld's AutoBackup folder. Click the .sql file you just made. This will
-load the OpenSim.sql file into the new grid.</span></p>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
-
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
-
-<h1 style='background:#4472C4'>Region Files</h1>
+<h2><span style='color:black'>Region Files</span></h2>
 
 </div>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'><br>
+<p class=MsoNormal><br>
 You will need to move your region.ini file. You cannot just copy them over in a
-file explorer unless you make a special pattern of folders.</span></p>
+file explorer unless you make a special pattern of folders.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Open
-the Region Panel with Ctr-R, or go to Setting-&gt;Region. Delete the existing
-Welcome region.<br>
+<p class=MsoNormal>Open the Region Panel with Ctr-R or go to
+Setting-&gt;Region. Delete the existing Welcome region.<br>
 <br>
-Now click Import and browse to the Opensim\bin\regionb folder in the OLD
-dreamworld and import them one at a time.</span></p>
+Now click Import and browse to the Opensim\bin\region folder in the OLD
+dreamworld and import them one at a time.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>There
-will be anywhere from one to many Region.INI files in your old system. There is
-no need to load from OAR files.</span></p>
+<p class=MsoNormal>There will be anywhere from one-t-any Region.INI files in
+your old system. There is no need to load from OAR files.</p>
 
-<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
-color:black'><br clear=all style='page-break-before:always'>
-</span>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+<p class=MsoNormal>Use the Import button and locate the original Dreamworld
+location on your disk.&nbsp;&nbsp;&nbsp; Look in
+Outworldsfiles\Opensim\bin\Regions.&nbsp;&nbsp; If you are running 0.9.0, look
+in Outworldsfiles\Opensim-0.9\bin\Regions</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+<p class=MsoNormal><img width=490 height=183 id="Picture 1"
+src="Migrating%20To%20DreamGrid_files/image001.jpg" alt="Drag and Drop Regions">&nbsp;</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'><img
-width=494 height=500 id="Picture 2"
-src="Migrating%20To%20DreamGrid_files/image001.jpg"
-alt="DreamGrid Region Control Panel"></span></p>
+<p class=MsoNormal>Yes:&nbsp;If you answer Yes, a Chooser dialog will appear.
+You must choose which region you want to combine your new region with. This
+places both regions into a single DOS box.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Use
-the windows explorer and navigate to the original Dreamworld location on your
-disk.&nbsp;&nbsp;&nbsp; Look in Outworldsfiles\Opensim\bin\Regions.&nbsp;&nbsp;
-If you are running 0.9.0, look in
-Outworldsfiles\Opensim-0.9\bin\Regions.&nbsp;&nbsp; Left click each region, one
-at a time, and drag and drop it onto the Regions panel.</span></p>
+<p class=MsoNormal>No:&nbsp;If you answer No, you will get a different DOS box
+when this region starts.</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'><img
-width=490 height=183 id="Picture 1"
-src="Migrating%20To%20DreamGrid_files/image002.jpg" alt="Drag and Drop Regions"></span><span
-style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+<p class=MsoNormal>You should limit the number of DOS boxes by combining your
+regions into logical groups.&nbsp;&nbsp; A typical system will run 4 to 8 such
+groups.&nbsp; You can run more, but you will pay a penalty in RAM use for each
+box.&nbsp;&nbsp;</p>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Yes:&nbsp;If
-you answer Yes, a Chooser dialog will appear. You must chose which region you
-want to combine your new region with. This places both regions into a single
-DOS box.</span></p>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>No:&nbsp;If
-you answer No, you will get a different DOS box when this region starts.</span></p>
+<h2><span style='color:black'>Starting Up</span></h2>
 
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>You
-should limit the number of DOS boxes by combining your regions into logical
-groups.&nbsp;&nbsp; A typical system will run 4 to 8 such groups.&nbsp; You can
-run more, but you will pay a penalty in RAM use for each box.&nbsp;&nbsp;</span></p>
+</div>
 
-<p class=MsoNormal>Starting Up</p>
-
-<p class=MsoNormal><span style='font-family:"Verdana",sans-serif;color:black'>Now
-click [Start] to boot the new grid. You can log in with the Standalone grids
-user names at this point. Your inventory should be there. The regions will
-appear.</span></p>
+<p class=MsoNormal>Now click [Start] to boot the new grid. You can log in with
+the Standalone grids user names at this point. Your inventory should be there.
+The regions will appear.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 

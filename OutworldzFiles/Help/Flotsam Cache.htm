@@ -12,9 +12,6 @@
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -40,15 +37,21 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -57,13 +60,13 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -82,17 +85,17 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-lang=EN>Flotsam Cache Settings</span></p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1><a name="OLE_LINK10"><span lang=EN>Flotsam Cache Settings</span></a></h1>
+
+</div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
@@ -105,9 +108,9 @@ responsiveness.  </span></p>
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
 width=576 height=275 id="Picture 1" src="Flotsam%20Cache_files/image001.png"></span></p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h1 style='background:#4472C4'>Flotsam asset cache</h1>
+<h2><span style='color:black'>Flotsam asset cache</span></h2>
 
 </div>
 
@@ -124,9 +127,9 @@ cached assets from the filesystem), by console commands (e.g. &quot;fcache
 clear&quot;) or by timeout settings (e.g. FileCacheTimeout = 1 to automatically
 remove cache files not accessed for 1 hours). </span></p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h1 style='background:#4472C4'>General principles</h1>
+<h2><span style='color:black'>General principles</span></h2>
 
 </div>
 
@@ -152,12 +155,7 @@ stored by the asset cache (e.g., on the filesystem), since the next request for
 that asset will simply query the asset service as the asset will not be found
 in cache.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
-background:white'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Times New Roman",serif;
+<p class=MsoNormal style='margin-right:.5in'><b><span style='font-family:"Times New Roman",serif;
 background:white'>&nbsp;</span></b></p>
 
 </div>

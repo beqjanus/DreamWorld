@@ -13,11 +13,8 @@
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -26,7 +23,7 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 h1
 	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
@@ -38,7 +35,7 @@ h1
 	border:none;
 	padding:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
@@ -54,19 +51,10 @@ h2
 	border:none;
 	padding:0in;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
-	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:blue;
@@ -78,7 +66,7 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	margin-left:.5in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
 	{margin-top:5.0pt;
 	margin-right:0in;
@@ -86,7 +74,7 @@ p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphC
 	margin-left:.5in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
 	{margin-top:0in;
 	margin-right:0in;
@@ -94,7 +82,7 @@ p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagrap
 	margin-left:.5in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
 	{margin-top:0in;
 	margin-right:0in;
@@ -102,7 +90,7 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	margin-left:.5in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -118,13 +106,6 @@ span.Heading2Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -147,187 +128,153 @@ ul
 -->
 </style>
 
-
 </head>
 
 <body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
 
-
-
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'>Installing
-and Running Joomla and jOpensim</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1><a name="OLE_LINK5">Installing and Running Joomla and jOpensim</a></h1>
+
+</div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Make
-sure Apache is enabled. See the Help file for Apache on how to enable it.  You
-must install the C++ Runtimes.   <br>
+<p class=MsoNormal>Make sure Apache is enabled. See the Help file for Apache on
+how to enable it.  You must install the C++ Runtimes.   <br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Leave
-the Apache Content Manager set at “Diva” to prevent redirects. When you finish
-with Joomla, you can enable JOpensim. This redirects all traffic to your web
-server to Joomla/jOpensim.<br>
+<p class=MsoNormal>Leave the Apache Content Manager set at “Diva” to prevent
+redirects. When you finish with Joomla, you can enable JOpensim. This redirects
+all traffic to your web server to Joomla/jOpensim.<br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle><img width=525 height=266
-src="JOpensim_files/image001.png"
+<p class=MsoNormal><img width=525 height=266 src="JOpensim_files/image001.png"
 alt="Graphical user interface, text, application&#10;&#10;Description automatically generated"></p>
 
-<p class=MsoListParagraphCxSpMiddle><img width=233 height=157
-src="JOpensim_files/image002.png"></p>
+<p class=MsoNormal><img width=233 height=157 src="JOpensim_files/image002.png"></p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+<p class=MsoListParagraph>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpMiddle><br>
-<u>Both the MySQL and Apache icons should be Green.<br>
+<p class=MsoNormal><br>
+Both the MySQL and Apache icons should be Green.<br>
 <br>
-</u></p>
+</p>
 
-<p class=MsoListParagraphCxSpLast style='margin-right:.5in;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Click
-Setup-&gt;Joomla/JOpensim and click the Install Button.   <br>
+<p class=MsoNormal>Click Setup-&gt;Joomla/JOpensim and click the Install Button. 
+ <br>
 <img width=250 height=401 id="Picture 1" src="JOpensim_files/image003.png"
 alt="Graphical user interface&#10;&#10;Description automatically generated">  </p>
 
-<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span>
+<p class=MsoNormal>It will install the files </p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:22.5pt'>It will install
-the files: </p>
+<p class=MsoNormal>You should see the Joomla Setup Page. Fill in the Site Name,
+a short Description, and pick a Super User Account name and password.  Joomla is
+exposed to the public Internet, so be sure that you use a long and secure
+password that you have never used before. Write it down as you will need it
+often!</p>
 
-<p class=MsoListParagraphCxSpFirst style='margin-right:.5in'> </p>
+<p class=MsoNormal><br>
+<img width=605 height=495 id="Picture 3" src="JOpensim_files/image004.png"></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:.5in'>&nbsp;</p>
+<p class=MsoNormal> Press Next</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:.5in;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
-should see the Joomla Setup Page. Fill in the Site Name, a short Description,
-and pick a Super User Account name and password.  Joomla is exposed to the
-public Internet, so be sure that you use a long and secure password that you
-have never used before. Write it down as you will need it often!</p>
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Fill in the Host name as <b>127.0.0.1</b></p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:.5in'><br>
-<img width=415 height=340 id="Picture 3" src="JOpensim_files/image004.png"></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Database name as <b>Joomla</b> </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> Press
-Next</p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Username should be <b>robustuser</b> </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Fill
-in the Host name as <b>127.0.0.1</b></p>
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Password should be <b>robustpassword</b>.</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Database
-name as <b>Joomla</b> </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Username
-should be <b>robustuser</b> </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Password
-should be <b>robustpassword</b>.</p>
-
-<p class=MsoListParagraphCxSpMiddle><br>
+<p class=MsoNormal><br>
 <br>
  <img width=427 height=330 id="Picture 22" src="JOpensim_files/image005.png"></p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Press Next <br>
+<p class=MsoNormal>Press Next <br>
 <br>
 Verify that there are no errors</p>
 
-<p class=MsoListParagraphCxSpMiddle><br>
-<br>
-<img width=432 height=328 src="JOpensim_files/image006.png"> <br>
+<p class=MsoNormal><br>
+<img width=431 height=328 src="JOpensim_files/image006.png"> <br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span> Press Install<br>
+<p class=MsoNormal> Press Install<br>
 <br>
 <img width=387 height=281 id="Picture 7" src="JOpensim_files/image007.png"></p>
 
-<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>12.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Click    <img
-width=128 height=24 id="Picture 8" src="JOpensim_files/image008.png"> <br>
-<br clear=all style='page-break-before:always'>
-</p>
+<p class=MsoNormal>Click    <img width=128 height=24 id="Picture 8"
+src="JOpensim_files/image008.png"> </p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<p class=MsoNormal>&nbsp;</p>
 
-<h1 style='background:#4472C4'>Restore data</h1>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Restore data</span></h2>
 
 </div>
 
-<p class=MsoListParagraphCxSpFirst>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>In
-your web browser go to <a href="http://127.0.0.1/JOpensim/kickstart.php">http://127.0.0.1/JOpensim/kickstart.php</a>,
+<p class=MsoNormal>In your web browser go to <a
+href="http://127.0.0.1/JOpensim/kickstart.php">http://127.0.0.1/JOpensim/kickstart.php</a>,
 or in Setup-&gt;Settings-&gt;Joomla/jOpensim, click the [Restore] button.<br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Press
-&lt;esc&gt; key  to close the warning screen.<br>
+<p class=MsoNormal>Press &lt;esc&gt; key  to close the warning screen.<br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><b>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b>Select
-the latest backup jOpensimBackupV{X}.jpa in the pulldown.</p>
+<p class=MsoNormal>Select the latest backup jOpensimBackupV{X}.jpa in the pulldown.</p>
 
-<p class=MsoListParagraphCxSpMiddle><b>&nbsp;</b></p>
+<b><span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span></b>
 
-<p class=MsoListParagraphCxSpMiddle><b>CAUTION:  There is NO PASSWORD. If your
-browser adds one, please blank it out or the setup will fail.<br>
+<p class=MsoNormal><b>&nbsp;</b></p>
+
+<p class=MsoNormal><b>&nbsp;</b></p>
+
+<p class=MsoNormal><b>CAUTION:  There is NO PASSWORD. If your browser adds one,
+please blank it out or the setup will fail.<br>
 </b><br>
 <img border=0 width=341 height=147 id="Picture 24"
 src="JOpensim_files/image009.png"><br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Click
-Start.  It will show it is extracting. <br>
+<p class=MsoNormal>Click Start.  It will show it is extracting. <br>
 <img border=0 width=338 height=123 id="Picture 25"
 src="JOpensim_files/image010.png"></p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> Click
-Run the Installer<br>
+<p class=MsoNormal> Click Run the Installer<br>
 <img border=0 width=186 height=85 id="Picture 12"
-src="JOpensim_files/image011.png"></p>
-
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>6.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Press
-Next at Upper Right<br>
+src="JOpensim_files/image011.png"><br>
+Press Next at Upper Right<br>
 <br>
 <img border=0 width=473 height=275 id="Picture 13"
 src="JOpensim_files/image012.png"></p>
 
-<p class=MsoListParagraphCxSpLast>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:22.5pt'>Fill in the
-values:</p>
+<p class=MsoNormal>Fill in the values:</p>
 
 <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
 style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -345,212 +292,158 @@ style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nb
 style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span>Database name is <b>Joomla</b></p>
 
-<p class=MsoNormal style='margin-left:.5in'>Leave the table prefix alone, as the
-name is assigned randomly for security.<br>
+<p class=MsoNormal>Leave the table prefix alone, as the name is assigned
+randomly for security.<br>
 <br>
 <img border=0 width=340 height=300 id="Picture 26"
 src="JOpensim_files/image013.png"><br>
  </p>
 
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>7.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> Click
-Next at the top right<br>
+<p class=MsoNormal> Click Next at the top right<br>
 <br>
 <img border=0 width=257 height=106 id="Picture 15"
 src="JOpensim_files/image014.png"><br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>8.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> Fill
-in the upper part and leave the ‘Live Site URL’ blank.<br>
+<p class=MsoNormal> Fill in the upper part and leave the ‘Live Site URL’ blank.<br>
 <img border=0 width=430 height=319 id="Picture 16"
 src="JOpensim_files/image015.png"><br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>9.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Fill
-in the bottom part with your Desired Super User Password. You need to remember
-this! The login id will be Admin with this password, not the prior one you
-used!<br>
+<p class=MsoNormal>Fill in the bottom part with your Desired Super User Password.
+You need to remember this! The login id will be Admin with this password, not
+the prior one you used!<br>
 <br>
 <img border=0 width=430 height=256 src="JOpensim_files/image016.png"><br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>10.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Press Next at
-Upper right<br>
+<p class=MsoNormal>Press Next at Upper right<br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>11.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span>Close this
-window to return to Kickstart. Click the&nbsp;<b>Clean Up</b>&nbsp;button to
-start using your restored site.</p>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
 
-<p class=MsoListParagraphCxSpMiddle><img border=0 width=168 height=72
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Close this window to return to Kickstart. Click the&nbsp;<b>Clean
+Up</b>&nbsp;button to start using your restored site.</p>
+
+<p class=MsoNormal><img border=0 width=168 height=72
 src="JOpensim_files/image017.png"></p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpMiddle>Joomla will require some edits to match
-your preferences.  <br>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Edits</span></h2>
+
+</div>
+
+<p class=MsoNormal>Joomla will require some edits to match your preferences.  <br>
 <br>
 Click the Administer button to log in as “Admin” with your Super User password.<br>
 <br>
 </p>
 
-<p class=MsoListParagraphCxSpMiddle><img border=0 width=157 height=186
-id="Picture 19" src="JOpensim_files/image018.jpg"></p>
+<p class=MsoNormal><img border=0 width=157 height=186 id="Picture 19"
+src="JOpensim_files/image018.jpg"></p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoListParagraphCxSpLast><img border=0 width=160 height=143
-id="Picture 17" src="JOpensim_files/image019.png"></p>
+<p class=MsoNormal><img border=0 width=160 height=143 id="Picture 17"
+src="JOpensim_files/image019.png"></p>
 
-<p class=MsoNormal style='margin-left:.5in'><b>&nbsp;</b></p>
+<b><span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span></b>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<p class=MsoNormal><b>&nbsp;</b></p>
 
-<h1 style='background:#4472C4'>Backups:</h1>
+<p class=MsoNormal><b>&nbsp;</b></p>
 
-</div>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoListParagraphCxSpFirst>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpMiddle>You can back up Joomla and JOpensim with
-Akeeba backup, which I built into your distribution.<br>
-<br>
-</p>
-
-<p class=MsoListParagraphCxSpMiddle>Click  Components-&gt;Akeeba Backup and
-select “Full Backup”.<br>
-<br>
-</p>
-
-<p class=MsoListParagraphCxSpMiddle><img border=0 width=378 height=267
-id="Picture 18" src="JOpensim_files/image020.png"></p>
-
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpLast>To restore a backup, Click [Restore] in the
-Dreamrgid jOpensim menu to extract kickstart-core-7.0.2.zip and load the URL as
-shown in section  “Restore the Data”, above.<br>
-<br>
-</p>
-
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
-
-<h1 style='background:#4472C4'>Update:</h1>
+<h2><span style='color:black'>Backups:</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'><a name="_Hlk57676778">&nbsp;</a></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in'>Press the Update button to update
-to the latest jOpenSim. This will take you to this screen:<br>
+<p class=MsoNormal>You can back up Joomla and JOpensim with Akeeba backup,
+which I built into your distribution.<br>
+<br>
+</p>
+
+<p class=MsoNormal>Click  Components-&gt;Akeeba Backup and select “Full
+Backup”.<br>
+<br>
+</p>
+
+<p class=MsoNormal><img border=0 width=378 height=267 id="Picture 18"
+src="JOpensim_files/image020.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>To restore a backup, Click [Restore] in the Dreamrgid
+jOpensim menu to extract kickstart-core-7.0.2.zip and load the URL as shown in
+section  “Restore the Data”, above.<br>
+<br>
+</p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Update</span></h2>
+
+</div>
+
+<p class=MsoNormal><a name="_Hlk57676778">&nbsp;</a></p>
+
+<p class=MsoNormal>Press the Update button to update to the latest jOpenSim.
+This will take you to this screen:<br>
 <br>
 <img border=0 width=405 height=300 id="Picture 23"
 src="JOpensim_files/image021.png"></p>
 
-<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in'>Click “Or Browse for file” and
-navigate to the Outworldzfiles\jOpensim_Files\ and select <u>pkg_jopensim.0.3.2.0.zip</u>.   
+<p class=MsoNormal>Click “Or Browse for file” and navigate to the
+Outworldzfiles\jOpensim_Files\ and select <u>pkg_jopensim.0.3.2.0.zip</u>.   
 This will update you to Version 0.3.2.0.</p>
 
-<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>jOpensim Money</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><i><u>This is currently NOT
-available</u></i></b></p>
-
-<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Enable
-jOpenSimMoney in your jOpenSim configuration, in &quot;Settings&quot;. </p>
-
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>You
-need to define one OpenSim account as banker in &quot;user&quot;. To do so,
-mark the checkbox beside the desired user and click on &quot;Edit user&quot;.
-In &quot;Login Level&quot; you now should be able to select &quot;Banker&quot;
-and select Save.  This account will be disabled for regular login and only
-responsible for handling transactions with the grid (e.g. upload fees, group
-creation, etc...) and in demo mode it will reset all user balances (give or
-take the difference to the reset value) at login and when crossing any region
-border. </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Now
-go to &quot;Money System&quot; in admin. It now shows a small form, where you
-can select the banker and set some other values important for your money
-system. For the first time, even if your banker is already selected, IT IS
-IMPORTANT to save this banker account, otherwise the module will disable. </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4)<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
-money module have 3 possible stages: </p>
-
-<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span>Demo-Mode: If no or the demo license key is provided, in this
-mode everything works fine, but the user balance will be reset at every login
-and when crossing a region border to a predefined value (by default 5000). </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span>Default Mode: this should be the regular mode. No popups, no
-reset, everything (hopefully) working fine </p>
-
-<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span>Disabled: if an invalid or expired license key was provided, the
-module will disable currency completely (e.g. due to a typo in the ini or just
-missed to extend license). Like this, no demo mode will screw up an already
-existing transaction history. <br>
-<br>
-</p>
-
-<p class=MsoListParagraphCxSpLast>After demo mode, you might want to clean 2
-tables manually in your Joomla database to reset all balances and transactions
-for the &quot;real&quot; mode: #_opensim_moneybalances
-#_opensim_moneytransactions You can do this e.g. by executing a query like:
-&quot;TRUNCATE TABLE #_opensim_moneybalances;&quot; and &quot;TRUNCATE TABLE
-#_opensim_moneytransactions;&quot; (of course replace #_ with the correct
-prefix of your joomla database)</p>
-
-<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
-
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#D9E2F3'><span style='color:black'>References:</span></h2>
+<h2><span style='color:black'>jOpensim Money</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in'>Jopensim Wiki   <a
-href="http://wiki.jopensim.com/">http://wiki.jopensim.com/</a></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:.5in'>JOpensim Bugs <a
-href="https://mantis.jopensim.com/">https://mantis.jopensim.com/</a></p>
+<p class=MsoNormal><b><i><u>This is NOT available</u></i></b></p>
 
-<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>References:</p>
+
+<p class=MsoNormal>Jopensim Wiki   <a href="http://wiki.jopensim.com/">http://wiki.jopensim.com/</a></p>
+
+<p class=MsoNormal>JOpensim Bugs <a href="https://mantis.jopensim.com/">https://mantis.jopensim.com/</a></p>
 
 </div>
 

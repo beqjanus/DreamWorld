@@ -12,9 +12,6 @@
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -24,26 +21,34 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:#0563C1;
 	text-decoration:underline;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#4472C4;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -61,26 +66,20 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle>LSL Scripting</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1><a name="OLE_LINK7">LSL Scripting</a></h1>
+
+</div>
 
 <p class=MsoNormal>There are several extra features in DreamGrid to help
 Opensim LSL work better.</p>
-
-<p class=MsoNormal>The Library has been extended in DreamGrid to hold 261
-example LSL Scripts. These are located in plain text in
-Opensim\bin\assets\ScriptAsset as well as in the Viewers Library at the bottom
-of your inventory<img width=650 height=498 id="Picture 3"
-src="LSL_Scripting_files/image001.jpg"
-alt="Graphical user interface, application, calendarDescription automatically generated with medium confidence"></p>
 
 <p class=MsoNormal><b>EasyDatabase </b>is a way to store name=Value parameters
 from any script, region, or grid to any other script.  See the manual for EasyDatabase.rtf</p>
@@ -104,17 +103,18 @@ the region you are in to write, and it must be a POST action.</p>
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal><img border=0 width=416 height=282 id="Picture 1"
-src="LSL_Scripting_files/image002.png"></p>
+src="LSL_Scripting_files/image001.png"></p>
 
 <p class=MsoNormal>After clicking submit, you should see a confirmation the
 data was stored.  </p>
 
 <p class=MsoNormal>The data will be in Outworldzfiles\Opensim\bin\Name.csv</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
 
-<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'>Sample Script:</span></p>
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
 "Courier New"'>//<br>
@@ -147,7 +147,7 @@ everything in the objects inventory<br>
 <p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
 "Courier New"'>    http_request(key id, string method, string body)   {<br>
         llOwnerSay(&quot;Someone just got &quot; + llGetObjectName());<br>
-    }</span></p>
+    }</span></p>
 
 <p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
 "Courier New"'>   </span></p>
@@ -160,7 +160,7 @@ everything in the objects inventory<br>
 llGetObjectName(),[], &quot;&quot;);</span></p>
 
 <p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'>        list        inventory;<br>
+"Courier New"'>        list        inventory;<br>
         string      name;<br>
         integer     num = llGetInventoryNumber(INVENTORY_ALL);<br>
         integer     i;</span></p>

@@ -13,8 +13,8 @@
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
 	{font-family:Consolas;
 	panose-1:2 11 6 9 2 2 4 3 2 4;}
@@ -26,7 +26,7 @@
 	margin-left:0in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
 h1
 	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
@@ -38,20 +38,26 @@ h1
 	border:none;
 	padding:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -60,13 +66,13 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -85,78 +91,68 @@ div.WordSection1
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
-lang=EN>FSAssets Settings</span></p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
-background:white'><br>
+<h1><a name="OLE_LINK11">FSAssets Settings</a></h1>
+
+</div>
+
+<p class=MsoNormal><span style='background:white'><br>
 FSAssets is enabled by default.  This option will save the assets to the file
 system as opposed to the default service which stores assets as blobs in the
 database. This option also provides deduplication abilities. Each asset is
 hashed when it is received for storage. If the asset already exists, the asset
 service will link to the existing file rather than store two copies.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Times New Roman",serif;
-background:white'>IMPORTANT: </span></b><span style='font-family:"Times New Roman",serif;
-background:white'>This is a major change in database structure.  If you already
-have a MySQL database running with a lot of assets, this will help speed it up,
-but it will take more disk space. If you start out with this setting, it will
-use the least space. <b><u>Once you switch to FSAssets, you cannot go back to
-just MySQL without losing data entered since the switchover!</u></b></span></p>
+<p class=MsoNormal><b><span style='background:white'>IMPORTANT: </span></b><span
+style='background:white'>This is a major change in database structure.  If you
+already have a MySQL database running with a lot of assets, this will help
+speed it up, but it will take more disk space. If you start out with this
+setting, it will use the least space. <b><u>Once you switch to FSAssets, you
+cannot go back to just MySQL without losing data entered since the switchover!</u></b></span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;background:white'><span lang=EN style='font-size:11.0pt;
-line-height:115%;color:black'><img width=309 height=292 id="Picture 1"
+<p class=MsoNormal><span lang=EN style='font-size:11.0pt;line-height:115%;
+font-family:"Calibri",sans-serif'><img width=309 height=292 id="Picture 1"
 src="FsAssets_files/image001.png" alt=Image></span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;background:white'><b><span style='font-size:9.5pt;
-line-height:115%;color:black'>&nbsp;</span></b></p>
+<p class=MsoNormal><b><span style='font-size:9.5pt;line-height:115%;color:black'>&nbsp;</span></b></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;line-height:18.0pt;background:white'><b><span
-style='font-size:9.5pt;color:black'>Data Folder</span></b></p>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;line-height:18.0pt;background:white'><span
-style='font-size:9.5pt;color:black'>This is the folder in which the asset data
-will be saved. Default = </span><span style='font-size:9.5pt;font-family:Consolas;
-color:#A31515'>./fsassets/data</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;line-height:18.0pt;background:white'><b><span
-style='font-size:9.5pt;color:black'>SpoolDirectory Folder</span></b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-1.2pt;margin-left:.5in;line-height:18.0pt;background:white'><span
-style='font-size:9.5pt;color:black'>The spool directory is a folder used for
-temporary storage while the asset is hashed and compressed before it gets moved
-to the BaseDirectory. This must be on the same file system as the base
-directory.  Default = </span><span style='font-size:9.5pt;font-family:Consolas;
-color:#A31515'>./fsassets/tmp</span></p>
-
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
-
-<h1>Migration</h1>
+<h2><span style='color:black'>Data Folder</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>FSAssets
-will use the MySQL database to collect the original data.  This will not
-automatically convert all the old assets to the new service. To convert all
-assets from the default service there is a Robust console command provided:</span></p>
+<p class=MsoNormal>This is the folder in which the asset data will be saved.
+Default = <span style='font-family:Consolas;color:#A31515'>./fsassets/data</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>SpoolDirectory Folder</span></h2>
+
+</div>
+
+<p class=MsoNormal>The spool directory is a folder used for temporary storage
+while the asset is hashed and compressed before it gets moved to the
+BaseDirectory. This must be on the same file system as the base directory. 
+Default = <span style='font-family:Consolas;color:#A31515'>./fsassets/tmp</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Migration</span></h2>
+
+</div>
+
+<p class=MsoNormal>FSAssets will use the MySQL database to collect the original
+data.  This will not automatically convert all the old assets to the new
+service. To convert all assets from the default service there is a Robust console
+command provided:</p>
 
 <div style='border:solid windowtext 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
 margin-left:.5in;margin-right:.5in'>
@@ -167,72 +163,49 @@ style='font-family:"Courier New";color:black'> import &lt;conn&gt;
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>The
-import command expects a database connection string and the name of the legacy
-asset table to be passed as parameters. The following example shows how to
-start the import process for a MySQL database. Change the connection details to
-match your database schema, username and password, or use the DreamGrid default
-shown here, and copy and paste this into your Robust console:</span></p>
+<p class=MsoNormal>The import command expects a database connection string and
+the name of the legacy asset table to be passed as parameters. The following
+example shows how to start the import process for a MySQL database. Change the
+connection details to match your database schema, username and password, or use
+the DreamGrid default shown here, and copy and paste this into your Robust
+console:</p>
 
 <div style='border:solid windowtext 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
 margin-left:.5in;margin-right:.5in'>
 
 <p class=MsoNormal style='line-height:13.2pt;border:none;padding:0in'><span
 style='font-family:"Courier New";color:black'>import &quot;Data
+Source=localhost;Port=3306;Database=robust;User ID=robustuser;Password=robustpassword;Old
+Guids=true;Command Timeout=300;&quot; assets</span></p>
+
+</div>
+
+<p class=MsoNormal>Depending on the size of your existing assets table, the
+import process will take some time to complete. The optional parameters start
+and count allow you to specify the position and number of rows to convert.</p>
+
+<p class=MsoNormal>A default, blank database will look like this:</p>
+
+<div style='border:solid windowtext 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
+margin-left:.5in;margin-right:.5in'>
+
+<p class=MsoNormal style='line-height:13.2pt;border:none;padding:0in'><span
+style='font-family:"Courier New";color:black'>R.O.B.U.S.T.# import &quot;Data
 Source=localhost;Port=3306;Database=robust;User
 ID=robustuser;Password=robustpassword;Old Guids=true;Command Timeout=300;&quot;
 assets</span></p>
 
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>Depending
-on the size of your existing assets table, the import process will take some
-time to complete. The optional parameters start and count allow you to specify
-the position and number of rows to convert.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>A
-default, blank database will look like this:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>R.O.B.U.S.T.#
-import &quot;Data Source=localhost;Port=3306;Database=robust;User
-ID=robustuser;Password=robustpassword;Old Guids=true;<span style='color:black'>Command
-Timeout=300;</span>&quot; assets</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>Reading data<br>
+<p class=MsoNormal style='line-height:13.2pt;border:none;padding:0in'><span
+style='font-family:"Courier New";color:black'>Reading data<br>
 0 assets imported so far<br>
 100 assets imported so far<br>
 200 assets imported so far<br>
 Import done, 274 assets imported<br>
 R.O.B.U.S.T.#</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+<p class=MsoNormal style='margin-right:.5in'><span style='font-family:"Times New Roman",serif;
 background:white'>&nbsp;</span></p>
 
 </div>

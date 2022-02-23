@@ -27,61 +27,83 @@
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
-	margin-right:0in;
+	margin-right:.5in;
 	margin-bottom:10.0pt;
-	margin-left:0in;
+	margin-left:.5in;
 	line-height:115%;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Verdana",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:115%;
+	background:#5B9BD5;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Verdana",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
 h2
 	{mso-style-link:"Heading 2 Char";
 	margin-top:5.0pt;
-	margin-right:0in;
+	margin-right:.5in;
 	margin-bottom:0in;
-	margin-left:0in;
+	margin-left:.5in;
 	line-height:115%;
 	background:#DEEAF6;
 	border:none;
 	padding:0in;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
+	font-family:"Verdana",sans-serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:15.0pt;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
+	color:#1F4D78;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:#0563C1;
 	text-decoration:underline;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#5B9BD5;}
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#DEEAF6;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	color:#1F4D78;
+	text-transform:uppercase;
+	letter-spacing:.75pt;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
@@ -98,242 +120,193 @@ text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><a
-name="OLE_LINK11"><b><span lang=EN>Port Settings and UPnP</span></b></a></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Multiple
-TCP ad UDP Ports are used in Opensim.  The defaults are shown below.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-size:11.0pt;line-height:
-115%'><img width=242 height=229 src="Ports_files/image001.png" alt=Image></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>The
-defaults are 8001 (Diagnostic), 8002 (Public) , 8003 (Private) and 8004
-(Starting Region).  If you have manually added more regions, their region ports
-also need to be open. Each region that is used takes up one port. They start at
-8004 and count up by one.</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Port Forwards:</span></h2>
+<h1 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#5B9BD5'><a name="OLE_LINK23"></a><a
+name="OLE_LINK11"><span lang=EN>Port Settings and UPnP</span></a></h1>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>See
-the section on <b><u>Troubleshooting Ports</u></b> on how to manually enable
-the ports.</span></p>
+<p class=MsoNormal><span lang=EN>Multiple TCP and UDP Ports are used in
+Opensim.  The defaults are shown below.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>UPnP
-Enabled:  </span></b><span lang=EN style='font-family:"Verdana",sans-serif'>The
-Outworldz program uses Universal Plug and Play (UPnP) to automatically allow
-data to come from the Internet to your computer. This is called &quot;Port
-Forwarding&quot;.  UPnP capability may be disabled in your router, or it may
-not support it.  </span></p>
+<p class=MsoNormal><span lang=EN><img width=242 height=229
+src="Ports_files/image001.png" alt=Image></span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>You
-may need to stop the SSDP Service to prevent this service from intercepting
-these messages.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>If
-UPnP is enabled and your router supports it, Dreamgrid will automatically open
-the correct ports. This can be slow and time-consuming, so you may prefer to
-disable UPnP and set your ports manually</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Do
-you have Plug and Play (UPnP) issues? The Dreamgrid help menu has a useful tool
-to look at uPnP in your router:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-size:11.0pt;line-height:
-115%'><img width=353 height=229 src="Ports_files/image002.png" alt=Image></span><span
-lang=EN style='font-family:"Verdana",sans-serif'><br>
- UPnp (Universal Plug and Play) Tool for Windows</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>You
-can add, delete, and modify the settings without a password, assuming you have
-UPnP enabled. This tool is available in Dreamworld and Dreamgrid in the Help
-menu.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+<p class=MsoNormal><span lang=EN>The defaults are 8001 (Diagnostic), 8002 (Public)
+, 8003 (Private) and 8004 (Starting Region).  If you have manually added more
+regions, their region ports also need to be open. Each region that is used
+takes up one port. They start at 8004 and count up by one.</span></p>
 
 <div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
+margin-left:.5in;margin-right:.5in'>
 
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Troubleshooting
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>Port
+Forwards:</span></h2>
+
+</div>
+
+<p class=MsoNormal><span lang=EN>See the section on <b><u>Troubleshooting Ports</u></b>
+on how to manually set the ports.</span></p>
+
+<p class=MsoNormal><b><span lang=EN>UPnP Enabled:  </span></b><span lang=EN>The
+Outworldz program uses Universal Plug and Play (UPnP) to automatically allow
+data to come from the Internet to your computer. This is called &quot;Port
+Forwarding&quot;. UPnP capability may be disabled in your router, or it may not
+support it. </span></p>
+
+<p class=MsoNormal><span lang=EN>You may need to stop the SSDP Service to
+prevent this service from intercepting these messages.</span></p>
+
+<p class=MsoNormal><span lang=EN>If UPnP is enabled and your router supports
+it, DreamGrid will automatically open the correct ports. This can be slow and
+time-consuming, so you may prefer to disable UPnP and set your ports manually</span></p>
+
+<p class=MsoNormal><span lang=EN>Do you have Plug and Play (UPnP) issues? The DreamGrid
+help menu has a useful tool to look at uPnP in your router:</span></p>
+
+<p class=MsoNormal><span lang=EN style='font-size:11.0pt;line-height:115%'><img
+width=353 height=230 src="Ports_files/image002.png" alt=Image></span><span
+lang=EN><br>
+ UPnp (Universal Plug and Play) Tool for Windows</span></p>
+
+<p class=MsoNormal><span lang=EN>You can add, delete, and modify the settings
+without a password, assuming you have UPnP enabled. This tool is available in
+Dreamworld and DreamGrid in the Help menu.</span></p>
+
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>Troubleshooting
 Ports</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:.5in;background:white'><span
-style='font-family:"Verdana",sans-serif;color:black'>A list of routers and
-instructions is at &nbsp;http://www.portforward.com&nbsp;which can help you
-identify your router type.</span></p>
+<p class=MsoNormal><span lang=EN>A list of routers and instructions is at &nbsp;http://www.portforward.com&nbsp;which
+can help you identify your router type.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Step 1) Get your PC LAN IP address by going to a DOS prompt and
-typing 'ipconfig'.</span></p>
+<p class=MsoNormal><span lang=EN>Step 1) Get your PC LAN IP address by going to
+a DOS prompt and typing 'ipconfig'.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'><img
-width=569 height=298 src="Ports_files/image003.png"></span></p>
+<p class=MsoNormal><span lang=EN><img width=570 height=298
+src="Ports_files/image003.png"></span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>In the above photo, my IP was 192.168.1.3.&nbsp;&nbsp; Yours is
-likely to be in the range 192.160.*.*, but it could also be a 10.0.*.* number.
-For my Linksys, it looks like this:</span></p>
+<p class=MsoNormal><span lang=EN>In the above photo, my IP was
+192.168.1.3.&nbsp;&nbsp; Yours is likely to be in the range 192.160.*.*, but it
+could also be a 10.0.*.* number. For my Linksys, it looks like this:</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=552 height=358 src="Ports_files/image004.png"></span></p>
+<p class=MsoNormal><span lang=EN><img width=552 height=358
+src="Ports_files/image004.png"></span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
 
 <div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
+margin-left:.5in;margin-right:.5in'>
 
-<h2 style='background:#DEEAF6'><span style='color:black'>IceCast/Shoutcast </span></h2>
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>IceCast/Shoutcast
+</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Ports 8080 and 8081 must be added when you are running the
-Icecast/Shoutcast server.<br>
+<p class=MsoNormal><span lang=EN>Ports 8080 and 8081 must be added when you are
+running the Icecast/Shoutcast server.<br>
 <br>
 </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Which ports?</span></b><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;You need to Port-Forward 8001, 8002, and 8004-8010 (or
-higher, I usually open up to 8050) to have room for expansion. You can also add
-8080 and 8081 for Shoutcast/Icecast.&nbsp; Do not do 8003 for security reasons.
-These can usually&nbsp;be done in ranges, like 8001-8002 and 8004-8010. The
-latter ones are for regions - you need one port per region, so this would let
-you have 7 regions. Add more if you want - nothing wrong with opening up to
-8020 or 8030 or so.&nbsp; In the above photo, I have opened ports 8004 through
-8005.</span></p>
+<p class=MsoNormal><b><span lang=EN>Which ports?</span></b><span lang=EN>&nbsp;You
+need to Port-Forward 8001, 8002, and 8004-8010 (or higher, I usually open up to
+8050) to have room for expansion. You can also add 8080 and 8081 for
+Shoutcast/Icecast.&nbsp; Do not do 8003 for security reasons. These can
+usually&nbsp;be done in ranges, like 8001-8002 and 8004-8010. The latter ones
+are for regions - you need one port per region, so this would let you have 7
+regions. Add more if you want - nothing wrong with opening up to 8020 or 8030
+or so.&nbsp; In the above photo, I have opened ports 8004 through 8005.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>They need to be open for <u>both TCP and UDP</u>. Your router will
-have a button or a pulldown to select UDP, TCP, or both.&nbsp; If you do not
-have a Both or All option, you have to add them twice, once for UDP and once
-for TCP.</span></p>
+<p class=MsoNormal><span lang=EN>They need to be open for <u>both TCP and UDP</u>.
+Your router will have a button or a pulldown to select UDP, TCP, or both.&nbsp;
+If you do not have a Both or All option, you have to add them twice, once for
+UDP and once for TCP.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>How do I know this worked?</span></b><span style='font-family:
-"Verdana",sans-serif;color:black'>&nbsp;You can tell if it worked by starting
-Opensimulator, and then use a web browser to go to&nbsp;</span><a
-href="http://www.canyouseeme.org/"><span style='font-family:"Verdana",sans-serif;
-color:black'><span style='color:black'>http://www.canyouseeme.org</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'>, and enter 8002 while
-Opensimulator is running. Then click the Test Button at CanYouSeeMe.  If that
-works, the ports are fine.  If this does not work, try disabling your PC
-firewall. If this works, you must add exclusions to the firewall and then turn
-the firewall back on.</span></p>
+<p class=MsoNormal><b><span lang=EN>How do I know this worked?</span></b><span
+lang=EN>&nbsp;You can tell if it worked by starting Opensimulator, and then use
+a web browser to go to&nbsp;</span><a href="http://www.canyouseeme.org/"><span
+lang=EN style='color:#5973CC'>http://www.canyouseeme.org</span></a><span
+lang=EN>, and enter 8002 while Opensimulator is running. Then click the Test
+Button at CanYouSeeMe.  If that works, the ports are fine.  If this does not
+work, try disabling your PC firewall. If this works, you must add exclusions to
+the firewall and then turn the firewall back on.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>See <b>Firewall Issues</b> for help with the PC firewall.</span></p>
+<p class=MsoNormal><span lang=EN>See <b>Firewall Issues</b> for help with the
+PC firewall.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Keep working with the router, firewall, antivirus exclusions and
-IP address until this test passes.  </span></p>
+<p class=MsoNormal><span lang=EN>Keep working with the router, firewall,
+antivirus exclusions and IP address until this test passes.  </span></p>
 
 <div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
+margin-left:.5in;margin-right:.5in'>
 
-<h2 style='background:#DEEAF6'><span style='color:black'>Loopback:</span></h2>
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>Loopback:</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>The second part that must work is loopback -
-either your router supports it, or not. You can immediately tell if your
-loopback works after running the above </span><span style='font-family:"Verdana",sans-serif;
-color:black'>CanYouSeeMe.org tests. You use your web browser to navigate to </span><a
-href="http://(your/"><span style='font-family:"Verdana",sans-serif;color:black;
-text-decoration:none'><span style='color:black'>ht<span style='color:black'>tp://(YOUR</span></span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'> PUBLIC IP):8002. Mine was
-</span><a href="http://24.173.0.66:8002/"><span style='font-family:"Verdana",sans-serif;
-color:black;text-decoration:none'><span style='color:black'>http://24.173.0.66:8002</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'>. Of course, your IP
-address will be different than shown here, so use
+<p class=MsoNormal><span lang=EN style='background:white'>The second part that
+must work is loopback - either your router supports it, or not. You can
+immediately tell if your loopback works after running the above </span><span
+lang=EN>CanYouSeeMe.org tests. You use your web browser to navigate to </span><a
+href="http://(YOUR"><span lang=EN style='color:windowtext;text-decoration:none'>http://(YOUR</span></a><span
+lang=EN> PUBLIC IP):8002. Mine was </span><a href="http://24.173.0.66:8002"><span
+lang=EN style='color:windowtext;text-decoration:none'>http://24.173.0.66:8002</span></a><span
+lang=EN>. Of course, your IP address will be different than shown here, so use
 whatever&nbsp;CanYouSeeme.org&nbsp;shows you. If the system is working, you get
 a web page.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If not, you must add a loopback adapter. Go to </span><a
+<p class=MsoNormal><span lang=EN style='color:black'>If not, you must add a
+loopback adapter. Go to </span><a
 href="https://www.outworldz.com/Outworldz_installer/Loopback.htm"><span
-style='font-family:"Verdana",sans-serif;color:black;text-decoration:none'><span
-style='color:black'>https://www.outworldz.com/Outworldz_installer/Loopback.htm</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'> and follow the
-instructions. </span></p>
+lang=EN style='color:windowtext;text-decoration:none'>https://www.outworldz.com/Outworldz_installer/Loopback.htm</span></a><span
+lang=EN style='color:black'> and follow the instructions. </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Then go to Hypergrid/DNS Name page and enter your desired
-Hypergrid name</span></p>
+<p class=MsoNormal><span lang=EN>Then go to Hypergrid/DNS Name page and enter
+your desired Hypergrid name</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Firewall Issues:</span></b></p>
+<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Windows will prompt you to allow Opensim to open ports when it
-first runs. If you say no, you will not be able to log in.  I also set all the
-ports to be open in firewalls  when you first click start.  </span></p>
+<h3 style='margin-top:15.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span lang=EN>Firewall Issues:</span></h3>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If you are using an Anti-virus with a firewall, such as Zone Alarm,
-AVG Internet Suite, or anything else, running Start.exe may trigger the 3rd
-party firewall popup warnings. Opensim.exe needs to be allowed internet access,
-and Start.exe must  be allowed to make changes to the firewall. If not, it will
-not work, and you will have to take manual action to fix it.</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p class=MsoNormal><span lang=EN>Windows will prompt you to allow Opensim to
+open ports when it first runs. If you say no, you will not be able to log in. 
+I also set all the ports to be open in firewalls  when you first click start.  </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>This code is safe and is digitally signed by me, Fred Beckhusen of
-Outworldz.com, and is open source and available for inspection at &nbsp;</span><a
-href="https://www.github.com/Outworldz"><span style='font-family:"Verdana",sans-serif;
-color:black;text-decoration:none'><span style='color:black'>https://www.github.com/Outworldz</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'>.</span></p>
+<p class=MsoNormal><span lang=EN>If you are using an Anti-virus with a
+firewall, such as Zone Alarm, AVG Internet Suite, or anything else, running
+Start.exe may trigger the 3rd party firewall popup warnings. Opensim.exe needs
+to be allowed internet access, and Start.exe must  be allowed to make changes to
+the firewall. If not, it will not work, and you will have to take manual action
+to fix it.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>You may have to manually add firewall rules to allow incoming
-traffic on the ports.</span></p>
+<p class=MsoNormal><span lang=EN>This code is safe and is digitally signed by
+me, Fred Beckhusen of Outworldz.com, and is open source and available for
+inspection at &nbsp;</span><a href="https://www.github.com/Outworldz"><span
+lang=EN style='color:windowtext;text-decoration:none'>https://www.github.com/Outworldz</span></a><span
+lang=EN>.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>1. On the client operating system, go to Start&gt;Run and type
-firewall.cpl. The Windows Firewall window opens.<br>
+<p class=MsoNormal><span lang=EN>You may have to manually add firewall rules to
+allow incoming traffic on the ports.</span></p>
+
+<p class=MsoNormal><span lang=EN>1. On the client operating system, go to
+Start&gt;Run and type firewall.cpl. The Windows Firewall window opens.<br>
 2. Click on the “Advanced Settings” link on the left pane. The Windows Firewall
 with Advanced security window opens.<br>
 3. Click on the “Inbound Rules” option.<br>
@@ -348,144 +321,139 @@ with Advanced security window opens.<br>
 12. Click Finish.<br>
 14. Repeat the above but using UDP from step 6</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>More information about Opensim Ports</span></b></p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Here is more detail about ports and the way the
-interact with the outside world such as&nbsp;</span><a
-href="http://www.canyouiseeme.org/"><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'><span style='color:black'>www.canyouseeme.org</span></span></a><span
-style='font-family:"Times New Roman",serif'> </span><span style='font-family:
-"Verdana",sans-serif;color:black;background:white'>and to my diagnostics tests.</span></p>
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>More
+information about Opensim Ports</span></h2>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Put simply, only port 8001 and 8002 can report back to those tools
-as to being open and can do so only when Opensim is running.  </span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Port 8001:</span></b></p>
+<p class=MsoNormal><span lang=EN style='background:white'>Here is more detail
+about ports and the way the interact with the outside world such as&nbsp;</span><a
+href="http://www.canyouiseeme.org/"><span lang=EN style='color:#5973CC;
+background:white'>www.canyouseeme.org</span></a><span lang=EN style='font-family:
+"Times New Roman",serif'> </span><span lang=EN style='background:white'>and to
+my diagnostics tests.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>8001 is a TCP/HTTP port that is open for help-&gt;Network
-diagnostics. It is unique to Dreamworld and not to Opensim. It is used for a
-&quot;port forward&quot; test, just like Canyouseeme.org does, and for a
-loopback test. It collects data on sim's going up and down to change the icons
-and collects Partner information if two people click the partner prim.</span></p>
+<p class=MsoNormal><span lang=EN>Put simply, only port 8001 and 8002 can report
+back to those tools as to being open and can do so only when Opensim is
+running.  </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Port 8002:</span></b></p>
+<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Opensim has a web server that web browsers understand, using the
-same protocol (TCP/HTTP) that tools like </span><a href="www.canyouseeme.org"><span
-style='font-family:"Verdana",sans-serif;color:black;text-decoration:none'><span
-style='color:black'>www.canyouseeme.org</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'> support. Put simply, Opensim
-is the only thing that listens to port 8002 and answers to http:// GET and POST
-requests on 8002. Port 8002 is like port 80, the default port for web pages.
-You can actually set Dreamworld's 8002 port to 80, and it will still work. You
-can then drop the need to type :8002 at the end of your hyperlink. </span><a
-href="http://hg.osgrid.org/"><span style='font-family:"Verdana",sans-serif;
-color:black;text-decoration:none'><span style='color:black'>http://hg.Osgrid.org</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'> does this. There would be
-no need to type the :80, as literally http:// means &quot;add a :80 to the end
-of it&quot;. </span></p>
+<h3 style='margin-top:15.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span lang=EN>Port 8001:</span></h3>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>8002 works with web based ‘GET’ probe tools. If you do switch it
-to 80, then you forfeit using an additional web server on your home machine as
-only one program can listen to a port.</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If Opensim is not running and your ports are open, it is as if you
-tried to connect to </span><a href="www.google.com's"><span style='font-family:
-"Verdana",sans-serif;color:black;text-decoration:none'><span style='color:black'>www.google.com's</span></span></a><span
-style='font-family:"Verdana",sans-serif;color:black'> web server, but their web
-server is down. Nothing will happen, though your packets can get through the
-Google firewall because it is still open to traffic and is steering it to a
-dead server. You will get no answer. Similarly, if Opensim is not running,
-there is no web server to answer the request.</span></p>
+<p class=MsoNormal><span lang=EN>8001 is a TCP/HTTP port that is open for
+help-&gt;Network diagnostics. It is unique to Dreamworld and not to Opensim. It
+is used for a &quot;port forward&quot; test, just like Canyouseeme.org does,
+and for a loopback test. It collects data on sim's going up and down to change
+the icons and collects Partner information if two people click the partner
+prim.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Port 8003:</span></b></p>
+<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>This port is used by Opensim to listen to region traffic. Regions
-chat to the server database for login, presence, and other services use it to
-talk to the region so people can teleport from one region to another. In Dream
-World, regions must be on the same machine. In Dream<u>Grid</u>, just like
-OsGrid or any other remotely attachable grid, the regions can run on any
-machine anywhere in the world.</span></p>
+<h3 style='margin-top:15.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span lang=EN>Port 8002:</span></h3>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If you opened port 8003 to anyone on the web, you expose the
-internal database protocol to the web. Anyone with the right knowledge could
-attach a region to your sim. If you run a DreamGrid and host regions outside
-your LAN, it is recommended you use firewall rules to only allow access from
-known IP addresses running approved regions.</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Port 8004 and upwards:</span></b></p>
+<p class=MsoNormal><span lang=EN>Opensim has a web server that web browsers
+understand, using the same protocol (TCP/HTTP) that tools like </span><a
+href="../../../../../../Users/Debbie/Dropbox/Dreamworld/Manuals/www.canyouseeme.org"><span
+lang=EN style='color:windowtext;text-decoration:none'>www.canyouseeme.org</span></a><span
+lang=EN> support. Put simply, Opensim is the only thing that listens to port
+8002 and answers to http:// GET and POST requests on 8002. Port 8002 is like
+port 80, the default port for web pages. You can actually set Dreamworld's 8002
+port to 80, and it will still work. You can then drop the need to type :8002 at
+the end of your hyperlink. </span><a href="http://hg.Osgrid.org"><span lang=EN
+style='color:windowtext;text-decoration:none'>http://hg.Osgrid.org</span></a><span
+lang=EN> does this. There would be no need to type the :80, as literally
+http:// means &quot;add a :80 to the end of it&quot;. </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>The region ports (8004-upward) run both TCP and UDP.&nbsp;&nbsp;
-UDP is used for the viewer. UDP cuts the load on the server dramatically as
-there is no need to automatically always ACK every packet. As one example, no
-one cares if an audio stream gets briefly interrupted as you cannot hear it
-anyway, and it is too late to use it if it comes later in a retry. It just gets
-discarded.</span></p>
+<p class=MsoNormal><span lang=EN>8002 works with web based ‘GET’ probe tools.
+If you do switch it to 80, then you forfeit using an additional web server on
+your home machine as only one program can listen to a port.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>For multiple regions in a single DOS box, all regions listen for
-TCP traffic on the last port used in that DOS box.  As one example, if one
-region is in a DOS box by itself, and it is the first region, then it listens
-on both TCP and UDP on 8004.   </span></p>
+<p class=MsoNormal><span lang=EN>If Opensim is not running and your ports are
+open, it is as if you tried to connect to </span><a
+href="../../../../../../Users/Debbie/Dropbox/Dreamworld/Manuals/www.google.com's"><span
+lang=EN style='color:windowtext;text-decoration:none'>www.google.com's</span></a><span
+lang=EN> web server, but their web server is down. Nothing will happen, though
+your packets can get through the Google firewall because it is still open to
+traffic and is steering it to a dead server. You will get no answer. Similarly,
+if Opensim is not running, there is no web server to answer the request.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If you had two regions in one DOS box, and they start at 8004,
-then the regions listen to UDP on 8004 and 8005, and both regions listen to
-8005 for TCP traffic. You can check that the region is reachable on the
-Hypergrid only by using port 8005.  8004 will not respond, as it only listens
-to 8004 on UDP.</span></p>
+<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
+margin-left:.5in;margin-right:.5in'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>As a result, you can test regions with tools like Canyouseeme.org
-or a web browser </span></p>
+<h3 style='margin-top:15.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span lang=EN>Port 8003:</span></h3>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+</div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Links:</span></p>
+<p class=MsoNormal><span lang=EN>This port is used by Opensim to listen to
+region traffic. Regions chat to the server database for login, presence, and
+other services use it to talk to the region so people can teleport from one
+region to another. In Dream World, regions must be on the same machine. In
+Dream<u>Grid</u>, just like OsGrid or any other remotely attachable grid, the regions
+can run on any machine anywhere in the world.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>Port Testing: </span><a href="http://www.canyouseeme.org/"><span
-style='font-family:"Verdana",sans-serif;color:black'><span style='color:black'>http://www.canyouseeme.org</span></span></a></p>
+<p class=MsoNormal><span lang=EN>If you opened port 8003 to anyone on the web,
+you expose the internal database protocol to the web. Anyone with the right
+knowledge could attach a region to your sim. If you run a DreamGrid and host
+regions outside your LAN, it is recommended you use firewall rules to only
+allow access from known IP addresses running approved regions.</span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
+margin-left:.5in;margin-right:.5in'>
+
+<h3 style='margin-top:15.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt'><span lang=EN>Port 8004 and upwards:</span></h3>
+
+</div>
+
+<p class=MsoNormal><span lang=EN>The region ports (8004-upward) run both TCP
+and UDP.&nbsp;&nbsp; UDP is used for the viewer. UDP cuts the load on the
+server dramatically as there is no need to automatically always ACK every
+packet. As one example, no one cares if an audio stream gets briefly
+interrupted as you cannot hear it anyway, and it is too late to use it if it
+comes later in a retry. It just gets discarded.</span></p>
+
+<p class=MsoNormal><span lang=EN>For multiple regions in a single DOS box, all
+regions listen for TCP traffic on the last port used in that DOS box.  As one
+example, if one region is in a DOS box by itself, and it is the first region,
+then it listens on both TCP and UDP on 8004.   </span></p>
+
+<p class=MsoNormal><span lang=EN>If you had two regions in one DOS box, and
+they start at 8004, then the regions listen to UDP on 8004 and 8005, and both
+regions listen to 8005 for TCP traffic. You can check that the region is
+reachable on the Hypergrid only by using port 8005.  8004 will not respond, as
+it only listens to 8004 on UDP.</span></p>
+
+<p class=MsoNormal><span lang=EN>As a result, you can test regions with tools
+like Canyouseeme.org or a web browser </span></p>
+
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#DEEAF6'><span lang=EN style='color:black'>Links:</span></h2>
+
+</div>
+
+<p class=MsoNormal><span lang=EN>Port Testing: </span><a
+href="http://www.canyouseeme.org/"><span lang=EN>http://www.canyouseeme.org</span></a></p>
+
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
 
 </div>
 

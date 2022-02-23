@@ -7,6 +7,9 @@
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
@@ -19,9 +22,6 @@
 	{font-family:"Calibri Light";
 	panose-1:2 15 3 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:Verdana;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
 	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
  /* Style Definitions */
@@ -33,6 +33,22 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#5B9BD5;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
 h2
 	{mso-style-link:"Heading 2 Char";
 	margin-top:5.0pt;
@@ -48,36 +64,21 @@ h2
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
-	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#5B9BD5;}
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#DEEAF6;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
@@ -92,92 +93,55 @@ ul
 -->
 </style>
 
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
-
-
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><a
-name="OLE_LINK10"><span lang=EN>Physics Engine</span></a></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>The Physics selection box lets you set basic
-physics, where the only collidable object is a box shape. It supports the
-original&nbsp;</span><span style='font-family:"Verdana",sans-serif;background:
-white'>Open Dynamic Engine<span style='color:black'>&nbsp;physics. The <b>ubODE</b>
+<h1><a name="OLE_LINK10"><span lang=EN>Physics Engine</span></a></h1>
+
+</div>
+
+<p class=MsoNormal><span style='background:white'>The Physics selection box
+lets you set basic physics, where the only collidable object is a box shape. It
+supports the original&nbsp;Open Dynamic Engine&nbsp;physics. The <b>ubODE</b>
 engine, by Ubit Umarov, is an advanced version of ODE that is closer to Second
-Life compatibility with vehicles.&nbsp;</span> Bullet <span style='color:black'>is
-an award-winning physics engine. </span></span></p>
+Life compatibility with vehicles.&nbsp; Bullet is an award-winning physics
+engine. </span></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><img width=269 height=289 id="Picture 1"
+<p class=MsoNormal><img width=269 height=289 id="Picture 1"
 src="Physics_files/image001.png"></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>ODE is a very old physics engine with many limitations.  It
-does support Ninja Physics.</span></p>
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal><span style='background:white'>ODE is a very old physics
+     engine with many limitations.  It does support Ninja Physics.</span></li>
+ <li class=MsoNormal><span style='background:white'>UBODE is closer to Second
+     Life in vehicle performance.</span></li>
+ <li class=MsoNormal><span style='background:white'>Both BulletSim and UBODE
+     support varregions.</span></li>
+ <li class=MsoNormal><span style='background:white'>BulletSim provides the best
+     performance and most functionality.</span></li>
+ <li class=MsoNormal><span style='background:white'>Bullet in a separate thread
+     prevents physics crashes from crashing the region. It is the default
+     physics engine.</span></li>
+ <li class=MsoNormal><span style='background:white'>ODE Ninja physics are
+     documented in another manual.</span></li>
+</ul>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>UBODE is closer to Second Life in vehicle performance.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>Both BulletSim and UBODE support varregions.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>BulletSim provides the best performance and most
-functionality.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>Bullet in a separate thread prevents physics crashes from crashing
-the region. It is the default physics engine.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
-color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black;
-background:white'>ODE Ninja physics are documented in another manual.</span></p>
-
-<p class=MsoNormal style='margin-right:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-right:.5in'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>&nbsp;</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
 <h2><span style='color:black;background:white'>Links:</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><a href="http://www.ode.org/"><span style='font-family:
-"Verdana",sans-serif;color:black;background:white;text-decoration:none'>http://www.ode.org/</span></a></p>
+<p class=MsoNormal><a href="http://www.ode.org/"><span style='color:windowtext;
+background:white;text-decoration:none'>http://www.ode.org/</span></a></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><a
-href="https://en.wikipedia.org/wiki/Bullet_(software)"><span style='font-family:
-"Verdana",sans-serif;color:black;background:white;text-decoration:none'>https://en.wikipedia.org/wiki/Bullet_(software)</span></a></p>
+<p class=MsoNormal><a href="https://en.wikipedia.org/wiki/Bullet_(software)"><span
+style='color:windowtext;background:white;text-decoration:none'>https://en.wikipedia.org/wiki/Bullet_(software)</span></a></p>
 
 </div>
 
