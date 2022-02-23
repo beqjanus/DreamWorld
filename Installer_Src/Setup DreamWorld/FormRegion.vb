@@ -722,7 +722,6 @@ Public Class FormRegion
                     End If
                 End If
 
-                DeregisterRegionUUID(RegionUUID)
                 WriteRegion(RegionUUID)
                 PropChangedRegionSettings = True
                 GetAllRegions(False)
