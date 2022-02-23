@@ -345,7 +345,14 @@ Public Class FormSetup
         Next
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
+        ' alphabetical shutdown
+        Dim r As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
+            r.Add(RegionUUID)
+        Next
+        r.Sort()
+
+        For Each RegionUUID As String In r
             ResumeRegion(RegionUUID)
             If RegionEnabled(RegionUUID) And
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
