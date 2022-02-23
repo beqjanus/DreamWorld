@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.AddinExample", "addon-modules\02AddinExample\Diva.AddinExample.csproj", "{D45D8560-0000-0000-0000-000000000000}"
 EndProject
@@ -224,9 +224,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartThreadPool", "ThirdPar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoGotWhat", "addon-modules\WhoGotWhat\WhoGotWhat.csproj", "{A23E7F0E-0000-0000-0000-000000000000}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33D9664A-C4B9-4039-AC9F-D5FA7F433E78}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88B6844C-6C8D-4374-A027-8B32AB9A4031}"
 	ProjectSection(SolutionItems) = preProject
-		OpenSim\SmartStart\SmartStart.cs = OpenSim\SmartStart\SmartStart.cs
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global
@@ -684,6 +684,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FFD6BA3A-CFB8-4826-9DFB-E097E61CE2E8}
+		SolutionGuid = {C24E9475-2A63-4A26-B893-226D1F6D2E21}
 	EndGlobalSection
 EndGlobal
