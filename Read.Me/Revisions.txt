@@ -1,10 +1,26 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+
+V4.95
+Smart Start Freeze/Thaw mode activated. Smart Boot regions stay in RAM but do not use any CPU. Just like a laptops Sleep mode, versus Hibernate.  
+They start almost instantly. You can exceed memory limits with an SSD as the get swapped to disk.  Add an ice cube icon for the above state.
+Updated all manuals including the big PDF. 
+Suppress two Opensim warnings by moving them to debug level. 
+Small glitch in Smart Start Sign - disabled SS regions still appeared.
+Could not reopen Settings form.
+Do not deregister a region when saved and its running.
+Shutdown regions in Alphabetical order.
+
+
+V4.94
+Manuals on Web site did not match style the builder now makes then match the style and word-for word fir each release.
+
 V4.93 some fixes got left out of 4.92 
 Whisper distance showed up as blank
 Yet another Region port bug is fixed. This could cause large numbers of region ports to be used and possible region crashes.
 SQL backups when the system is not booted would do nothing.  It now starts Mysql when run.
+Crash counter:  if you have it set to Restart on crash, 5 crashes will just turn it off.
 
 V4.92
 Bug in region backups caused the region ini to be skipped. Please run a backup.
@@ -12,7 +28,6 @@ Sequential boot and Parallel Boot gets a new type: No Limits. Sequential still w
 Consoles will pop up less often. Just once when it does a command you may be interested in.
 Language form is resizable
 Settings form is resizable
-Crash counter:  if you have it set to Restart on crash, 5 crashes will just turn it off.
 SSL mode now has a certificate for Let’s Encrypt that was missing. This verifies that your Domain and the Lets Encrypt certs are genuine.
 All Perl examples have been updated.  Some of them only run on localhost for security.
 OsGrid mode was broken. Could not add the IP address in Ports. No longer need to add them.
