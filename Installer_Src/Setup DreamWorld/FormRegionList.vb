@@ -1229,7 +1229,7 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogon
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
-            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("icecube", Globalization.CultureInfo.InvariantCulture))  '  18 - icecube
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icecastpic", Globalization.CultureInfo.InvariantCulture))  '  18 - icecube
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
                 Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately

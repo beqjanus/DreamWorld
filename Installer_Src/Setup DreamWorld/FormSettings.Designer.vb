@@ -125,7 +125,7 @@ Partial Class FormSettings
         Me.IcecastButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IcecastButton.Image = Global.Outworldz.My.Resources.Resources.Icecast
+        Me.IcecastButton.Image = Global.Outworldz.My.Resources.Resources.Icecastpic
         Me.IcecastButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.IcecastButton.Location = New System.Drawing.Point(3, 399)
         Me.IcecastButton.Name = "IcecastButton"
