@@ -1201,7 +1201,7 @@ namespace OpenSim.Region.Framework.Scenes
                             throw new Exception("SCENE init error: SmartStart URI");
                         }
                         m_SmartStartUrl = tmpSmartStartURL.URI;
-                        m_log.Info("[SCENE]: SmartStartUlr " + m_SmartStartUrl);
+                        m_log.Info("[SCENE]: SmartStart Url " + m_SmartStartUrl);
 
                         m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
                     }

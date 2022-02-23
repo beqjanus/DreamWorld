@@ -336,8 +336,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 return;
             }
 
-            // !!! fkb
-            // DreamGrid
 
             GridRegion info = Scene.GridService.GetRegionByUUID(UUID.Zero, lm.RegionID);
 
@@ -361,8 +359,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                 string homeURI = Scene.GetAgentHomeURI(remoteClient.AgentId);
 
-                // !!! fkb
-                // DreamGrid
 
                 GridRegion finalDestination = gConn.GetHyperlinkRegion(gatekeeper, new UUID(lm.RegionID), remoteClient.AgentId, homeURI, out string message);
 

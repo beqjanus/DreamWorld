@@ -78,7 +78,7 @@ namespace OpenSim.Services.HypergridService
         private static bool m_allowDuplicatePresences = false;
         private static HashSet<OSHHTPHost> m_gateKeeperAlias;
 
-        // SmartStart
+        // SmartStart fkb
         protected static bool m_SmartStartEnabled = false;
         protected static string m_SmartStartUrl = string.Empty;
         protected static string m_SmartStartMachineID = string.Empty;
@@ -183,7 +183,7 @@ namespace OpenSim.Services.HypergridService
                 if (messagingConfig != null)
                     m_messageKey = messagingConfig.GetString("MessageKey", String.Empty);
 
-                // SmartStart
+                // SmartStart fkb
                 IConfig SmartStartConfig = config.Configs["SmartStart"];
                 if (SmartStartConfig != null)
                 {
@@ -202,7 +202,7 @@ namespace OpenSim.Services.HypergridService
                                 throw new Exception("GATEKEEPER SERVICE init error: SmartStart URI");
                             }
                             m_SmartStartUrl = tmpSmartStartURL.URI;
-                            m_log.Info("[GATEKEEPER SERVICE]: SmartStartUlr " + m_SmartStartUrl);
+                            m_log.Info("[GATEKEEPER SERVICE]: SmartStart Url " + m_SmartStartUrl);
 
                             m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
                         }
@@ -218,7 +218,7 @@ namespace OpenSim.Services.HypergridService
         {
         }
 
-        //DreamGrid SmartStart
+        //DreamGrid SmartStart fkb
         public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
         {
             // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
@@ -299,6 +299,7 @@ namespace OpenSim.Services.HypergridService
                 return null;
             }
 
+            // fkb
             if (m_SmartStartEnabled)
             {
                 if ((region.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)

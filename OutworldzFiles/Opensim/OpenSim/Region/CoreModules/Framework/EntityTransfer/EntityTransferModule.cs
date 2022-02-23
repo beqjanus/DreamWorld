@@ -739,7 +739,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
                 {
-                    UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId);
+                    UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); // fkb
                     if(regID != UUID.Zero && regID != finalDestination.RegionID)
                     {
                         if(regID == sp.Scene.RegionInfo.RegionID)
