@@ -723,7 +723,7 @@ Public Class FormSmartStart
     Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         If StopLoading = "Running" Then
-            If (MessageBox.Show("Abort Loading?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
+            If (MsgBox("Abort Loading?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
                 e.Cancel = True
             End If
         End If

@@ -183,26 +183,6 @@ Module SmartStart
 
     End Sub
 
-    Public Function WaitForBooting(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
-        While RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booting And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.ShuttingDownForGood And
-                 RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted
-
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
-                BreakPoint.Print("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
     Private Function AddEm(RegionUUID As String, AgentID As String) As Boolean
 
         If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
@@ -427,24 +407,6 @@ Module SmartStart
         Return FindRegionByName(Settings.WelcomeRegion)
 
     End Function
-
-#End Region
-
-#Region "Suspend"
-
-    Public Sub DoSuspend(RegionName As String)
-
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-        Dim PID = ProcessID(RegionUUID)
-
-        Logger("State Changed to ShuttingDown", RegionName, "Teleport")
-        Dim GroupName = Group_Name(RegionUUID)
-        For Each UUID In RegionUuidListByName(GroupName)
-            RegionStatus(UUID) = SIMSTATUSENUM.ShuttingDownForGood
-            PokeRegionTimer(UUID)
-        Next
-
-    End Sub
 
 #End Region
 

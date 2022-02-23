@@ -255,15 +255,15 @@ Public Module MysqlInterface
 
 #Region "DeletePrims"
 
-    Public Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
+    Public Sub DeleteContent(primUuid As String, tablename As String, uuidname As String)
 
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = $"delete from {Tablename} WHERE {UUIDName} = @UUID"
+                Dim stm = $"delete from {tablename} WHERE {uuidname} = @UUID"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", PrimUUID)
+                    cmd.Parameters.AddWithValue("@UUID", primUuid)
                     cmd.ExecuteNonQuery()
                 End Using
 #Enable Warning CA2100
@@ -601,7 +601,6 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -617,14 +616,16 @@ Public Module MysqlInterface
     ''' </summary>
     ''' <param name="avatarName"></param>
     ''' <returns>Avatar UUID</returns>
-    Public Function GetAviUUUD(AvatarName As String) As String
+    Public Function GetAviUUUD(avatarname As String) As String
+
+        If avatarname Is Nothing Then Return ""
 
         StartMySQL()
 
-        If AvatarName.Length = 0 Then Return ""
+        If avatarname.Length = 0 Then Return ""
         Dim Val As String = ""
 
-        Dim parts As String() = AvatarName.Split(" ".ToCharArray())
+        Dim parts As String() = avatarname.Split(" ".ToCharArray())
         Dim Fname = parts(0).Trim
         Dim LName = parts(1).Trim
 
@@ -880,14 +881,14 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function IsAgentInRegion(RegionUUID As String) As Boolean
+    Public Function IsAgentInRegion(regionuuid As String) As Boolean
 
         If Settings.ServerType <> RobustServerName Then Return False
-        If Not RegionEnabled(RegionUUID) Then Return False
-        Dim RegionName = Region_Name(RegionUUID)
+        If Not RegionEnabled(regionuuid) Then Return False
+        Dim RegionName = Region_Name(regionuuid)
 
         Dim l = GetAllAgents()
-        Return l.ContainsValue(RegionUUID)
+        Return l.ContainsValue(regionuuid)
 
     End Function
 
@@ -960,7 +961,7 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function MysqlGetUserData(UUID As String) As UserData
+    Public Function MysqlGetUserData(uuid As String) As UserData
 
         Dim UD As New UserData
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -968,7 +969,7 @@ Public Module MysqlInterface
                 MysqlConn.Open()
                 Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from robust.useraccounts where principalID = @UUID"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    cmd.Parameters.AddWithValue("@UUID", uuid)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             UD.FirstName = reader.GetString(0)
@@ -976,7 +977,7 @@ Public Module MysqlInterface
                             UD.Email = reader.GetString(2)
                             UD.Level = reader.GetInt32(3)
                             UD.UserTitle = reader.GetString(4)
-                            UD.PrincipalID = UUID
+                            UD.PrincipalID = uuid
                         Else
                             UD.FirstName = "No record"
                         End If
@@ -993,9 +994,9 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Sub MySQLIcon(Running As Boolean)
+    Public Sub MySQLIcon(running As Boolean)
 
-        If Not Running Then
+        If Not running Then
             FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
         Else
             FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
@@ -1004,7 +1005,9 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub MysqlSaveUserData(UD As UserData)
+    Public Sub MysqlSaveUserData(ud As UserData)
+
+        If ud Is Nothing Then Return
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -1012,12 +1015,12 @@ Public Module MysqlInterface
 
                 Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@level", UD.Level)
-                    cmd.Parameters.AddWithValue("@UUID", UD.PrincipalID)
-                    cmd.Parameters.AddWithValue("@fname", UD.FirstName)
-                    cmd.Parameters.AddWithValue("@lname", UD.LastName)
-                    cmd.Parameters.AddWithValue("@email", UD.Email)
-                    cmd.Parameters.AddWithValue("@utitle", UD.UserTitle)
+                    cmd.Parameters.AddWithValue("@level", ud.Level)
+                    cmd.Parameters.AddWithValue("@UUID", ud.PrincipalID)
+                    cmd.Parameters.AddWithValue("@fname", ud.FirstName)
+                    cmd.Parameters.AddWithValue("@lname", ud.LastName)
+                    cmd.Parameters.AddWithValue("@email", ud.Email)
+                    cmd.Parameters.AddWithValue("@utitle", ud.UserTitle)
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException

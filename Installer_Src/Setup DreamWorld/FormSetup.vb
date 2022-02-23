@@ -505,7 +505,6 @@ Public Class FormSetup
 
         For Each RegionName As String In ListOfNames
 
-
             Dim RegionUUID = FindRegionByName(RegionName)
             Diagnostics.Debug.Print($"Starting {RegionName}")
 
@@ -2265,6 +2264,31 @@ Public Class FormSetup
 
 #Region "Perl"
 
+    Private Shared Sub SetupPerl()
+
+        If Settings.VisitorsEnabled = False Then
+            TextPrint(My.Resources.Setup_Perl)
+            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                    .Arguments = "",
+                    .FileName = path
+                }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                    SetupPerlModules()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+        End If
+        Settings.VisitorsEnabled = True
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Shared Sub SetupPerlModules()
 
         ' needed for DBIX::Class in util.pm
@@ -2301,31 +2325,6 @@ Public Class FormSetup
             End Using
 
         End If
-    End Sub
-
-    Private Sub SetupPerl()
-
-        If Settings.VisitorsEnabled = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = path
-                }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                    SetupPerlModules()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-        End If
-        Settings.VisitorsEnabled = True
-        Settings.SaveSettings()
-
     End Sub
 
 #End Region

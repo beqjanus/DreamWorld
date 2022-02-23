@@ -273,7 +273,7 @@ Module RegionMaker
         ' Change estate for Endless Land, assuming its on
         Dim out As Integer
         If Integer.TryParse(Estate(RegionUUID), out) Then
-            ' nada
+            ErrorLog("No Region UUID for Estate")
         End If
 
         If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
@@ -736,63 +736,6 @@ Module RegionMaker
         End If
 
         PropUpdateView = True ' make form refresh
-
-    End Sub
-
-    Public Sub UpdateAllRegionPorts()
-
-        Return
-
-        Dim Retry = 60
-        While Retry > 0 AndAlso UpdateAllRegion
-            Sleep(1000)
-            Retry -= 1
-        End While
-        If Retry = 0 Then BreakPoint.Print("Retry UpdateAllRegion exceeded")
-        UpdateAllRegion = True
-
-        TextPrint(My.Resources.Updating_Ports_word)
-        Dim used As New List(Of Integer)
-        ' Do not want to reuse any ports.
-        ' Get all the running regions so we can collect their ports.
-        Dim runningRegions As New List(Of String)
-        For Each RegionUUID As String In RegionUuids()
-            Dim Name = Region_Name(RegionUUID)
-
-            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                'TextPrint($"-->{Name} {My.Resources.Running_word}")
-                runningRegions.Add(RegionUUID)
-
-                Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                Dim Rp = INI.GetIni(Name, "InternalPort", "0")
-                Dim Gp = INI.GetIni(Name, "GroupPort", "0")
-
-                Region_Port(RegionUUID) = CInt("0" & Rp)
-                GroupPort(RegionUUID) = CInt("0" & Gp)
-
-                If Not used.Contains(CInt("0" & Rp)) Then
-                    used.Add(CInt("0" & Rp))
-                End If
-            Else
-                'TextPrint($"-->{My.Resources.Region_word} {Name} {My.Resources.Stopped_word}")
-            End If
-        Next
-
-        Dim port = Settings.FirstRegionPort
-        For Each RegionUUID As String In RegionUuids()
-            If runningRegions.Contains(RegionUUID) Then Continue For
-
-            If used.Contains(port) Then
-                port = LargestPort() + 1
-            End If
-            Region_Port(RegionUUID) = port
-            GroupPort(RegionUUID) = port
-
-            'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(RegionUUID)))
-            port += 1
-        Next
-
-        UpdateAllRegion = False
 
     End Sub
 

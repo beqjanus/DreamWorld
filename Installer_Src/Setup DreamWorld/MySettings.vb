@@ -99,6 +99,7 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
+        If value Is Nothing Then Return
         Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub

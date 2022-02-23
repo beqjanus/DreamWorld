@@ -44,6 +44,8 @@ Public Class ChatToSpeech
     ''' <returns>path to wave file</returns>
     Public Function Speach(Params As SpeechParameters) As String
 
+        If Params Is Nothing Then Return ""
+
         Dim HttpPathInfo As String = ""
         If Settings.VoiceName = "No Speech" Then Return ""
         If Settings.VoiceName = "No Speech" Then Return ""

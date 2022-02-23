@@ -231,21 +231,6 @@ Module Robust
 
     End Sub
 
-    Private Sub ReadRobustLog()
-
-        Dim log = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
-
-    End Sub
-
-    Private Sub SortOutputHandler(sendingProcess As Object, outLine As DataReceivedEventArgs)
-
-        ' Collect the sort command output.
-        If Not String.IsNullOrEmpty(outLine.Data) Then
-            Debug.Print(outLine.Data)
-        End If
-
-    End Sub
-
 #End Region
 
     Public Sub DoBanList(INI As LoadIni)

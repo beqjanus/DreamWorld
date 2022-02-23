@@ -19,12 +19,12 @@ Public Class LoadIni
     Private _filename As String
     Private _sep As String
 
-    Public Sub New(File As String, arg As String, encoding As System.Text.Encoding)
+    Public Sub New(file As String, arg As String, encoding As System.Text.Encoding)
 
-        If File Is Nothing Then Return
-        FileName = File
+        If file Is Nothing Then Return
+        FileName = file
         If arg Is Nothing Then Return
-        If File.Contains("\Region\") Then CheckINI()
+        If file.Contains("\Region\") Then CheckINI()
         Sep = arg
 
         Me.Encoding = encoding
@@ -67,7 +67,7 @@ Public Class LoadIni
         End Set
     End Property
 
-    Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
+    Public Function GetIni(section As String, key As String, value As String, Optional v As String = Nothing) As Object
 
         If _SettingsData Is Nothing Then
             ErrorLog($"No Settings for {section} {key}")
@@ -76,30 +76,30 @@ Public Class LoadIni
 
         Dim Variable = Stripqq(_SettingsData(section)(key))
 
-        If Variable = Nothing Then Variable = Value
-        If Variable Is Nothing Then Return Value
+        If Variable = Nothing Then Variable = value
+        If Variable Is Nothing Then Return value
 
         Dim bool As Boolean
-        If V = "Boolean" Then
+        If v = "Boolean" Then
             If Not Boolean.TryParse(Variable, bool) Then
                 Return Variable
             End If
             Return bool
-        ElseIf V = "String" Then
+        ElseIf v = "String" Then
             Return Variable.Trim
-        ElseIf V = "Double" Then
+        ElseIf v = "Double" Then
             Dim DBL As Double
             If Not Double.TryParse(Variable, DBL) Then
                 Return Variable
             End If
             Return DBL
-        ElseIf V = "Single" Then
+        ElseIf v = "Single" Then
             Dim SNG As Single
             If Not Single.TryParse(Variable, SNG) Then
                 Return Variable
             End If
             Return SNG
-        ElseIf V = "Integer" Then
+        ElseIf v = "Integer" Then
             Dim I As Integer
             If Not Integer.TryParse(Variable, I) Then
                 Return Variable

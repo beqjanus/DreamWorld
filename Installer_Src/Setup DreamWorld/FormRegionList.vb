@@ -129,6 +129,9 @@ Public Class FormRegionlist
 
     Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
+        If sourceTable Is Nothing Then Return
+        If writer Is Nothing Then Return
+
         If (includeHeaders) Then
             Dim headerValues As IEnumerable(Of String) = sourceTable.Columns.OfType(Of DataColumn).Select(Function(column) QuoteValue(column.ColumnName))
             writer.WriteLine(String.Join(",", headerValues))
@@ -631,6 +634,8 @@ SetWindowOnTop_Err:
                 If thing.Length > 0 Then
                     BaseFolder = thing
                     Using sourceTable As New DataTable()
+
+                        sourceTable.Locale = Globalization.CultureInfo.CurrentCulture
 
                         sourceTable.Columns.AddRange(New DataColumn() {
                     New DataColumn("Name", GetType(String)),

@@ -72,45 +72,32 @@ Module Updater
             ' Yes, Update
             If FormSetup.DoStopActions() = False Then Return
 
+            PropOpensimIsRunning = False
+
+            FormSetup.KillAll()
+            StopApache() 'really stop it, even if a service
+            StopMysql()
+            StopIcecast()
+
             Settings.SkipUpdateCheck = 0
+            Settings.SaveSettings()
 
             Dim pi As New ProcessStartInfo With {
                 .WindowStyle = ProcessWindowStyle.Normal,
                 .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
             }
-
+            TextPrint(My.Resources.SeeYouSoon)
+            Sleep(1000)
             UpdateProcess.StartInfo = pi
             Try
                 UpdateProcess.Start()
+
                 End
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 TextPrint(My.Resources.ErrUpdate)
             End Try
         End If
-
-    End Sub
-
-    Public Sub UpdaterGo(Filename As String)
-
-        FormSetup.KillAll()
-        StopApache() 'really stop it, even if a service
-        StopMysql()
-        Application.DoEvents()
-        Dim pUpdate = New Process()
-        Dim pi = New ProcessStartInfo With {
-            .Arguments = Filename,
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
-        }
-        pUpdate.StartInfo = pi
-        TextPrint(My.Resources.SeeYouSoon)
-        Try
-            pUpdate.Start()
-        Catch ex As Exception
-
-            ErrorLog(My.Resources.ErrInstall)
-        End Try
-        End ' program
 
     End Sub
 

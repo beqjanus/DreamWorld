@@ -60,7 +60,6 @@ Module DoIni
         Settings.SetLiteralIni("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-crt.pem""")
         Settings.SetLiteralIni("SSLCACertificateFile", $"SSLCACertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/lets-encrypt-r3.pem""")
 
-
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 
         Return False
@@ -171,10 +170,11 @@ Module DoIni
     Private Function DoGloebit() As Boolean
 
         'Gloebit.ini
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
+        ' always select the money symbol and the DLL's
+        SelectMoneySymbol(INI)
 
         If Not Settings.GloebitsEnable Then Return False
-
-        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
 
         INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
         INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
@@ -200,7 +200,7 @@ Module DoIni
 
     End Function
 
-    Private Sub SetupMoney(INI As LoadIni)
+    Private Sub SelectMoneySymbol(INI As LoadIni)
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         If Settings.GCG Then
