@@ -31,7 +31,7 @@ Public Class FormRegionlist
     Private ItemsAreChecked As Boolean
     Dim RegionForm As New FormRegion
     Private UseMysql As Boolean
-
+    Private TotalRam As Double
 #Region "Declarations"
 
     Private SearchBusy As Boolean
@@ -1519,6 +1519,7 @@ SetWindowOnTop_Err:
                 ' RAM
 
                 If status = SIMSTATUSENUM.Booting _
+                        Or (status = SIMSTATUSENUM.Suspended And Settings.Smart_Start And Smart_Start(RegionUUID) = "True") _
                         Or status = SIMSTATUSENUM.Booted _
                         Or status = SIMSTATUSENUM.RecyclingUp _
                         Or status = SIMSTATUSENUM.RecyclingDown _
@@ -1528,7 +1529,7 @@ SetWindowOnTop_Err:
                         Dim PID = ProcessID(RegionUUID)
                         Dim component1 As Process = CachedProcess(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-
+                        TotalRam += Memory
                         item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))
                     Catch ex As Exception
                         item1.SubItems.Add("0")
@@ -1777,7 +1778,7 @@ SetWindowOnTop_Err:
             End If
             TotalRegionCount += 1
         Next
-        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word}"
+        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word} RAM: {TotalRam.ToString("0.0", Globalization.CultureInfo.CurrentCulture)}"
 
     End Sub
 
