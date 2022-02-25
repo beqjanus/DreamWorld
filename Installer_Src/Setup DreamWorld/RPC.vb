@@ -227,6 +227,21 @@ Module RPC
 
     End Sub
 
+
+    Public Sub ForceShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
+
+
+        RPC_Region_Command(RegionUUID, "quit")
+
+        Dim Group = Group_Name(RegionUUID)
+        Logger("RecyclingDown", Group, "Status")
+
+        For Each RegionUUID In RegionUuidListByName(Group)
+            RegionStatus(RegionUUID) = nextstate
+        Next
+
+    End Sub
+
     Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
