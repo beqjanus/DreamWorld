@@ -119,24 +119,20 @@ Module Maps
 
     Public Sub Delete_Region_Map(RegionUUID As String)
 
-        ' add to the global map this entire DOS box
         Dim Xloc = Coord_X(RegionUUID)
         Dim Yloc = Coord_Y(RegionUUID)
 
-        ' draw a box at this size plus the pull down size.
-        For Each UUID In RegionUuidListByName(Group_Name(RegionUUID))
-            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
-            For Xstep = 0 To SimSize - 1
-                For Ystep = 0 To SimSize - 1
-                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
-                    If Map.ContainsKey(gr) Then Map.Remove(gr)
-                Next
+        Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
+        For Xstep = 0 To SimSize - 1
+            For Ystep = 0 To SimSize - 1
+                Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                If Map.ContainsKey(gr) Then Map.Remove(gr)
             Next
         Next
 
     End Sub
 
-    Public Sub DeleteMaps(RegionUUID As String)
+    Public Sub DeleteMapTile(RegionUUID As String)
 
         Dim path = IO.Path.Combine(Settings.OpensimBinPath(), "maptiles\00000000-0000-0000-0000-000000000000")
 
