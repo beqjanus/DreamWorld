@@ -54,6 +54,7 @@ Module Teleport
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
                                 BreakPoint.Print($"{DestinationName} failed to receive teleport")
                                 RPC_admin_dialog(AgentID, $"Unable to locate region { Region_Name(RegionToUUID)}.")
+                                Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                             End If
                         Else
                             Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
