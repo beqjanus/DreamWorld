@@ -96,10 +96,10 @@ foreach my $src (@manuals) {
 
 
 
-system('TASKKILL /F /IM mysqld* /T ') || die $!;
-system('TASKKILL /F /IM opensim* /T ')|| die $!;
-system('TASKKILL /F /IM robust* /T ')|| die $!;
-system('TASKKILL /F /IM icecast* /T ')|| die $!;
+system('TASKKILL /F /IM mysqld.exe* /T ') || die $!;
+system('TASKKILL /F /IM opensim.exe* /T ')|| die $!;
+system('TASKKILL /F /IM robust.exe* /T ')|| die $!;
+system('TASKKILL /F /IM icecast.exe* /T ')|| die $!;
 
 
 $v > io("$dir/Version.txt");
@@ -520,7 +520,7 @@ sub DeleteandKeep {
 
     my $path = shift;
     use File::Path;
-    rmtree $path;
+    rmtree $path || die;;
     while ( -e $path ) {
         rmtree $path;
         say "Directory '$path' still exists\n";
