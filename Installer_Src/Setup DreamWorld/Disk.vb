@@ -125,8 +125,7 @@ Module Disk
         Diagnostics.Debug.Print($"Pausing {Region_Name(RegionUUID)}")
 
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-        PropUpdateView = True ' make form refresh
+
 
     End Sub
 
@@ -148,8 +147,6 @@ Module Disk
 
         FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
         If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-            PropUpdateView = True ' make form refresh
             TeleportAgents()
             Return False ' no need to boot as we are up.
         Else
@@ -162,6 +159,14 @@ Module Disk
     End Function
 
     Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
+
+        If Arg.Contains("-rpid") Then
+            TextPrint($"{Region_Name(RegionUUID)} Resumed")
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+        Else
+            TextPrint($"{Region_Name(RegionUUID)} Suspended")
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
+        End If
 
         Dim result As Boolean
         Using SuspendProcess As New Process()
@@ -178,7 +183,9 @@ Module Disk
             Try
                 SuspendProcess.Start()
                 SuspendProcess.WaitForExit()
+                Dim r = SuspendProcess.ExitCode
                 PokeRegionTimer(RegionUUID)
+                PropUpdateView = True ' make form refresh
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 result = True
