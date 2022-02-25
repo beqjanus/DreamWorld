@@ -26,13 +26,13 @@ Partial Class FormMaps
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
         Me.MapBox = New System.Windows.Forms.GroupBox()
-        Me.DelMapButton = New System.Windows.Forms.Button()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
         Me.MapNone = New System.Windows.Forms.RadioButton()
         Me.MapSimple = New System.Windows.Forms.RadioButton()
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
+        Me.DelMapButton = New System.Windows.Forms.Button()
         Me.ViewRegionMapsButton = New System.Windows.Forms.Button()
         Me.LargeMapButton = New System.Windows.Forms.Button()
         Me.SmallMapButton = New System.Windows.Forms.Button()
@@ -54,19 +54,18 @@ Partial Class FormMaps
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.VisitorGroup = New System.Windows.Forms.GroupBox()
+        Me.ApacheRunning = New System.Windows.Forms.Label()
         Me.PublicMapsCheckbox = New System.Windows.Forms.CheckBox()
         Me.K4Days = New System.Windows.Forms.Label()
-        Me.ApacheRunning = New System.Windows.Forms.Label()
+        Me.DeleteAMapButton = New System.Windows.Forms.Button()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
-        Me.MenuStrip2.SuspendLayout()
         Me.VisitorGroup.SuspendLayout()
         Me.SuspendLayout()
         '
         'MapBox
         '
-        Me.MapBox.Controls.Add(Me.DelMapButton)
         Me.MapBox.Controls.Add(Me.MapPicture)
         Me.MapBox.Controls.Add(Me.MapNone)
         Me.MapBox.Controls.Add(Me.MapSimple)
@@ -80,22 +79,12 @@ Partial Class FormMaps
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
-        'DelMapButton
-        '
-        Me.DelMapButton.Location = New System.Drawing.Point(7, 259)
-        Me.DelMapButton.Name = "DelMapButton"
-        Me.DelMapButton.Size = New System.Drawing.Size(143, 23)
-        Me.DelMapButton.TabIndex = 0
-        Me.DelMapButton.Text = Global.Outworldz.My.Resources.Resources.DelMaps
-        Me.ToolTip1.SetToolTip(Me.DelMapButton, Global.Outworldz.My.Resources.Resources.Regen_Map)
-        Me.DelMapButton.UseVisualStyleBackColor = True
-        '
         'MapPicture
         '
         Me.MapPicture.InitialImage = CType(resources.GetObject("MapPicture.InitialImage"), System.Drawing.Image)
         Me.MapPicture.Location = New System.Drawing.Point(7, 132)
         Me.MapPicture.Name = "MapPicture"
-        Me.MapPicture.Size = New System.Drawing.Size(142, 115)
+        Me.MapPicture.Size = New System.Drawing.Size(158, 119)
         Me.MapPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.MapPicture.TabIndex = 138
         Me.MapPicture.TabStop = False
@@ -155,6 +144,16 @@ Partial Class FormMaps
         Me.MapGood.TabStop = True
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
+        '
+        'DelMapButton
+        '
+        Me.DelMapButton.Location = New System.Drawing.Point(410, 252)
+        Me.DelMapButton.Name = "DelMapButton"
+        Me.DelMapButton.Size = New System.Drawing.Size(143, 23)
+        Me.DelMapButton.TabIndex = 0
+        Me.DelMapButton.Text = Global.Outworldz.My.Resources.Resources.DelMaps
+        Me.ToolTip1.SetToolTip(Me.DelMapButton, Global.Outworldz.My.Resources.Resources.Regen_Map)
+        Me.DelMapButton.UseVisualStyleBackColor = True
         '
         'ViewRegionMapsButton
         '
@@ -322,11 +321,10 @@ Partial Class FormMaps
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(584, 30)
+        Me.MenuStrip2.Size = New System.Drawing.Size(584, 24)
         Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
@@ -351,6 +349,15 @@ Partial Class FormMaps
         Me.VisitorGroup.TabStop = False
         Me.VisitorGroup.Text = "Visitors"
         '
+        'ApacheRunning
+        '
+        Me.ApacheRunning.AutoSize = True
+        Me.ApacheRunning.Location = New System.Drawing.Point(12, 130)
+        Me.ApacheRunning.Name = "ApacheRunning"
+        Me.ApacheRunning.Size = New System.Drawing.Size(74, 13)
+        Me.ApacheRunning.TabIndex = 17
+        Me.ApacheRunning.Text = "Keep for Days"
+        '
         'PublicMapsCheckbox
         '
         Me.PublicMapsCheckbox.AutoSize = True
@@ -370,14 +377,14 @@ Partial Class FormMaps
         Me.K4Days.TabIndex = 15
         Me.K4Days.Text = "Keep for Days"
         '
-        'ApacheRunning
+        'DeleteAMapButton
         '
-        Me.ApacheRunning.AutoSize = True
-        Me.ApacheRunning.Location = New System.Drawing.Point(12, 130)
-        Me.ApacheRunning.Name = "ApacheRunning"
-        Me.ApacheRunning.Size = New System.Drawing.Size(74, 13)
-        Me.ApacheRunning.TabIndex = 17
-        Me.ApacheRunning.Text = "Keep for Days"
+        Me.DeleteAMapButton.Location = New System.Drawing.Point(410, 281)
+        Me.DeleteAMapButton.Name = "DeleteAMapButton"
+        Me.DeleteAMapButton.Size = New System.Drawing.Size(143, 23)
+        Me.DeleteAMapButton.TabIndex = 4
+        Me.DeleteAMapButton.Text = "Delete a Map"
+        Me.DeleteAMapButton.UseVisualStyleBackColor = True
         '
         'FormMaps
         '
@@ -385,6 +392,8 @@ Partial Class FormMaps
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(584, 345)
+        Me.Controls.Add(Me.DeleteAMapButton)
+        Me.Controls.Add(Me.DelMapButton)
         Me.Controls.Add(Me.VisitorGroup)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
@@ -398,8 +407,6 @@ Partial Class FormMaps
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.MenuStrip2.ResumeLayout(False)
-        Me.MenuStrip2.PerformLayout()
         Me.VisitorGroup.ResumeLayout(False)
         Me.VisitorGroup.PerformLayout()
         Me.ResumeLayout(False)
@@ -439,4 +446,5 @@ Partial Class FormMaps
     Friend WithEvents ViewVisitorMapButton As Button
     Friend WithEvents PublicMapsCheckbox As CheckBox
     Friend WithEvents ApacheRunning As Label
+    Friend WithEvents DeleteAMapButton As Button
 End Class

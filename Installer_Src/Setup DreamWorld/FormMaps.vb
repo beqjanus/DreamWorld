@@ -356,6 +356,18 @@ Public Class FormMaps
 
     End Sub
 
+    Private Sub DeleteAMapButton_Click(sender As Object, e As EventArgs) Handles DeleteAMapButton.Click
+
+        Dim regionname = ChooseRegion()
+        ' check it
+        Dim RegionUUID As String = FindRegionByName(regionname)
+        If RegionUUID.Length = 0 Then Return
+
+        DeleteMapTile(RegionUUID)
+        TextPrint($"{regionname} {My.Resources.maphasbeendeleted}")
+
+    End Sub
+
 #End Region
 
 End Class
