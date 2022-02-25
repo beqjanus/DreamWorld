@@ -253,6 +253,8 @@ Module FileStuff
     Public Sub DeleteAllContents(regionUUID As String)
 
         Dim GroupName = Group_Name(regionUUID)
+        If GroupName.Length = 0 Then Return
+
         Dim RegionName = Region_Name(regionUUID)
 
         DeleteContent(regionUUID, "primshapes", "uuid")
@@ -268,7 +270,7 @@ Module FileStuff
         DeleteContent(regionUUID, "spawn_points", "regionid")
         DeleteContent(regionUUID, "terrain", "regionuuid")
         Delete_Region_Map(regionUUID)
-        DeleteMaps(regionUUID)
+        DeleteMapTile(regionUUID)
         DeregisterRegionUUID(regionUUID)
 
         DeleteFolder(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}"))
