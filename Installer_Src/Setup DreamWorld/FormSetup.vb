@@ -359,7 +359,7 @@ Public Class FormSetup
              RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
 
-                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
 
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
