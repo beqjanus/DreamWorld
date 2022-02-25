@@ -6260,6 +6260,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to map has been deleted.
+        '''</summary>
+        Friend ReadOnly Property maphasbeendeleted() As String
+            Get
+                Return ResourceManager.GetString("maphasbeendeleted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to All map tiles have been erased. Set the map setting  and reboot to make new maps.
         '''</summary>
         Friend ReadOnly Property Maps_Erased() As String

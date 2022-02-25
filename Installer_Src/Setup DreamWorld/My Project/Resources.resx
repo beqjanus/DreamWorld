@@ -4077,4 +4077,7 @@
   <data name="Frozen" xml:space="preserve">
     <value>Frozen</value>
   </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>map has been deleted</value>
+  </data>
 </root>
