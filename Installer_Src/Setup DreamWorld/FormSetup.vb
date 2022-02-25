@@ -2453,7 +2453,6 @@ Public Class FormSetup
 
             If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("10 second worker")
-                DidItDie()
                 ProcessQuit()               ' check if any processes exited
                 Bench.Print("10 second worker ends")
             End If
@@ -2467,7 +2466,9 @@ Public Class FormSetup
             End If
 
             If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
+
                 Bench.Print("60 second worker")
+                DidItDie()
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
