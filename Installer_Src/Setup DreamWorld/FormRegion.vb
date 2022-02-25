@@ -88,6 +88,7 @@ Public Class FormRegion
 
     Private Sub RestartRobustIfNeeded(RegionUUID As String)
 
+        If Not RegionEnabled(RegionUUID) Then Return
         If Not _LastSmartSetting And SmartStartCheckBox.Checked And IsRobustRunning() Then
 
             PropAborting = True
