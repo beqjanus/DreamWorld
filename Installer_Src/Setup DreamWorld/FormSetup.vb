@@ -1294,9 +1294,9 @@ Public Class FormSetup
 
                 If Settings.Smart_Start Then
 
+                    ' If a region i stopped or suspended, boot it if someone is nearby
                     If status = SIMSTATUSENUM.Stopped _
-                        Or status = SIMSTATUSENUM.Suspended _
-                        Then
+                        Or status = SIMSTATUSENUM.Suspended Then
                         If AvatarIsNearby(RegionUUID) Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
