@@ -15,7 +15,11 @@ Module Updater
     Public Sub CheckForUpdates()
 
         Dim ReleasedVersion As Double
-        Dim MyVersion = CDbl(PropMyVersion)
+        Dim MyVersion As Double
+        Try
+            MyVersion = CDbl(PropMyVersion)
+        Catch
+        End Try
 
         Using client As New Net.WebClient ' download client for web pages
             TextPrint(My.Resources.Checking_for_Updates_word)
