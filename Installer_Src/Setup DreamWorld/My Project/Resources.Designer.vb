@@ -6260,7 +6260,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to map has been deleted.
+        '''  Looks up a localized string similar to Map has been deleted.
         '''</summary>
         Friend ReadOnly Property maphasbeendeleted() As String
             Get
