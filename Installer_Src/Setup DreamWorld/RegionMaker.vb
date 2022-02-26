@@ -373,12 +373,14 @@ Module RegionMaker
 
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
+        ' no point looking if this is off
+        If Settings.Skirtsize = 0 Then Return False
+
         Dim NameRegion = Region_Name(RegionUUID)
         Dim Xloc = Coord_X(RegionUUID)
         Dim Yloc = Coord_Y(RegionUUID)
 
         Dim CenterSize As Integer = CInt(SizeX(RegionUUID) / 256)
-        'If NameRegion = "MotherGoose" Then BreakPoint.Print("mg")
 
         ' draw a square around the new sim
         Dim X1 = Xloc - Settings.Skirtsize
@@ -395,7 +397,7 @@ Module RegionMaker
                     ' do not look inside myself
                     If Region_Name(Map(gr)) = NameRegion Then Continue For
 
-                    ' skip abny offline regions, no one is in there
+                    ' skip any offline regions, no one is in there
                     If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped _
                         Or RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended _
                         Or Not RegionEnabled(RegionUUID) Then Continue For
