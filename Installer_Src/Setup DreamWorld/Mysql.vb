@@ -414,7 +414,7 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Dump(ex)
+                ' BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
