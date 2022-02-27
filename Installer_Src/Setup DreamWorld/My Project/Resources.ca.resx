@@ -3412,4 +3412,133 @@
   <data name="Saved_Word" xml:space="preserve">
     <value>Salvat</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Carregueu fitxers d'ajuda</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Una línia la comença amb la lletra F i els dos punts es parla amb veu femenina.</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minuts</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Còpia de seguretat IAR de tots els usuaris que consumeix molt de temps. ATENCIÓ ** UTILITZA GRAN QUANTITATS D'ESPAI EN DISC **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text a veu per a mitjans de comunicació en un prim</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Visualitza la carpeta de la memòria cau</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Mida de la memòria cau en hores</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Còpia de seguretat de totes les regions als fitxers OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Fer veus</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>còpia de seguretat en execució</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Fes la parla (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Cada línia de text es desa en un fitxer wave i mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Còpia de seguretat dels IAR</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>La selecció de veu predeterminada pronunciarà aquest text.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Qualsevol línia comença amb la lletra M i es parla amb una veu masculina.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>S'està executant la còpia de seguretat automàtica</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Mostra el mapa global</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Mapa global</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Connecteu-vos a la consola</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Còpia de seguretat dels OAR</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Publicar a Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>Clau de l'API</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>No trobat</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Títol</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Esteu segur que necessiteu reinstal·lar SSL? Es renova automàticament per si mateix i sembla que ja està instal·lat.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache ha d'utilitzar el port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache ha d'estar en execució</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Ha d'utilitzar un nom DNS - Avortant</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Interval d'arrencada</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Les regions comencen en paral·lel i posen en pausa la càrrega quan CPU &gt; 90% o RAM &gt; 90% (per defecte)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Paral·lel, sense límits</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Les regions comencen en paral·lel sense que s'apliquin límits de CPU o RAM</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Paral·lel, amb límits</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Ordre seqüencial</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache s'ha aturat</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Conserge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Digues distància</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Crida distància</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Distància de xiuxiueig</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Congelat</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>S'ha suprimit el mapa</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Feu clic a Avatar per teletransportar-vos</value>
+  </data>
 </root>

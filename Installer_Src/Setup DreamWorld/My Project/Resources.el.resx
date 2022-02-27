@@ -3411,4 +3411,133 @@
   <data name="Saved_Word" xml:space="preserve">
     <value>Αποθηκεύτηκε</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Φόρτωση αρχείων βοήθειας</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Μια γραμμή που αρχίζει με το γράμμα F και μια άνω τελεία εκφωνείται με γυναικεία φωνή.</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 λεπτά</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Πολύ χρονοβόρο αντίγραφο ασφαλείας IAR όλων των χρηστών. ΠΡΟΣΟΧΗ ** ΧΡΗΣΙΜΟΠΟΙΕΙ ΜΕΓΑΛΕΣ ΠΟΣΟΤΗΤΕΣ ΧΩΡΟΥ ΔΙΣΚΟΥ **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Κείμενο σε ομιλία για πολυμέσα σε prim</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Προβολή φακέλου προσωρινής μνήμης</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Μέγεθος προσωρινής μνήμης σε ώρες</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Δημιουργία αντιγράφων ασφαλείας όλων των περιοχών σε αρχεία OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Κάντε Φωνές</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>λειτουργία αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Δημιουργία ομιλίας (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Κάθε γραμμή κειμένου αποθηκεύεται σε ένα αρχείο wave και mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Εφεδρικά IAR</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Η προεπιλεγμένη φωνητική επιλογή θα εκφωνήσει αυτό το κείμενο.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>Μ: Οποιαδήποτε γραμμή αρχίζει με το γράμμα Μ και άνω και κάτω τελεία εκφωνείται με αρσενική φωνή.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Εκτελείται η αυτόματη δημιουργία αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Εμφάνιση παγκόσμιου χάρτη</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>ΠΑΓΚΟΣΜΙΟΣ ΧΑΡΤΗΣ</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Συνδεθείτε στην Κονσόλα</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Εφεδρικά OAR</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Δημοσίευση στο Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Οχι</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>Κλειδί API</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Δεν βρέθηκε</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Είστε βέβαιοι ότι πρέπει να επανεγκαταστήσετε το SSL; Ανανεώνεται αυτόματα από μόνο του και φαίνεται να είναι ήδη εγκατεστημένο.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Ο Apache πρέπει να χρησιμοποιεί τη θύρα 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Το Apache πρέπει να εκτελείται</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Πρέπει να χρησιμοποιεί όνομα DNS - Ακύρωση</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Διάστημα εκκίνησης</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Οι περιοχές ξεκινούν παράλληλα και διακόπτουν τη φόρτωση όταν CPU &gt; 90% ή RAM &gt; 90% (προεπιλογή)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Παράλληλα, χωρίς όρια</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Οι περιοχές ξεκινούν παράλληλα χωρίς να επιβάλλονται περιορισμοί CPU ή RAM</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Παράλληλη, με όρια</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Διαδοχική σειρά</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Το Apache σταμάτησε</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Θυρωρός</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Πες απόσταση</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Κραυγή απόσταση</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Απόσταση ψίθυρου</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Παγωμένος</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Ο χάρτης έχει διαγραφεί</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Κάντε κλικ στο Avatar to Teleport</value>
+  </data>
 </root>

@@ -3411,4 +3411,133 @@
   <data name="Saved_Word" xml:space="preserve">
     <value>Uložený</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Načíst soubory nápovědy</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Řádek začíná písmenem F a dvojtečka je vyslovena ženským hlasem.</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minut</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Velmi časově náročná záloha IAR všech uživatelů. POZOR ** VYUŽÍVÁ VELKÉ MNOŽSTVÍ MÍSTA NA DISKU **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Převod textu na řeč pro média na prim</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Zobrazit složku mezipaměti</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Velikost mezipaměti v hodinách</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Zálohujte všechny oblasti do souborů OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Vytvářejte hlasy</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>běží záloha</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Make Speech (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Každý řádek textu se uloží do souboru wave a mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Záložní IAR</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Výchozí výběr hlasu bude tento text vyslovovat.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Libovolný řádek začíná písmenem M a dvojtečka je vyslovena mužským hlasem.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Probíhá automatické zálohování</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Zobrazit globální mapu</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Globální mapa</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Připojte se ke konzoli</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Záložní OAR</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Publikovat na Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>Klíč API</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Nenalezeno</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titul</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Jste si jisti, že potřebujete přeinstalovat SSL? Automaticky se sám obnovuje a zdá se, že je již nainstalován.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache musí používat port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache musí být spuštěn</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Musí být použit název DNS - Aborting</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Boot Interval</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Oblasti se spustí paralelně a pozastaví načítání, když CPU &gt; 90 % nebo RAM &gt; 90 % (výchozí)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Paralelní, bez omezení</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Regiony začínají paralelně bez vynucených limitů CPU nebo RAM</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Paralelně, s limity</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Sekvenční pořadí</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache se zastavil</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Concierge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Řekněte vzdálenost</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Výkřik vzdálenost</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Šeptání</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Zamrzlý</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Mapa byla smazána</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Klepněte na Avatar pro teleport</value>
+  </data>
 </root>
