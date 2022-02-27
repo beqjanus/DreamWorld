@@ -17,6 +17,7 @@ Public Class FormMaps
 
 #End Region
 
+
 #Region "Public Properties"
 
     Public Property ScreenPosition As ClassScreenpos
@@ -33,8 +34,6 @@ Public Class FormMaps
 #Region "Private Methods"
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DelMapButton.Click
-
-
 
         TextPrint(My.Resources.Clearing_Map_tiles_word)
         DelRobustMaps()
