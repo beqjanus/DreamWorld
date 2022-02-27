@@ -280,6 +280,7 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0
