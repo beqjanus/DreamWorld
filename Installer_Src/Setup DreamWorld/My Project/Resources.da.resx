@@ -3411,4 +3411,133 @@
   <data name="Saved_Word" xml:space="preserve">
     <value>Gemt</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Indlæs hjælpefiler</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: En linje begynder med bogstavet F og et kolon udtales med en kvindestemme.</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minutter</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Meget tidskrævende IAR backup af alle brugere. FORSIGTIG **BRUGER STORE MÆNGDER PLADS **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Tekst til tale for medier på en prim</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Se Cache-mappe</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cachestørrelse i timer</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Sikkerhedskopier alle regioner til OAR-filer</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Lav stemmer</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>backup kører</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Lav tale (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Hver tekstlinje gemmes i en wave- og mp3-fil.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Backup IAR'er</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Standardstemmevalget siger denne tekst.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: En hvilken som helst linje begynder med bogstavet M og et kolon er talt med en mandlig stemme.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automatisk sikkerhedskopiering kører</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Vis globalt kort</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Globalt kort</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Opret forbindelse til konsol</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Backup OAR'er</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Udgiv til Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API nøgle</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Ikke fundet</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Er du sikker på, at du skal geninstallere SSL? Den fornyes automatisk af sig selv og ser ud til at være installeret allerede.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache skal bruge port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache skal køre</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Skal bruge et DNS-navn - Afbryder</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Boot interval</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Regioner starter parallelt og pauser indlæsning, når CPU &gt; 90 % eller RAM &gt; 90 % (standard)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Parallel, ingen grænser</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Regioner starter parallelt uden CPU- eller RAM-grænser</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Parallelt, med grænser</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Sekventiel rækkefølge</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache stoppede</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Concierge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Sig afstand</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Råb afstand</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Hviskeafstand</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Frosset</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Kortet er blevet slettet</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Klik på Avatar til teleportering</value>
+  </data>
 </root>
