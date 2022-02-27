@@ -17,7 +17,7 @@ print $Input->header(   # and print it as UTF-8
 # this is so yoiudo not leak information to the Internet
 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1';
 if ( $env ne '127.0.0.1' ) {
-  print "This demo only works on Locval Host at http://localhost/PerlExample/listusers.plx";
+  print "This demo only works on Local Host at http://localhost/PerlExample/listusers.plx";
   exit;
 }
 
@@ -33,7 +33,8 @@ my $tt = Template->new({
    }) || die "$Template::ERROR\n";
 
 # Select all records from the UserAccounts table into a recordset
-my $userRS =  $schema->resultset('Useraccount');
+my $userRS =  $schema->resultset('Useraccount')->search({},{order_by => { -asc => [qw/lastname firstname/] }});
+
 my $count = $userRS->count;   # OO method for how many users on my grid
 
 
