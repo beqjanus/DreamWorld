@@ -144,14 +144,17 @@ Module Disk
         End If
 
         Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
-
-        FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-        If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-            TeleportAgents()
-            Return False ' no need to boot as we are up.
+        If Settings.BootOrSuspend = False Then
+            FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
+            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                TeleportAgents()
+                Return False ' no need to boot as we are up.
+            Else
+                ReBoot(RegionUUID)
+                TeleportAgents()
+            End If
         Else
             ReBoot(RegionUUID)
-            TeleportAgents()
         End If
 
         Return True
