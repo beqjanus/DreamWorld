@@ -34,7 +34,10 @@ Public Class FormMaps
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DelMapButton.Click
 
+
+
         TextPrint(My.Resources.Clearing_Map_tiles_word)
+        DelRobustMaps()
         Dim f As String = Settings.OpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
         Try
             DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -42,6 +45,7 @@ Public Class FormMaps
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
         TextPrint(My.Resources.Maps_Erased)
 
     End Sub
