@@ -353,14 +353,13 @@ Public Class FormSetup
         r.Sort()
 
         For Each RegionUUID As String In r
-            ResumeRegion(RegionUUID)
-            If RegionEnabled(RegionUUID) And
-            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
-             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
+            If RegionEnabled(RegionUUID) Then
                 SequentialPause()
+                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
+                    ResumeRegion(RegionUUID)
+                End If
 
                 ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
             End If
@@ -3604,3 +3603,4 @@ Public Class FormSetup
 #End Region
 
 End Class
+
