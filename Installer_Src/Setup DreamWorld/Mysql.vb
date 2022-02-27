@@ -276,11 +276,17 @@ Public Module MysqlInterface
 
     End Sub
 
+
 #End Region
 
 #Region "Public"
 
+    Public Sub DelRobustMaps()
 
+        Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
+        QueryString(q)
+
+    End Sub
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0

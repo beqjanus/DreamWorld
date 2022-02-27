@@ -13,7 +13,7 @@ using Nwc.XmlRpc;
 using OpenSim.Framework;
 using OpenSim.Region.Framework.Interfaces;
 using OpenSim.Region.Framework.Scenes;
-//using OpenSim.Services.Interfaces;
+using OpenSim.Services.Interfaces;
 using Mono.Addins;
 
 using DirFindFlags = OpenMetaverse.DirectoryManager.DirFindFlags;
