@@ -280,6 +280,12 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+    Public Sub DelRobustMaps()
+
+        Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
+        QueryString(q)
+
+    End Sub
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0
@@ -414,7 +420,7 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Dump(ex)
+                ' BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
