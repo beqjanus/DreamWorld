@@ -353,7 +353,10 @@ Public Class FormSetup
         r.Sort()
 
         For Each RegionUUID As String In r
-            If RegionEnabled(RegionUUID) Then
+            If RegionEnabled(RegionUUID) And
+                (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
                 If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
                     ResumeRegion(RegionUUID)
@@ -2529,15 +2532,14 @@ Public Class FormSetup
         If PropOpensimIsRunning() Then
 
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" &
-                        Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
             Else
-                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.HttpPort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2548,8 +2550,7 @@ Public Class FormSetup
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
