@@ -1435,9 +1435,15 @@ Public Class FormSetup
 
         Bench.Print("DidItDie Begins")
 
+        Dim l As New List(Of String)
         ' check to see if a handle to all regions exists. If not, then it died.
         For Each RegionUUID As String In RegionUuids()
-            Application.DoEvents()
+            l.Add(RegionUUID)
+        Next
+        l.Sort()
+        Application.DoEvents()
+
+        For Each RegionUUID As String In l
 
             If Not PropOpensimIsRunning() Then Return
             If Not RegionEnabled(RegionUUID) Then Continue For
@@ -1452,8 +1458,8 @@ Public Class FormSetup
                     Or (status = SIMSTATUSENUM.Suspended)) Then
 
                 Dim Groupname = Group_Name(RegionUUID)
+                TextPrint($"Scanning {Groupname}")
                 If GetHwnd(Groupname) = IntPtr.Zero Then
-
                     If Not exitList.ContainsKey(Groupname) Then
                         exitList.TryAdd(Groupname, "Exit")
                     End If
@@ -2444,9 +2450,10 @@ Public Class FormSetup
                 PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 CheckPost()                 ' see if anything arrived in the web server
-                CheckForBootedRegions()     ' andalso see if any booted up
+                CheckForBootedRegions()     ' and also see if any booted up
                 TeleportAgents()            ' send them onward
                 RestartDOSboxes()
+                Bench.Print("2 second worker end")
             End If
 
             If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
@@ -2475,7 +2482,6 @@ Public Class FormSetup
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
-
                 RegionListHTML("Name") ' create HTML for old teleport boards
                 VisitorCount()
                 Bench.Print("60 second work done")
@@ -3604,4 +3610,3 @@ Public Class FormSetup
 #End Region
 
 End Class
-

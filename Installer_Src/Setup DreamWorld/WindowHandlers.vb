@@ -174,6 +174,7 @@ Module WindowHandlers
             If p.MainWindowTitle = Groupname Then
                 Return p.MainWindowHandle
             End If
+            Application.DoEvents()
         Next
 
         Return IntPtr.Zero
