@@ -95,7 +95,7 @@ Partial Class FormRegionlist
         Me.IconView.MultiSelect = False
         Me.IconView.Name = "IconView"
         Me.IconView.ShowItemToolTips = True
-        Me.IconView.Size = New System.Drawing.Size(1254, 196)
+        Me.IconView.Size = New System.Drawing.Size(1253, 196)
         Me.IconView.TabIndex = 18609
         Me.ToolTip1.SetToolTip(Me.IconView, "Icons")
         Me.IconView.UseCompatibleStateImageBehavior = False
@@ -154,7 +154,7 @@ Partial Class FormRegionlist
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(1254, 196)
+        Me.AvatarView.Size = New System.Drawing.Size(1253, 196)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -182,7 +182,7 @@ Partial Class FormRegionlist
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(1254, 196)
+        Me.UserView.Size = New System.Drawing.Size(1253, 196)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
@@ -473,6 +473,7 @@ Partial Class FormRegionlist
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1287, 338)
+        Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StoppedButton)
         Me.Controls.Add(Me.Bootedbutton)
@@ -484,7 +485,6 @@ Partial Class FormRegionlist
         Me.Controls.Add(Me.IconView)
         Me.Controls.Add(Me.UserView)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.AllNone)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.Label1)
