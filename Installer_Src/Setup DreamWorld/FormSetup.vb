@@ -353,14 +353,16 @@ Public Class FormSetup
         r.Sort()
 
         For Each RegionUUID As String In r
-            ResumeRegion(RegionUUID)
             If RegionEnabled(RegionUUID) And
-            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
-             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
+                (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
+                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
+                    ResumeRegion(RegionUUID)
+                End If
 
                 ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
             End If
@@ -1294,7 +1296,9 @@ Public Class FormSetup
 
                 If Settings.Smart_Start Then
 
-                    If status = SIMSTATUSENUM.Stopped Or status = SIMSTATUSENUM.ShuttingDownForGood Then
+                    ' If a region i stopped or suspended, boot it if someone is nearby
+                    If status = SIMSTATUSENUM.Stopped _
+                        Or status = SIMSTATUSENUM.Suspended Then
                         If AvatarIsNearby(RegionUUID) Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
@@ -2453,6 +2457,7 @@ Public Class FormSetup
 
             If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("10 second worker")
+                DidItDie()
                 ProcessQuit()               ' check if any processes exited
                 Bench.Print("10 second worker ends")
             End If
@@ -2466,9 +2471,7 @@ Public Class FormSetup
             End If
 
             If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
-
                 Bench.Print("60 second worker")
-                DidItDie()
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
@@ -2529,15 +2532,14 @@ Public Class FormSetup
         If PropOpensimIsRunning() Then
 
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" &
-                        Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
             Else
-                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.HttpPort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2548,8 +2550,7 @@ Public Class FormSetup
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -3603,3 +3604,4 @@ Public Class FormSetup
 #End Region
 
 End Class
+

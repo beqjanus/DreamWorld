@@ -4078,6 +4078,9 @@
     <value>Frozen</value>
   </data>
   <data name="maphasbeendeleted" xml:space="preserve">
-    <value>map has been deleted</value>
+    <value>Map has been deleted</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Click Avatar to Teleport</value>
   </data>
 </root>

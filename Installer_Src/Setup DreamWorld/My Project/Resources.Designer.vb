@@ -1908,6 +1908,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click Avatar to Teleport.
+        '''</summary>
+        Friend ReadOnly Property Click_Avatar_to_Teleport() As String
+            Get
+                Return ResourceManager.GetString("Click_Avatar_to_Teleport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to set up the Birds module.
         '''</summary>
         Friend ReadOnly Property Click_Birds() As String
@@ -6260,7 +6269,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to map has been deleted.
+        '''  Looks up a localized string similar to Map has been deleted.
         '''</summary>
         Friend ReadOnly Property maphasbeendeleted() As String
             Get

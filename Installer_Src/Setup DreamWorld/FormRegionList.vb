@@ -392,6 +392,7 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub AllButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllButton.CheckedChanged
+        If Not initted Then Return
         LoadMyListView()
     End Sub
 
@@ -1180,7 +1181,7 @@ SetWindowOnTop_Err:
             AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
             AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
             ctr += 1
-            AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+            AvatarView.Columns.Add(My.Resources.Click_Avatar_to_Teleport, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Left)
             AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
 
             'Users
@@ -1316,10 +1317,12 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
+        If Not initted Then Return
         LoadMyListView()
     End Sub
 
     Private Sub OnButton_CheckedChanged(sender As Object, e As EventArgs) Handles OnButton.CheckedChanged
+        If Not initted Then Return
         LoadMyListView()
     End Sub
 
@@ -1395,6 +1398,10 @@ SetWindowOnTop_Err:
             AllNone.Checked = False
             ViewBusy = True
             AvatarView.Show()
+            AvatarView.Visible = True
+            ListView1.Visible = False
+            UserView.Visible = False
+            IconView.Visible = False
             ListView1.Hide()
             UserView.Hide()
             IconView.Hide()
@@ -1406,58 +1413,45 @@ SetWindowOnTop_Err:
 
             ' Create items and sub items for each item.
             Dim ListOfAgents As New Dictionary(Of String, String)
-            Dim Presence As New Dictionary(Of String, String)
 
             If MysqlInterface.IsMySqlRunning() Then
-                ListOfAgents = GetGridUsers()
-                Presence = GetPresence()
+                ListOfAgents = GetAllAgents()
             End If
 
             For Each Agent In ListOfAgents
                 If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = My.Resources.Search_word Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Region_Name(Agent.Value))
-                    item1.SubItems.Add(My.Resources.Local_Grid)
+                    item1.SubItems.Add("-".ToUpperInvariant)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
                 End If
 
-            Next
-            For Each Agent In Presence
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = "" Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Region_Name(Agent.Value))
-                    item1.SubItems.Add(My.Resources.Local_Grid)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
             Next
 
             If ListOfAgents.Count = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.Hypergrid_word)
+                item1.SubItems.Add("-".ToUpperInvariant)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             End If
 
-            If Index = 0 Then
-                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.Hypergrid_word)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-            End If
 
             For Each col In AvatarView.Columns
                 Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
                     Dim w = csize.ColumnWidth(CStr(col.name))
-                    If w > 0 Then col.Width = w
+                    If w > 0 Then
+                        col.Width = w
+                    Else
+                        col.width = 150
+                    End If
                 End Using
             Next
 
             AvatarView.EndUpdate()
             AvatarView.Show()
-            AvatarView.Visible = True
+
         Catch ex As Exception
             BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
@@ -1784,7 +1778,6 @@ SetWindowOnTop_Err:
 
     Private Sub ShowUsers()
 
-        Me.Text = ""
         AllNone.Visible = True
         AllNone.Checked = False
 
@@ -1965,6 +1958,7 @@ SetWindowOnTop_Err:
 
         ListView1.Hide()
         UserView.Hide()
+        IconView.Hide()
         AvatarView.Show()
         LoadMyListView()
         Timer1.Start()
