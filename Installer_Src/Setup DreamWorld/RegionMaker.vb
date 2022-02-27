@@ -373,6 +373,9 @@ Module RegionMaker
 
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
+        ' no point looking if this is off
+        If Settings.Skirtsize = 0 Then Return False
+
         Dim NameRegion = Region_Name(RegionUUID)
         Dim Xloc = Coord_X(RegionUUID)
         Dim Yloc = Coord_Y(RegionUUID)
@@ -387,12 +390,22 @@ Module RegionMaker
 
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
-                If XPos = Xloc AndAlso Ypos = Yloc Then Continue For
                 Dim gr As String = $"{XPos},{Ypos}"
+
                 If Map.ContainsKey(gr) Then
+
+                    ' do not look inside myself
+                    If Region_Name(Map(gr)) = NameRegion Then Continue For
+
+                    ' skip any offline regions, no one is in there
+                    If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped _
+                        Or RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended _
+                        Or Not RegionEnabled(RegionUUID) Then Continue For
+
+                    ' no see if anyone is in the surrounding sim
                     If IsAgentInRegion(Map.Item(gr)) Then
-                        Dim Name = Region_Name(RegionUUID)
-                        Diagnostics.Debug.Print("Avatar is detected near region " & NameRegion)
+                        'Dim Name = Region_Name(RegionUUID)
+                        'Diagnostics.Debug.Print("Avatar is detected near region " & NameRegion)
                         Return True
                     End If
                 End If
