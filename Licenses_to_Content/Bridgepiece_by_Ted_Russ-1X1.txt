@@ -1,3 +1,0 @@
-By Ted Russ https://mewe.com/group/5bc12bdc322b35103f0965d3/profile/56b5cfad5b424a564b0c47ec
-
-A very basic + shaped bridge OAR with a bridge on it, used it in my grid to visually isolate two regions that still wanted to be reachable without TP, it's quite basic terraforming and a very basic bridge but people can hack it to suit their situations. 
