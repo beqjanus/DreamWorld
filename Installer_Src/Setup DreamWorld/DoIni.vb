@@ -20,7 +20,7 @@ Module DoIni
         ' lean rightward paths for Apache
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\httpd.conf")
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", $"Listen {Settings.LANIP()}:{Settings.ApachePort}")
+        Settings.SetLiteralIni("Listen", $"Listen {Settings.ApachePort}")
         Settings.SetLiteralIni("Define SRVROOT", $"Define SRVROOT ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache""")
         Settings.SetLiteralIni("DocumentRoot", $"DocumentRoot ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
         Settings.SetLiteralIni("Use VDir", $"Use VDir ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
