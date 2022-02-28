@@ -85,7 +85,7 @@ Module RegionMaker
         If GetAllRegions(Verbose) = 0 Then Return False
         TextPrint($"Loaded {CStr(RegionCount)} Regions")
 
-        Return CheckOverLap()
+        Return True
 
     End Function
 
