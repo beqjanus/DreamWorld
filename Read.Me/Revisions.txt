@@ -5,7 +5,7 @@ V4.97
 Only thaw frozen windows (small performance tweak)
 Only shutdown regions that need shutdown (small performance tweak)
 Delete robust database texture maps per mantis. (I had over 8,000)
-Add many languages translations
+Add many language translations -33,900 total to be exact
 
 V4.96
 Sped up background processing to use less CPU time
