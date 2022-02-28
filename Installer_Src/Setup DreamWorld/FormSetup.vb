@@ -1458,7 +1458,6 @@ Public Class FormSetup
                     Or (status = SIMSTATUSENUM.Suspended)) Then
 
                 Dim Groupname = Group_Name(RegionUUID)
-                TextPrint($"Scanning {Groupname}")
                 If GetHwnd(Groupname) = IntPtr.Zero Then
                     If Not exitList.ContainsKey(Groupname) Then
                         exitList.TryAdd(Groupname, "Exit")
