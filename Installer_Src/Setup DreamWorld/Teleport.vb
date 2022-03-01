@@ -42,7 +42,7 @@ Module Teleport
                         If fromName.Length > 0 Then
                             Bench.Print("Teleport Initiated")
 
-                            If Settings.BootOrSuspend And Settings.TeleportSleepTime > 0 Then
+                            If Settings.TeleportSleepTime > 0 Then
                                 RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                                 Sleep(Settings.TeleportSleepTime * 1000)
                             End If
