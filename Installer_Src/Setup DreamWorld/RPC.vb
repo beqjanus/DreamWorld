@@ -266,6 +266,7 @@ Module RPC
 
         If RegionUUID.Length = 0 Then Return False
 
+
         Dim RegionPort = GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
