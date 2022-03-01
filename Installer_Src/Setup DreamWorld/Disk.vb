@@ -185,8 +185,6 @@ Module Disk
 
             Try
                 SuspendProcess.Start()
-                SuspendProcess.WaitForExit()
-                Dim r = SuspendProcess.ExitCode
                 PokeRegionTimer(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Catch ex As Exception
