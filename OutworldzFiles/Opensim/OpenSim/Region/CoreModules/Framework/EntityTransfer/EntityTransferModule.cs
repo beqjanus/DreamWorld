@@ -744,14 +744,14 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                     {
                         if(regID == sp.Scene.RegionInfo.RegionID)
                         {
-                            //fkb sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
                             return;
                         }
 
                         finalDestination = sp.Scene.GridService.GetRegionByUUID(sp.Scene.RegionInfo.ScopeID, regID);
                         if(finalDestination == null)
                         {                            
-                            //fkb sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
                             return;
                         }
 
