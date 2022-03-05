@@ -1,13 +1,13 @@
 <icecast>
-<hostname>192.168.2.139</hostname>
-<location>DreamGrid</location>
-<admin>not@set.yet</admin>
+<hostname>www.outworldz.com</hostname>
+<location>Outworldz Grid</location>
+<admin>fred.beckhusen@gmail.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
-    <port>8100</port>
+    <port>8080</port>
 </listen-socket>
 <listen-socket>
-   <port>8101</port>
+   <port>8081</port>
    <shoutcast-compat>1</shoutcast-compat>
 </listen-socket>
 <limits>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>RCZYnbPyaongh0W</source-password>
-<relay-password>RCZYnbPyaongh0W</relay-password>
+<source-password>123</source-password>
+<relay-password>123</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>1YC95E7TQdaCPYi</admin-password>
+<admin-password>123</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>
