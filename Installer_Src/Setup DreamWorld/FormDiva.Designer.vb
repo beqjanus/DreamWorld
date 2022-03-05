@@ -61,6 +61,7 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SSLEnabled = New System.Windows.Forms.CheckBox()
         Me.Web.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -175,6 +176,7 @@ Partial Class FormDiva
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.SSLEnabled)
         Me.GroupBox6.Controls.Add(Me.SmtpPort)
         Me.GroupBox6.Controls.Add(Me.Label24)
         Me.GroupBox6.Controls.Add(Me.SmtpHost)
@@ -407,6 +409,16 @@ Partial Class FormDiva
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
+        'SSLEnabled
+        '
+        Me.SSLEnabled.AutoSize = True
+        Me.SSLEnabled.Location = New System.Drawing.Point(226, 108)
+        Me.SSLEnabled.Name = "SSLEnabled"
+        Me.SSLEnabled.Size = New System.Drawing.Size(46, 17)
+        Me.SSLEnabled.TabIndex = 8
+        Me.SSLEnabled.Text = "SSL"
+        Me.SSLEnabled.UseVisualStyleBackColor = True
+        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -472,4 +484,5 @@ Partial Class FormDiva
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents CustomRadioButton As RadioButton
+    Friend WithEvents SSLEnabled As CheckBox
 End Class

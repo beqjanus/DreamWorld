@@ -1956,6 +1956,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SmtpSecure() As Boolean
+        Get
+            Return CType(GetMySetting("SmtpSecure", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("SmtpSecure", CStr(Value))
+        End Set
+    End Property
+
     Public Property SmtPropUserName() As String
         Get
             Return GetMySetting("SmtPropUserName", "LoginName@gmail.com")

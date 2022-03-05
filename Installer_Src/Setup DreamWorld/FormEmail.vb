@@ -96,31 +96,37 @@ Public Class FormEmail
                 .HtmlBody = EditorBox.BodyHtml
             }
             Message.Body = builder.ToMessageBody()
-            Using client As New SmtpClient()
-                Try
-                    client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
-                Catch ex As Exception
-                    MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                    Return
-                End Try
-                Try
-                    client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
-                Catch ex As Exception
-                    MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                    Return
-                End Try
-                Try
-                    client.Send(Message)
-                Catch ex As Exception
-                    MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                    Return
-                End Try
-                Try
-                    client.Disconnect(True)
-                Catch
-                End Try
 
-            End Using
+            If Settings.SmtpSecure Then
+                MailKit.SSL.SendMessage(Message)
+            Else
+
+                Using client As New SmtpClient()
+                    Try
+                        client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
+                    Catch ex As Exception
+                        MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                        Return
+                    End Try
+                    Try
+                        client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
+                    Catch ex As Exception
+                        MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                        Return
+                    End Try
+                    Try
+                        client.Send(Message)
+                    Catch ex As Exception
+                        MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
+                        Return
+                    End Try
+                    Try
+                        client.Disconnect(True)
+                    Catch
+                    End Try
+
+                End Using
+            End If
         End Using
 
         Me.Close()

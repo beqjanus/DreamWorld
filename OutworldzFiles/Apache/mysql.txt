@@ -1,1 +1,1 @@
-DSN=Robust:localhost:3306;UID=robustuser;PWD=robustpassword;
+DSN=robust:localhost:3306;UID=robustuser;PWD=robustpassword;

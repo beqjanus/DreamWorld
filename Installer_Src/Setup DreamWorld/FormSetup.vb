@@ -356,6 +356,7 @@ Public Class FormSetup
             If RegionEnabled(RegionUUID) And
                 (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
                 If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
