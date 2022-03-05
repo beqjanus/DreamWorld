@@ -45,8 +45,13 @@
     Public Sub Backupper(RegionUUID As String)
 
         ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """", True)
+        ' 5 minutes to save an OAR
+        'RPC_Save_OAR(RegionUUID, BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
+        'DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar",
+        'Region_Name(RegionUUID), 5 * 60 * 1000)
+
         ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
-                           DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+         DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 
     End Sub
 

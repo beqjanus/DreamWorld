@@ -1273,7 +1273,7 @@ Public Class FormSetup
             L.Sort()
             For Each RegionUUID As String In L
 
-                Application.DoEvents()
+
 
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
@@ -1424,6 +1424,8 @@ Public Class FormSetup
                     PropUpdateView = True ' make form refresh
                     Continue For
                 End If
+
+                Application.DoEvents()
             Next
         Catch ex As Exception
             BreakPoint.Dump(ex)
