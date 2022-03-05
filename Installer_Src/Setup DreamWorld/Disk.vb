@@ -163,8 +163,6 @@ Module Disk
 
     Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
 
-
-
         Dim result As Boolean
         Using SuspendProcess As New Process()
             Dim pi = New ProcessStartInfo With {
@@ -173,12 +171,18 @@ Module Disk
             }
 
             pi.CreateNoWindow = True
-            pi.WindowStyle = ProcessWindowStyle.Minimized
+            If Debugger.IsAttached Then
+                pi.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                pi.WindowStyle = ProcessWindowStyle.Hidden
+            End If
 
             SuspendProcess.StartInfo = pi
 
             Try
                 SuspendProcess.Start()
+                Dim x = SuspendProcess.ExitCode
+                If x <> 0 Then BreakPoint.Print("Failedto Resume or suspend")
                 PokeRegionTimer(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Catch ex As Exception
