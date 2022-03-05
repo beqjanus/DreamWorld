@@ -752,8 +752,6 @@ Public Class FormSetup
         ShowHyperGridAddressToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Grid_Address_text
         ShowStatusToolStripMenuItem.Text = Global.Outworldz.My.Resources.Show_Status_word
         ShowUserDetailsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Show_User_Details_word
-        SimulatorStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
-        SimulatorStatsToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Simulator_Stats
         StartButton.Text = Global.Outworldz.My.Resources.Start_word
         StopButton.Text = Global.Outworldz.My.Resources.Stop_word
         TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
@@ -766,12 +764,8 @@ Public Class FormSetup
         TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_Troubleshooting_word
         UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Users_word
-        ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_green
-        ViewIcecastWebPageToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Icecast
         ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         ViewLogsToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Logs
-        ViewRegionMapToolStripMenuItem.Image = Global.Outworldz.My.Resources.Good
-        ViewRegionMapToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Maps
         ViewWebUI.Image = Global.Outworldz.My.Resources.document_view
         ViewWebUI.Text = Global.Outworldz.My.Resources.View_Web_Interface
         ViewWebUI.ToolTipText = Global.Outworldz.My.Resources.View_Web_Interface_text
@@ -3367,6 +3361,18 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub SearchHelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchHelpToolStripMenuItem.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim HelpAbout = New FormSearchHelp
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        HelpAbout.Show()
+        HelpAbout.Activate()
+        HelpAbout.Select()
+        HelpAbout.BringToFront()
+
+    End Sub
+
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
         TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.PublicIP}:{Settings.HttpPort}")
@@ -3392,7 +3398,7 @@ Public Class FormSetup
         End If
     End Sub
 
-    Private Sub SimulatorStatsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SimulatorStatsToolStripMenuItem.Click
+    Private Sub SimulatorStatsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         If Not PropOpensimIsRunning Then
             TextPrint(My.Resources.Not_Running)
@@ -3557,7 +3563,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
+    Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         If PropOpensimIsRunning() AndAlso Settings.SCEnable Then
             Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.SCPortBase)
@@ -3572,12 +3578,6 @@ Public Class FormSetup
         Else
             TextPrint(My.Resources.Not_Running)
         End If
-
-    End Sub
-
-    Private Sub ViewRegionMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewRegionMapToolStripMenuItem.Click
-
-        ShowRegionMap()
 
     End Sub
 
