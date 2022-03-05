@@ -94,6 +94,7 @@ Public Class FormDiva
         Label23.Text = Global.Outworldz.My.Resources.SMTPHost_word
         Label24.Text = Global.Outworldz.My.Resources.SMTPPort_word
         Label4.Text = Global.Outworldz.My.Resources.Viewer_Greeting_word
+        SSLEnabled.Checked = Settings.SmtpSecure
         Text = Global.Outworldz.My.Resources.WebServerPanel
         ToolTip1.SetToolTip(AdminPassword, Global.Outworldz.My.Resources.Password_Text)
         Web.Text = Global.Outworldz.My.Resources.Wifi_interface
@@ -433,6 +434,13 @@ Public Class FormDiva
             CopyWifi()
             TextPrint(My.Resources.Theme_White)
         End If
+
+    End Sub
+
+    Private Sub SSLEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SSLEnabled.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SmtpSecure = SSLEnabled.Checked
 
     End Sub
 

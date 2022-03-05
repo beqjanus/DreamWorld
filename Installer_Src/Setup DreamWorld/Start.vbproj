@@ -729,6 +729,7 @@
     <Compile Include="SmartStart.vb" />
     <Compile Include="ClassSorter.vb" />
     <Compile Include="Speech.vb" />
+    <Compile Include="SslCertificateValidation.vb" />
     <Compile Include="TaskObject.vb" />
     <Compile Include="Teleport.vb" />
     <Compile Include="Updater.vb" />
