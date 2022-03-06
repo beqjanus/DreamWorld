@@ -51,6 +51,7 @@ Partial Class FormRegions
         Me.LabelShout = New System.Windows.Forms.Label()
         Me.TextBox_Shout_Distance = New System.Windows.Forms.TextBox()
         Me.GroupBoxChat = New System.Windows.Forms.GroupBox()
+        Me.ClearFarmButton = New System.Windows.Forms.Button()
         Me.GroupBoxRegion.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -338,6 +339,18 @@ Partial Class FormRegions
         Me.GroupBoxChat.TabStop = False
         Me.GroupBoxChat.Text = "Chat"
         '
+        'ClearFarmButton
+        '
+        Me.ClearFarmButton.Image = Global.Outworldz.My.Resources.Resources.package_delete
+        Me.ClearFarmButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ClearFarmButton.Location = New System.Drawing.Point(257, 317)
+        Me.ClearFarmButton.Margin = New System.Windows.Forms.Padding(1)
+        Me.ClearFarmButton.Name = "ClearFarmButton"
+        Me.ClearFarmButton.Size = New System.Drawing.Size(185, 35)
+        Me.ClearFarmButton.TabIndex = 1889
+        Me.ClearFarmButton.Text = "Clean Satyr Farm"
+        Me.ClearFarmButton.UseVisualStyleBackColor = True
+        '
         'FormRegions
         '
         Me.AllowDrop = True
@@ -345,6 +358,7 @@ Partial Class FormRegions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(464, 373)
+        Me.Controls.Add(Me.ClearFarmButton)
         Me.Controls.Add(Me.GroupBoxChat)
         Me.Controls.Add(Me.GroupBoxConcierge)
         Me.Controls.Add(Me.MenuStrip2)
@@ -396,4 +410,5 @@ Partial Class FormRegions
     Friend WithEvents LabelShout As Label
     Friend WithEvents TextBox_Shout_Distance As TextBox
     Friend WithEvents GroupBoxChat As GroupBox
+    Friend WithEvents ClearFarmButton As Button
 End Class
