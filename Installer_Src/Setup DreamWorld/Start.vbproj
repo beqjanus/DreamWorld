@@ -598,6 +598,12 @@
     <Compile Include="FormSearch.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSearchHelp.Designer.vb">
+      <DependentUpon>FormSearchHelp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSearchHelp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormServerType.Designer.vb">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </Compile>
@@ -717,7 +723,6 @@
     <Compile Include="MySettings.vb" />
     <Compile Include="Mysql.vb" />
     <Compile Include="RegionMaker.vb" />
-    <Compile Include="Search.vb" />
     <Compile Include="Services.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="FormVoice.Designer.vb">
@@ -871,6 +876,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSearch.resx">
       <DependentUpon>FormSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSearchHelp.resx">
+      <DependentUpon>FormSearchHelp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormServerType.resx">
       <DependentUpon>FormServerType.vb</DependentUpon>
