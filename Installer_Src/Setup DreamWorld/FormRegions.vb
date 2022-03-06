@@ -11,10 +11,8 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
-#Disable Warning CA2213
-    Private ReadOnly RegionForm As New FormRegion
     Private initted As Boolean
-#Enable Warning CA2213
+    Private RegionForm As New FormRegion
 
 #Region "ScreenSize"
 
@@ -43,17 +41,25 @@ Public Class FormRegions
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+
     End Sub
 
 #End Region
 
+#Region "Buttons"
+
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles Button_AddRegion.Click
 
-        RegionForm.Init("")
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
-        RegionForm.BringToFront()
+        Try
+            RegionForm.Dispose()
+            RegionForm = New FormRegion
+            RegionForm.Init("")
+            RegionForm.Activate()
+            RegionForm.Visible = True
+            RegionForm.Select()
+            RegionForm.BringToFront()
+        Catch
+        End Try
 
     End Sub
 
@@ -101,6 +107,7 @@ Public Class FormRegions
             Next
             PropChangedRegionSettings = True
         End If
+
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button_Clear.Click
@@ -120,13 +127,8 @@ Public Class FormRegions
     End Sub
 
     Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckboxConcierge.CheckedChanged
+
         Settings.Concierge = CheckboxConcierge.Checked
-    End Sub
-
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        RegionForm.Dispose()
-        Settings.SaveSettings()
 
     End Sub
 
@@ -134,6 +136,69 @@ Public Class FormRegions
 
         Dim f = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\TTS\Audio")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
+
+    End Sub
+
+    Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
+
+        Dim value As String = TryCast(RegionBox.SelectedItem, String)
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        RegionForm.Init(value)
+        RegionForm.Activate()
+        RegionForm.Visible = True
+        RegionForm.Select()
+        RegionForm.BringToFront()
+
+    End Sub
+
+    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles Button_Region.Click
+
+        Dim X As Integer = 300
+        Dim Y As Integer = 200
+        Dim counter As Integer = 0
+
+        Dim L = RegionUuids()
+        L.Sort()
+
+        For Each RegionUUID As String In L
+
+            Dim RegionName = Region_Name(RegionUUID)
+#Disable Warning CA2000 ' Dispose objects before losing scope
+            Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
+            RegionForm.Init(RegionName)
+            RegionForm.Activate()
+            RegionForm.Visible = True
+            RegionForm.Select()
+            RegionForm.BringToFront()
+
+            Application.DoEvents()
+            counter += 1
+            Y += 100
+            X += 100
+
+        Next
+
+    End Sub
+
+    Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
+        HelpManual("Regions")
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Regions")
+    End Sub
+
+#End Region
+
+#Region "Startup"
+
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        RegionForm.Dispose()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -220,53 +285,9 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
+#End Region
 
-        Dim value As String = TryCast(RegionBox.SelectedItem, String)
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        RegionForm.Init(value)
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
-        RegionForm.BringToFront()
-
-    End Sub
-
-    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles Button_Region.Click
-
-        Dim X As Integer = 300
-        Dim Y As Integer = 200
-        Dim counter As Integer = 0
-
-        Dim L = RegionUuids()
-        L.Sort()
-
-        For Each RegionUUID As String In L
-
-            Dim RegionName = Region_Name(RegionUUID)
-#Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
-            RegionForm.Init(RegionName)
-            RegionForm.Activate()
-            RegionForm.Visible = True
-            RegionForm.Select()
-            RegionForm.BringToFront()
-
-            Application.DoEvents()
-            counter += 1
-            Y += 100
-            X += 100
-
-        Next
-
-    End Sub
-
-    Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
-        HelpManual("Regions")
-    End Sub
+#Region "TextBoxes"
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
@@ -290,10 +311,6 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        HelpManual("Regions")
-    End Sub
-
     Private Sub whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Whisper_distance.TextChanged
 
         Dim digitsOnly = New Regex("[^\d]")
@@ -313,5 +330,7 @@ Public Class FormRegions
         TextBoxZ.Text = digitsOnly.Replace(TextBoxZ.Text, "")
         Settings.HomeVectorZ = TextBoxZ.Text
     End Sub
+
+#End Region
 
 End Class
