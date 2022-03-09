@@ -1976,6 +1976,11 @@ Module RegionMaker
             If INI.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort)) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
+
+            If Settings.SmtpSecure Then
+                If INI.SetIni("SMTP", "SMTP_SERVER_TLS", CStr(Settings.SmtpPassword)) Then Return True
+            End If
+
             If INI.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName) Then Return True
 
             ' the old Clouds
