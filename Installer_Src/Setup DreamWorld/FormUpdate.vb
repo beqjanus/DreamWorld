@@ -100,7 +100,7 @@
         Settings.DotnetUpgraded() = False
         UpgradeDotNet() ' one time run for Dot net prerequisits
 
-        Settings.VisitorsEnabledModules = False
+        Settings.VisitorsEnabled = False
         SetupPerl() ' Ditto
 
         Settings.VisitorsEnabledModules = False

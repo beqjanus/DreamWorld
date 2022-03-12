@@ -147,7 +147,7 @@
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="EmailValidation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=60f3df2f38e92638, processorArchitecture=MSIL">
-      <HintPath>..\packages\EmailValidation.1.0.6\lib\net45\EmailValidation.dll</HintPath>
+      <HintPath>..\packages\EmailValidation.1.0.7\lib\net452\EmailValidation.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.19.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.19.4\lib\net45\Google.Protobuf.dll</HintPath>
@@ -191,7 +191,7 @@
       <HintPath>..\packages\MSChartWrapper.1.0.0.1\lib\MSChartWrapper.dll</HintPath>
     </Reference>
     <Reference Include="MySqlConnector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySqlConnector.2.1.7\lib\net471\MySqlConnector.dll</HintPath>
+      <HintPath>..\packages\MySqlConnector.2.1.8\lib\net471\MySqlConnector.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
