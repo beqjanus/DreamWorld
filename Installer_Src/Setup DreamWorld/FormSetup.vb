@@ -832,8 +832,10 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
-        UpgradeDotNet()
-        SetupPerl()
+        UpgradeDotNet() ' one time run for Dot net prerequisits
+        SetupPerl() ' Ditto
+        SetupPerlModules() ' Perl Language interpreter
+        FixPresence() ' Fixes stuck avatars
 
         TextPrint(My.Resources.Getting_regions_word)
 
@@ -1267,8 +1269,6 @@ Public Class FormSetup
             L.Sort()
             For Each RegionUUID As String In L
 
-                Application.DoEvents()
-
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
 
@@ -1418,6 +1418,8 @@ Public Class FormSetup
                     PropUpdateView = True ' make form refresh
                     Continue For
                 End If
+
+                Application.DoEvents()
             Next
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -2263,73 +2265,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Misc"
-
-#End Region
-
-#Region "Perl"
-
-    Private Shared Sub SetupPerl()
-
-        If Settings.VisitorsEnabled = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = path
-                }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                    SetupPerlModules()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-        End If
-        Settings.VisitorsEnabled = True
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Shared Sub SetupPerlModules()
-
-        ' needed for DBIX::Class in util.pm
-        If Settings.VisitorsEnabledModules = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "Config::IniFiles",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "File::BOM",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                    Settings.VisitorsEnabledModules = True
-                    Settings.SaveSettings()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-        End If
-    End Sub
 
 #End Region
 

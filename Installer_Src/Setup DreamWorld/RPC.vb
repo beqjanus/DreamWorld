@@ -143,6 +143,25 @@ Module RPC
 
     End Function
 
+    Public Function RPC_Save_OAR(RegionUUID As String, Filename As String, Region_Name As String, Optional timeout As Integer = 2000) As Boolean
+
+        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            Return False
+        End If
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"filename", Filename},
+           {"region_name", Region_Name}
+        }
+        Debug.Print($"admin_save_oar {Region_Name}")
+        Application.DoEvents()
+        Dim status = SendRPC(RegionUUID, "admin_save_oar", ht, timeout)
+
+        Return status
+
+    End Function
+
     Public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
 
         If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
@@ -260,9 +279,9 @@ Module RPC
 
     End Function
 
-    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable) As Boolean
+    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 2000) As Boolean
 
-        If RegionUUID.Length = 0 Then Return False
+    If RegionUUID.Length = 0 Then Return False
 
         Dim RegionPort = GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
@@ -271,12 +290,16 @@ Module RPC
         Dim RPC = New XmlRpcRequest(cmd, parameters)
 
         Try
-            Dim r = RPC.Send(url, 2000)
+            Dim r = RPC.Send(url, Timeout)
             If r.Value Is Nothing Then Return True
 #Disable Warning BC42016 ' Implicit conversion
 
             For Each s In r.Value
                 'Log("Info", s.Key & ":" & s.Value)
+                If s.Key = "saved" AndAlso s.Value = "True" Then
+                    Debug.Print("Oar Saved")
+                    Return True
+                End If
                 If s.Key = "success" AndAlso s.Value = "True" Then
                     Debug.Print("Teleport Sent")
                     Return True

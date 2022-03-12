@@ -2223,10 +2223,10 @@ Public Class MySettings
 
     Public Property VisitorsEnabledModules() As Boolean
         Get
-            Return CType(GetMySetting("VisitorsEnabledModules", "False"), Boolean)
+            Return CType(GetMySetting("VisitorMapsEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("VisitorsEnabledModules", CStr(Value))
+            SetMySetting("VisitorMapsEnabled", CStr(Value))
         End Set
 
     End Property

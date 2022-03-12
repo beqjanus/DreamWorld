@@ -1,37 +1,77 @@
-delete object name "SF Apples"
-delete object name "SF Cherries"
-delete object name "SF Oranges"
-delete object name "SF Lemons"
-delete object name "SF Lettuce"
-delete object name "SF Limes
-delete object name "SF Olives"
-delete object name "SF Onions"
-delete object name "SF Peppers"
-delete object name "SF Potatoes"
-delete object name "SF Raisins"
-delete object name "SF Rice"
-delete object name "SF Raisins"
-delete object name "SF Strawberries"
-delete object name "SF Blackberries"
-delete object name "SF Wood"
-delete object name "SF Meat"
-delete object name "SF Manure"
 delete object name "SF Water"
+Y
+delete object name "SF Apples"
+Y
+delete object name "SF Cherries"
+Y
+delete object name "SF Oranges"
+Y
+delete object name "SF Lemons"
+Y
+delete object name "SF Lettuce"
+Y
+delete object name "SF Limes
+Y
+delete object name "SF Olives"
+Y
+delete object name "SF Onions"
+Y
+delete object name "SF Peppers"
+Y
+delete object name "SF Potatoes"
+Y
+delete object name "SF Raisins"
+Y
+delete object name "SF Rice"
+Y
+delete object name "SF Raisins"
+Y
+delete object name "SF Strawberries"
+Y
+delete object name "SF Blackberries"
+Y
+delete object name "SF Wood"
+Y
+delete object name "SF Meat"
+Y
+delete object name "SF Manure"
+Y
+delete object name "SF Water"
+Y
 delete object name "SF Pumpkin"
+Y
 delete object name "SF Bananas"
+Y
 delete object name "SF Carrots"
+Y
 delete object name "SF Butter"
+Y
 delete object name "SF Cheese"
+Y
 delete object name "SF Chicken"
+Y
 delete object name "SF Curd"
+Y
 delete object name "SF Eggs"
+Y
 delete object name "SF Feta"
+Y
 delete object name "SF Fish"
+Y
 delete object name "SF Kefaltyri"
+Y
 delete object name "SF Slop"
+Y
 delete object name "SF Aubergines"
+Y
 delete object name "SF Lilies"
+Y
 delete object name "SF Grapes"
+Y
 delete object name "SF Salad"
+Y
 delete object name "SF Tomato Juice"
+Y
+delete object name "SF Tomatoes"
+Y
 

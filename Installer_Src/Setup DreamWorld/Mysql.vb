@@ -281,6 +281,14 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+    Public Sub FixPresence()
+
+        'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
+        Dim q = "Delete From robust.Presence Where Not exists (select * from robust.GridUser  where robust.Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
+        QueryString(q)
+
+    End Sub
+
     Public Sub DelRobustMaps()
 
         Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
