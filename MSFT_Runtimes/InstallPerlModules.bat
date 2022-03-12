@@ -1,3 +1,3 @@
 @rem install necessary Perl modules for Maps to work
-cpan File::BOM
-cpan Config::IniFiles
+call cpan File::BOM
+call cpan Config::IniFiles
