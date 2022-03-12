@@ -95,6 +95,19 @@
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Settings.DotnetUpgraded() = False
+        UpgradeDotNet() ' one time run for Dot net prerequisits
+
+        Settings.VisitorsEnabledModules = False
+        SetupPerl() ' Ditto
+
+        Settings.VisitorsEnabledModules = False
+        SetupPerlModules() ' Perl Language interpreter
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         DialogResult = DialogResult.No
     End Sub

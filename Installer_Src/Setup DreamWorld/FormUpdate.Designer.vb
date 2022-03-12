@@ -27,6 +27,7 @@ Partial Class FormUpdate
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.RichTextBox3 = New System.Windows.Forms.RichTextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -44,7 +45,7 @@ Partial Class FormUpdate
         'InstallButton
         '
         Me.InstallButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.InstallButton.Location = New System.Drawing.Point(22, 121)
+        Me.InstallButton.Location = New System.Drawing.Point(22, 132)
         Me.InstallButton.Name = "InstallButton"
         Me.InstallButton.Size = New System.Drawing.Size(198, 37)
         Me.InstallButton.TabIndex = 1
@@ -80,18 +81,29 @@ Partial Class FormUpdate
         'PictureBox2
         '
         Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.welcome_toolbox
-        Me.PictureBox2.Location = New System.Drawing.Point(66, 18)
+        Me.PictureBox2.Location = New System.Drawing.Point(89, 12)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(90, 90)
+        Me.PictureBox2.Size = New System.Drawing.Size(68, 58)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 10
         Me.PictureBox2.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(22, 89)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(198, 37)
+        Me.Button1.TabIndex = 11
+        Me.Button1.Text = "Renstall Dependencies"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'FormUpdate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(653, 447)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RichTextBox3)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
@@ -109,4 +121,5 @@ Partial Class FormUpdate
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents RichTextBox3 As RichTextBox
     Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents Button1 As Button
 End Class

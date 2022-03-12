@@ -1269,8 +1269,6 @@ Public Class FormSetup
             L.Sort()
             For Each RegionUUID As String In L
 
-
-
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
 
@@ -2267,73 +2265,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Misc"
-
-#End Region
-
-#Region "Perl"
-
-    Private Shared Sub SetupPerl()
-
-        If Settings.VisitorsEnabled = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = path
-                }
-                pPerl.StartInfo = pi
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-        End If
-        Settings.VisitorsEnabled = True
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Shared Sub SetupPerlModules()
-
-        ' needed for DBIX::Class in util.pm
-        If Settings.VisitorsEnabledModules = False Then
-            TextPrint(My.Resources.Setup_Perl)
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "Config::IniFiles",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                pPerl.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                Try
-                    pPerl.Start()
-                    pPerl.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-            Using pPerl As New Process()
-                Dim pi = New ProcessStartInfo With {
-                .Arguments = "File::BOM",
-                .FileName = "cpan"
-            }
-                pPerl.StartInfo = pi
-                pPerl.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                Try
-                    pPerl.Start()
-                    Settings.VisitorsEnabledModules = True
-                    Settings.SaveSettings()
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-            End Using
-
-        End If
-    End Sub
 
 #End Region
 
