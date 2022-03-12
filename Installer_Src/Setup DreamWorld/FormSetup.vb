@@ -832,9 +832,10 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
-        UpgradeDotNet()
-        SetupPerl()
-        SetupPerlModules()
+        UpgradeDotNet() ' one time run for Dot net prerequisits
+        SetupPerl() ' Ditto
+        SetupPerlModules() ' Perl Language interpreter
+        FixPresence() ' Fixes stuck avatars
 
         TextPrint(My.Resources.Getting_regions_word)
 
