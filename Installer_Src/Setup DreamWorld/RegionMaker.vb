@@ -1454,27 +1454,6 @@ Module RegionMaker
 
 #Region "Functions"
 
-    Public Sub DebugGroup()
-
-        For Each pair In _Grouplist
-            Debug.Print("Group name: {0}, http port: {1}", pair.Key, pair.Value)
-        Next
-
-    End Sub
-
-    Public Sub DebugRegions(region As String)
-
-        Log("uuid", CStr(region) & vbCrLf &
-            " PID:" & RegionList(region)._ProcessID & vbCrLf &
-            " Group:" & RegionList(region)._Group & vbCrLf &
-            " Region:" & RegionList(region)._RegionName & vbCrLf &
-            " Status=" & CStr(RegionList(region)._Status) & vbCrLf &
-            " Crashes=" & CStr(RegionList(region)._CrashCounter) & vbCrLf &
-            " RegionEnabled=" & RegionList(region)._RegionEnabled & vbCrLf &
-            " Timer=" & CStr(RegionList(region)._Timer))
-
-    End Sub
-
     Public Function FindRegionByName(name As String) As String
 
         Dim pair As KeyValuePair(Of String, Region_data)
@@ -1494,16 +1473,6 @@ Module RegionMaker
         Return RegionStatus(uuid) = SIMSTATUSENUM.Booted
 
     End Function
-
-    Public Sub RegionDump()
-
-        If Not Debugger.IsAttached Then Return
-
-        For Each pair In RegionList
-            DebugRegions(pair.Value._UUID)
-        Next
-
-    End Sub
 
     Public Function RegionPIDs() As List(Of Integer)
 

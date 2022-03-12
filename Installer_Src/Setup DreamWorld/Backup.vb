@@ -1,5 +1,4 @@
 ﻿Module Backup
-    Private _lastbackup As Integer
 
 #Region "Backups"
 

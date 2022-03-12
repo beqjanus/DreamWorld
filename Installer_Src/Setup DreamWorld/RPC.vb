@@ -41,34 +41,18 @@ Module RPC
 
     End Function
 
-    Public Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
+    Public Sub ForceShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
-        Dim RegionPort = GroupPort(FromRegionUUID)
+        RPC_Region_Command(RegionUUID, "quit")
 
-        Dim url = $"http://{Settings.LANIP}:{RegionPort}"
+        Dim Group = Group_Name(RegionUUID)
+        Logger("RecyclingDown", Group, "Status")
 
-        Dim parameters = New List(Of Hashtable) From {ht}
-        Try
+        For Each RegionUUID In RegionUuidListByName(Group)
+            RegionStatus(RegionUUID) = nextstate
+        Next
 
-            Dim RPC = New XmlRpcRequest(cmd, parameters)
-            Dim r As XmlRpcResponse = RPC.Send(url, 2000)
-            If r.Value Is Nothing Then
-                Return 0
-            End If
-#Disable Warning BC42016 ' Implicit conversion
-
-            For Each s In r.Value
-                'Log("Info", s.Key & ":" & s.Value)
-                If s.key = "count" Then
-                    Return CInt(s.value)
-                End If
-            Next
-#Enable Warning BC42016 ' Implicit conversion
-        Catch
-        End Try
-        Return 0
-
-    End Function
+    End Sub
 
     Public Function GetRPCAsObject(FromRegionUUID As String, cmd As String, ht As Hashtable) As Object
 
@@ -143,27 +127,6 @@ Module RPC
 
     End Function
 
-    'http://opensimulator.org/wiki/RemoteAdmin
-    ' New function only in Dreamgrid's version of Opensimulator
-    ''' <summary>
-    ''' Returns count of avatars in a region less NPCs'
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    ''' <returns>integer</returns>
-    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
-
-        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            Return 0
-        End If
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
-
-    End Function
-
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
@@ -227,21 +190,6 @@ Module RPC
 
     End Sub
 
-
-    Public Sub ForceShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
-
-
-        RPC_Region_Command(RegionUUID, "quit")
-
-        Dim Group = Group_Name(RegionUUID)
-        Logger("RecyclingDown", Group, "Status")
-
-        For Each RegionUUID In RegionUuidListByName(Group)
-            RegionStatus(RegionUUID) = nextstate
-        Next
-
-    End Sub
-
     Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
@@ -262,10 +210,59 @@ Module RPC
 
     End Function
 
+    Private Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
+
+        Dim RegionPort = GroupPort(FromRegionUUID)
+
+        Dim url = $"http://{Settings.LANIP}:{RegionPort}"
+
+        Dim parameters = New List(Of Hashtable) From {ht}
+        Try
+
+            Dim RPC = New XmlRpcRequest(cmd, parameters)
+            Dim r As XmlRpcResponse = RPC.Send(url, 2000)
+            If r.Value Is Nothing Then
+                Return 0
+            End If
+#Disable Warning BC42016 ' Implicit conversion
+
+            For Each s In r.Value
+                'Log("Info", s.Key & ":" & s.Value)
+                If s.key = "count" Then
+                    Return CInt(s.value)
+                End If
+            Next
+#Enable Warning BC42016 ' Implicit conversion
+        Catch
+        End Try
+        Return 0
+
+    End Function
+
+    'http://opensimulator.org/wiki/RemoteAdmin
+    ' New function only in Dreamgrid's version of Opensimulator
+    ''' <summary>
+    ''' Returns count of avatars in a region less NPCs'
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    ''' <returns>integer</returns>
+    Private Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
+
+        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
+
+    End Function
+
     Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
         If RegionUUID.Length = 0 Then Return False
-
 
         Dim RegionPort = GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
