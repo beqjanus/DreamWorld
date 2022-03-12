@@ -834,6 +834,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
         SetupPerl()
+        SetupPerlModules()
 
         TextPrint(My.Resources.Getting_regions_word)
 
@@ -2284,7 +2285,6 @@ Public Class FormSetup
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
-                    SetupPerlModules()
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
@@ -2306,6 +2306,7 @@ Public Class FormSetup
                 .FileName = "cpan"
             }
                 pPerl.StartInfo = pi
+                pPerl.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
@@ -2320,9 +2321,9 @@ Public Class FormSetup
                 .FileName = "cpan"
             }
                 pPerl.StartInfo = pi
+                pPerl.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
                 Try
                     pPerl.Start()
-                    pPerl.WaitForExit()
                     Settings.VisitorsEnabledModules = True
                     Settings.SaveSettings()
                 Catch ex As Exception
