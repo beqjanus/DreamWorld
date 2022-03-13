@@ -3,6 +3,13 @@ This is a high-level view of major changes. For detailed commit history, checkou
 
 V4.99
 Prep for V5
+Add button to Updater to reinstall dependencies such as Dot Net or Perl and its modules.
+Add SSL capability to SMTP for email. GMail is quitting on us so you will need to use a company such as PObox.com
+Add Search Help
+Add decrapify button for Satyr Farm leftovers that removes excess buckets and water
+Manual for Text to Speech API
+
+
 
 V4.98
 Added a Search Help files feature to the Help pull down and updated some of the Help files.
