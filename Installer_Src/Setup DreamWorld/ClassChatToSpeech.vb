@@ -1,4 +1,5 @@
-﻿Imports System.Speech.Synthesis
+﻿Imports System.Speech.AudioFormat
+Imports System.Speech.Synthesis
 Imports System.Speech.Synthesis.VoiceGender
 Imports System.Text.RegularExpressions
 
@@ -90,7 +91,7 @@ Public Class ChatToSpeech
                 End If
 
                 If Params.SaveWave Then
-                    Speaker.SetOutputToWaveFile(DiskFilepath)
+                    Speaker.SetOutputToWaveFile(DiskFilepath, New SpeechAudioFormatInfo(44100, AudioBitsPerSample.Sixteen, AudioChannel.Mono))
                 Else
                     Speaker.SetOutputToDefaultAudioDevice()
                 End If
