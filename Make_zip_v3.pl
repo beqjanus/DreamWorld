@@ -360,12 +360,12 @@ if (!copy("../Zips/DreamGrid$type.zip", "$Fleta/Secondlife/Outworldz_Installer/G
 
 
 if (!copy("../Zips/DreamGrid$type.zip",
-          "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
+          "$Contabo/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
     die $!;
 }
 
 if (!copy("../Zips/DreamGrid$type.zip",
-          "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
+          "$Fleta/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
     die $!;
 }
 
@@ -376,7 +376,7 @@ if (!copy('Read.Me/Revisions.txt',
     die $!;
 }
 if (!copy('Read.me/Revisions.txt',
-        '$Fleta/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))
+        '$Fleta/Secondlife/Outworldz_Installer/Revisions.txt'))
 {
     die $!;
 }
@@ -400,7 +400,7 @@ if ( $publish =~ /p/ ) {
     }
     
     if (!copy("../Zips/DreamGrid$type.zip",
-            "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
+            "$Fleta/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
     {
         die $!;
     }
