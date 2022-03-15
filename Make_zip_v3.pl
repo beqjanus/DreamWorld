@@ -20,6 +20,17 @@ use File::Copy::Recursive qw(dircopy);
 use Cwd;
 my $dir = getcwd;
 
+
+my $Contabo = '\\\\contabo2.outworldz.com/c/Inetpub';
+if (! -d $Contabo) {
+    die 'Cannot reach Contabo2';
+}
+my $Fleta = 'Y:/Inetpub';
+if (! -d $Fleta) {
+    die 'Cannot reach Fleta';
+}
+
+
 my $zip = '/Opensim/Zip/';
 JustDelete($zip);
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
@@ -89,17 +100,13 @@ foreach my $src (@manuals) {
     }
     
     my $filename = basename($src);
-    $output > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
+    $output > io("$Contabo/Secondlife/Outworldz_Installer/Help/$filename");
+    $output > io("$Fleta/Secondlife/Outworldz_Installer/Help/$filename");
     
 }
     
 
 
-
-system('TASKKILL /F /IM mysqld.exe* /T ') || die $!;
-system('TASKKILL /F /IM opensim.exe* /T ')|| die $!;
-system('TASKKILL /F /IM robust.exe* /T ')|| die $!;
-system('TASKKILL /F /IM icecast.exe* /T ')|| die $!;
 
 
 $v > io("$dir/Version.txt");
@@ -337,43 +344,39 @@ unless ( $finalzip->writeToFileNamed($dest) == AZ_OK ) {
     die 'write error';
 }
 
-doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
-doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
+doUnlink("$Contabo/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
+doUnlink("$Fleta/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
 
-if (
-    !copy(
-        "../Zips/DreamGrid$type.zip",
-        "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip"
-    )
-  )
-{
+doUnlink("$Contabo/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
+doUnlink("$Fleta/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
+
+if (!copy("../Zips/DreamGrid$type.zip",
+        "$Contabo/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
     die $!;
 }
-if (
-    !copy(
-        "../Zips/DreamGrid$type.zip",
-        "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip"
-    )
-  )
-{
+if (!copy("../Zips/DreamGrid$type.zip", "$Fleta/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
     die $!;
 }
 
-if (
-    !copy(
-        'Read.Me/Revisions.txt',
-        'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'
-    )
-  )
+
+if (!copy("../Zips/DreamGrid$type.zip",
+          "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
+    die $!;
+}
+
+if (!copy("../Zips/DreamGrid$type.zip",
+          "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
+    die $!;
+}
+
+
+if (!copy('Read.Me/Revisions.txt',
+        '$Contabo/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))
 {
     die $!;
 }
-if (
-    !copy(
-        'Read.me/Revisions.txt',
-        'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'
-    )
-  )
+if (!copy('Read.me/Revisions.txt',
+        '$Fleta/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))
 {
     die $!;
 }
@@ -382,29 +385,42 @@ if (
 if ( $publish =~ /p/ ) {
 
     PrintDate("Unlinking");
-    doUnlink ("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
-    doUnlink("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
+    doUnlink ("$Contabo/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
+    doUnlink ("$Fleta/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
+    
+    doUnlink("$Contabo/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
+    doUnlink("$Fleta/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
 
     PrintDate("Publishing now");
 
-    if (
-        !copy(
-            "../Zips/DreamGrid$type.zip",
-            "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"
-        )
-      )
+    if (!copy("../Zips/DreamGrid$type.zip",
+            "$Contabo/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
     {
         die $!;
     }
-    if (
-        !copy(
-            "../Zips/DreamGrid$type.zip",
-            "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"
-        )
-      )
+    
+    if (!copy("../Zips/DreamGrid$type.zip",
+            "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
     {
         die $!;
     }
+    
+    
+    
+    if (!copy("../Zips/DreamGrid$type.zip",
+            "$Contabo/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
+    {
+        die $!;
+    }
+    
+    if (!copy("../Zips/DreamGrid$type.zip",
+            "$Fleta/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
+    {
+        die $!;
+    }
+    
+    
+    
     if (
         !copy(
             "../Zips/DreamGrid$type.zip",
@@ -417,16 +433,21 @@ if ( $publish =~ /p/ ) {
 
     say "Manual\n";
 
-    if (
-        !copy(
-            'outworldzfiles/Help/Dreamgrid Manual.pdf',
-            'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'
-        )
-      )
+    if (!copy('outworldzfiles/Help/Dreamgrid Manual.pdf',
+            '$Contabo/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))
     {
         die $!;
     }
-    $v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
+    
+    if (!copy('outworldzfiles/Help/Dreamgrid Manual.pdf',
+            '$Fleta/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))
+    {
+        die $!;
+    }
+    
+    
+    $v > io("$Contabo/Secondlife/Outworldz_Installer/Grid/Version.txt");
+    $v > io("$Fleta/Secondlife/Outworldz_Installer/Grid/Version.txt");
 
 }
 foreach my $lang (@languages) {
