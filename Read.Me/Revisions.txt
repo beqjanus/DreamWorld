@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+
+V4.991 
+V4.99 Fixed for Apache SSL where it would not start if SSL was enabled.
+
 V4.99
 Prep for V5
 Add button to Updater to reinstall dependencies such as Dot Net or Perl and its modules.
@@ -8,8 +12,6 @@ Add SSL capability to SMTP for email. GMail is quitting on us so you will need t
 Add Search Help
 Add decrapify button for Satyr Farm leftovers that removes excess buckets and water
 Manual for Text to Speech API
-
-
 
 V4.98
 Added a Search Help files feature to the Help pull down and updated some of the Help files.
