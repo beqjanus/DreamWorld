@@ -28,7 +28,7 @@ Public Class FormRegionlist
     Private _SortColumn As Integer
     Private detailsinitted As Boolean
     Private initted As Boolean
-    Private ItemsAreChecked As Boolean
+
     Dim RegionForm As New FormRegion
     Private UseMysql As Boolean
     Private TotalRam As Double
@@ -80,15 +80,6 @@ Public Class FormRegionlist
         End Get
         Set(value As ImageList)
             _ImageListSmall = value
-        End Set
-    End Property
-
-    Public Property ItemsAreChecked1 As Boolean
-        Get
-            Return ItemsAreChecked
-        End Get
-        Set(value As Boolean)
-            ItemsAreChecked = value
         End Set
     End Property
 
@@ -392,24 +383,28 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub AllButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllButton.CheckedChanged
+
         If Not initted Then Return
         LoadMyListView()
+
     End Sub
 
     Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNone.CheckedChanged
 
         If Not initted Then Return
 
+        detailsinitted = False ' don't toggle the codes
+
         If TheView1 = ViewType.Users Then
 
             For Each X As ListViewItem In UserView.Items
 
-                If Not ItemsAreChecked1 Then
+                If AllNone.Checked Then
                     If X.ForeColor = Color.Black Then
-                        X.Checked = CType(CheckState.Checked, Boolean)
+                        X.Checked = AllNone.Checked
                     End If
                 Else
-                    X.Checked = CType(CheckState.Unchecked, Boolean)
+                    X.Checked = False
                 End If
             Next
 
@@ -426,28 +421,18 @@ SetWindowOnTop_Err:
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
                     If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
 
-                    RegionEnabled(RegionUUID) = X.Checked
-                    If Not ItemsAreChecked1 Then
-                        X.Checked = CType(CheckState.Checked, Boolean)
-                    Else
-                        X.Checked = CType(CheckState.Unchecked, Boolean)
-                    End If
+                    RegionEnabled(RegionUUID) = AllNone.Checked
 
                     Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                    INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(X.Checked))
+                    INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
                     INI.SaveINI()
+                    Application.DoEvents()
                 End If
-
             Next
-
         End If
 
-        If ItemsAreChecked1 Then
-            ItemsAreChecked1 = False
-        Else
-            ItemsAreChecked1 = True
-        End If
         PropUpdateView = True ' make form refresh
+        detailsinitted = True
 
     End Sub
 
@@ -484,7 +469,9 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub Bootedbutton_CheckedChanged(sender As Object, e As EventArgs) Handles Bootedbutton.CheckedChanged
+
         LoadMyListView()
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
@@ -565,17 +552,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
-
-#Disable Warning CA2000
-        Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-        EmailForm.BringToFront()
-        EmailForm.Init(UserView)
-        EmailForm.Activate()
-        EmailForm.Visible = True
-        EmailForm.Select()
-    End Sub
 
     ' ColumnClick event handler.
     Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
@@ -853,10 +829,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-        HelpManual("RegionList")
-
-    End Sub
 
     Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
         If Not initted Then Return
@@ -944,6 +916,7 @@ SetWindowOnTop_Err:
             Else
                 RegionEnabled(RegionUUID) = True
             End If
+
             If RegionIniFilePath(RegionUUID).Length > 0 Then
                 Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
@@ -1317,13 +1290,17 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
+
         If Not initted Then Return
         LoadMyListView()
+
     End Sub
 
     Private Sub OnButton_CheckedChanged(sender As Object, e As EventArgs) Handles OnButton.CheckedChanged
+
         If Not initted Then Return
         LoadMyListView()
+
     End Sub
 
     Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
@@ -1395,7 +1372,6 @@ SetWindowOnTop_Err:
         Try
             Me.Text = ""
             AllNone.Visible = False
-            AllNone.Checked = False
             ViewBusy = True
             AvatarView.Show()
             AvatarView.Visible = True
@@ -1467,7 +1443,6 @@ SetWindowOnTop_Err:
         ShowTitle()
 
         AllNone.Visible = True
-        AllNone.Checked = False
         If ViewBusy = True Then
             Return
         End If
@@ -1708,7 +1683,6 @@ SetWindowOnTop_Err:
         ShowTitle()
 
         AllNone.Visible = False
-        AllNone.Checked = False
         IconView.TabIndex = 0
         IconView.Show()
         UserView.Visible = True
@@ -1779,8 +1753,6 @@ SetWindowOnTop_Err:
     Private Sub ShowUsers()
 
         AllNone.Visible = True
-        AllNone.Checked = False
-
         UserView.TabIndex = 0
         ViewBusy = True
 
@@ -1913,7 +1885,9 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
+
         LoadMyListView()
+
     End Sub
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
@@ -1924,7 +1898,9 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub StoppedButton_CheckedChanged(sender As Object, e As EventArgs) Handles StoppedButton.CheckedChanged
+
         LoadMyListView()
+
     End Sub
 
     Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
