@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Ladda hjälpfiler</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: En rad börjar med bokstaven F och ett kolon läses upp med en kvinnlig röst.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minuter</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Mycket tidskrävande IAR-backup av alla användare. FÖRSIKTIGHET ** ANVÄNDER STORA MÄNDER DISKUTRYMME **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text till tal för media på a prim</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Kartans starttid</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Stänga av nätet?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Visa cachemapp</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Ställ in Perl Language</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Logga datum och tid</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cachestorlek i timmar</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Säkerhetskopiera alla regioner till OAR-filer</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Gör röster</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>säkerhetskopiering körs</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Exportera den här listan</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Standardregionen kan inte aktiveras som Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Uppdatera nu</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Gör tal (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Varje textrad sparas till en wave- och mp3-fil.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Backup IAR</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Sparad</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Starttid</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Standardröstvalet läser upp denna text.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Varje rad som börjar med bokstaven M och ett kolon läses med en mansröst.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automatisk säkerhetskopiering körs</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Välj mapp</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Visa global karta</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Global karta</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Anslut till konsolen</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Backup OARs</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Visa besökskartor</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Starttid</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Publicera till Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Öppet</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API-nyckel</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Måste ställa in ägaren till Sim Surrounds först!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Hittades inte</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Är du säker på att du behöver installera om SSL? Den förnyas automatiskt av sig själv och verkar redan vara installerad.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache måste använda port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache måste vara igång</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Måste använda ett DNS-namn - Avbryter</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Startintervall</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Regioner startar parallellt och pausar laddningen när CPU &gt; 90 % eller RAM &gt; 90 % (standard)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Parallell, inga gränser</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Regioner startar parallellt utan att några CPU- eller RAM-gränser tillämpas</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Parallellt, med gränser</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Sekventiell ordning</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache slutade</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Concierge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Säg avstånd</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Ropa avstånd</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Viskavstånd</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Frysta</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Kartan har tagits bort</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Klicka på Avatar för att teleportera</value>
+  </data>
 </root>

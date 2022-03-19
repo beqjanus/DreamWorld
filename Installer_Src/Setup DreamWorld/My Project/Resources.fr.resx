@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Charger les fichiers d'aide</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F : Une ligne commence par la lettre F et un deux-points est prononcé d'une voix féminine.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Exportation</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minutes</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Sauvegarde IAR très longue de tous les utilisateurs. ATTENTION ** UTILISE DE GRANDES QUANTITÉS D'ESPACE DISQUE **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text To Speech pour les médias sur une prim</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Temps de démarrage de la carte</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Fermer le réseau ?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Afficher le dossier cache</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Configurer le langage Perl</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Date et heure du journal</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Taille du cache en heures</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Sauvegarder toutes les régions dans des fichiers OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Faire des voix</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>sauvegarde en cours d'exécution</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Exporter cette liste</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>La région par défaut ne peut pas être activée en tant que Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Mettez à jour maintenant</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Faire de la parole (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Chaque ligne de texte est enregistrée dans un fichier wave et mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>IAR de sauvegarde</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Temps de démarrage</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>La sélection de voix par défaut prononcera ce texte.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M : Toute ligne commençant par la lettre M et deux-points est prononcée d'une voix masculine.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>La sauvegarde automatique est en cours d'exécution</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Choisir le dossier</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Afficher la carte globale</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Carte globale</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Se connecter à la console</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>OAR de sauvegarde</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Afficher les cartes des visiteurs</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Temps de démarrage</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Publier sur Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Référence</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>clé API</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Vous devez d'abord définir le propriétaire du Sim Surrounds !</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Pas trouvé</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Êtes-vous certain de devoir réinstaller SSL ? Il se renouvelle automatiquement tout seul et semble déjà installé.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache doit utiliser le port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache doit être en cours d'exécution</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Doit utiliser un nom DNS - Abandon</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Intervalle de démarrage</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Les régions démarrent en parallèle et interrompent le chargement lorsque le processeur &gt; 90 % ou la RAM &gt; 90 % (par défaut)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Parallèle, pas de limites</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Les régions démarrent en parallèle sans limites de CPU ou de RAM appliquées</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Parallèle, avec des limites</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Ordre séquentiel</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache arrêté</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>La conciergerie</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Dire la distance</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Distance de cri</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Whisperdistance</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Congelé</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>La carte a été supprimée</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Cliquez sur Avatar pour vous téléporter</value>
+  </data>
 </root>

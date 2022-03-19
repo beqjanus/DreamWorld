@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>טען קבצי עזרה</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: שורה שמתחילה באות F ונקודתיים נאמרת בקול נשי.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>יְצוּא</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 דקות</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>גיבוי IAR גוזל זמן רב של כל המשתמשים. זהירות ** משתמש בכמויות גדולות של שטח דיסק **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>טקסט לדיבור עבור מדיה על ראשוני</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>זמן אתחול המפה</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>לסגור את הרשת?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>הצג את תיקיית המטמון</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>הגדר את שפת Perl</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>יומן תאריך ושעה</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>גודל מטמון בשעות</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>גיבוי כל האזורים לקבצי OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>תעשה קולות</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>גיבוי פועל</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>ייצא רשימה זו</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>לא ניתן להפעיל את אזור ברירת המחדל כ-Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>עדכן כעת</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>צור דיבור (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>כל שורת טקסט נשמרת לקובץ wave ו-mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>גיבוי IARs</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>זמן אתחול</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>בחירת קול ברירת המחדל תקרא את הטקסט הזה.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: כל שורה שמתחילה באות M ונקודתיים נאמרת בקול זכר.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>גיבוי אוטומטי פועל</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>בחר תיקיה</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>הצג מפה גלובלית</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>מפה גלובלית</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>התחבר לקונסולה</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>גיבוי OARs</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>הצג מפות מבקרים</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>זמן אתחול</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>פרסם ל-Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>לִפְתוֹחַ</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>מפתח API</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>חייבים להגדיר את הבעלים של ה-Sim Surrounds תחילה!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>לא נמצא</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>האם אתה בטוח שאתה צריך להתקין מחדש SSL? זה מתחדש אוטומטית מעצמו, ונראה שכבר מותקן.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache חייב להשתמש ביציאה 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>אפאצ'י בטח פועל</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>חייב להשתמש בשם DNS - מבטל</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>מרווח אתחול</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>אזורים מתחילים במקביל ומשהים את הטעינה כאשר מעבד &gt; 90% או זיכרון RAM &gt; 90% (ברירת מחדל)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>מקביל, אין גבולות</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>אזורים מתחילים במקביל ללא מגבלות מעבד או זיכרון RAM שנאכפו</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>מקביל, עם גבולות</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>לפי סדר</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>אפאצ'י נעצר</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>שוֹעֶר</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>תגיד מרחק</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>לצעוק מרחק</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>מרחק לחישה</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>קָפוּא</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>המפה נמחקה</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>לחץ על אוואטר לטלפורט</value>
+  </data>
 </root>

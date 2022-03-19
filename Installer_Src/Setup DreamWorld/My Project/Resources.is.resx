@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Hlaða hjálparskrám</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Lína sem byrjar á bókstafnum F og tvípunktur er talaður með kvenmannsrödd.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Útflutningur</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 mínútur</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Mjög tímafrekt IAR öryggisafrit af öllum notendum. VARÚÐ ** NOTAR MIKIL MAGNAÐ AF DISKAPLUMI **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Texti í ræðu fyrir fjölmiðla á prim</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Upphafstími korts</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Leggja niður netið?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Skoða skyndiminni möppu</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Setja upp Perl Language</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Skrá dagsetning og tími</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Stærð skyndiminni í klukkustundum</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Afritaðu öll svæði í OAR skrár</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Búðu til raddir</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>öryggisafrit í gangi</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Flytja þennan lista út</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Ekki er hægt að virkja sjálfgefið svæði sem Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Uppfæra núna</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Búðu til ræðu (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Hver lína af texta er vistuð í bylgju- og mp3-skrá.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>IAR öryggisafrit</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Vistað</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Ræsingartími</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Sjálfgefið raddval mun lesa þennan texta.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Sérhver lína sem byrjar á bókstafnum M og tvípunktur er töluð með karlmannsrödd.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Sjálfvirk öryggisafritun er í gangi</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Veldu möppu</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Sýna alþjóðlegt kort</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Alþjóðlegt kort</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Tengstu við Console</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Öryggisafrit OARs</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Skoða gestakort</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Ræsingartími</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Gefðu út To Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nei</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Opið</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Viðmið</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API lykill</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Verður að stilla eiganda Sim Surrounds fyrst!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Ekki fundið</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titill</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Ertu viss um að þú þurfir að setja upp SSL aftur? Það endurnýjast sjálfkrafa af sjálfu sér og virðist vera uppsett þegar.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache verður að nota port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache hlýtur að vera í gangi</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Verður að nota DNS nafn - Hætta</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Ræsingarbil</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Svæði byrja samhliða og gera hlé á hleðslu þegar CPU &gt; 90% eða vinnsluminni &gt; 90% (sjálfgefið)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Samhliða, engin takmörk</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Svæði byrja samhliða án þess að örgjörva- eða vinnsluminni takmörkunum sé framfylgt</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Samhliða, með takmörkunum</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Röð röð</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache hætt</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Móttakan</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Segðu fjarlægð</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Hróp fjarlægð</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Hvíslarfjarlægð</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Frosinn</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Korti hefur verið eytt</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Smelltu á Avatar til að fjarskipta</value>
+  </data>
 </root>

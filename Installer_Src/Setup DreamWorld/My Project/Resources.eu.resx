@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Kargatu Laguntza Fitxategiak</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Lerro bat F hizkiarekin hasten da eta bi puntuak Emakumezkoen ahotsez hitz egiten dira.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Esportatu</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minutu</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Erabiltzaile guztien IAR babeskopia oso luzea da. KONTUZ ** DISKO ESPAZIO HANDIA ERABILTZEN DU **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Hedabideetarako testu-hizketan prim</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Maparen abio-ordua</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Sarea itzali?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Ikusi Cache karpeta</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Konfiguratu Perl hizkuntza</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Erregistratu data eta ordua</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cachearen tamaina ordutan</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Egin babeskopia eskualde guztien OAR fitxategietan</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Egin Ahotsak</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>babeskopia martxan</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Esportatu zerrenda hau</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Eskualde lehenetsia ezin da Smart Start gisa gaitu.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Eguneratu orain</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Egin Hizketa (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Testu-lerro bakoitza wave eta mp3 fitxategi batean gordetzen da.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Backup IARak</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Gordeta</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Abiarazteko ordua</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Ahots-hautapen lehenetsiak testu hau esango du.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: edozein lerro M letraz hasten da eta bi puntuak Gizonezkoen ahotsez hitz egiten dira.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Babeskopia automatikoa abian da</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Aukeratu karpeta</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Erakutsi mapa globala</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Mapa globala</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Konektatu kontsolara</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Babeskopia OARak</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Ikusi Bisitarien Mapak</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Abiarazteko ordua</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Argitaratu Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ez</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Ireki</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Erreferentzia</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API gakoa</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Sim Surround-en jabea ezarri behar da lehenik!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Ez da aurkitu</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Ziur SSL berriro instalatu behar duzula? Berez berritzen da automatikoki, eta dagoeneko instalatuta dagoela dirudi.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache-k 80 ataka erabili behar du</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache martxan egon behar da</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>DNS izen bat erabili behar du - Abortatzen</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Abiarazteko tartea</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Eskualdeak paraleloan hasten dira eta kargatzen pausatzen dute CPU % 90 &gt; edo RAM &gt; % 90 denean (lehenetsia)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Paraleloa, mugarik gabe</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Eskualdeak paraleloki hasten dira CPU edo RAM mugarik ezarri gabe</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Paraleloa, mugekin</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Ordena sekuentziala</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache Gelditu</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Atezaina</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Esan distantzia</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Oihu distantzia</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Xuxurlatu distantzia</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Izoztuta</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Mapa ezabatu da</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Egin klik Avatar teletransportatzeko</value>
+  </data>
 </root>
