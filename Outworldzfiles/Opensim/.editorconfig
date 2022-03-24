@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttribute' attribute
-dotnet_diagnostic.CS0579.severity = warning

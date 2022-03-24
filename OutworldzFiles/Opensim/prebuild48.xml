@@ -467,7 +467,6 @@
       <Reference name="XMLRPC" path="../../../bin/"/>
       <Reference name="Nini" path="../../../bin/"/>
       <Reference name="log4net" path="../../../bin/"/>
-      <Reference name="DotNetOpenMail" path="../../../bin/"/>
       <Reference name="Mono.Addins" path="../../../bin/"/>
 
       <Files>
@@ -1442,7 +1441,6 @@
       <Reference name="Mono.Addins" path="../../../../../bin/"/>
       <Reference name="Nini" path="../../../../../bin/"/>
       <Reference name="log4net" path="../../../../../bin/"/>
-      <Reference name="Nini" path="../../../../../bin/"/>
       <Reference name="zlib.net" path="../../../../../bin/"/>
 
       <Files>
@@ -1627,7 +1625,8 @@
       <Reference name="XMLRPC" path="../../../bin/"/>
       <Reference name="Nini" path="../../../bin/"/>
       <Reference name="log4net" path="../../../bin/"/>
-      <Reference name="DotNetOpenMail" path="../../../bin/"/>
+      <Reference name="MailKit"/>
+      <Reference name="MimeKit"/>
 
       <!-- To allow regions to have mono addins -->
       <Reference name="Mono.Addins" path="../../../bin/"/>
@@ -1691,7 +1690,6 @@
       <Reference name="XMLRPC" path="../../../bin/"/>
       <Reference name="Nini" path="../../../bin/"/>
       <Reference name="log4net" path="../../../bin/"/>
-      <Reference name="DotNetOpenMail" path="../../../bin/"/>
 
       <Files>
         <Match pattern="*.cs" recurse="true">
@@ -2169,7 +2167,6 @@
       <Reference name="OpenSim.Framework.Console"/>
       <Reference name="OpenSim.Services.Interfaces"/>
       <Reference name="Nini" path="../../../../bin/"/>
-      <Reference name="Nini" path="../../../../bin/"/>
       <Reference name="log4net" path="../../../../bin/"/>
       <Reference name="SmartThreadPool"/>
 
@@ -2492,9 +2489,6 @@
       <Reference name="OpenSim.Server.Base"/>
       <Reference name="OpenSim.Server.Handlers"/>
 
-      <!-- To allow regions to have mono addins -->
-      <Reference name="Mono.Addins" path="../../../bin/" />
-
       <Files>
         <Match pattern="*.cs" recurse="true">
           <Exclude name="obj" pattern="obj"/>
@@ -2540,9 +2534,6 @@
       <Reference name="OpenSim.Region.Framework"/>
       <Reference name="OpenSim.Server.Base"/>
       <Reference name="OpenSim.Server.Handlers"/>
-
-      <!-- To allow regions to have mono addins -->
-      <Reference name="Mono.Addins" path="../../../bin/" />
 
       <Files>
         <Match pattern="*.cs" recurse="true">
@@ -3062,9 +3053,9 @@
 
       <!-- For scripting in funny languages by default -->
       <Reference name="XMLRPC" path="../../../bin/"/>
-      <Reference name="Nini" path="../../../bin/"/>
       <Reference name="log4net" path="../../../bin/"/>
-      <Reference name="DotNetOpenMail" path="../../../bin/"/>
+      <Reference name="MailKit"/>
+      <Reference name="MimeKit"/>
 
       <!--
            TODO: this is kind of lame, we basically build a duplicate
@@ -3182,9 +3173,7 @@
 
       <!-- For scripting in funny languages by default -->
       <Reference name="XMLRPC" path="../../../bin/"/>
-      <Reference name="Nini" path="../../../bin/"/>
       <Reference name="log4net" path="../../../bin/"/>
-      <Reference name="DotNetOpenMail" path="../../../bin/"/>
 
       <!--
            TODO: this is kind of lame, we basically build a duplicate

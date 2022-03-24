@@ -140,9 +140,7 @@ namespace Diva.Wifi.WifiScript
 
         private string Include(string argStr)
         {
-            // fkb prevent recursion past the memory limits
-            if (m_Index > 250)
-                return string.Empty;
+
             Match match = args.Match(argStr);
             //m_log.DebugFormat("Match {0} args? {1} {2}", args.ToString(), match.Success, match.Groups.Count);
             if (match.Groups.Count == 3)

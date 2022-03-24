@@ -1,7 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30517.126
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 19
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.AddinExample", "addon-modules\02AddinExample\Diva.AddinExample.csproj", "{D45D8560-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Data", "addon-modules\00Data\Diva.Data.csproj", "{4A34BECA-0000-0000-0000-000000000000}"
@@ -223,11 +221,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartThreadPool", "ThirdParty\SmartThreadPool\SmartThreadPool.csproj", "{8C618053-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoGotWhat", "addon-modules\WhoGotWhat\WhoGotWhat.csproj", "{A23E7F0E-0000-0000-0000-000000000000}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88B6844C-6C8D-4374-A027-8B32AB9A4031}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -679,11 +672,5 @@ Global
 		{A23E7F0E-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A23E7F0E-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A23E7F0E-0000-0000-0000-000000000000}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C24E9475-2A63-4A26-B893-226D1F6D2E21}
 	EndGlobalSection
 EndGlobal
