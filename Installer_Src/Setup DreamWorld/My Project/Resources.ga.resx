@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Luchtaigh Comhaid Chabhrach</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Tosaíonn líne leis an litir F agus labhraítear idirstad i nguth Mná.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Easpórtáil</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 Nóiméad</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Cúltaca IAR na nÚsáideoirí go léir a thógann an-am. AIRE ** ÚSÁIDÍONN MÉID MÓR SPÁS DIOSCA **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Téacs-Chun Óráid do na Meáin ar prim</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Am Tosaithe Léarscáil</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>An bhfuil tú réidh leis an Eangach?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Féach ar an bhFillteán Taisce</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Socraigh Perl Language</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Log Dáta agus Am</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Méid Taisce In Uaireanta</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Cúltaca Gach réigiún chuig comhaid OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Déan Guthanna</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>cúltaca ag rith</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Easpórtáil an liosta seo</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Ní féidir an réigiún réamhshocraithe a chumasú mar Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Nuashonraigh Anois</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Déan Cainte (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Déantar gach líne téacs a shábháil i gcomhad toinne agus mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>IARanna cúltaca</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Shábháil</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Am Tosaithe</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Labhróidh an rogha gutha réamhshocraithe an téacs seo.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Tosaíonn líne ar bith leis an litir M agus labhraítear idirstad i nguth fireann.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Tá Cúltaca Uathoibríoch ar Rith</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Roghnaigh fillteán</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Taispeáin Léarscáil Dhomhanda</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Léarscáil Dhomhanda</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Ceangail le Console</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>OARanna cúltaca</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Féach ar Léarscáileanna Cuairteoirí</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Am Tosaithe</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Foilsigh Chun Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Níl</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Oscail</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Tagarmharc</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>Eochair API</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Ní mór úinéir an Sim Surrounds a shocrú ar dtús!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Gan Aimsiú</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Teideal</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>An bhfuil tú cinnte go gcaithfidh tú SSL a athshuiteáil? Déanann sé athnuachan go huathoibríoch leis féin, agus is cosúil go bhfuil sé suiteáilte cheana féin.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Caithfidh Apache a bheith ag baint úsáide as port 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Ní mór Apache a Rith</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Ní mór ainm DNS a úsáid - Tobscoireadh</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Eatramh Tosaithe</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Tosaíonn réigiúin ag an am céanna agus cuireann siad sos ar luchtú nuair a bhíonn LAP &gt; 90% nó RAM &gt; 90% (réamhshocraithe)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Comhuaineach, gan teorainneacha</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Tosaíonn réigiúin ag an am céanna gan aon teorainneacha LAP nó RAM i bhfeidhm</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Comhuaineach, le teorainneacha</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Ordú Seicheamhach</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Stopadh Apache</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Concierge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Abair fad</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Scairt achar</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Whisperdistance</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Reoite</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Tá an léarscáil scriosta</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Cliceáil Avatar chun Teleport</value>
+  </data>
 </root>

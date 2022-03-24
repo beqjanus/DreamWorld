@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>加载帮助文件</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F：以字母 F 开头和冒号的一行是用女性的声音说的。</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>出口</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10分钟</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>对所有用户进行非常耗时的 IAR 备份。注意 ** 使用大量磁盘空间 **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>在 prim 上用于媒体的文本到语音</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>映射启动时间</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>关闭电网？</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>查看缓存文件夹</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>设置 Perl 语言</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>记录日期和时间</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>缓存大小（以小时为单位）</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>将所有区域备份到 OAR 文件</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>发出声音</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>备份运行</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>导出此列表</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>默认区域无法启用为 Smart Start。</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>现在更新</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>演讲 (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>每行文本都保存到一个波形和 mp3 文件中。</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>备份 IAR</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>开机时间</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>默认语音选择将说出此文本。</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M：任何以字母 M 开头和冒号的行都是男声。</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>自动备份正在运行</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>显示全球地图</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>全球地图</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>连接到控制台</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>备份 OAR</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>查看访客地图</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>开机时间</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>发布到 Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>基准</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>必须先设置 Sim Surrounds 的所有者！</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>未找到</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>您确定需要重新安装 SSL 吗？它会自动更新，并且似乎已经安装了。</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache 必须使用端口 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache 必须正在运行</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>必须使用 DNS 名称 - 中止</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>引导间隔</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>当 CPU &gt; 90% 或 RAM &gt; 90%（默认）时，区域并行启动并暂停加载</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>并行，无限制</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>区域并行启动，没有强制执行 CPU 或 RAM 限制</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>平行，有限制</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>顺序</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>阿帕奇停止</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>门房</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>说距离</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>喊距离</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>耳语距离</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>冷冻</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>地图已删除</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>点击头像传送</value>
+  </data>
 </root>

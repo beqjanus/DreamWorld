@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Lataa ohjetiedostot</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Rivi a alkaa kirjaimella F ja kaksoispiste puhutaan naisäänellä.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Viedä</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minuuttia</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Erittäin aikaa vievä kaikkien käyttäjien IAR-varmuuskopiointi. VAROITUS ** KÄYTTÄÄ SUURI MÄÄRÄT LEVYTILAA **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Text to Speech for Media primissä</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Kartta käynnistysaika</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Suljetaanko verkko?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Näytä välimuistikansio</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Asenna Perl-kieli</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Loki päivämäärä ja aika</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Välimuistin koko tunneissa</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Varmuuskopioi kaikki alueet OAR-tiedostoihin</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Tee ääniä</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>varmuuskopiointi käynnissä</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Vie tämä luettelo</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Oletusaluetta ei voi ottaa käyttöön Smart Start -toiminnolla.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Päivitä nyt</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Puhe (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Jokainen tekstirivi tallennetaan wave- ja mp3-tiedostoon.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>IAR-varmuuskopiot</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Tallennettu</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Käynnistymisaika</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Oletusäänivalinta puhuu tämän tekstin.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Mikä tahansa rivi alkaa M-kirjaimella ja kaksoispiste puhutaan miesäänellä.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automaattinen varmuuskopiointi on käynnissä</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Valitse kansio</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Näytä maailmanlaajuinen kartta</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Maailmanlaajuinen kartta</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Yhdistä konsoliin</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>OAR:iden varmuuskopiointi</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Näytä vierailijakartat</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Käynnistymisaika</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Julkaise Outworldziin</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Avata</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Vertailuarvo</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API-avain</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Sim Surroundin omistaja on määritettävä ensin!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Ei löydetty</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Oletko varma, että sinun on asennettava SSL uudelleen? Se uusiutuu automaattisesti itsestään ja näyttää olevan jo asennettu.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apachen täytyy käyttää porttia 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apachen täytyy olla käynnissä</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Täytyy käyttää DNS-nimeä - Keskeytetään</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Käynnistysväli</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Alueet alkavat rinnakkain ja keskeyttävät latauksen, kun CPU &gt; 90 % tai RAM &gt; 90 % (oletus)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Rinnakkais, ei rajoja</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Alueet alkavat rinnakkain ilman prosessori- tai RAM-rajoituksia</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Rinnakkain, rajoillaan</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Peräkkäinen järjestys</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache pysähtyi</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Portinvartija</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Sano etäisyys</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Huuda etäisyys</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Kuiskausetäisyys</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Jäätynyt</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Kartta on poistettu</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Napsauta Avatar to Teleport</value>
+  </data>
 </root>

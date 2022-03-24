@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Help-bestanden laden</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Een regel begint met de letter F en een dubbele punt wordt uitgesproken met een vrouwenstem.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Exporteren</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 minuten</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Zeer tijdrovende IAR-back-up van alle gebruikers. LET OP ** GEBRUIKT GROTE HOEVEELHEDEN SCHIJFRUIMTE **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Tekst naar spraak voor media op een primeur</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Kaart opstarttijd</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Het netwerk afsluiten?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Cachemap bekijken</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Perl-taal instellen</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Datum en tijd loggen</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Cachegrootte in uren</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Back-up van alle regio's naar OAR-bestanden</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Stemmen maken</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>back-up actief</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Deze lijst exporteren</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>De standaardregio kan niet worden ingeschakeld als Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Update nu</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Spraak maken (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Elke regel tekst wordt opgeslagen in een wave- en mp3-bestand.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Back-up IAR's</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Opgeslagen</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Opstarttijd</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>De standaard stemselectie zal deze tekst uitspreken.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Elke regel die begint met de letter M en een dubbele punt wordt uitgesproken in een mannelijke stem.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Automatische back-up wordt uitgevoerd</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Kies folder</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Wereldkaart weergeven</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Wereldkaart</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Verbinding maken met console</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Back-up OAR's</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Bezoekerskaarten bekijken</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Opstarttijd</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Publiceren naar Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API sleutel</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Moet de eigenaar van de Sim Surrounds eerst instellen!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Niet gevonden</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Weet u zeker dat u SSL opnieuw moet installeren? Het vernieuwt zichzelf automatisch en lijkt al geïnstalleerd te zijn.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache moet poort 80 . gebruiken</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache moet draaien</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Moet een DNS-naam gebruiken - Afbreken</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Opstartinterval</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Regio's starten parallel en pauzeren het laden wanneer CPU &gt; 90% of RAM &gt; 90% (standaard)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Parallel, geen grenzen</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Regio's starten parallel zonder dat er CPU- of RAM-limieten worden afgedwongen</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Parallel, met limieten</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Opeenvolgende volgorde</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache gestopt</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Conciërge</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Zeg afstand</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Schreeuw afstand</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Fluisterafstand</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Bevroren</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Kaart is verwijderd</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Klik op Avatar om te teleporteren</value>
+  </data>
 </root>

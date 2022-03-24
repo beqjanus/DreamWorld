@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Tải tệp trợ giúp</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Một dòng bắt đầu bằng chữ F và dấu hai chấm được nói bằng giọng Nữ.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Xuất khẩu</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 phút</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Rất tốn thời gian sao lưu IAR của Tất cả người dùng. THẬN TRỌNG ** SỬ DỤNG KHỐI LƯỢNG LỚN CỦA KHÔNG GIAN Đĩa **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Văn bản thành lời nói cho phương tiện trên máy chủ đạo</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Bản đồ khởi động TIme</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Tắt lưới?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Xem thư mục bộ nhớ đệm</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Thiết lập ngôn ngữ Perl</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Ngày và giờ ghi nhật ký</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Kích thước bộ nhớ cache trong giờ</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Sao lưu tất cả các khu vực vào tệp OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Lên tiếng</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>chạy dự phòng</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Xuất danh sách này</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Không thể bật vùng mặc định là Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Cập nhật bây giờ</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Tạo giọng nói (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Mỗi dòng văn bản được lưu vào một tệp wave và mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>IAR dự phòng</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Đã lưu</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Thời gian khởi động</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Lựa chọn giọng nói mặc định sẽ nói văn bản này.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M: Bất kỳ dòng nào bắt đầu bằng chữ M và dấu hai chấm được đọc bằng giọng Nam.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Sao lưu tự động đang chạy</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Chọn thư mục</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Hiển thị Bản đồ Toàn cầu</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Bản đồ toàn cầu</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Kết nối với Bảng điều khiển</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>OAR dự phòng</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Xem Bản đồ của Khách truy cập</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Thời gian khởi động</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Xuất bản lên Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Điểm chuẩn</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>Mã API</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Phải đặt chủ sở hữu của Sim Surround trước tiên!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Không tìm thấy</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Chức vụ</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Bạn có chắc chắn cần cài đặt lại SSL không? Nó tự động gia hạn và dường như đã được cài đặt sẵn.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache phải đang sử dụng cổng 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache phải đang chạy</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Phải sử dụng tên DNS - Đang hủy</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Khoảng thời gian khởi động</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Các vùng bắt đầu song song và tạm dừng tải khi CPU&gt; 90% hoặc RAM&gt; 90% (mặc định)</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Song song, không có giới hạn</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Các khu vực bắt đầu song song mà không có giới hạn CPU hoặc RAM được thực thi</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Song song, có giới hạn</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Yêu cầu tiếp theo</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Apache đã dừng</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Nhân viên hướng dẫn</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Nói khoảng cách</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Hét khoảng cách</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>Thì thầm</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>Đông cứng</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Bản đồ đã bị xóa</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Nhấp vào Hình đại diện để Dịch chuyển</value>
+  </data>
 </root>

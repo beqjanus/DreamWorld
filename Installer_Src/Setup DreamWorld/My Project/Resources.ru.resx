@@ -3360,4 +3360,181 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>Загрузить файлы справки</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F: Строка начинается с буквы F, а двоеточие произносится женским голосом.</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10 минут</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>Очень трудоемкое резервное копирование IAR для всех пользователей. ВНИМАНИЕ ** ИСПОЛЬЗУЕТ БОЛЬШОЙ ОБЪЕМ ДИСКОВОГО ПРОСТРАНСТВА **</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>Преобразование текста в речь для СМИ на примитиве</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Время загрузки карты</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Выключить сеть?</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>Просмотр папки кэша</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Настройка языка Perl</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Дата и время регистрации</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>Размер кэша в часах</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>Резервное копирование всех регионов в файлы OAR</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>Сделать голоса</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>резервное копирование выполняется</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Экспортировать этот список</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>Регион по умолчанию не может быть включен в качестве Smart Start.</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Обновить сейчас</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>Сделать речь (Wav + Mp3)</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>Каждая строка текста сохраняется в файл волны и mp3.</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>Резервные копии IAR</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>Сохранено</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Время загрузки</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>Выбор голоса по умолчанию будет произносить этот текст.</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>М: Любая строка начинается с буквы М, а двоеточие произносится мужским голосом.</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>Автоматическое резервное копирование выполняется</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Выберите папку</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>Показать глобальную карту</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>Глобальная карта</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>Подключиться к консоли</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>Резервные весла</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Посмотреть карты посетителей</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Время загрузки</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>Опубликовать в Outworldz</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Ориентир</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API-ключ</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Сначала необходимо установить владельца Sim Surrounds!</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>Не найдено</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>Вы уверены, что вам нужно переустановить SSL? Он автоматически обновляется сам по себе и, кажется, уже установлен.</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache должен использовать порт 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache должен быть запущен</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>Должен использоваться DNS-имя — прерывание</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>Интервал загрузки</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>Регионы запускаются параллельно и приостанавливают загрузку, когда ЦП &gt; 90 % или ОЗУ &gt; 90 % (по умолчанию).</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>Параллельно, без ограничений</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>Регионы запускаются параллельно без принудительных ограничений ЦП или ОЗУ.</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>Параллельно, с ограничениями</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>Последовательный порядок</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>Апач остановлен</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>Консьерж</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>Скажи расстояние</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>Расстояние крика</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>шепот</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>замороженный</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>Карта была удалена</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>Нажмите Аватар, чтобы телепортироваться</value>
+  </data>
 </root>
