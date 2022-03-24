@@ -462,7 +462,7 @@ Public Class FormSetup
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
-
+        If Not PropOpensimIsRunning Then Return False
         PropAborting = False
         Buttons(BusyButton)
 
