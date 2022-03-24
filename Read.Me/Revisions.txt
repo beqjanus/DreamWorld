@@ -4,9 +4,10 @@ This is a high-level view of major changes. For detailed commit history, checkou
 
 
 V4.992
-All/None button in region panel fixes
-How to Compile manual for merging github Opensim so it will compile with all Diva and Smart Start Functions.
-Recompiled Opensim so comments match upcoming V5 Opensim dev/master
+Updated all 30 translations.  Currently at about 33,960 of them!
+All/None button in region panel fixes.
+How to Compile manual for merging new Opensim code so it will compile with all Diva and Smart Start functions.
+Recompiled Opensim so comments match upcoming V5 Opensim dev/master, in prep for dev master (Released) Opensim for V5.
 
 V4.991 
 V4.99 Fixed for Apache SSL where it would not start if SSL was enabled.
