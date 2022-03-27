@@ -30,8 +30,8 @@ Public Class LoadIni
         Me.Encoding = encoding
 
         _parser = New FileIniDataParser()
-        _parser.Parser.Configuration.SkipInvalidLines = True
-        _parser.Parser.Configuration.AssigmentSpacer = ""
+        _parser.Parser.Configuration.SkipInvalidLines = False
+        _parser.Parser.Configuration.AssigmentSpacer = " "
         _parser.Parser.Configuration.CommentString = Sep ' Opensim uses semicolons
         _SettingsData = ReadINIFile()
         If _SettingsData Is Nothing Then
@@ -200,6 +200,7 @@ Public Class LoadIni
                 Dim Data As IniData = _parser.ReadFile(FileName, Encoding)
                 Return Data
             Catch ex As Exception
+                BreakPoint.Dump(ex)
                 waiting -= 1
                 Sleep(100)
             End Try

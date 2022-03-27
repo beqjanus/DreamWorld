@@ -710,7 +710,7 @@ Module DoIni
 
     End Function
 
-    Private Function DoWifi() As Boolean
+    Public Function DoWifi() As Boolean
 
         ' There are two Wifi's so search will work
 
