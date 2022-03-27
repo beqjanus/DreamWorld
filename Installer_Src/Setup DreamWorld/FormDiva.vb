@@ -58,6 +58,7 @@ Public Class FormDiva
             If IsRobustRunning() Then
                 PropAborting = True
                 StopRobust()
+                DoWifi()
                 PropAborting = False
                 StartRobust()
             End If
@@ -77,7 +78,7 @@ Public Class FormDiva
         ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
         BlackRadioButton.Text = Global.Outworldz.My.Resources.Black_word
         GroupBox1.Text = Global.Outworldz.My.Resources.SplashScreen
-        GroupBox6.Text = Global.Outworldz.My.Resources.SMTP
+
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
@@ -86,15 +87,11 @@ Public Class FormDiva
         Label10.Text = Global.Outworldz.My.Resources.Password_word
         Label11.Text = Global.Outworldz.My.Resources.First_name_word
         Label12.Text = Global.Outworldz.My.Resources.Last_Name_Word
-        Label14.Text = Global.Outworldz.My.Resources.User_Name_word
+
         Label17.Text = Global.Outworldz.My.Resources.Notify_Email
-        Label18.Text = Global.Outworldz.My.Resources.SMTPPassword_word
         Label19.Text = Global.Outworldz.My.Resources.SplashScreen
         Label2.Text = Global.Outworldz.My.Resources.Friendly
-        Label23.Text = Global.Outworldz.My.Resources.SMTPHost_word
-        Label24.Text = Global.Outworldz.My.Resources.SMTPPort_word
         Label4.Text = Global.Outworldz.My.Resources.Viewer_Greeting_word
-        SSLEnabled.Checked = Settings.SmtpSecure
         Text = Global.Outworldz.My.Resources.WebServerPanel
         ToolTip1.SetToolTip(AdminPassword, Global.Outworldz.My.Resources.Password_Text)
         Web.Text = Global.Outworldz.My.Resources.Wifi_interface
@@ -108,10 +105,7 @@ Public Class FormDiva
         WifiEnabled.Checked = Settings.WifiEnabled
         AdminEmail.Text = Settings.AdminEmail
         AccountConfirmationRequired.Checked = Settings.AccountConfirmationRequired
-        GmailPassword.Text = Settings.SmtpPassword
-        GmailUsername.Text = Settings.SmtPropUserName
-        SmtpPort.Text = CStr(Settings.SmtpPort)
-        SmtpHost.Text = Settings.SmtpHost
+
         SplashPage.Text = Settings.SplashPage
         GridName.Text = Settings.SimName
 
@@ -119,10 +113,8 @@ Public Class FormDiva
         If Settings.Theme = "Black" Then BlackRadioButton.Checked = True
         If Settings.Theme = "Custom" Then CustomRadioButton.Checked = True
 
-        'Gmail
         'passwords are asterisks
         AdminPassword.UseSystemPasswordChar = True
-        GmailPassword.UseSystemPasswordChar = True
 
         ' ports
         AdminPassword.Text = Settings.Password
@@ -237,7 +229,7 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub PictureBox4_Click(sender As Object, e As EventArgs)
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         HelpManual("Diva")
 
@@ -255,17 +247,12 @@ Public Class FormDiva
             AdminPassword.Enabled = True
             AdminEmail.Enabled = True
             AccountConfirmationRequired.Enabled = True
-            GmailUsername.Enabled = True
-            GmailPassword.Enabled = True
         Else
-
             AdminFirst.Enabled = False
             AdminLast.Enabled = False
             AdminPassword.Enabled = False
             AdminEmail.Enabled = False
             AccountConfirmationRequired.Enabled = False
-            GmailUsername.Enabled = False
-            GmailPassword.Enabled = False
         End If
 
     End Sub
@@ -296,25 +283,17 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub GmailPassword_Click(sender As Object, e As EventArgs) Handles GmailPassword.Click
 
-        GmailPassword.UseSystemPasswordChar = False
-
-    End Sub
-
-    Private Sub GmailPassword_TextChanged(sender As Object, e As EventArgs) Handles GmailPassword.TextChanged
+    Private Sub GmailPassword_TextChanged(sender As Object, e As EventArgs)
 
         If Not initted Then Return
-        Settings.SmtpPassword = GmailPassword.Text
+
         _SaveNeeded = True
 
     End Sub
 
-    Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
+    Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs)
 
-        If Not initted Then Return
-        Settings.SmtPropUserName = GmailUsername.Text
-        _SaveNeeded = True
 
     End Sub
 
@@ -325,24 +304,6 @@ Public Class FormDiva
         Settings.Password = AdminPassword.Text
         _SaveNeeded = True
         setpassword = True
-
-    End Sub
-
-    Private Sub SmtpHost_TextChanged(sender As Object, e As EventArgs) Handles SmtpHost.TextChanged
-
-        If Not initted Then Return
-        Settings.SmtpHost = SmtpHost.Text
-        _SaveNeeded = True
-
-    End Sub
-
-    Private Sub SmtpPort_TextChanged(sender As Object, e As EventArgs) Handles SmtpPort.TextChanged
-
-        Dim digitsOnly = New Regex("[^\d]")
-        SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
-        If Not initted Then Return
-        Settings.SmtpPort = CInt("0" & SmtpPort.Text)
-        _SaveNeeded = True
 
     End Sub
 
@@ -411,6 +372,8 @@ Public Class FormDiva
 
     End Sub
 
+
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.LostFocus
 
         If Not initted Then Return
@@ -434,13 +397,6 @@ Public Class FormDiva
             CopyWifi()
             TextPrint(My.Resources.Theme_White)
         End If
-
-    End Sub
-
-    Private Sub SSLEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SSLEnabled.CheckedChanged
-
-        If Not initted Then Return
-        Settings.SmtpSecure = SSLEnabled.Checked
 
     End Sub
 

@@ -35,15 +35,6 @@ Partial Class FormDiva
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.AdminPassword = New System.Windows.Forms.TextBox()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.SmtpPort = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.SmtpHost = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.GmailPassword = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.GmailUsername = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GridName = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -61,9 +52,7 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SSLEnabled = New System.Windows.Forms.CheckBox()
         Me.Web.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
@@ -173,89 +162,6 @@ Partial Class FormDiva
         Me.AdminPassword.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.AdminPassword, Global.Outworldz.My.Resources.Resources.Password_Text)
         Me.AdminPassword.UseSystemPasswordChar = True
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.SSLEnabled)
-        Me.GroupBox6.Controls.Add(Me.SmtpPort)
-        Me.GroupBox6.Controls.Add(Me.Label24)
-        Me.GroupBox6.Controls.Add(Me.SmtpHost)
-        Me.GroupBox6.Controls.Add(Me.Label23)
-        Me.GroupBox6.Controls.Add(Me.GmailPassword)
-        Me.GroupBox6.Controls.Add(Me.Label18)
-        Me.GroupBox6.Controls.Add(Me.Label14)
-        Me.GroupBox6.Controls.Add(Me.GmailUsername)
-        Me.GroupBox6.Location = New System.Drawing.Point(5, 239)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(370, 135)
-        Me.GroupBox6.TabIndex = 0
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "SMTP Send Email Account"
-        '
-        'SmtpPort
-        '
-        Me.SmtpPort.Location = New System.Drawing.Point(172, 106)
-        Me.SmtpPort.Name = "SmtpPort"
-        Me.SmtpPort.Size = New System.Drawing.Size(33, 20)
-        Me.SmtpPort.TabIndex = 7
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(9, 111)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(59, 13)
-        Me.Label24.TabIndex = 6
-        Me.Label24.Text = "SMTP Port"
-        '
-        'SmtpHost
-        '
-        Me.SmtpHost.Location = New System.Drawing.Point(172, 80)
-        Me.SmtpHost.Name = "SmtpHost"
-        Me.SmtpHost.Size = New System.Drawing.Size(164, 20)
-        Me.SmtpHost.TabIndex = 5
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(9, 84)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(62, 13)
-        Me.Label23.TabIndex = 4
-        Me.Label23.Text = "SMTP Host"
-        '
-        'GmailPassword
-        '
-        Me.GmailPassword.Location = New System.Drawing.Point(171, 54)
-        Me.GmailPassword.Name = "GmailPassword"
-        Me.GmailPassword.Size = New System.Drawing.Size(165, 20)
-        Me.GmailPassword.TabIndex = 3
-        Me.GmailPassword.UseSystemPasswordChar = True
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(7, 57)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(86, 13)
-        Me.Label18.TabIndex = 2
-        Me.Label18.Text = "SMTP Password"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(9, 33)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(60, 13)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "User Name"
-        '
-        'GmailUsername
-        '
-        Me.GmailUsername.Location = New System.Drawing.Point(171, 30)
-        Me.GmailUsername.Name = "GmailUsername"
-        Me.GmailUsername.Size = New System.Drawing.Size(165, 20)
-        Me.GmailUsername.TabIndex = 1
         '
         'Label2
         '
@@ -409,16 +315,6 @@ Partial Class FormDiva
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
-        'SSLEnabled
-        '
-        Me.SSLEnabled.AutoSize = True
-        Me.SSLEnabled.Location = New System.Drawing.Point(226, 108)
-        Me.SSLEnabled.Name = "SSLEnabled"
-        Me.SSLEnabled.Size = New System.Drawing.Size(46, 17)
-        Me.SSLEnabled.TabIndex = 8
-        Me.SSLEnabled.Text = "SSL"
-        Me.SSLEnabled.UseVisualStyleBackColor = True
-        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -428,15 +324,12 @@ Partial Class FormDiva
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Web)
-        Me.Controls.Add(Me.GroupBox6)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
         Me.Text = "Web Server Panel"
         Me.Web.ResumeLayout(False)
         Me.Web.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -458,15 +351,6 @@ Partial Class FormDiva
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents AdminPassword As TextBox
-    Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents SmtpPort As TextBox
-    Friend WithEvents Label24 As Label
-    Friend WithEvents SmtpHost As TextBox
-    Friend WithEvents Label23 As Label
-    Friend WithEvents GmailPassword As TextBox
-    Friend WithEvents Label18 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents GmailUsername As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents GridName As TextBox
     Friend WithEvents Label19 As Label
@@ -484,5 +368,4 @@ Partial Class FormDiva
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents CustomRadioButton As RadioButton
-    Friend WithEvents SSLEnabled As CheckBox
 End Class
