@@ -1944,21 +1944,33 @@ Module RegionMaker
             If INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort)) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName) Then Return True
+
+            ' Some SMTP servers require a known From email address or will give Error 500 - Envelope from address is not authorized
+            '; set to a valid email address that SMTP will accept (in some cases must be Like SMTP_SERVER_LOGIN)
+
+            If Settings.AdminEmail.Length > 0 Then
+                If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.AdminEmail) Then Return True
+            Else
+                If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.SmtPropUserName) Then Return True
+            End If
+
             If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
+            If INI.SetIni("SMTP", "SMTP_VerifyCertNames", CStr(Settings.VerifyCertCheckBox)) Then Return True
+            If INI.SetIni("SMTP", "SMTP_VerifyCertChain", CStr(Settings.VerifyCertCheckBox)) Then Return True
+            If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.enableEmailToExternalObjects)) Then Return True
+            If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.enableEmailToSMTPCheckBox)) Then Return True
+            If INI.SetIni("SMTP", "MailsFromOwnerPerHour", CStr(Settings.MailsFromOwnerPerHour)) Then Return True
+            If INI.SetIni("SMTP", "MailsToPrimAddressPerHour", CStr(Settings.MailsToPrimAddressPerHour)) Then Return True
+            If INI.SetIni("SMTP", "SMTP_MailsPerDay", CStr(Settings.MailsPerDay)) Then Return True
+            If INI.SetIni("SMTP", "MailsToSMTPAddressPerHour", CStr(Settings.EmailsToSMTPAddressPerHour)) Then Return True
+            If INI.SetIni("SMTP", "email_pause_time", CStr(Settings.Email_pause_time)) Then Return True
+            If INI.SetIni("SMTP", "email_max_size", CStr(Settings.MaxMailSize)) Then Return True
 
             If Settings.SmtpSecure Then
                 If INI.SetIni("SMTP", "SMTP_SERVER_TLS", CStr(Settings.SmtpPassword)) Then Return True
             End If
 
             If INI.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName) Then Return True
-
-            ' the old Clouds
-            If Settings.Clouds Then
-                If INI.SetIni("Cloud", "enabled", "True") Then Return True
-                If INI.SetIni("Cloud", "density", CStr(Settings.Density)) Then Return True
-            Else
-                If INI.SetIni("Cloud", "enabled", "False") Then Return True
-            End If
 
             ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
             ' threads 4 = ubODE

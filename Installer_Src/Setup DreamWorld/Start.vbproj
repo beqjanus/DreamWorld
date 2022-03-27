@@ -406,6 +406,12 @@
     <Compile Include="FormDisplacement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormEmailSetup.Designer.vb">
+      <DependentUpon>FormEmailSetup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEmailSetup.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormErrorLogger.Designer.vb">
       <DependentUpon>FormErrorLogger.vb</DependentUpon>
     </Compile>
@@ -773,6 +779,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement.resx">
       <DependentUpon>FormDisplacement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEmailSetup.resx">
+      <DependentUpon>FormEmailSetup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormErrorLogger.resx">
       <DependentUpon>FormErrorLogger.vb</DependentUpon>
