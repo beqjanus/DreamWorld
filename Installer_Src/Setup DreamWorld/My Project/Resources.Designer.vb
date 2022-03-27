@@ -3428,11 +3428,92 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Email Enable.
+        '''</summary>
+        Friend ReadOnly Property EmailEnabled() As String
+            Get
+                Return ResourceManager.GetString("EmailEnabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max Email Size.
+        '''</summary>
+        Friend ReadOnly Property EmailMaxMailSize() As String
+            Get
+                Return ResourceManager.GetString("EmailMaxMailSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Email Pause Time in Seconds.
+        '''</summary>
+        Friend ReadOnly Property Emailpausetime() As String
+            Get
+                Return ResourceManager.GetString("Emailpausetime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to emails selected.
         '''</summary>
         Friend ReadOnly Property Emails_Selected() As String
             Get
                 Return ResourceManager.GetString("Emails_Selected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Emails From Owner Per Hour.
+        '''</summary>
+        Friend ReadOnly Property EmailsFromOwnerPerHour() As String
+            Get
+                Return ResourceManager.GetString("EmailsFromOwnerPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Emails Per Day.
+        '''</summary>
+        Friend ReadOnly Property EmailsPerDay() As String
+            Get
+                Return ResourceManager.GetString("EmailsPerDay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Emails To Prim Address Per Hour.
+        '''</summary>
+        Friend ReadOnly Property EmailsToPrimAddressPerHour() As String
+            Get
+                Return ResourceManager.GetString("EmailsToPrimAddressPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Emails To SMTP Address Per Day.
+        '''</summary>
+        Friend ReadOnly Property EmailsToSMTPAddressPerDay() As String
+            Get
+                Return ResourceManager.GetString("EmailsToSMTPAddressPerDay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Emails To SMTP Address Per Hour.
+        '''</summary>
+        Friend ReadOnly Property EmailsToSMTPAddressPerHour() As String
+            Get
+                Return ResourceManager.GetString("EmailsToSMTPAddressPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Email To Objects Enabled.
+        '''</summary>
+        Friend ReadOnly Property EmailToObjectsEnabled() As String
+            Get
+                Return ResourceManager.GetString("EmailToObjectsEnabled", resourceCulture)
             End Get
         End Property
         
@@ -3514,6 +3595,15 @@ Namespace My.Resources
         Friend ReadOnly Property EnableDiva() As String
             Get
                 Return ResourceManager.GetString("EnableDiva", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enable Email To SMTP.
+        '''</summary>
+        Friend ReadOnly Property enableEmailToSMTP() As String
+            Get
+                Return ResourceManager.GetString("enableEmailToSMTP", resourceCulture)
             End Get
         End Property
         
@@ -10278,6 +10368,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enable SSL/TLS.
+        '''</summary>
+        Friend ReadOnly Property SSLTLS() As String
+            Get
+                Return ResourceManager.GetString("SSLTLS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start Regions.
         '''</summary>
         Friend ReadOnly Property Start_Regions_word() As String
@@ -11477,6 +11576,15 @@ Namespace My.Resources
         Friend ReadOnly Property UUID0() As String
             Get
                 Return ResourceManager.GetString("UUID0", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Verify Certificate.
+        '''</summary>
+        Friend ReadOnly Property VerifyCertificate() As String
+            Get
+                Return ResourceManager.GetString("VerifyCertificate", resourceCulture)
             End Get
         End Property
         
