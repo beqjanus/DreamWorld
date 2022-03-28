@@ -73,7 +73,7 @@ Outworldzfiles/opensim/bin/Robust.HG.ini.bak
 Outworldzfiles/Settings.ini
 Outworldzfiles/Settings.bak
 Outworldzfiles/Mysql/Data
-Outworldzfiles/Apache/htdocs/Jopensim
+#Outworldzfiles/Apache/htdocs/Jopensim
 Outworldzfiles/Apache/htdocs/TTS/Audio
 
 Installer_Src/Setup Dreamworld/bin/*
@@ -114,13 +114,9 @@ Thumbs.db
 *.build
 *.obj
 *.csproj
-*.csproj
-
 .vs/
-
 .project
 .settings
-*.csproj
 *.csproj.user
 *.build
 *.mdb
@@ -143,7 +139,6 @@ OutworldzFiles/opensim/bin/UserAssets
 OutworldzFiles/opensim/bin/estate_settings.xml
 OutworldzFiles/opensim/bin/config-include/CenomeCache.ini
 OutworldzFiles/opensim/bin/config-include/FlotsamCache.ini
-OutworldzFiles/opensim/bin/config-include/GridCommon.ini
 OutworldzFiles/opensim/bin/config-include/StandaloneCommon.ini
 OutworldzFiles/opensim/bin/OpenSim.Grid.AssetInventoryServer.log
 OutworldzFiles/opensim/bin/OpenSim.Grid.AssetServer.log
@@ -164,7 +159,6 @@ OutworldzFiles/opensim/cov/*
 OutworldzFiles/opensim/OpenSim/OpenSim.userprefs
 OutworldzFiles/opensim/OpenSim/OpenSim.usertasks
 OutworldzFiles/opensim/TAGS
-*~
 OutworldzFiles/opensim/Makefile.local
 OutworldzFiles/opensim/.version
 OutworldzFiles/opensim/compile.bat
