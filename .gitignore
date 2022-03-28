@@ -1,9 +1,9 @@
-
-Outworldzfiles/Opensim/.git
-Outworldzfiles/Freeswitch
-Outworldzfiles/Autobackup
-Outworldzfiles/Apache/htdocs/Stats/Maps
-Outworldzfiles/Apache/htdocs/Audio/Alexandria
+BareTail.udm
+OutworldzFiles/Opensim/.git
+OutworldzFiles/Freeswitch
+OutworldzFiles/AutoBackup
+OutworldzFiles/Apache/htdocs/Stats/Maps
+OutworldzFiles/Apache/htdocs/Audio/Alexandria
 /DreamGridUpdater.exe
 ar
 ar-SA
@@ -47,11 +47,11 @@ baretail.udm
 *.pid
 **/WifiPages-Custom
 fw.bat
-Outworldzfiles/Photo.png
+OutworldzFiles/Photo.png
 UDProxy
-/Outworldzfiles/Opensim/WifiPages/
-/Outworldzfiles/Opensim/bin/WifiPages/
-/Outworldzfiles/Opensim/bin/ScriptEngines/YEngine
+/OutworldzFiles/Opensim/WifiPages/
+/OutworldzFiles/Opensim/bin/WifiPages/
+/OutworldzFiles/Opensim/bin/ScriptEngines/YEngine
 /OutworldzFiles/mysql/data/*.err
 LocalUserStatistics.db
 Diagnostics.log
@@ -69,12 +69,12 @@ OutworldzFiles/opensim/bin/j2kDecodeCache/*
 OutworldzFiles/opensim/bin/fsassets/*
 OutworldzFiles/opensim/bin/MeshCache/*
 OutworldzFiles/opensim/bin/bakes/*
-Outworldzfiles/opensim/bin/Robust.HG.ini.bak
-Outworldzfiles/Settings.ini
-Outworldzfiles/Settings.bak
-Outworldzfiles/Mysql/Data
-#Outworldzfiles/Apache/htdocs/Jopensim
-Outworldzfiles/Apache/htdocs/TTS/Audio
+OutworldzFiles/opensim/bin/Robust.HG.ini.bak
+OutworldzFiles/Settings.ini
+OutworldzFiles/Settings.bak
+OutworldzFiles/Mysql/Data
+#OutworldzFiles/Apache/htdocs/Jopensim
+OutworldzFiles/Apache/htdocs/TTS/Audio
 
 Installer_Src/Setup Dreamworld/bin/*
 **/teleports.htm
@@ -163,4 +163,4 @@ OutworldzFiles/opensim/Makefile.local
 OutworldzFiles/opensim/.version
 OutworldzFiles/opensim/compile.bat
 
-Outworldzfiles/banlist.txt
+OutworldzFiles/banlist.txt
