@@ -1828,7 +1828,7 @@ Module RegionMaker
                 If INI.SetIni("YEngine", "Enabled", "False") Then Return True
             End If
 
-            'Script Overrride
+            'Script Override
             If ScriptEngine(uuid) = "XEngine" Then
                 If INI.SetIni("XEngine", "Enabled", "True") Then Return True
                 If INI.SetIni("YEngine", "Enabled", "False") Then Return True
@@ -1965,11 +1965,7 @@ Module RegionMaker
             If INI.SetIni("SMTP", "MailsToSMTPAddressPerHour", CStr(Settings.EmailsToSMTPAddressPerHour)) Then Return True
             If INI.SetIni("SMTP", "email_pause_time", CStr(Settings.Email_pause_time)) Then Return True
             If INI.SetIni("SMTP", "email_max_size", CStr(Settings.MaxMailSize)) Then Return True
-
-            If Settings.SmtpSecure Then
-                If INI.SetIni("SMTP", "SMTP_SERVER_TLS", CStr(Settings.SmtpPassword)) Then Return True
-            End If
-
+            If INI.SetIni("SMTP", "SMTP_SERVER_TLS", CStr(Settings.SmtpSecure)) Then Return True
             If INI.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName) Then Return True
 
             ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
