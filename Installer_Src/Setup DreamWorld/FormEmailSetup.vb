@@ -66,9 +66,6 @@ Public Class FormEmailSetup
 
         SmtpPort.Text = CStr(Settings.SmtpPort)
 
-        SSLEnabled.Checked = Settings.SmtpSecure
-        SSLEnabled.Text = Global.Outworldz.My.Resources.SSLTLS
-
         'extended factors
 
         VerifyCertificateCheckBox.Checked = Settings.VerifyCertCheckBox
@@ -106,6 +103,25 @@ Public Class FormEmailSetup
         ';# {email_max_size} {[Startup]emailmoduleDefaultEmailModule Enabled: true} {Maximum total size of email in bytes.} {} 4096
         MaxMailSizeTextBox.Text = CStr(Settings.MaxMailSize)
         MaxMailSizeTextBoxLabel.Text = Global.Outworldz.My.Resources.EmailMaxMailSize
+
+        Select Case Settings.SSLType
+            Case 0
+                RadioButtonNone.Checked = True
+            Case 1
+                RadioButtonAuto.Checked = True
+            Case 2
+                RadioButtonSslOnConnect.Checked = True
+            Case 3
+                RadioButtonStartTls.Checked = True
+            Case 4
+                RadioButtonStartTlsWhenAvailable.Checked = True
+        End Select
+
+        RadioButtonNone.Text = Global.Outworldz.My.Resources.None
+        RadioButtonAuto.Text = Global.Outworldz.My.Resources.Automatic
+        RadioButtonSslOnConnect.Text = Global.Outworldz.My.Resources.SslOnConnect
+        RadioButtonStartTls.Text = Global.Outworldz.My.Resources.StartTls
+        RadioButtonStartTlsWhenAvailable.Text = Global.Outworldz.My.Resources.StartTlsWhenAvailable
 
         HelpOnce("EmailSetup")
 
@@ -148,7 +164,7 @@ Public Class FormEmailSetup
     Private Sub EmailPassword_TextChanged(sender As Object, e As EventArgs) Handles EmailPassword.TextChanged
 
         If Not initted Then Return
-        Settings.SmtPropUserName = EmailUsername.Text
+        Settings.SmtpPassword = EmailPassword.Text
 
     End Sub
 
@@ -206,6 +222,38 @@ Public Class FormEmailSetup
 
     End Sub
 
+    Private Sub RadioButtonAuto_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonAuto.CheckedChanged
+
+        Settings.SmtpSecure = True
+
+    End Sub
+
+    Private Sub RadioButtonNone_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonNone.CheckedChanged
+
+        Settings.SmtpSecure = False
+        Settings.SSLType = 0
+
+    End Sub
+
+    Private Sub RadioButtonSslOnConnect_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonSslOnConnect.CheckedChanged
+
+        Settings.SmtpSecure = True
+        Settings.SSLType = 1
+
+    End Sub
+
+    Private Sub RadioButtonStartTls_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonStartTls.CheckedChanged
+
+        Settings.SmtpSecure = True
+
+    End Sub
+
+    Private Sub RadioButtonStartTlsWhenAvailable_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonStartTlsWhenAvailable.CheckedChanged
+
+        Settings.SmtpSecure = True
+
+    End Sub
+
     Private Sub SMTP_MailsPerDayTextBox_TextChanged(sender As Object, e As EventArgs) Handles SMTP_MailsPerDayTextBox.TextChanged
 
         If Not initted Then Return
@@ -229,13 +277,6 @@ Public Class FormEmailSetup
         Dim digitsOnly = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         Settings.SmtpPort = CInt("0" & SmtpPort.Text)
-
-    End Sub
-
-    Private Sub SSLEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SSLEnabled.CheckedChanged
-
-        If Not initted Then Return
-        Settings.SmtpSecure = SSLEnabled.Checked
 
     End Sub
 

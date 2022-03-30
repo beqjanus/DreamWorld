@@ -23,13 +23,18 @@ Partial Class FormEmailSetup
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.RadioButtonStartTlsWhenAvailable = New System.Windows.Forms.RadioButton()
+        Me.RadioButtonNone = New System.Windows.Forms.RadioButton()
+        Me.RadioButtonStartTls = New System.Windows.Forms.RadioButton()
+        Me.RadioButtonAuto = New System.Windows.Forms.RadioButton()
+        Me.RadioButtonSslOnConnect = New System.Windows.Forms.RadioButton()
+        Me.VerifyCertificateCheckBox = New System.Windows.Forms.CheckBox()
         Me.EmailEnabledCheckBox = New System.Windows.Forms.CheckBox()
-        Me.SSLEnabled = New System.Windows.Forms.CheckBox()
         Me.SmtpPort = New System.Windows.Forms.TextBox()
         Me.EmailPortLabel = New System.Windows.Forms.Label()
         Me.SmtpHost = New System.Windows.Forms.TextBox()
         Me.EmailHostLabel = New System.Windows.Forms.Label()
-        Me.VerifyCertificateCheckBox = New System.Windows.Forms.CheckBox()
         Me.EmailPassword = New System.Windows.Forms.TextBox()
         Me.EmailPasswordLabel = New System.Windows.Forms.Label()
         Me.UserNameLabel = New System.Windows.Forms.Label()
@@ -52,29 +57,109 @@ Partial Class FormEmailSetup
         Me.MailsFromPrimOwnerPerHourLabel = New System.Windows.Forms.Label()
         Me.MailsFromOwnerPerHourTextBox = New System.Windows.Forms.TextBox()
         Me.GroupBox6.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.GroupBox2)
         Me.GroupBox6.Controls.Add(Me.EmailEnabledCheckBox)
-        Me.GroupBox6.Controls.Add(Me.SSLEnabled)
         Me.GroupBox6.Controls.Add(Me.SmtpPort)
         Me.GroupBox6.Controls.Add(Me.EmailPortLabel)
         Me.GroupBox6.Controls.Add(Me.SmtpHost)
         Me.GroupBox6.Controls.Add(Me.EmailHostLabel)
-        Me.GroupBox6.Controls.Add(Me.VerifyCertificateCheckBox)
         Me.GroupBox6.Controls.Add(Me.EmailPassword)
         Me.GroupBox6.Controls.Add(Me.EmailPasswordLabel)
         Me.GroupBox6.Controls.Add(Me.UserNameLabel)
         Me.GroupBox6.Controls.Add(Me.EmailUsername)
         Me.GroupBox6.Location = New System.Drawing.Point(34, 48)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(370, 258)
+        Me.GroupBox6.Size = New System.Drawing.Size(370, 323)
         Me.GroupBox6.TabIndex = 1
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.RadioButtonStartTlsWhenAvailable)
+        Me.GroupBox2.Controls.Add(Me.RadioButtonNone)
+        Me.GroupBox2.Controls.Add(Me.RadioButtonStartTls)
+        Me.GroupBox2.Controls.Add(Me.RadioButtonAuto)
+        Me.GroupBox2.Controls.Add(Me.RadioButtonSslOnConnect)
+        Me.GroupBox2.Controls.Add(Me.VerifyCertificateCheckBox)
+        Me.GroupBox2.Location = New System.Drawing.Point(19, 168)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(318, 149)
+        Me.GroupBox2.TabIndex = 15
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Security Options"
+        '
+        'RadioButtonStartTlsWhenAvailable
+        '
+        Me.RadioButtonStartTlsWhenAvailable.AutoSize = True
+        Me.RadioButtonStartTlsWhenAvailable.Location = New System.Drawing.Point(10, 116)
+        Me.RadioButtonStartTlsWhenAvailable.Name = "RadioButtonStartTlsWhenAvailable"
+        Me.RadioButtonStartTlsWhenAvailable.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButtonStartTlsWhenAvailable.TabIndex = 14
+        Me.RadioButtonStartTlsWhenAvailable.TabStop = True
+        Me.RadioButtonStartTlsWhenAvailable.Text = "RadioButton5"
+        Me.RadioButtonStartTlsWhenAvailable.UseVisualStyleBackColor = True
+        '
+        'RadioButtonNone
+        '
+        Me.RadioButtonNone.AutoSize = True
+        Me.RadioButtonNone.Location = New System.Drawing.Point(6, 24)
+        Me.RadioButtonNone.Name = "RadioButtonNone"
+        Me.RadioButtonNone.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButtonNone.TabIndex = 10
+        Me.RadioButtonNone.TabStop = True
+        Me.RadioButtonNone.Text = "RadioButton1"
+        Me.RadioButtonNone.UseVisualStyleBackColor = True
+        '
+        'RadioButtonStartTls
+        '
+        Me.RadioButtonStartTls.AutoSize = True
+        Me.RadioButtonStartTls.Location = New System.Drawing.Point(10, 93)
+        Me.RadioButtonStartTls.Name = "RadioButtonStartTls"
+        Me.RadioButtonStartTls.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButtonStartTls.TabIndex = 13
+        Me.RadioButtonStartTls.TabStop = True
+        Me.RadioButtonStartTls.Text = "RadioButton3"
+        Me.RadioButtonStartTls.UseVisualStyleBackColor = True
+        '
+        'RadioButtonAuto
+        '
+        Me.RadioButtonAuto.AutoSize = True
+        Me.RadioButtonAuto.Location = New System.Drawing.Point(8, 47)
+        Me.RadioButtonAuto.Name = "RadioButtonAuto"
+        Me.RadioButtonAuto.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButtonAuto.TabIndex = 11
+        Me.RadioButtonAuto.TabStop = True
+        Me.RadioButtonAuto.Text = "RadioButton2"
+        Me.RadioButtonAuto.UseVisualStyleBackColor = True
+        '
+        'RadioButtonSslOnConnect
+        '
+        Me.RadioButtonSslOnConnect.AutoSize = True
+        Me.RadioButtonSslOnConnect.Location = New System.Drawing.Point(8, 70)
+        Me.RadioButtonSslOnConnect.Name = "RadioButtonSslOnConnect"
+        Me.RadioButtonSslOnConnect.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButtonSslOnConnect.TabIndex = 12
+        Me.RadioButtonSslOnConnect.TabStop = True
+        Me.RadioButtonSslOnConnect.Text = "RadioButton4"
+        Me.RadioButtonSslOnConnect.UseVisualStyleBackColor = True
+        '
+        'VerifyCertificateCheckBox
+        '
+        Me.VerifyCertificateCheckBox.AutoSize = True
+        Me.VerifyCertificateCheckBox.Location = New System.Drawing.Point(156, 25)
+        Me.VerifyCertificateCheckBox.Name = "VerifyCertificateCheckBox"
+        Me.VerifyCertificateCheckBox.Size = New System.Drawing.Size(108, 17)
+        Me.VerifyCertificateCheckBox.TabIndex = 8
+        Me.VerifyCertificateCheckBox.Text = "Verify Certificate?"
+        Me.VerifyCertificateCheckBox.UseVisualStyleBackColor = True
         '
         'EmailEnabledCheckBox
         '
@@ -85,16 +170,6 @@ Partial Class FormEmailSetup
         Me.EmailEnabledCheckBox.TabIndex = 9
         Me.EmailEnabledCheckBox.Text = "Email Enabled"
         Me.EmailEnabledCheckBox.UseVisualStyleBackColor = True
-        '
-        'SSLEnabled
-        '
-        Me.SSLEnabled.AutoSize = True
-        Me.SSLEnabled.Location = New System.Drawing.Point(19, 169)
-        Me.SSLEnabled.Name = "SSLEnabled"
-        Me.SSLEnabled.Size = New System.Drawing.Size(107, 17)
-        Me.SSLEnabled.TabIndex = 8
-        Me.SSLEnabled.Text = "Enable SSL/TLS"
-        Me.SSLEnabled.UseVisualStyleBackColor = True
         '
         'SmtpPort
         '
@@ -127,16 +202,6 @@ Partial Class FormEmailSetup
         Me.EmailHostLabel.Size = New System.Drawing.Size(62, 13)
         Me.EmailHostLabel.TabIndex = 4
         Me.EmailHostLabel.Text = "SMTP Host"
-        '
-        'VerifyCertificateCheckBox
-        '
-        Me.VerifyCertificateCheckBox.AutoSize = True
-        Me.VerifyCertificateCheckBox.Location = New System.Drawing.Point(19, 194)
-        Me.VerifyCertificateCheckBox.Name = "VerifyCertificateCheckBox"
-        Me.VerifyCertificateCheckBox.Size = New System.Drawing.Size(108, 17)
-        Me.VerifyCertificateCheckBox.TabIndex = 8
-        Me.VerifyCertificateCheckBox.Text = "Verify Certificate?"
-        Me.VerifyCertificateCheckBox.UseVisualStyleBackColor = True
         '
         'EmailPassword
         '
@@ -330,7 +395,7 @@ Partial Class FormEmailSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 318)
+        Me.ClientSize = New System.Drawing.Size(800, 373)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.MenuStrip1)
@@ -339,6 +404,8 @@ Partial Class FormEmailSetup
         Me.Text = "FormEmailSetup"
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -349,7 +416,6 @@ Partial Class FormEmailSetup
     End Sub
 
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents SSLEnabled As CheckBox
     Friend WithEvents SmtpPort As TextBox
     Friend WithEvents EmailPortLabel As Label
     Friend WithEvents SmtpHost As TextBox
@@ -377,4 +443,10 @@ Partial Class FormEmailSetup
     Friend WithEvents MaxMailSizeTextBoxLabel As Label
     Friend WithEvents email_pause_timeTextBox As TextBox
     Friend WithEvents EmailPauseTimeLabel As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents RadioButtonStartTlsWhenAvailable As RadioButton
+    Friend WithEvents RadioButtonNone As RadioButton
+    Friend WithEvents RadioButtonStartTls As RadioButton
+    Friend WithEvents RadioButtonAuto As RadioButton
+    Friend WithEvents RadioButtonSslOnConnect As RadioButton
 End Class

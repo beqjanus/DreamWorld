@@ -50,12 +50,22 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
+    ''' <summary>
+    ''' Seconds to Boot until region Ready with maps off
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>integer</returns>
     Public Function GetBootTime(UUID As String) As Integer
 
         Return CInt("0" & GetMySetting("BootTime_" & Region_Name(UUID), "0"))
 
     End Function
 
+    ''' <summary>
+    ''' Seconds to Boot until region Ready with maps on
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>integer</returns>
     Public Function GetMapTime(UUID As String) As Integer
 
         Return CInt("0" & GetMySetting("MapTime_" & Region_Name(UUID), "0"))
@@ -898,7 +908,7 @@ Public Class MySettings
     Public Property FirewallMigrated() As Integer
         Get
             Try
-                Return CType(GetMySetting("FirewallMigrated", "0"), Integer)
+                Return CType(0 & GetMySetting("FirewallMigrated", "0"), Integer)
             Catch
                 Return 1
             End Try
@@ -1706,7 +1716,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return CInt(GetMySetting("RenderMinHeight", "-100"))
+            Return CInt(0 & GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", CStr(Value))
@@ -1814,7 +1824,7 @@ Public Class MySettings
 
     Public Property SCPortBase() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase", "8100"), Integer)
+            Return CType(0 & GetMySetting("SC_PortBase", "8100"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase", CStr(Value))
@@ -1823,7 +1833,7 @@ Public Class MySettings
 
     Public Property SCPortBase1() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase1", "8101"), Integer)
+            Return CType(0 & GetMySetting("SC_PortBase1", "8101"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase1", CStr(Value))
@@ -1850,7 +1860,7 @@ Public Class MySettings
 
     Public Property SearchMigration() As Integer
         Get
-            Return CType(GetMySetting("SearchMigration", "0".ToUpperInvariant), Integer)
+            Return CType(0 & GetMySetting("SearchMigration", "0"), Integer)
         End Get
         Set
             SetMySetting("SearchMigration", CStr(Value))
@@ -2114,6 +2124,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SSLType() As Integer
+        Get
+            Return CInt("0" & GetMySetting("SSLType", "3")) ' StartTLS is default
+        End Get
+        Set
+            SetMySetting("SSLType", CStr(Value))
+        End Set
+    End Property
+
     Public Property StartDate() As DateTime
         Get
             Dim parsedDate As DateTime
@@ -2216,7 +2235,7 @@ Public Class MySettings
 
     Public Property TideHighLevel() As Single
         Get
-            Return CSng(GetMySetting("TideHighLevel", "20"))
+            Return CSng(0 & GetMySetting("TideHighLevel", "20"))
         End Get
         Set
             SetMySetting("TideHighLevel", CStr(Value))

@@ -4121,4 +4121,16 @@
   <data name="VerifyCertificate" xml:space="preserve">
     <value>Verify Certificate</value>
   </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL On Connect</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Start TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Start TLS When Available</value>
+  </data>
 </root>

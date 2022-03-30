@@ -680,6 +680,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatic.
+        '''</summary>
+        Friend ReadOnly Property Automatic() As String
+            Get
+                Return ResourceManager.GetString("Automatic", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Automatic Restart.
         '''</summary>
         Friend ReadOnly Property Automatic_restart_word() As String
@@ -10368,6 +10377,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to SSL On Connect.
+        '''</summary>
+        Friend ReadOnly Property SslOnConnect() As String
+            Get
+                Return ResourceManager.GetString("SslOnConnect", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enable SSL/TLS.
         '''</summary>
         Friend ReadOnly Property SSLTLS() As String
@@ -10481,6 +10499,24 @@ Namespace My.Resources
         Friend ReadOnly Property StartSizeXYZ() As String
             Get
                 Return ResourceManager.GetString("StartSizeXYZ", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Start TLS.
+        '''</summary>
+        Friend ReadOnly Property StartTls() As String
+            Get
+                Return ResourceManager.GetString("StartTls", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Start TLS When Available.
+        '''</summary>
+        Friend ReadOnly Property StartTlsWhenAvailable() As String
+            Get
+                Return ResourceManager.GetString("StartTlsWhenAvailable", resourceCulture)
             End Get
         End Property
         
