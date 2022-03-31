@@ -174,8 +174,6 @@ Module Robust
 
         SetWindowTextCall(RobustProcess, RobustName)
 
-        ConsoleCommand(RobustName, "help all", True)
-
         ' Wait for Robust to start listening
         Dim counter = 0
         While Not IsRobustRunning() And PropOpensimIsRunning
@@ -351,10 +349,36 @@ Module Robust
         End If
 
         ' LSL emails
-        INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-        INI.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
-        INI.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
-        INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
+        If INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost) Then Return True
+        If INI.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort)) Then Return True
+        If INI.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName) Then Return True
+
+        ' Some SMTP servers require a known From email address or will give Error 500 - Envelope from address is not authorized
+        '; set to a valid email address that SMTP will accept (in some cases must be Like SMTP_SERVER_LOGIN)
+
+        If Settings.AdminEmail.Length > 0 Then
+            If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.AdminEmail) Then Return True
+        Else
+            If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.SmtPropUserName) Then Return True
+        End If
+
+        If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
+        If INI.SetIni("SMTP", "SMTP_VerifyCertNames", CStr(Settings.VerifyCertCheckBox)) Then Return True
+        If INI.SetIni("SMTP", "SMTP_VerifyCertChain", CStr(Settings.VerifyCertCheckBox)) Then Return True
+        If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.enableEmailToExternalObjects)) Then Return True
+        If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.enableEmailToSMTPCheckBox)) Then Return True
+        If INI.SetIni("SMTP", "MailsFromOwnerPerHour", CStr(Settings.MailsFromOwnerPerHour)) Then Return True
+        If INI.SetIni("SMTP", "MailsToPrimAddressPerHour", CStr(Settings.MailsToPrimAddressPerHour)) Then Return True
+        If INI.SetIni("SMTP", "SMTP_MailsPerDay", CStr(Settings.MailsPerDay)) Then Return True
+        If INI.SetIni("SMTP", "MailsToSMTPAddressPerHour", CStr(Settings.EmailsToSMTPAddressPerHour)) Then Return True
+        If INI.SetIni("SMTP", "email_pause_time", CStr(Settings.Email_pause_time)) Then Return True
+        If INI.SetIni("SMTP", "email_max_size", CStr(Settings.MaxMailSize)) Then Return True
+
+        If Settings.SmtpSecure Then
+            If INI.SetIni("SMTP", "SMTP_SERVER_TLS", CStr(Settings.SmtpPassword)) Then Return True
+        End If
+
+        If INI.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName) Then Return True
 
         SetupRobustSearchINI(INI)
 
@@ -430,11 +454,17 @@ Module Robust
         Dim Up As String = ""
 
         Using TimedClient As New TimedWebClient With {
-                .Timeout = 5000
+                .Timeout = 2000
             }
+            Dim url = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version"
             Try
-                Up = TimedClient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
+                Up = TimedClient.DownloadString(url)
             Catch ex As Exception
+                If ex.Message.Contains("404") Then
+                    Log("INFO", "Robust is running")
+                    RobustIcon(True)
+                    Return True
+                End If
             End Try
 
         End Using

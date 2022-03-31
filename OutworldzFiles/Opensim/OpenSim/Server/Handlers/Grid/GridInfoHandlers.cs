@@ -147,12 +147,13 @@ namespace OpenSim.Server.Handlers.Grid
                 osb.AppendASCII('>');
             }
             osb.AppendASCII("</gridinfo>");
+            httpResponse.ContentType = "application/xml";
             httpResponse.RawBuffer = OSUTF8Cached.GetArrayAndRelease(osb);
         }
 
         /// <summary>
         /// Get GridInfo in json format: Used by the OSSL osGetGrid*
-        /// Adding the SRV_HomeIRI to the kvp returned for use in scripts
+        /// Adding the SRV_HomeURI to the kvp returned for use in scripts
         /// </summary>
         /// <returns>
         /// json string
@@ -196,7 +197,7 @@ namespace OpenSim.Server.Handlers.Grid
                 if (!string.IsNullOrEmpty(HomeURI))
                     map["home"] = OSD.FromString(HomeURI);
             }
-
+            httpResponse.ContentType = "application/json";
             httpResponse.RawBuffer =  OSDParser.SerializeJsonToBytes(map);
         }
     }

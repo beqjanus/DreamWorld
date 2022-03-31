@@ -12,7 +12,10 @@ Imports System.Text.RegularExpressions
 Public Class FormRegions
 
     Private initted As Boolean
+
+#Disable Warning CA2213
     Private RegionForm As New FormRegion
+#Enable Warning CA2213
 
 #Region "ScreenSize"
 
@@ -289,6 +292,22 @@ Public Class FormRegions
 
 #Region "TextBoxes"
 
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ClearFarmButton.Click
+
+        Dim chosen = ChooseRegion(True) ' all regions, running or not
+        If chosen.Length > 0 Then
+            Dim RegionUUID = FindRegionByName(chosen)
+            Dim File = IO.Path.Combine(Settings.OpensimBinPath, "SFCleanup.txt")
+            Dim fileReader = My.Computer.FileSystem.ReadAllText(File, System.Text.Encoding.ASCII)
+            Dim Commands As String() = fileReader.Split("\n".ToCharArray())
+
+            For Each line In Commands
+                RPC_Region_Command(RegionUUID, line)
+            Next
+        End If
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBoxX.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
         TextBoxX.Text = digitsOnly.Replace(TextBoxX.Text, "")
@@ -329,22 +348,6 @@ Public Class FormRegions
         Dim digitsOnly = New Regex("[^\d]")
         TextBoxZ.Text = digitsOnly.Replace(TextBoxZ.Text, "")
         Settings.HomeVectorZ = TextBoxZ.Text
-    End Sub
-
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ClearFarmButton.Click
-
-        Dim chosen = ChooseRegion(True) ' all regions, running or not
-        If chosen.Length > 0 Then
-            Dim RegionUUID = FindRegionByName(chosen)
-            Dim File = IO.Path.Combine(Settings.OpensimBinPath, "SFCleanup.txt")
-            Dim fileReader = My.Computer.FileSystem.ReadAllText(File, System.Text.Encoding.ASCII)
-            Dim Commands As String() = fileReader.Split("\n".ToCharArray())
-
-            For Each line In Commands
-                RPC_Region_Command(RegionUUID, line)
-            Next
-        End If
-
     End Sub
 
 #End Region

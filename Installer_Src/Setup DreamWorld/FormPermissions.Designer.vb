@@ -31,16 +31,12 @@ Partial Class FormPermissions
         Me.LimitsBox = New System.Windows.Forms.GroupBox()
         Me.EnableMaxPrims = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Clouds = New System.Windows.Forms.CheckBox()
         Me.OutBoundPermissionsCheckbox = New System.Windows.Forms.CheckBox()
-        Me.CloudBox = New System.Windows.Forms.GroupBox()
-        Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4.SuspendLayout()
         Me.LimitsBox.SuspendLayout()
-        Me.CloudBox.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -111,17 +107,6 @@ Partial Class FormPermissions
         Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, Global.Outworldz.My.Resources.Resources.Max_PrimLimit)
         Me.EnableMaxPrims.UseVisualStyleBackColor = True
         '
-        'Clouds
-        '
-        Me.Clouds.AutoSize = True
-        Me.Clouds.Location = New System.Drawing.Point(12, 19)
-        Me.Clouds.Name = "Clouds"
-        Me.Clouds.Size = New System.Drawing.Size(59, 17)
-        Me.Clouds.TabIndex = 17
-        Me.Clouds.Text = Global.Outworldz.My.Resources.Resources.Enable_word
-        Me.ToolTip1.SetToolTip(Me.Clouds, Global.Outworldz.My.Resources.Resources.Allow_cloud)
-        Me.Clouds.UseVisualStyleBackColor = True
-        '
         'OutBoundPermissionsCheckbox
         '
         Me.OutBoundPermissionsCheckbox.AutoSize = True
@@ -132,36 +117,6 @@ Partial Class FormPermissions
         Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
         Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
         Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
-        '
-        'CloudBox
-        '
-        Me.CloudBox.Controls.Add(Me.DomainUpDown1)
-        Me.CloudBox.Controls.Add(Me.Clouds)
-        Me.CloudBox.Location = New System.Drawing.Point(12, 235)
-        Me.CloudBox.Name = "CloudBox"
-        Me.CloudBox.Size = New System.Drawing.Size(252, 57)
-        Me.CloudBox.TabIndex = 3
-        Me.CloudBox.TabStop = False
-        Me.CloudBox.Text = "Clouds"
-        '
-        'DomainUpDown1
-        '
-        Me.DomainUpDown1.Items.Add("0%")
-        Me.DomainUpDown1.Items.Add("10%")
-        Me.DomainUpDown1.Items.Add("20%")
-        Me.DomainUpDown1.Items.Add("30%")
-        Me.DomainUpDown1.Items.Add("60%")
-        Me.DomainUpDown1.Items.Add("40%")
-        Me.DomainUpDown1.Items.Add("50%")
-        Me.DomainUpDown1.Items.Add("60%")
-        Me.DomainUpDown1.Items.Add("70%")
-        Me.DomainUpDown1.Items.Add("80%")
-        Me.DomainUpDown1.Items.Add("90%")
-        Me.DomainUpDown1.Items.Add("100%")
-        Me.DomainUpDown1.Location = New System.Drawing.Point(104, 18)
-        Me.DomainUpDown1.Name = "DomainUpDown1"
-        Me.DomainUpDown1.Size = New System.Drawing.Size(66, 20)
-        Me.DomainUpDown1.TabIndex = 18
         '
         'MenuStrip2
         '
@@ -184,7 +139,7 @@ Partial Class FormPermissions
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.OutBoundPermissionsCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(9, 299)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 244)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(255, 46)
         Me.GroupBox1.TabIndex = 4
@@ -196,10 +151,9 @@ Partial Class FormPermissions
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(276, 360)
+        Me.ClientSize = New System.Drawing.Size(276, 303)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
-        Me.Controls.Add(Me.CloudBox)
         Me.Controls.Add(Me.LimitsBox)
         Me.Controls.Add(Me.GroupBox4)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -210,8 +164,6 @@ Partial Class FormPermissions
         Me.GroupBox4.PerformLayout()
         Me.LimitsBox.ResumeLayout(False)
         Me.LimitsBox.PerformLayout()
-        Me.CloudBox.ResumeLayout(False)
-        Me.CloudBox.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -228,9 +180,6 @@ Partial Class FormPermissions
     Friend WithEvents LimitsBox As GroupBox
     Friend WithEvents EnableMaxPrims As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents CloudBox As GroupBox
-    Friend WithEvents DomainUpDown1 As DomainUpDown
-    Friend WithEvents Clouds As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents GroupBox1 As GroupBox

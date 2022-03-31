@@ -81,10 +81,10 @@ Partial Class FormEmail
         '
         Me.SendButton.Image = Global.Outworldz.My.Resources.Resources.mail_into
         Me.SendButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SendButton.Location = New System.Drawing.Point(9, 6)
+        Me.SendButton.Location = New System.Drawing.Point(9, 0)
         Me.SendButton.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.SendButton.Name = "SendButton"
-        Me.SendButton.Size = New System.Drawing.Size(99, 25)
+        Me.SendButton.Size = New System.Drawing.Size(99, 31)
         Me.SendButton.TabIndex = 3
         Me.SendButton.Text = "Send"
         Me.SendButton.UseVisualStyleBackColor = True
@@ -105,7 +105,7 @@ Partial Class FormEmail
         Me.EditorBox.Location = New System.Drawing.Point(5, 17)
         Me.EditorBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.EditorBox.Name = "EditorBox"
-        Me.EditorBox.Size = New System.Drawing.Size(583, 298)
+        Me.EditorBox.Size = New System.Drawing.Size(583, 299)
         Me.EditorBox.TabIndex = 8
         '
         'FormEmail

@@ -462,7 +462,7 @@ Public Class FormSetup
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
-
+        If Not PropOpensimIsRunning Then Return False
         PropAborting = False
         Buttons(BusyButton)
 
@@ -2914,7 +2914,7 @@ Public Class FormSetup
             If HowManyAreOnline = 0 Then
                 TextPrint(My.Resources.Nobody_Online)
             Else
-                TextPrint($"{My.Resources.Message_sent_word}{CStr(HowManyAreOnline)} regions")
+                TextPrint($"{My.Resources.Message_sent_word} {CStr(HowManyAreOnline)} regions")
             End If
         End If
 

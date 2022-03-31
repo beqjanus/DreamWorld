@@ -26,6 +26,7 @@ Partial Class FormApache
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormApache))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.SSLButton = New System.Windows.Forms.Button()
         Me.Sitemap = New System.Windows.Forms.CheckBox()
         Me.ApachePort = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -46,16 +47,32 @@ Partial Class FormApache
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.SSLButton)
         Me.GroupBox2.Controls.Add(Me.Sitemap)
         Me.GroupBox2.Controls.Add(Me.ApachePort)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
         Me.GroupBox2.Location = New System.Drawing.Point(16, 37)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(197, 143)
+        Me.GroupBox2.Size = New System.Drawing.Size(197, 156)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache"
+        '
+        'SSLButton
+        '
+        Me.SSLButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SSLButton.Image = CType(resources.GetObject("SSLButton.Image"), System.Drawing.Image)
+        Me.SSLButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SSLButton.Location = New System.Drawing.Point(16, 110)
+        Me.SSLButton.Name = "SSLButton"
+        Me.SSLButton.Size = New System.Drawing.Size(128, 33)
+        Me.SSLButton.TabIndex = 30
+        Me.SSLButton.Text = "SSL"
+        Me.ToolTip1.SetToolTip(Me.SSLButton, "!!!")
+        Me.SSLButton.UseVisualStyleBackColor = True
         '
         'Sitemap
         '
@@ -211,4 +228,5 @@ Partial Class FormApache
     Friend WithEvents EnableWP As RadioButton
     Friend WithEvents Sitemap As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents SSLButton As Button
 End Class

@@ -15,6 +15,9 @@ Public Class FormApache
     Private Const JOpensim As String = "JOpensim"
     Private Const WordPress As String = "WordPress"
     Dim initted As Boolean
+#Disable Warning CA2213
+    Dim SSL As New FormSSL
+#Enable Warning CA2213
 
 #End Region
 
@@ -51,13 +54,14 @@ Public Class FormApache
 
 #Region "Start/Stop"
 
-    Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
+    Private Sub Close_form(sender As Object, e As EventArgs) Handles MyBase.Closed
 
         Settings.SaveSettings()
+        SSL.Dispose()
 
     End Sub
 
-    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub Loaded(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ApacheCheckbox.Text = Global.Outworldz.My.Resources.EnableApache
         EnableDiva.Text = Global.Outworldz.My.Resources.EnableDiva
@@ -252,6 +256,17 @@ Public Class FormApache
 
         If Not initted Then Return
         Settings.SiteMap = Sitemap.Checked
+
+    End Sub
+
+    Private Sub SSLButton_Click(sender As Object, e As EventArgs) Handles SSLButton.Click
+
+        SSL.Dispose()
+        SSL = New FormSSL
+        SSL.Activate()
+        SSL.Visible = True
+        SSL.Select()
+        SSL.BringToFront()
 
     End Sub
 

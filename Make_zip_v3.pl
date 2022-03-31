@@ -1,16 +1,11 @@
 # build Zipfile
 # AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
 
-BEGIN {
-    open STDERR, ">&STDOUT";
-}
 
 use strict;
 use warnings;
 use IO::All -utf8; 
-
 use 5.010;
-
 use File::Copy;
 use File::Path;
 use File::Basename;
@@ -20,38 +15,23 @@ use File::Copy::Recursive qw(dircopy);
 use Cwd;
 my $dir = getcwd;
 
-
-my $Contabo = '\\\\contabo2.outworldz.com/c/Inetpub';
-if (! -d $Contabo) {
-    die 'Cannot reach Contabo2';
-}
-my $Fleta = 'Y:/Inetpub';
-if (! -d $Fleta) {
-    die 'Cannot reach Fleta';
-}
-
-
-my $zip = '/Opensim/Zip/';
-JustDelete($zip);
+# paths
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
-
+my $Contabo = '\\\\contabo2.outworldz.com/c/Inetpub';
+my $Fleta = 'Y:/Inetpub';
+    
 
 # This requires a Authenticode Certificate to sign the files. The thumbprint comes from the cert. It is not the cert, which is privat and is saved in the windows store.
 # convert the Cert to a pfx file:  .\bin\openssl pkcs12 -export -out cert.pfx -inkey 2021.key -in 2021.cer
 # import the PK and the
 my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
 
+my $zip = '/Opensim/Zip/';
+JustDelete($zip);
 
-my $contents = io->file($src)->slurp;
-$contents =~ s/\n//;
-$contents =~ /_MyVersion As String = "(.*?)"/;
-my $v = $1;
-if ( !$v ) {
-    PrintDate('no version!');
-    exit;
-}
+my $v = GetVersion($src);
 
-my $Version = ` git rev-parse --short HEAD `;
+my $Version = `git rev-parse --short HEAD `;
 chomp $Version;
 $Version > io('GitVersion');
 PrintDate("GitVersion $Version");
@@ -64,46 +44,6 @@ PrintDate("Building DreamGrid$type.zip");
 PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
-
-
-PrintDate('Copy Manuals');
-    
-my @manuals = io->dir($dir . '/OutworldzFiles/Help/')->all;
-
-foreach my $src (@manuals) {
-    
-    if ($src !~ /\.htm$/) {next};
-    
-    say($src);
-    my @data = io->file($src)->slurp;
-    my $output;
-    my $ctr = 0 ;
-    foreach my $l (@data)
-    {
-        
-        if ($l !~ /liquidscript/) {
-        
-            if ($l =~ /<\/head>/i)
-            {
-                $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" --></head><!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->';
-            }
-            if ($l =~ /<\/body>/i)
-            {
-                $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidfooter" --></body>';
-            }
-        } else
-        {
-            say "skipped";
-        }
-        $output .= $l;
-    }
-    
-    my $filename = basename($src);
-    $output > io("$Contabo/Secondlife/Outworldz_Installer/Help/$filename");
-    $output > io("$Fleta/Secondlife/Outworldz_Installer/Help/$filename");
-    
-}
-    
 
 
 
@@ -166,6 +106,7 @@ foreach my $path (@deletions) {
 JustDelete('/Opensim/Zip');
 DelMaps();
 
+delPDB("$dir/OutworldzFiles/");
 
 doUnlink ("$dir/BareTail.udm" );
 doUnlink ("$dir/SET_externalIP-PrintDate.txt");
@@ -349,6 +290,8 @@ if ( $publish =~ /p/ ) {
 
     PrintDate("Publishing now");
    
+    CheckDistro();
+    CopyManuals();
         
     doUnlink("$Contabo/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
     doUnlink("$Fleta/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
@@ -692,3 +635,93 @@ sub doUnlink {
     }
 }
 
+
+sub CheckDistro
+{
+   
+    if (! -d $Contabo) {
+        die 'Cannot reach Contabo2';
+    }
+   
+    if (! -d $Fleta) {
+        die 'Cannot reach Fleta';
+    }
+}
+
+
+sub CopyManuals
+{
+    
+    PrintDate('Copy Manuals');
+        
+    my @manuals = io->dir($dir . '/OutworldzFiles/Help/')->all;
+    
+    foreach my $src (@manuals) {
+        
+        if ($src !~ /\.htm$/) {next};
+        
+        say($src);
+        my @data = io->file($src)->slurp;
+        my $output;
+        my $ctr = 0 ;
+        foreach my $l (@data)
+        {
+            
+            if ($l !~ /liquidscript/) {
+            
+                if ($l =~ /<\/head>/i)
+                {
+                    $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" --></head><!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->';
+                }
+                if ($l =~ /<\/body>/i)
+                {
+                    $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidfooter" --></body>';
+                }
+            } else
+            {
+                say "skipped";
+            }
+            $output .= $l;
+        }
+        
+        my $filename = basename($src);
+        $output > io("$Contabo/Secondlife/Outworldz_Installer/Help/$filename");
+        $output > io("$Fleta/Secondlife/Outworldz_Installer/Help/$filename");
+        
+    }
+}
+
+sub GetVersion
+{    
+    my $s1 = shift;
+    my $contents = io->file($s1)->slurp;
+    $contents =~ s/\n//;
+    $contents =~ /_MyVersion As String = "(.*?)"/;
+    my $ver = $1;
+    if ( !$ver ) {
+        PrintDate('no version!');
+        exit;
+    }
+    return $ver   ;
+}
+
+
+
+sub delPDB
+{
+    my @pdb = io(shift)->all;
+
+    foreach my $file (@pdb)
+    {
+        say ($file->name);
+        if (-d $file->name )
+        {
+            delPDB($file->name);            
+        }
+        
+        if ($file->name =~ /\.pdb$/i)
+        {
+            unlink $file->name;
+        }
+    }
+}

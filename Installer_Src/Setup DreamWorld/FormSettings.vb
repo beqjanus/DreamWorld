@@ -14,6 +14,7 @@ Public Class FormSettings
     Private Backups As New FormAutoBackups
     Dim Banlist As New FormBanList
     Private Bird As New FormBird
+    Dim Email As New FormEmailSetup
     Dim FormApache As New FormApache
     Dim FormCache As New FormCaches
     Dim FormDatabase As New FormDatabase
@@ -37,11 +38,9 @@ Public Class FormSettings
     Dim Scripts As New FormScripts
     Dim Search As New FormSearch
     Dim SS As New FormSmartStart
-    Dim SSL As New FormSSL
     Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
-
 #Enable Warning CA2213
 
 #End Region
@@ -106,53 +105,55 @@ Public Class FormSettings
         BackupButton1.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         BanListButton.Text = Global.Outworldz.My.Resources.Ban_List_word
         Birds.Text = Global.Outworldz.My.Resources.Bird_Settings_word
-        ServerTypeButton.Text = Global.Outworldz.My.Resources.Server_Type_word
-        PermissionsButton.Text = Global.Outworldz.My.Resources.Permissions_word
-        RestartButton.Text = Global.Outworldz.My.Resources.Restart_Settings_word
-        PublicityButton.Text = Global.Outworldz.My.Resources.Publicity_Word
         CacheButton1.Text = Global.Outworldz.My.Resources.Caches_word
-        DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
+        CurrencyButton.Text = Global.Outworldz.My.Resources.Currency_word
         DatabaseButton2.Text = Global.Outworldz.My.Resources.Database_Setup_word
         DivaButton1.Text = Global.Outworldz.My.Resources.Web
-        CurrencyButton.Text = Global.Outworldz.My.Resources.Currency_word
+        DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
+        EmailButton.Text = Global.Outworldz.My.Resources.Email_word
+        FSAssetsButton.Text = Global.Outworldz.My.Resources.FSassets
+        IcecastButton.Text = Global.Outworldz.My.Resources.Icecast_word
         LoggingButton.Text = Global.Outworldz.My.Resources.Logging_word
         MapsButton.Text = Global.Outworldz.My.Resources.Maps_word
+        PermissionsButton.Text = Global.Outworldz.My.Resources.Permissions_word
         PhysicsButton1.Text = Global.Outworldz.My.Resources.Physics_word
         PortsButton1.Text = Global.Outworldz.My.Resources.Network_Ports
+        PublicityButton.Text = Global.Outworldz.My.Resources.Publicity_Word
         RegionsButton1.Text = Global.Outworldz.My.Resources.Regions_word
+        RestartButton.Text = Global.Outworldz.My.Resources.Restart_Settings_word
         ScriptButton.Text = Global.Outworldz.My.Resources.Scripts_word
-        IcecastButton.Text = Global.Outworldz.My.Resources.Icecast_word
-        TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
-        TideButton.Text = Global.Outworldz.My.Resources.Tides_word
         SearchButton.Text = Global.Outworldz.My.Resources.SearchOptions_word
-        FSAssetsButton.Text = Global.Outworldz.My.Resources.FSassets
+        ServerTypeButton.Text = Global.Outworldz.My.Resources.Server_Type_word
         SmartStartButton.Text = Global.Outworldz.My.Resources.Smart_Start_word
+        TideButton.Text = Global.Outworldz.My.Resources.Tides_word
+        TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
         ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
         ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
         ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.BanList_string)
         ToolTip1.SetToolTip(Birds, Global.Outworldz.My.Resources.Click_Birds)
-        ToolTip1.SetToolTip(ServerTypeButton, Global.Outworldz.My.Resources.Click_Server)
-        ToolTip1.SetToolTip(PermissionsButton, Global.Outworldz.My.Resources.Click_for_God_Mode)
-        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Click_Restart)
-        ToolTip1.SetToolTip(PublicityButton, Global.Outworldz.My.Resources.Click_Publicity)
-        ToolTip1.SetToolTip(JoomlaButton, Global.Outworldz.My.Resources.Click_Setup_Jopensim)
         ToolTip1.SetToolTip(CacheButton1, Global.Outworldz.My.Resources.Click_Caches)
-        ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Click_HG)
+        ToolTip1.SetToolTip(CurrencyButton, Global.Outworldz.My.Resources.Click_Currency)
         ToolTip1.SetToolTip(DatabaseButton2, Global.Outworldz.My.Resources.Click_Database)
         ToolTip1.SetToolTip(DivaButton1, Global.Outworldz.My.Resources.Click_Web)
-        ToolTip1.SetToolTip(CurrencyButton, Global.Outworldz.My.Resources.Click_Currency)
+        ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Click_HG)
+        ToolTip1.SetToolTip(EmailButton, Global.Outworldz.My.Resources.No_Email)
+        ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
+        ToolTip1.SetToolTip(IcecastButton, Global.Outworldz.My.Resources.Click_Icecast)
+        ToolTip1.SetToolTip(JoomlaButton, Global.Outworldz.My.Resources.Click_Setup_Jopensim)
+        ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
         ToolTip1.SetToolTip(LoggingButton, Global.Outworldz.My.Resources.Log_Level)
         ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Click_Maps)
+        ToolTip1.SetToolTip(PermissionsButton, Global.Outworldz.My.Resources.Click_for_God_Mode)
         ToolTip1.SetToolTip(PhysicsButton1, Global.Outworldz.My.Resources.Click_Physics)
         ToolTip1.SetToolTip(PortsButton1, Global.Outworldz.My.Resources.Click_Ports)
+        ToolTip1.SetToolTip(PublicityButton, Global.Outworldz.My.Resources.Click_Publicity)
         ToolTip1.SetToolTip(RegionsButton1, Global.Outworldz.My.Resources.Click_Regions)
+        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Click_Restart)
         ToolTip1.SetToolTip(ScriptButton, Global.Outworldz.My.Resources.Click_to_View_this_word)
-        ToolTip1.SetToolTip(IcecastButton, Global.Outworldz.My.Resources.Click_Icecast)
-        ToolTip1.SetToolTip(TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
+        ToolTip1.SetToolTip(ServerTypeButton, Global.Outworldz.My.Resources.Click_Server)
         ToolTip1.SetToolTip(TideButton, Global.Outworldz.My.Resources.Click_Tides)
+        ToolTip1.SetToolTip(TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
         ToolTip1.SetToolTip(VoiceButton1, Global.Outworldz.My.Resources.Click_Voice)
-        ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
-        ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
 
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
@@ -185,8 +186,6 @@ Public Class FormSettings
     End Sub
 
 #End Region
-
-
 
 #Region "Clicks"
 
@@ -388,6 +387,18 @@ Public Class FormSettings
 
     End Sub
 
+    Private Sub EmailButton_Click(sender As Object, e As EventArgs) Handles EmailButton.Click
+
+        Email.Close()
+        Email.Dispose()
+        Email = New FormEmailSetup
+        Email.Activate()
+        Email.Visible = True
+        Email.Select()
+        Email.BringToFront()
+
+    End Sub
+
     Private Sub LanguageButton_Click(sender As Object, e As EventArgs) Handles LanguageButton.Click
 
         Lang.Close()
@@ -507,18 +518,6 @@ Public Class FormSettings
         }
         FormSpeech.Select()
         FormSpeech.BringToFront()
-
-    End Sub
-
-    Private Sub SSLButton_Click(sender As Object, e As EventArgs) Handles SSLButton.Click
-
-        SSL.Close()
-        SSL.Dispose()
-        SSL = New FormSSL
-        SSL.Activate()
-        SSL.Visible = True
-        SSL.Select()
-        SSL.BringToFront()
 
     End Sub
 

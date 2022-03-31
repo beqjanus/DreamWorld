@@ -50,12 +50,22 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
+    ''' <summary>
+    ''' Seconds to Boot until region Ready with maps off
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>integer</returns>
     Public Function GetBootTime(UUID As String) As Integer
 
         Return CInt("0" & GetMySetting("BootTime_" & Region_Name(UUID), "0"))
 
     End Function
 
+    ''' <summary>
+    ''' Seconds to Boot until region Ready with maps on
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>integer</returns>
     Public Function GetMapTime(UUID As String) As Integer
 
         Return CInt("0" & GetMySetting("MapTime_" & Region_Name(UUID), "0"))
@@ -603,15 +613,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property Clouds() As Boolean
-        Get
-            Return CType(GetMySetting("Clouds", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("Clouds", CStr(Value))
-        End Set
-    End Property
-
     Public Property CMS() As String
         Get
             Dim var = GetMySetting("CMS", DreamGrid)
@@ -822,13 +823,77 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Period in seconds to delay after an email Is sent.
+    ''' </summary>
+    Public Property Email_pause_time() As Integer
+        Get
+            Return CInt("0" & GetMySetting("Email_pause_time", "20"))
+        End Get
+        Set
+            SetMySetting("Email_pause_time", CStr(Value))
+        End Set
+    End Property
+
+    Public Property EmailEnabledCheckBox() As Boolean
+        Get
+            Return CType(GetMySetting("EmailEnabledCheckBox", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("EmailEnabledCheckBox", CStr(Value))
+        End Set
+
+    End Property
+
+    ''' <summary>
+    ''' maximum number of emails via smtp per hour
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property EmailsToSMTPAddressPerHour() As Integer
+        Get
+            Return CInt("0" & GetMySetting("EmailsToSMTPAddressPerHour", "10"))
+        End Get
+        Set
+            SetMySetting("EmailsToSMTPAddressPerHour", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Enable sending email to regions not on current opensimulator instance.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property enableEmailToExternalObjects() As Boolean
+        Get
+            Return CType(GetMySetting("enableEmailToExternalObjects", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("enableEmailToExternalObjects", CStr(Value))
+        End Set
+
+    End Property
+
+    ''' <summary>
+    ''' Enable sending email to the world
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property enableEmailToSMTPCheckBox() As Boolean
+        Get
+            Return CType(GetMySetting("enableEmailToSMTPCheckBox", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("enableEmailToSMTPCheckBox", CStr(Value))
+        End Set
+
+    End Property
+
     Public Property EnableHypergrid() As Boolean
         Get
-            Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
+            Return CType(GetMySetting("EnableHypergrid", "False"), Boolean)
         End Get
         Set
             SetMySetting("EnableHypergrid", CStr(Value))
         End Set
+
     End Property
 
     Public Property ExternalHostName() As String
@@ -843,7 +908,7 @@ Public Class MySettings
     Public Property FirewallMigrated() As Integer
         Get
             Try
-                Return CType(GetMySetting("FirewallMigrated", "0"), Integer)
+                Return CType(0 & GetMySetting("FirewallMigrated", "0"), Integer)
             Catch
                 Return 1
             End Try
@@ -1161,7 +1226,7 @@ Public Class MySettings
     'LocalServiceModule
     Public Property LocalServiceModule() As String
         Get
-            Return GetMySetting("LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+            Return GetMySetting("LocalServiceModule", "OpenSim.Services.AssetService.dll: AssetService")
         End Get
         Set
             SetMySetting("LocalServiceModule", Value)
@@ -1231,6 +1296,40 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' maximum number of emails from a object owner per hour
+    ''' </summary>
+    Public Property MailsFromOwnerPerHour() As Integer
+        Get
+            Return CInt("0" & GetMySetting("MailsFromOwnerPerHour", "500"))
+        End Get
+        Set
+            SetMySetting("MailsFromOwnerPerHour", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' maximum number of emails via smtp per day
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property MailsPerDay() As Integer
+        Get
+            Return CInt("0" & GetMySetting("MailsPerDay", "100"))
+        End Get
+        Set
+            SetMySetting("MailsPerDay", CStr(Value))
+        End Set
+    End Property
+
+    Public Property MailsToPrimAddressPerHour() As Integer
+        Get
+            Return CInt("0" & GetMySetting("MailsToPrimAddressPerHour", "20"))
+        End Get
+        Set
+            SetMySetting("MailsToPrimAddressPerHour", CStr(Value))
+        End Set
+    End Property
+
     Public Property MapCenterX() As Integer
         Get
             If ServerType = RobustServerName Then
@@ -1269,6 +1368,18 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("MapType", Value)
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Maximum total size of email in bytes.
+    ''' </summary>
+    Public Property MaxMailSize() As Integer
+        Get
+            Return CInt("0" & GetMySetting("MaxMailSize", "4096"))
+        End Get
+        Set
+            SetMySetting("MaxMailSize", CStr(Value))
         End Set
     End Property
 
@@ -1605,7 +1716,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return CInt(GetMySetting("RenderMinHeight", "-100"))
+            Return CInt(0 & GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", CStr(Value))
@@ -1713,7 +1824,7 @@ Public Class MySettings
 
     Public Property SCPortBase() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase", "8100"), Integer)
+            Return CType(0 & GetMySetting("SC_PortBase", "8100"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase", CStr(Value))
@@ -1722,7 +1833,7 @@ Public Class MySettings
 
     Public Property SCPortBase1() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase1", "8101"), Integer)
+            Return CType(0 & GetMySetting("SC_PortBase1", "8101"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase1", CStr(Value))
@@ -1749,7 +1860,7 @@ Public Class MySettings
 
     Public Property SearchMigration() As Integer
         Get
-            Return CType(GetMySetting("SearchMigration", "0".ToUpperInvariant), Integer)
+            Return CType(0 & GetMySetting("SearchMigration", "0"), Integer)
         End Get
         Set
             SetMySetting("SearchMigration", CStr(Value))
@@ -1910,6 +2021,9 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Enable the email module
+    ''' </summary>
     Public Property Smart_Start() As Boolean
         Get
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
@@ -1956,21 +2070,21 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SmtpSecure() As Boolean
-        Get
-            Return CType(GetMySetting("SmtpSecure", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("SmtpSecure", CStr(Value))
-        End Set
-    End Property
-
     Public Property SmtPropUserName() As String
         Get
             Return GetMySetting("SmtPropUserName", "LoginName@gmail.com")
         End Get
         Set
             SetMySetting("SmtPropUserName", Value)
+        End Set
+    End Property
+
+    Public Property SmtpSecure() As Boolean
+        Get
+            Return CType(GetMySetting("SmtpSecure", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("SmtpSecure", CStr(Value))
         End Set
     End Property
 
@@ -2007,6 +2121,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SSLIsInstalled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property SSLType() As Integer
+        Get
+            Return CInt("0" & GetMySetting("SSLType", "3")) ' StartTLS is default
+        End Get
+        Set
+            SetMySetting("SSLType", CStr(Value))
         End Set
     End Property
 
@@ -2112,7 +2235,7 @@ Public Class MySettings
 
     Public Property TideHighLevel() As Single
         Get
-            Return CSng(GetMySetting("TideHighLevel", "20"))
+            Return CSng(0 & GetMySetting("TideHighLevel", "20"))
         End Get
         Set
             SetMySetting("TideHighLevel", CStr(Value))
@@ -2208,6 +2331,19 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("UPnPEnabled", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' using TLS and a smtp server with a self signed certificate you will need to set this option false
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property VerifyCertCheckBox() As Boolean
+        Get
+            Return CType(GetMySetting("VerifyCertCheckBox", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("VerifyCertCheckBox", CStr(Value))
         End Set
     End Property
 

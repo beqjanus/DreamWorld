@@ -39,11 +39,9 @@ Public Class FormPermissions
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
-        Clouds.Text = Global.Outworldz.My.Resources.Enable_word
         EnableMaxPrims.Text = Global.Outworldz.My.Resources.Max_Prims
         GroupBox1.Text = Global.Outworldz.My.Resources.Export_Permission_word '"Export Permission"
         GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word '"Permissions"
-        CloudBox.Text = Global.Outworldz.My.Resources.Clouds_word '"Clouds"
         LimitsBox.Text = Global.Outworldz.My.Resources.Prim_Limits '"Prim Limits"
         ManagerGod.Text = Global.Outworldz.My.Resources.Region_manager_god
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
@@ -53,7 +51,6 @@ Public Class FormPermissions
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
-        ToolTip1.SetToolTip(Clouds, Global.Outworldz.My.Resources.Allow_cloud)
         ToolTip1.SetToolTip(EnableMaxPrims, Global.Outworldz.My.Resources.Max_PrimLimit)
         ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.Region_Manager_is_God)
         ToolTip1.SetToolTip(OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Allow_objects)
@@ -65,16 +62,6 @@ Public Class FormPermissions
         AllowGods.Checked = Settings.AllowGridGods
         RegionGod.Checked = Settings.RegionOwnerIsGod
         ManagerGod.Checked = Settings.RegionManagerIsGod
-        Clouds.Checked = Settings.Clouds
-
-        Dim var As Double = Settings.Density
-
-        If var = -1 Then var = 5
-
-        Dim v As Integer = CInt("0" & (var * 10))
-        If (v > 9) Then v = 9
-        If (v < 0) Then v = 0
-        DomainUpDown1.SelectedIndex = v
 
         OutBoundPermissionsCheckbox.Checked = Settings.OutboundPermissions
 
@@ -108,37 +95,6 @@ Public Class FormPermissions
         If Not initted Then Return
         Settings.AllowGridGods = AllowGods.Checked
         Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles Clouds.CheckedChanged
-
-        If Not initted Then Return
-        Settings.Clouds = Clouds.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged
-
-        If initted Then
-            Try
-                Dim var As Double = CType(DomainUpDown1.SelectedIndex, Double)
-
-                If var = -1 Then var = 0.5
-                var /= 10
-                If (var > 1) Then var = 1
-                If (var < 0) Then var = 0
-                Debug.Print(var.ToString(Globalization.CultureInfo.InvariantCulture))
-
-                Settings.Density = var
-                Settings.SaveSettings()
-            Catch
-                Settings.Density = 0.5
-                Settings.SaveSettings()
-            End Try
-
-        End If
 
     End Sub
 

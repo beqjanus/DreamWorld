@@ -9,11 +9,27 @@ Imports MailKit.Net.Smtp
 
 Namespace MailKit.SSL
     Module SslCertificateValidation
+
         Sub SendMessage(ByVal message As MimeMessage)
             Try
                 Using client = New SmtpClient()
                     client.ServerCertificateValidationCallback = AddressOf MySslCertificateValidationCallback
-                    client.Connect(Settings.SmtpHost, Settings.SmtpPort, SecureSocketOptions.SslOnConnect)
+
+                    Dim SSLType As SecureSocketOptions
+                    Select Case Settings.SSLType
+                        Case 0
+                            SSLType = SecureSocketOptions.None
+                        Case 1
+                            SSLType = SecureSocketOptions.Auto
+                        Case 2
+                            SSLType = SecureSocketOptions.SslOnConnect
+                        Case 3
+                            SSLType = SecureSocketOptions.StartTls
+                        Case 4
+                            SSLType = SecureSocketOptions.StartTlsWhenAvailable
+                    End Select
+
+                    client.Connect(Settings.SmtpHost, Settings.SmtpPort, SSLType)
                     client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
                     client.Send(message)
                     client.Disconnect(True)
@@ -53,5 +69,6 @@ Namespace MailKit.SSL
 
             Return False
         End Function
+
     End Module
 End Namespace
