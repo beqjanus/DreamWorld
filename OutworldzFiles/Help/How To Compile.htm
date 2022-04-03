@@ -15,6 +15,9 @@
 @font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -55,6 +58,24 @@ h2
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#1F3763;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -68,6 +89,12 @@ span.Heading2Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	color:#1F3763;
+	text-transform:uppercase;
+	letter-spacing:.75pt;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -93,7 +120,7 @@ div.WordSection1
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1 style='background:#4472C4'><a name="OLE_LINK1">How to Compile DreamGrid</a></h1>
+<h1><a name="OLE_LINK1">How to Compile DreamGrid</a></h1>
 
 </div>
 
@@ -114,7 +141,7 @@ Outworldzfiles\Help folder.&nbsp;&nbsp; </span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Adding a new manual</span></h2>
+<h2><span style='color:black'>Adding a new manual</span></h2>
 
 </div>
 
@@ -127,7 +154,7 @@ to Fuile-&gt;Options at the bottom left of Word.</span></p>
 font-family:"Times New Roman",serif'>Now go to the Quick Access Toolbar area of
 the Word Options dialog box. In the list of Categories, select Commands Not in
 the Ribbon. Scroll through the long list of commands and select View Field
-Codes from the list. Click Add.</span>  </span></p>
+Codes from the list. Click Add.  </span></p>
 
 <p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
 font-family:"Times New Roman",serif'><img border=0 width=595 height=487
@@ -151,7 +178,7 @@ alt="Graphical user interface, text, application, website&#10;&#10;Description a
 
 <p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
 font-family:"Times New Roman",serif'>These are all the manuals, in alphabetical
-order as a link.   </span></p>
+order as a link.   </span></p>
 
 <p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
 font-family:"Times New Roman",serif'>For a new manual, highlight all the text
@@ -170,92 +197,12 @@ background:#F6F8FA'>Make_zip_v3.pl</span></a><span style='font-size:12.0pt;
 font-family:"Times New Roman",serif'>&quot;&nbsp; copies the web pages and adds
 them to both the main and backup Outworldz.com web sites.</span></p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
-
-<h2 style='background:#D9E2F3'><span style='color:black'>Opensim compile from
-the beginning</span></h2>
-
-</div>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>Make a folder and do a git clone from </span></p>
-
-<div style='border:solid #2F6FAB 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
-background:#F9F9F9'>
-
-<p class=MsoNormal style='margin-bottom:0in;line-height:13.2pt;background:#F9F9F9;
-border:none;padding:0in'><span style='font-family:"Courier New";color:black'>git
-clone </span><a href="git://opensimulator.org/git/opensim"><span
-style='font-family:"Courier New";color:#3366BB'>git://opensimulator.org/git/opensim</span></a></p>
-
-</div>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>Search and replace all&nbsp;of these:</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>&lt;TargetFrameworkVersion&gt;v4.6&lt;/TargetFrameworkVersion&gt;</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>with </span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>&lt;TargetFrameworkVersion&gt;v4.8&lt;/TargetFrameworkVersion&gt;</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>Also all v4_6 to v4_8 in the module folder
-(I used Noetpad++).</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>Then in all assemblies:</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>// &lt;autogenerated /&gt;<br>
-using System;<br>
-using System.Reflection;<br>
-&nbsp;[assembly:
-global::System.Runtime.Versioning.TargetFrameworkAttribute(&quot;.NETFramework,Version=v4.8&quot;,
-FrameworkDisplayName = &quot;.NET Framework 4.8&quot;)]</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>I deleted all the above
-[assembly:...&nbsp; lines.&nbsp;&nbsp;&nbsp; In Visual Studio it compiles a
-bit, then throws errors on the next set. double click the error, delete the
-ones it shows,&nbsp; compile, repeat, wash, rise. After about 10 passes all
-modules compile.</span></p>
-
-<p class=MsoNormal style='line-height:normal'><img border=0 width=538
-height=460 id="Picture 2" src="How%20To%20Compile_files/image005.png"
-alt="Table&#10;&#10;Description automatically generated"></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>I ended up with one warning in WifiMain.cs
-Line 172, which is harmless. It is an extra exception parametee that is not
-used. You can safely ignore this, or just delete the parameter:</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>catch (InvalidOperatiblueonException
-e)&nbsp; </span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>becomes</span></p>
-
-<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
-font-family:"Times New Roman",serif'>catch ()&nbsp; </span></p>
-
-<span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'><br
-clear=all style='page-break-before:always'>
-</span>
-
-<p class=MsoNormal><span style='font-size:12.0pt;line-height:115%;font-family:
-"Times New Roman",serif'>&nbsp;</span></p>
-
 <p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
 font-family:"Times New Roman",serif'>&nbsp;</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Icons</span></h2>
+<h2><span style='color:black'>Icons</span></h2>
 
 </div>
 
@@ -275,7 +222,7 @@ window and select &quot;Properties&quot;. The type the name in.  </span></p>
 font-family:"Times New Roman",serif'>&nbsp;</span></p>
 
 <p class=MsoNormal style='line-height:normal'><img border=0 width=554
-height=563 id="Picture 1" src="How%20To%20Compile_files/image006.png"
+height=563 id="Picture 1" src="How%20To%20Compile_files/image005.png"
 alt="Graphical user interface, text, application, email&#10;&#10;Description automatically generated"></p>
 
 <p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
@@ -283,8 +230,7 @@ font-family:"Times New Roman",serif'>&nbsp;</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>jOpensim and other
-modules:</span></h2>
+<h2><span style='color:black'>jOpensim and other modules:</span></h2>
 
 </div>
 
@@ -300,7 +246,1742 @@ jOpensim 4 yet. This is still V 3.9.&nbsp;&nbsp; </span></p>
 font-family:"Times New Roman",serif'>We will need PHP8 for it. Curl has been
 replaced with a new curl which changes Search/Datasnapshot too. </span></p>
 
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Opensim compile from the beginning</span></h2>
+
+</div>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Make a folder and do a git clone from </span></p>
+
+<div style='border:solid #2F6FAB 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
+background:#F9F9F9'>
+
+<p class=MsoNormal style='margin-bottom:0in;line-height:13.2pt;background:#F9F9F9;
+border:none;padding:0in'><span style='font-family:"Courier New";color:black'>git
+clone </span><span style='color:black'><a
+href="git://opensimulator.org/git/opensim"><span style='font-family:"Courier New";
+color:#3366BB'>git://opensimulator.org/git/opensim</span></a></span></p>
+
+</div>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Merge in the Diva and other modules in
+addon-modules.</span></p>
+
+<p class=MsoNormal style='line-height:normal'><img border=0 width=470
+height=402 id="Picture 2" src="How%20To%20Compile_files/image006.png"
+alt="Table&#10;&#10;Description automatically generated"></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Search and replace all&nbsp;of these in
+addon-modules. I used Notepad++</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&lt;TargetFrameworkVersion&gt;v4.6&lt;/TargetFrameworkVersion&gt;</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>with </span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&lt;TargetFrameworkVersion&gt;v4.8&lt;/TargetFrameworkVersion&gt;</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Also all v4_6 to v4_8 in the addon-modules
+folder.</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Then in all .csproj:</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>// &lt;autogenerated /&gt;<br>
+using System;<br>
+using System.Reflection;<br>
+&nbsp;[assembly:
+global::System.Runtime.Versioning.TargetFrameworkAttribute(&quot;.NETFramework,Version=v4.8&quot;,
+FrameworkDisplayName = &quot;.NET Framework 4.8&quot;)]</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>search and replace all the above
+[assembly:...&nbsp; lines.&nbsp;&nbsp;&nbsp; </span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2 style='background:#D9E2F3'><span style='color:black'>Visual Studio 2019</span></h2>
+
+</div>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Download the Visual Studio 2019 Community
+Edition. Start it and select the Visual Basic and Visual C# development system</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>You will need the Developer version of
+Microsoft Dot Net 4.8. You can get it from</span></p>
+
+<p class=MsoNormal style='line-height:normal'><b><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'><a
+href="https://dotnet.microsoft.com/en-us/download/visual-studio-sdks">https://dotnet.microsoft.com/en-us/download/visual-studio-sdks</a></span></b></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Now load the <b>Opensim.sln</b> file in
+Visual Studio and it should compile in Release or Development mode.</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>DreamGrid modifications</span></h2>
+
+</div>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>GridService.cs</h3>
+
+</div>
+
+<p class=MsoNormal>\addon-modules\1DivaOpenSimServices\GridService.cs</p>
+
+<p class=MsoNormal>In Visual Studio this is in
+Diva.OpensimServices\GridService.cs</p>
+
+<p class=MsoNormal>Line 64 is:                <br>
+ const RegionFlags flags = RegionFlags.RegionOnline;</p>
+
+<p class=MsoNormal>Line 64 should be this to show Smart Start Regions on the
+home screen. These are marked as persistent on first boot by the Opensim setup
+in DreamGrid</p>
+
+<p class=MsoNormal>const RegionFlags flags = RegionFlags.RegionOnline |
+RegionFlags.Persistent ; <span style='font-size:9.5pt;line-height:115%;
+font-family:Consolas;color:green'>// DreamGrid to display Smart Boot on home
+page</span></p>
+
+<span style='font-size:9.5pt;line-height:115%;font-family:Consolas;color:green'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:115%;font-family:
+Consolas;color:green'>&nbsp;</span></p>
+
 <p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>BasehttpServer.cs</h3>
+
+</div>
+
+<p class=MsoNormal>OpenSim\Framework\Servers\HttpServer\BaseHttpServer.cs</p>
+
+<p class=MsoNormal>Added this code to the HTTP handler for robust. It allows
+DreamGrid to determine more accurately when Robust is ready to accept new
+commands.</p>
+
+<p class=MsoNormal>Line 2445:    </p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
+Consolas;color:green'>    // Smartstart</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
+Consolas'>        if (httpRequest.QueryFlags.Contains(&quot;version&quot;))<br>
+        {<br>
+                httpResponse.StatusCode = (int)HttpStatusCode.OK;<br>
+                httpResponse.RawBuffer =
+Encoding.ASCII.GetBytes(VersionInfo.Version);<br>
+                return;<br>
+        }</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>llLoginService.cs</h3>
+
+</div>
+
+<p class=MsoNormal><br>
+File Opensim.Services.llLoginService.llLoginService.cs</p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%'>Insert
+between italicized code</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>98:     <i>//IConfig
+m_ClientsConfig;</i></span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>:99</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>100:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>101:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>bool</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartEnabled =
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>false</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>102:       </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartUrl = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>103:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartMachineID
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>104:<br>
+105:        </span><i><span style='font-size:8.0pt;font-family:Consolas;
+color:blue'>public</span></i><i><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> </span></i><i><span style='font-size:8.0pt;font-family:Consolas;
+color:#2B91AF'>LLLoginService…</span></i></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%'>&nbsp;</span></p>
+
+<span style='font-size:8.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%'>&nbsp;</span></p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>Scene.cs</h3>
+
+</div>
+
+<p class=MsoNormal>File Opensim.Region.Framework.Scenes.Scene.cs</p>
+
+<p class=MsoNormal>Line 818: insert new code between italicized code</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>818: public</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> GridInfo
+SceneGridInfo;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>819:        </span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>820: // SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>821: protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>bool</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartEnabled =
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>false</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>822: protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartUrl = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>823: protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartMachineID
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>824:        </span></p>
+
+<p class=MsoNormal><i><span style='font-size:8.0pt;line-height:115%;font-family:
+Consolas;color:gray'>825: #endregion</span></i><i><span style='font-size:8.0pt;
+line-height:115%;font-family:Consolas;color:black'> Properties</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+827 insert new code<br>
+<span style='font-size:8.0pt'><br>
+827: </span><span style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:gray'>#region</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Constructors</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID GetSmartStartALTRegion(UUID
+regionID, UUID agentID)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// !!! DreamGrid Smart
+Start sends requested Region UUID to Dreamgrid.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// If region is on
+line, returns same UUID. If Offline, returns UUID for Welcome, brings up the
+region and teleports you to it.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (m_SmartStartEnabled)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> url = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>$&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{m_SmartStartUrl}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>?alt=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{regionID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&amp;agent=UUID&amp;agentid=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{agentID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&amp;password=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{m_SmartStartMachineID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+m_log.DebugFormat(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion Sending request
+{0}&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>,
+url);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+HttpWebRequest webRequest;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>try</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+webRequest = (HttpWebRequest)WebRequest.Create(url);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>catch</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion failed to create
+url&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID.Zero;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+webRequest.Timeout = 30000; </span><span style='font-size:8.0pt;font-family:
+Consolas;color:green'>//30 Second Timeout</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+webRequest.AllowWriteStreamBuffering = </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>false</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>try</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> tempStr;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (HttpWebResponse
+webResponse = (HttpWebResponse)webRequest.GetResponse())</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (StreamReader reader
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>new</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+StreamReader(webResponse.GetResponseStream()))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+tempStr = reader.ReadToEnd();</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (</span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrEmpty(tempStr))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion returned
+null&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID.Zero;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion returned &quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> + tempStr);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+regionID = UUID.Parse(tempStr);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>catch</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (Exception ex)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Warn(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[LLoginService]:
+GetSmartStartALTRegion exception: &quot;</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'> + ex.Message);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> regionID;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        }</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+1163 insert code before #endregion<br>
+<br>
+<i><span style='font-size:9.5pt;font-family:Consolas;color:black'>m_update_temp_cleaning   
+= startupConfig.GetInt(</span></i><i><span style='font-size:9.5pt;font-family:
+Consolas;color:#A31515'>&quot;UpdateTempCleaningEveryNSeconds&quot;</span></i><i><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>,  
+m_update_temp_cleaning);</span></i></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%'>1163:<br>
+</span><span style='font-size:8.0pt;line-height:115%;font-family:Consolas;
+color:green'>1164: // SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            IConfig SmartStartConfig
+= config.Configs[</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;SmartStart&quot;</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>];</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (SmartStartConfig != </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+m_SmartStartEnabled = SmartStartConfig.GetBoolean(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>,
+m_SmartStartEnabled);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (m_SmartStartEnabled)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_SmartStartUrl = SmartStartConfig.GetString(</span><span style='font-size:
+8.0pt;font-family:Consolas;color:#A31515'>&quot;URL&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>, m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (</span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrEmpty(m_SmartStartUrl))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartEnabled = </span><span style='font-size:8.0pt;font-family:Consolas;
+color:blue'>false</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>else</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+OSHHTPHost tmpSmartStartURL = </span><span style='font-size:8.0pt;font-family:
+Consolas;color:blue'>new</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> OSHHTPHost(m_SmartStartUrl, </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>true</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+(!tmpSmartStartURL.IsResolvedHost)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+{</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+m_log.Error(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[SCENE]: Could not parse or resolve SmartStart URI&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>throw</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>new</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Exception(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;SCENE init
+error: SmartStart URI&quot;</span><span style='font-size:8.0pt;font-family:
+Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartUrl = tmpSmartStartURL.URI;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_log.Info(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[SCENE]:
+SmartStart Url &quot;</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> + m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartMachineID = SmartStartConfig.GetString(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;MachineID&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>,
+m_SmartStartMachineID);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>           
+m_log.Info(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[SCENE]:
+SmartStart &quot;</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> + (m_SmartStartEnabled ? </span><span style='font-size:8.0pt;
+font-family:Consolas;color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> : </span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;Disabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>));</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
+Consolas;color:black'>            </span><span style='font-size:8.0pt;
+line-height:115%;font-family:Consolas;color:gray'>#endregion</span><span
+style='font-size:8.0pt;line-height:115%;font-family:Consolas;color:black'>
+Region Config</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<br clear=all style='page-break-before:always'>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>EntitityTransferModule.cs</h3>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>File Opensim.Region.CoreModules.Framework.EntityTransfer.EmntityTransferModule.cs</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Line: 42, insert the
+RegionFlags line</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>42:  <i>using</i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> GridRegion =
+OpenSim.Services.Interfaces.GridRegion;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>43:  using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> RegionFlags = OpenSim.Framework.RegionFlags;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Line 755-758. After
+this insert the following code:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>755:  <i>m_log.DebugFormat(</i></span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>756:                   
+</span></i><i><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[ENTITY
+TRANSFER MODULE]: Failed validation of all attachments 756: for teleport of {0}
+from {1} to {2}.  Continuing.&quot;</span></i><i><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>,</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>758:                    
+sp.Name, sp.Scene.Name, finalDestination.RegionName);</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// Smartstart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>//This is still a
+test.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// this possible
+should only be called if query fails with a limited set of errors like
+connection refused.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (reg.RegionLocY != 0)
+</span><span style='font-size:8.0pt;font-family:Consolas;color:green'>// not on
+HG</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+((finalDestination.RegionFlags &amp; (RegionFlags.Hyperlink | RegionFlags.DefaultRegion
+| RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID,
+sp.ControllingClient.AgentId); </span><span style='font-size:8.0pt;font-family:
+Consolas;color:green'>// fkb</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (regID != UUID.Zero
+&amp;&amp; regID != finalDestination.RegionID)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (regID ==
+sp.Scene.RegionInfo.RegionID)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+{</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+sp.ControllingClient.SendTeleportFailed(</span><span style='font-size:8.0pt;
+font-family:Consolas;color:#A31515'>&quot;Destination region Loading. Teleport
+will happen soon&quot;</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+finalDestination =
+sp.Scene.GridService.GetRegionByUUID(sp.Scene.RegionInfo.ScopeID, regID);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (finalDestination == </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+{</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+sp.ControllingClient.SendTeleportFailed(</span><span style='font-size:8.0pt;
+font-family:Consolas;color:#A31515'>&quot;Destination region Loading. Teleport
+will happen soon&quot;</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                        reg
+= finalDestination;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            }</span></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>GateKeeper.cs</h3>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>File
+Opensim.Serices.HypregridService.Gatekeeper.cs</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+41: insert Using:</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>40: <i>using</i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> OpenMetaverse;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>41: using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> RegionFlags = OpenSim.Framework.RegionFlags;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>42: <i>using</i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Nini.Config;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>After line 79 insert
+new code:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>79: private</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>static</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_messageKey;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>80:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>81: // SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>82: protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>static</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>bool</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartEnabled =
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>false</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>83:protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>static</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartUrl = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>84:protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>static</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartMachineID
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>85:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>86: public</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:#2B91AF'>GatekeeperService</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>(IConfigSource config,
+ISimulationService simService)</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>After line 182
+(italic) insert new code</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (messagingConfig != </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></i></p>
+
+<p class=MsoNormal style='margin:0in;text-indent:.5in;line-height:normal;
+text-autospace:none'><i><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>m_messageKey = messagingConfig.GetString(</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;MessageKey&quot;</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>, String.Empty);</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// SmartStart fkb</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>IConfig
+SmartStartConfig = config.Configs[</span><span style='font-size:8.0pt;
+font-family:Consolas;color:#A31515'>&quot;SmartStart&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>];</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (SmartStartConfig != </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin:0in;text-indent:.5in;line-height:normal;
+text-autospace:none'><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>m_SmartStartEnabled = SmartStartConfig.GetBoolean(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>,
+m_SmartStartEnabled);</span></p>
+
+<p class=MsoNormal style='margin:0in;text-indent:.5in;line-height:normal;
+text-autospace:none'><span style='font-size:8.0pt;font-family:Consolas;
+color:blue'>if</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> (m_SmartStartEnabled)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>       
+m_SmartStartUrl = SmartStartConfig.GetString(</span><span style='font-size:
+8.0pt;font-family:Consolas;color:#A31515'>&quot;URL&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>, m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (</span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrEmpty(m_SmartStartUrl))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                m_SmartStartEnabled
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>false</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>else</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                        OSHHTPHost
+tmpSmartStartURL = </span><span style='font-size:8.0pt;font-family:Consolas;
+color:blue'>new</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> OSHHTPHost(m_SmartStartUrl, </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>true</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                         </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+(!tmpSmartStartURL.IsResolvedHost)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+{</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+         m_log.Error(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[GATEKEEPER SERVICE]: Could not parse or resolve
+SmartStart URI&quot;</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                               
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>throw</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>new</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Exception(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;GATEKEEPER
+SERVICE init error: SmartStart URI&quot;</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartUrl = tmpSmartStartURL.URI;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_log.Info(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[GATEKEEPER
+SERVICE]: SmartStart Url &quot;</span><span style='font-size:8.0pt;font-family:
+Consolas;color:black'> + m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:1.5in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>m_SmartStartMachineID
+= SmartStartConfig.GetString(</span><span style='font-size:8.0pt;font-family:
+Consolas;color:#A31515'>&quot;MachineID&quot;</span><span style='font-size:
+8.0pt;font-family:Consolas;color:black'>, m_SmartStartMachineID);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                 }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>m_log.Debug(</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[GATEKEEPER SERVICE]:
+Starting...&quot;</span></i><i><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>);</span></i></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif;
+color:#1F3763;text-transform:uppercase;letter-spacing:.75pt'><br clear=all>
+</span>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>llLoginService.cs</h3>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt'><br>
+</span></i>File Opensim.Services.llLoginService.llLoginService.cs</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+47: insert Using</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>46: <i>using</i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+OpenSim.Services.Connectors.Hypergrid;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>47: using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> RegionFlags =
+OpenSim.Framework.RegionFlags;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Line 100 insert new
+code</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>99<i>:        </i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>//IConfig
+m_ClientsConfig;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>100:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>101:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>102:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>bool</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartEnabled =
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>false</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>103:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartUrl = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>104:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>protected</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> m_SmartStartMachineID
+= </span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.Empty;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>105:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>106:<i>        </i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>public</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:#2B91AF'>LLLoginService…</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i>&nbsp;</i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+199: insert new code</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>196: <i>  </i></span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (!</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrWhiteSpace(agentService))</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>197:<i>               
+m_UserAgentService = ServerUtils.LoadPlugin&lt;IUserAgentService&gt;(agentService,
+args);</i></span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>198:</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>199:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            IConfig
+SmartStartConfig = config.Configs[</span><span style='font-size:8.0pt;
+font-family:Consolas;color:#A31515'>&quot;SmartStart&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>];</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (SmartStartConfig != </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+m_SmartStartEnabled = SmartStartConfig.GetBoolean(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>,
+m_SmartStartEnabled);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (m_SmartStartEnabled)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_SmartStartUrl = SmartStartConfig.GetString(</span><span style='font-size:
+8.0pt;font-family:Consolas;color:#A31515'>&quot;URL&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>, m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (</span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrEmpty(m_SmartStartUrl))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartEnabled = </span><span style='font-size:8.0pt;font-family:Consolas;
+color:blue'>false</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>else</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+OSHHTPHost tmpSmartStartURL = </span><span style='font-size:8.0pt;font-family:
+Consolas;color:blue'>new</span><span style='font-size:8.0pt;font-family:Consolas;
+color:black'> OSHHTPHost(m_SmartStartUrl, </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>true</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (!tmpSmartStartURL.IsResolvedHost)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+{</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+m_log.Error(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLOGIN SERVICE]: Could not parse or resolve SmartStart
+URI&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                           
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>throw</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>new</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Exception(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;LLOGIN SERVICE
+init error: SmartStart URI&quot;</span><span style='font-size:8.0pt;font-family:
+Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+}</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartUrl = tmpSmartStartURL.URI;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_log.Info(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[LLOGIN
+SERVICE]: SmartStart Url &quot;</span><span style='font-size:8.0pt;font-family:
+Consolas;color:black'> + m_SmartStartUrl);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_SmartStartMachineID = SmartStartConfig.GetString(</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;MachineID&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>,
+m_SmartStartMachineID);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>           
+m_log.Info(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[LLOGIN
+SERVICE]: SmartStart &quot;</span><span style='font-size:8.0pt;font-family:
+Consolas;color:black'> + (m_SmartStartEnabled ? </span><span style='font-size:
+8.0pt;font-family:Consolas;color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> : </span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;Disabled&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>));</span></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
+273 insert new code:</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>public</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:#2B91AF'>LLLoginService</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>(IConfigSource config)
+: </span></i><i><span style='font-size:8.0pt;font-family:Consolas;color:blue'>this</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>(config, </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>, </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>null</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>)</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        {</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        }</span></i></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>273:        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>//DreamGrid SmartStart</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID
+GetSmartStartALTRegion(UUID regionID, UUID agentID)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// !!! DreamGrid Smart
+Start sends requested Region UUID to Dreamgrid.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:green'>// If region is on
+line, returns same UUID. If Offline, returns UUID for Welcome, brings up the
+region and teleports you to it.</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (m_SmartStartEnabled)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> url = </span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>$&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{m_SmartStartUrl}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>?alt=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{regionID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&amp;agent=UUID&amp;agentid=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{agentID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&amp;password=</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>{m_SmartStartMachineID}</span><span
+style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+m_log.DebugFormat(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion Sending request
+{0}&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>,
+url);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+HttpWebRequest webRequest;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>try</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+webRequest = (HttpWebRequest)WebRequest.Create(url);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>catch</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion failed to create
+url&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID.Zero;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+webRequest.Timeout = 30000; </span><span style='font-size:8.0pt;font-family:
+Consolas;color:green'>//30 Second Timeout</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>               
+webRequest.AllowWriteStreamBuffering = </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>false</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'>;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>try</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> tempStr;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (HttpWebResponse
+webResponse = (HttpWebResponse)webRequest.GetResponse())</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>
+(System.IO.StreamReader reader = </span><span style='font-size:8.0pt;
+font-family:Consolas;color:blue'>new</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'> System.IO.StreamReader( webResponse.GetResponseStream()))                           
+</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;text-indent:.5in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>tempStr =
+reader.ReadToEnd();</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (</span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>.IsNullOrEmpty(tempStr))</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion returned
+null&quot;</span><span style='font-size:8.0pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                       
+</span><span style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> UUID.Zero;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                    }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Debug(</span><span style='font-size:8.0pt;font-family:Consolas;
+color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion returned &quot;</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> + tempStr);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+regionID = UUID.Parse(tempStr);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>catch</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> (Exception ex)</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                {</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                   
+m_log.Warn(</span><span style='font-size:8.0pt;font-family:Consolas;color:#A31515'>&quot;[LLoginService]:
+GetSmartStartALTRegion exception: &quot;</span><span style='font-size:8.0pt;
+font-family:Consolas;color:black'> + ex.Message);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>                }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>            </span><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>return</span><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> regionID;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        }</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:Consolas;color:black'>        </span><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>public</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> Hashtable SetLevel(</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> firstName, </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> lastName, </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>string</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> passwd, </span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:blue'>int</span></i><i><span
+style='font-size:8.0pt;font-family:Consolas;color:black'> level, IPEndPoint
+clientIP)</span></i></p>
+
+<i><span style='font-size:8.0pt;line-height:115%;font-family:Consolas;
+color:black'><br clear=all style='page-break-before:always'>
+</span></i>
+
+<p class=MsoNormal><i><span style='font-size:8.0pt;line-height:115%;font-family:
+Consolas;color:black'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>After line 690 function definition</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+protected GridRegion FindDestination(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserAccount
+account, UUID scopeID, GridUserInfo pinfo, UUID sessionID, string
+startLocation,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GridRegion
+home, out GridRegion gatekeeper,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out string
+where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>paste in: ( line 696)</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>....start</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+GridRegion dest = FindDestinationNormal(account, scopeID, pinfo, sessionID,
+startLocation, home,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+out gatekeeper, out where, out position, out lookAt, out flags);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(!m_SmartStartEnabled || dest == null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return dest;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//RegionFlags.RegionOnline should had a major role here, but it is still
+unreliable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Jump out
+if a special region that must be always up<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // for now
+the smartstart wait region must have one such flags<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+((dest.RegionFlags &amp; (RegionFlags.Hyperlink | RegionFlags.DefaultRegion |
+RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return dest;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UUID rid =
+GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (rid ==
+dest.RegionID)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return dest;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (rid ==
+UUID.Zero)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return null; //??<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return
+m_GridService.GetRegionByUUID(scopeID, rid);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protected GridRegion
+FindDestinationNormal(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UserAccount
+account, UUID scopeID, GridUserInfo pinfo, UUID sessionID, string
+startLocation,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GridRegion
+home, out GridRegion gatekeeper,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out string
+where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Times New Roman",serif'>....end</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
+style='font-size:8.0pt'>&nbsp;</span></i></p>
 
 </div>
 
