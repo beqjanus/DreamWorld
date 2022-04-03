@@ -49,60 +49,81 @@ Public Class FormEmailSetup
         EmailPassword.Text = Settings.SmtpPassword
         EmailPassword.UseSystemPasswordChar = True
         EmailPasswordLabel.Text = Global.Outworldz.My.Resources.SMTPPassword_word
+        ToolTip1.SetToolTip(EmailPassword, Global.Outworldz.My.Resources.tt_Click_to_reveal_password)
 
         UserNameLabel.Text = Global.Outworldz.My.Resources.User_Name_word
         EmailUsername.Text = Settings.SmtPropUserName
+        ToolTip1.SetToolTip(UserNameLabel, Global.Outworldz.My.Resources.tt_EmailUserName)
+        ToolTip1.SetToolTip(EmailUsername, Global.Outworldz.My.Resources.tt_EmailUserName)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {Enable module?} {true false} false
         ';; Enable the email module
-        EmailEnabledCheckBox.Checked = Settings.EmailEnabledCheckBox
+        EmailEnabledCheckBox.Checked = Settings.EmailEnabled
         EmailEnabledCheckBox.Text = Global.Outworldz.My.Resources.EmailEnabled
+        ToolTip1.SetToolTip(EmailEnabledCheckBox, Global.Outworldz.My.Resources.tt_EmailEnabled)
 
         EmailHostLabel.Text = Global.Outworldz.My.Resources.SMTPHost_word
+        SmtpHost.Text = Settings.SmtpHost
+        ToolTip1.SetToolTip(EmailHostLabel, Global.Outworldz.My.Resources.tt_SMTP_Host_name)
+        ToolTip1.SetToolTip(SmtpHost, Global.Outworldz.My.Resources.tt_SMTP_Host_name)
 
         EmailPortLabel.Text = Global.Outworldz.My.Resources.SMTPPort_word
-
-        SmtpHost.Text = Settings.SmtpHost
-
         SmtpPort.Text = CStr(Settings.SmtpPort)
+        ToolTip1.SetToolTip(EmailPortLabel, Global.Outworldz.My.Resources.tt_EmailPort)
+        ToolTip1.SetToolTip(SmtpPort, Global.Outworldz.My.Resources.tt_EmailPort)
 
         'extended factors
 
         VerifyCertificateCheckBox.Checked = Settings.VerifyCertCheckBox
         VerifyCertificateCheckBox.Text = Global.Outworldz.My.Resources.VerifyCertificate
+        ToolTip1.SetToolTip(VerifyCertificateCheckBox, Global.Outworldz.My.Resources.tt_VerifyCertificate)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {Enable send to objects to regions Not on instance?} {true false} true
         ';; Enable sending email to regions Not on current opensimulator instance. Currently does Not work
         enableEmailToExternalObjectsCheckBox.Text = Global.Outworldz.My.Resources.EmailToObjectsEnabled
         enableEmailToExternalObjectsCheckBox.Checked = Settings.enableEmailToExternalObjects
+        ToolTip1.SetToolTip(enableEmailToExternalObjectsCheckBox, Global.Outworldz.My.Resources.tt_enableEmailToExternalObjects)
 
         enableEmailToSMTPCheckBox.Checked = Settings.enableEmailToSMTPCheckBox
         enableEmailToSMTPCheckBox.Text = Global.Outworldz.My.Resources.enableEmailToSMTP
+        ToolTip1.SetToolTip(enableEmailToSMTPCheckBox, Global.Outworldz.My.Resources.tt_enableEmailToSMTPCheckBox)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {maximum number of emails from a object owner per hour} {} 500
         MailsFromOwnerPerHourTextBox.Text = CStr(Settings.MailsFromOwnerPerHour)
         MailsFromPrimOwnerPerHourLabel.Text = Global.Outworldz.My.Resources.EmailsFromOwnerPerHour
+        ToolTip1.SetToolTip(MailsFromOwnerPerHourTextBox, Global.Outworldz.My.Resources.tt_MailsFromOwnerPerHour)
+        ToolTip1.SetToolTip(MailsFromPrimOwnerPerHourLabel, Global.Outworldz.My.Resources.tt_MailsFromOwnerPerHour)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {maximum number of emails to a prim address per hour} {} 50
         MailsToPrimAddressPerHourTextBox.Text = CStr(Settings.MailsToPrimAddressPerHour)
         LabelMailsToPrimAddressPerHour.Text = Global.Outworldz.My.Resources.EmailsToPrimAddressPerHour
+        ToolTip1.SetToolTip(MailsToPrimAddressPerHourTextBox, Global.Outworldz.My.Resources.tt_MailsToPrimAddressPerHour)
+        ToolTip1.SetToolTip(LabelMailsToPrimAddressPerHour, Global.Outworldz.My.Resources.tt_MailsToPrimAddressPerHour)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {maximum number of emails via smtp per day} {} 100
         '; MailsToAddressPerHour = 500  ' UBIT MANTIS
         SMTP_MailsPerDayTextBox.Text = CStr(Settings.MailsPerDay)
         MailsPerDayLabel.Text = Global.Outworldz.My.Resources.EmailsPerDay
+        ToolTip1.SetToolTip(SMTP_MailsPerDayTextBox, Global.Outworldz.My.Resources.tt_MailsPerDay)
+        ToolTip1.SetToolTip(MailsPerDayLabel, Global.Outworldz.My.Resources.tt_MailsPerDay)
 
         ';# {enabled} {[Startup]emailmoduleDefaultEmailModule} {maximum number of emails to a SMTP address per hour} {} 10
         MailsToSMTPAddressPerHourTextBox.Text = CStr(Settings.EmailsToSMTPAddressPerHour)
         MailsToSMTPAddressPerHourLabel.Text = Global.Outworldz.My.Resources.EmailsToSMTPAddressPerHour
+        ToolTip1.SetToolTip(MailsToSMTPAddressPerHourTextBox, Global.Outworldz.My.Resources.tt_MailsToSMTPAddressPerHour)
+        ToolTip1.SetToolTip(MailsToSMTPAddressPerHourLabel, Global.Outworldz.My.Resources.tt_MailsToSMTPAddressPerHour)
 
         ';# {email_pause_time} {[Startup]emailmoduleDefaultEmailModule Enabled: true} {Period in seconds to delay after an email Is sent.} {} 20
         email_pause_timeTextBox.Text = CStr(Settings.Email_pause_time)
         EmailPauseTimeLabel.Text = Global.Outworldz.My.Resources.Emailpausetime
+        ToolTip1.SetToolTip(email_pause_timeTextBox, Global.Outworldz.My.Resources.tt_EmailPauseTime)
+        ToolTip1.SetToolTip(EmailPauseTimeLabel, Global.Outworldz.My.Resources.tt_EmailPauseTime)
 
         ';# {email_max_size} {[Startup]emailmoduleDefaultEmailModule Enabled: true} {Maximum total size of email in bytes.} {} 4096
         MaxMailSizeTextBox.Text = CStr(Settings.MaxMailSize)
         MaxMailSizeTextBoxLabel.Text = Global.Outworldz.My.Resources.EmailMaxMailSize
+        ToolTip1.SetToolTip(MaxMailSizeTextBox, Global.Outworldz.My.Resources.tt_MaxMailSize)
+        ToolTip1.SetToolTip(MaxMailSizeTextBoxLabel, Global.Outworldz.My.Resources.tt_MaxMailSize)
 
         Select Case Settings.SSLType
             Case 0
@@ -118,12 +139,21 @@ Public Class FormEmailSetup
         End Select
 
         RadioButtonNone.Text = Global.Outworldz.My.Resources.None
-        RadioButtonAuto.Text = Global.Outworldz.My.Resources.Automatic
-        RadioButtonSslOnConnect.Text = Global.Outworldz.My.Resources.SslOnConnect
-        RadioButtonStartTls.Text = Global.Outworldz.My.Resources.StartTls
-        RadioButtonStartTlsWhenAvailable.Text = Global.Outworldz.My.Resources.StartTlsWhenAvailable
+        ToolTip1.SetToolTip(RadioButtonNone, Global.Outworldz.My.Resources.tt_NoSecurity)
 
-        HelpOnce("EmailSetup")
+        RadioButtonAuto.Text = Global.Outworldz.My.Resources.Automatic
+        ToolTip1.SetToolTip(RadioButtonAuto, Global.Outworldz.My.Resources.tt_AutoMaticSecurity)
+
+        RadioButtonSslOnConnect.Text = Global.Outworldz.My.Resources.SslOnConnect
+        ToolTip1.SetToolTip(RadioButtonSslOnConnect, Global.Outworldz.My.Resources.tt_SslOnConnect)
+
+        RadioButtonStartTls.Text = Global.Outworldz.My.Resources.StartTls
+        ToolTip1.SetToolTip(RadioButtonStartTls, Global.Outworldz.My.Resources.tt_RadioButtonStartTls)
+
+        RadioButtonStartTlsWhenAvailable.Text = Global.Outworldz.My.Resources.StartTlsWhenAvailable
+        ToolTip1.SetToolTip(RadioButtonStartTlsWhenAvailable, Global.Outworldz.My.Resources.tt_StartTlsWhenAvailable)
+
+        HelpOnce("Email")
 
         SetScreen()
         initted = True
@@ -153,7 +183,7 @@ Public Class FormEmailSetup
     Private Sub EmailEnabledCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EmailEnabledCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Settings.EmailEnabledCheckBox = EmailEnabledCheckBox.Checked
+        Settings.EmailEnabled = EmailEnabledCheckBox.Checked
 
     End Sub
 
@@ -191,7 +221,7 @@ Public Class FormEmailSetup
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        HelpManual("EmailSetup")
+        HelpManual("Email")
 
     End Sub
 
@@ -225,6 +255,7 @@ Public Class FormEmailSetup
     Private Sub RadioButtonAuto_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonAuto.CheckedChanged
 
         Settings.SmtpSecure = True
+        Settings.SSLType = 1
 
     End Sub
 
@@ -238,19 +269,21 @@ Public Class FormEmailSetup
     Private Sub RadioButtonSslOnConnect_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonSslOnConnect.CheckedChanged
 
         Settings.SmtpSecure = True
-        Settings.SSLType = 1
+        Settings.SSLType = 2
 
     End Sub
 
     Private Sub RadioButtonStartTls_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonStartTls.CheckedChanged
 
         Settings.SmtpSecure = True
+        Settings.SSLType = 3
 
     End Sub
 
     Private Sub RadioButtonStartTlsWhenAvailable_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButtonStartTlsWhenAvailable.CheckedChanged
 
         Settings.SmtpSecure = True
+        Settings.SSLType = 4
 
     End Sub
 

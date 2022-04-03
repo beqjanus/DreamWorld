@@ -43,12 +43,12 @@ Public Class FormEmail
         If Settings.SmtPropUserName = "LoginName@gmail.com" Then
             MsgBox(My.Resources.No_Email, vbInformation Or MsgBoxStyle.MsgBoxSetForeground, "Oops")
 #Disable Warning CA2000
-            Dim FormDiva As New FormDiva
+            Dim FormEmail As New FormEmailSetup
 #Enable Warning CA2000
-            FormDiva.Activate()
-            FormDiva.Visible = True
-            FormDiva.Select()
-            FormDiva.BringToFront()
+            FormEmail.Activate()
+            FormEmail.Visible = True
+            FormEmail.Select()
+            FormEmail.BringToFront()
             Me.Close()
             Return
         End If
@@ -74,6 +74,19 @@ Public Class FormEmail
 
         BringToFront()
 
+        If Not Settings.EmailEnabled Then
+            MsgBox(My.Resources.tt_Email_Disabled, vbInformation Or MsgBoxStyle.MsgBoxSetForeground, "Oops")
+#Disable Warning CA2000
+            Dim FormEmail As New FormEmailSetup
+#Enable Warning CA2000
+            FormEmail.Activate()
+            FormEmail.Visible = True
+            FormEmail.Select()
+            FormEmail.BringToFront()
+            Me.Close()
+            Return
+        End If
+
         If SubjectTextBox.TextLength = 0 Then
             MsgBox(My.Resources.No_Subject, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             Return
@@ -81,11 +94,12 @@ Public Class FormEmail
 
         Using Message As New MimeMessage()
 
-            Message.From.Add(New MailboxAddress("", Settings.AdminEmail))
+            Message.From.Add(New MailboxAddress("", Settings.SmtPropUserName))
 
             For Each Contact In Contacts
                 If EmailValidator.Validate(Contact.Value) Then
                     Message.Bcc.Add(New MailboxAddress(Contact.Key, Contact.Value))
+                    TextPrint($"{My.Resources.Email_word} {Contact.Key} <{Contact.Value}>")
                 End If
             Next
 
@@ -96,39 +110,9 @@ Public Class FormEmail
                 .HtmlBody = EditorBox.BodyHtml
             }
             Message.Body = builder.ToMessageBody()
+            MailKit.SSL.SendMessage(Message)
 
-            If Settings.SmtpSecure Then
-                MailKit.SSL.SendMessage(Message)
-            Else
-
-                Using client As New SmtpClient()
-                    Try
-                        client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
-                    Catch ex As Exception
-                        MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                        Return
-                    End Try
-                    Try
-                        client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
-                    Catch ex As Exception
-                        MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                        Return
-                    End Try
-                    Try
-                        client.Send(Message)
-                    Catch ex As Exception
-                        MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
-                        Return
-                    End Try
-                    Try
-                        client.Disconnect(True)
-                    Catch
-                    End Try
-
-                End Using
-            End If
         End Using
-
         Me.Close()
     End Sub
 

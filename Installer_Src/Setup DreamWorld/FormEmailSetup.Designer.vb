@@ -22,6 +22,7 @@ Partial Class FormEmailSetup
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.RadioButtonStartTlsWhenAvailable = New System.Windows.Forms.RadioButton()
@@ -56,6 +57,7 @@ Partial Class FormEmailSetup
         Me.LabelMailsToPrimAddressPerHour = New System.Windows.Forms.Label()
         Me.MailsFromPrimOwnerPerHourLabel = New System.Windows.Forms.Label()
         Me.MailsFromOwnerPerHourTextBox = New System.Windows.Forms.TextBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -64,6 +66,7 @@ Partial Class FormEmailSetup
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.GroupBox1)
         Me.GroupBox6.Controls.Add(Me.GroupBox2)
         Me.GroupBox6.Controls.Add(Me.EmailEnabledCheckBox)
         Me.GroupBox6.Controls.Add(Me.SmtpPort)
@@ -76,7 +79,7 @@ Partial Class FormEmailSetup
         Me.GroupBox6.Controls.Add(Me.EmailUsername)
         Me.GroupBox6.Location = New System.Drawing.Point(34, 48)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(370, 323)
+        Me.GroupBox6.Size = New System.Drawing.Size(662, 331)
         Me.GroupBox6.TabIndex = 1
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
@@ -241,7 +244,7 @@ Partial Class FormEmailSetup
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(712, 24)
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -268,9 +271,9 @@ Partial Class FormEmailSetup
         Me.GroupBox1.Controls.Add(Me.LabelMailsToPrimAddressPerHour)
         Me.GroupBox1.Controls.Add(Me.MailsFromPrimOwnerPerHourLabel)
         Me.GroupBox1.Controls.Add(Me.MailsFromOwnerPerHourTextBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(418, 48)
+        Me.GroupBox1.Location = New System.Drawing.Point(344, 29)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(370, 264)
+        Me.GroupBox1.Size = New System.Drawing.Size(309, 288)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Options"
@@ -395,8 +398,7 @@ Partial Class FormEmailSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 373)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(712, 391)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -449,4 +451,5 @@ Partial Class FormEmailSetup
     Friend WithEvents RadioButtonStartTls As RadioButton
     Friend WithEvents RadioButtonAuto As RadioButton
     Friend WithEvents RadioButtonSslOnConnect As RadioButton
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
