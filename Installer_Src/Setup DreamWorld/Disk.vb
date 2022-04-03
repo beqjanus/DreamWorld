@@ -126,7 +126,6 @@ Module Disk
 
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
 
-
     End Sub
 
     ''' <summary>
@@ -181,12 +180,12 @@ Module Disk
 
             Try
                 SuspendProcess.Start()
+                SuspendProcess.WaitForExit()
                 Dim x = SuspendProcess.ExitCode
-                If x <> 0 Then BreakPoint.Print("Failedto Resume or suspend")
+                If x <> 0 Then BreakPoint.Print("Failed to Resume or suspend")
                 PokeRegionTimer(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Catch ex As Exception
-                BreakPoint.Dump(ex)
                 result = True
             End Try
         End Using

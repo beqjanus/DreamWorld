@@ -31,7 +31,7 @@ Public Class LoadIni
 
         _parser = New FileIniDataParser()
         _parser.Parser.Configuration.SkipInvalidLines = False
-        _parser.Parser.Configuration.AssigmentSpacer = " "
+        _parser.Parser.Configuration.AssigmentSpacer = ""
         _parser.Parser.Configuration.CommentString = Sep ' Opensim uses semicolons
         _SettingsData = ReadINIFile()
         If _SettingsData Is Nothing Then
