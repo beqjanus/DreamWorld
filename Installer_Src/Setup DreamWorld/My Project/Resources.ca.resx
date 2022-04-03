@@ -3541,4 +3541,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Feu clic a Avatar per teletransportar-vos</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Activació del correu electrònic</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Mida màxima del correu electrònic</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Temps de pausa del correu electrònic en segons</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Correus electrònics del propietari per hora</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Correus electrònics per dia</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Correus electrònics a l'adreça Prim per hora</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Correus electrònics a l'adreça SMTP per dia</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Correus electrònics a l'adreça SMTP per hora</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Correu electrònic a objectes activat</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Activa SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Activa el correu electrònic a SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Verifica el certificat</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automàtic</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL en connexió</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Inicieu TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Inicieu TLS quan estigui disponible</value>
+  </data>
 </root>

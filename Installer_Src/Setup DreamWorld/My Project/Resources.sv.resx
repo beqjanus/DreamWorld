@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Klicka på Avatar för att teleportera</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>E-post aktivera</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Max e-poststorlek</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Paustid för e-post i sekunder</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>E-postmeddelanden från ägaren per timme</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>E-postmeddelanden per dag</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>E-postmeddelanden till Prim-adress per timme</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>E-postmeddelanden till SMTP-adress per dag</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-postmeddelanden till SMTP-adress per timme</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>E-post till objekt aktiverat</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Aktivera SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Aktivera e-post till SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Verifiera certifikat</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatisk</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL vid anslutning</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Starta TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Starta TLS när det är tillgängligt</value>
+  </data>
 </root>

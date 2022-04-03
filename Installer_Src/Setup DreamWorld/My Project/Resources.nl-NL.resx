@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Klik op Avatar om te teleporteren</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>E-mail inschakelen</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Maximale e-mailgrootte</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Pauzetijd voor e-mail in seconden</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>E-mails van eigenaar per uur</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>E-mails per dag</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>E-mails naar het primaire adres per uur</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>E-mails naar SMTP-adres per dag</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-mails naar SMTP-adres per uur</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>E-mail naar objecten ingeschakeld</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>SSL/TLS inschakelen</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>E-mail naar SMTP inschakelen</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Certificaat verifiëren</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>automatisch</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL bij verbinding</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>TLS starten</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Start TLS indien beschikbaar</value>
+  </data>
 </root>

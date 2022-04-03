@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>点击头像传送</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>电子邮件启用</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>最大电子邮件大小</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>电子邮件暂停时间（以秒为单位）</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>每小时来自所有者的电子邮件</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>每天的电子邮件</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>每小时发送到 Prim 地址的电子邮件</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>每天发送到 SMTP 地址的电子邮件</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>每小时发送到 SMTP 地址的电子邮件</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>已启用电子邮件至对象</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>启用 SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>启用电子邮件到 SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>验证证书</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>自动的</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL 连接</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>启动 TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>可用时启动 TLS</value>
+  </data>
 </root>

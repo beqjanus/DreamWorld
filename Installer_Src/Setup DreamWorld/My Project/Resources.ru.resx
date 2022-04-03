@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Нажмите Аватар, чтобы телепортироваться</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Электронная почта Включить</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Максимальный размер электронной почты</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Время паузы электронной почты в секундах</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Электронных писем от владельца в час</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>писем в день</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Письма на главный адрес в час</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Электронных писем на SMTP-адрес в день</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Электронных писем на SMTP-адрес в час</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Электронная почта для объектов включена</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Включить SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Включить электронную почту на SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Проверить сертификат</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>автоматический</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL при подключении</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Запустить TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Запускайте TLS, когда он доступен</value>
+  </data>
 </root>

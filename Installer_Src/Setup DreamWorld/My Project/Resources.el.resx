@@ -3540,4 +3540,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Κάντε κλικ στο Avatar to Teleport</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Email Ενεργοποίηση</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Μέγιστο μέγεθος email</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Χρόνος παύσης email σε δευτερόλεπτα</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Email από τον ιδιοκτήτη ανά ώρα</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Email ανά ημέρα</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Email προς Prim Διεύθυνση ανά ώρα</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Email στη διεύθυνση SMTP ανά ημέρα</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Email στη διεύθυνση SMTP ανά ώρα</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Ενεργοποιήθηκε το email σε αντικείμενα</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Ενεργοποίηση SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Ενεργοποίηση Email σε SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Επαλήθευση Πιστοποιητικού</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Αυτόματο</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL On Connect</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Ξεκινήστε το TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Ξεκινήστε το TLS όταν είναι διαθέσιμο</value>
+  </data>
 </root>

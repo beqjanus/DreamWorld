@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>לחץ על אוואטר לטלפורט</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>הפעלת דואר אלקטרוני</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>גודל דוא"ל מקסימלי</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>זמן השהיית אימייל בשניות</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>מיילים מהבעלים לשעה</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>מיילים ליום</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>הודעות דוא"ל לפרים כתובת לשעה</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>אימיילים לכתובת SMTP ליום</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>אימיילים לכתובת SMTP לשעה</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>דוא"ל לאובייקטים מופעל</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>אפשר SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>אפשר דואר אלקטרוני ל-SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>אמת תעודה</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>אוֹטוֹמָטִי</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL בחיבור</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>הפעל את TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>הפעל את TLS כאשר זמין</value>
+  </data>
 </root>
