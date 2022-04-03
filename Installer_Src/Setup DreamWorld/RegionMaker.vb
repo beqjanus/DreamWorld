@@ -1940,6 +1940,8 @@ Module RegionMaker
                 If INI.SetIni("Economy", "CurrencyURL", $"{Settings.PublicIP}:{Settings.DiagnosticPort}") Then Return True
             End If
 
+            If INI.SetIni("SMTP", "enabled", CStr(Settings.EmailEnabled)) Then Return True
+
             ' LSL emails
             If INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort)) Then Return True
@@ -1948,12 +1950,7 @@ Module RegionMaker
             ' Some SMTP servers require a known From email address or will give Error 500 - Envelope from address is not authorized
             '; set to a valid email address that SMTP will accept (in some cases must be Like SMTP_SERVER_LOGIN)
 
-            If Settings.AdminEmail.Length > 0 Then
-                If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.AdminEmail) Then Return True
-            Else
-                If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.SmtPropUserName) Then Return True
-            End If
-
+            If INI.SetIni("SMTP", "SMTP_SERVER_FROM", Settings.SmtPropUserName) Then Return True
             If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
             If INI.SetIni("SMTP", "SMTP_VerifyCertNames", CStr(Settings.VerifyCertCheckBox)) Then Return True
             If INI.SetIni("SMTP", "SMTP_VerifyCertChain", CStr(Settings.VerifyCertCheckBox)) Then Return True
