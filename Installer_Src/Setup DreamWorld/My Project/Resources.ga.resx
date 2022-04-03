@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Cliceáil Avatar chun Teleport</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Ríomhphost Cumasaigh</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Uasmhéid Ríomhphoist</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Ríomhphost Sos Am i Soicindí</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Ríomhphoist ón Úinéir in aghaidh na huaire</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Ríomhphoist In aghaidh an Lae</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Ríomhphoist Chuig Príomh-Sheoladh In aghaidh na Uair</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Ríomhphoist Chuig Seoladh SMTP In aghaidh an Lae</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Ríomhphoist Chuig Seoladh SMTP In aghaidh na Uair</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Ríomhphost Chuig Réada Cumasaithe</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Cumasaigh SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Cumasaigh Ríomhphost Chuig SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Fíoraigh Deimhniú</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Uathoibríoch</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL Ar Ceangail</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Tosaigh TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Tosaigh TLS Nuair atá Ar Fáil</value>
+  </data>
 </root>

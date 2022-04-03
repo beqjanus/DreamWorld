@@ -7681,6 +7681,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to On.
+        '''</summary>
+        Friend ReadOnly Property On_word() As String
+            Get
+                Return ResourceManager.GetString("On_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to One region is still running.
         '''</summary>
         Friend ReadOnly Property One_region() As String
@@ -9633,6 +9642,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search Help.
+        '''</summary>
+        Friend ReadOnly Property Search_Help() As String
+            Get
+                Return ResourceManager.GetString("Search_Help", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
         Friend ReadOnly Property Search_word() As String
@@ -11214,6 +11232,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatically decides which type of SSL mode to use based on the specified port. Note: This only works reliable when the port is a standard defined port (e.g. 25, 587 or 465 for SMTP)..
+        '''</summary>
+        Friend ReadOnly Property tt_AutoMaticSecurity() As String
+            Get
+                Return ResourceManager.GetString("tt_AutoMaticSecurity", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backs up the Custom Web pages folder in the Diva Web Server to a zip file.
         '''</summary>
         Friend ReadOnly Property tt_Backup_Custom() As String
@@ -11313,11 +11340,182 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click to reveal password..
+        '''</summary>
+        Friend ReadOnly Property tt_Click_to_reveal_password() As String
+            Get
+                Return ResourceManager.GetString("tt_Click_to_reveal_password", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to Setup Backup types.  Usually all of them should be set to On..
         '''</summary>
         Friend ReadOnly Property tt_Click_to_Set_Backup_Types() As String
             Get
                 Return ResourceManager.GetString("tt_Click_to_Set_Backup_Types", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Email is disabled..
+        '''</summary>
+        Friend ReadOnly Property tt_Email_Disabled() As String
+            Get
+                Return ResourceManager.GetString("tt_Email_Disabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Default: Off.  All emails are disabled when off..
+        '''</summary>
+        Friend ReadOnly Property tt_EmailEnabled() As String
+            Get
+                Return ResourceManager.GetString("tt_EmailEnabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Email Pause Time Between Emails.
+        '''</summary>
+        Friend ReadOnly Property tt_EmailPauseTime() As String
+            Get
+                Return ResourceManager.GetString("tt_EmailPauseTime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Port 25, 465, or 587.  Port 25 and 587 are a plain-text connection port but will switch to SSL/TLS if requested to do so via STARTTLS..
+        '''</summary>
+        Friend ReadOnly Property tt_EmailPort() As String
+            Get
+                Return ResourceManager.GetString("tt_EmailPort", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The email user name that can log into the email server..
+        '''</summary>
+        Friend ReadOnly Property tt_EmailUserName() As String
+            Get
+                Return ResourceManager.GetString("tt_EmailUserName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Default: Off.  Enable sending email with LSL to regions not on current opensimulator instance. Currently does not work..
+        '''</summary>
+        Friend ReadOnly Property tt_enableEmailToExternalObjects() As String
+            Get
+                Return ResourceManager.GetString("tt_enableEmailToExternalObjects", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Default: Off.  Enable sending email to the world with LSL..
+        '''</summary>
+        Friend ReadOnly Property tt_enableEmailToSMTPCheckBox() As String
+            Get
+                Return ResourceManager.GetString("tt_enableEmailToSMTPCheckBox", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max number of Emails Opensim can send in an hour..
+        '''</summary>
+        Friend ReadOnly Property tt_MailsFromOwnerPerHour() As String
+            Get
+                Return ResourceManager.GetString("tt_MailsFromOwnerPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max number of Emails per day via LSL.
+        '''</summary>
+        Friend ReadOnly Property tt_MailsPerDay() As String
+            Get
+                Return ResourceManager.GetString("tt_MailsPerDay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max number of EMails To Prim Address Per Hour.
+        '''</summary>
+        Friend ReadOnly Property tt_MailsToPrimAddressPerHour() As String
+            Get
+                Return ResourceManager.GetString("tt_MailsToPrimAddressPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Mails To SMTP Address Per Hour.
+        '''</summary>
+        Friend ReadOnly Property tt_MailsToSMTPAddressPerHour() As String
+            Get
+                Return ResourceManager.GetString("tt_MailsToSMTPAddressPerHour", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max Email Size In Bytes. Unicode may be 1,2, or 3 bytes per character.
+        '''</summary>
+        Friend ReadOnly Property tt_MaxMailSize() As String
+            Get
+                Return ResourceManager.GetString("tt_MaxMailSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to None: Don&apos;t use any form of SSL (or TLS)..
+        '''</summary>
+        Friend ReadOnly Property tt_NoSecurity() As String
+            Get
+                Return ResourceManager.GetString("tt_NoSecurity", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use the STARTTLS method for SSL/TLS encryption. If the server doesn&apos;t support the STARTTLS command, abort the connection..
+        '''</summary>
+        Friend ReadOnly Property tt_RadioButtonStartTls() As String
+            Get
+                Return ResourceManager.GetString("tt_RadioButtonStartTls", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter the SMTP server host name..
+        '''</summary>
+        Friend ReadOnly Property tt_SMTP_Host_name() As String
+            Get
+                Return ResourceManager.GetString("tt_SMTP_Host_name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This specifies that Mail should connect via an SSL-wrapped connection..
+        '''</summary>
+        Friend ReadOnly Property tt_SslOnConnect() As String
+            Get
+                Return ResourceManager.GetString("tt_SslOnConnect", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use the STARTTLS method for SSL/TLS encryption if the server supports it, otherwise continue using an unencrypted channel..
+        '''</summary>
+        Friend ReadOnly Property tt_StartTlsWhenAvailable() As String
+            Get
+                Return ResourceManager.GetString("tt_StartTlsWhenAvailable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Default: On.  This needs to be unchecked if using an unsigned SMTP Server certiificate..
+        '''</summary>
+        Friend ReadOnly Property tt_VerifyCertificate() As String
+            Get
+                Return ResourceManager.GetString("tt_VerifyCertificate", resourceCulture)
             End Get
         End Property
         
@@ -11833,6 +12031,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to View Google Map.
+        '''</summary>
+        Friend ReadOnly Property ViewGoogleMap() As String
+            Get
+                Return ResourceManager.GetString("ViewGoogleMap", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to View.
         '''</summary>
         Friend ReadOnly Property ViewJoomla_word() As String
@@ -12265,7 +12472,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Something is wrong with the Internet.
+        '''  Looks up a localized string similar to Something is wrong with the Internet..
         '''</summary>
         Friend ReadOnly Property Wrong() As String
             Get

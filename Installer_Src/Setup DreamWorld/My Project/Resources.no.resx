@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Klikk Avatar for å teleportere</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Aktiver e-post</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Maks e-poststørrelse</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Pausetid for e-post i sekunder</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>E-post fra eier per time</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>E-post per dag</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>E-post til Prim-adresse per time</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>E-post til SMTP-adresse per dag</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-post til SMTP-adresse per time</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>E-post til objekter aktivert</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Aktiver SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Aktiver e-post til SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Bekreft sertifikatet</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatisk</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL ved tilkobling</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Start TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Start TLS når tilgjengelig</value>
+  </data>
 </root>

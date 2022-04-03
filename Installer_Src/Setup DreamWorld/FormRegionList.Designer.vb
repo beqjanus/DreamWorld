@@ -191,7 +191,7 @@ Partial Class FormRegionlist
         '
         Me.OffButton.AutoSize = True
         Me.OffButton.Checked = True
-        Me.OffButton.Location = New System.Drawing.Point(81, 57)
+        Me.OffButton.Location = New System.Drawing.Point(110, 57)
         Me.OffButton.Name = "OffButton"
         Me.OffButton.Size = New System.Drawing.Size(39, 17)
         Me.OffButton.TabIndex = 18610
@@ -202,7 +202,7 @@ Partial Class FormRegionlist
         'OnButton
         '
         Me.OnButton.AutoSize = True
-        Me.OnButton.Location = New System.Drawing.Point(81, 34)
+        Me.OnButton.Location = New System.Drawing.Point(110, 34)
         Me.OnButton.Name = "OnButton"
         Me.OnButton.Size = New System.Drawing.Size(39, 17)
         Me.OnButton.TabIndex = 18611
@@ -236,15 +236,15 @@ Partial Class FormRegionlist
         '
         'SearchBox
         '
-        Me.SearchBox.Location = New System.Drawing.Point(97, 82)
+        Me.SearchBox.Location = New System.Drawing.Point(142, 80)
         Me.SearchBox.Name = "SearchBox"
-        Me.SearchBox.Size = New System.Drawing.Size(110, 20)
+        Me.SearchBox.Size = New System.Drawing.Size(117, 20)
         Me.SearchBox.TabIndex = 18615
         '
         'Bootedbutton
         '
         Me.Bootedbutton.AutoSize = True
-        Me.Bootedbutton.Location = New System.Drawing.Point(142, 34)
+        Me.Bootedbutton.Location = New System.Drawing.Point(194, 34)
         Me.Bootedbutton.Name = "Bootedbutton"
         Me.Bootedbutton.Size = New System.Drawing.Size(65, 17)
         Me.Bootedbutton.TabIndex = 18616
@@ -254,7 +254,7 @@ Partial Class FormRegionlist
         'StoppedButton
         '
         Me.StoppedButton.AutoSize = True
-        Me.StoppedButton.Location = New System.Drawing.Point(142, 57)
+        Me.StoppedButton.Location = New System.Drawing.Point(194, 57)
         Me.StoppedButton.Name = "StoppedButton"
         Me.StoppedButton.Size = New System.Drawing.Size(65, 17)
         Me.StoppedButton.TabIndex = 18617
@@ -407,7 +407,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Controls.Add(Me.ExportButton, 5, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Emails, 4, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.RestartButton, 1, 1)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(252, 28)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(332, 34)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())

@@ -92,6 +92,13 @@ a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:blue;
 	text-decoration:underline;}
+strong
+	{font-family:"Times New Roman",serif;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -258,16 +265,69 @@ none'><span style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&nbsp;</s
 
 <p class=MsoNormal>Go get a USB drive, preferably USB 3.0 plug it into a Blue
 or Teal colored jack for fastest speed.  If you do not have the colored jacks,
-use any Black-colored jack.  Format it for EX FAT, with a 4096 sector size. 
-ExFat is a standard format that works on all machines, including Mac’s, Linux
-and Windows.   The smaller sector size lets you put more data on the disk.</p>
+use any Black-colored jack.  Format it for EX FAT or NTFS, with a 4096 sector
+size.  ExFat is a standard format that works on all machines, including Mac’s,
+Linux and Windows.   A smaller sector sizes lets you put more data on the disk.</p>
 
-<p class=MsoNormal>Set a path to this drive in AutoBackup.   Here is have my
-dev system set for my E: drive, a 14 TB Western Digital Easystore USB 3.0 HDD.
-Got it on Black Friday for $189 at Best Buy.  These are usually the best deals
-in the USA.  </p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal><img width=361 height=321 id="Picture 1"
+<h2 style='background:#DEEAF6'><span style='color:black'>How to format an <b><u>external</u></b>
+drive:</span></h2>
+
+</div>
+
+<p class=MsoNormal><br>
+You can easily change an external hard drive to NTFS or ExFat file system
+via&nbsp;<span style='font-family:"Arial",sans-serif'>Disk Management</span>&nbsp;by
+following the steps listed below.</p>
+
+<p class=MsoNormal>1. Connect the external hard drive to your computer and make
+sure that it is detected by Windows.</p>
+
+<p class=MsoNormal>2. Press<strong><span style='font-family:"Arial",sans-serif;
+color:black'>&nbsp;Windows</span></strong>&nbsp;+<strong><span
+style='font-family:"Arial",sans-serif;color:black'>&nbsp;X</span></strong>&nbsp;at
+the same time and choose “<strong><span style='font-family:"Arial",sans-serif;
+color:black'>Disk Management</span></strong>”.</p>
+
+<p class=MsoNormal>3. Right-click the hard drive partition that you intend to
+format and choose “<strong><span style='font-family:"Arial",sans-serif;
+color:black'>Delete Volume</span></strong>” to delete the partition.</p>
+
+<p class=MsoNormal>4. Right-click the unallocated disk space and choose “<strong><span
+style='font-family:"Arial",sans-serif;color:black'>New simple volume”</span></strong>&nbsp;and
+do like the prompts.</p>
+
+<p class=MsoNormal>5. In the Format Partition window, set the file system as and
+click “<strong><span style='font-family:"Arial",sans-serif;color:black'>Next</span></strong>”
+and “<strong><span style='font-family:"Arial",sans-serif;color:black'>Finish</span></strong>”
+to start the operation.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p style='margin:0in;line-height:19.5pt;background:white;vertical-align:baseline'><a
+href="https://www.diskpart.com/articles/images/format-hard-drive-to-exfat-0310/choose-exfat-file-system.jpg"
+title="&quot;Choose exFAT File System&quot; t "><span style='font-family:"Arial",sans-serif;
+color:#249EFC;text-decoration:none'><img border=0 width=500 height=394
+id="Picture 5" src="Backup_files/image003.jpg" alt="Choose exFAT File System"></span></a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Backup up to the external
+drive</span></h2>
+
+</div>
+
+<p class=MsoNormal>Set a path to this drive in AutoBackup.   Here I have my dev
+system set for my E: drive, a 14 TB Western Digital Easystore USB 3.0 HDD. Got
+it on Black Friday for $189 at Best Buy.  These are usually the best deals in
+the USA.  </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img border=0 width=361 height=321 id="Picture 1"
 src="Backup_files/image001.png"
 alt="Graphical user interface, application&#13;&#10;&#13;&#10;Description automatically generated"><br>
 <br>
@@ -278,17 +338,27 @@ day, the default now is 3 days. But that applies only to new grids.</p>
 
 <p class=MsoNormal>Now click <b>Backup Type</b></p>
 
-<p class=MsoNormal><img width=250 height=275 id="Picture 2"
-src="Backup_files/image003.png"
+<p class=MsoNormal><img border=0 width=250 height=275 id="Picture 2"
+src="Backup_files/image004.png"
 alt="Graphical user interface, application&#13;&#10;&#13;&#10;Description automatically generated"></p>
 
-<p class=MsoNormal>Check all the boxes. </p>
+<p class=MsoNormal>Check all the boxes.</p>
 
-<p class=MsoNormal>&nbsp;</p>
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal>A FULL backup is to check all boxes except Backup OARS.</li>
+ <li class=MsoNormal>Backup OARS is a good way to get the regions in a portable
+     way, but this leaves out your users, your inventory, settings, and other
+     important things.</li>
+ <li class=MsoNormal>To get an immediate backup of your grid, manually, click
+     on the button that says: Run Backup Now.</li>
+</ul>
+
+<p class=MsoNormal> </p>
 
 <p class=MsoNormal>Click <b>Run Backup Now.</b></p>
 
-<p class=MsoNormal><b>This may take days to finish!<br>
+<p class=MsoNormal><b>This may take days to finish because FSASSETS is going to
+be HUGE and will grow every time you touch the grid.<br>
 </b><br>
 Now run the grid a week and check on the disk space.  If there is lots left
 over, make it hold 14 days and check again in another week.  When the disk
@@ -329,10 +399,10 @@ bin\regions, which DreamGrid backs that up for you.</p>
 
 <p class=MsoNormal>Mysql\data and bin\fsassets are the things you must have to
 get a full backup to restore a grid.  FSAssets will be huge. Possibly millions
-of files.  Mysql must be backed up before  FSAssets as it points to the files.  If
-done in the wrong order on a live grid, you will lose assets if you try to
-restore from the fsasset + MySQL backup. Do it in the order of MySql, then
-Fsassets.</p>
+of files.  Mysql must be backed up before you backup FSAssets as it points to
+the files.  If done in the wrong order on a live grid, you will lose assets if
+you try to restore from the fsasset + MySQL backup. Do it in the order of
+MySql, then Fsassets.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 

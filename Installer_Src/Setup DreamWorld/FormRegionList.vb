@@ -30,8 +30,9 @@ Public Class FormRegionlist
     Private initted As Boolean
 
     Dim RegionForm As New FormRegion
-    Private UseMysql As Boolean
     Private TotalRam As Double
+    Private UseMysql As Boolean
+
 #Region "Declarations"
 
     Private SearchBusy As Boolean
@@ -552,7 +553,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-
     ' ColumnClick event handler.
     Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
 
@@ -829,7 +829,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-
     Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
         If Not initted Then Return
         Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
@@ -937,6 +936,7 @@ SetWindowOnTop_Err:
         SetScreen(TheView1)
 
         Try
+            AllButton.Text = Global.Outworldz.My.Resources.All_word
             AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
             AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
             AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
@@ -949,6 +949,8 @@ SetWindowOnTop_Err:
             IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
             ImportButton.Text = Global.Outworldz.My.Resources.Import_word
             KOT.Text = Global.Outworldz.My.Resources.Window_Word
+            OnButton.Text = Global.Outworldz.My.Resources.On_word
+            OffButton.Text = Global.Outworldz.My.Resources.Off
             OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
             RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
             RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
@@ -956,6 +958,7 @@ SetWindowOnTop_Err:
             SearchBox.Text = Global.Outworldz.My.Resources.Search_word
             StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
             StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
+            SmartButton.Text = Global.Outworldz.My.Resources.Smart_Start_word
             Users.Text = Global.Outworldz.My.Resources.Users_word
             Emails.Text = Global.Outworldz.My.Resources.Email_word
 
@@ -1413,7 +1416,6 @@ SetWindowOnTop_Err:
                 Index += 1
             End If
 
-
             For Each col In AvatarView.Columns
                 Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
                     Dim w = csize.ColumnWidth(CStr(col.name))
@@ -1427,7 +1429,6 @@ SetWindowOnTop_Err:
 
             AvatarView.EndUpdate()
             AvatarView.Show()
-
         Catch ex As Exception
             BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)

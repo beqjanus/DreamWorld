@@ -1,4 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
+#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
@@ -393,7 +393,7 @@ Public Class MySettings
     Public Property BirdsBorderSize() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsBorderSize", "25"))
+                Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -420,7 +420,7 @@ Public Class MySettings
     Public Property BirdsDesiredSeparation() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsDesiredSeparation", "5"))
+                Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -452,7 +452,7 @@ Public Class MySettings
     Public Property BirdsMaxForce() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsMaxForce", "0.2"))
+                Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -468,7 +468,7 @@ Public Class MySettings
     Public Property BirdsMaxHeight() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsMaxHeight", "25"))
+                Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -484,7 +484,7 @@ Public Class MySettings
     Public Property BirdsMaxSpeed() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsMaxSpeed", "1.0"))
+                Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -509,7 +509,7 @@ Public Class MySettings
     Public Property BirdsNeighbourDistance() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsNeighbourDistance", "25"))
+                Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -539,7 +539,7 @@ Public Class MySettings
     Public Property BirdsTolerance() As Double
         Get
             Try
-                Return CDbl(GetMySetting("BirdsTolerance", "25"))
+                Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -748,7 +748,7 @@ Public Class MySettings
     Public Property Density() As Double
         Get
             Try
-                Return CDbl(GetMySetting("Density", "0.5"))
+                Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -826,6 +826,7 @@ Public Class MySettings
     ''' <summary>
     ''' Period in seconds to delay after an email Is sent.
     ''' </summary>
+    ''' <returns>integer, default of 20</returns>
     Public Property Email_pause_time() As Integer
         Get
             Return CInt("0" & GetMySetting("Email_pause_time", "20"))
@@ -835,12 +836,16 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property EmailEnabledCheckBox() As Boolean
+    ''' <summary>
+    ''' If on, emails are enabled.
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Public Property EmailEnabled() As Boolean
         Get
-            Return CType(GetMySetting("EmailEnabledCheckBox", "False"), Boolean)
+            Return CType(GetMySetting("EmailEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("EmailEnabledCheckBox", CStr(Value))
+            SetMySetting("EmailEnabled", CStr(Value))
         End Set
 
     End Property
@@ -908,7 +913,7 @@ Public Class MySettings
     Public Property FirewallMigrated() As Integer
         Get
             Try
-                Return CType(0 & GetMySetting("FirewallMigrated", "0"), Integer)
+                Return CType("0" & GetMySetting("FirewallMigrated", "0"), Integer)
             Catch
                 Return 1
             End Try
@@ -930,7 +935,7 @@ Public Class MySettings
     Public Property FlatlandLevel() As Double
         Get
             Try
-                Return CDbl(GetMySetting("FlatLandLevel", "21"))
+                Return Convert.ToDouble(GetMySetting("FlatLandLevel", "21"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1157,7 +1162,7 @@ Public Class MySettings
         Get
             Try
 
-                Return CDbl(GetMySetting("LandSmoothValue", "0.5"))
+                Return Convert.ToDouble(GetMySetting("LandSmoothValue", "0.5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1171,7 +1176,7 @@ Public Class MySettings
     Public Property LandStrength() As Double
         Get
             Try
-                Return CDbl(GetMySetting("LandStrength", "1.0"))
+                Return Convert.ToDouble(GetMySetting("LandStrength", "1.0"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1185,7 +1190,7 @@ Public Class MySettings
     Public Property LandTaper() As Double
         Get
             Try
-                Return CDbl(GetMySetting("LandTaper", "0.6"))
+                Return Convert.ToDouble(GetMySetting("LandTaper", "0.6"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1386,7 +1391,7 @@ Public Class MySettings
     Public Property MinTimerInterval() As Double
         Get
             Try
-                Dim value = CDbl(GetMySetting("MinTimerInterval", "0.2"))
+                Dim value = Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
                 If value < 0.05 Or value > 1 Then value = 0.2
                 Return value
             Catch ex As Exception
@@ -1702,7 +1707,7 @@ Public Class MySettings
     Public Property RenderMaxHeight() As Double
         Get
             Try
-                Return CDbl(GetMySetting("RenderMaxHeight", "4096"))
+                Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1716,7 +1721,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return CInt(0 & GetMySetting("RenderMinHeight", "-100"))
+            Return CInt(GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", CStr(Value))
@@ -1824,7 +1829,7 @@ Public Class MySettings
 
     Public Property SCPortBase() As Integer
         Get
-            Return CType(0 & GetMySetting("SC_PortBase", "8100"), Integer)
+            Return CType("0" & GetMySetting("SC_PortBase", "8100"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase", CStr(Value))
@@ -1833,7 +1838,7 @@ Public Class MySettings
 
     Public Property SCPortBase1() As Integer
         Get
-            Return CType(0 & GetMySetting("SC_PortBase1", "8101"), Integer)
+            Return CType("0" & GetMySetting("SC_PortBase1", "8101"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase1", CStr(Value))
@@ -1860,7 +1865,7 @@ Public Class MySettings
 
     Public Property SearchMigration() As Integer
         Get
-            Return CType(0 & GetMySetting("SearchMigration", "0"), Integer)
+            Return CType("0" & GetMySetting("SearchMigration", "0"), Integer)
         End Get
         Set
             SetMySetting("SearchMigration", CStr(Value))
@@ -2002,7 +2007,7 @@ Public Class MySettings
     Public Property SkipUpdateCheck() As Double
         Get
             Try
-                Return CDbl(GetMySetting("SkipUpdateCheck", "0"))
+                Return Convert.ToDouble(GetMySetting("SkipUpdateCheck", "0"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
             End Try
             Return 0
@@ -2149,7 +2154,7 @@ Public Class MySettings
 
     Public Property StatusInterval() As Integer
         Get
-            Return CType(GetMySetting("StatusInterval", "0"), Integer)
+            Return CType("0" & GetMySetting("StatusInterval", "0"), Integer)
         End Get
         Set
             SetMySetting("StatusInterval", CStr(Value))
@@ -2235,7 +2240,7 @@ Public Class MySettings
 
     Public Property TideHighLevel() As Single
         Get
-            Return CSng(0 & GetMySetting("TideHighLevel", "20"))
+            Return CSng("0" & GetMySetting("TideHighLevel", "20"))
         End Get
         Set
             SetMySetting("TideHighLevel", CStr(Value))
@@ -2304,7 +2309,7 @@ Public Class MySettings
     Public Property TTSHours() As Double
         Get
             Try
-                Return CDbl(GetMySetting("TTSHours", "1"))
+                Return Convert.ToDouble(GetMySetting("TTSHours", "1"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

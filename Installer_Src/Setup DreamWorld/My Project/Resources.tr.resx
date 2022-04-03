@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Işınlamak için Avatar'a tıklayın</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>E-posta Etkinleştir</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Maksimum E-posta Boyutu</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Saniye cinsinden E-posta Duraklatma Süresi</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Saat Başına Sahibinden Gelen E-postalar</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Günlük E-posta Sayısı</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Saat Başına Öncelikli Adrese Gönderilen E-postalar</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Günlük SMTP Adresine Gelen E-postalar</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Saat Başına SMTP Adresine E-posta Gönderme</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Nesnelere E-posta Etkinleştirildi</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>SSL/TLS'yi etkinleştir</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>SMTP'ye E-postayı Etkinleştir</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Sertifikayı Doğrula</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Otomatik</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>Bağlantıda SSL</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>TLS'yi başlat</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Uygun Olduğunda TLS'yi Başlatın</value>
+  </data>
 </root>

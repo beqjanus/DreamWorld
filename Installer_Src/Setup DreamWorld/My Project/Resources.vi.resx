@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Nhấp vào Hình đại diện để Dịch chuyển</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Kích hoạt Email</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Kích thước email tối đa</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Thời gian tạm dừng email tính bằng giây</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Email từ chủ sở hữu mỗi giờ</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Email mỗi ngày</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Gửi email đến địa chỉ chính mỗi giờ</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Gửi email đến địa chỉ SMTP mỗi ngày</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Gửi email đến địa chỉ SMTP mỗi giờ</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Gửi email tới các đối tượng đã được bật</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Bật SSL / TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Bật Email tới SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Xác minh chứng chỉ</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Tự động</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL khi kết nối</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Bắt đầu TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Bắt đầu TLS khi có sẵn</value>
+  </data>
 </root>

@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>برای Teleport روی آواتار کلیک کنید</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>فعال کردن ایمیل</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>حداکثر اندازه ایمیل</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>زمان مکث ایمیل در ثانیه</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>ایمیل‌های مالک در هر ساعت</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>ایمیل در روز</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>ایمیل به آدرس پریم در هر ساعت</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>ایمیل به آدرس SMTP در روز</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>ایمیل به آدرس SMTP در هر ساعت</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>ایمیل به اشیاء فعال شد</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>SSL/TLS را فعال کنید</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>ایمیل به SMTP را فعال کنید</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>تایید گواهی</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>خودکار</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL در اتصال</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>TLS را شروع کنید</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>TLS را در صورت در دسترس بودن شروع کنید</value>
+  </data>
 </root>

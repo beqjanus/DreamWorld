@@ -1,4 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
+#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
@@ -198,7 +198,7 @@ Public Class Backups
         End If
 
         Dim originalBoottime As Date = Settings.StartDate
-        originalBoottime = originalBoottime.AddMinutes(CDbl(Settings.AutobackupInterval))
+        originalBoottime = originalBoottime.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
 
         If DateTime.Compare(currentdatetime, originalBoottime) > 0 Then
             Settings.StartDate = currentdatetime ' wait another interval

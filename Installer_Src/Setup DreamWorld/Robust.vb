@@ -456,7 +456,13 @@ Module Robust
         Using TimedClient As New TimedWebClient With {
                 .Timeout = 2000
             }
-            Dim url = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version"
+            Dim url As String
+            If Settings.ServerType = "Robust" Then
+                url = "http://" & Settings.LANIP & ":" & Settings.HttpPort & "/index.php?version"
+            Else
+                url = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version"
+            End If
+
             Try
                 Up = TimedClient.DownloadString(url)
             Catch ex As Exception

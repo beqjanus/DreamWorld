@@ -1,4 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
+#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
@@ -17,14 +17,16 @@ Module Updater
         Dim ReleasedVersion As Double
         Dim MyVersion As Double
         Try
-            MyVersion = CDbl(PropMyVersion)
+            MyVersion = Convert.ToDouble(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
         Catch
         End Try
 
         Using client As New Net.WebClient ' download client for web pages
             TextPrint(My.Resources.Checking_for_Updates_word)
             Try
-                ReleasedVersion = CDbl(client.DownloadString(PropHttpsDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData()))
+                Dim rev As String = client.DownloadString(PropHttpsDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
+                rev = Stripqq(rev)
+                ReleasedVersion = Convert.ToDouble(rev, Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
@@ -32,7 +34,7 @@ Module Updater
         End Using
 
         ' Update Error check could be nothing
-        If ReleasedVersion = 0 Then ReleasedVersion = CDbl(PropMyVersion)
+        If ReleasedVersion = 0 Then ReleasedVersion = Convert.ToDouble(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
 
         Try
             ' check if less than the last skipped update
@@ -68,7 +70,7 @@ Module Updater
         If doUpdate = DialogResult.No Then
 
             '  remind me later
-            Settings.SkipUpdateCheck() = CDbl(PropMyVersion)
+            Settings.SkipUpdateCheck() = Convert.ToDouble(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
             Settings.SaveSettings()
 
         ElseIf doUpdate = DialogResult.Yes Then

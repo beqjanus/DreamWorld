@@ -3540,4 +3540,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Klicken Sie auf Avatar, um sich zu teleportieren</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>E-Mail aktivieren</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Maximale E-Mail-Größe</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>E-Mail-Pausenzeit in Sekunden</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>E-Mails vom Eigentümer pro Stunde</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>E-Mails pro Tag</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>E-Mails an Prim-Adresse pro Stunde</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>E-Mails an SMTP-Adresse pro Tag</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-Mails an SMTP-Adresse pro Stunde</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>E-Mail an Objekte aktiviert</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Aktivieren Sie SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>E-Mail an SMTP aktivieren</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Zertifikat verifizieren</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatisch</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL bei Verbindung</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Starten Sie TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Starten Sie TLS, wenn verfügbar</value>
+  </data>
 </root>

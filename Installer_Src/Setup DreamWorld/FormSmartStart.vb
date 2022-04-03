@@ -1,4 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
+#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
@@ -1484,7 +1484,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d\.]")
         FlatLandLevel.Text = digitsOnly.Replace(FlatLandLevel.Text, "")
         If Convert.ToSingle("0" & FlatLandLevel.Text, Globalization.CultureInfo.InvariantCulture) > 100 Then FlatLandLevel.Text = CStr(100)
-        Settings.FlatlandLevel = CDbl("0" & FlatLandLevel.Text)
+        Settings.FlatlandLevel = Convert.ToDouble("0" & FlatLandLevel.Text, Globalization.CultureInfo.InvariantCulture)
     End Sub
 
     Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
@@ -1537,7 +1537,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d\.]")
         SmoothTextBox.Text = digitsOnly.Replace(SmoothTextBox.Text, "")
         If Convert.ToSingle("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then SmoothTextBox.Text = CStr(1)
-        Settings.LandStrength = CDbl("0" & SmoothTextBox.Text)
+        Settings.LandStrength = Convert.ToDouble("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture)
         Settings.SaveSettings()
 
     End Sub
@@ -1615,7 +1615,7 @@ Public Class FormSmartStart
         Dim digitsOnly = New Regex("[^\d\.]")
         TaperTextBox.Text = digitsOnly.Replace(TaperTextBox.Text, "")
         If Convert.ToSingle("0" & TaperTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then TaperTextBox.Text = CStr(1)
-        Settings.LandTaper = CDbl("0" & TaperTextBox.Text)
+        Settings.LandTaper = Convert.ToDouble("0" & TaperTextBox.Text, Globalization.CultureInfo.InvariantCulture)
         MakeSetting()
     End Sub
 

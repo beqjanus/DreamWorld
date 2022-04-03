@@ -94,8 +94,7 @@ namespace Diva.Utils
                         }
                     }
                 }
-                catch (Exception e)
-                {
+                catch                 {
                     continue;
                 }
             }
@@ -135,7 +134,7 @@ namespace Diva.Utils
                         break;
                     }
                 }
-                catch (Exception e)
+                catch 
                 {
                     continue;
                 }

@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Haga clic en el avatar para teletransportarse</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Habilitar el correo electrónico</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Tamaño máximo del correo electrónico</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Tiempo de pausa del correo electrónico en segundos</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Correos electrónicos del propietario por hora</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Correos electrónicos por día</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Correos electrónicos a la dirección de Prim por hora</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Correos electrónicos a la dirección SMTP por día</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Correos electrónicos a la dirección SMTP por hora</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Email To Objects Enabled</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Activar SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Habilitar el correo electrónico a SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Verificar el certificado</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL en la conexión</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Iniciar TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Iniciar TLS cuando esté disponible</value>
+  </data>
 </root>

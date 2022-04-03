@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Fare clic su Avatar per teletrasportarsi</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Abilita e-mail</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Dimensione massima dell'e-mail</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Tempo di pausa e-mail in secondi</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Email dal proprietario all'ora</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Email al giorno</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Email all'indirizzo Prim all'ora</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Email all'indirizzo SMTP al giorno</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Email all'indirizzo SMTP all'ora</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Email a oggetti abilitati</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Abilita SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Abilita e-mail su SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Verifica certificato</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatico</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL su connessione</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Avvia TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Avvia TLS quando disponibile</value>
+  </data>
 </root>

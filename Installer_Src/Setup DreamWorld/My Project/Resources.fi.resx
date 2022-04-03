@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Napsauta Avatar to Teleport</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Sähköposti käyttöön</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Sähköpostin enimmäiskoko</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Sähköpostin keskeytysaika sekunneissa</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Sähköpostit omistajalta tunnissa</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Sähköpostit päivässä</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Sähköpostit Prim-osoitteeseen per tunti</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Sähköpostit SMTP-osoitteeseen päivässä</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Sähköpostit SMTP-osoitteeseen tunnissa</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Sähköposti objekteille käytössä</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Ota SSL/TLS käyttöön</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Ota Sähköposti SMTP:hen käyttöön</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Vahvista sertifikaatti</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automaattinen</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL On Connect</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Käynnistä TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Käynnistä TLS, kun se on saatavilla</value>
+  </data>
 </root>

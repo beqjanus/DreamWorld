@@ -3537,4 +3537,52 @@
   <data name="Click_Avatar_to_Teleport" xml:space="preserve">
     <value>Egin klik Avatar teletransportatzeko</value>
   </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>Posta elektronikoa gaitu</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>Gehienezko posta elektronikoaren tamaina</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>Posta elektronikoaren pausa-denbora segundotan</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>Jabearen mezu elektronikoak orduko</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>Eguneko mezu elektronikoak</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Posta elektronikoak Prim Helbidera orduko</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>Mezuak SMTP helbidera eguneko</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Mezuak orduko SMTP helbidera</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>Posta elektronikoa objektuetara gaituta</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>Gaitu SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>Gaitu posta elektronikoa SMTPra</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>Egiaztatu ziurtagiria</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatikoa</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL Konektatuan</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>Hasi TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>Hasi TLS eskuragarri dagoenean</value>
+  </data>
 </root>
