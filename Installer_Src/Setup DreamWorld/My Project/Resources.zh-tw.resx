@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>可用時啟動 TLS</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>根據指定的端口自動決定使用哪種類型的 SSL 模式。注意：這僅在端口是標准定義的端口（例如 SMTP 的 25、587 或 465）時才可靠。</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>單擊以顯示密碼。</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>默認值：關閉。關閉時禁用所有電子郵件。</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>電子郵件之間的電子郵件暫停時間</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>端口 25、465 或 587。端口 25 和 587 是純文本連接端口，但如果通過 STARTTLS 請求這樣做，則會切換到 SSL/TLS。</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>可以登錄郵件服務器的郵件用戶名。</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>電子郵件已禁用。</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>默認值：關閉。啟用向不在當前 opensimulator 實例上的區域發送帶有 LSL 的電子郵件。目前不工作。</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>默認值：關閉。啟用使用 LSL 向世界發送電子郵件。</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Opensim 可以在一小時內發送的最大電子郵件數量。</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>每天通過 LSL 的最大電子郵件數量</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>每小時發送至 Prim 地址的最大電子郵件數</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>每小時發送到 SMTP 地址的郵件</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>最大電子郵件大小（以字節為單位）。 Unicode 可能是每個字符 1、2 或 3 個字節</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>無：不要使用任何形式的 SSL（或 TLS）。</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>使用 STARTTLS 方法進行 SSL/TLS 加密。如果服務器不支持 STARTTLS 命令，則中止連接。</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>輸入 SMTP 服務器主機名。</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>這指定 Mail 應通過 SSL 包裝的連接進行連接。</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>如果服務器支持，則使用 STARTTLS 方法進行 SSL/TLS 加密，否則繼續使用未加密的通道。</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>默認值：開。如果使用未簽名的 SMTP 服務器證書，則需要取消選中此項。</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>尋找幫助（求助</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>查看谷歌地圖</value>
+  </data>
 </root>

@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Start TLS indien beschikbaar</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Bepaalt automatisch welk type SSL-modus moet worden gebruikt op basis van de opgegeven poort. Let op: Dit werkt alleen betrouwbaar als de poort een standaard gedefinieerde poort is (bijvoorbeeld 25, 587 of 465 voor SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Klik om het wachtwoord te onthullen.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Standaard: Uit. Alle e-mails zijn uitgeschakeld wanneer uitgeschakeld.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>E-mailpauzetijd tussen e-mails</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Poort 25, 465 of 587. Poort 25 en 587 zijn een verbindingspoort met platte tekst, maar schakelen over naar SSL/TLS als daarom wordt gevraagd via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>De e-mailgebruikersnaam die kan inloggen op de e-mailserver.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-mail is uitgeschakeld.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Standaard: Uit. Schakel het verzenden van e-mail met LSL in naar regio's die zich niet in de huidige instantie van opensimulator bevinden. Werkt momenteel niet.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Standaard: Uit. Schakel het verzenden van e-mail naar de wereld in met LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Maximaal aantal e-mails die Opensim in een uur kan verzenden.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Max aantal e-mails per dag via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Max aantal e-mails naar het primaire adres per uur</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Mails naar SMTP-adres per uur</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Maximale e-mailgrootte in bytes. Unicode kan 1,2 of 3 bytes per teken zijn</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Geen: gebruik geen enkele vorm van SSL (of TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Gebruik de STARTTLS-methode voor SSL/TLS-codering. Als de server de opdracht STARTTLS niet ondersteunt, verbreek dan de verbinding.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Voer de hostnaam van de SMTP-server in.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Dit geeft aan dat Mail verbinding moet maken via een SSL-verpakte verbinding.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Gebruik de STARTTLS-methode voor SSL/TLS-codering als de server dit ondersteunt, ga anders door met het gebruik van een niet-gecodeerd kanaal.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Standaard: Aan. Dit moet worden uitgeschakeld als u een niet-ondertekend SMTP-servercertificaat gebruikt.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Op</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Zoek hulp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Bekijk Google Map</value>
+  </data>
 </root>

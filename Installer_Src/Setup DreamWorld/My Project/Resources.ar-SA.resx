@@ -3588,4 +3588,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>ابدأ TLS عند توفرها</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>يقرر تلقائيًا نوع وضع SSL الذي سيتم استخدامه بناءً على المنفذ المحدد. ملاحظة: يعمل هذا بشكل موثوق فقط عندما يكون المنفذ منفذًا قياسيًا محددًا (على سبيل المثال 25 أو 587 أو 465 لـ SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>انقر للكشف عن كلمة المرور.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>الافتراضي: إيقاف. يتم تعطيل جميع رسائل البريد الإلكتروني عند الإيقاف.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>وقت التوقف المؤقت للبريد الإلكتروني بين رسائل البريد الإلكتروني</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>المنفذ 25 أو 465 أو 587. المنفذ 25 و 587 عبارة عن منفذ اتصال بنص عادي ولكن سيتم التبديل إلى SSL / TLS إذا طُلب منك القيام بذلك عبر STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>اسم مستخدم البريد الإلكتروني الذي يمكنه تسجيل الدخول إلى خادم البريد الإلكتروني.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>تم تعطيل البريد الإلكتروني.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>الافتراضي: إيقاف. تمكين إرسال بريد إلكتروني باستخدام LSL إلى مناطق ليست في مثيل المحاكي المفتوح الحالي. حاليا لا يعمل.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>الافتراضي: إيقاف. قم بتمكين إرسال البريد الإلكتروني إلى العالم باستخدام LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>أقصى عدد من رسائل البريد الإلكتروني التي يمكن أن يرسلها Opensim في غضون ساعة.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>أقصى عدد من رسائل البريد الإلكتروني يوميًا عبر LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>أقصى عدد من رسائل البريد الإلكتروني إلى عنوان التمهيدي في الساعة</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>رسائل إلى عنوان SMTP في الساعة</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>أقصى حجم للبريد الإلكتروني بالبايت. قد يكون Unicode 1.2 أو 3 بايت لكل حرف</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>لا شيء: لا تستخدم أي شكل من أشكال SSL (أو TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>استخدم طريقة STARTTLS لتشفير SSL / TLS. إذا كان الخادم لا يدعم الأمر STARTTLS ، فقم بإلغاء الاتصال.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>أدخل اسم مضيف خادم SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>يحدد هذا أنه يجب على البريد الاتصال عبر اتصال مغلف بطبقة المقابس الآمنة.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>استخدم طريقة STARTTLS لتشفير SSL / TLS إذا كان الخادم يدعمها ، وإلا استمر في استخدام قناة غير مشفرة.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>افتراضي في. يجب إلغاء تحديد هذا إذا كنت تستخدم شهادة خادم SMTP غير موقعة.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>على</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>تعليمات البحث</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>عرض خريطة جوجل</value>
+  </data>
 </root>

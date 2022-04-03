@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Démarrer TLS lorsqu'il est disponible</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Décide automatiquement du type de mode SSL à utiliser en fonction du port spécifié. Remarque : Cela ne fonctionne de manière fiable que lorsque le port est un port standard défini (par exemple 25, 587 ou 465 pour SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Cliquez pour révéler le mot de passe.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Par défaut : Désactivé. Tous les e-mails sont désactivés lorsqu'ils sont désactivés.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Temps de pause des e-mails entre les e-mails</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 ou 587. Les ports 25 et 587 sont un port de connexion en texte brut mais basculeront vers SSL/TLS si cela est demandé via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Le nom d'utilisateur de messagerie qui peut se connecter au serveur de messagerie.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Le courrier électronique est désactivé.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Par défaut : Désactivé. Activer l'envoi d'e-mails avec LSL aux régions qui ne sont pas sur l'instance opensimulator actuelle. Ne fonctionne pas actuellement.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Par défaut : Désactivé. Activez l'envoi d'e-mails dans le monde entier avec LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Nombre maximum d'e-mails qu'Opensim peut envoyer en une heure.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Nombre maximum d'e-mails par jour via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Nombre maximum d'e-mails à l'adresse Prim par heure</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Courriers à l'adresse SMTP par heure</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Taille maximale des e-mails en octets. Unicode peut être de 1, 2 ou 3 octets par caractère</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Aucun : n'utilisez aucune forme de SSL (ou TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Utilisez la méthode STARTTLS pour le chiffrement SSL/TLS. Si le serveur ne prend pas en charge la commande STARTTLS, abandonnez la connexion.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Saisissez le nom d'hôte du serveur SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Cela spécifie que Mail doit se connecter via une connexion encapsulée SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Utilisez la méthode STARTTLS pour le cryptage SSL/TLS si le serveur la prend en charge, sinon continuez à utiliser un canal non crypté.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Par défaut : Activé. Ceci doit être décoché si vous utilisez un certificat de serveur SMTP non signé.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Au</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Aide à la recherche</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Afficher la carte Google</value>
+  </data>
 </root>

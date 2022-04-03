@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Bắt đầu TLS khi có sẵn</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Tự động quyết định loại chế độ SSL nào sẽ sử dụng dựa trên cổng được chỉ định. Lưu ý: Điều này chỉ hoạt động đáng tin cậy khi cổng là cổng được xác định tiêu chuẩn (ví dụ: 25, 587 hoặc 465 cho SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Nhấp để tiết lộ mật khẩu.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Mặc định: Tắt. Tất cả các email đều bị tắt khi tắt.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Thời gian tạm dừng email giữa các email</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Cổng 25, 465 hoặc 587. Cổng 25 và 587 là cổng kết nối văn bản thuần túy nhưng sẽ chuyển sang SSL / TLS nếu được yêu cầu thông qua STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Tên người dùng email có thể đăng nhập vào máy chủ email.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Email bị vô hiệu hóa.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Mặc định: Tắt. Cho phép gửi email với LSL đến các vùng không có trên phiên bản trình mô phỏng mở hiện tại. Hiện tại không hoạt động.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Mặc định: Tắt. Cho phép gửi email đến mọi người với LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Số lượng Email tối đa mà Opensim có thể gửi trong một giờ.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Số lượng Email tối đa mỗi ngày qua LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Số lượng tối đa các thư gửi đến địa chỉ chính mỗi giờ</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Gửi thư đến địa chỉ SMTP mỗi giờ</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Kích thước email tối đa tính bằng byte. Unicode có thể là 1,2 hoặc 3 byte cho mỗi ký tự</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Không: Không sử dụng bất kỳ hình thức SSL (hoặc TLS) nào.</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Sử dụng phương pháp STARTTLS để mã hóa SSL / TLS. Nếu máy chủ không hỗ trợ lệnh STARTTLS, hãy hủy kết nối.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Nhập tên máy chủ SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Điều này chỉ định rằng Thư sẽ kết nối qua kết nối được bọc SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Sử dụng phương pháp STARTTLS để mã hóa SSL / TLS nếu máy chủ hỗ trợ nó, nếu không, hãy tiếp tục sử dụng kênh không được mã hóa.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Mặc định: Bật. Điều này cần được bỏ chọn nếu sử dụng chứng chỉ Máy chủ SMTP chưa được ký.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Trên</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>tìm kiếm sự trợ giúp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Xem bản đồ Google</value>
+  </data>
 </root>

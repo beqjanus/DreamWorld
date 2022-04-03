@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Starta TLS när det är tillgängligt</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Avgör automatiskt vilken typ av SSL-läge som ska användas baserat på den angivna porten. Obs: Detta fungerar bara tillförlitligt när porten är en standarddefinierad port (t.ex. 25, 587 eller 465 för SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Klicka för att avslöja lösenordet.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Standard: Av. Alla e-postmeddelanden är inaktiverade när de är avstängda.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>E-postpaustid mellan e-postmeddelanden</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 eller 587. Port 25 och 587 är en anslutningsport i klartext men kommer att byta till SSL/TLS om du uppmanas att göra det via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>E-postanvändarnamnet som kan logga in på e-postservern.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-post är inaktiverat.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Standard: Av. Aktivera att skicka e-post med LSL till regioner som inte finns på den aktuella opensimulator-instansen. För närvarande fungerar inte.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Standard: Av. Aktivera att skicka e-post till världen med LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Max antal e-postmeddelanden Opensim kan skicka på en timme.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Max antal e-postmeddelanden per dag via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Max antal e-postmeddelanden till Prim-adress per timme</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-postmeddelanden till SMTP-adress per timme</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Max e-poststorlek i byte. Unicode kan vara 1, 2 eller 3 byte per tecken</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Inga: Använd inte någon form av SSL (eller TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Använd STARTTLS-metoden för SSL/TLS-kryptering. Om servern inte stöder STARTTLS-kommandot, avbryt anslutningen.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Ange SMTP-serverns värdnamn.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Detta anger att Mail ska ansluta via en SSL-omslagen anslutning.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Använd STARTTLS-metoden för SSL/TLS-kryptering om servern stöder det, annars fortsätt att använda en okrypterad kanal.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Standard: På. Detta måste avmarkeras om du använder ett osignerat SMTP-servercertifikat.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>På</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Sök hjälp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Visa Google Map</value>
+  </data>
 </root>
