@@ -1983,7 +1983,7 @@
     <value>Banned</value>
   </data>
   <data name="Wrong" xml:space="preserve">
-    <value>Something is wrong with the Internet</value>
+    <value>Something is wrong with the Internet.</value>
   </data>
   <data name="tt_Apache_EnableOther" xml:space="preserve">
     <value>Enables a redirect of the home page to the "Other" folder in htdocs</value>
@@ -4132,5 +4132,65 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Start TLS When Available</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Automatically decides which type of SSL mode to use based on the specified port. Note: This only works reliable when the port is a standard defined port (e.g. 25, 587 or 465 for SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Click to reveal password.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Default: Off.  All emails are disabled when off.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Email Pause Time Between Emails</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465, or 587.  Port 25 and 587 are a plain-text connection port but will switch to SSL/TLS if requested to do so via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>The email user name that can log into the email server.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Email is disabled.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Default: Off.  Enable sending email with LSL to regions not on current opensimulator instance. Currently does not work.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Default: Off.  Enable sending email to the world with LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Max number of Emails Opensim can send in an hour.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Max number of Emails per day via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Max number of EMails To Prim Address Per Hour</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Mails To SMTP Address Per Hour</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Max Email Size In Bytes. Unicode may be 1,2, or 3 bytes per character</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>None: Don't use any form of SSL (or TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Use the STARTTLS method for SSL/TLS encryption. If the server doesn't support the STARTTLS command, abort the connection.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Enter the SMTP server host name.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>This specifies that Mail should connect via an SSL-wrapped connection.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Use the STARTTLS method for SSL/TLS encryption if the server supports it, otherwise continue using an unencrypted channel.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Default: On.  This needs to be unchecked if using an unsigned SMTP Server certiificate.</value>
   </data>
 </root>
