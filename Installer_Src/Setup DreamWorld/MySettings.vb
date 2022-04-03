@@ -23,6 +23,8 @@ Public Class MySettings
     Private _RamUsed As Double
     Private _Settings As LoadIni
 
+#End Region
+
 #Region "New"
 
     Public Sub New(Folder As String)
@@ -78,28 +80,27 @@ Public Class MySettings
 
     End Function
 
+    ''' <summary>
+    ''' Saves the time it took to boot w/o maps
+    ''' </summary>
+    ''' <param name="DT">Time in Seconds to boot</param>
+    ''' <param name="UUID">UUID of region</param>
     Public Sub SaveBootTime(DT As Integer, UUID As String)
 
         SetMySetting("BootTime_" & Region_Name(UUID), CStr(DT))
 
     End Sub
 
+    ''' <summary>
+    ''' Saves the time it took to boot with maps
+    ''' </summary>
+    ''' <param name="DT">Time in Seconds to boot</param>
+    ''' <param name="UUID">UUID of region</param>
     Public Sub SaveMapTime(DT As Integer, UUID As String)
 
         SetMySetting("MapTime_" & Region_Name(UUID), CStr(DT))
 
     End Sub
-
-#End Region
-
-    Public Property CurrentSlashDir As String
-        Get
-            Return _CurSlashDir
-        End Get
-        Set(value As String)
-            _CurSlashDir = value
-        End Set
-    End Property
 
     Public Sub SaveSettings()
 
@@ -118,6 +119,10 @@ Public Class MySettings
 
 #Region "Properties"
 
+    ''' <summary>
+    ''' Diva will set regions to disabled (-1) if this switch is set
+    ''' </summary>
+    ''' <returns>AccountConfirmationRequired as boolean</returns>
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -127,6 +132,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Diva Wifi Email address
+    ''' </summary>
+    ''' <returns>AdminEmail</returns>
     Public Property AdminEmail() As String
         Get
             Dim mail As String = GetMySetting("AdminEmail", "not@set.yet")
@@ -137,6 +146,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Diva Wifi User Name (Wifi)
+    ''' </summary>
+    ''' <returns>Wifi</returns>
     Public Property AdminFirst() As String
         Get
             Return GetMySetting("AdminFirst", "Wifi")
@@ -146,6 +159,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Diva Wifi User Name (Admin)
+    ''' </summary>
+    ''' <returns>Admin</returns>
     Public Property AdminLast() As String
         Get
             Return GetMySetting("AdminLast", "Admin")
@@ -155,6 +172,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Allow Gods - without this no gods are possible
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property AllowGridGods() As Boolean
         Get
             Return CType(GetMySetting("Allow_grid_gods", "False"), Boolean)
@@ -164,6 +185,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Allow all Plants to be set
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property AllPlants() As Boolean
         Get
             Return CType(GetMySetting("AllPlants", "False"), Boolean)
@@ -174,7 +199,7 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' Show the Robocopy window
+    ''' Show the Robo copy window
     ''' </summary>
     Public Property AltDnsName() As String
         Get
@@ -198,6 +223,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Apache Port
+    ''' </summary>
+    ''' <returns>80 by default</returns>
     Public Property ApachePort() As Integer
         Get
             Return CInt("0" & GetMySetting("ApachePort", "80".ToUpperInvariant))
@@ -207,6 +236,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Last Apache Revision
+    ''' </summary>
+    '''
     Public Property ApacheRev() As String
         Get
             Return GetMySetting("ApacheRev", "")
@@ -216,6 +249,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Does Apache run as a service?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property ApacheService() As Boolean
         Get
             Return CType(GetMySetting("ApacheService", "False"), Boolean)
@@ -225,6 +262,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Text to Speech API key for security
+    ''' </summary>
+    ''' <returns>A large random number</returns>
     Public Property APIKey() As String
         Get
             Dim Key = Random()
@@ -235,6 +276,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Run Autobackup?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property AutoBackup() As Boolean
         Get
             Return CType(GetMySetting("AutoBackup", "True"), Boolean)
@@ -244,6 +289,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' How often to run autobackup in minutes
+    ''' </summary>
+    ''' <returns>1/2 (720 minutes) as a default</returns>
     Public Property AutobackupInterval() As String
         Get
             Return GetMySetting("AutobackupInterval", "720")
@@ -253,6 +302,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Auto fill regions surrounding where an avatar is
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property AutoFill() As Boolean
         Get
             Return CType(GetMySetting("AutoFill", "False"), Boolean)
@@ -262,6 +315,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' AutoRestart a crashed region is Enabled?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property AutoRestartEnabled() As Boolean
         Get
             Return CType(GetMySetting("AutoRestartEnabled", "False"), Boolean)
@@ -271,6 +328,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Auto Restart Interval in minutes
+    ''' </summary>
+    ''' <returns>0 (off) as a default</returns>
     Public Property AutoRestartInterval() As Integer
         Get
             Return CInt("0" & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
@@ -280,6 +341,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Auto click the Start button  when booted
+    ''' </summary>
+    ''' <returns>boolean</returns>
     Public Property Autostart() As Boolean
         Get
             Return CType(GetMySetting("Autostart", "False"), Boolean)
@@ -289,6 +354,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' TYhe folder to save Auto Backups to
+    ''' </summary>
+    ''' <returns>Default: AutoBackup folder</returns>
     Public Property BackupFolder() As String
         Get
             Return GetMySetting("BackupFolder", "AutoBackup")
@@ -298,6 +367,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Run robocopy to back up assets?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property BackupFSAssets() As Boolean
         Get
             Return CType(GetMySetting("BackupFSAssets", "False"), Boolean)
@@ -307,6 +380,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Backup IARS?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property BackupIARs() As Boolean
         Get
             Return CType(GetMySetting("BackupIARs", "False"), Boolean)
@@ -316,6 +393,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Backup Oars?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
@@ -325,6 +406,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Backup Region INIs?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property BackupRegion() As Boolean
         Get
             Return CType(GetMySetting("BackupRegion", "True"), Boolean)
@@ -334,6 +419,10 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Backup Settings.ini and XYSettings.ini?
+    ''' </summary>
+    ''' <returns>Boolean</returns>
     Public Property BackupSettings() As Boolean
         Get
             Return CType(GetMySetting("BackupSettings", "True"), Boolean)
@@ -706,6 +795,19 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Myfolder", Value) ' DEBUG
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Mysql requires slashes in the "/" Unix style
+    ''' </summary>
+    ''' <returns>The current directory with '/'</returns>
+    Public Property CurrentSlashDir As String
+        Get
+            Return _CurSlashDir
+        End Get
+        Set(value As String)
+            _CurSlashDir = value
         End Set
     End Property
 

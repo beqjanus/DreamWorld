@@ -843,7 +843,7 @@ Module RegionMaker
 
     Public Property BootTime(uuid As String) As Integer
         Get
-            Dim t As Integer = CInt(Settings.GetBootTime(uuid))
+            Dim t As Integer = Settings.GetBootTime(uuid)
             If t > 0 Then Return t
             If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._BootTime
             BadUUID(uuid)
@@ -961,7 +961,7 @@ Module RegionMaker
     Public Property MapTime(uuid As String) As Integer
         Get
             If RegionList.ContainsKey(uuid) Then
-                Dim t As Integer = CInt(Settings.GetMapTime(uuid))
+                Dim t As Integer = Settings.GetMapTime(uuid)
                 If t > 0 Then Return t
                 Return RegionList(uuid)._MapTime
             End If
@@ -1273,7 +1273,7 @@ Module RegionMaker
 
     Public Property InRegion(uuid As String) As Integer
         Get
-            If RegionList.ContainsKey(uuid) Then Return CInt(RegionList(uuid)._AvatarsInRegion)
+            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._AvatarsInRegion
             BadUUID(uuid)
             Return 0
         End Get
