@@ -7681,6 +7681,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to On.
+        '''</summary>
+        Friend ReadOnly Property On_word() As String
+            Get
+                Return ResourceManager.GetString("On_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to One region is still running.
         '''</summary>
         Friend ReadOnly Property One_region() As String
@@ -9629,6 +9638,15 @@ Namespace My.Resources
         Friend ReadOnly Property Search_grids() As String
             Get
                 Return ResourceManager.GetString("Search_grids", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search Help.
+        '''</summary>
+        Friend ReadOnly Property Search_Help() As String
+            Get
+                Return ResourceManager.GetString("Search_Help", resourceCulture)
             End Get
         End Property
         
@@ -12009,6 +12027,15 @@ Namespace My.Resources
         Friend ReadOnly Property Viewer_Stops_Counting() As String
             Get
                 Return ResourceManager.GetString("Viewer_Stops_Counting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View Google Map.
+        '''</summary>
+        Friend ReadOnly Property ViewGoogleMap() As String
+            Get
+                Return ResourceManager.GetString("ViewGoogleMap", resourceCulture)
             End Get
         End Property
         

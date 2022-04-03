@@ -764,8 +764,10 @@ Public Class FormSetup
         TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_Troubleshooting_word
         UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Users_word
+        ViewGoogleMapToolStripMenuItem.Text = Global.Outworldz.My.Resources.ViewGoogleMap
         ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         ViewLogsToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Logs
+        ViewVisitorMapsToolStripMenuItem.Text = Global.Outworldz.My.Resources.ViewVisitorMaps
         ViewWebUI.Image = Global.Outworldz.My.Resources.document_view
         ViewWebUI.Text = Global.Outworldz.My.Resources.View_Web_Interface
         ViewWebUI.ToolTipText = Global.Outworldz.My.Resources.View_Web_Interface_text
@@ -791,6 +793,9 @@ Public Class FormSetup
         LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.OAR_load_save_backupp_word
         SaveInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word
         SaveRegionOARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Save_Region_OAR_word
+
+        'Search Help
+        SearchHelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Search_Help
 
         ' show box styled nicely.
         Application.EnableVisualStyles()

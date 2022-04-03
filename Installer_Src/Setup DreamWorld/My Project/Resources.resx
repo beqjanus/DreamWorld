@@ -4193,4 +4193,13 @@
   <data name="tt_VerifyCertificate" xml:space="preserve">
     <value>Default: On.  This needs to be unchecked if using an unsigned SMTP Server certiificate.</value>
   </data>
+  <data name="On_word" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Search Help</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>View Google Map</value>
+  </data>
 </root>
