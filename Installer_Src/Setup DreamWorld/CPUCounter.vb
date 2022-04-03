@@ -1,4 +1,4 @@
-﻿Imports System.Threading
+Imports System.Threading
 
 Module CPUCounter
 
@@ -81,7 +81,7 @@ Module CPUCounter
                             Else
                                 Dim a As Double
                                 Try
-                                    a = CDbl(O.CounterList.Item(Gname).NextValue())
+                                    a = Convert.ToDouble(O.CounterList.Item(Gname).NextValue(), Globalization.CultureInfo.InvariantCulture)
                                 Catch ex As Exception
                                     O.CounterList.Item(Gname).Close()
                                 End Try

@@ -1,4 +1,4 @@
-﻿#Region "Copyright AGPL3.0"
+#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
@@ -1331,7 +1331,7 @@ Public Class FormSetup
 
                 ' auto restart timer
 
-                Dim time2restart = Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
+                Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
@@ -1860,7 +1860,7 @@ Public Class FormSetup
         Try
             Dim results As ManagementObjectCollection = Searcher1.Get()
             For Each result In results
-                Dim value As Double = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
+                Dim value As Double = (Convert.ToDouble(result("TotalVisibleMemorySize").ToString, CultureInfo.InvariantCulture) - Convert.ToDouble(result("FreePhysicalMemory").ToString, CultureInfo.InvariantCulture)) / Convert.ToDouble(result("TotalVisibleMemorySize").ToString, Globalization.CultureInfo.InvariantCulture) * 100
                 MyRAMCollection.Add(value)
                 If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
                 value = Math.Round(value)

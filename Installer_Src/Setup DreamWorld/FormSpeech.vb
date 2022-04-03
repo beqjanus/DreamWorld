@@ -1,4 +1,4 @@
-﻿Public Class FormSpeech
+Public Class FormSpeech
 
 #Region "ScreenSize"
 
@@ -179,7 +179,7 @@
     Private Sub TextBox2_TextChanged_1(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
 
         If Not initted Then Return
-        Settings.TTSHours = CDbl("0" + TextBox2.Text)
+        Settings.TTSHours = Convert.ToDouble("0" + TextBox2.Text, Globalization.CultureInfo.InvariantCulture)
         Settings.SaveSettings()
 
     End Sub
