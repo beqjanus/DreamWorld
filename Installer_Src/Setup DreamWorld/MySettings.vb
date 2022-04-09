@@ -969,7 +969,7 @@ Public Class MySettings
     ''' Enable sending email to regions not on current opensimulator instance.
     ''' </summary>
     ''' <returns></returns>
-    Public Property enableEmailToExternalObjects() As Boolean
+    Public Property EnableEmailToExternalObjects() As Boolean
         Get
             Return CType(GetMySetting("enableEmailToExternalObjects", "False"), Boolean)
         End Get
@@ -983,7 +983,7 @@ Public Class MySettings
     ''' Enable sending email to the world
     ''' </summary>
     ''' <returns></returns>
-    Public Property enableEmailToSMTPCheckBox() As Boolean
+    Public Property EnableEmailToSMTPCheckBox() As Boolean
         Get
             Return CType(GetMySetting("enableEmailToSMTPCheckBox", "False"), Boolean)
         End Get
@@ -2397,7 +2397,7 @@ Public Class MySettings
 
     Public Property Total_InnoDB_GBytes() As Double
         Get
-            Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"))
+            Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"), Globalization.CultureInfo.InvariantCulture)
             If amount < 1 Then amount = 1
             If amount > 4 Then amount = 4
             Return amount
