@@ -55,12 +55,9 @@ Public Class FormPhysics
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         Physics0_None.Text = Global.Outworldz.My.Resources.None
-        Physics1_ODE.Text = Global.Outworldz.My.Resources.ODE_text
         Physics2_Bullet.Text = Global.Outworldz.My.Resources.Bullet_Physics_word
         Physics3_Separate.Text = Global.Outworldz.My.Resources.Bullet_Threaded_word
-        Physics4_UbODE.Text = Global.Outworldz.My.Resources.UBODE_words
-        Physics5_Hybrid.Text = Global.Outworldz.My.Resources.UbitHybrid
-        GroupBox2.Text = Global.Outworldz.My.Resources.ODE_word_NT
+
         Text = Global.Outworldz.My.Resources.Physics_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -69,11 +66,9 @@ Public Class FormPhysics
 
         Select Case Settings.Physics
             Case 0 : Physics0_None.Checked = True
-            Case 1 : Physics1_ODE.Checked = True
             Case 2 : Physics2_Bullet.Checked = True
             Case 3 : Physics3_Separate.Checked = True
             Case 4 : Physics4_UbODE.Checked = True
-            Case 5 : Physics5_Hybrid.Checked = True
             Case Else : Physics3_Separate.Checked = True
         End Select
 
@@ -94,39 +89,11 @@ Public Class FormPhysics
 
 #Region "Physics"
 
-    Private Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles NinjaRagdoll.CheckedChanged
-        If Not initted Then Return
-        Settings.NinjaRagdoll = NinjaRagdoll.Checked
-    End Sub
-
-    Private Sub Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics5_Hybrid.CheckedChanged
-        If Not initted Then Return
-        If Physics5_Hybrid.Checked Then
-            NinjaRagdoll.Enabled = True
-            Settings.Physics = 5
-            Settings.SaveSettings()
-        Else
-            NinjaRagdoll.Enabled = False
-        End If
-    End Sub
-
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles Physics0_None.CheckedChanged
         If Not initted Then Return
         If Physics0_None.Checked Then
             Settings.Physics = 0
             Settings.SaveSettings()
-        End If
-    End Sub
-
-    Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics1_ODE.CheckedChanged
-
-        If Not initted Then Return
-        If Physics1_ODE.Checked Then
-            NinjaRagdoll.Enabled = True
-            Settings.Physics = 1
-            Settings.SaveSettings()
-        Else
-            NinjaRagdoll.Enabled = False
         End If
     End Sub
 
@@ -141,11 +108,8 @@ Public Class FormPhysics
     Private Sub PhysicsUbODE_CheckedChanged_1(sender As Object, e As EventArgs) Handles Physics4_UbODE.CheckedChanged
 
         If Physics4_UbODE.Checked Then
-            NinjaRagdoll.Enabled = True
             Settings.Physics = 4
             Settings.SaveSettings()
-        Else
-            NinjaRagdoll.Enabled = False
         End If
     End Sub
 

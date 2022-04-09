@@ -540,11 +540,9 @@ Public Class FormRegion
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
-            Case "1" : Physics_ODE.Checked = True
             Case "2" : Physics_Bullet.Checked = True
             Case "3" : Physics_Separate.Checked = True
             Case "4" : Physics_ubODE.Checked = True
-            Case "5" : Physics_Hybrid.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 
@@ -731,7 +729,6 @@ Public Class FormRegion
                 PropUpdateView() = True
                 Changed1 = False
                 Close()
-
 
             End If
 
@@ -1264,16 +1261,12 @@ Public Class FormRegion
         Dim Phys As String
         If Physics_Default.Checked Then
             Phys = ""
-        ElseIf Physics_ODE.Checked Then
-            Phys = "1"
         ElseIf Physics_Bullet.Checked Then
             Phys = "2"
         ElseIf Physics_Separate.Checked Then
             Phys = "3"
         ElseIf Physics_ubODE.Checked Then
             Phys = "4"
-        ElseIf Physics_Hybrid.Checked Then
-            Phys = "5"
         Else
             Phys = "2"
         End If
@@ -1629,14 +1622,6 @@ Public Class FormRegion
     End Sub
 
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_ODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 
