@@ -1170,9 +1170,6 @@
   <data name="Fern" xml:space="preserve">
     <value>Fern</value>
   </data>
-  <data name="Fernm" xml:space="preserve">
-    <value>Fernm</value>
-  </data>
   <data name="File_word" xml:space="preserve">
     <value>Fil</value>
   </data>
@@ -3587,5 +3584,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Start TLS, når det er tilgængeligt</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Beslutter automatisk, hvilken type SSL-tilstand der skal bruges baseret på den angivne port. Bemærk: Dette virker kun pålideligt, når porten er en standarddefineret port (f.eks. 25, 587 eller 465 for SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Klik for at afsløre adgangskoden.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Standard: Fra. Alle e-mails er deaktiveret, når de er slået fra.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Pausetid mellem e-mails</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 eller 587. Port 25 og 587 er en almindelig tekstforbindelsesport, men vil skifte til SSL/TLS, hvis du bliver bedt om det via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>E-mail-brugernavnet, der kan logge ind på e-mail-serveren.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-mail er deaktiveret.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Standard: Fra. Aktiver afsendelse af e-mail med LSL til områder, der ikke er på den aktuelle opensimulator-instans. Virker i øjeblikket ikke.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Standard: Fra. Aktiver afsendelse af e-mail til verden med LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Max antal e-mails Opensim kan sende på en time.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Max antal e-mails pr. dag via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Max antal e-mails til Prim-adresse i timen</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Mails til SMTP-adresse pr. time</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Maksimal e-mailstørrelse i bytes. Unicode kan være 1, 2 eller 3 bytes pr. tegn</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Ingen: Brug ikke nogen form for SSL (eller TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Brug STARTTLS-metoden til SSL/TLS-kryptering. Hvis serveren ikke understøtter STARTTLS-kommandoen, skal du afbryde forbindelsen.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Indtast SMTP-serverens værtsnavn.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Dette specificerer, at Mail skal oprette forbindelse via en SSL-indpakket forbindelse.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Brug STARTTLS-metoden til SSL/TLS-kryptering, hvis serveren understøtter det, ellers fortsæt med at bruge en ukrypteret kanal.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Standard: Til. Dette skal fjernes, hvis du bruger et usigneret SMTP-servercertifikat.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>På</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Søg i Hjælp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Se Google Map</value>
   </data>
 </root>

@@ -140,7 +140,6 @@ Module Clear_Cache
                 folders = IO.Directory.GetFiles(src, "*", SearchOption.AllDirectories)
                 If folders IsNot Nothing Then
                     For Each script As String In folders
-                        If script.EndsWith("Yengine", StringComparison.OrdinalIgnoreCase) Then Continue For
 
                         Dim ext = Path.GetExtension(script)
 

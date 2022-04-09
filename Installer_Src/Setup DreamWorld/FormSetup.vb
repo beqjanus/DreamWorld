@@ -837,9 +837,11 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
-        UpgradeDotNet() ' one time run for Dot net prerequisits
+        UpgradeDotNet() ' one time run for Dot net prerequisites
         SetupPerl() ' Ditto
         SetupPerlModules() ' Perl Language interpreter
+        Settings.DotnetUpgraded() = True
+
         FixPresence() ' Fixes stuck avatars
 
         TextPrint(My.Resources.Getting_regions_word)
@@ -1136,7 +1138,7 @@ Public Class FormSetup
                     CrashCounter(RegionUUID) += 1
 
                     ' shut down all regions in the DOS box
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " #" & CrashCounter(RegionUUID).ToString)
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " #" & CStr(CrashCounter(RegionUUID)))
                     StopGroup(GroupName)
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
                     For Each R In GroupList

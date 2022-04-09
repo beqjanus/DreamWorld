@@ -148,6 +148,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Diva Manager confirmation for new users needed?.
+        '''</summary>
+        Friend ReadOnly Property AccountConfirm() As String
+            Get
+                Return ResourceManager.GetString("AccountConfirm", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Action.
         '''</summary>
         Friend ReadOnly Property Action_word() As String
@@ -2274,15 +2283,6 @@ Namespace My.Resources
         Friend ReadOnly Property Configger() As String
             Get
                 Return ResourceManager.GetString("Configger", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Confirmation required to log in?.
-        '''</summary>
-        Friend ReadOnly Property Confirm() As String
-            Get
-                Return ResourceManager.GetString("Confirm", resourceCulture)
             End Get
         End Property
         

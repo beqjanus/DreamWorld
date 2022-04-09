@@ -181,7 +181,6 @@ namespace OpenSim.Services.HypergridService
                 IConfig messagingConfig = config.Configs["Messaging"];
                 if (messagingConfig != null)
                     m_messageKey = messagingConfig.GetString("MessageKey", String.Empty);
-
                 // SmartStart fkb
                 IConfig SmartStartConfig = config.Configs["SmartStart"];
                 if (SmartStartConfig != null)
@@ -201,13 +200,12 @@ namespace OpenSim.Services.HypergridService
                                 throw new Exception("GATEKEEPER SERVICE init error: SmartStart URI");
                             }
                             m_SmartStartUrl = tmpSmartStartURL.URI;
-                            m_log.Info("[GATEKEEPER SERVICE]: SmartStart Url " + m_SmartStartUrl);                            
+                            m_log.Info("[GATEKEEPER SERVICE]: SmartStart Url " + m_SmartStartUrl);
+
                             m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
                         }
-                    }                   
+                    }
                 }
-                m_log.Info("[GATEKEEPER SERVICE]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
-
                 m_log.Debug("[GATEKEEPER SERVICE]: Starting...");
             }
         }

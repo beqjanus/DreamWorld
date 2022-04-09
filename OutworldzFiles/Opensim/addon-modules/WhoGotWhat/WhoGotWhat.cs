@@ -118,7 +118,7 @@ namespace WhoGotWhat
         {
             string d = DateTime.Now.ToString("G");
             using (var tr = new StreamWriter(m_PathToFile, true))
-            using (var writer = new CsvWriter(tr))
+            using (var writer = new CsvWriter(tr,System.Globalization.CultureInfo.InvariantCulture))
             {
                 writer.WriteField(d);
                 writer.WriteField(avatar);
@@ -199,7 +199,7 @@ namespace WhoGotWhat
                 {
                     m_log.WarnFormat("[WhoGotWhat]: Creating WhoGotWhat.csv");
                     using (var tr = new StreamWriter(pathToCsvFile))
-                    using (var writer = new CsvWriter(tr))
+                    using (var writer = new CsvWriter(tr,System.Globalization.CultureInfo.InvariantCulture))
                     {
                         writer.WriteField("Date");
                         writer.WriteField("Name");

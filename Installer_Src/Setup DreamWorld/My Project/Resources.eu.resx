@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Hasi TLS eskuragarri dagoenean</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Automatikoki erabakitzen du zein motatako SSL modu erabili zehaztutako atakaren arabera. Oharra: honek fidagarrian funtzionatzen du ataka definitutako ataka estandarra denean (adibidez, 25, 587 edo 465 SMTPrako).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Egin klik pasahitza erakusteko.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Lehenetsia: Desaktibatuta. Mezu elektroniko guztiak desgaituta daude itzalita dagoenean.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Posta elektronikoa Posta elektronikoen arteko pausa denbora</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>25, 465 edo 587 ataka. 25 eta 587 portuak testu arrunteko konexio ataka bat dira, baina SSL/TLSra aldatuko dira STARTTLS bidez hala eskatzen badiote.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Posta elektronikoko zerbitzarian saioa hasteko moduko erabiltzaile-izena.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Posta elektronikoa desgaituta dago.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Lehenetsia: Desaktibatuta. Gaitu LSL bidez mezu elektronikoak bidaltzea uneko opensimulator instantzian ez dauden eskualdeetara. Gaur egun ez du funtzionatzen.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Lehenetsia: Desaktibatuta. Gaitu mezu elektronikoak mundura bidaltzea LSL-rekin.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Opensim-ek ordubetean bidal ditzakeen gehienezko mezu elektroniko kopurua.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Eguneko gehienezko mezu elektroniko kopurua LSL bidez</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Gehienezko mezu elektroniko kopurua Prim Helbidera orduko</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Mezuak SMTP helbidera orduko</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Gehienezko mezu elektronikoaren tamaina bytetan. Unicode 1, 2 edo 3 byte izan daiteke karaktere bakoitzeko</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Bat ere ez: ez erabili SSL (edo TLS) modurik.</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Erabili STARTTLS metodoa SSL/TLS enkriptatzeko. Zerbitzariak STARTTLS komandoa onartzen ez badu, bertan behera utzi konexioa.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Sartu SMTP zerbitzariaren ostalari-izena.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Honek zehazten du Mail SSL-en bildutako konexio baten bidez konektatu behar dela.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Erabili STARTTLS metodoa SSL/TLS enkriptatzeko zerbitzariak onartzen badu, bestela, jarraitu zifratu gabeko kanal bat erabiltzen.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Lehenetsia: Aktibatuta. Hau desmarkatu behar da sinatu gabeko SMTP zerbitzariaren ziurtagiria erabiltzen baduzu.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Bilatu laguntza</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Ikusi Google Map</value>
+  </data>
 </root>

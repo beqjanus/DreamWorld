@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>הפעל את TLS כאשר זמין</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>מחליט באופן אוטומטי באיזה סוג של מצב SSL להשתמש בהתבסס על היציאה שצוינה. הערה: זה עובד אמין רק כאשר היציאה היא יציאה מוגדרת סטנדרטית (למשל 25, 587 או 465 עבור SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>לחץ כדי לחשוף את הסיסמה.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>ברירת מחדל: כבוי. כל הודעות האימייל מושבתות כשהן כבויות.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>זמן השהיית אימייל בין אימיילים</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>יציאה 25, 465 או 587. יציאות 25 ו-587 הן יציאת חיבור בטקסט רגיל אך יעברו ל-SSL/TLS אם תתבקש לעשות זאת באמצעות STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>שם המשתמש בדוא"ל שיכול להיכנס לשרת הדוא"ל.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>האימייל מושבת.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>ברירת מחדל: כבוי. אפשר שליחת דואר אלקטרוני עם LSL לאזורים שאינם במופע ה-opensimulator הנוכחי. כרגע לא עובד.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>ברירת מחדל: כבוי. אפשר שליחת דואר אלקטרוני לעולם עם LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>המספר המרבי של אימיילים ש-Opensim יכול לשלוח תוך שעה.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>מספר מקסימלי של אימיילים ליום באמצעות LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>מספר מקסימלי של אימיילים לכתובת ראשונית בשעה</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>דואר לכתובת SMTP לשעה</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>גודל דוא"ל מקסימלי בבתים. Unicode עשוי להיות 1,2 או 3 בתים לכל תו</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>אין: אל תשתמש בשום צורה של SSL (או TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>השתמש בשיטת STARTTLS להצפנת SSL/TLS. אם השרת אינו תומך בפקודה STARTTLS, בטל את החיבור.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>הזן את שם המארח של שרת ה-SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>זה מציין שדואר צריך להתחבר באמצעות חיבור עטוף SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>השתמש בשיטת STARTTLS להצפנת SSL/TLS אם השרת תומך בה, אחרת המשך להשתמש בערוץ לא מוצפן.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>ברירת מחדל: פועל. יש לבטל את הסימון הזה אם משתמשים בתעודת שרת SMTP לא חתומה.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>עַל</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>חפש עזרה</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>צפה במפת גוגל</value>
+  </data>
 </root>

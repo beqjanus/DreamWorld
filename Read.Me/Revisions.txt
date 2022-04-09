@@ -1,6 +1,15 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.994
+Fixes to Smart Boot for the latest Opensim so you can login directly to a Smart region.
+More translations added (35,170 total).The tool I use (ResxManager) is very intermittent so this is a slow, frustrating process. I've filed a bug report with the developer.
+Some string to double conversions would fail in languages that use a comma for a decimal point. This could cause updates to act up. Using Convert.toDouble(X,cultureinfo.invariant) so it works for all languages
+Lots more tool tips.
+Help for Compiling and Email added.
+Robust would not be sensed as started if your loopback/Port forwards do not work.  For grids this now checks the LAN address. For all other types it checks the Public WAN address.
+Clear cache now clears the YEngine cache.
+
 V4.993
 Opensim #b7ed5f109ec9b28 prebuild for .net6, disable.
 Add all the options for SMTP Email and TLS/SSL to a new Button in Settings.
@@ -8,7 +17,7 @@ Drop clouds as they no longer work in EEP.
 Fixed Diva Web Panel as the dlls got excluded in an earlier build.
 
 V4.992
-Updated all 30 translations.  Currently at about 33,960 of them!
+Updated all 30 translations.  Currently at about 33,960 translations
 All/None button in region panel fixes.
 How to Compile manual for merging new Opensim code so it will compile with all Diva and Smart Start functions.
 Recompiled Opensim so comments match upcoming V5 Opensim dev/master, in prep for dev master (Released) Opensim for V5.

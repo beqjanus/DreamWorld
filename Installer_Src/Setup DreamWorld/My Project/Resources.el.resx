@@ -1170,9 +1170,6 @@
   <data name="Fern" xml:space="preserve">
     <value>Φτέρη</value>
   </data>
-  <data name="Fernm" xml:space="preserve">
-    <value>Φερμ</value>
-  </data>
   <data name="File_word" xml:space="preserve">
     <value>Αρχείο</value>
   </data>
@@ -3587,5 +3584,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Ξεκινήστε το TLS όταν είναι διαθέσιμο</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Αποφασίζει αυτόματα ποιον τύπο λειτουργίας SSL θα χρησιμοποιηθεί με βάση την καθορισμένη θύρα. Σημείωση: Αυτό λειτουργεί αξιόπιστα μόνο όταν η θύρα είναι μια τυπική καθορισμένη θύρα (π.χ. 25, 587 ή 465 για SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Κάντε κλικ για να αποκαλύψετε τον κωδικό πρόσβασης.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Προεπιλογή: Απενεργοποίηση. Όλα τα email απενεργοποιούνται όταν είναι απενεργοποιημένα.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Χρόνος παύσης email μεταξύ των email</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Θύρα 25, 465 ή 587. Οι θύρες 25 και 587 είναι μια θύρα σύνδεσης απλού κειμένου, αλλά θα μεταβούν σε SSL/TLS εάν σας ζητηθεί μέσω STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Το όνομα χρήστη email που μπορεί να συνδεθεί στον διακομιστή email.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Το email είναι απενεργοποιημένο.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Προεπιλογή: Απενεργοποίηση. Ενεργοποιήστε την αποστολή email με LSL σε περιοχές που δεν είναι στην τρέχουσα παρουσία opensimulator. Επί του παρόντος δεν λειτουργεί.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Προεπιλογή: Απενεργοποίηση. Ενεργοποιήστε την αποστολή email στον κόσμο με LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Μέγιστος αριθμός μηνυμάτων ηλεκτρονικού ταχυδρομείου που μπορεί να στείλει το Opensim σε μια ώρα.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Μέγιστος αριθμός μηνυμάτων ηλεκτρονικού ταχυδρομείου ανά ημέρα μέσω LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Μέγιστος αριθμός μηνυμάτων ηλεκτρονικού ταχυδρομείου προς Prim διεύθυνση ανά ώρα</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Αλληλογραφία σε διεύθυνση SMTP ανά ώρα</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Μέγιστο μέγεθος email σε byte. Το Unicode μπορεί να είναι 1,2 ή 3 byte ανά χαρακτήρα</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Κανένα: Μην χρησιμοποιείτε καμία μορφή SSL (ή TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Χρησιμοποιήστε τη μέθοδο STARTTLS για κρυπτογράφηση SSL/TLS. Εάν ο διακομιστής δεν υποστηρίζει την εντολή STARTTLS, διακόψτε τη σύνδεση.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Εισαγάγετε το όνομα κεντρικού υπολογιστή διακομιστή SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Αυτό καθορίζει ότι το Mail θα πρέπει να συνδεθεί μέσω μιας σύνδεσης τυλιγμένης με SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Χρησιμοποιήστε τη μέθοδο STARTTLS για κρυπτογράφηση SSL/TLS εάν ο διακομιστής την υποστηρίζει, διαφορετικά συνεχίστε να χρησιμοποιείτε ένα μη κρυπτογραφημένο κανάλι.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Προεπιλογή: Ενεργό. Αυτό πρέπει να αποεπιλεγεί εάν χρησιμοποιείτε ένα ανυπόγραφο πιστοποιητικό διακομιστή SMTP.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Επί</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>αναζήτησε βοήθεια</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Προβολή χάρτη Google</value>
   </data>
 </root>

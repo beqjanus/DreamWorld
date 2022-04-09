@@ -61,7 +61,7 @@ namespace Diva.OpenSimServices
         {
             try
             {
-                const RegionFlags flags = RegionFlags.RegionOnline | RegionFlags.Persistent; // DreamGrid to display Smart Boot on home page
+                const RegionFlags flags = RegionFlags.RegionOnline | RegionFlags.Persistent; // SmartStart
                 const RegionFlags excludeFlags = RegionFlags.Hyperlink;
                 return ((Diva.Data.IRegionData)m_Database).GetCount(scopeID, (int)flags, (int)excludeFlags);
             }

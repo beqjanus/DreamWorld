@@ -2525,8 +2525,8 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Confirmation required to log in?</value>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Diva Manager confirmation for new users needed?</value>
   </data>
   <data name="No_Email" xml:space="preserve">
     <value>Email Server not yet set up</value>

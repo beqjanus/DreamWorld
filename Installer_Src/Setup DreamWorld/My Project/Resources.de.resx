@@ -1170,9 +1170,6 @@
   <data name="Fern" xml:space="preserve">
     <value>Farn</value>
   </data>
-  <data name="Fernm" xml:space="preserve">
-    <value>Fernm</value>
-  </data>
   <data name="File_word" xml:space="preserve">
     <value>File</value>
   </data>
@@ -3587,5 +3584,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Starten Sie TLS, wenn verfügbar</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Entscheidet automatisch, welche Art von SSL-Modus basierend auf dem angegebenen Port verwendet werden soll. Hinweis: Dies funktioniert nur zuverlässig, wenn der Port ein standardmäßig definierter Port ist (z. B. 25, 587 oder 465 für SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Klicken Sie hier, um das Passwort anzuzeigen.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Standard: Aus. Alle E-Mails sind deaktiviert, wenn sie deaktiviert sind.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>E-Mail-Pausenzeit zwischen E-Mails</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 oder 587. Port 25 und 587 sind Klartext-Verbindungsports, werden jedoch auf SSL/TLS umgestellt, wenn dies über STARTTLS angefordert wird.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Der E-Mail-Benutzername, der sich beim E-Mail-Server anmelden kann.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-Mail ist deaktiviert.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Standard: Aus. Aktivieren Sie das Senden von E-Mails mit LSL an Regionen, die sich nicht auf der aktuellen OpenSimulator-Instanz befinden. Funktioniert derzeit nicht.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Standard: Aus. Aktivieren Sie mit LSL das Versenden von E-Mails in die ganze Welt.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Maximale Anzahl von E-Mails, die Opensim in einer Stunde senden kann.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Maximale Anzahl von E-Mails pro Tag über LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Maximale Anzahl von E-Mails an Prim-Adresse pro Stunde</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-Mails an SMTP-Adresse pro Stunde</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Maximale E-Mail-Größe in Byte. Unicode kann 1, 2 oder 3 Bytes pro Zeichen umfassen</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Keine: Keine Form von SSL (oder TLS) verwenden.</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Verwenden Sie die STARTTLS-Methode für die SSL/TLS-Verschlüsselung. Wenn der Server den STARTTLS-Befehl nicht unterstützt, brechen Sie die Verbindung ab.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Geben Sie den Hostnamen des SMTP-Servers ein.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Dies gibt an, dass Mail eine Verbindung über eine SSL-verpackte Verbindung herstellen soll.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Verwenden Sie die STARTTLS-Methode für die SSL/TLS-Verschlüsselung, wenn der Server dies unterstützt, ansonsten verwenden Sie weiterhin einen unverschlüsselten Kanal.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Standard ein. Dies muss deaktiviert werden, wenn ein unsigniertes SMTP-Serverzertifikat verwendet wird.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Hilfe suchen</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Google-Karte ansehen</value>
   </data>
 </root>

@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Ræstu TLS þegar það er tiltækt</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Ákveður sjálfkrafa hvaða tegund af SSL stillingu á að nota byggt á tilgreindri höfn. Athugið: Þetta virkar aðeins áreiðanlega þegar höfnin er venjuleg skilgreind höfn (t.d. 25, 587 eða 465 fyrir SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Smelltu til að sýna lykilorð.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Sjálfgefið: Slökkt. Allur tölvupóstur er óvirkur þegar slökkt er á þeim.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Hlé á tölvupósti á milli tölvupósta</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 eða 587. Port 25 og 587 eru látlaus texta tengitengi en mun skipta yfir í SSL/TLS ef þess er óskað í gegnum STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Notandanafn tölvupósts sem getur skráð sig inn á tölvupóstþjóninn.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Tölvupóstur er óvirkur.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Sjálfgefið: Slökkt. Virkjaðu sendingu tölvupósts með LSL til svæða sem eru ekki á núverandi opensimulator tilviki. Sem stendur virkar ekki.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Sjálfgefið: Slökkt. Virkjaðu sendingu tölvupósts til heimsins með LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Hámarksfjöldi tölvupósta sem Opensim getur sent á klukkustund.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Hámarksfjöldi tölvupósta á dag í gegnum LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Hámarksfjöldi tölvupósta til aðal heimilisfangs á klukkustund</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Póstur á SMTP heimilisfang á klukkustund</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Hámarksstærð tölvupósts í bætum. Unicode getur verið 1,2 eða 3 bæti á hvern staf</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Ekkert: Ekki nota neina tegund af SSL (eða TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Notaðu STARTTLS aðferðina fyrir SSL/TLS dulkóðun. Ef þjónninn styður ekki STARTTLS skipunina skaltu hætta við tenginguna.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Sláðu inn hýsilheiti SMTP þjónsins.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Þetta tilgreinir að Mail ætti að tengjast í gegnum SSL-vafða tengingu.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Notaðu STARTTLS aðferðina fyrir SSL/TLS dulkóðun ef þjónninn styður það, annars haltu áfram að nota ódulkóðaða rás.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Sjálfgefið: Kveikt. Það þarf að haka við þetta ef notað er óundirritað SMTP netþjónsvottorð.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Á</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Leita að hjálp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Skoða Google kort</value>
+  </data>
 </root>

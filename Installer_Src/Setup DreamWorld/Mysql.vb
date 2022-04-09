@@ -276,25 +276,10 @@ Public Module MysqlInterface
 
     End Sub
 
-
 #End Region
 
 #Region "Public"
 
-    Public Sub FixPresence()
-
-        'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
-        Dim q = "Delete From robust.Presence Where Not exists (select * from robust.GridUser  where robust.Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
-        QueryString(q)
-
-    End Sub
-
-    Public Sub DelRobustMaps()
-
-        Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
-        QueryString(q)
-
-    End Sub
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0
@@ -371,6 +356,13 @@ Public Module MysqlInterface
             QueryString("delete from presence;")
             QueryString("update robust.griduser set online = 'false';")
         End If
+
+    End Sub
+
+    Public Sub DelRobustMaps()
+
+        Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
+        QueryString(q)
 
     End Sub
 
@@ -500,6 +492,14 @@ Public Module MysqlInterface
         Return Val
 
     End Function
+
+    Public Sub FixPresence()
+
+        'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
+        Dim q = "Delete From robust.Presence Where Not exists (select * from robust.GridUser  where robust.Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
+        QueryString(q)
+
+    End Sub
 
     ''' <summary>
     ''' Gets fakes in debug made
@@ -1502,19 +1502,6 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Class MailList
-
-        Public Assets As String = ""
-        Public Datestring As String = ""
-        Public DiffDays As String = ""
-        Public Email As String = ""
-        Public firstname As String = ""
-        Public LastName As String = ""
-        Public principalid As String = ""
-        Public Title As String = ""
-        Public userlevel As String = ""
-    End Class
-
 #End Region
 
 #Region "Visitors"
@@ -1668,6 +1655,19 @@ Public Module MysqlInterface
 #End Region
 
 End Module
+
+Public Class MailList
+
+    Public Assets As String = ""
+    Public Datestring As String = ""
+    Public DiffDays As String = ""
+    Public Email As String = ""
+    Public firstname As String = ""
+    Public LastName As String = ""
+    Public principalid As String = ""
+    Public Title As String = ""
+    Public userlevel As String = ""
+End Class
 
 Public Class UserData
 

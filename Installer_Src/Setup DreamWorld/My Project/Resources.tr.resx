@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Uygun Olduğunda TLS'yi Başlatın</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Belirtilen bağlantı noktasına göre hangi tür SSL modunun kullanılacağına otomatik olarak karar verir. Not: Bu, yalnızca bağlantı noktası standart tanımlı bir bağlantı noktası olduğunda (ör. SMTP için 25, 587 veya 465) güvenilir şekilde çalışır.</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Şifreyi ortaya çıkarmak için tıklayın.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Varsayılan: Kapalı. Kapalıyken tüm e-postalar devre dışı bırakılır.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>E-postalar Arasındaki E-posta Duraklama Süresi</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Bağlantı noktası 25, 465 veya 587. Bağlantı noktası 25 ve 587 düz metin bağlantı bağlantı noktasıdır ancak STARTTLS aracılığıyla istendiğinde SSL/TLS'ye geçecektir.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>E-posta sunucusunda oturum açabilen e-posta kullanıcı adı.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-posta devre dışı.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Varsayılan: Kapalı. Mevcut opensimülatör örneğinde olmayan bölgelere LSL ile e-posta göndermeyi etkinleştirin. Şu anda çalışmıyor.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Varsayılan: Kapalı. LSL ile dünyaya e-posta göndermeyi etkinleştirin.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Opensim'in bir saat içinde gönderebileceği maksimum e-posta sayısı.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>LSL aracılığıyla günlük maksimum E-posta sayısı</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Saat Başına İlk Gönderilecek Maksimum E-posta Sayısı</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Saat Başına SMTP Adresine Gönderilen Postalar</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Bayt Olarak Maksimum E-posta Boyutu. Unicode, karakter başına 1,2 veya 3 bayt olabilir</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Yok: Herhangi bir SSL (veya TLS) biçimi kullanmayın.</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>SSL/TLS şifrelemesi için STARTTLS yöntemini kullanın. Sunucu STARTTLS komutunu desteklemiyorsa bağlantıyı iptal edin.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>SMTP sunucusu ana bilgisayar adını girin.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Bu, Mail'in SSL ile sarılmış bir bağlantı aracılığıyla bağlanması gerektiğini belirtir.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Sunucu destekliyorsa SSL/TLS şifrelemesi için STARTTLS yöntemini kullanın, aksi takdirde şifrelenmemiş bir kanal kullanmaya devam edin.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Normalde olması gereken. İmzasız bir SMTP Sunucu sertifikası kullanılıyorsa bu işaretin kaldırılması gerekir.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Yardım İste</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Google Haritasını Görüntüle</value>
+  </data>
 </root>

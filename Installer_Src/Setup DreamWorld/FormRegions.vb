@@ -330,7 +330,7 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Whisper_distance.TextChanged
+    Private Sub Whisper_distance_TextChanged(sender As Object, e As EventArgs) Handles TextBox_Whisper_distance.TextChanged
 
         Dim digitsOnly = New Regex("[^\d]")
         TextBox_Whisper_distance.Text = digitsOnly.Replace(TextBox_Whisper_distance.Text, "")

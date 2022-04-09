@@ -1170,9 +1170,6 @@
   <data name="Fern" xml:space="preserve">
     <value>Kapradina</value>
   </data>
-  <data name="Fernm" xml:space="preserve">
-    <value>Fernm</value>
-  </data>
   <data name="File_word" xml:space="preserve">
     <value>Soubor</value>
   </data>
@@ -3587,5 +3584,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Spustit TLS, když je k dispozici</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Automaticky rozhodne, který typ režimu SSL použít, na základě zadaného portu. Poznámka: Toto funguje spolehlivě pouze v případě, že port je standardně definovaný port (např. 25, 587 nebo 465 pro SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Kliknutím zobrazíte heslo.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Výchozí: Vypnuto. Když je tato funkce vypnutá, všechny e-maily jsou deaktivovány.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Doba pauzy mezi e-maily</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 nebo 587. Porty 25 a 587 jsou porty pro připojení ve formátu prostého textu, ale pokud o to požádá STARTTLS, přepnou se na SSL/TLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>E-mailové uživatelské jméno, které se může přihlásit k e-mailovému serveru.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-mail je zakázán.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Výchozí: Vypnuto. Povolit odesílání e-mailů pomocí LSL do oblastí, které nejsou v aktuální instanci opensimulatoru. V současné době nefunguje.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Výchozí: Vypnuto. Povolit odesílání e-mailů do světa pomocí LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Maximální počet e-mailů, které může Opensim odeslat za hodinu.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Maximální počet e-mailů za den prostřednictvím LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Maximální počet e-mailů na primární adresu za hodinu</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Maily na adresu SMTP za hodinu</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Maximální velikost e-mailu v bajtech. Unicode může mít 1, 2 nebo 3 bajty na znak</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Žádné: Nepoužívejte žádnou formu SSL (nebo TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Pro šifrování SSL/TLS použijte metodu STARTTLS. Pokud server nepodporuje příkaz STARTTLS, přerušte připojení.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Zadejte název hostitele serveru SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>To určuje, že Mail by se měl připojovat prostřednictvím připojení zabaleného SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Použijte metodu STARTTLS pro šifrování SSL/TLS, pokud ji server podporuje, jinak pokračujte v používání nešifrovaného kanálu.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Výchozí: Zapnuto. Pokud používáte nepodepsaný certifikát serveru SMTP, je třeba toto zaškrtnutí zrušit.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>hledat pomoc</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Zobrazit mapu Google</value>
   </data>
 </root>

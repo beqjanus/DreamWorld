@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Start TLS når tilgjengelig</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Avgjør automatisk hvilken type SSL-modus som skal brukes basert på den angitte porten. Merk: Dette fungerer bare pålitelig når porten er en standarddefinert port (f.eks. 25, 587 eller 465 for SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Klikk for å avsløre passord.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Standard: Av. Alle e-poster er deaktivert når de er av.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Pausetid for e-post mellom e-poster</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 eller 587. Port 25 og 587 er en ren teksttilkoblingsport, men vil bytte til SSL/TLS hvis du blir bedt om det via STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>E-postbrukernavnet som kan logge på e-postserveren.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>E-post er deaktivert.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Standard: Av. Aktiver sending av e-post med LSL til regioner som ikke er på gjeldende opensimulator-forekomst. Foreløpig fungerer ikke.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Standard: Av. Aktiver sending av e-post til verden med LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Maks antall e-poster Opensim kan sende på en time.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Maks antall e-poster per dag via LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Maks antall e-poster til Prim-adresse per time</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>E-post til SMTP-adresse per time</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Maksimal e-poststørrelse i byte. Unicode kan være 1, 2 eller 3 byte per tegn</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Ingen: Ikke bruk noen form for SSL (eller TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Bruk STARTTLS-metoden for SSL/TLS-kryptering. Hvis serveren ikke støtter STARTTLS-kommandoen, avbryt tilkoblingen.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Skriv inn SMTP-serverens vertsnavn.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Dette spesifiserer at Mail skal koble til via en SSL-innpakket tilkobling.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Bruk STARTTLS-metoden for SSL/TLS-kryptering hvis serveren støtter det, ellers fortsett å bruke en ukryptert kanal.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Standard: På. Dette må fjernes hvis du bruker et usignert SMTP-serversertifikat.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>På</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Søk i hjelp</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Se Google Map</value>
+  </data>
 </root>

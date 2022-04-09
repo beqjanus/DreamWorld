@@ -1171,9 +1171,6 @@
   <data name="Fern" xml:space="preserve">
     <value>Falguera</value>
   </data>
-  <data name="Fernm" xml:space="preserve">
-    <value>Fernm</value>
-  </data>
   <data name="File_word" xml:space="preserve">
     <value>Dossier</value>
   </data>
@@ -3588,5 +3585,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Inicieu TLS quan estigui disponible</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Decideix automàticament quin tipus de mode SSL s'utilitza en funció del port especificat. Nota: això només funciona de manera fiable quan el port és un port definit estàndard (per exemple, 25, 587 o 465 per a SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Feu clic per revelar la contrasenya.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Per defecte: desactivat. Tots els correus electrònics estan desactivats quan estan desactivats.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Temps de pausa del correu electrònic entre correus electrònics</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465 o 587. Els ports 25 i 587 són un port de connexió de text sense format, però canviaran a SSL/TLS si se'ls demana mitjançant STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>El nom d'usuari de correu electrònic que pot iniciar sessió al servidor de correu electrònic.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>El correu electrònic està desactivat.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Per defecte: desactivat. Habiliteu l'enviament de correu electrònic amb LSL a regions que no es troben a la instància d'opensimulator actual. Actualment no funciona.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Per defecte: desactivat. Activa l'enviament de correu electrònic al món amb LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Nombre màxim de correus electrònics que Opensim pot enviar en una hora.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Nombre màxim de correus electrònics per dia mitjançant LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Nombre màxim de correus electrònics a l'adreça Prim per hora</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Correus a l'adreça SMTP per hora</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Mida màxima del correu electrònic en bytes. L'Unicode pot tenir 1, 2 o 3 bytes per caràcter</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Cap: no utilitzeu cap forma de SSL (o TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Utilitzeu el mètode STARTTLS per a l'encriptació SSL/TLS. Si el servidor no admet l'ordre STARTTLS, avorteu la connexió.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Introduïu el nom d'amfitrió del servidor SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Això especifica que Mail s'ha de connectar mitjançant una connexió embolicada en SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Utilitzeu el mètode STARTTLS per al xifratge SSL/TLS si el servidor ho admet, en cas contrari, continueu utilitzant un canal sense xifrar.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Per defecte: activat. Això s'ha de desmarcar si s'utilitza un certificat de servidor SMTP sense signar.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Encès</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Cerca Ajuda</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Veure Google Map</value>
   </data>
 </root>

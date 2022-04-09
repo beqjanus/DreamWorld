@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Запускайте TLS, когда он доступен</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Автоматически решает, какой тип режима SSL использовать на основе указанного порта. Примечание. Это надежно работает только в том случае, если порт является стандартным портом (например, 25, 587 или 465 для SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Нажмите, чтобы открыть пароль.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>По умолчанию: Выкл. Все электронные письма отключены, когда выключено.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Время паузы между сообщениями электронной почты</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Порт 25, 465 или 587. Порты 25 и 587 — это порты подключения с обычным текстом, но они переключаются на SSL/TLS, если это требуется через STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Имя пользователя электронной почты, которое может войти на сервер электронной почты.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Электронная почта отключена.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>По умолчанию: Выкл. Включите отправку электронной почты с LSL в регионы, не относящиеся к текущему экземпляру opensimulator. В настоящее время не работает.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>По умолчанию: Выкл. Включите отправку электронной почты в мир с LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Максимальное количество электронных писем, которые Opensim может отправить за час.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Максимальное количество писем в день через LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Максимальное количество электронных писем на основной адрес в час</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Почты на SMTP-адрес в час</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Максимальный размер электронной почты в байтах. Unicode может быть 1,2 или 3 байта на символ</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Нет: не используйте никакие формы SSL (или TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Используйте метод STARTTLS для шифрования SSL/TLS. Если сервер не поддерживает команду STARTTLS, прервите соединение.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Введите имя хоста SMTP-сервера.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Это указывает, что Mail должен подключаться через соединение с оболочкой SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Используйте метод STARTTLS для шифрования SSL/TLS, если сервер его поддерживает, в противном случае продолжайте использовать незашифрованный канал.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>По умолчанию: Вкл. Этот флажок необходимо снять при использовании неподписанного сертификата SMTP-сервера.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>На</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Помощь по поиску</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Посмотреть карту Google</value>
+  </data>
 </root>

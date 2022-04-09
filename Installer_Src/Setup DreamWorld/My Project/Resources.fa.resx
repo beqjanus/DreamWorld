@@ -1149,9 +1149,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>برای اتصال به وب سایت ها انجام نشد.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
-    <value>برای بارگذاری تنظیمات INI شکست خورده</value>
-  </data>
   <data name="False_word" xml:space="preserve">
     <value>نادرست</value>
   </data>
@@ -3587,5 +3584,74 @@
   </data>
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>TLS را در صورت در دسترس بودن شروع کنید</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>به طور خودکار تصمیم می گیرد که از کدام نوع حالت SSL بر اساس پورت مشخص شده استفاده کند. توجه: این فقط زمانی قابل اعتماد است که پورت یک پورت تعریف شده استاندارد باشد (مثلاً 25، 587 یا 465 برای SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>برای نمایش رمز عبور کلیک کنید.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>پیش فرض: خاموش. همه ایمیل ها در حالت خاموش غیرفعال می شوند.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>زمان مکث ایمیل بین ایمیل ها</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>پورت 25، 465، یا 587. پورت 25 و 587 یک درگاه اتصال متن ساده هستند اما در صورت درخواست از طریق STARTTLS، به SSL/TLS تغییر مکان می دهند.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>نام کاربری ایمیلی که می تواند وارد سرور ایمیل شود.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>ایمیل غیرفعال است</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>پیش فرض: خاموش. ارسال ایمیل با LSL به مناطقی که در نمونه opensimulator فعلی نیستند را فعال کنید. در حال حاضر کار نمی کند.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>پیش فرض: خاموش. ارسال ایمیل به دنیا با LSL را فعال کنید.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>حداکثر تعداد ایمیل هایی که Opensim می تواند در یک ساعت ارسال کند.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>حداکثر تعداد ایمیل در روز از طریق LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>حداکثر تعداد ایمیل به آدرس پریم در هر ساعت</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>ایمیل به آدرس SMTP در هر ساعت</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>حداکثر اندازه ایمیل بر حسب بایت یونیکد ممکن است 1،2 یا 3 بایت در هر کاراکتر باشد</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>هیچکدام: از هیچ شکلی از SSL (یا TLS) استفاده نکنید.</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>از روش STARTTLS برای رمزگذاری SSL/TLS استفاده کنید. اگر سرور از دستور STARTTLS پشتیبانی نمی کند، اتصال را قطع کنید.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>نام میزبان سرور SMTP را وارد کنید.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>این مشخص می کند که Mail باید از طریق یک اتصال پوشیده شده با SSL متصل شود.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>اگر سرور از رمزگذاری SSL/TLS پشتیبانی می‌کند، از روش STARTTLS برای رمزگذاری SSL/TLS استفاده کنید، در غیر این صورت به استفاده از یک کانال رمزگذاری نشده ادامه دهید.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>پیش فرض: روشن در صورت استفاده از گواهینامه سرور SMTP بدون امضا، باید علامت آن را بردارید.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>بر</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>جستجوی راهنما</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>مشاهده نقشه گوگل</value>
   </data>
 </root>

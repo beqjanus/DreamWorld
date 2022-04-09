@@ -6,7 +6,7 @@ using Mono.Addins;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WhoGotWhat")]
-[assembly: AssemblyDescription("OpenSim addin to determin who got an item")]
+[assembly: AssemblyDescription("OpenSim addin to determine who got an item")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("WhoGotWhat.Properties")]
@@ -33,7 +33,7 @@ using Mono.Addins;
 
 [assembly: Addin("WhoGotWhat", OpenSim.VersionInfo.VersionNumber + ".2")]
 [assembly: AddinDependency("OpenSim.Region.Framework", OpenSim.VersionInfo.VersionNumber)]
-[assembly: AddinDescription("OpenSim Addin tyo detect touches and log them to disk")]
+[assembly: AddinDescription("OpenSim Addin to detect touches and log them to disk")]
 [assembly: AddinAuthor("Diva Canto")]
 
 [assembly: ImportAddinAssembly("WhoGotWhat.dll")]

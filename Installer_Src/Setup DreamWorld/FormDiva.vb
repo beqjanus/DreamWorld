@@ -73,7 +73,7 @@ Public Class FormDiva
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Confirm
+        AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.AccountConfirm
         ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
         BlackRadioButton.Text = Global.Outworldz.My.Resources.Black_word

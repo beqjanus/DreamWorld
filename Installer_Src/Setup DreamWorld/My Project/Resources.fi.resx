@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Käynnistä TLS, kun se on saatavilla</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Päättää automaattisesti, minkä tyyppistä SSL-tilaa käytetään määritetyn portin perusteella. Huomautus: Tämä toimii luotettavasti vain, kun portti on standardin mukainen portti (esim. 25, 587 tai 465 SMTP:lle).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Napsauta paljastaaksesi salasanan.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Oletus: Pois. Kaikki sähköpostit ovat poissa käytöstä, kun ne ovat pois päältä.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Sähköpostin taukoaika sähköpostien välillä</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Portti 25, 465 tai 587. Portit 25 ja 587 ovat pelkkä tekstiyhteysportteja, mutta ne siirtyvät SSL/TLS:ään, jos sitä pyydetään STARTTLS:n kautta.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>Sähköpostin käyttäjänimi, jolla voi kirjautua sähköpostipalvelimelle.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Sähköposti on poistettu käytöstä.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Oletus: Pois. Ota käyttöön sähköpostin lähettäminen LSL:llä alueille, jotka eivät ole nykyisessä opensimulator-esiintymässä. Tällä hetkellä ei toimi.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Oletus: Pois. Ota sähköpostin lähettäminen maailmalle käyttöön LSL:n avulla.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Opensim voi lähettää enintään tunnissa sähköposteja.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Sähköpostien enimmäismäärä päivässä LSL:n kautta</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Prim-osoitteeseen lähetettävien sähköpostien enimmäismäärä tunnissa</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Postit SMTP-osoitteeseen tunnissa</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Sähköpostin enimmäiskoko tavuina. Unicode voi olla 1, 2 tai 3 tavua per merkki</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Ei mitään: Älä käytä minkäänlaista SSL:ää (tai TLS:ää).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Käytä STARTTLS-menetelmää SSL/TLS-salaukseen. Jos palvelin ei tue STARTTLS-komentoa, katkaise yhteys.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Anna SMTP-palvelimen isäntänimi.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Tämä määrittää, että Mailin tulee muodostaa yhteys SSL-kääreisen yhteyden kautta.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Käytä STARTTLS-menetelmää SSL/TLS-salaukseen, jos palvelin tukee sitä, muussa tapauksessa jatka salaamattoman kanavan käyttöä.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Oletus: Päällä. Tämä on poistettava, jos käytät allekirjoittamatonta SMTP-palvelinsertifikaattia.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Päällä</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Hakuapu</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Näytä Google Map</value>
+  </data>
 </root>

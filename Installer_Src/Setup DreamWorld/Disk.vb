@@ -135,7 +135,7 @@ Module Disk
     ''' <returns>0 if success</returns>
     Public Function ResumeRegion(RegionUUID As String) As Boolean
 
-        If Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "" Or Smart_Start(RegionUUID) = "False" Then
+        If Settings.Smart_Start AndAlso Smart_Start(RegionUUID).Length = 0 Or Smart_Start(RegionUUID) = "False" Then
             Return True
         End If
         If ProcessID(RegionUUID) = 0 Then

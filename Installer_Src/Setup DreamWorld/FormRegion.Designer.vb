@@ -134,8 +134,6 @@ Partial Class FormRegion
         Me.Physics = New System.Windows.Forms.TabPage()
         Me.RichTextBoxPhysics = New System.Windows.Forms.RichTextBox()
         Me.PhysicsGroupbox = New System.Windows.Forms.GroupBox()
-        Me.Physics_ODE = New System.Windows.Forms.RadioButton()
-        Me.Physics_Hybrid = New System.Windows.Forms.RadioButton()
         Me.Physics_Bullet = New System.Windows.Forms.RadioButton()
         Me.Physics_Default = New System.Windows.Forms.RadioButton()
         Me.Physics_Separate = New System.Windows.Forms.RadioButton()
@@ -952,10 +950,9 @@ Partial Class FormRegion
         Me.Hyperica.Location = New System.Drawing.Point(115, 27)
         Me.Hyperica.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Hyperica.Name = "Hyperica"
-        Me.Hyperica.Size = New System.Drawing.Size(106, 13)
+        Me.Hyperica.Size = New System.Drawing.Size(0, 13)
         Me.Hyperica.TabIndex = 3
         Me.Hyperica.TabStop = True
-        Me.Hyperica.Text = ""
         '
         'APIKey
         '
@@ -1329,8 +1326,6 @@ Partial Class FormRegion
         '
         'PhysicsGroupbox
         '
-        Me.PhysicsGroupbox.Controls.Add(Me.Physics_ODE)
-        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Hybrid)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Bullet)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Default)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Separate)
@@ -1342,32 +1337,10 @@ Partial Class FormRegion
         Me.PhysicsGroupbox.TabStop = False
         Me.PhysicsGroupbox.Text = "Physics"
         '
-        'Physics_ODE
-        '
-        Me.Physics_ODE.AutoSize = True
-        Me.Physics_ODE.Location = New System.Drawing.Point(15, 43)
-        Me.Physics_ODE.Name = "Physics_ODE"
-        Me.Physics_ODE.Size = New System.Drawing.Size(131, 17)
-        Me.Physics_ODE.TabIndex = 1
-        Me.Physics_ODE.TabStop = True
-        Me.Physics_ODE.Text = "Open Dynamic Engine"
-        Me.Physics_ODE.UseVisualStyleBackColor = True
-        '
-        'Physics_Hybrid
-        '
-        Me.Physics_Hybrid.AutoSize = True
-        Me.Physics_Hybrid.Location = New System.Drawing.Point(15, 135)
-        Me.Physics_Hybrid.Name = "Physics_Hybrid"
-        Me.Physics_Hybrid.Size = New System.Drawing.Size(55, 17)
-        Me.Physics_Hybrid.TabIndex = 5
-        Me.Physics_Hybrid.TabStop = True
-        Me.Physics_Hybrid.Text = "Hybrid"
-        Me.Physics_Hybrid.UseVisualStyleBackColor = True
-        '
         'Physics_Bullet
         '
         Me.Physics_Bullet.AutoSize = True
-        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 91)
+        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 69)
         Me.Physics_Bullet.Name = "Physics_Bullet"
         Me.Physics_Bullet.Size = New System.Drawing.Size(92, 17)
         Me.Physics_Bullet.TabIndex = 3
@@ -1389,7 +1362,7 @@ Partial Class FormRegion
         'Physics_Separate
         '
         Me.Physics_Separate.AutoSize = True
-        Me.Physics_Separate.Location = New System.Drawing.Point(15, 113)
+        Me.Physics_Separate.Location = New System.Drawing.Point(15, 92)
         Me.Physics_Separate.Name = "Physics_Separate"
         Me.Physics_Separate.Size = New System.Drawing.Size(177, 17)
         Me.Physics_Separate.TabIndex = 4
@@ -1400,7 +1373,7 @@ Partial Class FormRegion
         'Physics_ubODE
         '
         Me.Physics_ubODE.AutoSize = True
-        Me.Physics_ubODE.Location = New System.Drawing.Point(15, 67)
+        Me.Physics_ubODE.Location = New System.Drawing.Point(15, 46)
         Me.Physics_ubODE.Name = "Physics_ubODE"
         Me.Physics_ubODE.Size = New System.Drawing.Size(153, 17)
         Me.Physics_ubODE.TabIndex = 2
@@ -1894,8 +1867,6 @@ Partial Class FormRegion
     Friend WithEvents Hyperica As LinkLabel
     Friend WithEvents Physics As TabPage
     Friend WithEvents PhysicsGroupbox As GroupBox
-    Friend WithEvents Physics_ODE As RadioButton
-    Friend WithEvents Physics_Hybrid As RadioButton
     Friend WithEvents Physics_Bullet As RadioButton
     Friend WithEvents Physics_Default As RadioButton
     Friend WithEvents Physics_Separate As RadioButton

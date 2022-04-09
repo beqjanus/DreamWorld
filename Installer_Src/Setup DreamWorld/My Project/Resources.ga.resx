@@ -3585,4 +3585,73 @@
   <data name="StartTlsWhenAvailable" xml:space="preserve">
     <value>Tosaigh TLS Nuair atá Ar Fáil</value>
   </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>Cinneann go huathoibríoch cén cineál mód SSL a úsáidfear bunaithe ar an gcalafort sonraithe. Nóta: Ní oibríonn sé seo iontaofa ach amháin nuair is calafort caighdeánach sainithe é an calafort (m.sh. 25, 587 nó 465 i gcás SMTP).</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>Cliceáil chun pasfhocal a nochtadh.</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>Réamhshocrú: Off. Díchumasaítear gach ríomhphost agus iad múchta.</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>Ríomhphost Sos Am Idir Ríomhphoist</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>Port 25, 465, nó 587. Is calafort nasctha gnáth-théacs iad Port 25 agus 587 ach aistreoidh siad go SSL/TLS má iarrtar orthu é sin a dhéanamh trí STARTTLS.</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>An t-ainm úsáideora ríomhphoist is féidir logáil isteach ar an bhfreastalaí ríomhphoist.</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>Tá an ríomhphost díchumasaithe.</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>Réamhshocrú: Off. Cumasaigh ríomhphost a sheoladh le LSL chuig réigiúin nach bhfuil sa chás opensulator reatha. Faoi láthair ní oibríonn.</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>Réamhshocrú: Off. Cumasaigh ríomhphost a sheoladh chuig an domhan le LSL.</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>An líon uasta Ríomhphost Is féidir le Opensim a sheoladh isteach uair an chloig.</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>Líon uasta na Ríomhphoist in aghaidh an lae trí LSL</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>Líon uasta na Ríomhphoist Chuig an Príomh-Sheoladh In aghaidh na Uair</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>Ríomhphoist Chuig Seoladh SMTP In aghaidh na Uair</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>Uasmhéid Ríomhphoist i mBeart. Féadfaidh Unicode bheith 1,2, nó 3 beart in aghaidh an charachtair</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>Ceann ar bith: Ná húsáid aon chineál SSL (nó TLS).</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>Úsáid an modh STARTTLS le haghaidh criptithe SSL/TLS. Mura dtacaíonn an freastalaí leis an ordú STARTTLS, scoir an ceangal.</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>Cuir isteach ainm an fhreastalaí SMTP.</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>Sonraíonn sé seo gur cheart do Mail nascadh trí nasc fillte SSL.</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>Úsáid an modh STARTTLS le haghaidh criptithe SSL/TLS má thacaíonn an freastalaí leis, nó lean ort ag úsáid cainéal neamhchriptithe.</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>Réamhshocrú: Ar. Ní mór é seo a dhísheiceáil má úsáideann tú teastas Freastalaí SMTP gan síniú.</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>Ar</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>Cabhair Cuardaigh</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>Féach ar Google Map</value>
+  </data>
 </root>

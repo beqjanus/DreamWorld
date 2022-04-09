@@ -2442,7 +2442,7 @@ namespace OpenSim.Framework.Servers.HttpServer
                 httpResponse.StatusCode = (int)HttpStatusCode.NotFound; ;
                 return;
             }
-            // Smart start
+            // Smartstart
             if (httpRequest.QueryFlags.Contains("version"))
             {
                 httpResponse.StatusCode = (int)HttpStatusCode.OK;
