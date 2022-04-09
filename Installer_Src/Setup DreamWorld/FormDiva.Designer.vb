@@ -119,7 +119,7 @@ Partial Class FormDiva
         Me.AccountConfirmationRequired.Name = "AccountConfirmationRequired"
         Me.AccountConfirmationRequired.Size = New System.Drawing.Size(171, 17)
         Me.AccountConfirmationRequired.TabIndex = 9
-        Me.AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Resources.Confirm
+        Me.AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Resources.AccountConfirm
         Me.AccountConfirmationRequired.UseVisualStyleBackColor = True
         '
         'AdminLast
