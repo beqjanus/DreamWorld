@@ -126,8 +126,6 @@ Module Runtimes
             Try
                 UpgradeProcess.Start()
                 UpgradeProcess.WaitForExit()
-                Settings.DotnetUpgraded() = True
-                Settings.SaveSettings()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 TextPrint(My.Resources.Error_word)
@@ -150,8 +148,6 @@ Module Runtimes
             Try
                 UpgradeProcess.Start()
                 UpgradeProcess.WaitForExit()
-                Settings.DotnetUpgraded() = True
-                Settings.SaveSettings()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 TextPrint(My.Resources.Error_word)

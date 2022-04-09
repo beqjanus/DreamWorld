@@ -349,8 +349,6 @@ Module RegionMaker
 
     Private ReadOnly PortLock As Boolean
 
-    Private UpdateAllRegion As Boolean
-
     Public Sub AddToRegionMap(RegionUUID As String)
 
         ' add to the global map this entire DOS box
@@ -1954,8 +1952,8 @@ Module RegionMaker
             If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
             If INI.SetIni("SMTP", "SMTP_VerifyCertNames", CStr(Settings.VerifyCertCheckBox)) Then Return True
             If INI.SetIni("SMTP", "SMTP_VerifyCertChain", CStr(Settings.VerifyCertCheckBox)) Then Return True
-            If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.enableEmailToExternalObjects)) Then Return True
-            If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.enableEmailToSMTPCheckBox)) Then Return True
+            If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.EnableEmailToExternalObjects)) Then Return True
+            If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.EnableEmailToSMTPCheckBox)) Then Return True
             If INI.SetIni("SMTP", "MailsFromOwnerPerHour", CStr(Settings.MailsFromOwnerPerHour)) Then Return True
             If INI.SetIni("SMTP", "MailsToPrimAddressPerHour", CStr(Settings.MailsToPrimAddressPerHour)) Then Return True
             If INI.SetIni("SMTP", "SMTP_MailsPerDay", CStr(Settings.MailsPerDay)) Then Return True
@@ -1974,11 +1972,6 @@ Module RegionMaker
                     If INI.SetIni("Startup", "physics", "basicphysics") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
-                Case 1
-                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
-                    If INI.SetIni("Startup", "physics", "OpenDynamicsEngine") Then Return True
-                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                    If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
                 Case 2
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
@@ -1991,11 +1984,6 @@ Module RegionMaker
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
                 Case 4
                     If INI.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
-                    If INI.SetIni("Startup", "physics", "ubODE") Then Return True
-                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                    If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
-                Case 5
-                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
@@ -2012,10 +2000,7 @@ Module RegionMaker
                     If INI.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
                     If INI.SetIni("Startup", "physics", "basicphysics") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "1"
-                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
-                    If INI.SetIni("Startup", "physics", "OpenDynamicsEngine") Then Return True
-                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+
                 Case "2"
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
@@ -2028,10 +2013,7 @@ Module RegionMaker
                     If INI.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "5"
-                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
-                    If INI.SetIni("Startup", "physics", "ubODE") Then Return True
-                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+
                 Case Else
                     ' do nothing
             End Select
