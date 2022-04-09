@@ -8,6 +8,7 @@ Some string to double conversions would fail in languages that use a comma for a
 Lots more tool tips.
 Help for Compiling and Email added.
 Robust would not be sensed as started if your loopback/Port forwards do not work.  For grids this now checks the LAN address. For all other types it checks the Public WAN address.
+Clear cache now clears the YEngine cache.
 
 V4.993
 Opensim #b7ed5f109ec9b28 prebuild for .net6, disable.
