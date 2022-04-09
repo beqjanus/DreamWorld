@@ -421,7 +421,7 @@ if ( $publish =~ /p/ ) {
     }
     
     
-    $v > io("$Contabo/Secondlife/Outworldz_Installer/Grid/Version.txt");
+    $v > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
     $v > io("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
 
 }
@@ -709,8 +709,8 @@ sub CopyManuals
         }
         
         my $filename = basename($src);
-        $output > io("$Contabo/Secondlife/Outworldz_Installer/Help/$filename");
-        $output > io("$Fleta/Secondlife/Outworldz_Installer/Help/$filename");
+        $output > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
+        $output > io("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
         
     }
 }

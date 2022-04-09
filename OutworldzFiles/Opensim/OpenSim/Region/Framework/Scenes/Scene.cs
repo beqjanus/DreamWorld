@@ -831,8 +831,6 @@ namespace OpenSim.Region.Framework.Scenes
         {
             // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-            m_log.DebugFormat("[SCENE GetSmartStartALTRegion]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
-
             if (m_SmartStartEnabled)
             {
                 string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
@@ -849,7 +847,7 @@ namespace OpenSim.Region.Framework.Scenes
                     return UUID.Zero;
                 }
 
-                webRequest.Timeout = 5000; //5 Second Timeout
+                webRequest.Timeout = 30000; //30 Second Timeout
                 webRequest.AllowWriteStreamBuffering = false;
 
                 try
