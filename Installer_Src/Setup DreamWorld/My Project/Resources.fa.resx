@@ -1149,9 +1149,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>برای اتصال به وب سایت ها انجام نشد.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
-    <value>برای بارگذاری تنظیمات INI شکست خورده</value>
-  </data>
   <data name="False_word" xml:space="preserve">
     <value>نادرست</value>
   </data>

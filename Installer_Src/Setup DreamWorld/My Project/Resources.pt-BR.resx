@@ -1149,9 +1149,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Falha ao conectar ao web site.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
-    <value>Falha ao carregar Configurações INI</value>
-  </data>
   <data name="False_word" xml:space="preserve">
     <value>Falso</value>
   </data>

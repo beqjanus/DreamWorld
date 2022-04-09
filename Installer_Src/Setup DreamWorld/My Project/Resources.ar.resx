@@ -1155,9 +1155,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>فشل الاتصال إلى موقع الويب.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
-    <value>فشل تحميل إعدادات INI</value>
-  </data>
   <data name="False_word" xml:space="preserve">
     <value>خطأ شنيع</value>
   </data>
