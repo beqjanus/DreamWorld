@@ -18,6 +18,7 @@ Module Runtimes
                 regeditProcess = Process.Start("regedit.exe", "/s " & """" & Registry & """")
                 regeditProcess.WaitForExit()
                 Settings.VoicesInstalled = True
+                Settings.SaveSettings()
             End If
         End If
 
@@ -28,6 +29,7 @@ Module Runtimes
     Public Sub SetupPerl()
 
         If Settings.VisitorsEnabled = False Then
+            If Settings.DotnetUpgraded() Then Return
             TextPrint(My.Resources.Setup_Perl)
             Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
             Using pPerl As New Process()
@@ -51,6 +53,7 @@ Module Runtimes
 
     Public Sub SetupPerlModules()
 
+        If Settings.VisitorsEnabled = True Then Return
         ' needed for DBIX::Class in util.pm
         If Settings.VisitorsEnabledModules = False Then
             TextPrint(My.Resources.Setup_Perl)
@@ -112,7 +115,7 @@ Module Runtimes
         TextPrint(My.Resources.Update_word & " Dot Net")
         Using UpgradeProcess As New Process()
 
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi = New ProcessStartInfo With {
               .Arguments = "",
               .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\VisualCppRedist_AIO_x86_x64.exe") & """"
             }
@@ -131,10 +134,12 @@ Module Runtimes
             End Try
 
         End Using
+
+        If Settings.DotnetUpgraded() Then Return
         TextPrint(My.Resources.Update_word & " Dot Net 4.8")
         Using UpgradeProcess As New Process()
 
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi = New ProcessStartInfo With {
               .Arguments = "",
               .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\ndp48-web.exe") & """"
             }
@@ -163,7 +168,7 @@ Module Runtimes
         TextPrint(My.Resources.Update_word & " MySQL")
 
         Using UpgradeProcess As New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi = New ProcessStartInfo With {
                   .Arguments = "",
                   .CreateNoWindow = True,
                   .WindowStyle = ProcessWindowStyle.Hidden,
