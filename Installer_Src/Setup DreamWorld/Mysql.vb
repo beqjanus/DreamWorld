@@ -1268,32 +1268,6 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub SetupMutelist()
-
-        Dim pi = New ProcessStartInfo With {
-                .FileName = "Create_Mutelist.bat",
-                .UseShellExecute = True,
-                .CreateNoWindow = True,
-                .WindowStyle = ProcessWindowStyle.Minimized,
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
-            }
-        Using Mutelist = New Process With {
-                .StartInfo = pi
-            }
-
-            Try
-                Mutelist.Start()
-                Mutelist.WaitForExit()
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                ErrorLog("Could not create Mutelist Database: " & ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                Return
-            End Try
-        End Using
-
-    End Sub
-
     Public Sub SetupSimStats()
 
         Dim pi = New ProcessStartInfo With {
@@ -1321,6 +1295,7 @@ Public Module MysqlInterface
 
     Public Sub SetupWordPress()
 
+        If Not Settings.ApacheEnable Then Return
         Dim pi = New ProcessStartInfo With {
             .FileName = "Create_WordPress.bat",
             .UseShellExecute = True,

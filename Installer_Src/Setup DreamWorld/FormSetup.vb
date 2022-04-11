@@ -1664,7 +1664,7 @@ Public Class FormSetup
 
         ' create tables in case we need them
         SetupWordPress()    ' in case they want to use WordPress
-        SetupMutelist()     ' old way of doing mutes
+
         SetupSimStats()     ' Perl code
         SetupLocalSearch()  ' local search database
 
