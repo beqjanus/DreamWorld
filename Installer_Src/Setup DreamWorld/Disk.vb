@@ -170,11 +170,7 @@ Module Disk
             }
 
             pi.CreateNoWindow = True
-            If Debugger.IsAttached Then
-                pi.WindowStyle = ProcessWindowStyle.Normal
-            Else
-                pi.WindowStyle = ProcessWindowStyle.Hidden
-            End If
+            pi.WindowStyle = ProcessWindowStyle.Hidden
 
             SuspendProcess.StartInfo = pi
 

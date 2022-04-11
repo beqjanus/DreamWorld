@@ -37,7 +37,7 @@
 
 
 # changed by Dreamgrid
-Define SRVROOT "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache"
+Define SRVROOT "C:/Outworldz/Dreamgrid/OutworldzFiles/Apache"
 ServerRoot "${SRVROOT}"
 UseCanonicalName On
 #
@@ -65,7 +65,7 @@ Define ENABLE_TLS13 "Yes"
 # prevent Apache from glomming onto all bound IP addresses.
 #
 #Listen 12.34.56.78:80
-Listen 80
+Listen 8000
 
 #
 # Dynamic Shared Object (DSO) Support
@@ -200,14 +200,14 @@ LoadModule ssl_module modules/mod_ssl.so
 </IfDefine>
 
 #PHP
-LoadModule php7_module "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/PHP7/php7apache2_4.dll"
+LoadModule php7_module "C:/Outworldz/Dreamgrid/OutworldzFiles/PHP7/php7apache2_4.dll"
 <FilesMatch \.php$>
       SetHandler application/x-httpd-php
 </FilesMatch>
 
 # configure the path to php.ini
 # changed by Dreamgrid
-PHPIniDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/PHP7"
+PHPIniDir "C:/Outworldz/Dreamgrid/OutworldzFiles/PHP7"
 
 
 <IfModule unixd_module>
@@ -240,7 +240,7 @@ Group daemon
 # e-mailed.  This address appears on some server-generated pages, such
 # as error documents.  e.g. admin@your-domain.com
 #
-ServerAdmin not@set.yet
+ServerAdmin fred.beckhusen@gmail.com
 
 #
 # ServerName gives the name and port that the server uses to identify itself.
@@ -250,7 +250,7 @@ ServerAdmin not@set.yet
 # If your host doesn't have a registered DNS name, enter its IP address here.
 #
 # changed by Dreamgrid
-ServerName 192.168.2.139
+ServerName www.outworldz.com
 
 # This fixes a bug with the OS
 AcceptFilter http none
@@ -282,7 +282,7 @@ AcceptFilter https none
 # symbolic links and aliases may be used to point to other locations.
 #
 # changed by Dreamgrid
-DocumentRoot "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
+DocumentRoot "C:/Outworldz/Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 <Macro VDir $root>
 <Directory "$root">
@@ -325,10 +325,10 @@ Require all granted
 
 # must be flush aligned left
 # changed by Dreamgrid
-Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
+Use VDir "C:/Outworldz/Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 
-<VirtualHost  *:80>
+<VirtualHost  *:8000>
 #two minutes for wp to install
 TimeOut 240
 #
@@ -345,7 +345,7 @@ DirectoryIndex  index.php index.htm index.html default.htm
 
 # must be flush aligned left
 # changed by Dreamgrid
-ServerName 192.168.2.139
+ServerName www.outworldz.com
 
 # in case you want a different URL for your servers Web site yet still have Apache on.
 #Redirect permanent / https://google.com
@@ -385,7 +385,7 @@ LogLevel warn
 
 # changed by Dreamgrid
 # must be flush aligned left
-ErrorLog "|bin/rotatelogs.exe  -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\" 86400"
+ErrorLog "|bin/rotatelogs.exe  -l \"C:/Outworldz/Dreamgrid/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log\" 86400"
  
     #
     # The location and format of the access logfile (Common Logfile Format).
@@ -396,7 +396,7 @@ ErrorLog "|bin/rotatelogs.exe  -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFile
     #
 # must be flush aligned left
 # changed by Dreamgrid
-CustomLog "|bin/rotatelogs.exe -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\" 86400" common env=!dontlog
+CustomLog "|bin/rotatelogs.exe -l \"C:/Outworldz/Dreamgrid/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log\" 86400" common env=!dontlog
 
 
     #
