@@ -1,912 +1,916 @@
-<Project DefaultTargets="Build;CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
-	<PropertyGroup>
-	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>16.7.3</ProductVersion>
-	  <SchemaVersion>2.0</SchemaVersion>
-	  <ProjectGuid>{F2E18FC5-0000-0000-0000-000000000000}</ProjectGuid>
-	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	  <ApplicationIcon></ApplicationIcon>
-	  <AssemblyKeyContainerName>
-	  </AssemblyKeyContainerName>
-	  <AssemblyName>Diva.Wifi</AssemblyName>
-	  <DefaultClientScript>JScript</DefaultClientScript>
-	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
-	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
-	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-	  <OutputType>Library</OutputType>
-	  <AppDesignerFolder></AppDesignerFolder>
-	  <RootNamespace>Diva.Wifi</RootNamespace>
-	  <StartupObject></StartupObject>
-	  <StartArguments></StartArguments>
-	  <FileUpgradeFlags>
-	  </FileUpgradeFlags>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-	  <BaseAddress>285212672</BaseAddress>
-	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-	  <ConfigurationOverrideFile>
-	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
-	  <DocumentationFile></DocumentationFile>
-	  <DebugSymbols>True</DebugSymbols>
-	  <FileAlignment>4096</FileAlignment>
-	  <Optimize>False</Optimize>
-	  <OutputPath>..\..\bin\</OutputPath>
-	  <RegisterForComInterop>False</RegisterForComInterop>
-	  <RemoveIntegerChecks>False</RemoveIntegerChecks>
-	  <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-	  <WarningLevel>4</WarningLevel>
-	  <NoStdLib>False</NoStdLib>
-	  <NoWarn></NoWarn>
-	  <PlatformTarget>AnyCPU</PlatformTarget>
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-	  <BaseAddress>285212672</BaseAddress>
-	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-	  <ConfigurationOverrideFile>
-	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;</DefineConstants>
-	  <DocumentationFile></DocumentationFile>
-	  <DebugSymbols>False</DebugSymbols>
-	  <FileAlignment>4096</FileAlignment>
-	  <Optimize>True</Optimize>
-	  <OutputPath>..\..\bin\</OutputPath>
-	  <RegisterForComInterop>False</RegisterForComInterop>
-	  <RemoveIntegerChecks>False</RemoveIntegerChecks>
-	  <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-	  <WarningLevel>4</WarningLevel>
-	  <NoStdLib>False</NoStdLib>
-	  <NoWarn></NoWarn>
-	  <PlatformTarget>AnyCPU</PlatformTarget>
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-	<ItemGroup>
-	  <Reference Include="log4net" >
-		  <Name>log4net</Name>
-		<HintPath>..\..\bin\log4net.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="Mono.Addins" >
-		  <Name>Mono.Addins</Name>
-		<HintPath>..\..\bin\Mono.Addins.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="Nini" >
-		  <Name>Nini</Name>
-		<HintPath>..\..\bin\Nini.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="OpenMetaverse" >
-		  <Name>OpenMetaverse</Name>
-		<HintPath>..\..\bin\OpenMetaverse.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="OpenMetaverseTypes" >
-		  <Name>OpenMetaverseTypes</Name>
-		<HintPath>..\..\bin\OpenMetaverseTypes.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="System" >
-		  <Name>System</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="System.Core" >
-		  <Name>System.Core</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="System.Web" >
-		  <Name>System.Web</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="System.Xml" >
-		  <Name>System.Xml</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="XMLRPC" >
-		  <Name>XMLRPC</Name>
-		<HintPath>..\..\bin\XMLRPC.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\00DivaInterfaces\Diva.Interfaces.csproj">
-		<Name>Diva.Interfaces</Name>
-		<Project>{64FF56E2-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\1DivaOpenSimServices\Diva.OpenSimServices.csproj">
-		<Name>Diva.OpenSimServices</Name>
-		<Project>{287658E5-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\01DivaUtils\Diva.Utils.csproj">
-		<Name>Diva.Utils</Name>
-		<Project>{0646298B-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\20WifiScriptEngine\Diva.Wifi.ScriptEngine.csproj">
-		<Name>Diva.Wifi.ScriptEngine</Name>
-		<Project>{1E78A8CA-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Addons\Groups\OpenSim.Addons.Groups.csproj">
-		<Name>OpenSim.Addons.Groups</Name>
-		<Project>{77DEC20C-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Framework\OpenSim.Framework.csproj">
-		<Name>OpenSim.Framework</Name>
-		<Project>{BCCDBB55-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Framework\Servers\OpenSim.Framework.Servers.csproj">
-		<Name>OpenSim.Framework.Servers</Name>
-		<Project>{726D540D-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Framework\Servers\HttpServer\OpenSim.Framework.Servers.HttpServer.csproj">
-		<Name>OpenSim.Framework.Servers.HttpServer</Name>
-		<Project>{159EC5C2-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Region\CoreModules\OpenSim.Region.CoreModules.csproj">
-		<Name>OpenSim.Region.CoreModules</Name>
-		<Project>{B60B8DCD-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Region\Framework\OpenSim.Region.Framework.csproj">
-		<Name>OpenSim.Region.Framework</Name>
-		<Project>{C98F6D97-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Server\Base\OpenSim.Server.Base.csproj">
-		<Name>OpenSim.Server.Base</Name>
-		<Project>{2E0569BB-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Server\Handlers\OpenSim.Server.Handlers.csproj">
-		<Name>OpenSim.Server.Handlers</Name>
-		<Project>{ED041501-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\AssetService\OpenSim.Services.AssetService.csproj">
-		<Name>OpenSim.Services.AssetService</Name>
-		<Project>{7FDD1B76-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\AuthenticationService\OpenSim.Services.AuthenticationService.csproj">
-		<Name>OpenSim.Services.AuthenticationService</Name>
-		<Project>{76495B84-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\AvatarService\OpenSim.Services.AvatarService.csproj">
-		<Name>OpenSim.Services.AvatarService</Name>
-		<Project>{77095B91-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\Base\OpenSim.Services.Base.csproj">
-		<Name>OpenSim.Services.Base</Name>
-		<Project>{A54AE47C-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\GridService\OpenSim.Services.GridService.csproj">
-		<Name>OpenSim.Services.GridService</Name>
-		<Project>{D3312580-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\Interfaces\OpenSim.Services.Interfaces.csproj">
-		<Name>OpenSim.Services.Interfaces</Name>
-		<Project>{08ECE473-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\InventoryService\OpenSim.Services.InventoryService.csproj">
-		<Name>OpenSim.Services.InventoryService</Name>
-		<Project>{0066981A-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\PresenceService\OpenSim.Services.PresenceService.csproj">
-		<Name>OpenSim.Services.PresenceService</Name>
-		<Project>{9A29E8CD-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\OpenSim\Services\UserAccountService\OpenSim.Services.UserAccountService.csproj">
-		<Name>OpenSim.Services.UserAccountService</Name>
-		<Project>{C87C3128-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Include="ExtensionMethods.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Localization.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WifiMain.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiConsoleHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiDefaultHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiForgotPasswordHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiGetHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiGroupsManagementHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiHyperlinkHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiInstallHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiInventoryHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiLoginHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiLogoutHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiNotifyHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiRegionManagementHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiTOSHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiUserAccountHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Handlers\WifiUserManagementHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Properties\AssemblyInfo.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ServerConnectors\WifiModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ServerConnectors\WifiServerConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.ChangeUserAccount.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Console.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Default.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.GroupsManagement.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Hyperlinks.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Install.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Inventory.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.LoginLogout.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.NewAccount.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.Notify.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.PasswordRecovery.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.RegionManagement.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.TOS.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\Services.UserManagement.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\WebApp.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebApp\WifiScriptFace.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <EmbeddedResource Include="WifiPages\404.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\acl-main.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\avatarselectitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\console.css">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\content-box.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\destinationlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\destinationlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\estateeditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\estatelist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\estatelistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\estateselect.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fluid.css">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\griduser-main.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\griduserlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\griduserlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\gridusers-creation-progress.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\gridusersprogressitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupeditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\grouplistitem-advanced.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\grouplistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupmembers-add.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupmembers-eject.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupmembers-list.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupmemberslistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\grouprolesselect.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupslist-advanced.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\groupslist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\iars.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\index.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\inventorylistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\jsglobals.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\linkregionitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-admin-extra.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-diva.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\notification.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\region-form-listitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\region-form.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\regionlist-form.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\regionlist-item.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\regionselect.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\RemoteConsole.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\style.css">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\termsofservice.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\tos.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\console.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\forms.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\global.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\inventorylist.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\jquery-1-9-1-min.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\scripts\sorttable.js">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\de\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\avatarselectitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\content-box.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\groupdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\groupeditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\grouplistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\groupslist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\index.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\inventorylistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\linkregionitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu-admin-extra.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\notification.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\region-form-listitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\region-form.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\RemoteConsole.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\tos.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\es\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\avatarselectitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\content-box.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\index.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\inventorylistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\linkregionitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu-admin-extra.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\notification.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\region-form-listitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\region-form.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\RemoteConsole.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\fr\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\pt\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\console.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\footer.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\forgotpasswordform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\header.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\installform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\inventorylist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\linkregiondeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\linkregionform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\linkregionlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\links.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\login.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\logout.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\main-menu-install.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\main-menu-privileged.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\main-menu-users.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\main-menu.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\newaccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\recoveringpassword.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\splash.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\useraccountform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\userdeleteform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\usereditform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\userlist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\userlistitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\userpendingitem.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\userpendinglist.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\usersearchform.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\ru\welcome.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\3D_computer_animation3.jpg">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\abstract-cool.jpg">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\add.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\box-bottom.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\box-top.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\button.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\delete.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\diva.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\edit.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\favicon.ico">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\icon-folder-16.jpg">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\line.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\list.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\loader.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\menu-button.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\orange-planets-background.jpg">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\PoweredByOS.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\remove.png">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\sortable.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\sortasc.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\sortdesc.gif">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\stripe-white.jpg">
-	  </EmbeddedResource>
+﻿<Project DefaultTargets="Build;CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>16.7.3</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F2E18FC5-0000-0000-0000-000000000000}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Diva.Wifi</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>
+    </AppDesignerFolder>
+    <RootNamespace>Diva.Wifi</RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <StartArguments>
+    </StartArguments>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>True</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>False</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <RemoveIntegerChecks>False</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>False</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>False</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>False</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>True</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <RemoveIntegerChecks>False</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>False</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>False</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\..\bin\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Addins">
+      <Name>Mono.Addins</Name>
+      <HintPath>..\..\bin\Mono.Addins.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Nini">
+      <Name>Nini</Name>
+      <HintPath>..\..\bin\Nini.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenMetaverse">
+      <Name>OpenMetaverse</Name>
+      <HintPath>..\..\bin\OpenMetaverse.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenMetaverseTypes">
+      <Name>OpenMetaverseTypes</Name>
+      <HintPath>..\..\bin\OpenMetaverseTypes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Name>System.Core</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="XMLRPC">
+      <Name>XMLRPC</Name>
+      <HintPath>..\..\bin\XMLRPC.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\00DivaInterfaces\Diva.Interfaces.csproj">
+      <Name>Diva.Interfaces</Name>
+      <Project>{64FF56E2-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\1DivaOpenSimServices\Diva.OpenSimServices.csproj">
+      <Name>Diva.OpenSimServices</Name>
+      <Project>{287658E5-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\01DivaUtils\Diva.Utils.csproj">
+      <Name>Diva.Utils</Name>
+      <Project>{0646298B-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\20WifiScriptEngine\Diva.Wifi.ScriptEngine.csproj">
+      <Name>Diva.Wifi.ScriptEngine</Name>
+      <Project>{1E78A8CA-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Addons\Groups\OpenSim.Addons.Groups.csproj">
+      <Name>OpenSim.Addons.Groups</Name>
+      <Project>{77DEC20C-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Framework\OpenSim.Framework.csproj">
+      <Name>OpenSim.Framework</Name>
+      <Project>{BCCDBB55-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Framework\Servers\OpenSim.Framework.Servers.csproj">
+      <Name>OpenSim.Framework.Servers</Name>
+      <Project>{726D540D-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Framework\Servers\HttpServer\OpenSim.Framework.Servers.HttpServer.csproj">
+      <Name>OpenSim.Framework.Servers.HttpServer</Name>
+      <Project>{159EC5C2-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Region\CoreModules\OpenSim.Region.CoreModules.csproj">
+      <Name>OpenSim.Region.CoreModules</Name>
+      <Project>{B60B8DCD-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Region\Framework\OpenSim.Region.Framework.csproj">
+      <Name>OpenSim.Region.Framework</Name>
+      <Project>{C98F6D97-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Server\Base\OpenSim.Server.Base.csproj">
+      <Name>OpenSim.Server.Base</Name>
+      <Project>{2E0569BB-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Server\Handlers\OpenSim.Server.Handlers.csproj">
+      <Name>OpenSim.Server.Handlers</Name>
+      <Project>{ED041501-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\AssetService\OpenSim.Services.AssetService.csproj">
+      <Name>OpenSim.Services.AssetService</Name>
+      <Project>{7FDD1B76-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\AuthenticationService\OpenSim.Services.AuthenticationService.csproj">
+      <Name>OpenSim.Services.AuthenticationService</Name>
+      <Project>{76495B84-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\AvatarService\OpenSim.Services.AvatarService.csproj">
+      <Name>OpenSim.Services.AvatarService</Name>
+      <Project>{77095B91-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\Base\OpenSim.Services.Base.csproj">
+      <Name>OpenSim.Services.Base</Name>
+      <Project>{A54AE47C-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\GridService\OpenSim.Services.GridService.csproj">
+      <Name>OpenSim.Services.GridService</Name>
+      <Project>{D3312580-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\Interfaces\OpenSim.Services.Interfaces.csproj">
+      <Name>OpenSim.Services.Interfaces</Name>
+      <Project>{08ECE473-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\InventoryService\OpenSim.Services.InventoryService.csproj">
+      <Name>OpenSim.Services.InventoryService</Name>
+      <Project>{0066981A-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\PresenceService\OpenSim.Services.PresenceService.csproj">
+      <Name>OpenSim.Services.PresenceService</Name>
+      <Project>{9A29E8CD-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OpenSim\Services\UserAccountService\OpenSim.Services.UserAccountService.csproj">
+      <Name>OpenSim.Services.UserAccountService</Name>
+      <Project>{C87C3128-0000-0000-0000-000000000000}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtensionMethods.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Localization.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WifiMain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiConsoleHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiDefaultHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiForgotPasswordHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiGetHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiGroupsManagementHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiHyperlinkHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiInstallHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiInventoryHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiLoginHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiLogoutHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiNotifyHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiRegionManagementHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiTOSHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiUserAccountHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\WifiUserManagementHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerConnectors\WifiModule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServerConnectors\WifiServerConnector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.ChangeUserAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Console.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Default.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.GroupsManagement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Hyperlinks.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Install.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Inventory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.LoginLogout.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.NewAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.Notify.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.PasswordRecovery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.RegionManagement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.TOS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\Services.UserManagement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\WebApp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebApp\WifiScriptFace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="WifiPages\404.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\acl-main.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\avatarselectitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\console.css">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\content-box.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\destinationlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\destinationlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\estateeditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\estatelist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\estatelistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\estateselect.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fluid.css">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\griduser-main.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\griduserlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\griduserlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\gridusers-creation-progress.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\gridusersprogressitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupeditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\grouplistitem-advanced.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\grouplistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupmembers-add.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupmembers-eject.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupmembers-list.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupmemberslistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\grouprolesselect.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupslist-advanced.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\groupslist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\iars.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\index.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\inventorylistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\jsglobals.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\linkregionitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu-admin-extra.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\notification.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\region-form-listitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\region-form.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\regionlist-form.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\regionlist-item.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\regionselect.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\RemoteConsole.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\style.css">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\termsofservice.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\tos.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\console.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\forms.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\global.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\inventorylist.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\jquery-1-9-1-min.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\scripts\sorttable.js">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\de\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\avatarselectitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\content-box.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\groupdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\groupeditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\grouplistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\groupslist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\index.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\inventorylistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\linkregionitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu-admin-extra.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\notification.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\region-form-listitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\region-form.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\RemoteConsole.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\tos.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\es\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\avatarselectitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\content-box.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\index.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\inventorylistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\linkregionitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu-admin-extra.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\notification.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\region-form-listitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\region-form.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\RemoteConsole.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\fr\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\pt\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\console.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\footer.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\forgotpasswordform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\header.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\installform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\inventorylist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\linkregiondeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\linkregionform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\linkregionlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\links.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\login.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\logout.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\main-menu-admin.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\main-menu-install.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\main-menu-privileged.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\main-menu-users.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\main-menu.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\newaccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\recoveringpassword.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\splash.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\useraccountform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\userdeleteform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\usereditform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\userlist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\userlistitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\userpendingitem.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\userpendinglist.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\usersearchform.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\ru\welcome.html">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\3D_computer_animation3.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\abstract-cool.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\add.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\box-bottom.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\box-top.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\button.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\delete.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\diva.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\edit.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\favicon.ico">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\icon-folder-16.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\line.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\list.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\loader.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\menu-button.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\orange-planets-background.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\PoweredByOS.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\remove.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\sortable.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\sortasc.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\sortdesc.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="WifiPages\images\stripe-white.jpg">
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <FilesToCopy_0000 Include="Wifi.ini;Localization\Diva.Wifi.pot" />
@@ -914,11 +918,11 @@
   <Target Name="CopyFiles">
     <Copy SourceFiles="@(FilesToCopy_0000)" DestinationFolder="../../bin/" />
   </Target>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-	<PropertyGroup>
-	  <PreBuildEvent>
-	  </PreBuildEvent>
-	  <PostBuildEvent>
-	  </PostBuildEvent>
-	</PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
