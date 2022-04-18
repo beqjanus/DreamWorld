@@ -2446,7 +2446,10 @@ Public Class FormSetup
                 Bench.Print("hour worker")
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 ' Dynamically adjust Mysql for size of DB
-                Settings.Total_InnoDB_GBytes() = Total_InnoDB_Bytes() ' dynamic Innodb cache
+
+                Dim a As Double = Total_InnoDB_Bytes() ' dynamic Innodb cache
+                Settings.Total_InnoDB_GBytes() = Math.Round(a, 2)
+
                 SetPublicIP() ' Adjust to any IP changes
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
