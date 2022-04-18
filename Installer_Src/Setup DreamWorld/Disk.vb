@@ -189,6 +189,7 @@ Module Disk
         If Arg.Contains("-rpid") Then
             TextPrint($"{Region_Name(RegionUUID)} Resumed")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+            Timer(RegionUUID) = DateAdd("n", -5, Date.Now) ' subtract 5 minutes for console
         Else
             TextPrint($"{Region_Name(RegionUUID)} Suspended")
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended

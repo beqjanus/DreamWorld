@@ -287,6 +287,9 @@
   <ItemGroup>
     <FilesToCopy_0000 Include="Gloebit.ini.example" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Target Name="CopyFiles">
     <Copy SourceFiles="@(FilesToCopy_0000)" DestinationFolder="../../../bin/" />
   </Target>
