@@ -28,7 +28,7 @@ Module Diags
 
         OpenPorts() ' Open router ports with UPnp
         ProbePublicPort() ' Probe using Outworldz like Canyouseeme.org does on HTTP port
-        TestPrivateLoopback()   ' Diagnostics
+        TestPrivateLoopback(True)   ' Diagnostics
         TestPublicLoopback()    ' Http port
         TestAllRegionPorts()    ' All Dos boxes, actually
 
@@ -264,6 +264,35 @@ Module Diags
 
     End Sub
 
+    Public Function TestPrivateLoopback(verbose As Boolean) As Boolean
+
+        Dim result As String = ""
+        If verbose Then TextPrint(My.Resources.Checking_LAN_Loopback_word)
+        If verbose Then Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
+        Dim weblink = $"http://{Settings.LANIP()}:{Settings.DiagnosticPort}/?_TestLoopback={RandomNumber.Random()}"
+        If verbose Then Logger("Info", "URL= " & weblink, "Diagnostics")
+        Using client As New WebClient
+            Try
+                result = client.DownloadString(weblink)
+            Catch ex As Exception
+                If verbose Then Logger("Error", ex.Message, "Diagnostics")
+            End Try
+        End Using
+
+        If result = "Test Completed" Then
+            If verbose Then Logger("INFO", Global.Outworldz.My.Resources.Passed_LAN, "Diagnostics")
+            If verbose Then TextPrint(My.Resources.Passed_LAN)
+            Return False
+        Else
+            If verbose Then Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
+            If verbose Then TextPrint(My.Resources.Failed_LAN & " " & weblink)
+            Settings.LoopbackDiag = False
+            Settings.DiagFailed = "True"
+            Return True
+        End If
+
+    End Function
+
     Public Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
@@ -341,34 +370,6 @@ Module Diags
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
             End If
         Next
-
-    End Sub
-
-    Private Sub TestPrivateLoopback()
-
-        Dim result As String = ""
-        TextPrint(My.Resources.Checking_LAN_Loopback_word)
-        Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
-        Dim weblink = $"http://{Settings.LANIP()}:{Settings.DiagnosticPort}/?_TestLoopback={RandomNumber.Random()}"
-        Logger("Info", "URL= " & weblink, "Diagnostics")
-        Using client As New WebClient
-            Try
-                result = client.DownloadString(weblink)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Logger("Error", ex.Message, "Diagnostics")
-            End Try
-        End Using
-
-        If result = "Test Completed" Then
-            Logger("INFO", Global.Outworldz.My.Resources.Passed_LAN, "Diagnostics")
-            TextPrint(My.Resources.Passed_LAN)
-        Else
-            Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
-            TextPrint(My.Resources.Failed_LAN & " " & weblink)
-            Settings.LoopbackDiag = False
-            Settings.DiagFailed = "True"
-        End If
 
     End Sub
 

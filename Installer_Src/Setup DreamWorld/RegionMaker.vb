@@ -1570,7 +1570,7 @@ Module RegionMaker
         ' POST = "GET Region name HTTP...{server_startup|oar_file_load},{0|1},n,[oar error]"
         '{"alert":"region_ready","login":"enabled","region_name":"Region 2","RegionId":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}}
         'POST / Region%202 HTTP/1.1
-        'Content-Type: Application/ json
+        'Content-Type: Application/json
         'Host:   tea.outworldz.net : 8001
         'Content-Length:  118
         'Connection: Keep-Alive
