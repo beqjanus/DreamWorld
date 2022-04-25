@@ -102,15 +102,6 @@ Public Class FormRegionlist
         End Set
     End Property
 
-    Public Property ViewBusy As Boolean
-        Get
-            Return ViewNotBusy
-        End Get
-        Set(value As Boolean)
-            ViewNotBusy = value
-        End Set
-    End Property
-
 #End Region
 
 #Region "ScreenSize"
@@ -985,8 +976,6 @@ SetWindowOnTop_Err:
                 UseMysql = True
             End If
 
-            ViewBusy = True
-
             AllNone.Checked = False
             AllNone.Visible = False
 
@@ -1218,8 +1207,6 @@ SetWindowOnTop_Err:
                 Timer1.Start() 'Timer starts functioning
             End If
 
-            ViewBusy = False
-
             Timer1.Start()
             LoadMyListView()
 
@@ -1375,7 +1362,7 @@ SetWindowOnTop_Err:
         Try
             Me.Text = ""
             AllNone.Visible = False
-            ViewBusy = True
+
             AvatarView.Show()
             AvatarView.Visible = True
             ListView1.Visible = False
@@ -1434,7 +1421,7 @@ SetWindowOnTop_Err:
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         Finally
             PropUpdateView() = False
-            ViewBusy = False
+
         End Try
 
     End Sub
@@ -1444,10 +1431,6 @@ SetWindowOnTop_Err:
         ShowTitle()
 
         AllNone.Visible = True
-        If ViewBusy = True Then
-            Return
-        End If
-
         detailsinitted = False
         ListView1.Show()
         ListView1.Visible = True
@@ -1456,7 +1439,7 @@ SetWindowOnTop_Err:
         UserView.Hide()
 
         ListView1.TabIndex = 0
-        ViewBusy = True
+
         ListView1.BeginUpdate()
         ListView1.Items.Clear()
 
@@ -1670,16 +1653,10 @@ SetWindowOnTop_Err:
         detailsinitted = True
 
         PropUpdateView() = False
-        ViewBusy = False
 
     End Sub
 
     Private Sub ShowIcons()
-
-        If ViewBusy = True Then
-            Return
-        End If
-        ViewBusy = True
 
         ShowTitle()
 
@@ -1726,7 +1703,6 @@ SetWindowOnTop_Err:
 
         PropUpdateView() = False
         IconView.EndUpdate()
-        ViewBusy = False
 
     End Sub
 
@@ -1755,7 +1731,6 @@ SetWindowOnTop_Err:
 
         AllNone.Visible = True
         UserView.TabIndex = 0
-        ViewBusy = True
 
         UserView.Show()
         UserView.Visible = True
@@ -1831,7 +1806,7 @@ SetWindowOnTop_Err:
         End Try
 
         UserView.EndUpdate()
-        ViewBusy = False
+
         PropUpdateView() = False
 
     End Sub
@@ -1844,10 +1819,7 @@ SetWindowOnTop_Err:
         End If
 
         If PropUpdateView() Then ' force a refresh
-            If ViewBusy = True Then
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
-                Return
-            End If
+
             LoadMyListView()
 
         End If
