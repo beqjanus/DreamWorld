@@ -1604,7 +1604,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT (Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM
+                Dim stm = "SELECT CEILING(Total_InnoDB_Bytes*1.6/POWER(1024,3)) RIBPS FROM
     (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes
     FROM information_schema.tables WHERE engine='InnoDB') A;"
 
@@ -1615,14 +1615,12 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                Bytes = Settings.Total_InnoDB_GBytes
             Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Bytes = Settings.Total_InnoDB_GBytes
+                Bytes = 1
             End Try
         End Using
-
+        If Bytes < 1 Then Bytes = 1
+        If Bytes > 4 Then Bytes = 4
         Return Bytes
 
     End Function
