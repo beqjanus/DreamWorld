@@ -37,7 +37,6 @@ Public Class FormRegionlist
 
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
-    Private ViewNotBusy As Boolean
 
     ' icons image list layout
     Enum DGICON
@@ -1385,7 +1384,7 @@ SetWindowOnTop_Err:
             End If
 
             For Each Agent In ListOfAgents
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = My.Resources.Search_word Then
+                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Region_Name(Agent.Value))
                     item1.SubItems.Add("-".ToUpperInvariant)
@@ -1755,7 +1754,7 @@ SetWindowOnTop_Err:
                 Dim k = Agent.Key
                 Dim O = Agent.Value
 
-                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text = "" Or SearchBox.Text = My.Resources.Search_word Then
+                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
 
                     Dim item1 As New ListViewItem(O.firstname & " " & O.LastName, Index)
 
