@@ -114,7 +114,7 @@ Module Disk
 
 #End Region
 
-#Region "FreeThaw"
+#Region "FreezeThaw"
 
     ''' <summary>
     ''' Suspends region
@@ -176,9 +176,9 @@ Module Disk
 
             Try
                 SuspendProcess.Start()
-                SuspendProcess.WaitForExit()
-                Dim x = SuspendProcess.ExitCode
-                If x <> 0 Then BreakPoint.Print("Failed to Resume or suspend")
+                'SuspendProcess.WaitForExit()
+                'Dim x = SuspendProcess.ExitCode
+                'If x <> 0 Then BreakPoint.Print("Failed to Resume or suspend")
                 PokeRegionTimer(RegionUUID)
                 PropUpdateView = True ' make form refresh
             Catch ex As Exception
