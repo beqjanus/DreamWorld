@@ -872,21 +872,6 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Starting_WebServer_word)
 
-        ' Boot Port 8001 Server
-        PropWebserver = NetServer.GetWebServer
-        PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
-        Application.DoEvents()
-
-        Sleep(1000)
-        If TestPrivateLoopback(False) Then
-            ErrorLog("Diagnostic Listener port failed. Aborting")
-            TextPrint("Diagnostic Listener port failed. Aborting")
-            Return
-        End If
-
-        ' Run Diagnostics
-        CheckDiagPort()
-
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
@@ -946,6 +931,21 @@ Public Class FormSetup
             TextPrint(My.Resources.Stopped_word)
             Return
         End If
+
+        ' Boot Port 8001 Server
+        PropWebserver = NetServer.GetWebServer
+        PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
+        Application.DoEvents()
+
+        Sleep(100)
+        If TestPrivateLoopback(False) Then
+            ErrorLog("Diagnostic Listener port failed. Aborting")
+            TextPrint("Diagnostic Listener port failed. Aborting")
+            Return
+        End If
+
+        ' Run Diagnostics
+        CheckDiagPort()
 
         With Cpu1
             .CategoryName = "Processor"
@@ -2414,6 +2414,11 @@ Public Class FormSetup
 
             If SecondsTicker = 60 Then
                 Bench.Print("Initial 60 second worker")
+
+                ' set mysql for amount of buffer to use now that it running.
+                ' Will take effect next time Mysql is started.
+                Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
+
                 ScanOpenSimWorld(True)
                 Delete_all_visitor_maps()
                 MakeMaps()
@@ -2459,9 +2464,6 @@ Public Class FormSetup
                 Bench.Print("hour worker")
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 ' Dynamically adjust Mysql for size of DB
-
-                Dim a As Double = Total_InnoDB_Bytes() ' dynamic Innodb cache
-                Settings.Total_InnoDB_GBytes() = Math.Round(a, 2)
 
                 SetPublicIP() ' Adjust to any IP changes
                 ExpireLogsByAge()
