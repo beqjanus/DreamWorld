@@ -59,15 +59,6 @@ namespace pCampBot.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon cube_yellow {
-            get {
-                object obj = ResourceManager.GetObject("cube_yellow", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
+       
     }
 }

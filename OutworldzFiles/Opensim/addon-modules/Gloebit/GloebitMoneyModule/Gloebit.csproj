@@ -256,9 +256,6 @@
     <Compile Include="GMMLoginBalanceRequest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="obj\Release\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -286,9 +283,6 @@
   </ItemGroup>
   <ItemGroup>
     <FilesToCopy_0000 Include="Gloebit.ini.example" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Target Name="CopyFiles">
     <Copy SourceFiles="@(FilesToCopy_0000)" DestinationFolder="../../../bin/" />

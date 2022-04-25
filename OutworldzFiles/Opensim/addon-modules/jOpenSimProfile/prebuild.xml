@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<Project frameworkVersion="v4_6" name="jOpenSimProfile.Modules" path="addon-modules/jOpenSimProfile/Modules" type="Library">
+<Project frameworkVersion="v4_8" name="jOpenSimProfile.Modules" path="addon-modules/jOpenSimProfile/Modules" type="Library">
    <Configuration name="Debug">
      <Options>
        <OutputPath>../../../bin/</OutputPath>

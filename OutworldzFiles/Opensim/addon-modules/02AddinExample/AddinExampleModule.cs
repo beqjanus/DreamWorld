@@ -69,7 +69,7 @@ namespace Diva.AddinExample
                 if (!File.Exists(pathToCsvFile))
                 {
                     using (TextWriter tr = new StreamWriter(pathToCsvFile))
-                    using (var writer = new CsvWriter(tr, System.Globalization.CultureInfo.InvariantCulture))
+                    using (var writer = new CsvWriter(tr))
                     {
                         writer.WriteField("First Name");
                         writer.WriteField("Last Name");
@@ -192,7 +192,7 @@ namespace Diva.AddinExample
         private void AddToCSVFile(string first, string last)
         {
             using (TextWriter tr = new StreamWriter(m_PathToFile, true))
-            using (var writer = new CsvWriter(tr, System.Globalization.CultureInfo.InvariantCulture))
+            using (var writer = new CsvWriter(tr))
             {
                 writer.WriteField(first);
                 writer.WriteField(last);
