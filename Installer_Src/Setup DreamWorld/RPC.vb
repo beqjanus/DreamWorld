@@ -129,10 +129,6 @@ Module RPC
 
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
-        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            Return False
-        End If
-
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"command", Message}
@@ -303,6 +299,12 @@ Module RPC
                 If s.Key = "success" AndAlso s.Value = "True" Then
                     Debug.Print("Teleport Sent")
                     Return True
+                End If
+                If s.Key = "faultCode" Then
+                    Debug.Print($"Fault: {CStr(s.Value)}")
+                End If
+                If s.Key = "faultString" Then
+                    Debug.Print($"Fault: {CStr(s.Value)}")
                 End If
             Next
 #Enable Warning BC42016 ' Implicit conversion
