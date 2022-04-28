@@ -5,6 +5,7 @@
 
 #End Region
 
+Imports System.IO
 Imports System.Net
 Imports System.Text.RegularExpressions
 
@@ -312,10 +313,75 @@ Module Robust
 
         TextPrint("->Set Robust")
 
-        If DoSetDefaultSims() Then Return True
+        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Robust.HG.ini.proto"),
+                     IO.Path.Combine(Settings.OpensimBinPath, "Robust.HG.ini"))
 
-        ' Robust Process
         Dim INI = New LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";", System.Text.Encoding.UTF8)
+
+        ' set the defaults in the INI for the viewer to use. Painful  as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
+        Dim WelcomeUUID As String = FindRegionByName(Settings.WelcomeRegion)
+        Dim DefaultName = Settings.WelcomeRegion
+
+        If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
+            MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+            Dim RegionName = ChooseRegion(False)
+
+            If RegionName.Length = 0 Then
+                Return False
+            End If
+            Settings.WelcomeRegion = RegionName
+            Settings.SaveSettings()
+        End If
+
+        ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome
+        ' Region_Name = FallbackRegion,  if non Smart Start region
+        ' and is SS is enabled Region_Name = FallbackRegion,FallbackRegion
+
+        Dim Welcome As String = Settings.WelcomeRegion
+        Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+        Dim RegionSetting As String = ""
+
+        ' make a long list of the various regions with region_ at the start
+        For Each RegionUUID As String In RegionUuids()
+
+            Dim RegionName = Region_Name(RegionUUID)
+            RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+            If Region_Name(RegionUUID) = DefaultName Then
+                RegionSetting += $"Region_{Welcome}=DefaultRegion,DefaultHGRegion{vbCrLf}"
+            Else
+                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
+                    RegionSetting += $"Region_{RegionName}=Persistent,FallbackRegion{vbCrLf}"
+                Else
+                    RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
+                End If
+            End If
+
+        Next
+
+        Sleep(10)
+
+        Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini", False)
+            Using reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
+                'now loop through each line
+                Dim line As String
+
+                While reader.Peek <> -1
+                    line = reader.ReadLine()
+                    Dim Output As String = Nothing
+                    'Diagnostics.Debug.Print(line)
+                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
+                        Output += line & vbCrLf ' add back on the ; START
+                        Output += RegionSetting
+                    Else
+                        Output += line & vbCrLf
+                    End If
+
+                    outputFile.WriteLine(Output)
+                End While
+                outputFile.Flush()
+            End Using
+        End Using
 
         'For GetTexture Service
         If Settings.FsAssetsEnabled Then
@@ -365,8 +431,8 @@ Module Robust
         If INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
         If INI.SetIni("SMTP", "SMTP_VerifyCertNames", CStr(Settings.VerifyCertCheckBox)) Then Return True
         If INI.SetIni("SMTP", "SMTP_VerifyCertChain", CStr(Settings.VerifyCertCheckBox)) Then Return True
-        If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.enableEmailToExternalObjects)) Then Return True
-        If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.enableEmailToSMTPCheckBox)) Then Return True
+        If INI.SetIni("SMTP", "enableEmailToExternalObjects", CStr(Settings.EnableEmailToExternalObjects)) Then Return True
+        If INI.SetIni("SMTP", "enableEmailToSMTP", CStr(Settings.EnableEmailToSMTPCheckBox)) Then Return True
         If INI.SetIni("SMTP", "MailsFromOwnerPerHour", CStr(Settings.MailsFromOwnerPerHour)) Then Return True
         If INI.SetIni("SMTP", "MailsToPrimAddressPerHour", CStr(Settings.MailsToPrimAddressPerHour)) Then Return True
         If INI.SetIni("SMTP", "SMTP_MailsPerDay", CStr(Settings.MailsPerDay)) Then Return True
