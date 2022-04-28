@@ -332,6 +332,7 @@ Module RegionMaker
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), False)
                 outputFile.WriteLine(proto)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)

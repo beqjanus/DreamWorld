@@ -462,6 +462,7 @@ Module FileStuff
                             file.WriteLine(line)
                         End While
                     End Using
+                    file.Flush()
                 End Using
                 Retry = 0
             Catch ex As Exception

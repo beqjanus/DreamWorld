@@ -287,6 +287,7 @@ Module DoIni
             Next
 
             Using outputFile As New StreamWriter(d, False)
+                outputFile.AutoFlush = True
                 reader = System.IO.File.OpenText(s)
                 'now loop through each line
                 While reader.Peek <> -1
@@ -301,6 +302,7 @@ Module DoIni
                     End If
                     outputFile.WriteLine(Output)
                 End While
+                outputFile.Flush()
             End Using
             'close your reader
             reader.Close()
@@ -396,6 +398,7 @@ Module DoIni
 
         Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\icecast_run.xml"), False)
             outputFile.WriteLine(icecast)
+            outputFile.Flush()
         End Using
 
         Return False
@@ -408,6 +411,7 @@ Module DoIni
             Dim perltext = $"DSN={Settings.RobustDatabaseName}:localhost:{Settings.MySqlRobustDBPort};UID={Settings.RobustUserName};PWD={Settings.RobustPassword};"
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\MySQL.txt"), False)
                 outputFile.WriteLine(perltext)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
@@ -442,6 +446,7 @@ Module DoIni
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php"), False)
                 outputFile.WriteLine(phptext)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
@@ -459,88 +464,10 @@ Module DoIni
 
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\databaseinfo.php"), False)
                 outputFile.WriteLine(phptext)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
-        End Try
-
-        Return False
-
-    End Function
-
-    Public Function DoSetDefaultSims() As Boolean
-
-        TextPrint("->Set Default Sims")
-        ' set the defaults in the INI for the viewer to use. Painful  as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
-        Dim reader As IO.StreamReader
-        Dim line As String
-
-        Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
-            Dim WelcomeUUID As String = FindRegionByName(Settings.WelcomeRegion)
-
-            Dim DefaultName = Settings.WelcomeRegion
-
-            If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
-                MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-                Dim RegionName = ChooseRegion(False)
-
-                If RegionName.Length = 0 Then
-                    Return False
-                End If
-                Settings.WelcomeRegion = RegionName
-                Settings.SaveSettings()
-            End If
-
-            DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
-
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart
-
-            Dim Welcome As String = Settings.WelcomeRegion
-            Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-            Dim RegionSetting As String = ""
-
-            ' make a long list of the various regions with region_ at the start
-            For Each RegionUUID As String In RegionUuids()
-
-                Dim RegionName = Region_Name(RegionUUID)
-                RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                If Region_Name(RegionUUID) = DefaultName Then
-                    RegionSetting += $"Region_{Welcome}=DefaultRegion,  DefaultHGRegion{vbCrLf}"
-                Else
-                    If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
-                        RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
-                    Else
-                        RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
-                    End If
-                End If
-
-            Next
-
-            Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini", False)
-                reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
-                'now loop through each line
-                While reader.Peek <> -1
-                    line = reader.ReadLine()
-                    Dim Output As String = Nothing
-                    'Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
-                        Output += line & vbCrLf ' add back on the ; START
-                        Output += RegionSetting
-                    Else
-                        Output += line & vbCrLf
-                    End If
-
-                    outputFile.WriteLine(Output)
-                End While
-            End Using
-            'close your reader
-            reader.Close()
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-            MsgBox(My.Resources.no_Default_sim, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Settings_word)
-            Return True
         End Try
 
         Return False
@@ -561,6 +488,7 @@ Module DoIni
 
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\tos.html"), False)
                 outputFile.WriteLine(HTML)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -574,6 +502,60 @@ Module DoIni
 
         Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";", System.Text.Encoding.UTF8)
         INI.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
+        INI.SaveINI()
+        Return False
+
+    End Function
+
+    Public Function DoWifi() As Boolean
+
+        ' There are two Wifi's so search will work
+
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";", System.Text.Encoding.UTF8)
+        TextPrint("->Set Diva Wifi page")
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+        INI.SaveINI()
+
+        INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";", System.Text.Encoding.UTF8)
+
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+
+        If Settings.ServerType = RobustServerName Then ' wifi could be on or off
+            If (Settings.WifiEnabled) Then
+                INI.SetIni("WifiService", "Enabled", "True")
+            Else
+                INI.SetIni("WifiService", "Enabled", "False")
+            End If
+        Else ' it is always off
+            ' shutdown wifi in Attached mode
+            INI.SetIni("WifiService", "Enabled", "False")
+        End If
+
+        INI.SetIni("WifiService", "GridName", Settings.SimName)
+        INI.SetIni("WifiService", "LoginURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        INI.SetIni("WifiService", "WebAddress", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+
+        ' Wifi Admin'
+        INI.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
+        INI.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
+        INI.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
+        INI.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
+
+        'Gmail and other SMTP mailers
+        ' Gmail requires you set to set low security access
+        INI.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
+        INI.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
+        INI.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
+        INI.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
+
+        INI.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
+
+        If Settings.AccountConfirmationRequired Then
+            INI.SetIni("WifiService", "AccountConfirmationRequired", "True")
+        Else
+            INI.SetIni("WifiService", "AccountConfirmationRequired", "False")
+        End If
+
         INI.SaveINI()
         Return False
 
@@ -706,60 +688,6 @@ Module DoIni
         Next
         IO.File.WriteAllText(TideFile, TideData, System.Text.Encoding.Default) 'The text file will be created if it does not already exist
 
-        Return False
-
-    End Function
-
-    Public Function DoWifi() As Boolean
-
-        ' There are two Wifi's so search will work
-
-        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";", System.Text.Encoding.UTF8)
-        TextPrint("->Set Diva Wifi page")
-        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-        INI.SaveINI()
-
-        INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";", System.Text.Encoding.UTF8)
-
-        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-
-        If Settings.ServerType = RobustServerName Then ' wifi could be on or off
-            If (Settings.WifiEnabled) Then
-                INI.SetIni("WifiService", "Enabled", "True")
-            Else
-                INI.SetIni("WifiService", "Enabled", "False")
-            End If
-        Else ' it is always off
-            ' shutdown wifi in Attached mode
-            INI.SetIni("WifiService", "Enabled", "False")
-        End If
-
-        INI.SetIni("WifiService", "GridName", Settings.SimName)
-        INI.SetIni("WifiService", "LoginURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-        INI.SetIni("WifiService", "WebAddress", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-
-        ' Wifi Admin'
-        INI.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
-        INI.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
-        INI.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
-        INI.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
-
-        'Gmail and other SMTP mailers
-        ' Gmail requires you set to set low security access
-        INI.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
-        INI.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
-        INI.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
-        INI.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
-
-        INI.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
-
-        If Settings.AccountConfirmationRequired Then
-            INI.SetIni("WifiService", "AccountConfirmationRequired", "True")
-        Else
-            INI.SetIni("WifiService", "AccountConfirmationRequired", "False")
-        End If
-
-        INI.SaveINI()
         Return False
 
     End Function

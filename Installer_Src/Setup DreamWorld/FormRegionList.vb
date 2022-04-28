@@ -673,6 +673,7 @@ SetWindowOnTop_Err:
                         Try
                             Using writer = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
                                 WriteDataTable(sourceTable, writer, True)
+                                writer.Flush()
                             End Using
                         Catch
                         End Try

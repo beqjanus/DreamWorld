@@ -103,6 +103,7 @@ Public Module MysqlInterface
                              & "mysqld.exe --defaults-file=" &
                              """" & Settings.CurrentSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
                              )
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -1352,6 +1353,7 @@ Public Module MysqlInterface
             Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to run MySQL as a Service" & vbCrLf +
             "mysqld.exe --install MySQL --defaults-file=" & """" & Settings.CurrentSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -1368,6 +1370,7 @@ Public Module MysqlInterface
             Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to stop MySQL" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+                outputFile.Flush()
             End Using
         Catch ex As Exception
             BreakPoint.Dump(ex)

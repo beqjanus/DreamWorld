@@ -37,6 +37,7 @@ Public Class MySettings
             Try
                 Using outputFile As New StreamWriter(_myINI, False)
                     outputFile.WriteLine(contents)
+                    outputFile.Flush()
                 End Using
             Catch ex As Exception
                 BreakPoint.Dump(ex)
@@ -2607,6 +2608,7 @@ Public Class MySettings
             For Each Item As String In Apachein
                 file.WriteLine(Item)
             Next
+            file.Flush()
             file.Close()
         Catch ex As Exception
             ErrorLog($"{ini} {ex.Message}")
