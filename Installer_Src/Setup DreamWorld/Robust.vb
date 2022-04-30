@@ -371,10 +371,10 @@ Module Robust
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
                     If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
-                        Output += line & vbCrLf ' add back on the ; START
-                        Output += RegionSetting
+                        Output += line ' add back on the ; START
+                        Output += vbCrLf & RegionSetting
                     Else
-                        Output += line & vbCrLf
+                        Output += line
                     End If
 
                     outputFile.WriteLine(Output)
