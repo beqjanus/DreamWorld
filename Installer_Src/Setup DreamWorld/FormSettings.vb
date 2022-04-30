@@ -111,7 +111,7 @@ Public Class FormSettings
         DivaButton1.Text = Global.Outworldz.My.Resources.Web
         DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
         EmailButton.Text = Global.Outworldz.My.Resources.Email_word
-        FSAssetsButton.Text = Global.Outworldz.My.Resources.FSassets_Server_word
+        FSAssetsButton.Text = Global.Outworldz.My.Resources.FSasset_word
         IcecastButton.Text = Global.Outworldz.My.Resources.Icecast_word
         LoggingButton.Text = Global.Outworldz.My.Resources.Logging_word
         MapsButton.Text = Global.Outworldz.My.Resources.Maps_word

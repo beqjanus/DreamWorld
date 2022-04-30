@@ -3245,8 +3245,8 @@
   <data name="No_Publish_Items" xml:space="preserve">
     <value>Do not publish this region</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
-    <value>File System Database</value>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Asset Database</value>
   </data>
   <data name="InstallJoomla_word" xml:space="preserve">
     <value>Install</value>

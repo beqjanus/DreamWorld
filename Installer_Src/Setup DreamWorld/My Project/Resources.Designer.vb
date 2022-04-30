@@ -4516,11 +4516,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to File System Database.
+        '''  Looks up a localized string similar to Asset Database.
         '''</summary>
-        Friend ReadOnly Property FSassets() As String
+        Friend ReadOnly Property FSasset_word() As String
             Get
-                Return ResourceManager.GetString("FSassets", resourceCulture)
+                Return ResourceManager.GetString("FSasset_word", resourceCulture)
             End Get
         End Property
         
