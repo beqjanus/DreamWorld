@@ -364,6 +364,8 @@ Public Class FormSetup
                 End If
 
                 ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                'ConsoleCommand(RegionUUID, "q")
+
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
             End If
