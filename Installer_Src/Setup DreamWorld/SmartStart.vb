@@ -143,9 +143,9 @@ Module SmartStart
 
         Dim RegionName = Region_Name(Regionuuid)
 
-        'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
+        RegionName = System.Net.WebUtility.UrlEncode(RegionName)
 
-        Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
+        Dim link = $"hop://{Settings.PublicIP}:{Settings.HttpPort}/{RegionName}/128/128/35"
         Try
             System.Diagnostics.Process.Start(link)
         Catch ex As Exception
@@ -303,16 +303,16 @@ Module SmartStart
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
-            Logger("Teleport", $"Name={Name}", "Teleport")
+            'Logger("Teleport", $"Name={Name}", "Teleport")
 
             Dim TeleportType As String = Uri.UnescapeDataString(match.Groups(2).Value)
-            Logger("Teleport", $"TeleportType={TeleportType}", "Teleport")
+            'Logger("Teleport", $"TeleportType={TeleportType}", "Teleport")
 
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
-            Logger("Teleport", $"AgentID={AgentID}", "Teleport")
+            'Logger("Teleport", $"AgentID={AgentID}", "Teleport")
 
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
-            Logger("Teleport", $"Password={Password}", "Teleport")
+            'Logger("Teleport", $"Password={Password}", "Teleport")
 
             If Password <> Settings.MachineID Then
                 Logger("ERROR", $"Bad Password {Password} for Teleport system. Should be the Dyn DNS password.", "Outworldz")
