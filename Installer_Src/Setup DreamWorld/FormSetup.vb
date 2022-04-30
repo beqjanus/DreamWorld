@@ -2389,21 +2389,22 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
+            CheckForBootedRegions()     ' and also see if any booted up
+            TeleportAgents()            ' send them onward
+
             If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("2 second worker start")
                 Chart()                     ' do charts collection each 2 second or s
-                PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 CheckPost()                 ' see if anything arrived in the web server
-                CheckForBootedRegions()     ' and also see if any booted up
-                TeleportAgents()            ' send them onward
-                RestartDOSboxes()
                 Bench.Print("2 second worker end")
             End If
 
             If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
+                PrintBackups()
                 ScanAgents()                ' update agent count
+                RestartDOSboxes()
                 Bench.Print("5 second worker ends")
             End If
 
