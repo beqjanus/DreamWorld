@@ -160,7 +160,7 @@ Module Robust
             RobustProcess.Start()
         Catch ex As Exception
             BreakPoint.Dump(ex)
-            TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
+            TextPrint($"Robust {Global.Outworldz.My.Resources.did_not_start_word} {ex.Message}")
             FormSetup.KillAll()
             FormSetup.Buttons(FormSetup.StartButton)
             MarkRobustOffline()
