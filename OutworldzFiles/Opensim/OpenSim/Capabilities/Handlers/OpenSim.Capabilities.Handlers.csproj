@@ -181,6 +181,12 @@
 	  <Compile Include="FetchInventory\FetchInventory2ServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="FetchInventory\FetchLib2Handler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="FetchInventory\FetchLibDescHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="GetAssets\GetAssetsHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>

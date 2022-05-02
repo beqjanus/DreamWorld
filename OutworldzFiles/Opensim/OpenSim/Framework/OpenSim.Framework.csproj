@@ -508,6 +508,9 @@
 	  <Compile Include="TerrainData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="TerrainTaintsArray.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="TextureRequestArgs.cs">
 		<SubType>Code</SubType>
 	  </Compile>

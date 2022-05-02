@@ -201,6 +201,9 @@
 	  <Compile Include="FetchInventory2Module.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="FetchLibDescModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="GetAssetsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
