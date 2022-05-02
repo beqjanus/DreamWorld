@@ -642,7 +642,7 @@ Public Class MySettings
 
     Public Property BootOrSuspend() As Boolean
         Get
-            Return CType(GetMySetting("BootOrSuspend", "True"), Boolean)
+            Return CType(GetMySetting("BootOrSuspend", "False"), Boolean)
         End Get
         Set
             SetMySetting("BootOrSuspend", CStr(Value))
