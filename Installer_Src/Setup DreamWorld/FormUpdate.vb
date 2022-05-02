@@ -66,7 +66,7 @@ Public Class FormUpdate
             ' check if less than the last skipped update
             ' could be the same or later version already
             If BetaVersion > Settings.SkipUpdateCheck Then
-                textbox = $"An Update to {BetaVersion} is available.{vbCrLf}{vbCrLf}"
+                textbox = $"{BetaVersion} is available.{vbCrLf}{vbCrLf}"
             ElseIf ReleasedVersion > Settings.SkipUpdateCheck Then
                 textbox = $"An Update to {BetaVersion} is available.{vbCrLf}{vbCrLf}"
             Else
