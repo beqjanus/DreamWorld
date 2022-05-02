@@ -17,7 +17,7 @@ my $dir = getcwd;
 
 # paths
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
-my $Contabo = '\\\\contabo2.outworldz.com/c';
+#my $Contabo = '\\\\contabo2.outworldz.com/c';
 my $Fleta = '\\\\fleta/c';
 my $Dest = "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
 
@@ -296,17 +296,17 @@ if ( $publish =~ /p/ ) {
         
     ################################################
         
-    doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
+    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
     doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
     
-    doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
+    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
     doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
     
-    PrintDate("Copy Other Versions/DreamGrid$type.zip");
-    if (!copy("../Zips/DreamGrid$type.zip",
-            "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
-        die $!;
-    }
+    #PrintDate("Copy Other Versions/DreamGrid$type.zip");
+    #if (!copy("../Zips/DreamGrid$type.zip",
+    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
+    #    die $!;
+    #}
     if (!copy("../Zips/DreamGrid$type.zip",
               "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
         die $!;
@@ -316,10 +316,10 @@ if ( $publish =~ /p/ ) {
     ################################################
 
     PrintDate("Copy Other Versions/DreamGrid-Update$type.zip");
-    if (!copy("../Zips/DreamGrid$type.zip",
-              "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
-        die $!;
-    }
+    #if (!copy("../Zips/DreamGrid$type.zip",
+    #          "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
+    #    die $!;
+    #}
     
     if (!copy("../Zips/DreamGrid$type.zip",
               "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
@@ -331,10 +331,10 @@ if ( $publish =~ /p/ ) {
     ################################################
     
     
-    doUnlink ("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
+    #doUnlink ("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     doUnlink ("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     
-    doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
+    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
     doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");    
 
     say("Copy /Read.me/Revisions.txt");
@@ -346,24 +346,24 @@ if ( $publish =~ /p/ ) {
         die $!;
     }
     
-    if (!copy("$dir/Read.Me/Revisions.txt",
-            "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt"))
-    {
-        die $!;
-    }
+    #if (!copy("$dir/Read.Me/Revisions.txt",
+    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt"))
+    #{
+    #    die $!;
+    #}
     
     
     ################################################
     
     say("Copy DreamGrid.zip");     
     
-    doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
+    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     
-    if (!copy("../Zips/DreamGrid$type.zip",
-            "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
-    {
-        die $!;
-    }
+    #if (!copy("../Zips/DreamGrid$type.zip",
+    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
+    #{
+    #    die $!;
+    #}
     
     if (!copy("../Zips/DreamGrid$type.zip",
             "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
@@ -373,14 +373,14 @@ if ( $publish =~ /p/ ) {
     
     ################################################
     
-    
-    say("Copy DreamGridUpdate.zip"); 
-    
-    if (!copy("../Zips/DreamGrid$type.zip",
-            "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
-    {
-        die $!;
-    }
+    #
+    #say("Copy DreamGridUpdate.zip"); 
+    #
+    #if (!copy("../Zips/DreamGrid$type.zip",
+    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
+    #{
+    #    die $!;
+    #}
     
     if (!copy("../Zips/DreamGrid$type.zip",
             "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
@@ -408,11 +408,11 @@ if ( $publish =~ /p/ ) {
     
     say "Manual";
 
-    if (!copy('outworldzfiles/Help/Dreamgrid Manual.pdf',
-            "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf"))
-    {
-        die $!;
-    }
+    #if (!copy('outworldzfiles/Help/Dreamgrid Manual.pdf',
+    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf"))
+    #{
+    #    die $!;
+    #}
     
     if (!copy('outworldzfiles/Help/Dreamgrid Manual.pdf',
             "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf"))
@@ -421,7 +421,7 @@ if ( $publish =~ /p/ ) {
     }
     
     
-    $v > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
+    #$v > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
     $v > io("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
 
 }
@@ -569,8 +569,7 @@ sub sign {
     foreach my $file (@files) {
         my $name = $file->name;
         next
-          if $name =~
-/Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple|packages/;
+          if $name =~ /Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple|packages/;
 
         if ( $name =~ /Start\.exe/i ) {
             my $bp = 1;
@@ -663,9 +662,9 @@ sub doUnlink {
 sub CheckDistro
 {
    
-    if (! -d $Contabo) {
-        die 'Cannot reach Contabo2';
-    }
+    #if (! -d $Contabo) {
+    #    die 'Cannot reach Contabo2';
+    #}
    
     if (! -d $Fleta) {
         die 'Cannot reach Fleta';
@@ -709,7 +708,7 @@ sub CopyManuals
         }
         
         my $filename = basename($src);
-        $output > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
+       #$output > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
         $output > io("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
         
     }
