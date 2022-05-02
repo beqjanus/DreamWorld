@@ -2498,25 +2498,25 @@ Public Class FormSetup
         If PropOpensimIsRunning() Then
 
             If Settings.ApacheEnable Then
-                Dim webAddress As String = $"http//{Settings.LANIP}:{CStr(Settings.ApachePort)}"
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
             Else
-                Dim webAddress As String = $"http//{Settings.LANIP}:{CStr(Settings.HttpPort)}"
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.HttpPort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
-                TextPrint($"{My.Resources.User_Name_word}{Settings.AdminFirst} {Settings.AdminLast}")
-                TextPrint($"{My.Resources.Password_word}{Settings.Password}")
+                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = $"http//{Settings.LANIP}:{CStr(Settings.ApachePort)}"
+                Dim webAddress As String = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}"
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2687,7 +2687,7 @@ Public Class FormSetup
     Private Sub ConnectToIceCastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToIceCastToolStripMenuItemIcecast.Click
 
         If Settings.SCEnable Then
-            Dim webAddress As String = "http//127.0.0.1:" & Convert.ToString(Settings.SCPortBase, Globalization.CultureInfo.InvariantCulture)
+            Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.SCPortBase, Globalization.CultureInfo.InvariantCulture)
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
@@ -2701,14 +2701,14 @@ Public Class FormSetup
 
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http//127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
             Else
-                Dim webAddress As String = "http//127.0.0.1:" & Settings.HttpPort
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2719,7 +2719,7 @@ Public Class FormSetup
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http//127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2732,7 +2732,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub ConsoleCOmmandsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConsoleCOmmandsToolStripMenuItem1.Click
-        Dim webAddress As String = "http//opensimulator.org/wiki/Server_Commands"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -2866,7 +2866,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub HelpOnIARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnIARSToolStripMenuItem.Click
-        Dim webAddress As String = "http//opensimulator.org/wiki/Inventory_Archives"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Inventory_Archives"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -2875,7 +2875,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub HelpOnOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnOARsToolStripMenuItem.Click
-        Dim webAddress As String = "http//opensimulator.org/wiki/Load_Oar_0.9.0%2B"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.9.0%2B"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
