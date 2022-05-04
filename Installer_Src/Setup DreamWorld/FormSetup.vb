@@ -16,10 +16,16 @@ Public Class FormSetup
 #Region "Vars"
 
     Public exitList As New ConcurrentDictionary(Of String, String)
+
     Public MyCPUCollection As New List(Of Double)
+
     Public MyRAMCollection As New List(Of Double)
+
     Public ToDoList As New Dictionary(Of String, TaskObject)
+
     Public Visitor As New Dictionary(Of String, String)
+
+    Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
 
 #End Region
 
@@ -835,7 +841,8 @@ Public Class FormSetup
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
         AssemblyV = "Assembly version " + displayableVersion
-
+        TextPrint(AssemblyV)
+        TextPrint($"{My.Resources.Version_word} {PropSimVersion}")
         Me.Text += " V" & PropMyVersion
         TextPrint($"DreamGrid {My.Resources.Version_word} {PropMyVersion}")
 
@@ -994,8 +1001,25 @@ Public Class FormSetup
         IsIceCastRunning()
 
         Settings.SaveSettings()
-        StartTimer()
 
+        Dim n = Settings.DNSName
+        If n.Length = 0 Then n = "(none)"
+        TextPrint("--> WAN IP = " & Settings.WANIP)
+        TextPrint("--> DNS = " & n)
+        TextPrint("--> WAN = " & Settings.PublicIP)
+        TextPrint("--> LAN IP = " & Settings.LANIP())
+        TextPrint("--> Region IP= " & Settings.ExternalHostName)
+        If Settings.ServerType = RobustServerName Then
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        ElseIf Settings.ServerType = RegionServerName Then
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        ElseIf Settings.ServerType = OsgridServer Then
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
+        ElseIf Settings.ServerType = MetroServer Then
+            TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
+        End If
+
+        StartTimer()
         Application.DoEvents() ' let timer run
 
         If Settings.Autostart Then
@@ -1009,6 +1033,12 @@ Public Class FormSetup
         End If
 
         ToolBar(True)
+
+    End Sub
+
+    Private Sub Link_Clicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles TextBox1.LinkClicked
+
+        System.Diagnostics.Process.Start(e.LinkText)
 
     End Sub
 
@@ -2392,20 +2422,18 @@ Public Class FormSetup
                 GetAllRegions(False)
             End If
 
+            CheckPost()                 ' see if anything arrived in the web server
             CheckForBootedRegions()     ' and also see if any booted up
             TeleportAgents()            ' send them onward
 
             If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("2 second worker start")
                 Chart()                     ' do charts collection each 2 second or s
-                CalcDiskFree()              ' check for free disk space
-                CheckPost()                 ' see if anything arrived in the web server
-                Bench.Print("2 second worker end")
             End If
 
             If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("5 second worker")
                 PrintBackups()
+                CalcDiskFree()              ' check for free disk space
                 ScanAgents()                ' update agent count
                 RestartDOSboxes()
                 Bench.Print("5 second worker ends")
@@ -2420,10 +2448,6 @@ Public Class FormSetup
 
             If SecondsTicker = 60 Then
                 Bench.Print("Initial 60 second worker")
-
-                ' set mysql for amount of buffer to use now that it running.
-                ' Will take effect next time Mysql is started.
-                Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
 
                 ScanOpenSimWorld(True)
                 Delete_all_visitor_maps()
@@ -2452,6 +2476,7 @@ Public Class FormSetup
                 Bench.Print("300 second worker")
                 RunParser()
                 GetEvents()
+
                 Bench.Print("300 second worker ends")
             End If
 
@@ -2462,6 +2487,7 @@ Public Class FormSetup
                 GetEvents()
                 RunParser()
                 MakeMaps()
+
                 Bench.Print("half hour worker ends")
             End If
 
@@ -2475,6 +2501,10 @@ Public Class FormSetup
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()
+                ' set mysql for amount of buffer to use now that it running.
+                ' Will take effect next time Mysql is started.
+                Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
+
                 Bench.Print("hour worker ends")
             End If
             SecondsTicker += 1
