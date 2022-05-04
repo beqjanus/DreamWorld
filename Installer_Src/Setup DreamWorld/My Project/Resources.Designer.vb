@@ -9295,6 +9295,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Rezzable Parcels .
+        '''</summary>
+        Friend ReadOnly Property rezzableParcels() As String
+            Get
+                Return ResourceManager.GetString("rezzableParcels", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Robust exited. Do you want to see the error log file?.
         '''</summary>
         Friend ReadOnly Property Robust_exited() As String
