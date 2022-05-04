@@ -316,23 +316,10 @@ Module Robust
         CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Robust.HG.ini.proto"),
                      IO.Path.Combine(Settings.OpensimBinPath, "Robust.HG.ini"))
 
-        Dim INI = New LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";", System.Text.Encoding.UTF8)
-
         ' set the defaults in the INI for the viewer to use. Painful  as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
         Dim WelcomeUUID As String = FindRegionByName(Settings.WelcomeRegion)
         Dim DefaultName = Settings.WelcomeRegion
-
-        If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
-            MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-            Dim RegionName = ChooseRegion(False)
-
-            If RegionName.Length = 0 Then
-                Return False
-            End If
-            Settings.WelcomeRegion = RegionName
-            Settings.SaveSettings()
-        End If
 
         ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome
         ' Region_Name = FallbackRegion,  if non Smart Start region
@@ -350,16 +337,10 @@ Module Robust
             If Region_Name(RegionUUID) = DefaultName Then
                 RegionSetting += $"Region_{Welcome}=DefaultRegion,DefaultHGRegion{vbCrLf}"
             Else
-                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
-                    RegionSetting += $"Region_{RegionName}=Persistent,FallbackRegion{vbCrLf}"
-                Else
-                    RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
-                End If
+                RegionSetting += $"Region_{RegionName}=Persistent,FallbackRegion{vbCrLf}"
             End If
 
         Next
-
-        Sleep(10)
 
         Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini", False)
             Using reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
@@ -382,6 +363,19 @@ Module Robust
                 outputFile.Flush()
             End Using
         End Using
+
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";", System.Text.Encoding.UTF8)
+
+        If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
+            MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+            Dim RegionName = ChooseRegion(False)
+
+            If RegionName.Length = 0 Then
+                Return False
+            End If
+            Settings.WelcomeRegion = RegionName
+            Settings.SaveSettings()
+        End If
 
         'For GetTexture Service
         If Settings.FsAssetsEnabled Then
