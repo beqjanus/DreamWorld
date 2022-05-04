@@ -37,7 +37,7 @@
 #       Listen directives: "Listen [::]:443" and "Listen 0.0.0.0:443"
 #
 # changed by Dreamgrid
-Listen 192.168.2.100:443
+Listen 192.168.2.139:443
 
 ##
 ##  SSL Global Context
@@ -47,9 +47,9 @@ Listen 192.168.2.100:443
 ##
 
 # changed by Dreamgrid
-Define SRVROOT "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/OutworldzFiles/Apache"
+Define SRVROOT "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache"
 ServerRoot "${SRVROOT}"
-DocumentRoot "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/OutworldzFiles/Apache/htdocs"
+DocumentRoot "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 #   Pass Phrase Dialog:
 #   Configure the pass phrase gathering process.
@@ -121,7 +121,7 @@ Require all granted
 
 # must be flush aligned left
 # changed by Dreamgrid
-Use VDir "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/OutworldzFiles/Apache/htdocs"
+Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 
 <VirtualHost _default_:443>
@@ -129,7 +129,7 @@ Use VDir "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/OutworldzFiles/Apache
 #   General setup for the virtual host
 
 #Set by Dreamgrid
-ServerName 192.168.2.100
+ServerName 192.168.2.139
 # ServerAdmin: Your address, where problems with the server should be
 # e-mailed.  This address appears on some server-generated pages, such
 # as error documents.  e.g. admin@your-domain.com
@@ -170,7 +170,7 @@ SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 #   parallel.
 #SSLCertificateFile "${CERTROOT}/example.com-chain.pem"
 
-SSLCertificateFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworldzfiles/Apache/Certs/-chain.pem"
+SSLCertificateFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-chain.pem"
 
 #   Server Private Key:
 #   If the key is not combined with the certificate, use this
@@ -179,7 +179,7 @@ SSLCertificateFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworldzfi
 #   both in parallel (to also allow the use of DSA ciphers, etc.)
 #   ECC keys, when in use, can also be configured in parallel
 
-SSLCertificateKeyFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworldzfiles/Apache/Certs/-key.pem"
+SSLCertificateKeyFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-key.pem"
 
 
 #   Server Certificate Chain:
@@ -190,7 +190,7 @@ SSLCertificateKeyFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworld
 #   when the CA certificates are directly appended to the server
 #   certificate for convenience.
 
-SSLCertificateChainFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworldzfiles/Apache/Certs/-crt.pem"
+SSLCertificateChainFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/-crt.pem"
 
 
 #   Certificate Authority (CA):
@@ -200,7 +200,7 @@ SSLCertificateChainFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outwor
 #   Note: Inside SSLCACertificatePath you need hash symlinks
 #         to point to the certificate files. Use the provided
 #         Makefile to update the hash symlinks after changes.
-SSLCACertificateFile "O:/Opensim/Outworldz DreamGrid Master/DreamWorld/Outworldzfiles/Apache/Certs/lets-encrypt-r3.pem"
+SSLCACertificateFile "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/Certs/lets-encrypt-r3.pem"
 
 #   Certificate Revocation Lists (CRL):
 #   Set the CA revocation path where to find CA CRLs for client

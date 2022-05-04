@@ -11,8 +11,8 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "4.996"
-    Public Const _SimVersion As String = "Opensim 0.9.2.2 #b7ed5f109ec9b28 prebuild for .net6, disable ..."
+    Public Const _MyVersion As String = "4.998"
+    Public Const _SimVersion As String = "Opensim 0.9.2.2 #4f7b293c5efe add commandline option excluddir to Prebuild ..."
     Public Const FreeDiskSpaceWarn As Long = 100000000
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
