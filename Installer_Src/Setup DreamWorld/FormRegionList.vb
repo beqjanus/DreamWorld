@@ -1080,6 +1080,9 @@ SetWindowOnTop_Err:
             ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 100), HorizontalAlignment.Left)
             ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
             ctr += 1
+            ListView1.Columns.Add(My.Resources.rezzableParcels, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 100), HorizontalAlignment.Left)
+            ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+            ctr += 1
             ListView1.Columns.Add("Prims", colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Left)
             ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
             ctr += 1
@@ -1513,6 +1516,13 @@ SetWindowOnTop_Err:
                 Dim size As String = CStr(s) & "X" & CStr(s)
                 item1.SubItems.Add(size)
                 item1.SubItems.Add(Estate(RegionUUID))
+
+                Dim L = Join(ParcelPermissionsCheck(RegionUUID), ",")
+                If L IsNot Nothing Then
+                    item1.SubItems.Add(L)
+                Else
+                    item1.SubItems.Add("-")
+                End If
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
