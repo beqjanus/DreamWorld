@@ -14,6 +14,7 @@ Imports MySqlConnector
 
 Public Module MysqlInterface
     Public WithEvents ProcessMySql As Process = New Process()
+    Private Const Rezzable As Integer = 64 '     Region flag for rez
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
@@ -505,7 +506,7 @@ Public Module MysqlInterface
     ''' <summary>
     ''' Gets fakes in debug made
     ''' </summary>
-    ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
+    ''' <returns>dictionary of First name + Last name, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         If DebugLandMaker Then
@@ -555,7 +556,7 @@ Public Module MysqlInterface
     End Function
 
     ''' <summary>
-    ''' Gets user count from useraccounts
+    ''' Gets user count from user accounts
     ''' </summary>
     ''' <returns>integer count of agents in this region</returns>
     Public Function GetAgentsInRegion(RegionUUID As String) As Integer
@@ -1077,7 +1078,41 @@ Public Module MysqlInterface
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
+    ''' <summary>
+    ''' Gets any parcels names that have rez rights on for everyone
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>list of string</returns>
+    Public Function ParcelPermissionsCheck(RegionUUID As String) As String()
+
+        Dim result As New List(Of String)
+
+        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and landflags & 64;"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Dim ParcelName = reader.GetString(0)
+                            Dim flag = reader.GetInt32(1)
+                            Diagnostics.Debug.Print($"{CStr(flag)} {ParcelName}")
+                            result.Add(ParcelName)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+        Dim r = result.ToArray
+        Return r
+
+    End Function
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
 
         Dim v As String = ""
@@ -1154,7 +1189,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID and flags & 4 = 4 "
+                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID And flags & 4 = 4 "
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -1254,7 +1289,7 @@ Public Module MysqlInterface
                     ProcessMysql.Start()
                     ProcessMysql.WaitForExit()
                 Catch ex As Exception
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    ErrorLog("Error ProcessMysql failed to launch " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                     Return
                 End Try
@@ -1287,7 +1322,7 @@ Public Module MysqlInterface
                 Mutelist.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
-                ErrorLog("Could not create SimStats Database: " & ex.Message)
+                ErrorLog("Could Not create SimStats Database " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
             End Try
         End Using
@@ -1313,7 +1348,7 @@ Public Module MysqlInterface
                 MysqlWordpress.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
-                ErrorLog("Could not create WordPress Database: " & ex.Message)
+                ErrorLog("Could Not create WordPress Database " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                 Return
             End Try
