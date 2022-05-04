@@ -2359,8 +2359,6 @@ Public Class FormSetup
 
         If _ThreadsArerunning Then Return
 
-        Chat2Speech()               ' speak of the devil
-
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
@@ -2435,6 +2433,7 @@ Public Class FormSetup
                 PrintBackups()
                 CalcDiskFree()              ' check for free disk space
                 ScanAgents()                ' update agent count
+                Chat2Speech()               ' speak of the devil
                 RestartDOSboxes()
                 Bench.Print("5 second worker ends")
             End If
