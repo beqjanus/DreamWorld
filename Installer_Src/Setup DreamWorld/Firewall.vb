@@ -35,8 +35,8 @@ Public Module Firewall
 
         ' regions need both
 
-        Command = Command & $"netsh advfirewall firewall add rule name=""Region TCP Ports {Settings.MachineID}"" dir=In action=allow protocol=TCP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf _
-                  & $"netsh advfirewall firewall add rule name=""Region UDP Ports {Settings.MachineID}"" dir=In action=allow protocol=UDP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf
+        Command = Command & $"netsh advfirewall firewall add rule name=""Region TCP Ports {CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}"" dir=In action=allow protocol=TCP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf _
+                  & $"netsh advfirewall firewall add rule name=""Region UDP Ports {CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}"" dir=In action=allow protocol=UDP localport={CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}" & vbCrLf
 
         Return Command
 
@@ -65,8 +65,8 @@ Public Module Firewall
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTP Web Port {CStr(Settings.ApachePort)}""" & vbCrLf
         Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTPS Web Port 443""" & vbCrLf
 
-        Command = Command & $"netsh advfirewall firewall delete rule name=""Region TCP Ports {Settings.MachineID}""" & vbCrLf _
-                          & $"netsh advfirewall firewall delete rule name=""Region UDP Ports {Settings.MachineID}""" & vbCrLf
+        Command = Command & $"netsh advfirewall firewall delete rule name=""Region TCP Ports {CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}""" & vbCrLf _
+                          & $"netsh advfirewall firewall delete rule name=""Region UDP Ports {CStr(Settings.FirstRegionPort)}-{CStr(LargestPort())}""" & vbCrLf
 
         Return Command
 
@@ -123,7 +123,7 @@ Public Module Firewall
             _WebThread1.Priority = ThreadPriority.BelowNormal
             _WebThread1.Start(CMD1)
         End If
-
+        Sleep(1000)
         Dim CMD2 As Object = DeleteNewFirewallRules() & AddFirewallRules()
         Dim _WebThread2 = New Thread(start)
         _WebThread2.SetApartmentState(ApartmentState.STA)
