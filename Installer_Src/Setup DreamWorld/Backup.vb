@@ -36,6 +36,7 @@
                 .TaskName = FormSetup.TaskName.RPCBackupper,
                 .Command = ""
             }
+            Sleep(20000)
             FormSetup.RebootAndRunTask(RegionUUID, Obj)
             Application.DoEvents()
         Next
