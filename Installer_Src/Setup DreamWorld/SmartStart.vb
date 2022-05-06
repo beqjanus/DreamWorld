@@ -48,28 +48,28 @@ Module SmartStart
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
         ' Scan all the regions
-        Dim FakeAgents = GetAgentList()
-        Dim AllAgents = GetGridUsers()
+        'Dim FakeAgents = GetAgentList()
+        'Dim AllAgents As Dictionary(Of String, String)
         Dim Presence = GetPresence()
 
-        For Each item In FakeAgents
-            If AllAgents.ContainsKey(item.Key) Then
-                AllAgents.Item(item.Key) = item.Value
-            Else
-                AllAgents.Add(item.Key, item.Value)
-            End If
-        Next
+        'For Each item In AllAgents
+        'If AllAgents.ContainsKey(item.Key) Then
+        'AllAgents.Item(item.Key) = item.Value
+        'Else
+        'AllAgents.Add(item.Key, item.Value)
+        'End If
+        'Next
 
-        For Each item In Presence
-            If AllAgents.ContainsKey(item.Key) Then
-                AllAgents.Item(item.Key) = item.Value
-            Else
-                AllAgents.Add(item.Key, item.Value)
-            End If
+        'For Each item In Presence
+        'If AllAgents.ContainsKey(item.Key) Then
+        'AllAgents.Item(item.Key) = item.Value
+        'Else
+        'AllAgents.Add(item.Key, item.Value)
+        'End If
 
-        Next
+        'Next
 
-        Return AllAgents
+        Return Presence
 
     End Function
 
@@ -183,7 +183,7 @@ Module SmartStart
 
     End Sub
 
-    Private Function AddEm(RegionUUID As String, AgentID As String) As Boolean
+    Private Function AddEm(RegionUUID As String, AgentID As String, Teleport As Boolean) As Boolean
 
         If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
             BreakPoint.Print("UUID Zero")
@@ -199,16 +199,18 @@ Module SmartStart
 
         Logger("Teleport Request", Region_Name(RegionUUID) & ":" & AgentID, "Teleport")
 
-        If TeleportAvatarDict.ContainsKey(AgentID) Then
-            TeleportAvatarDict.Remove(AgentID)
+        If Teleport Then
+            If TeleportAvatarDict.ContainsKey(AgentID) Then
+                TeleportAvatarDict.Remove(AgentID)
+            End If
+            TeleportAvatarDict.Add(AgentID, RegionUUID)
+            Bench.Print("Teleport Added")
         End If
-        TeleportAvatarDict.Add(AgentID, RegionUUID)
-        Bench.Print("Teleport Added")
 
         ReBoot(RegionUUID) ' Wait for it to start booting
 
         Bench.Print("Reboot Signaled")
-        Sleep(1000)
+        Application.DoEvents()
         Return False
 
     End Function
@@ -343,31 +345,32 @@ Module SmartStart
                             Logger("Already Booted Named Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name
                         Else ' Its a sign!
-                            Logger("Already Booted Teleport Sign Telepor", Name & ":" & AgentID, "Teleport")
+                            Logger("Already Booted TP Sign Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name & "|0"
                         End If
                     Else  ' requires booting
                         If TeleportType.ToUpperInvariant = "UUID" Then
-                            AddEm(RegionUUID, AgentID)
                             If Settings.BootOrSuspend Then
+                                AddEm(RegionUUID, AgentID, True)
                                 Logger("Boot Type UUID Teleport", Name & ":" & AgentID, "Teleport")
                                 RPC_admin_dialog(AgentID, $"Booting your region {Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
                                 Dim uuid = FindRegionByName(Settings.ParkingLot)
                                 Return uuid
                             Else
+                                AddEm(RegionUUID, AgentID, True)
                                 Logger("Suspend type UUID Teleport", Name & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             End If
 
                         ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
-
-                            AddEm(RegionUUID, AgentID)
                             If Settings.BootOrSuspend Then
+                                AddEm(RegionUUID, AgentID, True)
                                 Logger("Boot Type Named Teleport", Name & ":" & AgentID, "Teleport")
                                 RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
                                 Return Settings.ParkingLot
                             Else
                                 Logger("Suspend Type Named Teleport", Name & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID, True)
                                 Return Name
                             End If
                         Else ' Its a v4 sign
@@ -390,10 +393,9 @@ Module SmartStart
                     End If
                 Else
                     ' not enabled
-                    RPC_admin_dialog(AgentID, $"Your region { Region_Name(RegionUUID)} is disabled.")
+                    RPC_admin_dialog(AgentID, $"Destination {Region_Name(RegionUUID)} is disabled.")
                 End If
             Else ' Non Smart Start
-
                 If TeleportType.ToUpperInvariant = "UUID" Then
                     Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                     Return RegionUUID
@@ -402,7 +404,7 @@ Module SmartStart
                     Return Name
                 Else     ' Its a sign!
                     'Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
-                    AddEm(RegionUUID, AgentID)
+                    AddEm(RegionUUID, AgentID, False)
                     Return Name
                 End If
             End If
@@ -638,13 +640,12 @@ Module SmartStart
 
     Public Sub Apply_Plant(RegionUUID As String)
 
-        Dim RegionName = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""")
 
         If RegionUUID.Length > 0 Then
             Dim R As New RegionEssentials With {
              .RegionUUID = RegionUUID,
-             .RegionName = RegionName
+             .RegionName = Region_Name(RegionUUID)
              }
 
             GenTrees(R)
@@ -654,20 +655,18 @@ Module SmartStart
 
     Public Sub ApplyTerrainEffect(RegionUUID As String)
 
-        Dim RegionName = Region_Name(RegionUUID)
-
-        If Not RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.r32""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.raw""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.jpg""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.png""") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{RegionName}-Backup.ter""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{Region_Name(RegionUUID)}-Backup.r32""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{Region_Name(RegionUUID)}-Backup.raw""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{Region_Name(RegionUUID)}-Backup.jpg""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{Region_Name(RegionUUID)}-Backup.png""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{Region_Name(RegionUUID)}-Backup.ter""") Then Return
 
         Dim R As New RegionEssentials With {
              .RegionUUID = RegionUUID,
-             .RegionName = RegionName
+             .RegionName = Region_Name(RegionUUID)
              }
 
         GenLand(R)
@@ -676,8 +675,7 @@ Module SmartStart
 
     Public Sub Bake_Terrain(RegionUUID As String)
 
-        Dim Name = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{Name}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""")
         RPC_Region_Command(RegionUUID, "terrain bake")
 
     End Sub
@@ -692,12 +690,11 @@ Module SmartStart
 
     Public Sub Load_AllFreeOARs(RegionUUID As String, obj As TaskObject)
 
-        Dim RegionName = Region_Name(RegionUUID)
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-        TextPrint($"{RegionName} load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
+        TextPrint($"{Region_Name(RegionUUID)} load oar {File}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
@@ -709,8 +706,7 @@ Module SmartStart
 
     Public Sub Load_Save(RegionUUID As String)
 
-        Dim RegionName = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""")
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         ' Create an instance of the open file dialog box. Set filter options and filter index.
@@ -729,11 +725,11 @@ Module SmartStart
 
                 Dim thing = openFileDialog1.FileName
                 If thing.Length > 0 Then
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.raw""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.png""")
-                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.ter""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}-Backup.r32""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}-Backup.raw""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}-Backup.jpg""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}-Backup.png""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}-Backup.ter""")
                     RPC_Region_Command(RegionUUID, $"terrain load ""{thing}""")
                 End If
             End If
@@ -763,15 +759,13 @@ Module SmartStart
 
     Public Sub Revert(RegionUUID As String)
 
-        Dim Name = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{Name}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""")
         RPC_Region_Command(RegionUUID, "terrain revert")
 
     End Sub
 
     Public Sub Save_Terrain(RegionUUID As String)
 
-        Dim RegionName = Region_Name(RegionUUID)
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim S As Double = SizeX(RegionUUID)
         S /= 256
@@ -784,12 +778,12 @@ Module SmartStart
             Terrainfolder = path
         End If
 
-        If Not RPC_Region_Command(RegionUUID, $"change region {RegionName}") Then Return
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+        If Not RPC_Region_Command(RegionUUID, $"change region {Region_Name(RegionUUID)}") Then Return
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.r32""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.raw""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.jpg""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.png""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.ter""")
 
     End Sub
 
@@ -798,8 +792,7 @@ Module SmartStart
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim extension = IO.Path.GetExtension(Filename)
 
-        Dim Rname = Region_Name(RegionUUID)
-        RPC_Region_Command(RegionUUID, $"change region ""{Rname}""")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""")
 
         Dim RegionName = Filename
         RegionName = RegionName.Replace($"{extension}", startWith)
