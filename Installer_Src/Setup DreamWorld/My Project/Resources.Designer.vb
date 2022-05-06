@@ -9295,7 +9295,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Rezzable Parcels .
+        '''  Looks up a localized string similar to Parcels Settings.
         '''</summary>
         Friend ReadOnly Property rezzableParcels() As String
             Get
