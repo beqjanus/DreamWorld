@@ -96,7 +96,7 @@ Module OAR
                         End If
 
                         If PropUserName.Length > 0 Then UserName = $" --Default-user ""{PropUserName}"" "
-                        Dim v As String = $"change region ""{thing}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
+                        Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
 
                         Dim obj As New TaskObject With {
                             .TaskName = FormSetup.TaskName.LoadOneOarTask,
@@ -162,7 +162,7 @@ Module OAR
             If m = vbNo Or m = vbCancel Then Return
         End If
 
-        Dim LoadOarCmd = $"change region ""{thing}""{vbCrLf} load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
+        Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf} load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
 
         Dim obj As New TaskObject With {
             .TaskName = FormSetup.TaskName.LoadOARContent,
@@ -180,20 +180,19 @@ Module OAR
 
     Public Sub LoadOARContent2(RegionUUID As String, T As TaskObject)
 
-        Dim RegionName = Region_Name(RegionUUID)
         Dim backMeUp = T.backMeUp
         Dim LoadOarStr = T.Command
 
         Try
             If backMeUp = "Yes" Then
-                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
+                ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{RegionName}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
+                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
 
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, $"change region ""{RegionName}""", True)
+            ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
             ConsoleCommand(RegionUUID, LoadOarStr)
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -262,13 +261,12 @@ Module OAR
 
     Public Sub SaveOneOar(RegionUUID As String, Task As TaskObject)
 
-        Dim RegionName = Region_Name(RegionUUID)
         Dim MyValue = Task.Command
 
         If IsBooted(RegionUUID) Then
             Dim Group = Group_Name(RegionUUID)
             SendMessage(RegionUUID, "CPU Intensive Backup Started")
-            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """", True)
+            ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """", True)
             ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & MyValue & """")
         End If
 
