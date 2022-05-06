@@ -1083,23 +1083,40 @@ Public Module MysqlInterface
     ''' </summary>
     ''' <param name="RegionUUID">Region UUID</param>
     ''' <returns>list of string</returns>
-    Public Function ParcelPermissionsCheck(RegionUUID As String) As String()
+    Public Function ParcelPermissionsCheck(RegionUUID As String) As String
 
-        Dim result As New List(Of String)
-
+        Dim str As String = ""
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and landflags & 64;"
-
+                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and ((landflags & 64) or (landflags & 16) or (landflags & 2));"
+#Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
+#Enable Warning
+
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             Dim ParcelName = reader.GetString(0)
                             Dim flag = reader.GetInt32(1)
-                            Diagnostics.Debug.Print($"{CStr(flag)} {ParcelName}")
-                            result.Add(ParcelName)
+
+                            If CBool((flag And 64) Or (flag And 16) Or (flag And 2)) Then
+                                str = $"{ParcelName} ("
+                            Else
+                                str = "-"
+                                Return str
+                            End If
+                            If CBool(flag And 64) Then
+                                str += "Build "
+                            End If
+                            If CBool(flag And 16) Then
+                                str += "Land "
+                            End If
+                            If CBool(flag And 2) Then
+                                str += "Script"
+                            End If
+                            str += ")"
+                            Diagnostics.Debug.Print(str)
                         End If
                     End Using
                 End Using
@@ -1107,8 +1124,7 @@ Public Module MysqlInterface
                 BreakPoint.Print(ex.Message)
             End Try
         End Using
-        Dim r = result.ToArray
-        Return r
+        Return str
 
     End Function
 
@@ -1127,8 +1143,9 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(conn)
             Try
                 MysqlConn.Open()
-
+#Disable Warning CA2100
                 Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
             Catch ex As MySqlException
