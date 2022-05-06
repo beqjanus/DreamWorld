@@ -1527,7 +1527,7 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        ' TODO add taskque so we can have more than one command
+        ' TODO add task que so we can have more than one command
         'TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
@@ -2157,12 +2157,14 @@ Public Class FormSetup
                     CurrentLocation.Add(Avatar, RegionName)
                     AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
+                    PropUpdateView = True
                     ' Seen visitor before, check the region to see if it moved
                 ElseIf Not CurrentLocation.Item(Avatar) = RegionName Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Item(Avatar) = RegionName
                     AvatarCount(RegionUUID) += 1
+                    PropUpdateView = True
                     AddorUpdateVisitor(Avatar, RegionName)
                 Else
                     Try
@@ -2184,6 +2186,7 @@ Public Class FormSetup
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
+                    PropUpdateView = True
                 End If
             Next
 
