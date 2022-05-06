@@ -211,7 +211,7 @@ Public Class FormJoomla
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer"
+        Dim webAddress As String = $"http://{Settings.PublicIP}/jOpensim/administrator/index.php?option=com_installer"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -222,7 +222,7 @@ Public Class FormJoomla
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/index.php?r=" & Random.ToString
+        Dim webAddress As String = $"http://{Settings.PublicIP}/jOpensim/index.php?r={Random.ToString}"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
