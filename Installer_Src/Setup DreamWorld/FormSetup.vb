@@ -879,8 +879,6 @@ Public Class FormSetup
         'UPNP create if we need it
         PropMyUPnpMap = New UPnp()
 
-        TextPrint(My.Resources.Starting_WebServer_word)
-
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
@@ -942,12 +940,13 @@ Public Class FormSetup
         End If
 
         ' Boot Port 8001 Server
+        TextPrint(My.Resources.Starting_WebServer_word)
         PropWebserver = NetServer.GetWebServer
         PropWebserver.StartServer(Settings.CurrentDirectory, Settings)
         Application.DoEvents()
 
         Sleep(100)
-        If TestPrivateLoopback(False) Then
+        If TestPrivateLoopback(True) Then
             ErrorLog("Diagnostic Listener port failed. Aborting")
             TextPrint("Diagnostic Listener port failed. Aborting")
             Return
@@ -2450,8 +2449,6 @@ Public Class FormSetup
 
             If SecondsTicker = 60 Then
                 Bench.Print("Initial 60 second worker")
-
-                ScanOpenSimWorld(True)
                 Delete_all_visitor_maps()
                 MakeMaps()
                 Bench.Print("Initial 60 second worker ends")
@@ -2459,12 +2456,6 @@ Public Class FormSetup
 
             If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
-
-                If TestPrivateLoopback(False) Then
-                    ErrorLog("Diagnostic Listener port failed")
-                    TextPrint("Diagnostic Listener port failed")
-                End If
-
                 DeleteOldWave()
                 ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
@@ -2478,8 +2469,15 @@ Public Class FormSetup
                 Bench.Print("300 second worker")
                 RunParser()
                 GetEvents()
-
+                ScanOpenSimWorld(True)
                 Bench.Print("300 second worker ends")
+            End If
+
+            If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
+                If TestPrivateLoopback(False) Then
+                    ErrorLog("Diagnostic Listener port failed")
+                    TextPrint("Diagnostic Listener port failed")
+                End If
             End If
 
             ' half hour
@@ -2489,7 +2487,6 @@ Public Class FormSetup
                 GetEvents()
                 RunParser()
                 MakeMaps()
-
                 Bench.Print("half hour worker ends")
             End If
 
