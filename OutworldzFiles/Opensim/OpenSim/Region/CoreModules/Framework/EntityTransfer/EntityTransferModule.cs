@@ -761,8 +761,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             // this possible should only be called if query fails with a limited set of errors like connection refused.
             if (reg.RegionLocY != 0) // not on HG
             {
-                if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
-                {
+                //if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
+                //{
                     UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); 
                     if (regID != UUID.Zero && regID != finalDestination.RegionID)
                     {
@@ -781,7 +781,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                         reg = finalDestination;
                     }
-                }
+                //}
             }
 
 
