@@ -1595,8 +1595,8 @@ Public Class FormSetup
                 ToDoList.Remove(RegionUUID)
                 Dim T = Task.TaskName
                 Select Case T
-                    Case TaskName.RPCBackupper       '1
-                        Backupper(RegionUUID)
+                    Case TaskName.RPCBackupper      '1
+                        Backupper(RegionUUID, Task.Command)
                     Case TaskName.TeleportClicked   '2
                         TeleportClicked(RegionUUID)
                     Case TaskName.LoadOar   '2

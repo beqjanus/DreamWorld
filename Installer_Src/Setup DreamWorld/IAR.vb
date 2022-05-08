@@ -262,12 +262,13 @@ Module IAR
     ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped
     ''' </summary>
     ''' <param name="BackupName">Name of region to watch</param>
-    Public Sub WaitforComplete(FolderAndFileName As String)
+    Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
 
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 15 And PropOpensimIsRunning
+        While same < 30 And PropOpensimIsRunning
+            PokeGroupTimer(Group_Name(RegionUUID))
             Dim fi = New System.IO.FileInfo(FolderAndFileName)
             Try
                 s = fi.Length
@@ -282,6 +283,7 @@ Module IAR
             End If
             Sleep(1000)
             oldsize = s
+
         End While
 
     End Sub
@@ -306,7 +308,7 @@ Module IAR
 
             ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-            WaitforComplete(ToBackup)
+            WaitforComplete(RegionUUID, ToBackup)
         Next
 
         Return True

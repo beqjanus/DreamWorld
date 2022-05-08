@@ -1101,6 +1101,7 @@ Public Class FormRegion
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
 
+        Dim Abort As Boolean
         Try
 
             ' save the Region File, choose an existing DOS box to put it in, or make a new one
@@ -1333,7 +1334,6 @@ Public Class FormRegion
             End If
 
             FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
-            Dim Abort As Boolean
 
             SyncLock WriteLock
                 Try

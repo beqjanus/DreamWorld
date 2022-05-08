@@ -59,6 +59,8 @@ Public Class FormBackupBoxes
 
         If Settings.BackupOARs And PropOpensimIsRunning() Then
             BackupAllRegions()
+        Else
+            TextPrint(My.Resources.Not_Running)
         End If
 
         Me.Close()
