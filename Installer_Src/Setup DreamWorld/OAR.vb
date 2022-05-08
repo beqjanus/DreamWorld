@@ -185,15 +185,12 @@ Module OAR
 
         Try
             If backMeUp = "Yes" Then
-                ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                ConsoleCommand(RegionUUID, $"save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
+                ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
-
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
-            ConsoleCommand(RegionUUID, LoadOarStr)
+            ConsoleCommand(RegionUUID, "change region ""{Region_Name(RegionUUID)}""{vbCrLf}{LoadOarStr}")
         Catch ex As Exception
             BreakPoint.Dump(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
@@ -266,8 +263,7 @@ Module OAR
         If IsBooted(RegionUUID) Then
             Dim Group = Group_Name(RegionUUID)
             SendMessage(RegionUUID, "CPU Intensive Backup Started")
-            ConsoleCommand(RegionUUID, "change region " & """" & Region_Name(RegionUUID) & """", True)
-            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & MyValue & """")
+            ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar " & """" & BackupPath() & "/" & MyValue & """")
         End If
 
         TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & MyValue)
