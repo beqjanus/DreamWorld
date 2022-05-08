@@ -1526,7 +1526,10 @@ Public Class FormSetup
 
         Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        ' TODO add task que so we can have more than one command
+        ReBoot(RegionUUID)
+        Sleep(1000)
+        ' TODO add task queue
+        ' so we can have more than one command
         'TaskQue.Add(TObj)
         If ToDoList.ContainsKey(RegionUUID) Then
             ToDoList(RegionUUID) = TObj
@@ -1536,7 +1539,7 @@ Public Class FormSetup
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             RunTaskList(RegionUUID)
         End If
-        ReBoot(RegionUUID)
+
 
     End Sub
 

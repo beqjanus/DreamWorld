@@ -267,7 +267,7 @@ Module IAR
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 30 And PropOpensimIsRunning
+        While same < 15 And PropOpensimIsRunning
             PokeGroupTimer(Group_Name(RegionUUID))
             Dim fi = New System.IO.FileInfo(FolderAndFileName)
             Try
