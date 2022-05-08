@@ -224,7 +224,7 @@ Module RegionMaker
         Debug.Print("Region count is " & CStr(RegionList.Count))
 
         CreateRegionLock = False
-        Return r._UUID
+        Return UUID
 
     End Function
 
