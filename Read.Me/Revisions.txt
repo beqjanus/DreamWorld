@@ -2,14 +2,16 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
 V4.997
+Background and User Initiated OAR and IAR backups wait for each OAR or IAR to save sequentially.  The Smart regions will stay alive until the region finishes.
 Load oar did not always change to the proper region - affected only multi-region DOS boxes.
-Region List now shows parcel names in all regions that have rez rights enabled.  This is normal for sandboxes, but should be disable to stop griefers.
+Region List now shows parcel names in all regions that have rez, script or terrain edit enabled.  You should disable these to stop griefing.
 Glitch in Smart Start caused difficulties in logging in.  
 All regions except Default are now set to persistent so you can enable Smart Start on a region without needed to restart Robust.
 Speech when avatar arrives or leaves only ran once, but should have been continuously. 
 DNS password error would occur multiple times- pops up an alerts only once now.
 Hyperlinks in Screen text are clickable.
 Grid settings and IPs print at end of boot to make them more visible.
+NBow refreshes Region list as people move around.  And it detects Hypergrid visitors again.
 
 V4.996 
 Dev Master 0.9.2.2 Opensim #4f7b293c5efe69af0180f  as of 5/1/2022.
