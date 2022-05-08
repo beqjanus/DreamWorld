@@ -84,33 +84,6 @@ Public Class FormRegion
 
 #End Region
 
-#Region "RestartRobustIfNeeded"
-
-    Private Sub RestartRobustIfNeeded(RegionUUID As String)
-
-        If Not RegionEnabled(RegionUUID) Then Return
-        If Not _LastSmartSetting And SmartStartCheckBox.Checked And IsRobustRunning() Then
-
-            PropAborting = True
-            Dim loopctr = 60 ' wait 1 minute
-            StopRegion(RegionUUID)
-            While CheckPort(Settings.PublicIP(), GroupPort(RegionUUID)) And loopctr > 0
-                loopctr -= 1
-                Sleep(1000)
-            End While
-
-            StopRobust()
-            PropAborting = False
-            StartRobust()
-
-            Boot(Region_Name(RegionUUID))
-
-        End If
-
-    End Sub
-
-#End Region
-
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
@@ -674,8 +647,6 @@ Public Class FormRegion
                 ConciergeCheckBox.Checked = False
         End Select
 
-        _LastSmartSetting = SmartStartCheckBox.Checked
-
         Try
             Me.Show() ' time to show the results
             Me.Activate()
@@ -725,7 +696,7 @@ Public Class FormRegion
                 PropChangedRegionSettings = True
                 GetAllRegions(False)
                 Firewall.SetFirewall()
-                RestartRobustIfNeeded(RegionUUID)
+
                 PropUpdateView() = True
                 Changed1 = False
                 Close()
@@ -763,7 +734,7 @@ Public Class FormRegion
             PropChangedRegionSettings = True
             GetAllRegions(False)
             Firewall.SetFirewall()
-            RestartRobustIfNeeded(RegionUUID)
+
             PropUpdateView() = True
             Changed1 = False
         End If
