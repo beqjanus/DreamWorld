@@ -748,7 +748,6 @@ Public Class FormRegion
         If response = vbYes Then
 
             StartMySQL()
-            StartRobust()
 
             Dim RegionUUID As String = FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
@@ -816,6 +815,12 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
+
+            Dim loopctr = 120 ' wait 2 minutes
+            While CheckPort(Settings.LANIP(), GroupPort(RegionUUID)) And loopctr > 0
+                Sleep(1000)
+                loopctr -= 1
+            End While
 
             DeleteAllRegionData(RegionUUID)
             PropChangedRegionSettings = True
@@ -1096,296 +1101,305 @@ Public Class FormRegion
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
 
-        ' save the Region File, choose an existing DOS box to put it in, or make a new one
-        ' rename is possible
-        If Oldname1 <> RegionName.Text And Not IsNew1 Then
-            Try
-                StartMySQL()
-                MysqlInterface.DeregisterRegionUUID(RegionUUID)
-                My.Computer.FileSystem.RenameFile(RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                TextPrint(My.Resources.Aborted_word)
-                Return False
-            End Try
+        Try
 
-            ' rename it
-            RegionIniFilePath(RegionUUID) = RegionIniFolderPath(RegionUUID) + "/" + RegionName.Text + ".ini"
-        End If
+            ' save the Region File, choose an existing DOS box to put it in, or make a new one
+            ' rename is possible
+            If Oldname1 <> RegionName.Text And Not IsNew1 Then
+                Try
+                    StartMySQL()
+                    MysqlInterface.DeregisterRegionUUID(RegionUUID)
+                    My.Computer.FileSystem.RenameFile(RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                    TextPrint(My.Resources.Aborted_word)
+                    Return False
+                End Try
 
-        ' might be a new region, so give them a choice
-
-        If IsNew1 Then
-            Dim NewGroup As String
-
-            NewGroup = RegionChosen(RegionName.Text)
-            If NewGroup.Length = 0 Then
-                TextPrint(My.Resources.Aborted_word)
-                Return False
+                ' rename it
+                RegionIniFilePath(RegionUUID) = RegionIniFolderPath(RegionUUID) + "/" + RegionName.Text + ".ini"
             End If
 
-            If Not Directory.Exists(RegionIniFilePath(RegionUUID)) Or RegionIniFilePath(RegionUUID).Length = 0 Then
-                MakeFolder(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
+            ' might be a new region, so give them a choice
+
+            If IsNew1 Then
+                Dim NewGroup As String
+
+                NewGroup = RegionChosen(RegionName.Text)
+                If NewGroup.Length = 0 Then
+                    TextPrint(My.Resources.Aborted_word)
+                    Return False
+                End If
+
+                If Not Directory.Exists(RegionIniFilePath(RegionUUID)) Or RegionIniFilePath(RegionUUID).Length = 0 Then
+                    MakeFolder(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
+                End If
+
+                RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+                RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(RegionIniFilePath(RegionUUID))
+                Group_Name(RegionUUID) = NewGroup
+
+                Dim theEnd As Integer = RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
+                OpensimIniPath(RegionUUID) = RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
+
             End If
 
-            RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(RegionIniFilePath(RegionUUID))
-            Group_Name(RegionUUID) = NewGroup
+            ' save the changes to the memory structure, then to disk
 
-            Dim theEnd As Integer = RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
-            OpensimIniPath(RegionUUID) = RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
+            'CPU Affinity
+            Dim Ncores = 0
+            If Core1Button.Checked Then Ncores += &H1
+            If Core2Button.Checked Then Ncores += &H2
+            If Core3Button.Checked Then Ncores += &H4
+            If Core4Button.Checked Then Ncores += &H8
+            If Core5Button.Checked Then Ncores += &H10
+            If Core6Button.Checked Then Ncores += &H20
+            If Core7Button.Checked Then Ncores += &H40
+            If Core8Button.Checked Then Ncores += &H80
+            If Core9Button.Checked Then Ncores += &H100
+            If Core10Button.Checked Then Ncores += &H200
+            If Core10Button.Checked Then Ncores += &H400
+            If Core12Button.Checked Then Ncores += &H800
+            If Core13Button.Checked Then Ncores += &H1000
+            If Core14Button.Checked Then Ncores += &H2000
+            If Core15Button.Checked Then Ncores += &H4000
+            If Core16Button.Checked Then Ncores += &H8000
 
-        End If
+            If Ncores = 0 Then Ncores = Environment.ProcessorCount
+            Cores(RegionUUID) = Ncores
 
-        ' save the changes to the memory structure, then to disk
+            If RealTime.Checked Then
+                Priority(RegionUUID) = "RealTime"
+            ElseIf High.Checked Then
+                Priority(RegionUUID) = "High"
+            ElseIf AboveNormal.Checked Then
+                Priority(RegionUUID) = "AboveNormal"
+            ElseIf Normal.Checked Then
+                Priority(RegionUUID) = "Normal"
+            ElseIf BelowNormal.Checked Then
+                Priority(RegionUUID) = "BelowNormal"
+            Else
+                Priority(RegionUUID) = "Normal"
+            End If
 
-        'CPU Affinity
-        Dim Ncores = 0
-        If Core1Button.Checked Then Ncores += &H1
-        If Core2Button.Checked Then Ncores += &H2
-        If Core3Button.Checked Then Ncores += &H4
-        If Core4Button.Checked Then Ncores += &H8
-        If Core5Button.Checked Then Ncores += &H10
-        If Core6Button.Checked Then Ncores += &H20
-        If Core7Button.Checked Then Ncores += &H40
-        If Core8Button.Checked Then Ncores += &H80
-        If Core9Button.Checked Then Ncores += &H100
-        If Core10Button.Checked Then Ncores += &H200
-        If Core10Button.Checked Then Ncores += &H400
-        If Core12Button.Checked Then Ncores += &H800
-        If Core13Button.Checked Then Ncores += &H1000
-        If Core14Button.Checked Then Ncores += &H2000
-        If Core15Button.Checked Then Ncores += &H4000
-        If Core16Button.Checked Then Ncores += &H8000
+            Coord_X(RegionUUID) = CInt("0" & CoordX.Text)
+            Coord_Y(RegionUUID) = CInt("0" & CoordY.Text)
+            Region_Name(RegionUUID) = RegionName.Text
 
-        If Ncores = 0 Then Ncores = Environment.ProcessorCount
-        Cores(RegionUUID) = Ncores
+            SizeX(RegionUUID) = BoxSize
+            SizeY(RegionUUID) = BoxSize
+            RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
+            NonPhysical_PrimMax(RegionUUID) = NonphysicalPrimMax.Text
+            Physical_PrimMax(RegionUUID) = PhysicalPrimMax.Text
+            Clamp_PrimSize(RegionUUID) = ClampPrimSize.Checked
 
-        If RealTime.Checked Then
-            Priority(RegionUUID) = "RealTime"
-        ElseIf High.Checked Then
-            Priority(RegionUUID) = "High"
-        ElseIf AboveNormal.Checked Then
-            Priority(RegionUUID) = "AboveNormal"
-        ElseIf Normal.Checked Then
-            Priority(RegionUUID) = "Normal"
-        ElseIf BelowNormal.Checked Then
-            Priority(RegionUUID) = "BelowNormal"
-        Else
-            Priority(RegionUUID) = "Normal"
-        End If
+            Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
 
-        Coord_X(RegionUUID) = CInt("0" & CoordX.Text)
-        Coord_Y(RegionUUID) = CInt("0" & CoordY.Text)
-        Region_Name(RegionUUID) = RegionName.Text
+            Max_Agents(RegionUUID) = MaxAgents.Text
+            Max_Prims(RegionUUID) = MaxPrims.Text
+            MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
+            FrameTime(RegionUUID) = FrametimeBox.Text
 
-        SizeX(RegionUUID) = BoxSize
-        SizeY(RegionUUID) = BoxSize
-        RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
-        NonPhysical_PrimMax(RegionUUID) = NonphysicalPrimMax.Text
-        Physical_PrimMax(RegionUUID) = PhysicalPrimMax.Text
-        Clamp_PrimSize(RegionUUID) = ClampPrimSize.Checked
+            Dim Snapshot As String = ""
+            If PublishDefault.Checked Then
+                Snapshot = ""
+            ElseIf NoPublish.Checked Then
+                Snapshot = "False"
+            ElseIf Publish.Checked Then
+                Snapshot = "True"
+            End If
 
-        Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
+            RegionSnapShot(RegionUUID) = Snapshot
 
-        Max_Agents(RegionUUID) = MaxAgents.Text
-        Max_Prims(RegionUUID) = MaxPrims.Text
-        MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
-        FrameTime(RegionUUID) = FrametimeBox.Text
+            Dim Map As String = ""
+            If MapNone.Checked Then
+                Map = ""
+            ElseIf MapSimple.Checked Then
+                Map = "Simple"
+            ElseIf MapGood.Checked Then
+                Map = "Good"
+            ElseIf MapBetter.Checked Then
+                Map = "Better"
+            ElseIf MapBest.Checked Then
+                Map = "Best"
+            End If
 
-        Dim Snapshot As String = ""
-        If PublishDefault.Checked Then
-            Snapshot = ""
-        ElseIf NoPublish.Checked Then
-            Snapshot = "False"
-        ElseIf Publish.Checked Then
-            Snapshot = "True"
-        End If
+            MapType(RegionUUID) = Map
 
-        RegionSnapShot(RegionUUID) = Snapshot
+            'Case "" : Physics_Default.Checked = True
+            'Case "-1" : Physics_Default.Checked = True
+            'Case "0" : Physics_Default.Checked = True
+            'Case "1" : Physics_ODE.Checked = True
+            'Case "2" : Physics_Bullet.Checked = True
+            'Case "3" : Physics_Separate.Checked = True
+            'Case "4" : Physics_ubODE.Checked = True
+            'Case "5" : Physics_Hybrid.Checked = True
+            'Case Else : Physics_Default.Checked = True
 
-        Dim Map As String = ""
-        If MapNone.Checked Then
-            Map = ""
-        ElseIf MapSimple.Checked Then
-            Map = "Simple"
-        ElseIf MapGood.Checked Then
-            Map = "Good"
-        ElseIf MapBetter.Checked Then
-            Map = "Better"
-        ElseIf MapBest.Checked Then
-            Map = "Best"
-        End If
+            Dim Phys As String
+            If Physics_Default.Checked Then
+                Phys = ""
+            ElseIf Physics_Bullet.Checked Then
+                Phys = "2"
+            ElseIf Physics_Separate.Checked Then
+                Phys = "3"
+            ElseIf Physics_ubODE.Checked Then
+                Phys = "4"
+            Else
+                Phys = "2"
+            End If
 
-        MapType(RegionUUID) = Map
+            RegionPhysics(RegionUUID) = Phys
 
-        'Case "" : Physics_Default.Checked = True
-        'Case "-1" : Physics_Default.Checked = True
-        'Case "0" : Physics_Default.Checked = True
-        'Case "1" : Physics_ODE.Checked = True
-        'Case "2" : Physics_Bullet.Checked = True
-        'Case "3" : Physics_Separate.Checked = True
-        'Case "4" : Physics_ubODE.Checked = True
-        'Case "5" : Physics_Hybrid.Checked = True
-        'Case Else : Physics_Default.Checked = True
+            If Gods_Use_Default.Checked Then
+                GodDefault(RegionUUID) = "True"
+                AllowGods(RegionUUID) = ""
+                RegionGod(RegionUUID) = ""
+                ManagerGod(RegionUUID) = ""
+            Else
+                GodDefault(RegionUUID) = "False"
+                AllowGods(RegionUUID) = CStr(GodLevel.Checked)
+                RegionGod(RegionUUID) = CStr(GodEstate.Checked)
+                ManagerGod(RegionUUID) = CStr(GodManager.Checked)
+            End If
 
-        Dim Phys As String
-        If Physics_Default.Checked Then
-            Phys = ""
-        ElseIf Physics_Bullet.Checked Then
-            Phys = "2"
-        ElseIf Physics_Separate.Checked Then
-            Phys = "3"
-        ElseIf Physics_ubODE.Checked Then
-            Phys = "4"
-        Else
-            Phys = "2"
-        End If
+            If DisallowForeigners.Checked Then
+                Disallow_Foreigners(RegionUUID) = "True"
+            Else
+                Disallow_Foreigners(RegionUUID) = ""
+            End If
 
-        RegionPhysics(RegionUUID) = Phys
+            If DisallowResidents.Checked Then
+                Disallow_Residents(RegionUUID) = "True"
+            Else
+                Disallow_Residents(RegionUUID) = ""
+            End If
 
-        If Gods_Use_Default.Checked Then
-            GodDefault(RegionUUID) = "True"
-            AllowGods(RegionUUID) = ""
-            RegionGod(RegionUUID) = ""
-            ManagerGod(RegionUUID) = ""
-        Else
-            GodDefault(RegionUUID) = "False"
-            AllowGods(RegionUUID) = CStr(GodLevel.Checked)
-            RegionGod(RegionUUID) = CStr(GodEstate.Checked)
-            ManagerGod(RegionUUID) = CStr(GodManager.Checked)
-        End If
+            If SkipAutoCheckBox.Checked Then
+                SkipAutobackup(RegionUUID) = "True"
+            Else
+                SkipAutobackup(RegionUUID) = ""
+            End If
 
-        If DisallowForeigners.Checked Then
-            Disallow_Foreigners(RegionUUID) = "True"
-        Else
-            Disallow_Foreigners(RegionUUID) = ""
-        End If
+            If BirdsCheckBox.Checked Then
+                Birds(RegionUUID) = "True"
+            Else
+                Birds(RegionUUID) = ""
+            End If
 
-        If DisallowResidents.Checked Then
-            Disallow_Residents(RegionUUID) = "True"
-        Else
-            Disallow_Residents(RegionUUID) = ""
-        End If
+            If TidesCheckbox.Checked Then
+                Tides(RegionUUID) = "True"
+            Else
+                Tides(RegionUUID) = ""
+            End If
 
-        If SkipAutoCheckBox.Checked Then
-            SkipAutobackup(RegionUUID) = "True"
-        Else
-            SkipAutobackup(RegionUUID) = ""
-        End If
+            If TPCheckBox1.Checked Then
+                Teleport_Sign(RegionUUID) = "True"
+            Else
+                Teleport_Sign(RegionUUID) = ""
+            End If
 
-        If BirdsCheckBox.Checked Then
-            Birds(RegionUUID) = "True"
-        Else
-            Birds(RegionUUID) = ""
-        End If
+            If DisableGBCheckBox.Checked Then
+                DisableGloebits(RegionUUID) = "True"
+            Else
+                DisableGloebits(RegionUUID) = ""
+            End If
 
-        If TidesCheckbox.Checked Then
-            Tides(RegionUUID) = "True"
-        Else
-            Tides(RegionUUID) = ""
-        End If
+            If NoPublish.Checked Then
+                GDPR(RegionUUID) = "False"
+            Else
+                GDPR(RegionUUID) = ""
+            End If
 
-        If TPCheckBox1.Checked Then
-            Teleport_Sign(RegionUUID) = "True"
-        Else
-            Teleport_Sign(RegionUUID) = ""
-        End If
+            If Publish.Checked Then
+                GDPR(RegionUUID) = "True"
+            Else
+                GDPR(RegionUUID) = ""
+            End If
 
-        If DisableGBCheckBox.Checked Then
-            DisableGloebits(RegionUUID) = "True"
-        Else
-            DisableGloebits(RegionUUID) = ""
-        End If
+            If SmartStartCheckBox.Checked Then
+                Smart_Start(RegionUUID) = "True"
+            Else
+                Smart_Start(RegionUUID) = ""
+            End If
 
-        If NoPublish.Checked Then
-            GDPR(RegionUUID) = "False"
-        Else
-            GDPR(RegionUUID) = ""
-        End If
+            ScriptEngine(RegionUUID) = "" ' default is blank
+            If ScriptOffButton.Checked = True Then
+                ScriptEngine(RegionUUID) = "Off"
+            ElseIf XEngineButton.Checked = True Then
+                ScriptEngine(RegionUUID) = "XEngine"
+            ElseIf YEngineButton.Checked = True Then
+                ScriptEngine(RegionUUID) = "YEngine"
+            End If
 
-        If Publish.Checked Then
-            GDPR(RegionUUID) = "True"
-        Else
-            GDPR(RegionUUID) = ""
-        End If
+            FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
+            Dim Abort As Boolean
 
-        If SmartStartCheckBox.Checked Then
-            Smart_Start(RegionUUID) = "True"
-        Else
-            Smart_Start(RegionUUID) = ""
-        End If
+            SyncLock WriteLock
+                Try
 
-        ScriptEngine(RegionUUID) = "" ' default is blank
-        If ScriptOffButton.Checked = True Then
-            ScriptEngine(RegionUUID) = "Off"
-        ElseIf XEngineButton.Checked = True Then
-            ScriptEngine(RegionUUID) = "XEngine"
-        ElseIf YEngineButton.Checked = True Then
-            ScriptEngine(RegionUUID) = "YEngine"
-        End If
+                    Dim Region = "; * Regions configuration file" &
+                                "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
+                                "; Automatically changed by Dreamworld" & vbCrLf &
+                                "[" & RegionName.Text & "]" & vbCrLf &
+                                "RegionUUID=" & UUID.Text & vbCrLf &
+                                "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                                "InternalAddress = 0.0.0.0" & vbCrLf &
+                                "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
+                                "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
+                                "AllowAlternatePorts = False" & vbCrLf &
+                                "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
+                                "SizeX=" & BoxSize & vbCrLf &
+                                "SizeY=" & BoxSize & vbCrLf &
+                                "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                                "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
+                                "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
+                                "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
+                                "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
+                                "MaxAgents=" & MaxAgents.Text & vbCrLf &
+                                "MaxPrims=" & MaxPrims.Text & vbCrLf &
+                                "RegionType = Estate" & vbCrLf & vbCrLf &
+                                ";# Extended region properties from Dreamgrid" & vbCrLf &
+                                "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
+                                "FrameTime=" & FrametimeBox.Text & vbCrLf &
+                                "RegionSnapShot=" & Snapshot & vbCrLf &
+                                "MapType=" & Map & vbCrLf &
+                                "Physics=" & Phys & vbCrLf &
+                                "GodDefault=" & GodDefault(RegionUUID) & vbCrLf &
+                                "AllowGods=" & AllowGods(RegionUUID) & vbCrLf &
+                                "RegionGod=" & RegionGod(RegionUUID) & vbCrLf &
+                                "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
+                                "Birds=" & Birds(RegionUUID) & vbCrLf &
+                                "Tides=" & Tides(RegionUUID) & vbCrLf &
+                                "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
+                                "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
+                                "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
+                                "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
+                                "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf &
+                                "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf &
+                                "Publicity=" & GDPR(RegionUUID) & vbCrLf &
+                                "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                                "Priority=" & Priority(RegionUUID) & vbCrLf &
+                                "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
+                                "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
 
-        FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
-        Dim Abort As Boolean
+                    Try
+                        Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
+                            outputFile.Write(Region)
+                        End Using
+                    Catch ex As Exception
+                        BreakPoint.Dump(ex)
+                        MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
+                        Abort = True
+                    End Try
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
 
-        SyncLock WriteLock
-
-            Dim Region = "; * Regions configuration file" &
-                            "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
-                            "; Automatically changed by Dreamworld" & vbCrLf &
-                            "[" & RegionName.Text & "]" & vbCrLf &
-                            "RegionUUID=" & UUID.Text & vbCrLf &
-                            "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
-                            "InternalAddress = 0.0.0.0" & vbCrLf &
-                            "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
-                            "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
-                            "AllowAlternatePorts = False" & vbCrLf &
-                            "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
-                            "SizeX=" & BoxSize & vbCrLf &
-                            "SizeY=" & BoxSize & vbCrLf &
-                            "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
-                            "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
-                            "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
-                            "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
-                            "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
-                            "MaxAgents=" & MaxAgents.Text & vbCrLf &
-                            "MaxPrims=" & MaxPrims.Text & vbCrLf &
-                            "RegionType = Estate" & vbCrLf & vbCrLf &
-                            ";# Extended region properties from Dreamgrid" & vbCrLf &
-                            "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
-                            "FrameTime=" & FrametimeBox.Text & vbCrLf &
-                            "RegionSnapShot=" & Snapshot & vbCrLf &
-                            "MapType=" & Map & vbCrLf &
-                            "Physics=" & Phys & vbCrLf &
-                            "GodDefault=" & GodDefault(RegionUUID) & vbCrLf &
-                            "AllowGods=" & AllowGods(RegionUUID) & vbCrLf &
-                            "RegionGod=" & RegionGod(RegionUUID) & vbCrLf &
-                            "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
-                            "Birds=" & Birds(RegionUUID) & vbCrLf &
-                            "Tides=" & Tides(RegionUUID) & vbCrLf &
-                            "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
-                            "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
-                            "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
-                            "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
-                            "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf &
-                            "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf &
-                            "Publicity=" & GDPR(RegionUUID) & vbCrLf &
-                            "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
-                            "Priority=" & Priority(RegionUUID) & vbCrLf &
-                            "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
-                            "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
-
-            Try
-                Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)
-                    outputFile.Write(Region)
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-                MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
-                Abort = True
-            End Try
-
-        End SyncLock
+            End SyncLock
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
 
         PropChangedRegionSettings = True
         PropUpdateView = True
