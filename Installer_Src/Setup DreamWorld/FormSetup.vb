@@ -459,6 +459,7 @@ Public Class FormSetup
     Public Function StartOpensimulator() As Boolean
 
         Bench.Print("StartOpensim")
+        StartMySQL()
         PropOpensimIsRunning = True
         Init(False)
         OpenPorts()
