@@ -162,6 +162,7 @@ Module Disk
 
     Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
 
+        ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
         Dim result As Boolean
         Using SuspendProcess As New Process()
             Dim pi = New ProcessStartInfo With {
