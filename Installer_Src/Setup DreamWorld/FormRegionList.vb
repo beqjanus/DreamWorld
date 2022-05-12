@@ -1515,7 +1515,7 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(Estate(RegionUUID))
 
                 ' Parcel settings
-                item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                If UseMysql Then item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
