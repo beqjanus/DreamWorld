@@ -95,7 +95,7 @@ Module OAR
                             If m = vbNo Or m = vbCancel Then Return
                         End If
 
-                        If PropUserName.Length > 0 Then UserName = $" --Default-user ""{PropUserName}"" "
+                        If PropUserName.Length > 0 Then UserName = $" --default-user ""{PropUserName}"" "
                         Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
 
                         Dim obj As New TaskObject With {
