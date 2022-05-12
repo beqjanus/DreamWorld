@@ -140,20 +140,13 @@ Module Disk
         End If
 
         Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
-        If Settings.BootOrSuspend = False Then
-
-            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-                TeleportAgents()
-                Return False ' no need to boot as we are up.
-            Else
-                ReBoot(RegionUUID)
-                TeleportAgents()
-            End If
-        Else
-            ReBoot(RegionUUID)
+        ' SuUspend mode and there is a DOS box then...
+        If Settings.BootOrSuspend = False And CBool(GetHwnd(Group_Name(RegionUUID))) Then
+            FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
+            TeleportAgents()
+            Return False ' no need to boot as we are up.
         End If
-
+        ReBoot(RegionUUID)
         Return True
 
     End Function
