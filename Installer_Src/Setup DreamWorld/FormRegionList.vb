@@ -785,9 +785,6 @@ SetWindowOnTop_Err:
         ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
             Num = DGICON.shuttingdown
-        ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-            Letter = My.Resources.Stopping_word
-            Num = DGICON.shuttingdown
         ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
         ElseIf Status = SIMSTATUSENUM.NoError Then

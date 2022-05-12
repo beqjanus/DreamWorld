@@ -100,22 +100,20 @@ Module Global_Properties
             Case 4
                 statestring = "RecyclingDown"
             Case 5
-                statestring = "ShuttingDown"
-            Case 6
                 statestring = "RestartPending"
-            Case 7
+            Case 6
                 statestring = "RetartingNow"
-            Case 8
+            Case 7
                 statestring = "Resume"
-            Case 9
+            Case 8
                 statestring = "Suspended"
-            Case 10
+            Case 9
                 statestring = "RestartStage2"
-            Case 11
+            Case 10
                 statestring = "ShuttingDownForGood"
-            Case 12
+            Case 11
                 statestring = "NoLogin"
-            Case 13
+            Case 12
                 statestring = "No Error"
             Case Else
                 statestring = "**** Unknown state ****"

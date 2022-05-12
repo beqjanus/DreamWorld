@@ -43,15 +43,14 @@ Module RegionMaker
         Booted = 2
         RecyclingUp = 3
         RecyclingDown = 4
-        ShuttingDown = 5
-        RestartPending = 6
-        RetartingNow = 7
-        [Resume] = 8
-        Suspended = 9
-        RestartStage2 = 10
-        ShuttingDownForGood = 11
-        NoLogin = 12
-        NoError = 13
+        RestartPending = 5
+        RetartingNow = 6
+        [Resume] = 7
+        Suspended = 8
+        RestartStage2 = 9
+        ShuttingDownForGood = 10
+        NoLogin = 11
+        NoError = 12
 
     End Enum
 
@@ -1581,7 +1580,6 @@ Module RegionMaker
         '"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
         ' we want region name, UUID and server_startup could also be a probe from the outworldz to check if ports are open.
 
-        ' WarmingUp(0) = True ShuttingDown(1) = True
         If post.Contains("""alert"":""region_ready""") Then
             WebserverList.TryAdd(post, "")
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then
