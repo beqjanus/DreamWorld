@@ -91,7 +91,7 @@ Module IAR
                     Return False
                 End If
                 If u.Length > 0 Then
-                    ConsoleCommand(UUID, "load iar --merge " & u & " " & p & " " & """" & thing & """")
+                    ConsoleCommand(UUID, $"load iar --merge {u} ""{p}"" ""{thing}""")
                     SendMessage(UUID, "IAR content is loading")
                     TextPrint(My.Resources.isLoading & vbCrLf & p)
                 Else
