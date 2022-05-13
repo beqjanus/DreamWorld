@@ -135,27 +135,18 @@ Module Disk
     ''' <returns>0 if success</returns>
     Public Function ResumeRegion(RegionUUID As String) As Boolean
 
-        If Settings.Smart_Start AndAlso Smart_Start(RegionUUID).Length = 0 Or Smart_Start(RegionUUID) = "False" Then
-            Return True
-        End If
         If ProcessID(RegionUUID) = 0 Then
             Return True
         End If
 
         Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
-        If Settings.BootOrSuspend = False Then
+        ' SuUspend mode and there is a DOS box then...
+        If Settings.BootOrSuspend = False And CBool(GetHwnd(Group_Name(RegionUUID))) Then
             FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                TeleportAgents()
-                Return False ' no need to boot as we are up.
-            Else
-                ReBoot(RegionUUID)
-                TeleportAgents()
-            End If
-        Else
-            ReBoot(RegionUUID)
+            TeleportAgents()
+            Return False ' no need to boot as we are up.
         End If
-
+        ReBoot(RegionUUID)
         Return True
 
     End Function

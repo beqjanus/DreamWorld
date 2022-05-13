@@ -785,9 +785,6 @@ SetWindowOnTop_Err:
         ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
             Num = DGICON.shuttingdown
-        ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-            Letter = My.Resources.Stopping_word
-            Num = DGICON.shuttingdown
         ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
         ElseIf Status = SIMSTATUSENUM.NoError Then
@@ -1518,7 +1515,7 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(Estate(RegionUUID))
 
                 ' Parcel settings
-                item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                If UseMysql Then item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))

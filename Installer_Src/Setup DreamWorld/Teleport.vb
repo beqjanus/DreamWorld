@@ -42,9 +42,9 @@ Module Teleport
                         If fromName.Length > 0 Then
                             Bench.Print("Teleport Initiated")
 
-                            ' min 1000 sleep on suspend minimume
+                            ' min 1000 sleep on suspend minimum
                             If Settings.TeleportSleepTime = 0 And Not Settings.BootOrSuspend Then
-                                Sleep(1000)
+                                Sleep(500)
                             ElseIf Settings.TeleportSleepTime > 0 And Not Settings.BootOrSuspend Then
                                 RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                                 Sleep(Settings.TeleportSleepTime * 1000)

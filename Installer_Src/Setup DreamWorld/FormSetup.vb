@@ -462,6 +462,7 @@ Public Class FormSetup
 
         Bench.Print("StartOpensim")
         StartTimer()
+
         PropOpensimIsRunning = True
         Init(False)
         OpenPorts()
@@ -1133,13 +1134,6 @@ Public Class FormSetup
                 Application.DoEvents()
                 Continue While
 
-            ElseIf Status = SIMSTATUSENUM.ShuttingDown Then
-
-                StopGroup(GroupName)
-
-                Application.DoEvents()
-                Continue While
-
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
                 'RecyclingDown = 4
 
@@ -1494,13 +1488,12 @@ Public Class FormSetup
             If Not RegionEnabled(RegionUUID) Then Continue For
 
             Dim status = RegionStatus(RegionUUID)
-            If CBool((status = SIMSTATUSENUM.Booted) _
-                    Or (status = SIMSTATUSENUM.Booting) _
-                    Or (status = SIMSTATUSENUM.RecyclingDown) _
-                    Or (status = SIMSTATUSENUM.NoError) _
-                    Or (status = SIMSTATUSENUM.ShuttingDown) _
-                    Or (status = SIMSTATUSENUM.ShuttingDownForGood) _
-                    Or (status = SIMSTATUSENUM.Suspended)) Then
+            If CBool((status = SIMSTATUSENUM.Booted) Or
+                    (status = SIMSTATUSENUM.Booting) Or
+                    (status = SIMSTATUSENUM.RecyclingDown) Or
+                    (status = SIMSTATUSENUM.NoError) Or
+                    (status = SIMSTATUSENUM.ShuttingDownForGood) Or
+                    (status = SIMSTATUSENUM.Suspended)) Then
 
                 Dim Groupname = Group_Name(RegionUUID)
                 If GetHwnd(Groupname) = IntPtr.Zero Then
@@ -1542,7 +1535,6 @@ Public Class FormSetup
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
             RunTaskList(RegionUUID)
         End If
-
 
     End Sub
 

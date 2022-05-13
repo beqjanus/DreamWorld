@@ -103,8 +103,7 @@ Public Class FormRegionPopup
                 MsgButton.Enabled = True
             End If
 
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown Or
-                 RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDown Then
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.RecyclingDown Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False

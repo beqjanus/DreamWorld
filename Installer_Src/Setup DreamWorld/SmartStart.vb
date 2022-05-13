@@ -616,6 +616,10 @@ Module SmartStart
 
     End Function
 
+    ''' <summary>
+    ''' Sets status to Resume if stopped or paused
+    ''' </summary>
+
     Public Sub ReBoot(RegionUUID As String)
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
@@ -627,9 +631,9 @@ Module SmartStart
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
                 PokeRegionTimer(RegionUUID)
             Next
+
             PropUpdateView = True ' make form refresh
-        ElseIf RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            FormSetup.RunTaskList(RegionUUID)
+
         End If
 
     End Sub
