@@ -500,7 +500,7 @@ Module RegionMaker
 
         If Not PropChangedRegionSettings Then Return RegionList.Count
 
-        Dim Retry = 120
+        Dim Retry = 10
         While Retry > 0 AndAlso GetRegionsIsBusy
             Sleep(1000)
             Retry -= 1
@@ -843,11 +843,10 @@ Module RegionMaker
         Get
             Dim t As Integer = Settings.GetBootTime(uuid)
             If t > 0 Then Return t
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._BootTime
-            BadUUID(uuid)
             Return 0
         End Get
         Set(ByVal Value As Integer)
+            If Value < 0 Then Value = 0
             RegionList(uuid)._BootTime = Value
             Settings.SaveBootTime(Value, uuid)
         End Set
@@ -961,12 +960,13 @@ Module RegionMaker
             If RegionList.ContainsKey(uuid) Then
                 Dim t As Integer = Settings.GetMapTime(uuid)
                 If t > 0 Then Return t
-                Return RegionList(uuid)._MapTime
+                Return 0
             End If
             BadUUID(uuid)
             Return 0
         End Get
         Set(ByVal Value As Integer)
+            If Value < 0 Then Value = 0
             RegionList(uuid)._MapTime = Value
             Settings.SaveMapTime(Value, uuid)
         End Set
