@@ -53,7 +53,7 @@ Public Class FormSetup
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
     Private _ThreadsArerunning As Boolean
-    Private _timerBusy1 As Integer
+    Private _timerBusy1 As Boolean
     Private _WasRunning As String = ""
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
@@ -67,6 +67,8 @@ Public Class FormSetup
     Private speed2 As Double
     Private speed3 As Double
     Private ws As NetServer
+
+
 
     ''' <summary>
     ''' The list of commands
@@ -252,11 +254,11 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property TimerBusy As Integer
+    Public Property TimerBusy As Boolean
         Get
             Return _timerBusy1
         End Get
-        Set(value As Integer)
+        Set(value As Boolean)
             _timerBusy1 = value
         End Set
     End Property
@@ -425,7 +427,7 @@ Public Class FormSetup
         Zap("cports")
 
         TimerMain.Stop()
-        TimerBusy = 0
+        TimerBusy = False
 
         PropOpensimIsRunning() = False
         PropUpdateView = True ' make form refresh
@@ -459,6 +461,7 @@ Public Class FormSetup
     Public Function StartOpensimulator() As Boolean
 
         Bench.Print("StartOpensim")
+        StartTimer()
         PropOpensimIsRunning = True
         Init(False)
         OpenPorts()
@@ -1018,7 +1021,7 @@ Public Class FormSetup
             TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
         End If
 
-        StartTimer()
+
         Application.DoEvents() ' let timer run
 
         If Settings.Autostart Then
@@ -2398,10 +2401,9 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
-        If TimerMain.Enabled Then Return
+        TimerBusy = False
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
-        TimerBusy = 0
 
     End Sub
 
@@ -2416,8 +2418,12 @@ Public Class FormSetup
             Return
         End If
 
-        ' prevent recursion
-        TimerMain.Stop()
+        If TimerBusy Then
+            Application.DoEvents()
+            Return
+        End If
+        TimerBusy = True
+
 
         SyncLock TimerLock ' stop other threads from firing this
             ' Reload regions from disk
@@ -2510,8 +2516,9 @@ Public Class FormSetup
                 Bench.Print("hour worker ends")
             End If
             SecondsTicker += 1
-            TimerMain.Start()
+
         End SyncLock
+        TimerBusy = False
 
     End Sub
 
@@ -2637,8 +2644,6 @@ Public Class FormSetup
 
         PropAborting = True
         ClearAllRegions()
-        TimerMain.Stop()
-        TimerBusy = 0
 
         PropUpdateView = True ' make form refresh
 
