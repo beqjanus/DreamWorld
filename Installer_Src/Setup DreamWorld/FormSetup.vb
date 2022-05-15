@@ -1496,7 +1496,7 @@ Public Class FormSetup
                     (status = SIMSTATUSENUM.Suspended)) Then
 
                 Dim Groupname = Group_Name(RegionUUID)
-                If GetHwnd(Groupname) = IntPtr.Zero Then
+                If GetHwnd(Groupname) <> IntPtr.Zero Then
                     If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
                         If Not exitList.ContainsKey(Groupname) Then
                             exitList.TryAdd(Groupname, "Exit")
