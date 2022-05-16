@@ -355,7 +355,7 @@ namespace OpenSim.Framework.Servers.HttpServer
 
         public void AddGenericStreamHandler(IRequestHandler handler)
         {
-            if(string.IsNullOrWhiteSpace(handler.Path))
+            if(String.IsNullOrWhiteSpace(handler.Path))
                 return;
 
             // m_log.DebugFormat("[BASE HTTP SERVER]: Adding handler key {0}", handlerKey);
@@ -427,7 +427,14 @@ namespace OpenSim.Framework.Servers.HttpServer
         {
             lock (m_rpcHandlers)
             {
-                return (m_rpcHandlers.TryGetValue(method, out XmlRpcMethod xm)) ? xm : null;
+                if (m_rpcHandlers.ContainsKey(method))
+                {
+                    return m_rpcHandlers[method];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -435,8 +442,10 @@ namespace OpenSim.Framework.Servers.HttpServer
         {
             lock (m_rpcHandlers)
             {
-                return (m_rpcHandlers.TryGetValue(method, out handler));
+                if(m_rpcHandlers.TryGetValue(method, out handler))
+                    return true;
             }
+            return false;
         }
 
         public List<string> GetXmlRpcHandlerKeys()
@@ -459,7 +468,14 @@ namespace OpenSim.Framework.Servers.HttpServer
         {
             lock (jsonRpcHandlers)
             {
-                return jsonRpcHandlers.TryGetValue(method, out JsonRPCMethod jm) ? jm : null;
+                if (jsonRpcHandlers.ContainsKey(method))
+                {
+                    return jsonRpcHandlers[method];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -1177,25 +1193,6 @@ namespace OpenSim.Framework.Servers.HttpServer
         public void HandleXmlRpcRequests(OSHttpRequest request, OSHttpResponse response)
         {
             Stream requestStream = request.InputStream;
-
-            response.StatusCode = (int)HttpStatusCode.NotFound;
-            response.KeepAlive = false;
-
-            try
-            {
-                if (!requestStream.CanRead)
-                    return;
-                if (requestStream.Length == 0)
-                {
-                    requestStream.Dispose();
-                    return;
-                }
-            }
-            catch
-            {
-                return;
-            }
-
             Stream innerStream = null;
             try
             {
@@ -1213,6 +1210,7 @@ namespace OpenSim.Framework.Servers.HttpServer
                     innerStream.Dispose();
 
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.KeepAlive = false;
                 return;
             }
 
@@ -1240,11 +1238,19 @@ namespace OpenSim.Framework.Servers.HttpServer
             }
 
             if (xmlRprcRequest == null)
+            {
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                response.KeepAlive = false;
                 return;
+            }
 
             string methodName = xmlRprcRequest.MethodName;
             if (string.IsNullOrWhiteSpace(methodName))
+            {
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                response.KeepAlive = false;
                 return;
+            }
 
             XmlRpcMethod method;
             bool methodWasFound;
@@ -1577,7 +1583,6 @@ namespace OpenSim.Framework.Servers.HttpServer
             if (!TryGetLLSDHandler(request.RawUrl, out LLSDMethod llsdhandler))
             {
                 response.StatusCode = (int)HttpStatusCode.NotFound;
-                response.KeepAlive = false;
                 return null;
             }
 
@@ -1615,7 +1620,7 @@ namespace OpenSim.Framework.Servers.HttpServer
                 return null;
             }
 
-            byte[] buffer = Array.Empty<byte>();
+            byte[] buffer = new byte[0];
             if (llsdResponse.ToString() == "shutdown404!")
             {
                 response.ContentType = "text/plain";
@@ -1873,11 +1878,8 @@ namespace OpenSim.Framework.Servers.HttpServer
             {
 //                m_log.DebugFormat(
 //                    "[BASE HTTP SERVER]: Got query paremeter {0}={1}", queryname, request.QueryString[queryname]);
-                if(!string.IsNullOrEmpty(queryname))
-                {
-                    keysvals.Add(queryname, request.QueryString[queryname]);
-                    requestVars.Add(queryname, keysvals[queryname]);
-                }
+                keysvals.Add(queryname, request.QueryString[queryname]);
+                requestVars.Add(queryname, keysvals[queryname]);
             }
 
             foreach (string headername in rHeaders)
@@ -1945,7 +1947,7 @@ namespace OpenSim.Framework.Servers.HttpServer
                     }
                 }
 
-                if (string.IsNullOrEmpty(bestMatch))
+                if (String.IsNullOrEmpty(bestMatch))
                 {
                     httpHandler = null;
                     return false;
@@ -2031,7 +2033,8 @@ namespace OpenSim.Framework.Servers.HttpServer
 
             if (responsecode == (int)HttpStatusCode.Moved)
             {
-                response.Redirect((string)responsedata["str_redirect_location"], HttpStatusCode.Moved);
+                response.AddHeader("Location:", (string)responsedata["str_redirect_location"]);
+                response.StatusCode = responsecode;
             }
 
             response.AddHeader("Content-Type", contentType);
@@ -2429,24 +2432,27 @@ namespace OpenSim.Framework.Servers.HttpServer
 
             if (httpRequest.QueryString.Count == 0)
             {
-                httpResponse.Redirect("http://opensimulator.org");
+                httpResponse.StatusCode = (int)HttpStatusCode.Redirect;
+                httpResponse.AddHeader("Location", "http://opensimulator.org");
                 return;
             }
             if (httpRequest.QueryFlags.Contains("about"))
             {
-                httpResponse.Redirect("http://opensimulator.org/wiki/0.9.2.2_Release");
+
+                httpResponse.StatusCode = (int)HttpStatusCode.Redirect;
+                httpResponse.AddHeader("Location", "http://opensimulator.org/wiki/0.9.2.0_Release");
                 return;
             }
-            if (!httpRequest.QueryAsDictionary.TryGetValue("method", out string methods) || string.IsNullOrWhiteSpace(methods))
-            {
-                httpResponse.StatusCode = (int)HttpStatusCode.NotFound; ;
-                return;
-            }
-            // Smartstart
             if (httpRequest.QueryFlags.Contains("version"))
             {
                 httpResponse.StatusCode = (int)HttpStatusCode.OK;
                 httpResponse.RawBuffer = Encoding.ASCII.GetBytes(VersionInfo.Version);
+                return;
+            }
+
+            if (!httpRequest.QueryAsDictionary.TryGetValue("method", out string methods) || string.IsNullOrWhiteSpace(methods))
+            {
+                httpResponse.StatusCode = (int)HttpStatusCode.NotFound; ;
                 return;
             }
 

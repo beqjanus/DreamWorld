@@ -33,7 +33,6 @@ namespace Amib.Threading.Internal
             set { _name = value; }
         }
 
-        public int localID { get; set;}
         #endregion
 
         #region Abstract Methods

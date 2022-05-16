@@ -322,7 +322,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                     (((m_HeapSize % 0x100000) * 1000)
                             >> 20).ToString("D3"));
 
-            m_SleepThread = StartMyThread(RunSleepThread, "Yengine sleep" + " (" + sceneName + ")", ThreadPriority.Normal, -1);
+            m_SleepThread = StartMyThread(RunSleepThread, "Yengine sleep" + " (" + sceneName + ")", ThreadPriority.Normal);
             for (int i = 0; i < numThreadScriptWorkers; i++)
                 StartThreadWorker(i, m_workersPrio, sceneName);
 
@@ -993,13 +993,10 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         {
             XMRInstance instance = GetInstance(itemID);
             if(instance != null)
-            {
                 instance.Running = state;
-                if(instance.m_Item != null)
-                    instance.m_Item.ScriptRunning = instance.Running;
-            }
         }
 
+        // Control display of the "running" checkbox
         //
         public bool GetScriptState(UUID itemID)
         {
@@ -1148,9 +1145,8 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                     return false;
                 isX = true;
             }
-
-            // <ScriptState>...</ScriptState> contains contents of .state file.
-            XmlElement scriptStateN = (XmlElement)stateN.SelectSingleNode("ScriptState");
+                // <ScriptState>...</ScriptState> contains contents of .state file.
+                XmlElement scriptStateN = (XmlElement)stateN.SelectSingleNode("ScriptState");
             if(scriptStateN == null)
                 return false;
 
@@ -1304,7 +1300,6 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             instance.m_Item = item;
             instance.m_DescName = part.Name + ":" + item.Name;
             instance.m_IState = XMRInstState.CONSTRUCT;
-            instance.m_Running = item.ScriptRunning;
 
             lock(m_InstancesDict)
             {
@@ -1414,28 +1409,19 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             // Put it on the start queue so it will run any queued event handlers,
             // such as state_entry() or on_rez().  If there aren't any queued, it
             // will just go to idle state when RunOne() tries to dequeue an event.
-            // Declare which events the script's current state can handle.
-
-            ulong eventMask = instance.GetStateEventFlags(instance.stateCode);
-            instance.m_Part.SetScriptEvents(instance.m_ItemID, eventMask);
-
-            lock (instance.m_QueueLock)
+            lock(instance.m_QueueLock)
             {
                 if(instance.m_IState != XMRInstState.CONSTRUCT)
                     throw new Exception("bad state");
-
-                if (instance.m_Running)
-                {
-                    instance.m_Item.ScriptRunning = true;
-                    instance.m_IState = XMRInstState.ONSTARTQ;
-                    QueueToStart(instance);
-                }
-                else
-                {
-                    instance.m_Item.ScriptRunning = false;
-                    instance.m_IState = XMRInstState.SUSPENDED;
-                }
+                instance.m_IState = XMRInstState.ONSTARTQ;
+                if(!instance.m_Running)
+                    instance.EmptyEventQueues();
             }
+            // Declare which events the script's current state can handle.
+            ulong eventMask = instance.GetStateEventFlags(instance.stateCode);
+            instance.m_Part.SetScriptEvents(instance.m_ItemID, eventMask);
+
+            QueueToStart(instance);
         }
 
         public void OnRemoveScript(uint localID, UUID itemID)
@@ -1482,7 +1468,9 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                 string stateFileName = XMRInstance.GetStateFileName(m_ScriptBasePath, itemID);
                 File.Delete(stateFileName);
 
-                OnScriptRemoved?.Invoke(itemID);
+                ScriptRemoved handlerScriptRemoved = OnScriptRemoved;
+                if(handlerScriptRemoved != null)
+                    handlerScriptRemoved(itemID);
 
                 m_LockedDict = "~~OnRemoveScript";
             }
@@ -1502,22 +1490,14 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         {
             XMRInstance instance = GetInstance(itemID);
             if(instance != null)
-            {
                 instance.Running = true;
-                if (instance.m_Item != null)
-                    instance.m_Item.ScriptRunning = true;
-            }
         }
 
         public void OnStopScript(uint localID, UUID itemID)
         {
             XMRInstance instance = GetInstance(itemID);
             if(instance != null)
-            {
                 instance.Running = false;
-                if (instance.m_Item != null)
-                    instance.m_Item.ScriptRunning = false;
-            }
         }
 
         public void OnGetScriptRunning(IClientAPI controllingClient,
@@ -1528,16 +1508,15 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             {
                 TraceCalls("[YEngine]: YEngine.OnGetScriptRunning({0},{1})", objectID.ToString(), itemID.ToString());
 
-                bool curRunnning = instance.Running;
-                instance.m_Item.ScriptRunning = curRunnning;
                 IEventQueue eq = World.RequestModuleInterface<IEventQueue>();
                 if(eq == null)
                 {
-                    controllingClient.SendScriptRunningReply(objectID, itemID, curRunnning);
+                    controllingClient.SendScriptRunningReply(objectID, itemID,
+                            instance.Running);
                 }
                 else
                 {
-                    eq.ScriptRunningEvent(objectID, itemID, curRunnning, controllingClient.AgentId);
+                    eq.ScriptRunningEvent(objectID, itemID, instance.Running, controllingClient.AgentId);
                 }
             }
         }
@@ -2050,10 +2029,10 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         /**
          * @brief Manage our threads.
          */
-        public static Thread StartMyThread(ThreadStart start, string name, ThreadPriority priority, int stackSize)
+        public static Thread StartMyThread(ThreadStart start, string name, ThreadPriority priority)
         {
             m_log.Debug("[YEngine]: starting thread " + name);
-            Thread thread = WorkManager.StartThread(start, name, priority, stackSize);
+            Thread thread = WorkManager.StartThread(start, name, priority, false, false);
             return thread;
         }
 

@@ -444,12 +444,12 @@ namespace OpenSim.Framework
                 MainConsole.Instance.Output("the default is displayed between [ ] brackets.\n");
                 MainConsole.Instance.Output("=====================================\n");
 
-                if (name.Length == 0)
+                if (name == String.Empty)
                 {
-                    while (name.Trim().Length == 0)
+                    while (name.Trim() == string.Empty)
                     {
                         name = MainConsole.Instance.Prompt("New region name", name);
-                        if (name.Trim().Length == 0)
+                        if (name.Trim() == string.Empty)
                         {
                             MainConsole.Instance.Output("Cannot interactively create region with no name");
                         }
@@ -461,7 +461,7 @@ namespace OpenSim.Framework
                 creatingNew = true;
             }
 
-            if (name.Length == 0)
+            if (name == String.Empty)
                 name = source.Configs[0].Name;
 
             if (source.Configs[name] == null)
@@ -488,7 +488,7 @@ namespace OpenSim.Framework
             if (!UUID.TryParse(regionUUID.Trim(), out RegionID))
             {
                 UUID newID = UUID.Random();
-                while (RegionID.IsZero())
+                while (RegionID == UUID.Zero)
                 {
                     regionUUID = MainConsole.Instance.Prompt("RegionUUID", newID.ToString());
                     if (!UUID.TryParse(regionUUID.Trim(), out RegionID))
@@ -505,7 +505,7 @@ namespace OpenSim.Framework
             //
             allKeys.Remove("Location");
             string location = config.GetString("Location", String.Empty);
-            if (location.Length == 0)
+            if (location == String.Empty)
             {
                 location = MainConsole.Instance.Prompt("Region Location", "1000,1000");
                 config.Set("Location", location);
@@ -828,13 +828,13 @@ namespace OpenSim.Framework
             if (AgentCapacity > 0)
                 config.Set("MaxAgents", AgentCapacity);
 
-            if (!ScopeID.IsZero())
+            if (ScopeID != UUID.Zero)
                 config.Set("ScopeID", ScopeID.ToString());
 
             if (RegionType != String.Empty)
                 config.Set("RegionType", RegionType);
 
-            if (!m_maptileStaticUUID.IsZero())
+            if (m_maptileStaticUUID != UUID.Zero)
                 config.Set("MaptileStaticUUID", m_maptileStaticUUID.ToString());
 
             if (MaptileStaticFile != null && MaptileStaticFile != String.Empty)
@@ -1090,7 +1090,7 @@ namespace OpenSim.Framework
         {
             OSDMap args = new OSDMap();
             args["region_id"] = OSD.FromUUID(RegionID);
-            if (!string.IsNullOrEmpty(RegionName))
+            if ((RegionName != null) && !RegionName.Equals(""))
                 args["region_name"] = OSD.FromString(RegionName);
             args["external_host_name"] = OSD.FromString(ExternalHostName);
             args["http_port"] = OSD.FromString(HttpPort.ToString());
@@ -1104,10 +1104,10 @@ namespace OpenSim.Framework
 
             args["internal_ep_address"] = OSD.FromString(InternalEndPoint.Address.ToString());
             args["internal_ep_port"] = OSD.FromString(InternalEndPoint.Port.ToString());
-            if (!string.IsNullOrEmpty(RemotingAddress))
+            if ((RemotingAddress != null) && !RemotingAddress.Equals(""))
                 args["remoting_address"] = OSD.FromString(RemotingAddress);
             args["remoting_port"] = OSD.FromString(RemotingPort.ToString());
-            if (!string.IsNullOrEmpty(proxyUrl))
+            if ((proxyUrl != null) && !proxyUrl.Equals(""))
                 args["proxy_url"] = OSD.FromString(proxyUrl);
             if (RegionType != String.Empty)
                 args["region_type"] = OSD.FromString(RegionType);

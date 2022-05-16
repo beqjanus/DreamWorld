@@ -52,7 +52,7 @@ namespace OpenSim.Capabilities.Handlers
 
             string assetService = serverConfig.GetString("AssetService", String.Empty);
 
-            if (assetService.Length == 0)
+            if (assetService == String.Empty)
                 throw new Exception("No AssetService in config file");
 
             Object[] args = new Object[] { config };

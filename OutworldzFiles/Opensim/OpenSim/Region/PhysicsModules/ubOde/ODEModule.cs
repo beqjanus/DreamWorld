@@ -15,13 +15,13 @@ namespace OpenSim.Region.PhysicsModule.ubOde
     {
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        ODEScene m_odeScene = null;
-
-        private IConfigSource m_config;
-        private string m_libVersion = string.Empty;
+        private static Dictionary<Scene, ODEScene> m_scenes = new Dictionary<Scene, ODEScene>();
         private bool m_Enabled = false;
+        private IConfigSource m_config;
+        private bool OSOdeLib;
 
-        #region INonSharedRegionModule
+
+       #region INonSharedRegionModule
 
         public string Name
         {
@@ -47,14 +47,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
                 if (physics == Name)
                 {
                     m_config = source;
-                    string mesher = config.GetString("meshing", string.Empty);
-                    
-                    if (string.IsNullOrEmpty(mesher) || !mesher.Equals("ubODEMeshmerizer"))
-                    {
-                        m_log.Error("[ubODE] Opensim.ini meshing option must be set to \"ubODEMeshmerizer\"");
-                        //throw new Exception("Invalid physics meshing option");
-                    }
-
+                    m_Enabled = true;
 
                     if (Util.IsWindows())
                         Util.LoadArchSpecificWindowsDll("ode.dll");
@@ -62,36 +55,14 @@ namespace OpenSim.Region.PhysicsModule.ubOde
                     SafeNativeMethods.InitODE();
 
                     string ode_config = SafeNativeMethods.GetConfiguration();
-                    if (string.IsNullOrEmpty(ode_config))
+                    if (ode_config == null || ode_config == "" || !ode_config.Contains("ODE_OPENSIM"))
                     {
                         m_log.Error("[ubODE] Native ode library version not supported");
+                        m_Enabled = false;
                         return;
                     }
-
-                    int indx = ode_config.IndexOf("ODE_OPENSIM");
-                    if (indx < 0)
-                    {
-                        m_log.Error("[ubODE] Native ode library version not supported");
-                        return;
-                    }
-                    indx += 12;
-                    if (indx >= ode_config.Length)
-                    {
-                        m_log.Error("[ubODE] Native ode library version not supported");
-                        return;
-                    }
-                    m_libVersion = ode_config.Substring(indx);
-                    if (string.IsNullOrEmpty(m_libVersion))
-                    {
-                        m_log.Error("[ubODE] Native ode library version not supported");
-                        return;
-                    }
-                    m_libVersion.Trim();
-                    if(m_libVersion.StartsWith("OS"))
-                        m_libVersion = m_libVersion.Substring(2);
-
                     m_log.InfoFormat("[ubODE] ode library configuration: {0}", ode_config);
-                    m_Enabled = true;
+                    OSOdeLib = true;
                 }
             }
         }
@@ -105,7 +76,10 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             if (!m_Enabled)
                 return;
 
-            m_odeScene = new ODEScene(scene, m_config, Name, Version + "-" + m_libVersion);
+            if(m_scenes.ContainsKey(scene)) // ???
+                return;
+            ODEScene newodescene = new ODEScene(scene, m_config, Name, Version, OSOdeLib);
+            m_scenes[scene] = newodescene;
         }
 
         public void RemoveRegion(Scene scene)
@@ -116,7 +90,8 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             // a odescene.dispose is called later directly by scene.cs
             // since it is seen as a module interface
 
-            m_odeScene = null;
+            if(m_scenes.ContainsKey(scene))
+                m_scenes.Remove(scene);
         }
 
         public void RegionLoaded(Scene scene)
@@ -124,8 +99,10 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             if (!m_Enabled)
                 return;
 
-            if(m_odeScene != null)
-                m_odeScene.RegionLoaded();
+            if(m_scenes.ContainsKey(scene))
+            {
+                m_scenes[scene].RegionLoaded();
+            }
 
         }
         #endregion

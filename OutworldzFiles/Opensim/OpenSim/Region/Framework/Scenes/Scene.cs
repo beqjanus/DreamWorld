@@ -45,6 +45,7 @@ using OpenSim.Framework;
 using OpenSim.Framework.Monitoring;
 using OpenSim.Services.Interfaces;
 using OpenSim.Framework.Console;
+using OpenSim.Region.Framework;
 using OpenSim.Region.Framework.Interfaces;
 using OpenSim.Region.Framework.Scenes.Scripting;
 using OpenSim.Region.Framework.Scenes.Serialization;
@@ -53,6 +54,7 @@ using Timer = System.Timers.Timer;
 using TPFlags = OpenSim.Framework.Constants.TeleportFlags;
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using PermissionMask = OpenSim.Framework.PermissionMask;
+using System.Net;
 
 namespace OpenSim.Region.Framework.Scenes
 {
@@ -785,7 +787,25 @@ namespace OpenSim.Region.Framework.Scenes
             get { return m_sceneGraph.PhysicsScene; }
             set
             {
+                // If we're not doing the initial set
+                // Then we've got to remove the previous
+                // event handler
+                if (PhysicsScene != null && PhysicsScene.SupportsNINJAJoints)
+                {
+                    PhysicsScene.OnJointMoved -= jointMoved;
+                    PhysicsScene.OnJointDeactivated -= jointDeactivated;
+                    PhysicsScene.OnJointErrorMessage -= jointErrorMessage;
+                }
+
                 m_sceneGraph.PhysicsScene = value;
+
+                if (PhysicsScene != null && m_sceneGraph.PhysicsScene.SupportsNINJAJoints)
+                {
+                    // register event handlers to respond to joint movement/deactivation
+                    PhysicsScene.OnJointMoved += jointMoved;
+                    PhysicsScene.OnJointDeactivated += jointDeactivated;
+                    PhysicsScene.OnJointErrorMessage += jointErrorMessage;
+                }
             }
         }
 
@@ -816,7 +836,7 @@ namespace OpenSim.Region.Framework.Scenes
         }
 
         public GridInfo SceneGridInfo;
-        
+
         // SmartStart
         protected bool m_SmartStartEnabled = false;
         protected string m_SmartStartUrl = string.Empty;
@@ -824,9 +844,11 @@ namespace OpenSim.Region.Framework.Scenes
 
         #endregion Properties
 
-        #region Constructors        
 
-        // SmartStart
+        #region Constructors
+
+        //DreamGrid
+        //DreamGrid SmartStart
         public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
         {
             // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
@@ -836,10 +858,10 @@ namespace OpenSim.Region.Framework.Scenes
                 string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
                 m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
 
-                System.Net.HttpWebRequest webRequest;
+                HttpWebRequest webRequest;
                 try
                 {
-                    webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
                 }
                 catch
                 {
@@ -853,7 +875,7 @@ namespace OpenSim.Region.Framework.Scenes
                 try
                 {
                     string tempStr;
-                    using (System.Net.HttpWebResponse webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse())
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
                     {
                         using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
                             tempStr = reader.ReadToEnd();
@@ -919,25 +941,25 @@ namespace OpenSim.Region.Framework.Scenes
             m_extraSettings = simDataService.GetExtra(RegionInfo.RegionID);
 
             bool updatedTerrainTextures = false;
-            if (rs.TerrainTexture1.IsZero())
+            if (rs.TerrainTexture1 == UUID.Zero)
             {
                 rs.TerrainTexture1 = RegionSettings.DEFAULT_TERRAIN_TEXTURE_1;
                 updatedTerrainTextures = true;
             }
 
-            if (rs.TerrainTexture2.IsZero())
+            if (rs.TerrainTexture2 == UUID.Zero)
             {
                 rs.TerrainTexture2 = RegionSettings.DEFAULT_TERRAIN_TEXTURE_2;
                 updatedTerrainTextures = true;
             }
 
-            if (rs.TerrainTexture3.IsZero())
+            if (rs.TerrainTexture3 == UUID.Zero)
             {
                 rs.TerrainTexture3 = RegionSettings.DEFAULT_TERRAIN_TEXTURE_3;
                 updatedTerrainTextures = true;
             }
 
-            if (rs.TerrainTexture4.IsZero())
+            if (rs.TerrainTexture4 == UUID.Zero)
             {
                 rs.TerrainTexture4 = RegionSettings.DEFAULT_TERRAIN_TEXTURE_4;
                 updatedTerrainTextures = true;
@@ -1158,7 +1180,6 @@ namespace OpenSim.Region.Framework.Scenes
                 m_update_presences        = startupConfig.GetInt("UpdateAgentsEveryNFrames",          m_update_presences);
                 m_update_terrain          = startupConfig.GetInt("UpdateTerrainEveryNFrames",         m_update_terrain);
                 m_update_temp_cleaning    = startupConfig.GetInt("UpdateTempCleaningEveryNSeconds",   m_update_temp_cleaning);
-
             }
 
             // SmartStart
@@ -1187,8 +1208,6 @@ namespace OpenSim.Region.Framework.Scenes
                 }
             }
             m_log.Info("[SCENE]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
-
-
 
             #endregion Region Config
 
@@ -1443,25 +1462,22 @@ namespace OpenSim.Region.Framework.Scenes
                 {
                     // Let the grid service module know, so this can be cached
                     m_eventManager.TriggerOnRegionUp(otherRegion);
-                    if (EntityTransferModule != null)
-                    {
-                        try
-                        {
-                            List<ulong> old = new List<ulong>() { otherRegion.RegionHandle };
-                            ForEachRootScenePresence(delegate(ScenePresence agent)
-                            {
-                                if(agent.IsNPC)
-                                    return;
 
-                                agent.DropOldNeighbours(old);
-                                EntityTransferModule.EnableChildAgent(agent, otherRegion);
-                            });
-                        }
-                        catch
+                    try
+                    {
+                        ForEachRootScenePresence(delegate(ScenePresence agent)
                         {
-                            m_log.Error("[SCENE]: Couldn't inform clients of regionup");
-                    
-                        }
+                            List<ulong> old = new List<ulong>() {otherRegion.RegionHandle};
+                            agent.DropOldNeighbours(old);
+                            if (EntityTransferModule != null && agent.PresenceType != PresenceType.Npc)
+                                EntityTransferModule.EnableChildAgent(agent, otherRegion);
+                        });
+                    }
+                    catch (NullReferenceException)
+                    {
+                        // This means that we're not booted up completely yet.
+                        // This shouldn't happen too often anymore.
+                        m_log.Error("[SCENE]: Couldn't inform client of regionup because we got a null reference exception");
                     }
                 }
                 else
@@ -1477,12 +1493,12 @@ namespace OpenSim.Region.Framework.Scenes
         {
             int tmp = otherRegion.RegionLocX - (int)RegionInfo.WorldLocX;
 
-            if (tmp < -otherRegion.RegionSizeX || tmp > RegionInfo.RegionSizeX)
+            if (tmp < -otherRegion.RegionSizeX && tmp > RegionInfo.RegionSizeX)
                 return false;
 
             tmp = otherRegion.RegionLocY - (int)RegionInfo.WorldLocY;
 
-            if (tmp < -otherRegion.RegionSizeY || tmp > RegionInfo.RegionSizeY)
+            if (tmp < -otherRegion.RegionSizeY && tmp > RegionInfo.RegionSizeY)
                 return false;
 
             return true;
@@ -1553,24 +1569,21 @@ namespace OpenSim.Region.Framework.Scenes
             m_restartWaitTimer.Stop();
             lock (m_regionRestartNotifyList)
             {
-                if(EntityTransferModule != null)
+                foreach (RegionInfo region in m_regionRestartNotifyList)
                 {
-                    foreach (RegionInfo region in m_regionRestartNotifyList)
+                    GridRegion r = new GridRegion(region);
+                    try
                     {
-                        GridRegion r = new GridRegion(region);
-                        try
+                        ForEachRootScenePresence(delegate(ScenePresence agent)
                         {
-                            ForEachRootScenePresence(delegate(ScenePresence agent)
-                            {
-                                if (!agent.IsNPC)
-                                    EntityTransferModule.EnableChildAgent(agent, r);
-                            });
-                        }
-                        catch (NullReferenceException)
-                        {
-                            // This means that we're not booted up completely yet.
-                            // This shouldn't happen too often anymore.
-                        }
+                            if (EntityTransferModule != null && agent.PresenceType != PresenceType.Npc)
+                                EntityTransferModule.EnableChildAgent(agent, r);
+                        });
+                    }
+                    catch (NullReferenceException)
+                    {
+                        // This means that we're not booted up completely yet.
+                        // This shouldn't happen too often anymore.
                     }
                 }
 
@@ -2532,7 +2545,7 @@ namespace OpenSim.Region.Framework.Scenes
                         if (physresults != null && physresults.Count > 0)
                         {
                             // look for terrain ?
-                            if(RayTargetID.IsZero())
+                            if(RayTargetID == UUID.Zero)
                             {
                                 foreach (ContactResult r in physresults)
                                 {
@@ -2576,7 +2589,7 @@ namespace OpenSim.Region.Framework.Scenes
                         }
 
                     }
-                    if (!RayTargetID.IsZero())
+                    if (RayTargetID != UUID.Zero)
                     {
                         SceneObjectPart target = GetSceneObjectPart(RayTargetID);
 
@@ -2938,13 +2951,11 @@ namespace OpenSim.Region.Framework.Scenes
                     part.KeyframeMotion = null;
                 }
 
-                if ((part.AggregatedScriptEvents & scriptEvents.email) != 0)
+                if (part.IsJoint() && ((part.Flags & PrimFlags.Physics) != 0))
                 {
-                    IEmailModule imm = RequestModuleInterface<IEmailModule>();
-                    if (imm != null)
-                        imm.RemovePartMailBox(part.UUID);
+                    PhysicsScene.RequestJointDeletion(part.Name); // FIXME: what if the name changed?
                 }
-                if (part.PhysActor != null)
+                else if (part.PhysActor != null)
                 {
                     part.RemoveFromPhysics();
                 }
@@ -3053,7 +3064,6 @@ namespace OpenSim.Region.Framework.Scenes
         // This test is mostly used to see if a region crossing is necessary.
         // Assuming the position is relative to the region so anything outside its bounds.
         // Return 'true' if position inside region.
-
         public bool PositionIsInCurrentRegion(Vector3 pos)
         {
             float t = pos.X;
@@ -3106,7 +3116,7 @@ namespace OpenSim.Region.Framework.Scenes
         /// <returns>True if the SceneObjectGroup was added, False if it was not</returns>
         public bool AddSceneObject(SceneObjectGroup sceneObject)
         {
-            if (sceneObject.OwnerID.IsZero())
+            if (sceneObject.OwnerID == UUID.Zero)
             {
                 m_log.ErrorFormat("[SCENE]: Owner ID for {0} was zero", sceneObject.UUID);
                 return false;
@@ -3170,7 +3180,7 @@ namespace OpenSim.Region.Framework.Scenes
 //                    RootPrim.RemFlag(PrimFlags.TemporaryOnRez);
 //                    RootPrim.AddFlag(PrimFlags.TemporaryOnRez);
                 }
-                if (sceneObject.OwnerID.IsZero())
+                if (sceneObject.OwnerID == UUID.Zero)
                 {
                     m_log.ErrorFormat("[SCENE]: Owner ID for {0} was zero after attachment processing. BUG!", sceneObject.UUID);
                     return false;
@@ -3178,7 +3188,7 @@ namespace OpenSim.Region.Framework.Scenes
             }
             else
             {
-                if (sceneObject.OwnerID.IsZero())
+                if (sceneObject.OwnerID == UUID.Zero)
                 {
                     m_log.ErrorFormat("[SCENE]: Owner ID for non-attachment {0} was zero", sceneObject.UUID);
                     return false;
@@ -4099,15 +4109,13 @@ namespace OpenSim.Region.Framework.Scenes
             //Check if the viewer is banned or in the viewer access list
             //We check if the substring is listed for higher flexebility
             bool ViewerDenied = true;
-            string cV = null;
 
             //Check if the specific viewer is listed in the allowed viewer list
             if (m_AllowedViewers.Count > 0)
             {
-                cV = curViewer.Trim().ToLower();
                 foreach (string viewer in m_AllowedViewers)
                 {
-                    if (viewer == cV.Substring(0, Math.Min(viewer.Length, curViewer.Length)))
+                    if (viewer == curViewer.Substring(0, Math.Min(viewer.Length, curViewer.Length)).Trim().ToLower())
                     {
                         ViewerDenied = false;
                         break;
@@ -4122,11 +4130,9 @@ namespace OpenSim.Region.Framework.Scenes
             //Check if the viewer is in the banned list
             if (m_BannedViewers.Count > 0)
             {
-                if (cV == null)
-                    cV = curViewer.Trim().ToLower();
                 foreach (string viewer in m_BannedViewers)
                 {
-                    if (viewer == cV.Substring(0, Math.Min(viewer.Length, curViewer.Length)))
+                    if (viewer == curViewer.Substring(0, Math.Min(viewer.Length, curViewer.Length)).Trim().ToLower())
                     {
                         ViewerDenied = true;
                         break;
@@ -4340,10 +4346,9 @@ namespace OpenSim.Region.Framework.Scenes
                     }
 
                     m_log.InfoFormat(
-                        "[SCENE {0}]: authorized {1} agent {2} {3} {4} (circuit code {5})",
+                        "[SCENE]: Region {0} authenticated and authorized incoming {1} agent {2} {3} {4} (circuit code {5})",
                         Name, (acd.child ? "child" : "root"), acd.firstname, acd.lastname,
                         acd.AgentID, acd.circuitcode);
-
 
                     if (m_capsModule != null)
                     {
@@ -4990,7 +4995,7 @@ Label_GroupsDone:
                 return true;
             }
 
-            return false;
+            return true;
         }
 
 
@@ -5073,20 +5078,6 @@ Label_GroupsDone:
                 return;
 
             EntityTransferModule.Teleport(sp, regionHandle, position, lookAt, teleportFlags);
-        }
-
-        public void RequestTeleportLandmark(IClientAPI remoteClient, AssetLandmark lm, Vector3 lookAt)
-        {
-            if (EntityTransferModule == null)
-            {
-                m_log.DebugFormat("[SCENE]: Unable to perform teleports: no AgentTransferModule is active");
-                return;
-            }
-
-            ScenePresence sp = GetScenePresence(remoteClient.AgentId);
-            if (sp == null || sp.IsDeleted || sp.IsInTransit)
-                return;
-            EntityTransferModule.RequestTeleportLandmark(remoteClient, lm, lookAt);
         }
 
         public bool CrossAgentToNewRegion(ScenePresence agent, bool isFlying)
@@ -5261,11 +5252,11 @@ Label_GroupsDone:
                 if ((parcel.LandData.Flags & (uint)ParcelFlags.AllowOtherScripts) != 0)
                     return true;
 
-                if ((part.OwnerID.Equals(parcel.LandData.OwnerID)) || Permissions.IsGod(part.OwnerID))
+                if ((part.OwnerID == parcel.LandData.OwnerID) || Permissions.IsGod(part.OwnerID))
                     return true;
 
                 if (((parcel.LandData.Flags & (uint)ParcelFlags.AllowGroupScripts) != 0)
-                    && (!parcel.LandData.GroupID.IsZero()) && (parcel.LandData.GroupID.Equals(part.GroupID)))
+                    && (parcel.LandData.GroupID != UUID.Zero) && (parcel.LandData.GroupID == part.GroupID))
                     return true;
             }
             else
@@ -5296,9 +5287,9 @@ Label_GroupsDone:
 
         #region SceneGraph wrapper methods
 
-        public void SwapRootAgentCount(bool direction_RoottoChild, bool isnpc)
+        public void SwapRootAgentCount(bool direction_ChildToRoot, bool isnpc)
         {
-            m_sceneGraph.SwapRootChildAgent(direction_RoottoChild, isnpc);
+            m_sceneGraph.SwapRootChildAgent(direction_ChildToRoot, isnpc);
         }
 
         public void AddPhysicalPrim(int num)
@@ -5316,10 +5307,23 @@ Label_GroupsDone:
             return m_sceneGraph.GetRootAgentCount();
         }
 
+
+        public int GetRootAvatarCount()
+        {
+
+            int roots = 0;
+            foreach (ScenePresence sp in GetScenePresences())
+                if (!sp.IsChildAgent && !sp.IsNPC)
+                    roots++;
+
+            return roots;
+
+        }
         public int GetRootNPCCount()
         {
             return m_sceneGraph.GetRootAgentCount();
         }
+
 
         public int GetChildAgentCount()
         {
@@ -5363,13 +5367,12 @@ Label_GroupsDone:
         /// <remarks>
         /// This method will return both root and child scene presences.
         ///
-        /// Consider using only on ForEachScenePresence() or ForEachRootScenePresence() if possible since these will not
+        /// Consider using ForEachScenePresence() or ForEachRootScenePresence() if possible since these will not
         /// involving creating a new List object.
         /// </remarks>
         /// <returns>
-        /// The shared list of the scene presences.
+        /// A list of the scene presences.  Adding or removing from the list will not affect the presences in the scene.
         /// </returns>
-        /// WARNING DO NOT MODIFY RETURNED VALUE
         public List<ScenePresence> GetScenePresences()
         {
             //return new List<ScenePresence>(m_sceneGraph.GetScenePresences());
@@ -5691,6 +5694,139 @@ Environment.Exit(1);
                 return health;
 
             return health;
+        }
+
+        // This callback allows the PhysicsScene to call back to its caller (the SceneGraph) and
+        // update non-physical objects like the joint proxy objects that represent the position
+        // of the joints in the scene.
+
+        // This routine is normally called from within a lock (OdeLock) from within the OdePhysicsScene
+        // WARNING: be careful of deadlocks here if you manipulate the scene. Remember you are being called
+        // from within the OdePhysicsScene.
+
+        protected internal void jointMoved(PhysicsJoint joint)
+        {
+            // m_parentScene.PhysicsScene.DumpJointInfo(); // non-thread-locked version; we should already be in a lock (OdeLock) when this callback is invoked
+            SceneObjectPart jointProxyObject = GetSceneObjectPart(joint.ObjectNameInScene);
+            if (jointProxyObject == null)
+            {
+                jointErrorMessage(joint, "WARNING, joint proxy not found, name " + joint.ObjectNameInScene);
+                return;
+            }
+
+            // now update the joint proxy object in the scene to have the position of the joint as returned by the physics engine
+            SceneObjectPart trackedBody = GetSceneObjectPart(joint.TrackedBodyName); // FIXME: causes a sequential lookup
+            if (trackedBody == null) return; // the actor may have been deleted but the joint still lingers around a few frames waiting for deletion. during this time, trackedBody is NULL to prevent further motion of the joint proxy.
+            jointProxyObject.Velocity = trackedBody.Velocity;
+            jointProxyObject.AngularVelocity = trackedBody.AngularVelocity;
+            switch (joint.Type)
+            {
+                case PhysicsJointType.Ball:
+                    {
+                        Vector3 jointAnchor = PhysicsScene.GetJointAnchor(joint);
+                        Vector3 proxyPos = jointAnchor;
+                        jointProxyObject.ParentGroup.UpdateGroupPosition(proxyPos); // schedules the entire group for a terse update
+                    }
+                    break;
+
+                case PhysicsJointType.Hinge:
+                    {
+                        Vector3 jointAnchor = PhysicsScene.GetJointAnchor(joint);
+
+                        // Normally, we would just ask the physics scene to return the axis for the joint.
+                        // Unfortunately, ODE sometimes returns <0,0,0> for the joint axis, which should
+                        // never occur. Therefore we cannot rely on ODE to always return a correct joint axis.
+                        // Therefore the following call does not always work:
+                        //PhysicsVector phyJointAxis = _PhyScene.GetJointAxis(joint);
+
+                        // instead we compute the joint orientation by saving the original joint orientation
+                        // relative to one of the jointed bodies, and applying this transformation
+                        // to the current position of the jointed bodies (the tracked body) to compute the
+                        // current joint orientation.
+
+                        if (joint.TrackedBodyName == null)
+                        {
+                            jointErrorMessage(joint, "joint.TrackedBodyName is null, joint " + joint.ObjectNameInScene);
+                        }
+
+                        Vector3 proxyPos = jointAnchor;
+                        Quaternion q = trackedBody.RotationOffset * joint.LocalRotation;
+
+                        jointProxyObject.ParentGroup.UpdateGroupPosition(proxyPos); // schedules the entire group for a terse update
+                        jointProxyObject.ParentGroup.UpdateGroupRotationR(q); // schedules the entire group for a terse update
+                    }
+                    break;
+            }
+        }
+
+        // This callback allows the PhysicsScene to call back to its caller (the SceneGraph) and
+        // update non-physical objects like the joint proxy objects that represent the position
+        // of the joints in the scene.
+
+        // This routine is normally called from within a lock (OdeLock) from within the OdePhysicsScene
+        // WARNING: be careful of deadlocks here if you manipulate the scene. Remember you are being called
+        // from within the OdePhysicsScene.
+        protected internal void jointDeactivated(PhysicsJoint joint)
+        {
+            //m_log.Debug("[NINJA] SceneGraph.jointDeactivated, joint:" + joint.ObjectNameInScene);
+            SceneObjectPart jointProxyObject = GetSceneObjectPart(joint.ObjectNameInScene);
+            if (jointProxyObject == null)
+            {
+                jointErrorMessage(joint, "WARNING, trying to deactivate (stop interpolation of) joint proxy, but not found, name " + joint.ObjectNameInScene);
+                return;
+            }
+
+            // turn the proxy non-physical, which also stops its client-side interpolation
+            bool wasUsingPhysics = ((jointProxyObject.Flags & PrimFlags.Physics) != 0);
+            if (wasUsingPhysics)
+            {
+                jointProxyObject.UpdatePrimFlags(false, false, true, false,false); // FIXME: possible deadlock here; check to make sure all the scene alterations set into motion here won't deadlock
+            }
+        }
+
+        // This callback allows the PhysicsScene to call back to its caller (the SceneGraph) and
+        // alert the user of errors by using the debug channel in the same way that scripts alert
+        // the user of compile errors.
+
+        // This routine is normally called from within a lock (OdeLock) from within the OdePhysicsScene
+        // WARNING: be careful of deadlocks here if you manipulate the scene. Remember you are being called
+        // from within the OdePhysicsScene.
+        public void jointErrorMessage(PhysicsJoint joint, string message)
+        {
+            if (joint != null)
+            {
+                if (joint.ErrorMessageCount > PhysicsJoint.maxErrorMessages)
+                    return;
+
+                SceneObjectPart jointProxyObject = GetSceneObjectPart(joint.ObjectNameInScene);
+                if (jointProxyObject != null)
+                {
+                    SimChat(Utils.StringToBytes("[NINJA]: " + message),
+                        ChatTypeEnum.DebugChannel,
+                        2147483647,
+                        jointProxyObject.AbsolutePosition,
+                        jointProxyObject.Name,
+                        jointProxyObject.UUID,
+                        false);
+
+                    joint.ErrorMessageCount++;
+
+                    if (joint.ErrorMessageCount > PhysicsJoint.maxErrorMessages)
+                    {
+                        SimChat(Utils.StringToBytes("[NINJA]: Too many messages for this joint, suppressing further messages."),
+                            ChatTypeEnum.DebugChannel,
+                            2147483647,
+                            jointProxyObject.AbsolutePosition,
+                            jointProxyObject.Name,
+                            jointProxyObject.UUID,
+                            false);
+                    }
+                }
+                else
+                {
+                    // couldn't find the joint proxy object; the error message is silently suppressed
+                }
+            }
         }
 
         public Scene ConsoleScene()
@@ -6039,40 +6175,40 @@ Environment.Exit(1);
                 mapModule.GenerateMaptile();
         }
 
-        //        public void CleanDroppedAttachments()
-        //        {
-        //            List<SceneObjectGroup> objectsToDelete =
-        //                    new List<SceneObjectGroup>();
-        //
-        //            lock (m_cleaningAttachments)
-        //            {
-        //                ForEachSOG(delegate (SceneObjectGroup grp)
-        //                        {
-        //                            if (grp.RootPart.Shape.PCode == 0 && grp.RootPart.Shape.State != 0 && (!objectsToDelete.Contains(grp)))
-        //                            {
-        //                                UUID agentID = grp.OwnerID;
-        //                                if (agentID.IsZero())
-        //                                {
-        //                                    objectsToDelete.Add(grp);
-        //                                    return;
-        //                                }
-        //
-        //                                ScenePresence sp = GetScenePresence(agentID);
-        //                                if (sp == null)
-        //                                {
-        //                                    objectsToDelete.Add(grp);
-        //                                    return;
-        //                                }
-        //                            }
-        //                        });
-        //            }
-        //
-        //            foreach (SceneObjectGroup grp in objectsToDelete)
-        //            {
-        //                m_log.InfoFormat("[SCENE]: Deleting dropped attachment {0} of user {1}", grp.UUID, grp.OwnerID);
-        //                DeleteSceneObject(grp, true);
-        //            }
-        //        }
+//        public void CleanDroppedAttachments()
+//        {
+//            List<SceneObjectGroup> objectsToDelete =
+//                    new List<SceneObjectGroup>();
+//
+//            lock (m_cleaningAttachments)
+//            {
+//                ForEachSOG(delegate (SceneObjectGroup grp)
+//                        {
+//                            if (grp.RootPart.Shape.PCode == 0 && grp.RootPart.Shape.State != 0 && (!objectsToDelete.Contains(grp)))
+//                            {
+//                                UUID agentID = grp.OwnerID;
+//                                if (agentID == UUID.Zero)
+//                                {
+//                                    objectsToDelete.Add(grp);
+//                                    return;
+//                                }
+//
+//                                ScenePresence sp = GetScenePresence(agentID);
+//                                if (sp == null)
+//                                {
+//                                    objectsToDelete.Add(grp);
+//                                    return;
+//                                }
+//                            }
+//                        });
+//            }
+//
+//            foreach (SceneObjectGroup grp in objectsToDelete)
+//            {
+//                m_log.InfoFormat("[SCENE]: Deleting dropped attachment {0} of user {1}", grp.UUID, grp.OwnerID);
+//                DeleteSceneObject(grp, true);
+//            }
+//        }
 
         public void ThreadAlive(int threadCode)
         {
@@ -6210,7 +6346,7 @@ Environment.Exit(1);
                 if (!RegionInfo.EstateSettings.AllowDirectTeleport)
                 {
                     SceneObjectGroup telehub;
-                    if (!RegionInfo.RegionSettings.TelehubObject.IsZero() && (telehub = GetSceneObjectGroup  (RegionInfo.RegionSettings.TelehubObject)) != null && checkTeleHub)
+                    if (RegionInfo.RegionSettings.TelehubObject != UUID.Zero && (telehub = GetSceneObjectGroup  (RegionInfo.RegionSettings.TelehubObject)) != null && checkTeleHub)
                     {
                         bool banned = true;
                         bool validTelehub = false;
@@ -6426,7 +6562,5 @@ Environment.Exit(1);
                 return lastSource == sourceID;
             return false;
         }
-
-
     }
 }

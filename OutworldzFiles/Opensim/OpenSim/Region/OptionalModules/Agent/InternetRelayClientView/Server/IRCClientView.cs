@@ -1474,7 +1474,7 @@ namespace OpenSim.Region.OptionalModules.Agent.InternetRelayClientView.Server
         }
         public byte[] GetThrottlesPacked(float multiplier)
         {
-            return Array.Empty<byte>();
+            return new byte[0];
         }
 
 #pragma warning disable 0067

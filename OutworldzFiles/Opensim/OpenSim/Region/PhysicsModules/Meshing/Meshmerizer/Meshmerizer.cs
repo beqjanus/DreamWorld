@@ -636,7 +636,7 @@ namespace OpenSim.Region.PhysicsModule.Meshing
             Image idata = null;
             string decodedSculptFileName = "";
 
-            if (cacheSculptMaps && !primShape.SculptTexture.IsZero())
+            if (cacheSculptMaps && primShape.SculptTexture != UUID.Zero)
             {
                 decodedSculptFileName = System.IO.Path.Combine(decodedSculptMapPath, "smap_" + primShape.SculptTexture.ToString());
                 try

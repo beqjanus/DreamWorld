@@ -1159,6 +1159,9 @@ namespace OpenSim.Region.PhysicsModule.ubOde
 
             m_bodydisablecontrol = 0;
 
+            SafeNativeMethods.Vector3 dtmp = SafeNativeMethods.BodyGetPosition(Body);
+            Vector3 localpos = new Vector3(dtmp.X,dtmp.Y,dtmp.Z);
+
             // the Amotor still lets avatar rotation to drift during colisions
             // so force it back to identity
 
@@ -1169,8 +1172,10 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             qtmp.Z = m_orientation2D.Z;
             SafeNativeMethods.BodySetQuaternion(Body,ref qtmp);
 
-            SafeNativeMethods.Vector3 dtmp = SafeNativeMethods.BodyGetPosition(Body);
-            Vector3 localpos = new Vector3(dtmp.X, dtmp.Y, dtmp.Z);
+            if(m_pidControllerActive == false)
+            {
+                _zeroPosition = localpos;
+            }
 
             // check outbounds forcing to be in world
             bool fixbody = false;
@@ -1213,11 +1218,6 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             {
                 fixbody = true;
                 localpos.Z = 128f;
-            }
-
-            if (m_pidControllerActive == false)
-            {
-                _zeroPosition = localpos;
             }
 
             if (fixbody)

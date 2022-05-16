@@ -1,7 +1,6 @@
 
-using Amib.Threading.Internal;
 using System;
-using System.Threading;
+using Amib.Threading.Internal;
 
 namespace Amib.Threading
 {
@@ -30,21 +29,19 @@ namespace Amib.Threading
             /// With this variable a thread can know whatever it belongs to a 
             /// SmartThreadPool.
             /// </summary>
-            private SmartThreadPool _associatedSmartThreadPool;
+            private readonly SmartThreadPool _associatedSmartThreadPool;
 
             /// <summary>
             /// A reference to the current work item a thread from the thread pool 
             /// is executing.
             /// </summary>            
             public WorkItem CurrentWorkItem { get; set; }
-            public Thread WorkThread;
 
-            public ThreadEntry(SmartThreadPool stp, Thread th)
+            public ThreadEntry(SmartThreadPool stp)
             {
                 _associatedSmartThreadPool = stp;
                 _creationTime = DateTime.UtcNow;
                 _lastAliveTime = DateTime.MinValue;
-                WorkThread = th;
             }
 
             public SmartThreadPool AssociatedSmartThreadPool
@@ -55,12 +52,6 @@ namespace Amib.Threading
             public void IAmAlive()
             {
                 _lastAliveTime = DateTime.UtcNow;
-            }
-
-            public void Clean()
-            {
-                WorkThread = null;
-                _associatedSmartThreadPool = null;
             }
         }
 

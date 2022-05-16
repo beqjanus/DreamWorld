@@ -715,7 +715,7 @@ namespace OpenSim.Region.CoreModules.World.Land
 
         public bool HasGroupAccess(UUID avatar)
         {
-            if (!LandData.GroupID.IsZero() && (LandData.Flags & (uint)ParcelFlags.UseAccessGroup) == (uint)ParcelFlags.UseAccessGroup)
+            if (LandData.GroupID != UUID.Zero && (LandData.Flags & (uint)ParcelFlags.UseAccessGroup) == (uint)ParcelFlags.UseAccessGroup)
             {
                 if (m_groupMemberCache.TryGetValue(avatar, out bool isMember))
                 {
@@ -739,7 +739,7 @@ namespace OpenSim.Region.CoreModules.World.Land
 
                     foreach (GroupMembershipData d in membership)
                     {
-                        if (d.GroupID.Equals(LandData.GroupID))
+                        if (d.GroupID == LandData.GroupID)
                         {
                             m_groupMemberCache.Add(avatar, true, GROUPMEMBERCACHETIMEOUT);
                             return true;
@@ -771,7 +771,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             if (m_scene.RegionInfo.EstateSettings.IsEstateManagerOrOwner(avatar))
                 return false;
 
-            if (avatar.Equals(LandData.OwnerID))
+            if (avatar == LandData.OwnerID)
                 return false;
 
             if ((LandData.Flags & (uint) ParcelFlags.UseBanList) > 0)
@@ -779,7 +779,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                 if (LandData.ParcelAccessList.FindIndex(
                         delegate(LandAccessEntry e)
                         {
-                            if (e.Flags == AccessList.Ban && e.AgentID.Equals(avatar))
+                            if (e.AgentID == avatar && e.Flags == AccessList.Ban)
                                 return true;
                             return false;
                         }) != -1)
@@ -827,7 +827,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             if (m_scene.RegionInfo.EstateSettings.IsEstateManagerOrOwner(avatar))
                 return false;
 
-            if (avatar.Equals(LandData.OwnerID))
+            if (avatar == LandData.OwnerID)
                 return false;
 
             if (HasGroupAccess(avatar))
@@ -850,10 +850,10 @@ namespace OpenSim.Region.CoreModules.World.Land
 
             UUID owner = npccli.Owner;
 
-            if(owner.IsZero())
+            if(owner == UUID.Zero)
                 return true;
 
-            if (owner.Equals(LandData.OwnerID))
+            if (owner == LandData.OwnerID)
                 return false;
 
             return !IsInLandAccessList(owner);
@@ -866,7 +866,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             if (LandData.ParcelAccessList.FindIndex(
                     delegate(LandAccessEntry e)
                     {
-                        if (e.Flags == AccessList.Access && e.AgentID.Equals(avatar))
+                        if (e.AgentID == avatar && e.Flags == AccessList.Access)
                             return true;
                         return false;
                     }) == -1)
@@ -1043,7 +1043,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                         parcelAccessList.Remove(entry);
 
                     // a delete all command ?
-                    if (entries.Count == 1 && entries[0].AgentID.IsZero())
+                    if (entries.Count == 1 && entries[0].AgentID == UUID.Zero)
                     {
                         LandData.ParcelAccessList = parcelAccessList;
                         if ((flags & (uint)AccessList.Access) != 0)
@@ -1635,15 +1635,16 @@ namespace OpenSim.Region.CoreModules.World.Land
                         {
                             if (obj.LocalId > 0)
                             {
-                                if (request_type == LandChannel.LAND_SELECT_OBJECTS_OWNER && obj.OwnerID.Equals(LandData.OwnerID))
+                                if (request_type == LandChannel.LAND_SELECT_OBJECTS_OWNER && obj.OwnerID == LandData.OwnerID)
                                 {
                                     resultLocalIDs.Add(obj.LocalId);
                                 }
-                                else if (request_type == LandChannel.LAND_SELECT_OBJECTS_GROUP && obj.GroupID.Equals(LandData.GroupID) && !LandData.GroupID.IsZero())
+                                else if (request_type == LandChannel.LAND_SELECT_OBJECTS_GROUP && obj.GroupID == LandData.GroupID && LandData.GroupID != UUID.Zero)
                                 {
                                     resultLocalIDs.Add(obj.LocalId);
                                 }
-                                else if (request_type == LandChannel.LAND_SELECT_OBJECTS_OTHER && obj.OwnerID.NotEqual(remote_client.AgentId))
+                                else if (request_type == LandChannel.LAND_SELECT_OBJECTS_OTHER &&
+                                         obj.OwnerID != remote_client.AgentId)
                                 {
                                     resultLocalIDs.Add(obj.LocalId);
                                 }
@@ -1707,7 +1708,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                             {
                                 m_log.Error("[LAND]: Unable to match a prim with it's owner.");
                             }
-                            if (obj.OwnerID.Equals(obj.GroupID) && (!groups.Contains(obj.OwnerID)))
+                            if (obj.OwnerID == obj.GroupID && (!groups.Contains(obj.OwnerID)))
                                 groups.Add(obj.OwnerID);
                         }
                     }
@@ -1808,24 +1809,26 @@ namespace OpenSim.Region.CoreModules.World.Land
                 {
                     foreach (SceneObjectGroup obj in primsOverMe)
                     {
-                        if (obj.OwnerID.Equals(LandData.OwnerID))
+                        if (obj.OwnerID == LandData.OwnerID)
                         {
                             if (!returns.ContainsKey(obj.OwnerID))
-                                returns[obj.OwnerID] = new List<SceneObjectGroup>();
+                                returns[obj.OwnerID] =
+                                        new List<SceneObjectGroup>();
                             returns[obj.OwnerID].Add(obj);
                         }
                     }
                 }
-                else if (type == (uint)ObjectReturnType.Group && !LandData.GroupID.IsZero())
+                else if (type == (uint)ObjectReturnType.Group && LandData.GroupID != UUID.Zero)
                 {
                     foreach (SceneObjectGroup obj in primsOverMe)
                     {
-                        if (obj.GroupID.Equals(LandData.GroupID))
+                        if (obj.GroupID == LandData.GroupID)
                         {
-                            if (obj.OwnerID.Equals(LandData.OwnerID))
+                            if (obj.OwnerID == LandData.OwnerID)
                                 continue;
                             if (!returns.ContainsKey(obj.OwnerID))
-                                returns[obj.OwnerID] = new List<SceneObjectGroup>();
+                                returns[obj.OwnerID] =
+                                        new List<SceneObjectGroup>();
                             returns[obj.OwnerID].Add(obj);
                         }
                     }
@@ -1834,12 +1837,13 @@ namespace OpenSim.Region.CoreModules.World.Land
                 {
                     foreach (SceneObjectGroup obj in primsOverMe)
                     {
-                        if (obj.OwnerID.NotEqual(LandData.OwnerID) &&
-                            (obj.GroupID.NotEqual(LandData.GroupID) ||
-                            LandData.GroupID.IsZero()))
+                        if (obj.OwnerID != LandData.OwnerID &&
+                            (obj.GroupID != LandData.GroupID ||
+                            LandData.GroupID == UUID.Zero))
                         {
                             if (!returns.ContainsKey(obj.OwnerID))
-                                returns[obj.OwnerID] = new List<SceneObjectGroup>();
+                                returns[obj.OwnerID] =
+                                        new List<SceneObjectGroup>();
                             returns[obj.OwnerID].Add(obj);
                         }
                     }
@@ -1853,7 +1857,8 @@ namespace OpenSim.Region.CoreModules.World.Land
                         if (ownerlist.Contains(obj.OwnerID))
                         {
                             if (!returns.ContainsKey(obj.OwnerID))
-                                returns[obj.OwnerID] = new List<SceneObjectGroup>();
+                                returns[obj.OwnerID] =
+                                        new List<SceneObjectGroup>();
                             returns[obj.OwnerID].Add(obj);
                         }
                     }

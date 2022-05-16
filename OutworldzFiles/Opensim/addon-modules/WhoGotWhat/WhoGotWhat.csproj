@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build;CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+<Project DefaultTargets="Build;CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>16.7.3</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{A23E7F0E-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>WhoGotWhat</RootNamespace>
@@ -104,7 +104,6 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\..\OpenSim\Framework\OpenSim.Framework.csproj">
 		<Name>OpenSim.Framework</Name>
@@ -137,12 +136,17 @@
 		<Private>False</Private>
 	  </ProjectReference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <Compile Include="WhoGotWhat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Release\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
@@ -153,7 +157,7 @@
 	  </Compile>
   </ItemGroup>
   <ItemGroup>
-    <FilesToCopy_0000 Include="WhoGotWhat.ini;Lib\CsvHelper.dll;Lib\WhoGotWhat.dll" />
+    <FilesToCopy_0000 Include="WhoGotWhat.ini;Lib\CsvHelper.dll;Lib\WhoGotWhat.dll;obj\Debug\WhoGotWhat.dll;obj\Release\WhoGotWhat.dll" />
     <FilesToCopy_0001 Include="WhoGotWhat.html" />
   </ItemGroup>
   <Target Name="CopyFiles">

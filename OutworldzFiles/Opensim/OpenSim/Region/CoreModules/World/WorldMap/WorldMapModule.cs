@@ -232,7 +232,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
         // this has to be called with a lock on m_scene
         protected virtual void AddHandlers()
         {
-            myMapImageJPEG = Array.Empty<byte>();
+            myMapImageJPEG = new byte[0];
 
             string regionimage = "regionImage" + m_scene.RegionInfo.RegionID.ToString();
             regionimage = regionimage.Replace("-", "");
@@ -647,7 +647,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
             ScenePresence av = null;
             MapRequestState st = o as MapRequestState;
 
-            if (st == null || st.agentID.IsZero())
+            if (st == null || st.agentID == UUID.Zero)
                 return;
 
             if (m_blacklistedregions.ContainsKey(st.regionhandle))
@@ -765,7 +765,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
             }
 
             UUID agentID = requestState.agentID;
-            if (agentID.IsZero() || !m_scene.TryGetScenePresence(agentID, out ScenePresence sp))
+            if (agentID == UUID.Zero || !m_scene.TryGetScenePresence(agentID, out ScenePresence sp))
             {
                 m_cachedRegionMapItemsResponses.Remove(regionhandle);
                 Interlocked.Decrement(ref nAsyncRequests);
@@ -915,7 +915,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
         }
 
 
-        private const double SPAMBLOCKTIMEms = 30000;
+        private const double SPAMBLOCKTIMEms = 300000; // 5 minutes
         private Dictionary<UUID,double> spamBlocked = new Dictionary<UUID,double>();
 
         /// <summary>
@@ -1169,7 +1169,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
         public void OnHTTPGetMapImage(IOSHttpRequest request, IOSHttpResponse response)
         {
             response.KeepAlive = false;
-            if (request.HttpMethod != "GET" || m_scene.RegionInfo.RegionSettings.TerrainImageID.IsZero())
+            if (request.HttpMethod != "GET" || m_scene.RegionInfo.RegionSettings.TerrainImageID == UUID.Zero)
             {
                 response.StatusCode = (int)HttpStatusCode.NotFound;
                 return;
@@ -1367,7 +1367,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
 
                 foreach(GridRegion r in regions)
                 {
-                    if(r.TerrainImage.IsZero())
+                    if(r.TerrainImage == UUID.Zero)
                         continue;
 
                     if(doneLocal && r.RegionHandle == m_regionHandle)
@@ -1514,7 +1514,7 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
                 }
             }
 
-            if (!m_scene.RegionInfo.RegionSettings.TelehubObject.IsZero())
+            if (m_scene.RegionInfo.RegionSettings.TelehubObject != UUID.Zero)
             {
                 SceneObjectGroup sog = m_scene.GetSceneObjectGroup(m_scene.RegionInfo.RegionSettings.TelehubObject);
                 if (sog != null)
@@ -1572,16 +1572,16 @@ namespace OpenSim.Region.CoreModules.World.WorldMap
 
             // remove old assets
             UUID lastID = m_scene.RegionInfo.RegionSettings.TerrainImageID;
-            if (!lastID.IsZero())
+            if (lastID != UUID.Zero)
             {
                 m_scene.AssetService.Delete(lastID.ToString());
                 m_scene.RegionInfo.RegionSettings.TerrainImageID = UUID.Zero;
-                myMapImageJPEG = Array.Empty<byte>();
+                myMapImageJPEG = new byte[0];
                 needRegionSave = true;
             }
 
             lastID = m_scene.RegionInfo.RegionSettings.ParcelImageID;
-            if (!lastID.IsZero())
+            if (lastID != UUID.Zero)
             {
                 m_scene.AssetService.Delete(lastID.ToString());
                 m_scene.RegionInfo.RegionSettings.ParcelImageID = UUID.Zero;

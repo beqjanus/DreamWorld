@@ -141,9 +141,10 @@ namespace OpenSim.Framework
             if (!m_isRunning)
                 return false;
 
+            m_jobQueue?.Add(o);
+
             lock (m_mainLock)
             {
-                m_jobQueue?.Add(o);
                 if (m_numberThreads < m_concurrency && m_numberThreads < m_jobQueue.Count)
                 {
                     Util.FireAndForget(ProcessRequests, null, m_name, false);
@@ -161,15 +162,7 @@ namespace OpenSim.Framework
                 try
                 {
                     if(!m_jobQueue.TryTake(out obj, m_threadsHoldtime, m_cancelSource.Token))
-                    {
-                        lock (m_mainLock)
-                        {
-                            if (m_jobQueue.Count > 0)
-                                continue;
-                            --m_numberThreads;
-                            return;
-                        }
-                    }
+                        break;
                 }
                 catch
                 {

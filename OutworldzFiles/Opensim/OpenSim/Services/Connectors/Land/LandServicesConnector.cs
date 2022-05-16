@@ -134,7 +134,8 @@ namespace OpenSim.Services.Connectors
             }
             catch (Exception e)
             {
-                m_log.ErrorFormat("[LAND CONNECTOR]: Couldn't contact region {0}: {1}", regionHandle, e.Message);
+                m_log.ErrorFormat(
+                    "[LAND CONNECTOR]: Couldn't contact region {0}: {1} {2}", regionHandle, e.Message, e.StackTrace);
             }
 
             return landData;

@@ -142,7 +142,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                         client.FirstName+" "+client.LastName,
                         destID, (byte)211, false,
                         String.Empty,
-                        transactionID, false, new Vector3(), Array.Empty<byte>(), true),
+                        transactionID, false, new Vector3(), new byte[0], true),
                         delegate(bool success) {} );
             }
         }
@@ -178,7 +178,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
             if (inv == null)
                 return UUID.Zero;
 
-            if (folderID.IsZero())
+            if (folderID == UUID.Zero)
             {
                 InventoryFolderBase folder = inv.GetFolderForType(userID,
                         FolderType.CallingCard);

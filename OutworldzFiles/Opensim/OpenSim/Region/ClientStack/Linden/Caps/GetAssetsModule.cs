@@ -180,7 +180,7 @@ namespace OpenSim.Region.ClientStack.Linden
             if (m_NumberScenes <= 0)
                 return;
             APollRequest poolreq = o as APollRequest;
-            if (poolreq != null && !poolreq.reqID.IsZero())
+            if (poolreq != null && poolreq.reqID != UUID.Zero)
                 poolreq.thepoll.Process(poolreq);
         }
 
@@ -203,7 +203,24 @@ namespace OpenSim.Region.ClientStack.Linden
                 {
                     lock (responses)
                     {
-                        return responses.ContainsKey(requestID);
+                        APollResponse response;
+                        if (responses.TryGetValue(requestID, out response))
+                        {
+                            ScenePresence sp = m_scene.GetScenePresence(pId);
+
+                            if (sp == null || sp.IsDeleted)
+                                return true;
+
+                            OSHttpResponse resp = response.osresponse;
+
+                            if(Util.GetTimeStamp() - resp.RequestTS > (resp.RawBufferLen > 2000000 ? 10 : 5))
+                                return sp.CapCanSendAsset(2, resp.RawBufferLen);
+
+                            if (resp.Priority > 0)
+                                return sp.CapCanSendAsset(resp.Priority, resp.RawBufferLen);
+                            return sp.CapCanSendAsset(2, resp.RawBufferLen);
+                        }
+                        return false;
                     }
                 };
 
@@ -325,7 +342,6 @@ namespace OpenSim.Region.ClientStack.Linden
 
         public void RegisterCaps(UUID agentID, Caps caps)
         {
-            /*
             string hostName = m_scene.RegionInfo.ExternalHostName;
             uint port = (MainServer.Instance == null) ? 0 : MainServer.Instance.Port;
             string protocol = "http";
@@ -335,22 +351,25 @@ namespace OpenSim.Region.ClientStack.Linden
                 port = MainServer.Instance.SSLPort;
                 protocol = "https";
             }
-            string baseURL = String.Format("{0}://{1}:{2}", protocol, hostName, port);
-            */
+
             string hgassets = null;
             if(m_UserManagement != null)
                 hgassets = m_UserManagement.GetUserServerURL(agentID, "AssetServerURI");
 
             IExternalCapsModule handler = m_scene.RequestModuleInterface<IExternalCapsModule>();
+            string baseURL = String.Format("{0}://{1}:{2}", protocol, hostName, port);
 
-            if (m_GetTextureURL.Equals("localhost"))
+            if (m_GetTextureURL == "localhost")
             {
                 string capUrl = "/" + UUID.Random();
+
+                // Register this as a poll service
+                PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetTexture", capUrl);
                 else
-                    caps.RegisterPollHandler("GetTexture", new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets));
+                    caps.RegisterPollHandler("GetTexture", args);
             }
             else
             {
@@ -358,42 +377,48 @@ namespace OpenSim.Region.ClientStack.Linden
             }
 
             //GetMesh
-            if (m_GetMeshURL.Equals("localhost"))
+            if (m_GetMeshURL == "localhost")
             {
                 string capUrl = "/" + UUID.Random();
+
+                PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetMesh", capUrl);
                 else
-                    caps.RegisterPollHandler("GetMesh", new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets));
+                    caps.RegisterPollHandler("GetMesh", args);
             }
-            else if (!string.IsNullOrEmpty(m_GetMeshURL))
+            else if (m_GetMeshURL != string.Empty)
                 caps.RegisterHandler("GetMesh", m_GetMeshURL);
 
             //GetMesh2
-            if (m_GetMesh2URL.Equals("localhost"))
+            if (m_GetMesh2URL == "localhost")
             {
                 string capUrl = "/" + UUID.Random();
+
+                PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetMesh2", capUrl);
                 else
-                    caps.RegisterPollHandler("GetMesh2", new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets));
+                    caps.RegisterPollHandler("GetMesh2", args);
             }
-            else if (!string.IsNullOrEmpty(m_GetMesh2URL))
+            else if (m_GetMesh2URL != string.Empty)
                 caps.RegisterHandler("GetMesh2", m_GetMesh2URL);
 
             //ViewerAsset
-            if (m_GetAssetURL.Equals("localhost"))
+            if (m_GetAssetURL == "localhost")
             {
                 string capUrl = "/" + UUID.Random();
+
+                PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "ViewerAsset", capUrl);
                 else
-                    caps.RegisterPollHandler("ViewerAsset", new PollServiceAssetEventArgs(capUrl, agentID, m_scene, hgassets));
+                    caps.RegisterPollHandler("ViewerAsset", args);
             }
-            else if (string.IsNullOrEmpty(m_GetAssetURL))
+            else if (m_GetAssetURL != string.Empty)
                 caps.RegisterHandler("ViewerAsset", m_GetAssetURL);
         }
     }

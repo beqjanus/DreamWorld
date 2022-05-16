@@ -158,7 +158,7 @@ namespace OpenSim.Tests.Common
 
             m_folders[folder.ID] = folder;
 
-            if (folder.ParentID.IsZero())
+            if (folder.ParentID == UUID.Zero)
             {
 //                m_log.DebugFormat(
 //                    "[MOCK INV DB]: Adding root folder {0} {1} for {2}", folder.Name, folder.ID, folder.Owner);

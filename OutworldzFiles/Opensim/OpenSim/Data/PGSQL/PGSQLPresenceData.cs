@@ -81,7 +81,7 @@ namespace OpenSim.Data.PGSQL
             if (pd.Length == 0)
                 return false;
 
-            if (regionID.IsZero())
+            if (regionID == UUID.Zero)
                 return false;
 
             using (NpgsqlConnection conn = new NpgsqlConnection(m_ConnectionString))

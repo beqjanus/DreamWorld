@@ -97,7 +97,7 @@ namespace OpenSim.Server.Handlers.Authentication
                     return DoEncryptedMethods(buffer);
                 }
             }
-            return Array.Empty<byte>();
+            return new byte[0];
         }
 
         private byte[] DoPlainMethods(string body)
@@ -187,7 +187,7 @@ namespace OpenSim.Server.Handlers.Authentication
 
         private byte[] DoEncryptedMethods(byte[] ciphertext)
         {
-            return Array.Empty<byte>();
+            return new byte[0];
         }
 
         private byte[] SuccessResult()

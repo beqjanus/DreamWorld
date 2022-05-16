@@ -52,7 +52,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
         {
             m_asset = new AssetBase(UUID.Zero, pClientFilename, type, pRemoteClient.AgentId.ToString())
             {
-                Data = Array.Empty<byte>(),
+                Data = new byte[0],
                 Description = "empty",
                 Local = true,
                 Temporary = true

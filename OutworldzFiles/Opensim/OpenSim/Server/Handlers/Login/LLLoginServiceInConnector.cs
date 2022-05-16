@@ -85,7 +85,7 @@ namespace OpenSim.Server.Handlers.Login
                 throw new Exception(String.Format("No section LoginService in config file"));
 
             string loginService = serverConfig.GetString("LocalServiceModule", String.Empty);
-            if (loginService.Length == 0)
+            if (loginService == string.Empty)
                 throw new Exception(String.Format("No LocalServiceModule for LoginService in config file"));
 
             m_Proxy = serverConfig.GetBoolean("HasProxy", false);

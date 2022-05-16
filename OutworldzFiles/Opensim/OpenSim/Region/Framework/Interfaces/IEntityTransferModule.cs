@@ -25,7 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System.Collections.Generic;
+using System;
+using OpenSim.Services.Interfaces;
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 
 using OpenMetaverse;
@@ -61,8 +62,6 @@ namespace OpenSim.Region.Framework.Interfaces
         /// <param name='client'></param>
         bool TeleportHome(UUID id, IClientAPI client);
 
-        void RequestTeleportLandmark(IClientAPI remoteClient, AssetLandmark lm, Vector3 lookAt);
-
         /// <summary>
         /// Teleport an agent directly to a given region without checking whether the region should be substituted.
         /// </summary>
@@ -96,7 +95,8 @@ namespace OpenSim.Region.Framework.Interfaces
 
         void EnableChildAgent(ScenePresence agent, GridRegion region);
 
-        GridRegion GetDestination(UUID agentID, Vector3 pos, EntityTransferContext ctx, out Vector3 newpos, out string reason);
+        GridRegion GetDestination(Scene scene, UUID agentID, Vector3 pos, EntityTransferContext ctx,
+                                        out Vector3 newpos, out string reason);
         GridRegion GetObjectDestination(SceneObjectGroup grp, Vector3 targetPosition, out Vector3 newpos);
         bool checkAgentAccessToRegion(ScenePresence agent, GridRegion destiny, Vector3 position, EntityTransferContext ctx, out string reason);
 

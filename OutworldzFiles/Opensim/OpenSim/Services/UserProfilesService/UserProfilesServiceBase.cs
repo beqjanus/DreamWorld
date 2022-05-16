@@ -63,7 +63,7 @@ namespace OpenSim.Services.ProfilesService
             IConfig dbConfig = config.Configs["DatabaseService"];
             if (dbConfig != null)
             {
-                if (dllName.Length == 0)
+                if (dllName == String.Empty)
                     dllName = dbConfig.GetString("StorageProvider", String.Empty);
                 if (string.IsNullOrEmpty(connString))
                     connString = dbConfig.GetString("ConnectionString", String.Empty);

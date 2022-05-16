@@ -69,7 +69,7 @@ namespace OpenSim.Services.Connectors
             string serviceURI = gridConfig.GetString("EstateServerURI",
                     String.Empty);
 
-            if (serviceURI.Length == 0)
+            if (serviceURI == String.Empty)
             {
                 m_log.Error("[ESTATE CONNECTOR]: No Server URI named in section EstateService");
                 throw new Exception("Estate connector init error");

@@ -85,7 +85,8 @@ namespace OpenSim.Framework
     public delegate void TeleportLocationRequest(
         IClientAPI remoteClient, ulong regionHandle, Vector3 position, Vector3 lookAt, uint flags);
 
-    public delegate void TeleportLandmarkRequest(IClientAPI remoteClient, AssetLandmark lm);
+    public delegate void TeleportLandmarkRequest(
+        IClientAPI remoteClient, AssetLandmark lm);
 
     public delegate void TeleportCancel(IClientAPI remoteClient);
 
@@ -757,7 +758,6 @@ namespace OpenSim.Framework
         event DeRezObject OnDeRezObject;
         event RezRestoreToWorld OnRezRestoreToWorld;
         event Action<IClientAPI> OnRegionHandShakeReply;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         event GenericCall1 OnRequestWearables;
         event Action<IClientAPI, bool> OnCompleteMovementToRegion;
 

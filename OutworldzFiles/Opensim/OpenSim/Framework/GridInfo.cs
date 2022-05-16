@@ -472,7 +472,7 @@ namespace OpenSim.Framework
 
             m_GridNick = Util.GetConfigVarFromSections<string>(config, "GridNick", namessections, string.Empty);
 
-            if (string.IsNullOrEmpty(m_GridName))
+            if (m_GridName == string.Empty)
                 m_GridName = "Another bad configured grid";
 
             OSHTTPURI tmpuri;

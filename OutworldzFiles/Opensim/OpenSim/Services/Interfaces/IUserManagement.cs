@@ -48,7 +48,6 @@ namespace OpenSim.Framework
         string GetUserServerURL(UUID uuid, string serverType, out bool failedWeb);
         Dictionary<UUID, string> GetUsersNames(string[] ids, UUID scopeID);
         Dictionary<UUID, string> GetKnownUserNames(string[] ids, UUID scopeID);
-        List<UserData> GetKnownUsers(string[] ids, UUID scopeID);
         void UserWebFailed(UUID id);
 
         /// <summary>

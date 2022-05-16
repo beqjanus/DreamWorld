@@ -73,7 +73,7 @@ namespace OpenSim.Services.Connectors
             string serviceURI = gridConfig.GetString("MuteListServerURI",
                     String.Empty);
 
-            if (serviceURI.Length == 0)
+            if (serviceURI == String.Empty)
             {
                 m_log.Error("[MUTELIST CONNECTOR]: No Server URI named in section GridUserService");
                 throw new Exception("MuteList connector init error");

@@ -619,7 +619,7 @@ namespace OpenSim.Tests.Common
 
         public byte[] GetThrottlesPacked(float multiplier)
         {
-            return Array.Empty<byte>();
+            return new byte[0];
         }
 
         public virtual void SendAnimations(UUID[] animations, int[] seqs, UUID sourceAgentId, UUID[] objectIDs)

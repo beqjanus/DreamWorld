@@ -371,7 +371,7 @@ namespace OpenSim.Framework.Console
                 = components.ConvertAll<string>(
                     c =>
                     {
-                        if (c.Length == 0)
+                        if (c == "")
                             return blankComponentFunc.Invoke(c);
                         else if (c == MaxRawConsoleVectorValue)
                             return float.MaxValue.ToString();

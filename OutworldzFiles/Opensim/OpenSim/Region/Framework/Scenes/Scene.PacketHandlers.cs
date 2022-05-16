@@ -224,7 +224,7 @@ namespace OpenSim.Region.Framework.Scenes
 
             // XXX: Might be better to get rid of this special casing and have GetMembershipData return something
             // reasonable for a UUID.Zero group.
-            if (!groupID.IsZero())
+            if (groupID != UUID.Zero)
             {
                 GroupMembershipData gmd = m_groupsModule.GetMembershipData(groupID, remoteClient.AgentId);
 
@@ -548,7 +548,7 @@ namespace OpenSim.Region.Framework.Scenes
 //                "[USER INVENTORY]: HandleFetchInventoryDescendents() for {0}, folder={1}, fetchFolders={2}, fetchItems={3}, sortOrder={4}",
 //                remoteClient.Name, folderID, fetchFolders, fetchItems, sortOrder);
 
-            if (folderID.IsZero())
+            if (folderID == UUID.Zero)
                 return;
 
             // FIXME MAYBE: We're not handling sortOrder!
@@ -637,6 +637,10 @@ namespace OpenSim.Region.Framework.Scenes
         /// Handle a client request to update the inventory folder
         /// </summary>
         ///
+        /// FIXME: We call add new inventory folder because in the data layer, we happen to use an SQL REPLACE
+        /// so this will work to rename an existing folder.  Needless to say, to rely on this is very confusing,
+        /// and needs to be changed.
+        ///
         /// <param name="remoteClient"></param>
         /// <param name="folderID"></param>
         /// <param name="type"></param>
@@ -680,6 +684,8 @@ namespace OpenSim.Region.Framework.Scenes
             }
         }
 
+        delegate void PurgeFolderDelegate(UUID userID, UUID folder);
+
         /// <summary>
         /// This should delete all the items and folders in the given directory.
         /// </summary>
@@ -687,14 +693,10 @@ namespace OpenSim.Region.Framework.Scenes
         /// <param name="folderID"></param>
         public void HandlePurgeInventoryDescendents(IClientAPI remoteClient, UUID folderID)
         {
+            PurgeFolderDelegate d = PurgeFolderAsync;
             try
             {
-                UUID agent = remoteClient.AgentId;
-                UUID folder = folderID;
-                Util.FireAndForget(delegate
-                {
-                    PurgeFolderAsync(agent, folder);
-                });
+                d.BeginInvoke(remoteClient.AgentId, folderID, PurgeFolderCompleted, d);
             }
             catch (Exception e)
             {
@@ -717,6 +719,12 @@ namespace OpenSim.Region.Framework.Scenes
             {
                 m_log.WarnFormat("[AGENT INVENTORY]: Exception on async purge folder for user {0}: {1}", userID, e.Message);
             }
+        }
+
+        private void PurgeFolderCompleted(IAsyncResult iar)
+        {
+            PurgeFolderDelegate d = (PurgeFolderDelegate)iar.AsyncState;
+            d.EndInvoke(iar);
         }
     }
 }

@@ -405,7 +405,7 @@ namespace OpenSim.Framework.Console
                 bool addcr = false;
                 foreach (string s in current.Keys)
                 {
-                    if (s.Length == 0)
+                    if (s == String.Empty)
                     {
                         CommandInfo ci = (CommandInfo)current[String.Empty];
                         if (ci.fn.Count != 0)

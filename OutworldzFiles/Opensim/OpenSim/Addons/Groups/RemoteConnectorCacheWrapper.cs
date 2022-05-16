@@ -87,7 +87,7 @@ namespace OpenSim.Groups
             if (group == null)
                 return UUID.Zero;
 
-            if (!group.GroupID.IsZero())
+            if (group.GroupID != UUID.Zero)
             {
                 m_Cache.AddOrUpdate("group-" + group.GroupID.ToString(), group, GROUPS_CACHE_TIMEOUT);
                 m_Cache.Remove("memberships-" + RequestingAgentID.ToString());
@@ -101,7 +101,7 @@ namespace OpenSim.Groups
             //ExtendedGroupRecord group = m_GroupsService.UpdateGroup(RequestingAgentID, groupID, charter, showInList, insigniaID, membershipFee, openEnrollment, allowPublish, maturePublish);
             ExtendedGroupRecord group = d();
 
-            if (!group.GroupID.IsZero())
+            if (group != null && group.GroupID != UUID.Zero)
                 m_Cache.AddOrUpdate("group-" + group.GroupID.ToString(), group, GROUPS_CACHE_TIMEOUT);
 
             return true;
@@ -109,16 +109,16 @@ namespace OpenSim.Groups
 
         public ExtendedGroupRecord GetGroupRecord(string RequestingAgentID, UUID GroupID, string GroupName, GroupRecordDelegate d)
         {
-            //if (GroupID.IsZero() && string.IsNullOrEmpty(GroupName))
+            //if (GroupID == UUID.Zero && (GroupName == null || GroupName != null && GroupName == string.Empty))
             //    return null;
 
             object group = null;
             bool firstCall = false;
             string cacheKey = "group-";
-            if (GroupID.IsZero())
-                cacheKey += GroupName;
-            else
+            if (GroupID != UUID.Zero)
                 cacheKey += GroupID.ToString();
+            else
+                cacheKey += GroupName;
 
             //m_log.DebugFormat("[XXX]: GetGroupRecord {0}", cacheKey);
 

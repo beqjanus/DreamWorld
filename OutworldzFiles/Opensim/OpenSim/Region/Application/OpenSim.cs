@@ -99,7 +99,7 @@ namespace OpenSim
                 m_startupCommandsFile = startupConfig.GetString("startup_console_commands_file", "startup_commands.txt");
                 m_shutdownCommandsFile = startupConfig.GetString("shutdown_console_commands_file", "shutdown_commands.txt");
 
-                if (startupConfig.GetString("console", String.Empty).Length == 0)
+                if (startupConfig.GetString("console", String.Empty) == String.Empty)
                     m_gui = startupConfig.GetBoolean("gui", false);
                 else
                     m_consoleType= startupConfig.GetString("console", String.Empty);
@@ -484,7 +484,7 @@ namespace OpenSim
         private void WatchdogTimeoutHandler(Watchdog.ThreadWatchdogInfo twi)
         {
             int now = Environment.TickCount & Int32.MaxValue;
-            // SmartStart will suspend regions. So this moves to DEBUG level, as its not an error
+            // fkb
             m_log.DebugFormat(
                 "[WATCHDOG]: Timeout detected for thread \"{0}\". ThreadState={1}. Last tick was {2}ms ago.  {3}",
                 twi.Thread.Name,
@@ -560,13 +560,11 @@ namespace OpenSim
         {
             if (File.Exists(fileName))
             {
-                using(StreamReader readFile = File.OpenText(fileName))
+                StreamReader readFile = File.OpenText(fileName);
+                string currentLine;
+                while ((currentLine = readFile.ReadLine()) != null)
                 {
-                    string currentLine;
-                    while ((currentLine = readFile.ReadLine()) != null)
-                    {
-                        m_log.Info("[!]" + currentLine);
-                    }
+                    m_log.Info("[!]" + currentLine);
                 }
             }
         }
@@ -1323,7 +1321,7 @@ namespace OpenSim
                     // send it off for processing.
                     IEstateModule estateModule = scene.RequestModuleInterface<IEstateModule>();
                     response = estateModule.CreateEstate(estateName, userID);
-                    if (response.Length == 0)
+                    if (response == String.Empty)
                     {
                         List<int> estates = scene.EstateDataService.GetEstates(estateName);
                         response = String.Format("Estate {0} created as \"{1}\"", estates.ElementAt(0), estateName);
@@ -1394,7 +1392,7 @@ namespace OpenSim
                         if (account != null)
                             response = estateModule.SetEstateOwner(estateId, account);
 
-                        if (response.Length == 0)
+                        if (response == String.Empty)
                         {
                             response = String.Format("Estate owner changed to {0} ({1} {2})", account.PrincipalID, account.FirstName, account.LastName);
                         }
@@ -1442,7 +1440,7 @@ namespace OpenSim
                         // send it off for processing.
                         response = estateModule.SetEstateName(estateId, estateName);
 
-                        if (response.Length == 0)
+                        if (response == String.Empty)
                         {
                             response = String.Format("Estate {0} renamed to \"{1}\"", estateId, estateName);
                         }
@@ -1493,7 +1491,7 @@ namespace OpenSim
             // send it off for processing.
             IEstateModule estateModule = scene.RequestModuleInterface<IEstateModule>();
             response = estateModule.SetRegionEstate(scene.RegionInfo, estateId);
-            if (response.Length == 0)
+            if (response == String.Empty)
             {
                 estateModule.TriggerRegionInfoChange();
                 estateModule.sendRegionHandshakeToAll();

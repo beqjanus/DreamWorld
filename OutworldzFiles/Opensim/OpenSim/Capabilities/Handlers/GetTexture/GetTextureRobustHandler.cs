@@ -136,8 +136,9 @@ namespace OpenSim.Capabilities.Handlers
             if(!String.IsNullOrEmpty(m_RedirectURL))
             {
                 string textureUrl = m_RedirectURL + "?texture_id=" + textureID.ToString();
-                httpResponse.Redirect(textureUrl, HttpStatusCode.Moved);
                 m_log.Debug("[GETTEXTURE]: Redirecting texture request to " + textureUrl);
+                httpResponse.StatusCode = (int)HttpStatusCode.Moved;
+                httpResponse.AddHeader("Location:", textureUrl);
                 return true;
             }
 
@@ -301,7 +302,7 @@ namespace OpenSim.Capabilities.Handlers
 
                     string rawEnd = rangeValues[1];
 
-                    if (rawEnd.Length == 0)
+                    if (rawEnd == "")
                     {
                         end = -1;
                         return true;
@@ -320,7 +321,7 @@ namespace OpenSim.Capabilities.Handlers
         private byte[] ConvertTextureData(AssetBase texture, string format)
         {
             m_log.DebugFormat("[GETTEXTURE]: Converting texture {0} to {1}", texture.ID, format);
-            byte[] data = Array.Empty<byte>(); ;
+            byte[] data = new byte[0];
 
             MemoryStream imgstream = new MemoryStream();
             Bitmap mTexture = null;

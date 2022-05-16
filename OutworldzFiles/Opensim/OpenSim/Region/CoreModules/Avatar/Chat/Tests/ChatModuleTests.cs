@@ -142,18 +142,12 @@ namespace OpenSim.Region.CoreModules.Avatar.Chat.Tests
 
             // We must update the scenes in order to make the root new root agents trigger position updates in their
             // children.
-            for (int i = 0; i < 6; ++i)
-            {
-                sceneWest.Update(1);
-                sceneEast.Update(1);
-            }
+            sceneWest.Update(4);
+            sceneEast.Update(4);
             sp1.DrawDistance += 64;
             sp2.DrawDistance += 64;
-            for (int i = 0; i < 6; ++i)
-            {
-                sceneWest.Update(1);
-                sceneEast.Update(1);
-            }
+            sceneWest.Update(2);
+            sceneEast.Update(2);
 
             // Check child positions are correct.
             Assert.AreEqual(
@@ -177,17 +171,11 @@ namespace OpenSim.Region.CoreModules.Avatar.Chat.Tests
 
             sp1Position = new Vector3(30, 128, 20);
             sp1.AbsolutePosition = sp1Position;
-            for (int i = 0; i < 2; ++i)
-            {
-                sceneWest.Update(1);
-                sceneEast.Update(1);
-            }
+            sceneWest.Update(1);
+            sceneEast.Update(1);
             Thread.Sleep(12000); // child updates are now time limited
-            for (int i = 0; i < 6; ++i)
-            {
-                sceneWest.Update(1);
-                sceneEast.Update(1);
-            }
+            sceneWest.Update(5);
+            sceneEast.Update(5);
 
             // Check child position is correct.
             Assert.AreEqual(
@@ -249,18 +237,12 @@ namespace OpenSim.Region.CoreModules.Avatar.Chat.Tests
 
             // We must update the scenes in order to make the root new root agents trigger position updates in their
             // children.
-            for (int i = 0; i < 6; ++i)
-            {
-                sceneNorth.Update(1);
-                sceneSouth.Update(1);
-            }
+            sceneNorth.Update(4);
+            sceneSouth.Update(4);
             sp1.DrawDistance += 64;
             sp2.DrawDistance += 64;
-            for (int i = 0; i < 6; ++i)
-            {
-                sceneNorth.Update(1);
-                sceneSouth.Update(1);
-            }
+            sceneNorth.Update(4);
+            sceneSouth.Update(4);
 
             // Check child positions are correct.
             Assert.AreEqual(
@@ -284,11 +266,11 @@ namespace OpenSim.Region.CoreModules.Avatar.Chat.Tests
 
             sp1Position = new Vector3(30, 128, 20);
             sp1.AbsolutePosition = sp1Position;
-            sceneNorth.Update(6);
-            sceneSouth.Update(6);
+            sceneNorth.Update(1);
+            sceneSouth.Update(1);
             Thread.Sleep(12000); // child updates are now time limited
-            sceneNorth.Update(6);
-            sceneSouth.Update(6);
+            sceneNorth.Update(5);
+            sceneSouth.Update(5);
 
             // Check child position is correct.
             Assert.AreEqual(

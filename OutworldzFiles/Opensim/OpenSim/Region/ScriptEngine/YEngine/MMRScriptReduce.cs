@@ -3426,35 +3426,19 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                 }
             }
 
-            // If doing local vars, each var goes in its own var frame,
-            // to make sure no code before this point can reference it.
-            if (currentStmtBlock != null)
+             // If doing local vars, each var goes in its own var frame,
+             // to make sure no code before this point can reference it.
+            if(currentStmtBlock != null)
             {
                 tokenScript.PushVarFrame(true);
             }
-            /*
-            ScriptConst scriptConst = ScriptConst.Lookup(tokenDeclVar.name.val);
-            if (scriptConst != null)
-            {
-                ErrorMsg(tokenDeclVar, "reserved constant name " + tokenDeclVar.name.val);
-                return null;
-            }
-            */
-            // Can't be same name already in block.
-            if (!tokenScript.AddVarEntry(tokenDeclVar))
+
+             // Can't be same name already in block.
+            if(!tokenScript.AddVarEntry(tokenDeclVar))
             {
                 ErrorMsg(tokenDeclVar, "duplicate variable " + tokenDeclVar.name.val);
                 return null;
             }
-
-            /*
-            if (TokenDeclInline.inlineFunctions.HasAnyExact(tokenDeclVar.name.val))
-            {
-                ErrorMsg(tokenDeclVar, "reserved name " + tokenDeclVar.name.val);
-                return null;
-            }
-            */
-
             return tokenDeclVar;
         }
 
@@ -6740,7 +6724,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                         if(val is int)
                             nval = (char)(int)val;
                     }
-                    else if (castTo is TokenTypeFloat)
+                    if(castTo is TokenTypeFloat)
                     {
                         if(val is double)
                             return rVal;
@@ -6749,7 +6733,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                         if(val is string)
                             nval = new LSL_Float((string)val).value;
                     }
-                    else if (castTo is TokenTypeInt)
+                    if(castTo is TokenTypeInt)
                     {
                         if(val is int)
                             return rVal;
@@ -6760,14 +6744,14 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                         if(val is string)
                             nval = new LSL_Integer((string)val).value;
                     }
-                    else if (castTo is TokenTypeRot)
+                    if(castTo is TokenTypeRot)
                     {
                         if(val is LSL_Rotation)
                             return rVal;
                         if(val is string)
                             nval = new LSL_Rotation((string)val);
                     }
-                    else if ((castTo is TokenTypeKey) || (castTo is TokenTypeStr))
+                    if((castTo is TokenTypeKey) || (castTo is TokenTypeStr))
                     {
                         if(val is string)
                             nval = val;  // in case of key/string conversion
@@ -6782,14 +6766,13 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                         if(val is LSL_Vector)
                             nval = TypeCast.VectorToString((LSL_Vector)val);
                     }
-                    else if (castTo is TokenTypeVec)
+                    if(castTo is TokenTypeVec)
                     {
                         if(val is LSL_Vector)
                             return rVal;
                         if(val is string)
                             nval = new LSL_Vector((string)val);
                     }
-
                     if(nval != null)
                     {
                         TokenRVal rValConst = new TokenRValConst(castTo, nval);

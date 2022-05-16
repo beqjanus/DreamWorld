@@ -84,40 +84,29 @@ namespace OpenSim.Data
 
         List<RegionData> GetDefaultRegions(UUID scopeID);
         List<RegionData> GetDefaultHypergridRegions(UUID scopeID);
-        List<RegionData> GetFallbackRegions(UUID scopeID);
+        List<RegionData> GetFallbackRegions(UUID scopeID, int x, int y);
         List<RegionData> GetHyperlinks(UUID scopeID);
-        List<RegionData> GetOnlineRegions(UUID scopeID);
     }
 
     public class RegionDataDistanceCompare : IComparer<RegionData>
     {
-        private float m_originX;
-        private float m_originY;
+        private Vector2 m_origin;
 
         public RegionDataDistanceCompare(int x, int y)
         {
-            m_originX = x;
-            m_originY = y;
+            m_origin = new Vector2(x, y);
         }
 
         public int Compare(RegionData regionA, RegionData regionB)
         {
-            float dx = regionA.posX - m_originX;
-            if (dx < 0)
-                dx += regionA.sizeX - 1;
-            float dy = regionA.posY - m_originY;
-            if (dy < 0)
-                dy += regionA.sizeY - 1;
-            float da = dx * dx + dy * dy;
+            Vector2 vectorA = new Vector2(regionA.posX, regionA.posY);
+            Vector2 vectorB = new Vector2(regionB.posX, regionB.posY);
+            return Math.Sign(VectorDistance(m_origin, vectorA) - VectorDistance(m_origin, vectorB));
+        }
 
-            dx = regionB.posX - m_originX;
-            if (dx < 0)
-                dx += regionB.sizeX - 1;
-            dy = regionB.posY - m_originY;
-            if (dy < 0)
-                dy += regionB.sizeY - 1;
-            float db = dx * dx + dy * dy;
-            return da.CompareTo(db);
+        private float VectorDistance(Vector2 x, Vector2 y)
+        {
+            return (x - y).Length();
         }
     }
 }

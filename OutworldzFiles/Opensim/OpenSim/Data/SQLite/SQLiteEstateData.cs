@@ -189,25 +189,15 @@ namespace OpenSim.Data.SQLite
         {
             List<string> names = new List<string>(FieldList);
 
+            // Remove EstateID and use AutoIncrement
+            if (es.EstateID < 100)
+                names.Remove("EstateID");
+
             using (SqliteCommand cmd = m_connection.CreateCommand())
             {
-                if (es.EstateID < 100)
-                {
-                    cmd.CommandText = "select MAX(EstateID) FROM estate_settings";
-                    cmd.Parameters.Clear();
-                    uint a = 0;
-                    object r = cmd.ExecuteScalar();
-                    if(r!=null && !(r is DBNull))
-                    {
-                        a = Convert.ToUInt32(r);
-                    }
-                    if (a < 100)
-                        a = 100;
-                    ++a;
-                    es.EstateID = a;
-                }
+                string sql = "insert into estate_settings ("+String.Join(",", names.ToArray())+") values ( :"+String.Join(", :", names.ToArray())+")";
 
-                cmd.CommandText = "insert into estate_settings ("+String.Join(",", names.ToArray())+") values ( :"+String.Join(", :", names.ToArray())+")";
+                cmd.CommandText = sql;
                 cmd.Parameters.Clear();
 
                 foreach (string name in FieldList)
@@ -226,6 +216,18 @@ namespace OpenSim.Data.SQLite
                 }
 
                 cmd.ExecuteNonQuery();
+
+                // Only get Auto ID if we actually used it else we just get 0
+                if (es.EstateID < 100)
+                {
+                    cmd.CommandText = "select LAST_INSERT_ROWID() as id";
+                    cmd.Parameters.Clear();
+                    using (IDataReader r = cmd.ExecuteReader())
+                    {
+                        r.Read();
+                        es.EstateID = Convert.ToUInt32(r["id"]);
+                    }
+                }
             }
         }
 

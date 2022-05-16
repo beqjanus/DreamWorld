@@ -1,5 +1,5 @@
 <!-- Addins Example Module -->
-<Project frameworkVersion="v4_8" name="WhoGotWhat" path="addon-modules/WhoGotWhat" type="Library">
+<Project frameworkVersion="v4_6" name="WhoGotWhat" path="addon-modules/WhoGotWhat" type="Library">
   <Configuration name="Debug">
     <Options>
       <OutputPath>../../bin/</OutputPath>

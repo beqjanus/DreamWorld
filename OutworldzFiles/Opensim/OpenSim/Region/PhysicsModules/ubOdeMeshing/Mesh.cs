@@ -39,6 +39,24 @@ namespace OpenSim.Region.PhysicsModule.ubODEMeshing
 {
     public class MeshBuildingData
     {
+        private class vertexcomp : IEqualityComparer<Vertex>
+        {
+            public bool Equals(Vertex v1, Vertex v2)
+            {
+                if (v1.X == v2.X && v1.Y == v2.Y && v1.Z == v2.Z)
+                    return true;
+                else
+                    return false;
+            }
+            public int GetHashCode(Vertex v)
+            {
+                int a = v.X.GetHashCode();
+                int b = v.Y.GetHashCode();
+                int c = v.Z.GetHashCode();
+                return (a << 16) ^ (b << 8) ^ c;
+            }
+        }
+
         public Dictionary<Vertex, int> m_vertices;
         public List<Triangle> m_triangles;
         public float m_obbXmin;
@@ -52,7 +70,8 @@ namespace OpenSim.Region.PhysicsModule.ubODEMeshing
 
         public  MeshBuildingData()
         {
-            m_vertices = new Dictionary<Vertex, int>();
+            vertexcomp vcomp = new vertexcomp();
+            m_vertices = new Dictionary<Vertex, int>(vcomp);
             m_triangles = new List<Triangle>();
             m_centroid = Vector3.Zero;
             m_centroidDiv = 0;
@@ -98,7 +117,7 @@ namespace OpenSim.Region.PhysicsModule.ubODEMeshing
             m_obboffset = Vector3.Zero;
         }
 
-        public unsafe Mesh Scale(Vector3 scale)
+        public Mesh Scale(Vector3 scale)
         {
             if (m_verticesPtr == null || m_indicesPtr == null)
                 return null;
@@ -130,21 +149,15 @@ namespace OpenSim.Region.PhysicsModule.ubODEMeshing
             result.m_obboffset.Z = m_obboffset.Z * z;
 
             result.vertices = new float[vertices.Length];
-
-            fixed(float* dsts = result.vertices, srcs = vertices)
+            int j = 0;
+            for (int i = 0; i < m_vertexCount; i++)
             {
-                float* dst = dsts;
-                float* src = srcs;
-                float* end = srcs + vertices.Length;
-                while (src < end)
-                {
-                    *dst = *src * x;
-                    dst++; src++;
-                    *dst = *src * y;
-                    dst++; src++;
-                    *dst = *src * z;
-                    dst++; src++;
-                }
+                result.vertices[j] = vertices[j] * x;
+                j++;
+                result.vertices[j] = vertices[j] * y;
+                j++;
+                result.vertices[j] = vertices[j] * z;
+                j++;
             }
 
             result.indexes = new int[indexes.Length];

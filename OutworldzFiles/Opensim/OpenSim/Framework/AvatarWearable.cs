@@ -152,7 +152,7 @@ namespace OpenSim.Framework
 
         public void Add(UUID itemID, UUID assetID)
         {
-            if (itemID.IsZero())
+            if (itemID == UUID.Zero)
                 return;
             if (m_items.ContainsKey(itemID))
             {
@@ -205,7 +205,7 @@ namespace OpenSim.Framework
                 }
             }
 
-            if (!itemID.IsZero())
+            if (itemID != UUID.Zero)
             {
                 m_ids.Remove(itemID);
                 m_items.Remove(itemID);

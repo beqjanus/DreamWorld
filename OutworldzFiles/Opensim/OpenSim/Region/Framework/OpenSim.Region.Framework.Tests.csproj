@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>16.7.3</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{BEF3BCBC-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Region.Framework.Tests</RootNamespace>
@@ -65,6 +65,11 @@
 	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Reference Include="DotNetOpenMail" >
+		  <Name>DotNetOpenMail</Name>
+		<HintPath>..\..\..\bin\DotNetOpenMail.dll</HintPath>
+		<Private>False</Private>
+	  </Reference>
 	  <Reference Include="log4net" >
 		  <Name>log4net</Name>
 		<HintPath>..\..\..\bin\log4net.dll</HintPath>
@@ -73,6 +78,11 @@
 	  <Reference Include="Mono.Addins" >
 		  <Name>Mono.Addins</Name>
 		<HintPath>..\..\..\bin\Mono.Addins.dll</HintPath>
+		<Private>False</Private>
+	  </Reference>
+	  <Reference Include="Nini" >
+		  <Name>Nini</Name>
+		<HintPath>..\..\..\bin\Nini.dll</HintPath>
 		<Private>False</Private>
 	  </Reference>
 	  <Reference Include="Nini" >
@@ -121,7 +131,6 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\Application\OpenSim.csproj">
 		<Name>OpenSim</Name>
@@ -226,7 +235,6 @@
 		<Private>False</Private>
 	  </ProjectReference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <Compile Include="Scenes\Tests\EntityManagerTests.cs">
 		<SubType>Code</SubType>

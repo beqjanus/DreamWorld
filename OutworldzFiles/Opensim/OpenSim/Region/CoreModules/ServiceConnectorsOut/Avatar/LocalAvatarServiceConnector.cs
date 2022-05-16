@@ -82,7 +82,7 @@ namespace OpenSim.Region.CoreModules.ServiceConnectorsOut.Avatar
                     string serviceDll = userConfig.GetString("LocalServiceModule",
                             String.Empty);
 
-                    if (serviceDll.Length == 0)
+                    if (serviceDll == String.Empty)
                     {
                         m_log.Error("[AVATAR CONNECTOR]: No LocalServiceModule named in section AvatarService");
                         return;

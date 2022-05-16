@@ -56,8 +56,6 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
 
         public event UndeliveredMessage OnUndeliveredMessage;
 
-        public static ObjectJobEngine IMXMLRPCSendWorkers;
-
         private IPresenceService m_PresenceService;
         protected IPresenceService PresenceService
         {
@@ -74,7 +72,8 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             IConfig cnf = config.Configs["Messaging"];
             if (cnf != null)
             {
-                if (cnf.GetString("MessageTransferModule", "MessageTransferModule") != "MessageTransferModule")
+                if (cnf.GetString("MessageTransferModule",
+                        "MessageTransferModule") != "MessageTransferModule")
                 {
                     return;
                 }
@@ -83,8 +82,6 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             }
             m_log.Debug("[MESSAGE TRANSFER]: Module enabled");
             m_Enabled = true;
-
-            IMXMLRPCSendWorkers = new ObjectJobEngine(DoSendIMviaXMLRPC, "IMXMLRPCSendWorkers", 1000, 3);
         }
 
         public virtual void AddRegion(Scene scene)
@@ -105,7 +102,8 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             if (!m_Enabled)
                 return;
 
-            MainServer.Instance.AddXmlRPCHandler("grid_instant_message", processXMLRPCGridInstantMessage);
+            MainServer.Instance.AddXmlRPCHandler(
+                "grid_instant_message", processXMLRPCGridInstantMessage);
         }
 
         public virtual void RegionLoaded(Scene scene)
@@ -140,39 +138,41 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
         public virtual void SendInstantMessage(GridInstantMessage im, MessageResultNotification result)
         {
             UUID toAgentID = new UUID(im.toAgentID);
-            if (toAgentID.IsZero())
+
+            if (toAgentID == UUID.Zero)
                 return;
 
-            ScenePresence achildsp = null;
-            // Try root avatar first
+            IClientAPI client = null;
+
+            // Try root avatar only first
             foreach (Scene scene in m_Scenes)
             {
-                //m_log.DebugFormat(
-                //    "[HG INSTANT MESSAGE]: Looking for root agent {0} in {1}",
-                //     toAgentID.ToString(), scene.RegionInfo.RegionName);
                 ScenePresence sp = scene.GetScenePresence(toAgentID);
-                if (sp != null && !sp.IsDeleted)
+                if (sp != null && !sp.IsDeleted && sp.ControllingClient.IsActive)
                 {
-                    if (sp.IsChildAgent)
-                        achildsp = sp;
-                    else
-                    {
-                        // m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to root agent {0} {1}", sp.Name, toAgentID);
-                        sp.ControllingClient.SendInstantMessage(im);
-                        result(true);
-                        return;
-                    }
+                    // actualy don't send via child agents
+                    // ims can be complex things, and not sure viewers will not mess up
+                    if(sp.IsChildAgent)
+                        continue;
+
+                    client = sp.ControllingClient;
+                    if(!sp.IsChildAgent)
+                        break;
                 }
             }
-            if (achildsp != null)
+
+            if(client != null)
             {
-                // m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to child agent {0} {1}", sp.Name, toAgentID);
-                achildsp.ControllingClient.SendInstantMessage(im);
+                // Local message
+//                    m_log.DebugFormat("[INSTANT MESSAGE]: Delivering IM to root agent {0} {1}", sp.Name, toAgentID);
+
+                client.SendInstantMessage(im);
+
+                    // Message sent
                 result(true);
                 return;
             }
-
-            //m_log.DebugFormat("[INSTANT MESSAGE]: Delivering IM to {0} via XMLRPC", im.toAgentID);
+//            m_log.DebugFormat("[INSTANT MESSAGE]: Delivering IM to {0} via XMLRPC", im.toAgentID);
 
             SendGridInstantMessageViaXMLRPC(im, result);
         }
@@ -225,7 +225,7 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
                 uint ParentEstateID=0;
                 Vector3 Position = Vector3.Zero;
                 UUID RegionID = UUID.Zero ;
-                byte[] binaryBucket = Array.Empty<byte>();
+                byte[] binaryBucket = new byte[0];
 
                 float pos_x = 0;
                 float pos_y = 0;
@@ -367,7 +367,7 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
                     string requestData3 = (string)requestData["binary_bucket"];
                     if (string.IsNullOrEmpty(requestData3))
                     {
-                        binaryBucket = Array.Empty<byte>();
+                        binaryBucket = new byte[0];
                     }
                     else
                     {
@@ -432,37 +432,44 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             return resp;
         }
 
-        private class GIMData {
+
+        /// <summary>
+        /// delegate for sending a grid instant message asynchronously
+        /// </summary>
+        private delegate void GridInstantMessageDelegate(GridInstantMessage im, MessageResultNotification result);
+
+        private class GIM {
             public GridInstantMessage im;
             public MessageResultNotification result;
         };
 
+        private Queue<GIM> pendingInstantMessages = new Queue<GIM>();
+        private int numInstantMessageThreads = 0;
+
         private void SendGridInstantMessageViaXMLRPC(GridInstantMessage im, MessageResultNotification result)
         {
-            GIMData gim = new GIMData()
-            {
-                im = im,
-                result = result
-            };
-
-            IMXMLRPCSendWorkers.Enqueue(gim);
+            lock (pendingInstantMessages) {
+                if (numInstantMessageThreads >= 4) {
+                    GIM gim = new GIM();
+                    gim.im = im;
+                    gim.result = result;
+                    pendingInstantMessages.Enqueue(gim);
+                } else {
+                    ++ numInstantMessageThreads;
+                    //m_log.DebugFormat("[SendGridInstantMessageViaXMLRPC]: ++numInstantMessageThreads={0}", numInstantMessageThreads);
+                    GridInstantMessageDelegate d = SendGridInstantMessageViaXMLRPCAsyncMain;
+                    d.BeginInvoke(im, result, GridInstantMessageCompleted, d);
+                }
+            }
         }
 
-        private void DoSendIMviaXMLRPC(object o)
+
+        private void GridInstantMessageCompleted(IAsyncResult iar)
         {
-            try
-            {
-                GIMData data = o as GIMData;
-                if (o == null)
-                    return;
-                SendGridInstantMessageViaXMLRPCAsync(data.im, data.result, UUID.Zero);
-            }
-            catch (Exception e)
-            {
-                m_log.Error("[SendGridInstantMessageViaXMLRPC]: exception " + e.Message);
-            }
+            GridInstantMessageDelegate d = (GridInstantMessageDelegate)iar.AsyncState;
+            d.EndInvoke(iar);
         }
- 
+
         /// <summary>
         /// Internal SendGridInstantMessage over XMLRPC method.
         /// </summary>
@@ -471,8 +478,32 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
         /// Pass in 0 the first time this method is called.  It will be called recursively with the last
         /// regionhandle tried
         /// </param>
-         private void SendGridInstantMessageViaXMLRPCAsync(GridInstantMessage im, MessageResultNotification result, UUID prevRegionID)
+        private void SendGridInstantMessageViaXMLRPCAsyncMain(GridInstantMessage im, MessageResultNotification result)
         {
+            GIM gim;
+            do {
+                try {
+                    SendGridInstantMessageViaXMLRPCAsync(im, result, UUID.Zero);
+                } catch (Exception e) {
+                    m_log.Error("[SendGridInstantMessageViaXMLRPC]: exception " + e.Message);
+                }
+                lock (pendingInstantMessages) {
+                    if (pendingInstantMessages.Count > 0) {
+                        gim = pendingInstantMessages.Dequeue();
+                        im = gim.im;
+                        result = gim.result;
+                    } else {
+                        gim = null;
+                        -- numInstantMessageThreads;
+                        //m_log.DebugFormat("[SendGridInstantMessageViaXMLRPC]: --numInstantMessageThreads={0}", numInstantMessageThreads);
+                    }
+                }
+            } while (gim != null);
+        }
+
+        private void SendGridInstantMessageViaXMLRPCAsync(GridInstantMessage im, MessageResultNotification result, UUID prevRegionID)
+        {
+
             UUID toAgentID = new UUID(im.toAgentID);
             PresenceInfo upd = null;
             bool lookupAgent = false;
@@ -497,6 +528,7 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
                 }
             }
 
+
             // Are we needing to look-up an agent?
             if (lookupAgent)
             {
@@ -506,7 +538,7 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
                 {
                     foreach (PresenceInfo p in presences)
                     {
-                        if (!p.RegionID.IsZero())
+                        if (p.RegionID != UUID.Zero)
                         {
                             upd = p;
                             break;
@@ -571,7 +603,8 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
                         // The version that spawns the thread is SendGridInstantMessageViaXMLRPC
 
                         // This is recursive!!!!!
-                        SendGridInstantMessageViaXMLRPCAsync(im, result, upd.RegionID);
+                        SendGridInstantMessageViaXMLRPCAsync(im, result,
+                                upd.RegionID);
                     }
                 }
                 else
@@ -599,8 +632,11 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             XmlRpcRequest GridReq = new XmlRpcRequest("grid_instant_message", SendParams);
             try
             {
+
                 XmlRpcResponse GridResp = GridReq.Send(reginfo.ServerURI, 3000);
+
                 Hashtable responseData = (Hashtable)GridResp.Value;
+
                 if (responseData.ContainsKey("success"))
                 {
                     if ((string)responseData["success"] == "TRUE")
@@ -619,7 +655,7 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
             }
             catch (WebException e)
             {
-                m_log.ErrorFormat("[GRID INSTANT MESSAGE]: Error sending message to {0} : {1}",  reginfo.ServerURI.ToString(), e.Message);
+                m_log.ErrorFormat("[GRID INSTANT MESSAGE]: Error sending message to {0} the host didn't respond " + e.ToString(), reginfo.ServerURI.ToString());
             }
 
             return false;

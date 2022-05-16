@@ -65,7 +65,7 @@ namespace OpenSim.Region.ClientStack.Linden
             }
             catch { }
 
-            if (itemID.IsZero())
+            if (itemID == UUID.Zero)
             {
                 LLSDAssetUploadError error = new LLSDAssetUploadError();
                 error.message = "failed to recode request";
@@ -74,7 +74,7 @@ namespace OpenSim.Region.ClientStack.Linden
                 return;
             }
 
-            if (!objectID.IsZero())
+            if (objectID != UUID.Zero)
             {
                 SceneObjectPart sop = m_Scene.GetSceneObjectPart(objectID);
                 if (sop == null)
@@ -166,7 +166,7 @@ namespace OpenSim.Region.ClientStack.Linden
                 }
                 catch { }
 
-                if (itemID.IsZero() || objectID.IsZero())
+                if (itemID == UUID.Zero || objectID == UUID.Zero)
                 {
                     LLSDAssetUploadError error = new LLSDAssetUploadError();
                     error.message = "failed to recode request";
@@ -312,7 +312,7 @@ namespace OpenSim.Region.ClientStack.Linden
 
                 UUID assetID = OnUpLoad(m_inventoryItemID, m_objectID, data);
 
-                if (assetID.IsZero())
+                if (assetID == UUID.Zero)
                 {
                     LLSDAssetUploadError uperror = new LLSDAssetUploadError();
                     uperror.message = "Failed to update inventory item asset";

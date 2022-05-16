@@ -130,18 +130,18 @@ namespace OpenSim.Services.FSAssetService
 
             if (dbConfig != null)
             {
-                if (dllName.Length == 0)
+                if (dllName == String.Empty)
                     dllName = dbConfig.GetString("StorageProvider", String.Empty);
 
-                if (connectionString.Length == 0)
+                if (connectionString == String.Empty)
                     connectionString = dbConfig.GetString("ConnectionString", String.Empty);
             }
 
             // No databse connection found in either config
-            if (string.IsNullOrEmpty(dllName))
+            if (dllName.Equals(String.Empty))
                 throw new Exception("No StorageProvider configured");
 
-            if (string.IsNullOrEmpty(connectionString))
+            if (connectionString.Equals(String.Empty))
                 throw new Exception("Missing database connection string");
 
             // Create Storage Provider
@@ -178,7 +178,7 @@ namespace OpenSim.Services.FSAssetService
             Directory.CreateDirectory(spoolTmp);
 
             m_FSBase = assetConfig.GetString("BaseDirectory", String.Empty);
-            if (m_FSBase.Length == 0)
+            if (m_FSBase == String.Empty)
             {
                 m_log.ErrorFormat("[FSASSETS]: BaseDirectory not specified");
                 throw new Exception("Configuration error");
@@ -596,7 +596,7 @@ namespace OpenSim.Services.FSAssetService
                 }
                 catch (Exception)
                 {
-                    return Array.Empty<byte>();
+                    return new Byte[0];
                 }
             }
             else if (File.Exists(diskFile))
@@ -611,7 +611,7 @@ namespace OpenSim.Services.FSAssetService
                 {
                 }
             }
-            return Array.Empty<byte>();
+            return new Byte[0];
 
         }
 
@@ -668,15 +668,15 @@ namespace OpenSim.Services.FSAssetService
                 }
             }
 
-            if (asset.ID.Length == 0)
+            if (asset.ID == string.Empty)
             {
-                if (asset.FullID.IsZero())
+                if (asset.FullID == UUID.Zero)
                 {
                     asset.FullID = UUID.Random();
                 }
                 asset.ID = asset.FullID.ToString();
             }
-            else if (asset.FullID.IsZero())
+            else if (asset.FullID == UUID.Zero)
             {
                 UUID uuid = UUID.Zero;
                 if (UUID.TryParse(asset.ID, out uuid))

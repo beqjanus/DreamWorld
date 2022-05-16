@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 19
+# Visual Studio 14
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.AddinExample", "addon-modules\02AddinExample\Diva.AddinExample.csproj", "{D45D8560-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Data", "addon-modules\00Data\Diva.Data.csproj", "{4A34BECA-0000-0000-0000-000000000000}"
@@ -10,13 +10,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Data.SQLite", "addon-m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Interfaces", "addon-modules\00DivaInterfaces\Diva.Interfaces.csproj", "{64FF56E2-0000-0000-0000-000000000000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.OnLook", "addon-modules\OnLookSupport\Diva.OnLook.csproj", "{25908CD8-0000-0000-0000-000000000000}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.OpenSimServices", "addon-modules\1DivaOpenSimServices\Diva.OpenSimServices.csproj", "{287658E5-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Utils", "addon-modules\01DivaUtils\Diva.Utils.csproj", "{0646298B-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Wifi", "addon-modules\21Wifi\Diva.Wifi.csproj", "{F2E18FC5-0000-0000-0000-000000000000}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Wifi.ProcessorTest", "addon-modules\ProcessorTest\Diva.Wifi.ProcessorTest.csproj", "{F01DBACB-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Wifi.ScriptEngine", "addon-modules\20WifiScriptEngine\Diva.Wifi.ScriptEngine.csproj", "{1E78A8CA-0000-0000-0000-000000000000}"
 EndProject
@@ -244,6 +244,10 @@ Global
 		{64FF56E2-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64FF56E2-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64FF56E2-0000-0000-0000-000000000000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25908CD8-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25908CD8-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25908CD8-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25908CD8-0000-0000-0000-000000000000}.Release|Any CPU.Build.0 = Release|Any CPU
 		{287658E5-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{287658E5-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{287658E5-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -256,10 +260,6 @@ Global
 		{F2E18FC5-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2E18FC5-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2E18FC5-0000-0000-0000-000000000000}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F01DBACB-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F01DBACB-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F01DBACB-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F01DBACB-0000-0000-0000-000000000000}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E78A8CA-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E78A8CA-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E78A8CA-0000-0000-0000-000000000000}.Release|Any CPU.ActiveCfg = Release|Any CPU

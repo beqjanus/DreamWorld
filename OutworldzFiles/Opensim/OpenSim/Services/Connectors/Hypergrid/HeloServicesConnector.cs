@@ -63,7 +63,7 @@ namespace OpenSim.Services.Connectors
                     // http://valley.virtualportland.org/simtest/Grid/?id=
                     //
                     uri = new Uri(serverURI + "xxx");
-                    if (uri.Query.Length == 0)
+                    if (uri.Query == string.Empty)
                         m_ServerURI = serverURI.TrimEnd('/') + "/helo/";
                     else
                     {

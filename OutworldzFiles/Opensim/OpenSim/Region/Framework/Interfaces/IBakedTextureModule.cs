@@ -25,6 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+using System;
+using System.Threading.Tasks;
+using Nini.Config;
 using OpenSim.Framework;
 using OpenMetaverse;
 
@@ -35,7 +38,7 @@ namespace OpenSim.Services.Interfaces
         WearableCacheItem[] Get(UUID id);
 
         void Store(UUID id);
-        void Store(UUID id, WearableCacheItem[] WearableCache);
+        Task Store(UUID id, WearableCacheItem[] WearableCache);
         void UpdateMeshAvatar(UUID id);
     }
 }

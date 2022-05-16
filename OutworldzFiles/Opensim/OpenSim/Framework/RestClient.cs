@@ -32,6 +32,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using log4net;
 
@@ -324,6 +325,7 @@ namespace OpenSim.Framework
         {
             lock (_lock)
             {
+                int reqnum = WebUtil.RequestNumber++;
                 try
                 {
                     _request = (HttpWebRequest) WebRequest.Create(buildUri());
@@ -333,11 +335,9 @@ namespace OpenSim.Framework
                     _asyncException = null;
                     if (auth != null)
                         auth.AddAuthorization(_request.Headers);
-                    else
-                        _request.AllowWriteStreamBuffering = false;
 
                     if (WebUtil.DebugLevel >= 3)
-                        m_log.DebugFormat("[REST CLIENT] {0} to {1}",  _request.Method, _request.RequestUri);
+                        m_log.DebugFormat("[LOGHTTP]: HTTP OUT {0} REST {1} to {2}", reqnum, _request.Method, _request.RequestUri);
 
                     using (_response = (HttpWebResponse) _request.GetResponse())
                     {
@@ -379,15 +379,16 @@ namespace OpenSim.Framework
                 }
 
                 if (WebUtil.DebugLevel >= 5)
-                    WebUtil.LogOutgoingDetail("[REST CLIENT]", _resource);
+                    WebUtil.LogResponseDetail(reqnum, _resource);
 
                 return _resource;
             }
         }
 
-        // just sync post data, ignoring result
-        public void POSTRequest(byte[] src, IServiceAuth auth)
+        // just post data, ignoring result
+        public async Task AsyncPOSTRequest(byte[] src, IServiceAuth auth)
         {
+            int reqnum = WebUtil.RequestNumber++;
             try
             {
                 _request = (HttpWebRequest)WebRequest.Create(buildUri());
@@ -398,12 +399,10 @@ namespace OpenSim.Framework
                 _request.ContentLength = src.Length;
                 if (auth != null)
                     auth.AddAuthorization(_request.Headers);
-                else
-                    _request.AllowWriteStreamBuffering = false;
             }
             catch (Exception e)
             {
-                m_log.WarnFormat("[REST]: POST {0} failed with exception {1} {2}",
+                m_log.WarnFormat("[REST]: AsyncPOST {0} failed with exception {1} {2}",
                                 _request.RequestUri, e.Message, e.StackTrace);
                 return;
             }
@@ -412,20 +411,19 @@ namespace OpenSim.Framework
             {
                 using (Stream dst = _request.GetRequestStream())
                 {
-                    dst.Write(src, 0, src.Length);
+                    await dst.WriteAsync(src, 0, src.Length).ConfigureAwait(false);
                 }
 
-                using(HttpWebResponse response = (HttpWebResponse)_request.GetResponse())
+                using(HttpWebResponse response = (HttpWebResponse)await _request.GetResponseAsync().ConfigureAwait(false))
                 {
-                    using (Stream responseStream = response.GetResponseStream())
+                    if (WebUtil.DebugLevel >= 5)
                     {
-                        using (StreamReader reader = new StreamReader(responseStream))
+                        using (Stream responseStream = response.GetResponseStream())
                         {
-                            string responseStr = reader.ReadToEnd();
-                            if (WebUtil.DebugLevel >= 5)
+                            using (StreamReader reader = new StreamReader(responseStream))
                             {
-                                int reqnum = WebUtil.RequestNumber++;
-                                WebUtil.LogOutgoingDetail("REST POST", responseStr);
+                                string responseStr = await reader.ReadToEndAsync().ConfigureAwait(false);
+                                WebUtil.LogResponseDetail(reqnum, responseStr);
                             }
                         }
                     }
@@ -433,7 +431,7 @@ namespace OpenSim.Framework
             }
             catch (WebException e)
             {
-                m_log.WarnFormat("[REST]: POST {0} failed with status {1} and message {2}",
+                m_log.WarnFormat("[REST]: AsyncPOST {0} failed with status {1} and message {2}",
                                   _request.RequestUri, e.Status, e.Message);
                 return;
             }
@@ -445,6 +443,45 @@ namespace OpenSim.Framework
             }
         }
 
+        #region Async Invocation
+
+        public IAsyncResult BeginRequest(AsyncCallback callback, object state)
+        {
+            /// <summary>
+            /// In case, we are invoked asynchroneously this object will keep track of the state
+            /// </summary>
+            AsyncResult<Stream> ar = new AsyncResult<Stream>(callback, state);
+            Util.FireAndForget(RequestHelper, ar, "RestClient.BeginRequest");
+            return ar;
+        }
+
+        public Stream EndRequest(IAsyncResult asyncResult)
+        {
+            AsyncResult<Stream> ar = (AsyncResult<Stream>) asyncResult;
+
+            // Wait for operation to complete, then return result or
+            // throw exception
+            return ar.EndInvoke();
+        }
+
+        private void RequestHelper(Object asyncResult)
+        {
+            // We know that it's really an AsyncResult<DateTime> object
+            AsyncResult<Stream> ar = (AsyncResult<Stream>) asyncResult;
+            try
+            {
+                // Perform the operation; if sucessful set the result
+                MemoryStream s = Request(null);
+                ar.SetAsCompleted(s, false);
+            }
+            catch (Exception e)
+            {
+                // If operation fails, set the exception
+                ar.HandleException(e, false);
+            }
+        }
+
+        #endregion Async Invocation
     }
 
     internal class SimpleAsyncResult : IAsyncResult

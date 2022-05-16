@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>16.7.3</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{8C618053-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>SmartThreadPool</RootNamespace>
@@ -82,7 +82,8 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
-
+	<ItemGroup>
+	</ItemGroup>
 	<ItemGroup>
 	  <Compile Include="CanceledWorkItemsGroup.cs">
 		<SubType>Code</SubType>
@@ -109,6 +110,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="STPStartInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SynchronizedDictionary.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="WIGStartInfo.cs">

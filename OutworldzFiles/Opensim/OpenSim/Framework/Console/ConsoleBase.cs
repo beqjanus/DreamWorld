@@ -127,7 +127,7 @@ namespace OpenSim.Framework.Console
         public string Prompt(string p, string def)
         {
             string ret = ReadLine(String.Format("{0} [{1}]: ", p, def), false, true);
-            if (ret.Length == 0)
+            if (ret == String.Empty)
                 ret = def;
 
             return ret;
@@ -168,7 +168,7 @@ namespace OpenSim.Framework.Console
                 else
                     ret = ReadLine(String.Format("{0} [{1}]: ", p, def), false, echo);
 
-                if (ret.Length == 0 && def != null)
+                if (ret == String.Empty && def != null)
                 {
                     ret = def;
                 }

@@ -58,7 +58,7 @@ namespace OpenSim.Server.Handlers.Authentication
             string userService = serverConfig.GetString("UserAccountServiceModule",
                     String.Empty);
 
-            if (authService.Length == 0 || userService.Length == 0)
+            if (authService == String.Empty || userService == String.Empty)
                 throw new Exception("No AuthenticationServiceModule or no UserAccountServiceModule in config file for OpenId authentication");
 
             Object[] args = new Object[] { config };

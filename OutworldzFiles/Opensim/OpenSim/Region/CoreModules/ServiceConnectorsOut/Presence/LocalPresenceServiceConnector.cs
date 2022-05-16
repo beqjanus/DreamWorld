@@ -69,7 +69,7 @@ namespace OpenSim.Region.CoreModules.ServiceConnectorsOut.Presence
 
                     string serviceDll = inventoryConfig.GetString("LocalServiceModule", String.Empty);
 
-                    if (serviceDll.Length == 0)
+                    if (serviceDll == String.Empty)
                     {
                         m_log.Error("[LOCAL PRESENCE CONNECTOR]: No LocalServiceModule named in section PresenceService");
                         return;

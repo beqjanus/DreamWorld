@@ -75,7 +75,8 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
         public virtual void Initialise(IConfigSource config)
         {
             IConfig cnf = config.Configs["Messaging"];
-            if (cnf != null && cnf.GetString("MessageTransferModule", "MessageTransferModule") != Name)
+            if (cnf != null && cnf.GetString(
+                    "MessageTransferModule", "MessageTransferModule") != Name)
             {
                 m_log.Debug("[HG MESSAGE TRANSFER]: Disabled by configuration");
                 return;
@@ -138,110 +139,92 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
         public void SendInstantMessage(GridInstantMessage im, MessageResultNotification result)
         {
             UUID toAgentID = new UUID(im.toAgentID);
-            if (toAgentID.IsZero())
-                return;
 
-            ScenePresence achildsp = null;
-            // Try root avatar first
+            // Try root avatar only first
             foreach (Scene scene in m_Scenes)
             {
-                //m_log.DebugFormat(
-                //    "[HG INSTANT MESSAGE]: Looking for root agent {0} in {1}",
-                //     toAgentID.ToString(), scene.RegionInfo.RegionName);
+//                m_log.DebugFormat(
+//                    "[HG INSTANT MESSAGE]: Looking for root agent {0} in {1}",
+//                    toAgentID.ToString(), scene.RegionInfo.RegionName);
                 ScenePresence sp = scene.GetScenePresence(toAgentID);
-                if (sp != null && !sp.IsDeleted)
+                if (sp != null && !sp.IsChildAgent && !sp.IsDeleted)
                 {
-                    if(sp.IsChildAgent)
-                        achildsp = sp;
-                    else
-                    {
-                        // m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to root agent {0} {1}", user.Name, toAgentID);
-                        sp.ControllingClient.SendInstantMessage(im);
-                        result(true);
-                        return;
-                    }
+                    // Local message
+//                  m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to root agent {0} {1}", user.Name, toAgentID);
+                    sp.ControllingClient.SendInstantMessage(im);
+
+                    // Message sent
+                    result(true);
+                    return;
                 }
             }
-            if(achildsp != null)
-            {
-                // m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to child agent {0} {1}", user.Name, toAgentID);
-                achildsp.ControllingClient.SendInstantMessage(im);
-                result(true);
-                return;
-            }
 
-            // m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to {0} via XMLRPC", im.toAgentID);
+//            m_log.DebugFormat("[HG INSTANT MESSAGE]: Delivering IM to {0} via XMLRPC", im.toAgentID);
             // Is the user a local user?
             string url = string.Empty;
             bool foreigner = false;
             if (UserManagementModule != null) // foreign user
             {
+                url = UserManagementModule.GetUserServerURL(toAgentID, "IMServerURI");
                 foreigner = !UserManagementModule.IsLocalGridUser(toAgentID);
-                if(foreigner)
-                    url = UserManagementModule.GetUserServerURL(toAgentID, "IMServerURI");
             }
-            Util.FireAndForget(delegate
-                {
-                    UUID toDelAgentID = new UUID(im.toAgentID);
-                    bool success = false;
-                    if (foreigner && url.Length == 0) // we don't know about this user
-                    {
-                        string recipientUUI = TryGetRecipientUUI(new UUID(im.fromAgentID), toDelAgentID);
-                        //m_log.DebugFormat("[HG MESSAGE TRANSFER]: Got UUI {0}", recipientUUI);
-                        if (recipientUUI.Length > 0)
-                        {
-                            if (Util.ParseFullUniversalUserIdentifier(recipientUUI, out UUID id, out string tourl,
-                                    out string first, out string last) && !string.IsNullOrEmpty(tourl))
-                            {
-                                success = m_IMService.OutgoingInstantMessage(im, tourl, true);
-                                if (success)
-                                    UserManagementModule.AddUser(toDelAgentID, first, last, tourl);
-                            }
-                        }                 
-                    }
-                    else
-                        success = m_IMService.OutgoingInstantMessage(im, url, foreigner);
 
-                    if (!success && !foreigner)
-                        HandleUndeliverableMessage(im, result);
-                    else
-                        result(success);
-                }, null, "HGMessageTransferModule.SendInstantMessage");
+            Util.FireAndForget(delegate
+            {
+                bool success = false;
+                if (foreigner && url == string.Empty) // we don't know about this user
+                {
+                    string recipientUUI = TryGetRecipientUUI(new UUID(im.fromAgentID), toAgentID);
+                    //m_log.DebugFormat("[HG MESSAGE TRANSFER]: Got UUI {0}", recipientUUI);
+                    if (recipientUUI != string.Empty)
+                    {
+                        UUID id; string tourl = string.Empty, first = string.Empty, last = string.Empty, secret = string.Empty;
+                        if (Util.ParseUniversalUserIdentifier(recipientUUI, out id, out tourl, out first, out last, out secret))
+                        {
+                            success = m_IMService.OutgoingInstantMessage(im, tourl, true);
+                            if (success)
+                                UserManagementModule.AddUser(toAgentID, first, last, tourl);
+                        }
+                    }
+                }
+                else
+                    success = m_IMService.OutgoingInstantMessage(im, url, foreigner);
+
+                if (!success && !foreigner)
+                    HandleUndeliverableMessage(im, result);
+                else
+                    result(success);
+            }, null, "HGMessageTransferModule.SendInstantMessage");
+
+            return;
         }
 
         protected bool SendIMToScene(GridInstantMessage gim, UUID toAgentID)
         {
-            Scene childScene = null;
+            bool successful = false;
             foreach (Scene scene in m_Scenes)
             {
                 ScenePresence sp = scene.GetScenePresence(toAgentID);
-                if(sp != null && !sp.IsDeleted)
+                if(sp != null && !sp.IsChildAgent && !sp.IsDeleted)
                 {
-                    if(sp.IsChildAgent)
-                        childScene = scene;
-                    else
-                    {
-                        scene.EventManager.TriggerIncomingInstantMessage(gim);
-                        return true;
-                    }
+                    scene.EventManager.TriggerIncomingInstantMessage(gim);
+                    successful = true;
                 }
             }
 
-            if(childScene != null)
+            if (!successful)
             {
-                childScene.EventManager.TriggerIncomingInstantMessage(gim);
-                return true;
+                // If the message can't be delivered to an agent, it
+                // is likely to be a group IM. On a group IM, the
+                // imSessionID = toAgentID = group id. Raise the
+                // unhandled IM event to give the groups module
+                // a chance to pick it up. We raise that in a random
+                // scene, since the groups module is shared.
+                //
+                m_Scenes[0].EventManager.TriggerUnhandledInstantMessage(gim);
             }
 
-            // If the message can't be delivered to an agent, it
-            // is likely to be a group IM. On a group IM, the
-            // imSessionID = toAgentID = group id. Raise the
-            // unhandled IM event to give the groups module
-            // a chance to pick it up. We raise that in a random
-            // scene, since the groups module is shared.
-            //
-            m_Scenes[0].EventManager.TriggerUnhandledInstantMessage(gim);
-            return false;
+            return successful;
         }
 
         public void HandleUndeliverableMessage(GridInstantMessage im, MessageResultNotification result)
@@ -269,26 +252,29 @@ namespace OpenSim.Region.CoreModules.Avatar.InstantMessage
         {
             // Let's call back the fromAgent's user agent service
             // Maybe that service knows about the toAgent
-
-            AgentCircuitData circuit = m_Scenes[0].AuthenticateHandler.GetAgentCircuitData(fromAgent);
-            if (circuit != null)
+            IClientAPI client = LocateClientObject(fromAgent);
+            if (client != null)
             {
-                if (circuit.ServiceURLs.ContainsKey("HomeURI"))
+                AgentCircuitData circuit = m_Scenes[0].AuthenticateHandler.GetAgentCircuitData(client.AgentId);
+                if (circuit != null)
                 {
-                    string uasURL = circuit.ServiceURLs["HomeURI"].ToString();
-                    m_log.DebugFormat("[HG MESSAGE TRANSFER]: getting UUI of user {0} from {1}", toAgent, uasURL);
-                    UserAgentServiceConnector uasConn = new UserAgentServiceConnector(uasURL);
-
-                    string agentUUI = string.Empty;
-                    try
+                    if (circuit.ServiceURLs.ContainsKey("HomeURI"))
                     {
-                        agentUUI = uasConn.GetUUI(fromAgent, toAgent);
-                    }
-                    catch (Exception e) {
-                        m_log.Debug("[HG MESSAGE TRANSFER]: GetUUI call failed ", e);
-                    }
+                        string uasURL = circuit.ServiceURLs["HomeURI"].ToString();
+                        m_log.DebugFormat("[HG MESSAGE TRANSFER]: getting UUI of user {0} from {1}", toAgent, uasURL);
+                        UserAgentServiceConnector uasConn = new UserAgentServiceConnector(uasURL);
 
-                    return agentUUI;
+                        string agentUUI = string.Empty;
+                        try
+                        {
+                            agentUUI = uasConn.GetUUI(fromAgent, toAgent);
+                        }
+                        catch (Exception e) {
+                            m_log.Debug("[HG MESSAGE TRANSFER]: GetUUI call failed ", e);
+                        }
+
+                        return agentUUI;
+                    }
                 }
             }
 

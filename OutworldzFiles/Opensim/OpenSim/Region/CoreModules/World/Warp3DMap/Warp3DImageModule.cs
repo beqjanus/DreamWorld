@@ -215,8 +215,9 @@ namespace OpenSim.Region.CoreModules.World.Warp3DMap
 
             Bitmap tile = GenImage();
             // image may be reloaded elsewhere, so no compression format
-            string filename = "MAP-" + m_scene.RegionInfo.RegionID.ToString() + ".png";
-            //tile.Save(filename, ImageFormat.Png);
+            // string filename = "MAP-" + m_scene.RegionInfo.RegionID.ToString() + ".png";
+            // http://opensimulator.org/mantis/view.php?id=8522
+            // tile.Save(filename, ImageFormat.Png);
             m_primMesher = null;
             return tile;
         }
@@ -521,7 +522,7 @@ namespace OpenSim.Region.CoreModules.World.Warp3DMap
 
             if (m_renderMeshes)
             {
-                if (omvPrim.Sculpt != null && !omvPrim.Sculpt.SculptTexture.IsZero())
+                if (omvPrim.Sculpt != null && omvPrim.Sculpt.SculptTexture != UUID.Zero)
                 {
                     // Try fetchinng the asset
                     AssetBase sculptAsset = m_scene.AssetService.Get(omvPrim.Sculpt.SculptTexture.ToString());
@@ -687,7 +688,7 @@ namespace OpenSim.Region.CoreModules.World.Warp3DMap
             int color;
             Color4 ctmp = Color4.White;
 
-            if (face.TextureID.IsZero())
+            if (face.TextureID == UUID.Zero)
                 return warp_Color.White;
 
             if (!m_colors.TryGetValue(face.TextureID, out color))
@@ -788,7 +789,7 @@ namespace OpenSim.Region.CoreModules.World.Warp3DMap
         private warp_Texture GetTexture(UUID id, SceneObjectPart sop)
         {
             warp_Texture ret = null;
-            if (id.IsZero())
+            if (id == UUID.Zero)
                 return ret;
             if (m_warpTextures.TryGetValue(id, out ret))
                 return ret;

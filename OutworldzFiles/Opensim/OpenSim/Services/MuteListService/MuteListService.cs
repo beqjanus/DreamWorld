@@ -69,7 +69,7 @@ namespace OpenSim.Services.EstateService
             }
 
             // We tried, but this doesn't exist. We can't proceed
-            if (dllName.Length == 0)
+            if (dllName == String.Empty)
                 throw new Exception("No StorageProvider configured");
 
             m_database = LoadPlugin<IMuteListData>(dllName, new Object[] { connString });
@@ -84,7 +84,7 @@ namespace OpenSim.Services.EstateService
 
             MuteData[] data = m_database.Get(agentID);
             if (data == null || data.Length == 0)
-                return Array.Empty<byte>();
+                return new Byte[0];
 
             StringBuilder sb = new StringBuilder(16384);
             foreach (MuteData d in data)
@@ -101,7 +101,7 @@ namespace OpenSim.Services.EstateService
             if (dataCrc == crc)
             {
                 if(crc == 0)
-                     return Array.Empty<byte>();
+                     return new Byte[0];
 
                 Byte[] ret = new Byte[1] {1};
                 return ret;

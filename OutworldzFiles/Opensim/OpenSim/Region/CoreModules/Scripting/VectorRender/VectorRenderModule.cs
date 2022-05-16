@@ -382,7 +382,7 @@ namespace OpenSim.Region.CoreModules.Scripting.VectorRender
                     GDIDraw(data, graph, altDataDelim, out reuseable);
                 }
 
-                byte[] imageJ2000 = Array.Empty<byte>();
+                byte[] imageJ2000 = new byte[0];
 
                 // This code exists for testing purposes, please do not remove.
 //                if (s_flipper)

@@ -228,7 +228,7 @@ namespace OpenSim.Region.ScriptEngine.Shared
             Group = part.GroupID;
             Name = part.Name;
             Owner = part.OwnerID;
-            if (part.Velocity.IsZero())
+            if (part.Velocity == Vector3.Zero)
                 Type = PASSIVE;
             else
                 Type = ACTIVE;
@@ -252,7 +252,7 @@ namespace OpenSim.Region.ScriptEngine.Shared
 
         public void Populate(Scene scene, DetectedObject obj)
         {
-            if(obj.keyUUID.IsZero()) // land
+            if(obj.keyUUID == UUID.Zero) // land
             {
                 Position = new LSL_Types.Vector3(obj.posVector);
                 Rotation.s = 1.0;
@@ -289,7 +289,7 @@ namespace OpenSim.Region.ScriptEngine.Shared
             Rotation = new LSL_Types.Quaternion(obj.rotQuat);
             Velocity = new LSL_Types.Vector3(obj.velVector);
             LinkNum = obj.linkNumber;
-            if(obj.velVector.IsZero())
+            if(obj.velVector == Vector3.Zero)
                 Type = 4;
             else
                 Type = 2;
@@ -316,7 +316,7 @@ namespace OpenSim.Region.ScriptEngine.Shared
     /// </summary>
     public class EventParams
     {
-        public EventParams(string eventName, object[] eventParams, DetectParams[] detectParams)
+        public EventParams(string eventName, Object[] eventParams, DetectParams[] detectParams)
         {
             EventName = eventName;
             Params = eventParams;
@@ -324,10 +324,7 @@ namespace OpenSim.Region.ScriptEngine.Shared
         }
 
         public string EventName;
-        public object[] Params;
+        public Object[] Params;
         public DetectParams[] DetectParams;
-
-        public static EventParams StateEntryParams = new EventParams("state_entry", new object[0], new DetectParams[0]);
     }
-
 }

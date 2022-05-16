@@ -1046,7 +1046,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             if(mousemode)
             {
                 CameraData cam = rootPrim.TryGetCameraData();
-                if(cam != null && cam.MouseLook)
+                if(cam.Valid && cam.MouseLook)
                 {
                     Vector3 dirv = cam.CameraAtAxis * irotq;
 

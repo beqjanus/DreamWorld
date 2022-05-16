@@ -398,7 +398,7 @@ namespace OpenSim.Region.Framework.Scenes
             }
 
             PhysicsActor pa = sceneObject.RootPart.PhysActor;
-            if (pa != null && pa.IsPhysical && !vel.IsZero())
+            if (pa != null && pa.IsPhysical && vel != Vector3.Zero)
             {
                 sceneObject.RootPart.ApplyImpulse((vel * sceneObject.GetMass()), false);
             }
@@ -432,7 +432,7 @@ namespace OpenSim.Region.Framework.Scenes
                 m_log.ErrorFormat("[SCENEGRAPH]: Tried to add null scene object");
                 return false;
             }
-            if (sceneObject.UUID.IsZero())
+            if (sceneObject.UUID == UUID.Zero)
             {
                 m_log.ErrorFormat(
                     "[SCENEGRAPH]: Tried to add scene object {0} to {1} with illegal UUID of {2}",
@@ -467,9 +467,9 @@ namespace OpenSim.Region.Framework.Scenes
                     part = parts[i];
                     Vector3 scale = part.Shape.Scale;
 
-                    scale.X = Utils.Clamp(scale.X, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
-                    scale.Y = Utils.Clamp(scale.Y, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
-                    scale.Z = Utils.Clamp(scale.Z, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
+                    scale.X = Util.Clamp(scale.X, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
+                    scale.Y = Util.Clamp(scale.Y, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
+                    scale.Z = Util.Clamp(scale.Z, m_parentScene.m_minNonphys, m_parentScene.m_maxNonphys);
 
                     part.Shape.Scale = scale;
                 }
@@ -659,12 +659,12 @@ namespace OpenSim.Region.Framework.Scenes
 
         protected internal void AddPhysicalPrim(int number)
         {
-            Interlocked.Add(ref m_physicalPrim, number);
+            m_physicalPrim += number;
         }
 
         protected internal void RemovePhysicalPrim(int number)
         {
-            Interlocked.Add(ref m_physicalPrim, -number);
+            m_physicalPrim -= number;
         }
 
         protected internal void AddToScriptLPS(int number)
@@ -674,12 +674,12 @@ namespace OpenSim.Region.Framework.Scenes
 
         protected internal void AddActiveScripts(int number)
         {
-            Interlocked.Add(ref m_activeScripts, number);
+            m_activeScripts += number;
         }
 
         protected internal void HandleUndo(IClientAPI remoteClient, UUID primId)
         {
-            if (!primId.IsZero())
+            if (primId != UUID.Zero)
             {
                 SceneObjectPart part =  m_parentScene.GetSceneObjectPart(primId);
                 if (part != null)
@@ -689,7 +689,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         protected internal void HandleRedo(IClientAPI remoteClient, UUID primId)
         {
-            if (!primId.IsZero())
+            if (primId != UUID.Zero)
             {
                 SceneObjectPart part = m_parentScene.GetSceneObjectPart(primId);
 
@@ -786,9 +786,9 @@ namespace OpenSim.Region.Framework.Scenes
             }
         }
 
-        protected internal void SwapRootChildAgent(bool direction_RootToChild, bool isnpc = false)
+        protected internal void SwapRootChildAgent(bool direction_ChildToRoot, bool isnpc = false)
         {
-            if (direction_RootToChild)
+            if (direction_ChildToRoot)
             {
                 --m_numRootAgents;
                 if(isnpc)
@@ -851,10 +851,24 @@ namespace OpenSim.Region.Framework.Scenes
             return m_numRootAgents;
         }
 
+
+        public int GetRootAvatarCount()
+        {
+            
+            int roots = 0;
+            foreach (ScenePresence sp in GetScenePresences())
+                if (!sp.IsChildAgent && !sp.IsNPC)
+                    roots++;
+
+            return roots;
+
+        }
+
         public int GetRootNPCCount()
         {
             return m_numRootNPC;
         }
+
 
         public int GetTotalObjectsCount()
         {

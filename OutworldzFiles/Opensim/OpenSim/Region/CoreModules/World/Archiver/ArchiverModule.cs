@@ -231,7 +231,7 @@ namespace OpenSim.Region.CoreModules.World.Archiver
                 {
                     m_log.ErrorFormat("[ARCHIVER MODULE] default user must be in format \"First Last\"", defaultUser);
                 }
-                if (defaultUserUUID.IsZero())
+                if (defaultUserUUID == UUID.Zero)
                 {
                     m_log.ErrorFormat("[ARCHIVER MODULE] cannot find specified default user {0}", defaultUser);
                     return;

@@ -26,6 +26,7 @@ namespace OSHttpServer
     /// </example>
     public interface IHttpResponse
     {
+        event EventHandler<BandWitdhEventArgs> BandWitdhEvent;
         /// <summary>
         /// The body stream is used to cache the body contents
         /// before sending everything to the client. It's the simplest
@@ -113,13 +114,6 @@ namespace OSHttpServer
         ResponseCookies Cookies { get; }
 
         /// <summary>
-        /// Set response as a http redirect
-        /// </summary>
-        /// <param name="url">redirection target url</param>
-        /// <param name="redirStatusCode">the response Status, must be Found, Redirect, Moved,MovedPermanently,RedirectKeepVerb, RedirectMethod, TemporaryRedirect. Defaults to Redirect</param>
-        void Redirect(string url, HttpStatusCode redirStatusCode = HttpStatusCode.Redirect);
-
-        /// <summary>
         /// Add another header to the document.
         /// </summary>
         /// <param name="name">Name of the header, case sensitive, use lower cases.</param>
@@ -150,5 +144,20 @@ namespace OSHttpServer
         /// Connection is kept alive for X seconds (unless another request have been made)
         /// </summary>
         KeepAlive
+    }
+
+    public class BandWitdhEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets received request.
+        /// </summary>
+        public int Result;
+        public int Request;
+
+        public BandWitdhEventArgs(int request)
+        {
+            Request = request;
+            Result = request;
+        }
     }
 }

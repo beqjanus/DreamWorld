@@ -185,7 +185,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
 
                 // check if we got outdated
 
-                if (!pbs.SculptEntry || pbs.SculptTexture.IsZero())
+                if (!pbs.SculptEntry || pbs.SculptTexture == UUID.Zero)
                 {
                     repData.meshState = MeshState.noNeed;
                     return;
@@ -256,7 +256,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             if (repData.meshState != MeshState.loadingAsset)
                 return;
 
-            if (repData.assetID == null || repData.assetID.Value.IsZero())
+            if (repData.assetID == null || repData.assetID == UUID.Zero)
                 return;
 
             if (repData.assetID != repData.pbs.SculptTexture)
@@ -440,7 +440,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             {
                 if (pbs.SculptEntry)
                 {
-                    if (pbs.SculptTexture != null && !pbs.SculptTexture.IsZero())
+                    if (pbs.SculptTexture != null && pbs.SculptTexture != UUID.Zero)
                     {
                         repData.assetID = pbs.SculptTexture;
                         repData.meshState = MeshState.needAsset;
@@ -527,7 +527,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
             {
                 if (pbs.SculptEntry)
                 {
-                    if (pbs.SculptTexture.IsZero())
+                    if (pbs.SculptTexture == UUID.Zero)
                         return;
 
                     repData.assetID = pbs.SculptTexture;
@@ -907,7 +907,7 @@ namespace OpenSim.Region.PhysicsModule.ubOde
                 return;
 
             UUID assetID = (UUID) repData.assetID;
-            if (assetID.IsZero())
+            if (assetID == UUID.Zero)
                 return;
 
             repData.meshState = MeshState.loadingAsset;

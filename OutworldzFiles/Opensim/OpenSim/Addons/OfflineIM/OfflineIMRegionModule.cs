@@ -63,7 +63,7 @@ namespace OpenSim.OfflineIM
             m_Enabled = true;
 
             string serviceLocation = cnf.GetString("OfflineMessageURL", string.Empty);
-            if (serviceLocation.Length == 0)
+            if (serviceLocation == string.Empty)
                 m_OfflineIMService = new OfflineIMService(config);
             else
                 m_OfflineIMService = new OfflineIMServiceRemoteConnector(config);
@@ -185,12 +185,9 @@ namespace OpenSim.OfflineIM
                     // Needed for proper state management for stored group
                     // invitations
                     //
-                    Scene s = client.Scene as Scene;
+                    Scene s = FindScene(client.AgentId);
                     if (s != null)
-                    {
-                        im.offline = 1;
                         s.EventManager.TriggerIncomingInstantMessage(im);
-                    }
                 }
             }
         }

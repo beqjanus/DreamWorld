@@ -25,7 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using OpenSim.Framework;
 using OpenSim.Framework.Monitoring;
 using System;
 using System.Collections.Generic;
@@ -46,13 +45,24 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         public DateTime m_LastRanAt = DateTime.MinValue;
         public long m_ScriptExecTime = 0;
 
+        [ThreadStatic]
+        private static int m_ScriptThreadTID;
+
+        public static bool IsScriptThread
+        {
+            get
+            {
+                return m_ScriptThreadTID != 0;
+            }
+        }
+
         public void StartThreadWorker(int i, ThreadPriority priority, string sceneName)
         {
             Thread thd;
             if(i >= 0)
-                thd = Yengine.StartMyThread(RunScriptThread, "YScript" + i.ToString() + " (" + sceneName +")", priority, -1);
+                thd = Yengine.StartMyThread(RunScriptThread, "YScript" + i.ToString() + " (" + sceneName +")", priority);
             else
-                thd = Yengine.StartMyThread(RunScriptThread, "YScript", priority, -1);
+                thd = Yengine.StartMyThread(RunScriptThread, "YScript", priority);
             lock(m_WakeUpLock)
                 m_RunningInstances.Add(thd.ManagedThreadId, null);
         }
@@ -112,8 +122,8 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             int tid = System.Threading.Thread.CurrentThread.ManagedThreadId;
             ThreadStart thunk;
             XMRInstance inst;
-
             bool didevent;
+            m_ScriptThreadTID = tid;
 
             while(!m_Exiting)
             {
@@ -130,6 +140,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                     else if(m_SuspendScriptThreadFlag && !m_Exiting)
                     {
                         Monitor.Wait(m_WakeUpLock, Watchdog.DEFAULT_WATCHDOG_TIMEOUT_MS / 2);
+                        Yengine.UpdateMyThread();
                         continue;
                     }
                 }
@@ -182,7 +193,6 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                             continue;
                         if (inst.m_IState != XMRInstState.ONYIELDQ)
                             throw new Exception("bad state");
-
                         RunInstance(inst, tid);
                         continue;
                     }

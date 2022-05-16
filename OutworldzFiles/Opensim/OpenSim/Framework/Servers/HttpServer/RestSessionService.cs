@@ -210,7 +210,6 @@ namespace OpenSim.Framework.Servers.HttpServer
             {
                 try
                 {
-                    xmlReader.DtdProcessing = DtdProcessing.Ignore;
                     XmlSerializer deserializer = new XmlSerializer(typeof(RestSessionObject<TRequest>));
                     deserial = (RestSessionObject<TRequest>)deserializer.Deserialize(xmlReader);
                 }
@@ -270,7 +269,6 @@ namespace OpenSim.Framework.Servers.HttpServer
             {
                 try
                 {
-                    xmlReader.DtdProcessing = DtdProcessing.Ignore;
                     XmlSerializer deserializer = new XmlSerializer(typeof(TRequest));
                     deserial = (TRequest)deserializer.Deserialize(xmlReader);
                 }

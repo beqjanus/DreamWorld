@@ -197,11 +197,9 @@ namespace OpenSim.Capabilities.Handlers
                     invcollSet[i] = null;
 
                     LLSDxmlEncode2.AddMap(lastresponse);
-                    LLSDxmlEncode2.AddElem_folder_id(thiscoll.FolderID, lastresponse);
                     LLSDxmlEncode2.AddElem_agent_id(thiscoll.OwnerID, lastresponse);
-                    LLSDxmlEncode2.AddElem_owner_id(thiscoll.OwnerID, lastresponse);
                     LLSDxmlEncode2.AddElem("descendents", thiscoll.Descendents, lastresponse);
-                    LLSDxmlEncode2.AddElem_version(thiscoll.Version, lastresponse);
+                    LLSDxmlEncode2.AddElem_folder_id(thiscoll.FolderID, lastresponse);
 
                     if (thiscoll.Folders == null || thiscoll.Folders.Count == 0)
                         LLSDxmlEncode2.AddEmptyArray("categories", lastresponse);
@@ -212,11 +210,12 @@ namespace OpenSim.Capabilities.Handlers
                         {
                             LLSDxmlEncode2.AddMap(lastresponse);
 
-                            LLSDxmlEncode2.AddElem_category_id(invFolder.ID, lastresponse);
+                            LLSDxmlEncode2.AddElem_folder_id(invFolder.ID, lastresponse);
                             LLSDxmlEncode2.AddElem_parent_id(invFolder.ParentID, lastresponse);
                             LLSDxmlEncode2.AddElem_name(invFolder.Name, lastresponse);
-                            LLSDxmlEncode2.AddElem("type_default", invFolder.Type, lastresponse);
-                            LLSDxmlEncode2.AddElem_version( invFolder.Version, lastresponse);
+                            LLSDxmlEncode2.AddElem("type", invFolder.Type, lastresponse);
+                            LLSDxmlEncode2.AddElem("preferred_type", (int)-1, lastresponse);
+                            LLSDxmlEncode2.AddElem("version", invFolder.Version, lastresponse);
 
                             LLSDxmlEncode2.AddEndMap(lastresponse);
                         }
@@ -236,6 +235,8 @@ namespace OpenSim.Capabilities.Handlers
                         LLSDxmlEncode2.AddEndArray(lastresponse);
                     }
 
+                    LLSDxmlEncode2.AddElem_owner_id(thiscoll.OwnerID, lastresponse);
+                    LLSDxmlEncode2.AddElem("version", thiscoll.Version, lastresponse);
 
                     LLSDxmlEncode2.AddEndMap(lastresponse);
                     invcollSet[i] = null;
@@ -332,7 +333,7 @@ namespace OpenSim.Capabilities.Handlers
             bool doneZeroID = false;
             foreach(LLSDFetchInventoryDescendents f in fetchFolders)
             {
-                if (f.folder_id.IsZero())
+                if (f.folder_id == UUID.Zero)
                 {
                     if(doneZeroID)
                         continue;
@@ -427,7 +428,7 @@ namespace OpenSim.Capabilities.Handlers
 
             // The inventory server isn't sending FolderID in the collection...
             // Must fetch it individually
-            if (contents.FolderID.IsZero())
+            if (contents.FolderID == UUID.Zero)
             {
                 InventoryFolderBase containingFolder = m_InventoryService.GetFolder(freq.owner_id, freq.folder_id);
                 if (containingFolder == null)

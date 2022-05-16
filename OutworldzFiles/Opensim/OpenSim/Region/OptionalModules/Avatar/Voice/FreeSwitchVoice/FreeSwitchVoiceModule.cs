@@ -114,7 +114,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Voice.FreeSwitchVoice
                 string serviceDll = m_Config.GetString("LocalServiceModule",
                         String.Empty);
 
-                if (serviceDll.Length == 0)
+                if (serviceDll == String.Empty)
                 {
                     m_log.Error("[FreeSwitchVoice]: No LocalServiceModule named in section FreeSwitchVoice.  Not starting.");
                     return;

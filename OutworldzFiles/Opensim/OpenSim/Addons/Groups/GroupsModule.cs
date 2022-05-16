@@ -347,7 +347,7 @@ namespace OpenSim.Groups
             if (m_debugEnabled)
                 m_log.DebugFormat("[Groups]: OnInstantMessage called");
 
-            if(remoteClient == null || !remoteClient.IsActive || remoteClient.AgentId.IsZero())
+            if(remoteClient == null || !remoteClient.IsActive || remoteClient.AgentId == UUID.Zero)
                 return;
 
             Scene scene = (Scene)remoteClient.Scene;
@@ -401,7 +401,7 @@ namespace OpenSim.Groups
                             msg.ParentEstateID = 0;
                             msg.Position = Vector3.Zero;
                             msg.RegionID = UUID.Zero.Guid;
-                            msg.binaryBucket = Array.Empty<byte>();
+                            msg.binaryBucket = new byte[0];
 
                             OutgoingInstantMessage(msg, invitee);
                             IClientAPI inviteeClient = GetActiveRootClient(invitee);
@@ -477,7 +477,7 @@ namespace OpenSim.Groups
                         return;
                     }
 
-                    if (!itemID.IsZero() && !ownerID.IsZero())
+                    if (itemID != UUID.Zero && ownerID != UUID.Zero)
                     {
                         item = scene.InventoryService.GetItem(ownerID, itemID);
                         if(item != null)
@@ -526,7 +526,7 @@ namespace OpenSim.Groups
                 if (m_debugEnabled)
                     m_log.DebugFormat("[xmlGROUPS]: Accepted notice {0} for {1}", noticeID, remoteClient.AgentId);
 
-                if (noticeID.IsZero())
+                if (noticeID == UUID.Zero)
                     return;
 
                 UUID folderID = UUID.Zero;
@@ -580,7 +580,7 @@ namespace OpenSim.Groups
                 if (m_debugEnabled)
                     m_log.DebugFormat("[GROUPS]: Accepted notice {0} for {1}", noticeID, remoteAgentIDstr);
 
-                if (noticeID.IsZero())
+                if (noticeID == UUID.Zero)
                     return;
 
                 UUID remoteAgentID = remoteClient.AgentId;
@@ -597,8 +597,11 @@ namespace OpenSim.Groups
                 string giver = notice.noticeData.AttachmentOwnerID;
                 UUID attachmentUUID = notice.noticeData.AttachmentItemID;
 
-                if (attachmentUUID == null || attachmentUUID.IsZero() ||
-                        giver == null || giver == UUID.ZeroString )
+                if (attachmentUUID == null ||
+                        attachmentUUID == UUID.Zero ||
+                        giver == null ||
+                        giver == UUID.Zero.ToString()
+                        )
                     return;
 
                 if (m_debugEnabled)
@@ -927,7 +930,7 @@ namespace OpenSim.Groups
             UUID groupID = m_groupData.CreateGroup(remoteClient.AgentId, name, charter, showInList, insigniaID, membershipFee, openEnrollment,
                 allowPublish, maturePublish, remoteClient.AgentId, out reason);
 
-            if (!groupID.IsZero())
+            if (groupID != UUID.Zero)
             {
                 if (money != null && money.GroupCreationCharge > 0)
                     money.ApplyCharge(remoteClient.AgentId, money.GroupCreationCharge, MoneyTransactionType.GroupCreate, name);
@@ -1117,7 +1120,7 @@ namespace OpenSim.Groups
                 msg.timestamp = (uint)Util.UnixTimeSinceEpoch(); ;
                 msg.fromAgentName = string.Empty;
                 msg.message = string.Empty;
-                msg.binaryBucket = Array.Empty<byte>(); ;
+                msg.binaryBucket = new byte[0];
             }
 
             return msg;
@@ -1144,9 +1147,8 @@ namespace OpenSim.Groups
             }
 
             string reason = string.Empty;
-            string requestingAgentIDStr = GetRequestingAgentIDStr(remoteClient);
 
-            if (m_groupData.AddAgentToGroup(requestingAgentIDStr, requestingAgentIDStr, groupID, UUID.Zero, string.Empty, out reason))
+            if (m_groupData.AddAgentToGroup(GetRequestingAgentIDStr(remoteClient), GetRequestingAgentIDStr(remoteClient), groupID, UUID.Zero, string.Empty, out reason))
             {
                 if (money != null && groupRecord.MembershipFee > 0)
                     money.ApplyCharge(remoteClient.AgentId, groupRecord.MembershipFee, MoneyTransactionType.GroupJoin, groupRecord.GroupName);
@@ -1228,13 +1230,15 @@ namespace OpenSim.Groups
             }
 
             GroupRecord groupInfo = m_groupData.GetGroupRecord(agentID.ToString(), groupID, null);
-            if ((groupInfo == null))
-                return;
 
-            UserData udata = m_sceneList[0].UserManagementModule.GetUserData(ejecteeID);
+            UserAccount account = m_sceneList[0].UserAccountService.GetUserAccount(regionInfo.ScopeID, ejecteeID);
+            if ((groupInfo == null) || (account == null))
+            {
+                return;
+            }
+
             IClientAPI ejecteeClient = GetActiveRootClient(ejecteeID);
 
-            string ejecteeName;
             // Send Message to Ejectee
             GridInstantMessage msg = new GridInstantMessage();
 
@@ -1246,7 +1250,6 @@ namespace OpenSim.Groups
                 // also execute and send update
                 ejecteeClient.SendAgentDropGroup(groupID);
                 SendAgentGroupDataUpdate(ejecteeClient,true);
-                ejecteeName = ejecteeClient.Name;
             }
             else // send
             {
@@ -1257,44 +1260,48 @@ namespace OpenSim.Groups
                 // or provide the notification via xmlrpc update queue
 
                 msg.imSessionID = groupInfo.GroupID.Guid;
-                msg.dialog = 210; //interop
-                ejecteeName = udata != null ? (udata.FirstName + " " + udata.LastName) : "user name currently unknown";
+                msg.dialog = (byte)210; //interop
             }
+            msg.fromAgentID = agentID.Guid;
+            // msg.fromAgentID = info.GroupID;
+            msg.toAgentID = ejecteeID.Guid;
+            //msg.timestamp = (uint)Util.UnixTimeSinceEpoch();
+            msg.timestamp = 0;
+            msg.fromAgentName = agentName;
+            msg.message = string.Format("You have been ejected from '{1}' by {0}.", agentName, groupInfo.GroupName);
 
-            //if(ejecteeClient != null || (udata != null && udata.IsLocal))
-            {
-                msg.fromAgentID = agentID.Guid;
-                // msg.fromAgentID = info.GroupID;
-                msg.toAgentID = ejecteeID.Guid;
-                //msg.timestamp = (uint)Util.UnixTimeSinceEpoch();
-                msg.timestamp = 0;
-                msg.fromAgentName = agentName;
-                msg.message = string.Format("You have been ejected from '{1}' by {0}.", agentName, groupInfo.GroupName);
-
-                msg.fromGroup = false;
-                msg.offline = (byte)0;
-                msg.ParentEstateID = 0;
-                msg.Position = Vector3.Zero;
-                msg.RegionID = regionInfo.RegionID.Guid;
-                msg.binaryBucket = Array.Empty<byte>(); ;
-                OutgoingInstantMessage(msg, ejecteeID);
-            }
+            msg.fromGroup = false;
+            msg.offline = (byte)0;
+            msg.ParentEstateID = 0;
+            msg.Position = Vector3.Zero;
+            msg.RegionID = regionInfo.RegionID.Guid;
+            msg.binaryBucket = new byte[0];
+            OutgoingInstantMessage(msg, ejecteeID);
 
             // Message to ejector
+
+
             msg = new GridInstantMessage();
             msg.imSessionID = UUID.Zero.Guid;
             msg.fromAgentID = agentID.Guid;
             msg.toAgentID = agentID.Guid;
             msg.timestamp = 0;
             msg.fromAgentName = agentName;
-            msg.message = string.Format("{2} has been ejected from '{1}' by {0}.", agentName, groupInfo.GroupName, ejecteeName);
+            if (account != null)
+            {
+                msg.message = string.Format("{2} has been ejected from '{1}' by {0}.", agentName, groupInfo.GroupName, account.FirstName + " " + account.LastName);
+            }
+            else
+            {
+                msg.message = string.Format("{2} has been ejected from '{1}' by {0}.", agentName, groupInfo.GroupName, "Unknown member");
+            }
             msg.dialog = (byte)OpenMetaverse.InstantMessageDialog.MessageFromAgent;
             msg.fromGroup = false;
             msg.offline = (byte)0;
             msg.ParentEstateID = 0;
             msg.Position = Vector3.Zero;
             msg.RegionID = regionInfo.RegionID.Guid;
-            msg.binaryBucket = Array.Empty<byte>(); ;
+            msg.binaryBucket = new byte[0];
             OutgoingInstantMessage(msg, agentID);
         }
 

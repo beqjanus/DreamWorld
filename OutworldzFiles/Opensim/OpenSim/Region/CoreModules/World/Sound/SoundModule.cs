@@ -236,7 +236,8 @@ namespace OpenSim.Region.CoreModules.World.Sound
         public virtual void PreloadSound(UUID objectID, UUID soundID)
         {
             SceneObjectPart part;
-            if (soundID.IsZero() || !m_scene.TryGetSceneObjectPart(objectID, out part))
+            if (soundID == UUID.Zero
+                    || !m_scene.TryGetSceneObjectPart(objectID, out part))
             {
                 return;
             }
@@ -294,14 +295,14 @@ namespace OpenSim.Region.CoreModules.World.Sound
                 bool triggered, byte flags, bool useMaster,
                 bool isMaster)
         {
-            if (soundID.IsZero())
+            if (soundID == UUID.Zero)
                 return;
 
             SceneObjectPart part;
             if (!m_scene.TryGetSceneObjectPart(objectID, out part))
                 return;
 
-            volume = Utils.Clamp(volume, 0, 1);
+            volume = Util.Clip((float)volume, 0, 1);
 
             UUID parentID = part.ParentGroup.UUID;
 
@@ -326,7 +327,7 @@ namespace OpenSim.Region.CoreModules.World.Sound
         public void TriggerSoundLimited(UUID objectID, UUID sound,
                 double volume, Vector3 min, Vector3 max)
         {
-            if (sound.IsZero())
+            if (sound == UUID.Zero)
                 return;
 
             SceneObjectPart part;

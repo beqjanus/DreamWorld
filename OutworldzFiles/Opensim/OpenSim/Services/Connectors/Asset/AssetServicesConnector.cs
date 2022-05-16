@@ -326,16 +326,17 @@ namespace OpenSim.Services.Connectors
             // trigger since current callers don't pass emtpy IDs
             // We need the asset ID to route the request to the proper
             // cluster member, so we can't have the server assign one.
-            if (asset.ID.Length == 0 || asset.ID == stringUUIDZero)
+            if (asset.ID == string.Empty || asset.ID == stringUUIDZero)
             {
-                if (asset.FullID.IsZero())
+                if (asset.FullID == UUID.Zero)
                 {
                     asset.FullID = UUID.Random();
-                    m_log.WarnFormat("[Assets] Zero ID: {0}", asset.Name);
                 }
+                m_log.WarnFormat("[Assets] Zero ID: {0}",asset.Name);
                 asset.ID = asset.FullID.ToString();
             }
-            else if (asset.FullID.IsZero())
+
+            if (asset.FullID == UUID.Zero)
             {
                 if (UUID.TryParse(asset.ID, out UUID uuid))
                     asset.FullID = uuid;

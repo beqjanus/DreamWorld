@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="16.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>16.7.3</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{BD76F0CA-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Region.PhysicsModule.Ode</RootNamespace>
@@ -94,7 +94,6 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Framework\OpenSim.Framework.csproj">
 		<Name>OpenSim.Framework</Name>
@@ -121,7 +120,6 @@
 		<Private>False</Private>
 	  </ProjectReference>
 	</ItemGroup>
-
 	<ItemGroup>
 	  <Compile Include="AssemblyInfo.cs">
 		<SubType>Code</SubType>
@@ -136,6 +134,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ODEModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OdePhysicsJoint.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ODEPrim.cs">

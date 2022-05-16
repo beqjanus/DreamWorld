@@ -14,7 +14,6 @@ namespace OSHttpServer
     /// </summary>
     public class HttpRequest : IHttpRequest
     {
-        private const int MAXCONTENTLENGTH = 250 * 1024 * 1024;
         /// <summary>
         /// Chars used to split an URL path into multiple parts.
         /// </summary>
@@ -32,7 +31,7 @@ namespace OSHttpServer
         private NameValueCollection m_queryString = null;
         private Uri m_uri = null;
         private string m_uriPath;
-        public IHttpClientContext m_context;
+        public readonly IHttpClientContext m_context;
         IPEndPoint m_remoteIPEndPoint = null;
 
         public HttpRequest(IHttpClientContext pContext)
@@ -341,10 +340,8 @@ namespace OSHttpServer
                 case "content-length":
                     if (!int.TryParse(value, out int t))
                         throw new BadRequestException("Invalid content length.");
-                    if (t > MAXCONTENTLENGTH)
-                        throw new OSHttpServer.Exceptions.HttpException(HttpStatusCode.RequestEntityTooLarge,"Request Entity Too Large");
                     ContentLength = t;
-                    break;
+                    break; //todo: maybe throw an exception
                 case "host":
                     try
                     {
@@ -461,11 +458,9 @@ namespace OSHttpServer
         /// </summary>
         public void Clear()
         {
-            if (m_body != null)
-            {
+            if (m_body != null && m_body.CanRead)
                 m_body.Dispose();
-                m_body = null;
-            }
+            m_body = null;
             m_contentLength = 0;
             m_method = string.Empty;
             m_uri = null;
@@ -474,7 +469,6 @@ namespace OSHttpServer
             m_headers.Clear();
             m_connection = ConnectionType.KeepAlive;
             IsAjax = false;
-            m_context = null;
             //_form.Clear();
         }
 

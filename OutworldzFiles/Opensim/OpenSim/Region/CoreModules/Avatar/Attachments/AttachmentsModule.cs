@@ -236,10 +236,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
                 ct.AddRow("Attachment Name", attachmentObject.Name);
                 ct.AddRow("Local ID", attachmentObject.LocalId);
                 ct.AddRow("Item ID", attachmentObject.UUID);
-                if(attachmentObject.FromItemID.IsZero())
-                    ct.AddRow("Temporary", "");
-                else
-                    ct.AddRow("From Item ID", attachmentObject.FromItemID);
+                ct.AddRow("From Item ID", attachmentObject.FromItemID);
                 ct.AddRow("Attach Point", ((AttachmentPoint)attachmentObject.AttachmentPoint));
                 ct.AddRow("Prims", attachmentObject.PrimCount);
                 ct.AddRow("Position", attachmentObject.RootPart.AttachedPos + "\n");
@@ -665,7 +662,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
                     for (int i = 0; i< toRemove.Count; ++i)
                     {
                         SceneObjectGroup g = toRemove[i];
-                        if (!g.FromItemID.IsZero())
+                        if (g.FromItemID != UUID.Zero)
                             DetachSingleAttachmentToInv(sp, g);
                     }
                 }
@@ -697,7 +694,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
         {
             // Add the new attachment to inventory if we don't already have it.
             UUID newAttachmentItemID = group.FromItemID;
-            if (newAttachmentItemID.IsZero())
+            if (newAttachmentItemID == UUID.Zero)
                 newAttachmentItemID = AddSceneObjectAsNewAttachmentInInv(sp, group).ID;
 
             ShowAttachInUserInventory(sp, attachmentPt, newAttachmentItemID, group, append);
@@ -794,7 +791,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
             UUID inventoryID = so.FromItemID;
 
             // As per Linden spec, drop is disabled for temp attachs
-            if (inventoryID.IsZero())
+            if (inventoryID == UUID.Zero)
                 return;
 
             if (DebugLevel > 0)
@@ -809,7 +806,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
                     return;
 
                 bool changed = false;
-                if (!inventoryID.IsZero())
+                if (inventoryID != UUID.Zero)
                     changed = sp.Appearance.DetachAttachment(inventoryID);
                 if (changed && m_scene.AvatarFactory != null)
                     m_scene.AvatarFactory.QueueAppearanceSave(sp.UUID);
@@ -872,7 +869,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
 
             // If this didn't come from inventory, it also shouldn't go there
             // on detach. It's likely a temp attachment.
-            if (so.FromItemID.IsZero())
+            if (so.FromItemID == UUID.Zero)
             {
                 PrepareScriptInstanceForSave(so, true);
 
@@ -970,7 +967,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
         /// <param name="saveAllScripted"></param>
         private void UpdateKnownItem(IScenePresence sp, SceneObjectGroup grp, string scriptedState)
         {
-            if (grp.FromItemID.IsZero())
+            if (grp.FromItemID == UUID.Zero)
             {
                 // We can't save temp attachments
                 grp.HasGroupChanged = false;
@@ -1248,7 +1245,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
                 return null;
             }
 
-            bool ItemIDNotZero = !itemID.IsZero();
+            bool ItemIDNotZero = itemID != UUID.Zero;
 
             if (ItemIDNotZero)
                 objatt = m_invAccessModule.RezObject(sp.ControllingClient,
@@ -1499,7 +1496,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Attachments
 
                 foreach (SceneObjectGroup group in attachments)
                 {
-                    if (group.FromItemID.Equals(itemID) && !group.FromItemID.IsZero())
+                    if (group.FromItemID == itemID && group.FromItemID != UUID.Zero)
                     {
                         DetachSingleAttachmentToInv(sp, group);
                         return;

@@ -66,10 +66,10 @@ namespace OpenSim.Region.CoreModules.World.Terrain
             {
                 result = this.parseFloat(args[3], out data.elevation);
             }
-            if (result.Length == 0)
+            if (result == String.Empty)
             {
                 int index = 3;
-                while(++index < args.Length && result.Length == 0)
+                while(++index < args.Length && result == String.Empty)
                 {
                     arg = args[index];
                     // check for shape
@@ -91,15 +91,15 @@ namespace OpenSim.Region.CoreModules.World.Terrain
                             else
                             {
                                 result = this.parseInt(coords[0], out data.x0);
-                                if (result.Length == 0)
+                                if (result == String.Empty)
                                 {
                                     result = this.parseInt(coords[1], out data.y0);
                                 }
-                                if (result.Length == 0)
+                                if (result == String.Empty)
                                 {
                                     result = this.parseInt(coords[2], out data.dx);
                                 }
-                                if (result.Length == 0)
+                                if (result == String.Empty)
                                 {
                                     if (coords.Length == 4)
                                     {
@@ -110,7 +110,7 @@ namespace OpenSim.Region.CoreModules.World.Terrain
                                         data.dy = data.dx;
                                     }
                                 }
-                                if (result.Length == 0)
+                                if (result == String.Empty)
                                 {
                                     if ((data.dx <= 0) || (data.dy <= 0))
                                     {

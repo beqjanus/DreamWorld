@@ -179,10 +179,15 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                     {
                         if (finfo.TheirFlags != -1)
                         {
-                            if (Util.ParseFullUniversalUserIdentifier(finfo.Friend, out UUID id, out string url, out string first, out string last))
+                            UUID id;
+                            if (!UUID.TryParse(finfo.Friend, out id))
                             {
-                                //m_log.DebugFormat("[HGFRIENDS MODULE]: caching {0}", finfo.Friend);
-                                uMan.AddUser(id,first,last, url);
+                                string url = string.Empty, first = string.Empty, last = string.Empty, tmp = string.Empty;
+                                if (Util.ParseUniversalUserIdentifier(finfo.Friend, out id, out url, out first, out last, out tmp))
+                                {
+//                                    m_log.DebugFormat("[HGFRIENDS MODULE]: caching {0}", finfo.Friend);
+                                    uMan.AddUser(id,first,last, url);
+                                }
                             }
                         }
                     }
@@ -269,7 +274,8 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                 else
                 {
                     // it's a foreign friend
-                    if (Util.ParseUniversalUserIdentifier(friend.Friend, out friendID, out string url))
+                    string url = string.Empty, tmp = string.Empty;
+                    if (Util.ParseUniversalUserIdentifier(friend.Friend, out friendID, out url, out tmp, out tmp, out tmp))
                     {
                         // Let's try our luck in the local sim. Who knows, maybe it's here
                         if (LocalStatusNotification(userID, friendID, online))
@@ -299,9 +305,10 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                 return true;
 
             // fid is not a UUID...
-            if (Util.ParseFullUniversalUserIdentifier(fid, out agentID, out string url, out string f, out string l))
+            string url = string.Empty, tmp = string.Empty, f = string.Empty, l = string.Empty;
+            if (Util.ParseUniversalUserIdentifier(fid, out agentID, out url, out f, out l, out tmp))
             {
-                if (agentID.IsNotZero())
+                if (!agentID.Equals(UUID.Zero))
                 {
                     m_uMan.AddUser(agentID, f, l, url);
 
@@ -498,7 +505,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                 // We need to look for its information in the friends list itself
                 FriendInfo[] finfos = null;
                 bool confirming = false;
-                if (friendUUI.Length == 0)
+                if (friendUUI == string.Empty)
                 {
                     finfos = GetFriendsFromCache(agentID);
                     foreach (FriendInfo finfo in finfos)
@@ -509,10 +516,13 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
                             {
                                 friendUUI = finfo.Friend;
                                 theFriendUUID = friendUUI;
+                                UUID utmp = UUID.Zero;
+                                string url = String.Empty;
+                                string first = String.Empty;
+                                string last = String.Empty;
 
                                 // If it's confirming the friendship, we already have the full UUI with the secret
-                                if (Util.ParseFullUniversalUserIdentifier(theFriendUUID, out UUID utmp, out string url,
-                                            out string first, out string last))
+                                if (Util.ParseUniversalUserIdentifier(theFriendUUID, out utmp, out url, out first, out last, out secret))
                                 {
                                     agentUUID = agentUUI + ";" + secret;
                                     m_uMan.AddUser(utmp, first, last, url);
@@ -753,7 +763,9 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
 
         private void Delete(UUID foreignUser, UUID localUser, string uui)
         {
-            if (Util.ParseFullUniversalUserIdentifier(uui, out UUID id, out string url, out string tmp, out string tmp1, out string secret))
+            UUID id;
+            string url = string.Empty, secret = string.Empty, tmp = string.Empty;
+            if (Util.ParseUniversalUserIdentifier(uui, out id, out url, out tmp, out tmp, out secret))
             {
                 m_log.DebugFormat("[HGFRIENDS MODULE]: Deleting friendship from {0}", url);
                 HGFriendsServicesConnector friendConn = new HGFriendsServicesConnector(url);
@@ -770,7 +782,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Friends
             if (!m_uMan.IsLocalGridUser(friendID))
             {
                 string friendsURL = m_uMan.GetUserServerURL(friendID, "FriendsServerURI");
-                if (!string.IsNullOrEmpty(friendsURL))
+                if (friendsURL != string.Empty)
                 {
                     m_log.DebugFormat("[HGFRIENDS MODULE]: Forwading friendship from {0} to {1} @ {2}", agentID, friendID, friendsURL);
                     GridRegion region = new GridRegion();

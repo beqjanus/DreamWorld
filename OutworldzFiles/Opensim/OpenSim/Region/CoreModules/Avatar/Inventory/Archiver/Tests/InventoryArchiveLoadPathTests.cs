@@ -77,7 +77,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
             // Now try loading to a root child folder
             UserInventoryHelpers.CreateInventoryFolder(scene.InventoryService, m_uaMT.PrincipalID, "xA", false);
             MemoryStream archiveReadStream = new MemoryStream(m_iarStream.ToArray());
-            archiverModule.DearchiveInventory(UUID.Random(), m_uaMT.FirstName, m_uaMT.LastName, "xA",  archiveReadStream);
+            archiverModule.DearchiveInventory(UUID.Random(), m_uaMT.FirstName, m_uaMT.LastName, "xA", archiveReadStream);
 
             InventoryItemBase foundItem2
                 = InventoryArchiveUtils.FindItemByPath(scene.InventoryService, m_uaMT.PrincipalID, "xA/" + m_item1Name);
@@ -86,7 +86,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
             // Now try loading to a more deeply nested folder
             UserInventoryHelpers.CreateInventoryFolder(scene.InventoryService, m_uaMT.PrincipalID, "xB/xC", false);
             archiveReadStream = new MemoryStream(archiveReadStream.ToArray());
-            archiverModule.DearchiveInventory(UUID.Random(), m_uaMT.FirstName, m_uaMT.LastName, "xB/xC",  archiveReadStream);
+            archiverModule.DearchiveInventory(UUID.Random(), m_uaMT.FirstName, m_uaMT.LastName, "xB/xC", archiveReadStream);
 
             InventoryItemBase foundItem3
                 = InventoryArchiveUtils.FindItemByPath(scene.InventoryService, m_uaMT.PrincipalID, "xB/xC/" + m_item1Name);
@@ -125,7 +125,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
 
             string itemName = "You & you are a mean/man/";
             string humanEscapedItemName = @"You & you are a mean\/man\/";
-            
+           // string userPassword = "meowfood";
 
             InventoryArchiverModule archiverModule = new InventoryArchiverModule();
 
@@ -136,7 +136,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
             string userFirstName = "Jock";
             string userLastName = "Stirrup";
             UUID userId = UUID.Parse("00000000-0000-0000-0000-000000000020");
-            UserAccountHelpers.CreateUserWithInventory(scene, userFirstName, userLastName, userId , "meowfood");
+            UserAccountHelpers.CreateUserWithInventory(scene, userFirstName, userLastName, userId, "meowfood");
 
             // Create asset
             SceneObjectGroup object1;
@@ -178,7 +178,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
 
             mre.Reset();
             archiverModule.ArchiveInventory(
-                UUID.Random(), userFirstName, userLastName, "Objects", archiveWriteStream);
+                UUID.Random(), userFirstName, userLastName, "Objects",  archiveWriteStream);
             mre.WaitOne(60000, false);
 
             // LOAD ITEM

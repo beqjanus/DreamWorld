@@ -224,7 +224,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Plugins
                 List<string> toremove = new List<string>(DataserverRequests.Count);
                 foreach (DataserverRequest ds in DataserverRequests.Values)
                 {
-                    if (ds.itemID.Equals(itemID))
+                    if (ds.itemID == itemID)
                         toremove.Add(ds.handle);
                 }
                 foreach (string s in toremove)

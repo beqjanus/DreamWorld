@@ -84,7 +84,7 @@ namespace OpenSim.Data.SQLite
             if (Util.IsWindows())
                 Util.LoadArchSpecificWindowsDll("sqlite3.dll");
 
-            if (dbconnect.Length == 0)
+            if (dbconnect == string.Empty)
             {
                 dbconnect = "URI=file:Asset.db,version=3";
             }

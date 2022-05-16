@@ -587,13 +587,12 @@ namespace OpenSim.Region.Framework.Scenes
 
         public static SOPVehicle FromXml2(string text)
         {
-            if (text.Length == 0)
+            if (text == String.Empty)
                 return null;
 
             UTF8Encoding enc = new UTF8Encoding();
             MemoryStream ms = new MemoryStream(enc.GetBytes(text));
             XmlTextReader xreader = new XmlTextReader(ms);
-            xreader.DtdProcessing = DtdProcessing.Ignore;
 
             SOPVehicle v = new SOPVehicle();
             bool error;

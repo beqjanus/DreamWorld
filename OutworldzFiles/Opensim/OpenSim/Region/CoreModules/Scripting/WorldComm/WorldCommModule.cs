@@ -278,19 +278,25 @@ namespace OpenSim.Region.CoreModules.Scripting.WorldComm
             m_listenerManager.DeleteListener(itemID);
         }
 
+
         protected static Vector3 CenterOfRegion = new Vector3(128, 128, 20);
 
         public void DeliverMessage(ChatTypeEnum type, int channel, string name, UUID id, string msg)
         {
+            Vector3 position;
             SceneObjectPart source;
             ScenePresence avatar;
 
             if ((source = m_scene.GetSceneObjectPart(id)) != null)
-                DeliverMessage(type, channel, name, id, msg, source.AbsolutePosition);
+                position = source.AbsolutePosition;
             else if ((avatar = m_scene.GetScenePresence(id)) != null)
-                DeliverMessage(type, channel, name, id, msg, avatar.AbsolutePosition);
+                position = avatar.AbsolutePosition;
             else if (ChatTypeEnum.Region == type)
-                DeliverMessage(type, channel, name, id, msg, CenterOfRegion);
+                position = CenterOfRegion;
+            else
+                return;
+
+            DeliverMessage(type, channel, name, id, msg, position);
         }
 
         /// <summary>
@@ -386,7 +392,7 @@ namespace OpenSim.Region.CoreModules.Scripting.WorldComm
             if (channel == DEBUG_CHANNEL)
                 return;
 
-            if(target.IsZero())
+            if(target == UUID.Zero)
                 return;
 
             // Is target an avatar?
@@ -754,7 +760,7 @@ namespace OpenSim.Region.CoreModules.Scripting.WorldComm
                     return collection;
                 }
 
-                bool itemIDNotZero = !itemID.IsZero();
+                bool itemIDNotZero = itemID != UUID.Zero;
                 foreach (ListenerInfo li in listeners)
                 {
                     if (!li.IsActive())
@@ -763,7 +769,7 @@ namespace OpenSim.Region.CoreModules.Scripting.WorldComm
                     if (itemIDNotZero && itemID != li.GetItemID())
                         continue;
 
-                    if (!li.GetID().IsZero() && id.NotEqual(li.GetID()))
+                    if (li.GetID() != UUID.Zero && id != li.GetID())
                         continue;
 
                     if (li.GetName().Length > 0)

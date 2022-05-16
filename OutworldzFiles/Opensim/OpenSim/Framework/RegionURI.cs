@@ -140,12 +140,10 @@ namespace OpenSim.Framework
 
                 switch (tmpSlice.ToString())
                 {
-                    case "http":
                     case "hg":
                     case "hop":
+                    case "http":
                     case "surl":
-                    case "x-grid-info":
-                        // only https has this defined
                         if (issecure)
                         {
                             Schema = "https://";

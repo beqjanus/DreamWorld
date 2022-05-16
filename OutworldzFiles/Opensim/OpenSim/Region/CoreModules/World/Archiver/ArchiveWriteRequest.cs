@@ -660,7 +660,7 @@ namespace OpenSim.Region.CoreModules.World.Archiver
             catch (Exception e)
             {
                 m_log.Error(string.Format("[ARCHIVER]: Error closing archive: {0} ", e.Message), e);
-                if (errorMessage.Length == 0)
+                if (errorMessage == string.Empty)
                     errorMessage = e.Message;
             }
 

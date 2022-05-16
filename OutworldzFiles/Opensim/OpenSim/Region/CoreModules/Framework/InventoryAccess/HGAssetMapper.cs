@@ -308,12 +308,12 @@ namespace OpenSim.Region.CoreModules.Framework.InventoryAccess
             {
                 if (sb == null)
                     sb = new StringBuilder(512);
-                i = notFound.Count - 1;
+                i = notFound.Count;
                 sb.Append("[HG ASSET MAPPER POST]: did not find embedded UUIDs as assets:\n\t");
                 for (int j = 0; j < notFound.Count; ++j)
                 {
                     sb.Append(notFound[j]);
-                    if (j < i)
+                    if (i < j)
                         sb.Append(',');
                 }
                 m_log.Debug(sb.ToString());
@@ -338,12 +338,12 @@ namespace OpenSim.Region.CoreModules.Framework.InventoryAccess
             {
                 if (sb == null) 
                     sb = new StringBuilder(512);
-                i = posted.Count - 1;
+                i = posted.Count;
                 sb.Append("[HG ASSET MAPPER POST]: Posted assets:\n\t");
                 for (int j = 0; j < posted.Count; ++j)
                 {
                     sb.Append(posted[j]);
-                    if (j < i)
+                    if (i < j)
                         sb.Append(',');
                 }
                 m_log.Debug(sb.ToString());

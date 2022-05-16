@@ -470,16 +470,12 @@ namespace OpenSim.Region.CoreModules.Scripting.DynamicTexture
             /// <returns>The asset UUID given to the incoming data.</returns>
             public UUID DataReceived(byte[] data, Scene scene)
             {
-                // this are local assets and will not work without cache
-                IAssetCache iac = scene.RequestModuleInterface<IAssetCache>();
-                if (iac == null)
-                    return UUID.Zero;
-
                 SceneObjectPart part = scene.GetSceneObjectPart(PrimID);
 
                 if (part == null || data == null || data.Length <= 1)
                 {
-                    string msg = string.Format("DynamicTextureModule: Error preparing image using URL {0}", Url);
+                    string msg =
+                        String.Format("DynamicTextureModule: Error preparing image using URL {0}", Url);
                     scene.SimChat(Utils.StringToBytes(msg), ChatTypeEnum.Say,
                                   0, part.ParentGroup.RootPart.AbsolutePosition, part.Name, part.UUID, false);
 
@@ -524,21 +520,30 @@ namespace OpenSim.Region.CoreModules.Scripting.DynamicTexture
                 }
 
                 // Create a new asset for user
-                AssetBase asset = new AssetBase(
+                AssetBase asset
+                    = new AssetBase(
                         UUID.Random(), "DynamicImage" + Util.RandomClass.Next(1, 10000), (sbyte)AssetType.Texture,
-                        part.OwnerID.ToString());
+                        scene.RegionInfo.RegionID.ToString());
                 asset.Data = assetData;
-                asset.Description = string.Format("URL image : {0}", Url);
+                asset.Description = String.Format("URL image : {0}", Url);
                 if (asset.Description.Length > 128)
                     asset.Description = asset.Description.Substring(0, 128);
                 asset.Local = true;     // dynamic images aren't saved in the assets server
                 asset.Temporary = ((Disp & DISP_TEMP) != 0);
+                scene.AssetService.Store(asset);    // this will only save the asset in the local asset cache
 
-                iac.Cache(asset);
+                IJ2KDecoder cacheLayerDecode = scene.RequestModuleInterface<IJ2KDecoder>();
+                if (cacheLayerDecode != null)
+                {
+                    if (!cacheLayerDecode.Decode(asset.FullID, asset.Data))
+                        m_log.WarnFormat(
+                            "[DYNAMIC TEXTURE MODULE]: Decoding of dynamically generated asset {0} for {1} in {2} failed",
+                            asset.ID, part.Name, part.ParentGroup.Scene.Name);
+                }
 
                 UUID oldID = UpdatePart(part, asset.FullID);
 
-                if (!oldID.IsZero() && ((Disp & DISP_EXPIRE) != 0))
+                if (oldID != UUID.Zero && ((Disp & DISP_EXPIRE) != 0))
                 {
                     if (oldAsset == null)
                         oldAsset = scene.AssetService.Get(oldID.ToString());
@@ -546,7 +551,9 @@ namespace OpenSim.Region.CoreModules.Scripting.DynamicTexture
                     if (oldAsset != null)
                     {
                         if (oldAsset.Temporary)
-                            iac.Expire(oldID.ToString());
+                        {
+                            scene.AssetService.Delete(oldID.ToString());
+                        }
                     }
                 }
 
@@ -567,7 +574,7 @@ namespace OpenSim.Region.CoreModules.Scripting.DynamicTexture
                 if(backImage == null)
                 {
                     SetAlpha(ref image1, newAlpha);
-                    byte[] result = Array.Empty<byte>();
+                    byte[] result = new byte[0];
 
                     try
                     {
@@ -597,7 +604,7 @@ namespace OpenSim.Region.CoreModules.Scripting.DynamicTexture
                     image1.Dispose();
                     image2.Dispose();
 
-                    byte[] result = Array.Empty<byte>();
+                    byte[] result = new byte[0];
 
                     try
                     {

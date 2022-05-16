@@ -759,8 +759,10 @@ namespace OpenSim.Region.ClientStack.LindenUDP
                                 callback(cats);
                             }
                             catch { }
+
+                            if (callback != null)
+                                udpcli.QueueEmptyRunning = false;
                         }
-                        udpcli.QueueEmptyRunning = false;
                         udpcli = null;
                         callback = null;
                     };

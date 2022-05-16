@@ -122,7 +122,8 @@ namespace OpenSim.Region.ClientStack.LindenCaps
 
         private void ProcessServerReleaseNotes(IOSHttpResponse httpResponse)
         {
-            httpResponse.Redirect(m_ServerReleaseNotesURL);
+            httpResponse.StatusCode = (int)HttpStatusCode.Moved;
+            httpResponse.AddHeader("Location", m_ServerReleaseNotesURL);
         }
     }
 }

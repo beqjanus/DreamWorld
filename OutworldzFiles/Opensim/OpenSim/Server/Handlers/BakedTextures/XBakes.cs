@@ -58,7 +58,7 @@ namespace OpenSim.Server.Handlers.BakedTextures
             }
 
             m_FSBase = assetConfig.GetString("BaseDirectory", string.Empty);
-            if (m_FSBase.Length == 0)
+            if (m_FSBase == string.Empty)
             {
                 m_log.ErrorFormat("[BAKES]: BaseDirectory not specified");
                 throw new Exception("Configuration error");
@@ -80,7 +80,7 @@ namespace OpenSim.Server.Handlers.BakedTextures
             catch
             {
             }
-            return Array.Empty<byte>();
+            return new byte[0];
         }
 
         public void Store(string id, byte[] data, int dataLength)

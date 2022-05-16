@@ -297,7 +297,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         public bool AddGathered(UUID uuid, sbyte type)
         {
-            if (uuid.IsZero())
+            if (uuid == UUID.Zero)
                 return false;
 
             if (ToSkip.Contains(uuid))
@@ -316,7 +316,7 @@ namespace OpenSim.Region.Framework.Scenes
             if (m_assetUuidsToInspect.Contains(uuid))
                 return false;
 
-            //m_log.DebugFormat("[UUID GATHERER]: Adding asset {0} for inspection", uuid);
+            //            m_log.DebugFormat("[UUID GATHERER]: Adding asset {0} for inspection", uuid);
 
             GatheredUuids[uuid] = type; 
             return true;
@@ -329,7 +329,7 @@ namespace OpenSim.Region.Framework.Scenes
         /// <param name="uuid">UUID.</param>
         public bool AddForInspection(UUID uuid)
         {
-            if(uuid.IsZero())
+            if(uuid == UUID.Zero)
                 return false;
 
             if(ToSkip.Contains(uuid))
@@ -401,14 +401,15 @@ namespace OpenSim.Region.Framework.Scenes
                         }
                     }
 
-                    if (!part.Shape.SculptTexture.IsZero())
+                    if (part.Shape.SculptTexture != UUID.Zero)
                         GatheredUuids[part.Shape.SculptTexture] = (sbyte)AssetType.Texture;
 
-                    if (!part.Shape.ProjectionTextureUUID.IsZero())
+                    if (part.Shape.ProjectionTextureUUID != UUID.Zero)
                         GatheredUuids[part.Shape.ProjectionTextureUUID] = (sbyte)AssetType.Texture;
 
                     UUID collisionSound = part.CollisionSound;
-                    if ( !collisionSound.IsZero() && collisionSound.NotEqual(part.invalidCollisionSoundUUID))
+                    if ( collisionSound != UUID.Zero &&
+                                collisionSound != part.invalidCollisionSoundUUID)
                         GatheredUuids[collisionSound] = (sbyte)AssetType.Sound;
 
                     if (part.ParticleSystem.Length > 0)
@@ -416,7 +417,7 @@ namespace OpenSim.Region.Framework.Scenes
                         try
                         {
                             Primitive.ParticleSystem ps = new Primitive.ParticleSystem(part.ParticleSystem, 0);
-                            if (!ps.Texture.IsZero())
+                            if (ps.Texture != UUID.Zero)
                                 GatheredUuids[ps.Texture] = (sbyte)AssetType.Texture;
                         }
                         catch (Exception)
@@ -439,7 +440,7 @@ namespace OpenSim.Region.Framework.Scenes
                     {
                         foreach(UUID id in part.Animations.Keys)
                         {
-                            if(!id.IsZero() &&
+                            if(id != UUID.Zero &&
                                 !ToSkip.Contains(id) &&
                                 !FailedUUIDs.Contains(id))
                             {
@@ -521,7 +522,7 @@ namespace OpenSim.Region.Framework.Scenes
         /// <param name="assetUuid">The uuid of the asset for which to gather referenced assets</param>
         private void GetAssetUuids(UUID assetUuid)
         {
-            if(assetUuid.IsZero())
+            if(assetUuid == UUID.Zero)
                 return;
 
             if(FailedUUIDs.Contains(assetUuid))
@@ -620,7 +621,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         private void AddForInspection(UUID assetUuid, sbyte assetType)
         {
-            if(assetUuid.IsZero())
+            if(assetUuid == UUID.Zero)
                 return;
 
             // Here, we want to collect uuids which require further asset fetches but mark the others as gathered
@@ -667,14 +668,14 @@ namespace OpenSim.Region.Framework.Scenes
         private void RecordTextureEntryAssetUuids(Primitive.TextureEntryFace texture)
         {
             UUID teid = texture.TextureID;
-            if (!teid.IsZero() &&
+            if (teid != UUID.Zero &&
                 !ToSkip.Contains(teid) &&
                 !FailedUUIDs.Contains(teid))
             {
                 GatheredUuids[teid] = (sbyte)AssetType.Texture;
             }
 
-            if (!texture.MaterialID.IsZero())
+            if (texture.MaterialID != UUID.Zero)
                 AddForInspection(texture.MaterialID);
         }
 
@@ -719,7 +720,7 @@ namespace OpenSim.Region.Framework.Scenes
                                     if (mat.ContainsKey("NormMap"))
                                     {
                                         UUID normalMapId = mat["NormMap"].AsUUID();
-                                        if (!normalMapId.IsZero())
+                                        if (normalMapId != UUID.Zero)
                                         {
                                             GatheredUuids[normalMapId] = (sbyte)AssetType.Texture;
                                             //m_log.Info("[UUID Gatherer]: found normal map ID: " + normalMapId.ToString());
@@ -728,7 +729,7 @@ namespace OpenSim.Region.Framework.Scenes
                                     if (mat.ContainsKey("SpecMap"))
                                     {
                                         UUID specularMapId = mat["SpecMap"].AsUUID();
-                                        if (!specularMapId.IsZero())
+                                        if (specularMapId != UUID.Zero)
                                         {
                                             GatheredUuids[specularMapId] = (sbyte)AssetType.Texture;
                                             //m_log.Info("[UUID Gatherer]: found specular map ID: " + specularMapId.ToString());
@@ -775,9 +776,10 @@ namespace OpenSim.Region.Framework.Scenes
 
             for (int i = 0; i < ids.Count; ++i)
             {
-                if (ids[i].IsZero())
+                if (ids[i] == UUID.Zero)
                     continue;
-                UncertainAssetsUUIDs.Add(ids[i]);
+                if (!UncertainAssetsUUIDs.Contains(ids[i]))
+                    UncertainAssetsUUIDs.Add(ids[i]);
                 AddForInspection(ids[i]);
             }
         }
@@ -790,9 +792,10 @@ namespace OpenSim.Region.Framework.Scenes
 
             for(int i = 0; i < ids.Count; ++i)
             {
-                if (ids[i].IsZero())
+                if (ids[i] == UUID.Zero)
                     continue;
-                UncertainAssetsUUIDs.Add(ids[i]);
+                if (!UncertainAssetsUUIDs.Contains(ids[i]))
+                    UncertainAssetsUUIDs.Add(ids[i]);
                 AddForInspection(ids[i]);
             }
         }
@@ -830,7 +833,7 @@ namespace OpenSim.Region.Framework.Scenes
                         if (parts[1].Length == 0)
                             return;
                         parts[1].SelfTrim(wearableSeps);
-                        if (!osUTF8Slice.TryParseInt(parts[1], out int count))
+                        if (!osUTF8Slice.TryParseInt(parts[1], out int count) || count == 0)
                             return;
                         for (int i = 0; i < count; ++i)
                         {
@@ -854,7 +857,7 @@ namespace OpenSim.Region.Framework.Scenes
                             if(texparts.Length <2 || texparts[1].Length < 36)
                                 continue;
                             texparts[1].SelfTrim(wearableSeps);
-                            if (UUID.TryParse(texparts[1].ToString(), out UUID id) && !id.IsZero())
+                            if (UUID.TryParse(texparts[1].ToString(), out UUID id) && id != UUID.Zero)
                                 GatheredUuids[id] = (sbyte)AssetType.Texture;
                         }
                     }
@@ -1004,7 +1007,7 @@ namespace OpenSim.Region.Framework.Scenes
                                 while (--count >= 0)
                                 {
                                     UUID id = new UUID(abytes, pos);
-                                    if (id.IsZero())
+                                    if (id == UUID.Zero)
                                         break;
                                     if (!ToSkip.Contains(id) &&
                                         !FailedUUIDs.Contains(id))
@@ -1025,21 +1028,21 @@ namespace OpenSim.Region.Framework.Scenes
                 {
                     if (!nodeName.EndsWith((byte)'d'))
                         continue;
-                    if (TryGetxmlUUIDValue(data, out UUID id) && !id.IsZero())
+                    if (TryGetxmlUUIDValue(data, out UUID id) && id != UUID.Zero)
                         GatheredUuids[id] = (sbyte)AssetType.Sound;
                 }
                 else if (nodeName.StartsWith(SoundIDB))
                 {
                     if (nodeName.EndsWith((byte)'/'))
                         continue;
-                    if (TryGetxmlUUIDValue(data, out UUID id) && !id.IsZero())
+                    if (TryGetxmlUUIDValue(data, out UUID id) && id != UUID.Zero)
                         GatheredUuids[id] = (sbyte)AssetType.Sound;
                 }
                 else if (nodeName.StartsWith(SculptTextureB))
                 {
                     if (nodeName.EndsWith((byte)'/'))
                         continue;
-                    if (TryGetxmlUUIDValue(data, out UUID id) && !id.IsZero())
+                    if (TryGetxmlUUIDValue(data, out UUID id) && id != UUID.Zero)
                         GatheredUuids[id] = (sbyte)AssetType.Texture; // can be mesh but no prob
                 }
                 else if (nodeName.StartsWith(ExtraParamsB))
@@ -1054,7 +1057,7 @@ namespace OpenSim.Region.Framework.Scenes
                             PrimitiveBaseShape ps = new PrimitiveBaseShape();
                             ps.ReadInExtraParamsBytes(exbytes);
                             UUID teid = ps.ProjectionTextureUUID;
-                            if (!teid.IsZero() &&
+                            if (teid != UUID.Zero &&
                                 !ToSkip.Contains(teid) &&
                                 !FailedUUIDs.Contains(teid))
                             {
@@ -1086,7 +1089,7 @@ namespace OpenSim.Region.Framework.Scenes
                         {
                             Primitive.ParticleSystem ps = new Primitive.ParticleSystem(psbytes, 0);
                             UUID teid = ps.Texture;
-                            if (!teid.IsZero() &&
+                            if (teid != UUID.Zero &&
                                 !ToSkip.Contains(teid) &&
                                 !FailedUUIDs.Contains(teid))
                             {
@@ -1136,7 +1139,7 @@ namespace OpenSim.Region.Framework.Scenes
                     {
                         if (nodeName.StartsWith(AssetIDB))
                         {
-                            if (TryGetxmlUUIDValue(data, out UUID id) && !id.IsZero())
+                            if (TryGetxmlUUIDValue(data, out UUID id) && id != UUID.Zero)
                                 AddForInspection(id);
                         }
                         else if (nodeName.StartsWith(endTaskInventoryB))
@@ -1189,7 +1192,7 @@ namespace OpenSim.Region.Framework.Scenes
                             return;
                         if (!osdata.ReadLine(out id)) // uuid
                             return;
-                        if (osUTF8Slice.TryParseUUID(id, out uid) && !uid.IsZero())
+                        if (osUTF8Slice.TryParseUUID(id, out uid) && uid != UUID.Zero)
                             GatheredUuids[uid] = type == 0 ? (sbyte)AssetType.Animation : (sbyte)AssetType.Sound;
                         if (!osdata.SkipLine()) // flags 
                             return;
@@ -1226,7 +1229,7 @@ namespace OpenSim.Region.Framework.Scenes
                     if(indx < 0)
                         continue;
                     osUTF8Slice tmp = data.SubUTF8(0, indx);
-                    if(osUTF8Slice.TryParseUUID(tmp, out UUID id) && !id.IsZero())
+                    if(osUTF8Slice.TryParseUUID(tmp, out UUID id) && id != UUID.Zero)
                         GatheredUuids[id] = (sbyte)AssetType.Texture;
                     data.SubUTF8Self(indx + 1);
                 }

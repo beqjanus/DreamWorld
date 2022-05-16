@@ -69,7 +69,6 @@ namespace OpenSim.Framework.Serialization.External
 
             StringReader sr = new StringReader(serializedSettings);
             XmlTextReader xtr = new XmlTextReader(sr);
-            xtr.DtdProcessing = DtdProcessing.Ignore;
 
             xtr.ReadStartElement("RegionSettings");
 
@@ -321,7 +320,7 @@ namespace OpenSim.Framework.Serialization.External
             xtw.WriteEndElement();
 
             xtw.WriteStartElement("Telehub");
-            if (!settings.TelehubObject.IsZero())
+            if (settings.TelehubObject != UUID.Zero)
             {
                 xtw.WriteElementString("TelehubObject", settings.TelehubObject.ToString());
                 foreach (SpawnPoint sp in settings.SpawnPoints())

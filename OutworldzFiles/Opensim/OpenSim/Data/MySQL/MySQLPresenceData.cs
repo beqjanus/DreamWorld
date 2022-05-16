@@ -79,7 +79,7 @@ namespace OpenSim.Data.MySQL
             if (pd.Length == 0)
                 return false;
 
-            if (regionID.IsZero())
+            if (regionID == UUID.Zero)
                 return false;
 
             using (MySqlCommand cmd = new MySqlCommand())

@@ -62,7 +62,7 @@ namespace OpenSim.Framework
                 str += "T";
             if ((perms & (int)PermissionMask.Export) != 0)
                 str += "X";
-            if (str.Length == 0)
+            if (str == "")
                 str = ".";
             return str;
         }

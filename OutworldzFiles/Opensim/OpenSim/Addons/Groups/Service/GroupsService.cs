@@ -383,7 +383,7 @@ namespace OpenSim.Groups
             }
 
             // Can't delete Everyone and Owners roles
-            if (roleID.IsZero())
+            if (roleID == UUID.Zero)
             {
                 m_log.DebugFormat("[Groups]: Attempt at deleting Everyone role from group {0} denied", groupID);
                 return;
@@ -527,7 +527,7 @@ namespace OpenSim.Groups
         public bool RemoveAgentFromGroupRole(string RequestingAgentID, string AgentID, UUID GroupID, UUID RoleID)
         {
             // Don't remove from Everyone role!
-            if (RoleID.IsZero())
+            if (RoleID == UUID.Zero)
                 return false;
 
             // check permissions
@@ -564,7 +564,7 @@ namespace OpenSim.Groups
             if (rdata != null)
                 foreach (RoleMembershipData r in rdata)
                 {
-                    if (!r.RoleID.IsZero())
+                    if (r.RoleID != UUID.Zero)
                     {
                         newRoleID = r.RoleID;
                         break;
@@ -837,7 +837,7 @@ namespace OpenSim.Groups
             _AddAgentToGroupRole(RequestingAgentID, AgentID, GroupID, UUID.Zero);
 
             // Add principal to role, if different from everyone role
-            if (!RoleID.IsZero())
+            if (RoleID != UUID.Zero)
                 _AddAgentToGroupRole(RequestingAgentID, AgentID, GroupID, RoleID);
 
             // Make this the active group

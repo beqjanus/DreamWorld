@@ -49,7 +49,7 @@ namespace OpenSim.Server.Handlers.GridUser
 
             string service = serverConfig.GetString("LocalServiceModule", String.Empty);
 
-            if (service.Length == 0)
+            if (service == String.Empty)
                 throw new Exception("LocalServiceModule not present in MuteListService config file MuteListService section");
 
             Object[] args = new Object[] { config };

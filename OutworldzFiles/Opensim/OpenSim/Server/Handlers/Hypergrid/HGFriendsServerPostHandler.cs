@@ -186,7 +186,7 @@ namespace OpenSim.Server.Handlers.Hypergrid
             if (request.ContainsKey("SECRET"))
                 secret = request["SECRET"].ToString();
 
-            if (secret.Length == 0)
+            if (secret == string.Empty)
                 return BoolResult(false);
 
             bool success = m_TheService.DeleteFriendship(friend, secret);
@@ -303,7 +303,7 @@ namespace OpenSim.Server.Handlers.Hypergrid
             string sessionStr = request["SESSIONID"].ToString();
 
             UUID sessionID;
-            if (!UUID.TryParse(sessionStr, out sessionID) || serviceKey.Length == 0)
+            if (!UUID.TryParse(sessionStr, out sessionID) || serviceKey == string.Empty)
                 return false;
 
             if (!m_UserAgentService.VerifyAgent(sessionID, serviceKey))

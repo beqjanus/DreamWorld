@@ -107,7 +107,6 @@ namespace OpenSim.Services.Interfaces
         List<GridRegion> GetDefaultHypergridRegions(UUID scopeID);
         List<GridRegion> GetFallbackRegions(UUID scopeID, int x, int y);
         List<GridRegion> GetHyperlinks(UUID scopeID);
-        List<GridRegion> GetOnlineRegions(UUID scopeID, int x, int y, int maxCount);
 
         /// <summary>
         /// Get internal OpenSimulator region flags.
@@ -441,7 +440,7 @@ namespace OpenSim.Services.Interfaces
             if ((object)region == null)
                 return false;
             // Return true if the non-zero UUIDs are equal:
-            return (!RegionID.IsZero()) && RegionID.Equals(region.RegionID);
+            return (RegionID != UUID.Zero) && RegionID.Equals(region.RegionID);
         }
 
         public override bool Equals(Object obj)

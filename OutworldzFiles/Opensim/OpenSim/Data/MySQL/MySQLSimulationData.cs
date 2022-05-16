@@ -378,7 +378,7 @@ namespace OpenSim.Data.MySQL
             // Create all of the SOGs from the root prims first
             foreach (SceneObjectPart prim in prims.Values)
             {
-                if (prim.ParentUUID.IsZero())
+                if (prim.ParentUUID == UUID.Zero)
                 {
                     objects[prim.UUID] = new SceneObjectGroup(prim);
                 }
@@ -1090,10 +1090,10 @@ namespace OpenSim.Data.MySQL
 
             prim.Sound = DBGuid.FromDB(row["LoopedSound"].ToString());
             prim.SoundGain = (float)row["LoopedSoundGain"];
-            if (prim.Sound.IsZero())
-                prim.SoundFlags = 0;
-            else
+            if (prim.Sound != UUID.Zero)
                 prim.SoundFlags = 1; // If it's persisted at all, it's looped
+            else
+                prim.SoundFlags = 0;
 
             if (!(row["TextureAnimation"] is DBNull))
                 prim.TextureAnimation = (byte[])row["TextureAnimation"];
@@ -1592,7 +1592,7 @@ namespace OpenSim.Data.MySQL
             if (prim.KeyframeMotion != null)
                 cmd.Parameters.AddWithValue("KeyframeMotion", prim.KeyframeMotion.Serialize());
             else
-                cmd.Parameters.AddWithValue("KeyframeMotion", Array.Empty<byte>());
+                cmd.Parameters.AddWithValue("KeyframeMotion", new Byte[0]);
 
             if (prim.PhysicsInertia != null)
                 cmd.Parameters.AddWithValue("PhysInertia", prim.PhysicsInertia.ToXml2());

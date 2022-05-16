@@ -221,7 +221,7 @@ namespace OpenSim.Tests.Common
 
         public byte[] EndEventToBytes(osUTF8 sb)
         {
-            return Array.Empty<byte>();
+            return new byte[0];
         }
     }
 }

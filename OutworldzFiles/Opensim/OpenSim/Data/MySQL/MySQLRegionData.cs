@@ -67,7 +67,7 @@ namespace OpenSim.Data.MySQL
         public List<RegionData> Get(string regionName, UUID scopeID)
         {
             string command = "select * from `"+m_Realm+"` where regionName like ?regionName";
-            if (!scopeID.IsZero())
+            if (scopeID != UUID.Zero)
                 command += " and ScopeID = ?scopeID";
 
             command += " order by regionName";
@@ -84,7 +84,7 @@ namespace OpenSim.Data.MySQL
         public RegionData GetSpecific(string regionName, UUID scopeID)
         {
             string command = "select * from `" + m_Realm + "` where regionName = ?regionName";
-            if (!scopeID.IsZero())
+            if (scopeID != UUID.Zero)
                 command += " and ScopeID = ?scopeID";
 
             using (MySqlCommand cmd = new MySqlCommand(command))
@@ -104,7 +104,7 @@ namespace OpenSim.Data.MySQL
         public RegionData Get(int posX, int posY, UUID scopeID)
         {
             string command = "select * from `" + m_Realm + "` where locX between ?startX and ?endX and locY between ?startY and ?endY";
-            if (!scopeID.IsZero())
+            if (scopeID != UUID.Zero)
                 command += " and ScopeID = ?scopeID";
 
             int startX = posX - (int)Constants.MaximumRegionSize;
@@ -145,7 +145,7 @@ namespace OpenSim.Data.MySQL
         public RegionData Get(UUID regionID, UUID scopeID)
         {
             string command = "select * from `"+m_Realm+"` where uuid = ?regionID";
-            if (!scopeID.IsZero())
+            if (scopeID != UUID.Zero)
                 command += " and ScopeID = ?scopeID";
 
             using (MySqlCommand cmd = new MySqlCommand(command))
@@ -325,7 +325,7 @@ namespace OpenSim.Data.MySQL
 
                 update += " where uuid = ?regionID";
 
-                if (!data.ScopeID.IsZero())
+                if (data.ScopeID != UUID.Zero)
                     update += " and ScopeID = ?scopeID";
 
                 cmd.CommandText = update;
@@ -392,9 +392,12 @@ namespace OpenSim.Data.MySQL
             return Get((int)RegionFlags.DefaultHGRegion, scopeID);
         }
 
-        public List<RegionData> GetFallbackRegions(UUID scopeID)
+        public List<RegionData> GetFallbackRegions(UUID scopeID, int x, int y)
         {
-            return Get((int)RegionFlags.FallbackRegion, scopeID);
+            List<RegionData> regions = Get((int)RegionFlags.FallbackRegion, scopeID);
+            RegionDataDistanceCompare distanceComparer = new RegionDataDistanceCompare(x, y);
+            regions.Sort(distanceComparer);
+            return regions;
         }
 
         public List<RegionData> GetHyperlinks(UUID scopeID)
@@ -402,15 +405,10 @@ namespace OpenSim.Data.MySQL
             return Get((int)RegionFlags.Hyperlink, scopeID);
         }
 
-        public List<RegionData> GetOnlineRegions(UUID scopeID)
-        {
-            return Get((int)RegionFlags.RegionOnline, scopeID);
-        }
-
         private List<RegionData> Get(int regionFlags, UUID scopeID)
         {
             string command = "select * from `" + m_Realm + "` where (flags & " + regionFlags.ToString() + ") <> 0";
-            if (!scopeID.IsZero())
+            if (scopeID != UUID.Zero)
                 command += " and ScopeID = ?scopeID";
 
             using (MySqlCommand cmd = new MySqlCommand(command))

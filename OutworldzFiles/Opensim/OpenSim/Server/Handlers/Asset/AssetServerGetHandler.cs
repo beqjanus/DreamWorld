@@ -68,7 +68,7 @@ namespace OpenSim.Server.Handlers.Asset
         protected override byte[] ProcessRequest(string path, Stream request,
                 IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
         {
-            byte[] result = Array.Empty<byte>();
+            byte[] result = new byte[0];
 
             string[] p = SplitParams(path);
 
@@ -88,7 +88,7 @@ namespace OpenSim.Server.Handlers.Asset
                     {
                         httpResponse.StatusCode = (int)HttpStatusCode.NotFound;
                         httpResponse.ContentType = "text/plain";
-                        result = Array.Empty<byte>();
+                        result = new byte[0];
                     }
                     else
                     {
@@ -102,17 +102,19 @@ namespace OpenSim.Server.Handlers.Asset
 
                     if (metadata != null)
                     {
-                        XmlSerializer xs = new XmlSerializer(typeof(AssetMetadata));
+                        XmlSerializer xs =
+                                new XmlSerializer(typeof(AssetMetadata));
                         result = ServerUtils.SerializeResult(xs, metadata);
 
                         httpResponse.StatusCode = (int)HttpStatusCode.OK;
-                        httpResponse.ContentType = SLUtil.SLAssetTypeToContentType(metadata.Type);
+                        httpResponse.ContentType =
+                                SLUtil.SLAssetTypeToContentType(metadata.Type);
                     }
                     else
                     {
                         httpResponse.StatusCode = (int)HttpStatusCode.NotFound;
                         httpResponse.ContentType = "text/plain";
-                        result = Array.Empty<byte>();
+                        result = new byte[0];
                     }
                 }
                 else
@@ -120,7 +122,7 @@ namespace OpenSim.Server.Handlers.Asset
                     // Unknown request
                     httpResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                     httpResponse.ContentType = "text/plain";
-                    result = Array.Empty<byte>();
+                    result = new byte[0];
                 }
             }
             else if (p.Length == 1)
@@ -136,13 +138,14 @@ namespace OpenSim.Server.Handlers.Asset
                     result = ServerUtils.SerializeResult(xs, asset);
 
                     httpResponse.StatusCode = (int)HttpStatusCode.OK;
-                    httpResponse.ContentType = SLUtil.SLAssetTypeToContentType(asset.Type);
+                    httpResponse.ContentType =
+                            SLUtil.SLAssetTypeToContentType(asset.Type);
                 }
                 else
                 {
                     httpResponse.StatusCode = (int)HttpStatusCode.NotFound;
                     httpResponse.ContentType = "text/plain";
-                    result = Array.Empty<byte>();
+                    result = new byte[0];
                 }
             }
             else
@@ -150,16 +153,17 @@ namespace OpenSim.Server.Handlers.Asset
                 // Unknown request
                 httpResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                 httpResponse.ContentType = "text/plain";
-                result = Array.Empty<byte>();
+                result = new byte[0];
             }
 
             if (httpResponse.StatusCode == (int)HttpStatusCode.NotFound && !string.IsNullOrEmpty(m_RedirectURL) && !string.IsNullOrEmpty(id))
             {
+                httpResponse.StatusCode = (int)HttpStatusCode.Redirect;
                 string rurl = m_RedirectURL;
                 if (!path.StartsWith("/"))
                     rurl += "/";
                 rurl += path;
-                httpResponse.Redirect(rurl);
+                httpResponse.AddHeader("Location", rurl);
                 m_log.DebugFormat("[ASSET GET HANDLER]: Asset not found, redirecting to {0} ({1})", rurl, httpResponse.StatusCode);
             }
             return result;

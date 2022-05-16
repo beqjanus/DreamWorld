@@ -95,11 +95,11 @@ namespace OpenSim.Groups
 
         public ExtendedGroupRecord GetGroupRecord(string RequestingAgentID, UUID GroupID, string GroupName, string token)
         {
-            if (GroupID.IsZero() && string.IsNullOrEmpty(GroupName))
+            if (GroupID == UUID.Zero && (GroupName == null || (GroupName != null && GroupName == string.Empty)))
                 return null;
 
             Dictionary<string, object> sendData = new Dictionary<string, object>();
-            if (!GroupID.IsZero())
+            if (GroupID != UUID.Zero)
                 sendData["GroupID"] = GroupID.ToString();
             if (!string.IsNullOrEmpty(GroupName))
                 sendData["Name"] = GroupsDataUtils.Sanitize(GroupName);

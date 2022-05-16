@@ -354,7 +354,7 @@ namespace OpenSim.Region.ClientStack.Linden
             string capUrl;
 
             // disable the cap clause
-            if (url.Length == 0)
+            if (url == "")
             {
                 return;
             }
