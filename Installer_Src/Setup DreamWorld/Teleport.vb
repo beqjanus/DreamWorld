@@ -14,9 +14,7 @@ Module Teleport
     ''' <returns>true if up</returns>
     Public Function IsRegionReady(Port As Integer) As Boolean
 
-        Dim up As Boolean
-        up = CheckPort(Settings.LANIP, Port)
-        Return up
+        Return CheckPort(Settings.LANIP, Port)
 
     End Function
 

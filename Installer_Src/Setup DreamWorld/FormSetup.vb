@@ -68,8 +68,6 @@ Public Class FormSetup
     Private speed3 As Double
     Private ws As NetServer
 
-
-
     ''' <summary>
     ''' The list of commands
     ''' </summary>
@@ -883,11 +881,6 @@ Public Class FormSetup
         'UPNP create if we need it
         PropMyUPnpMap = New UPnp()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
-        Randomize()
-        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
-        If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
-
         ' WebUI Menu
         ViewWebUI.Visible = Settings.WifiEnabled
 
@@ -942,6 +935,11 @@ Public Class FormSetup
             TextPrint(My.Resources.Stopped_word)
             Return
         End If
+
+        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
+        Randomize()
+        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
+        If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
         ' Boot Port 8001 Server
         TextPrint(My.Resources.Starting_WebServer_word)
@@ -1022,7 +1020,6 @@ Public Class FormSetup
             TextPrint("--> Login = " & "http://" & Settings.BaseHostName & ":80")
         End If
 
-
         Application.DoEvents() ' let timer run
 
         If Settings.Autostart Then
@@ -1045,7 +1042,6 @@ Public Class FormSetup
             System.Diagnostics.Process.Start(e.LinkText)
         Catch
         End Try
-
 
     End Sub
 
@@ -1501,12 +1497,12 @@ Public Class FormSetup
 
                 Dim Groupname = Group_Name(RegionUUID)
                 If GetHwnd(Groupname) = IntPtr.Zero Then
-                    If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                        If Not exitList.ContainsKey(Groupname) Then
-                            exitList.TryAdd(Groupname, "Exit")
-                            Application.DoEvents()
-                        End If
+                    'If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
+                    If Not exitList.ContainsKey(Groupname) Then
+                        exitList.TryAdd(Groupname, "Exit")
+                        Application.DoEvents()
                     End If
+                    'End If
                 End If
             End If
 
@@ -2420,7 +2416,6 @@ Public Class FormSetup
         End If
         TimerBusy = True
 
-
         SyncLock TimerLock ' stop other threads from firing this
             ' Reload regions from disk
             If PropChangedRegionSettings Then
@@ -2690,7 +2685,7 @@ Public Class FormSetup
 
         PropUseIcons = True
         TextPrint(My.Resources.Check_Diag)
-        Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
+        Dim wsstarted = IsRegionReady(CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             PropUseIcons = False

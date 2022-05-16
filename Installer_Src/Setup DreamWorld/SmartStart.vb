@@ -483,7 +483,7 @@ Module SmartStart
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         'Must be listening, not just in a window
                         ResumeRegion(UUID)
-                        If CheckPort("127.0.0.1", GroupPort(RegionUUID)) Then
+                        If IsRegionReady(GroupPort(RegionUUID)) Then
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
                             SendToOpensimWorld(RegionUUID, 0)
                         End If

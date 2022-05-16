@@ -353,8 +353,7 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim MySQL = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
-        If MySQL Then
+        If MysqlInterface.IsMySqlRunning() Then
             QueryString("delete from presence;")
             QueryString("update robust.griduser set online = 'false';")
         End If
@@ -399,8 +398,7 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim MySQL = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
-        If MySQL Then
+        If MysqlInterface.IsMySqlRunning() Then
             QueryString("delete from robust.regions;")
             TextPrint(My.Resources.Deregister_All)
         End If
