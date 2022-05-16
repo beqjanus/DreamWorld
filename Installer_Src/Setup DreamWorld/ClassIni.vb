@@ -193,7 +193,7 @@ Public Class LoadIni
     End Sub
 
     Private Function ReadINIFile() As IniData
-
+        '{"Unknown file format. Couldn't parse the line: ''''. while parsing line number 0 with value '' - IniParser version: 2.5.2.0 while parsing line number 751 with value '''' - IniParser version: 2.5.2.0"}
         Dim waiting As Integer = 10 ' 1 sec
         While waiting > 0
             Try
