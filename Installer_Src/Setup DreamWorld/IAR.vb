@@ -160,9 +160,10 @@ Module IAR
                         opt += " --perm=" & Perm & " "
                     End If
 
+                    Dim Newpath = BackupPath().Replace("/", "\")
                     Dim RegionUUID = FindRegionByName(Settings.WelcomeRegion)
                     ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                    TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
+                    TextPrint(My.Resources.Saving_word & " " & Newpath & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
 
                 End If
             End Using
