@@ -252,7 +252,7 @@ Module Diags
             End Try
         End Using
 
-        If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
+        If result.Contains("<html") Or result.Contains("Ooops!") Or result.Length = 0 Then
             Logger("INFO", Global.Outworldz.My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture), "Diagnostics")
             TextPrint(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
         Else
