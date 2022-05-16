@@ -1041,7 +1041,11 @@ Public Class FormSetup
 
     Private Sub Link_Clicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles TextBox1.LinkClicked
 
-        System.Diagnostics.Process.Start(e.LinkText)
+        Try
+            System.Diagnostics.Process.Start(e.LinkText)
+        Catch
+        End Try
+
 
     End Sub
 
