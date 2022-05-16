@@ -37,11 +37,7 @@ Module PublicIP
             Catch ex As Exception
                 Return False
             End Try
-
-            If success Then
-                Return True
-            End If
-
+            Return success
         End Using
         Log(My.Resources.Info_word, "Port probe fail on port " & CStr(Port))
         Return False
