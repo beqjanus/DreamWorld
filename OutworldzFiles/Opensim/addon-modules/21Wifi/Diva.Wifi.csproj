@@ -297,6 +297,12 @@
 	  <Compile Include="Handlers\WifiUserManagementHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -450,8 +456,6 @@
 	  <EmbeddedResource Include="WifiPages\main-menu-admin-extra.html">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="WifiPages\main-menu-admin.html">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\main-menu-diva.html">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="WifiPages\main-menu-install.html">
 	  </EmbeddedResource>
@@ -900,8 +904,6 @@
 	  <EmbeddedResource Include="WifiPages\images\sortdesc.gif">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="WifiPages\images\stripe-white.jpg">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="WifiPages\images\Thumbs.db">
 	  </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

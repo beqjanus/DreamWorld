@@ -142,13 +142,7 @@
 	  <Compile Include="WhoGotWhat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Release\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
@@ -159,7 +153,7 @@
 	  </Compile>
   </ItemGroup>
   <ItemGroup>
-    <FilesToCopy_0000 Include="WhoGotWhat.ini;Lib\CsvHelper.dll;Lib\WhoGotWhat.dll;obj\Debug\WhoGotWhat.dll;obj\Release\WhoGotWhat.dll" />
+    <FilesToCopy_0000 Include="WhoGotWhat.ini;Lib\CsvHelper.dll;Lib\WhoGotWhat.dll" />
     <FilesToCopy_0001 Include="WhoGotWhat.html" />
   </ItemGroup>
   <Target Name="CopyFiles">
