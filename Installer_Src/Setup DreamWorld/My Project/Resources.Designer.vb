@@ -4516,7 +4516,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Asset Database.
+        '''  Looks up a localized string similar to FS Asset Database.
         '''</summary>
         Friend ReadOnly Property FSasset_word() As String
             Get
