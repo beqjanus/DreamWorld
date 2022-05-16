@@ -91,7 +91,7 @@ Module IAR
                     Return False
                 End If
                 If u.Length > 0 Then
-                    ConsoleCommand(UUID, "load iar --merge " & u & " " & p & " " & """" & thing & """")
+                    ConsoleCommand(UUID, $"load iar --merge {u} ""{p}"" ""{thing}""")
                     SendMessage(UUID, "IAR content is loading")
                     TextPrint(My.Resources.isLoading & vbCrLf & p)
                 Else
@@ -160,9 +160,10 @@ Module IAR
                         opt += " --perm=" & Perm & " "
                     End If
 
+                    Dim Newpath = BackupPath().Replace("/", "\")
                     Dim RegionUUID = FindRegionByName(Settings.WelcomeRegion)
                     ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                    TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
+                    TextPrint(My.Resources.Saving_word & " " & Newpath & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
 
                 End If
             End Using
