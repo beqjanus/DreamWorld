@@ -890,6 +890,10 @@ Public Class FormSetup
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
             WipeScripts(True)
+            WipeBakes()
+            WipeAssets()
+            WipeMesh()
+            TextPrint(My.Resources.All_Caches_Cleared_word)
             Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
         End If
 
