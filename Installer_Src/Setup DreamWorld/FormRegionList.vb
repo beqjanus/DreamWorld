@@ -706,10 +706,9 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 
-        Settings.RegionListVisible = False
-
+        Timer1.Stop()
         _ImageListSmall.Dispose()
         colsize.Dispose()
 
@@ -1824,9 +1823,8 @@ SetWindowOnTop_Err:
         End If
 
         If PropUpdateView() Then ' force a refresh
-
             LoadMyListView()
-
+            Timer1.Interval = 5000
         End If
 
     End Sub
