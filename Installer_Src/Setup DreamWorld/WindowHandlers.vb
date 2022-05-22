@@ -313,16 +313,21 @@ Module WindowHandlers
 
         Dim status As Boolean
         WindowCounter = 0
+        Dim isthere As Integer = 0
         While True
             Try
                 status = SetWindowText(myhandle, windowName)
                 If Not status Then
                     Dim err = Marshal.GetLastWin32Error()
+                    BreakPoint.Print($"Error {CStr(err)}")
                 Else
                     If myProcess Is Nothing Then Return False
                     myProcess.Refresh()
-                    Thread.Sleep(10)
+                    Thread.Sleep(100)
                     If myProcess.MainWindowTitle = windowName Then
+                        isthere += 1
+                    End If
+                    If myProcess.MainWindowTitle = windowName And isthere > 3 Then
                         Return True
                     Else
                         'Dim err = GetLastError()
@@ -334,7 +339,7 @@ Module WindowHandlers
             End Try
 
             WindowCounter += 1
-            If WindowCounter > 600 Then '  1 minute
+            If WindowCounter > 1200 Then '  2 minutes                
                 ErrorLog(windowName & " timeout setting title")
                 Return False
             End If
