@@ -265,26 +265,26 @@ Module IAR
     ''' <param name="BackupName">Name of region to watch</param>
     Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
 
+        Dim ctr As Integer = 300
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 15 And PropOpensimIsRunning
+        Dim fi = New System.IO.FileInfo(FolderAndFileName)
+        While same < 15 And ctr > 0 And PropOpensimIsRunning
             PokeGroupTimer(Group_Name(RegionUUID))
-            Dim fi = New System.IO.FileInfo(FolderAndFileName)
             Try
                 s = fi.Length
             Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Return
+                Debug.Print("oops")
             End Try
             If s = oldsize And s > 0 Then
                 same += 1
             Else
                 same = 0
             End If
+            ctr -= 1
             Sleep(1000)
             oldsize = s
-
         End While
 
     End Sub
