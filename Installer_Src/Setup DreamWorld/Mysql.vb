@@ -1087,7 +1087,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and ((landflags & 64) or (landflags & 16) or (landflags & 2));"
+                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and ((landflags & 64) or (landflags & 16) );"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 #Enable Warning
@@ -1098,7 +1098,7 @@ Public Module MysqlInterface
                             Dim ParcelName = reader.GetString(0)
                             Dim flag = reader.GetInt32(1)
 
-                            If CBool((flag And 64) Or (flag And 16) Or (flag And 2)) Then
+                            If CBool((flag And 64) Or (flag And 16)) Then
                                 str = $"{ParcelName} ("
                             Else
                                 str = "-"
@@ -1110,9 +1110,7 @@ Public Module MysqlInterface
                             If CBool(flag And 16) Then
                                 str += "Land "
                             End If
-                            If CBool(flag And 2) Then
-                                str += "Script"
-                            End If
+
                             str += ")"
                             Diagnostics.Debug.Print(str)
                         End If
