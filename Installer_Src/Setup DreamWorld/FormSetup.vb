@@ -369,8 +369,8 @@ Public Class FormSetup
                     ResumeRegion(RegionUUID)
                 End If
 
-                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                'ConsoleCommand(RegionUUID, "q")
+                'ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                ConsoleCommand(RegionUUID, "q")
 
                 TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
@@ -2165,14 +2165,14 @@ Public Class FormSetup
                 End If
 
                 If Not CurrentLocation.Item(Avatar) = RegionName Then
-                        TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        CurrentLocation.Item(Avatar) = RegionName
-                        AvatarCount(RegionUUID) += 1
-                        PropUpdateView = True
-                        AddorUpdateVisitor(Avatar, RegionName)
-                    Else
-                        Try
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    CurrentLocation.Item(Avatar) = RegionName
+                    AvatarCount(RegionUUID) += 1
+                    PropUpdateView = True
+                    AddorUpdateVisitor(Avatar, RegionName)
+                Else
+                    Try
                         AvatarCount(RegionUUID) += 1
                     Catch
                     End Try
