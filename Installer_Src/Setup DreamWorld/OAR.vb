@@ -5,6 +5,8 @@
 
 #End Region
 
+Imports System.Text.RegularExpressions
+
 Module OAR
     Private _ForceMerge As Boolean
     Private _ForceParcel As Boolean = True
@@ -81,6 +83,8 @@ Module OAR
                     If thing.Length > 0 Then
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
+                        If CheckRegionFit(RegionUUID, thing) Then Return
+
                         Dim Group = Group_Name(RegionUUID)
 
                         Dim ForceParcel As String = ""
@@ -144,6 +148,8 @@ Module OAR
             ErrorLog(My.Resources.Cannot_find_region_word)
         End If
 
+        If CheckRegionFit(RegionUUID, thing) Then Return
+
         TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
         If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
@@ -162,7 +168,7 @@ Module OAR
             If m = vbNo Or m = vbCancel Then Return
         End If
 
-        Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf} load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
+        Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}"""
 
         Dim obj As New TaskObject With {
             .TaskName = FormSetup.TaskName.LoadOARContent,
@@ -173,10 +179,6 @@ Module OAR
         FormSetup.RebootAndRunTask(RegionUUID, obj)
 
     End Sub
-
-    ''' <summary>
-    ''' Backs up a region by name after booting
-    ''' </summary>
 
     Public Sub LoadOARContent2(RegionUUID As String, T As TaskObject)
 
@@ -190,17 +192,13 @@ Module OAR
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            ConsoleCommand(RegionUUID, "change region ""{Region_Name(RegionUUID)}""{vbCrLf}{LoadOarStr}")
+            ConsoleCommand(RegionUUID, LoadOarStr)
         Catch ex As Exception
             BreakPoint.Dump(ex)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
         End Try
 
     End Sub
-
-    ''' <summary>
-    '''
-    ''' </summary>
 
     Public Sub LoadOneOarTask(RegionUUID As String, T As TaskObject)
 
@@ -212,6 +210,12 @@ Module OAR
 
     End Sub
 
+    ''' <summary>
+    ''' Backs up a region by name after booting
+    ''' </summary>
+    ''' <summary>
+    '''
+    ''' </summary>
     Public Sub SaveOar(RegionName As String)
 
         If RegionName Is Nothing Then Return
@@ -269,5 +273,21 @@ Module OAR
         TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & MyValue)
 
     End Sub
+
+    Private Function CheckRegionFit(RegionUUID As String, thing As String) As Boolean
+
+        ' read the size from the file name (1X1), (2X2)
+        Dim pattern1 = New Regex("(.*?)\((\d+)[xX](\d+)\)\.")
+        Dim match1 As Match = pattern1.Match(thing)
+        If match1.Success Then
+            Dim SizeRegion = CInt("0" & match1.Groups(2).Value.Trim)
+            If SizeRegion * 256 > SizeX(RegionUUID) Then
+                TextPrint($"Cannot load OAR - Too big to fit region")
+                Return True
+            End If
+        End If
+        Return False
+
+    End Function
 
 End Module
