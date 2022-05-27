@@ -19,7 +19,7 @@ my $dir = getcwd;
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
 #my $Contabo = '\\\\contabo2.outworldz.com/c';
 my $Fleta = '\\\\fleta/c';
-my $Dest = "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
+my $Dest = "F:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
 
 CheckDistro();
 
@@ -641,7 +641,8 @@ sub GetDate {
     return DateTime->now->set_time_zone('America/Chicago')->ymd('/');
 }
 
-sub GetTime {
+sub GetTime {p
+             
     use DateTime;
     return DateTime->now->set_time_zone('America/Chicago')->hms(':');
 }

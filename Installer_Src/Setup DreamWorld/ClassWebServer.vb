@@ -144,7 +144,7 @@ Public Class NetServer
 
         Using listener As New System.Net.HttpListener()
             listener.Prefixes.Clear()
-            listener.Prefixes.Add("http://+:" & MyPort & "/")
+            listener.Prefixes.Add("http://*:" & MyPort & "/")
 
             Try
                 listener.Start() ' Throws Exception

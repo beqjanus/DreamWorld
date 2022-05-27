@@ -2234,8 +2234,8 @@ namespace OpenSim.Region.CoreModules.World.Land
                                         out extLandData.X, out extLandData.Y))
                         break;
 
-                    //m_log.DebugFormat("[LAND MANAGEMENT MODULE]: Got parcelinfo request for regionHandle {0}, x/y {1}/{2}",
-                    //                extLandData.RegionHandle, extLandData.X, extLandData.Y);
+                    m_log.DebugFormat("[LAND MANAGEMENT MODULE]: Got parcelinfo request for regionHandle {0}, x/y {1}/{2}",
+                                    extLandData.RegionHandle, extLandData.X, extLandData.Y);
 
                     // for this region or for somewhere else?
                     if (extLandData.RegionHandle == m_scene.RegionInfo.RegionHandle)
