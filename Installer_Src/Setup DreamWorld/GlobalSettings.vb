@@ -11,8 +11,8 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "4.998"
-    Public Const _SimVersion As String = "#ba46b5bf8bd0 libomv master 0.9.2.dev 2020-09-21 2020-10-14 19:44."
+    Public Const _MyVersion As String = "4.999"
+    Public Const _SimVersion As String = "Opensim Core d6760ec0ef (a few changes For mantis 9006 attachment moveToTarget()"
     Public Const FreeDiskSpaceWarn As Long = 100000000
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
