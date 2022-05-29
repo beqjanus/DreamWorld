@@ -254,27 +254,6 @@ Module RPC
 
     End Function
 
-    'http://opensimulator.org/wiki/RemoteAdmin
-    ' New function only in Dreamgrid's version of Opensimulator
-    ''' <summary>
-    ''' Returns count of avatars in a region less NPCs'
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    ''' <returns>integer</returns>
-    Private Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
-
-        If Not RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            Return 0
-        End If
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
-
-    End Function
-
     Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 2000) As Boolean
 
         If RegionUUID.Length = 0 Then Return False
