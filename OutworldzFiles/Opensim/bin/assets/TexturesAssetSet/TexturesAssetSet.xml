@@ -876,6 +876,12 @@
      <Key Name="assetID" Value="11b4c57c-56b3-04ed-1f82-2004363882e4"/>
      <Key Name="name" Value="DefaultRainbow"/>
      <Key Name="assetType" Value="0" />
+     <Key Name="fileName" Value="rainbow2.j2c"/>
+  </Section>
+  <Section Name="ReverseRainbow">
+     <Key Name="assetID" Value="11b4c57c-56b3-04ed-1f82-2004363883f4"/>
+     <Key Name="name" Value="Rainbow with reverse colors order"/>
+     <Key Name="assetType" Value="0" />
      <Key Name="fileName" Value="rainbow.j2c"/>
   </Section>
   <Section Name="DefaultHalo">
@@ -890,6 +896,14 @@
      <Key Name="name" Value="MoonAlias"/>
      <Key Name="assetType" Value="0" />
      <Key Name="fileName" Value="moon.jp2"/>
+  </Section>
+
+  <Section Name = "DefaultSun">
+    <Key Name = "assetID" Value = "32bfbcea-24b1-fb9d-1ef9-48a28a63730f" />
+    <Key Name = "name" Value = "DefaultSun" />
+    <Key Name = "description" Value = "DefaultSun" />
+    <Key Name = "assetType" Value = "0" />
+    <Key Name = "fileName" Value = "32bfbcea-24b1-fb9d-1ef9-48a28a63730f.dat" />
   </Section>
 
 </Nini>

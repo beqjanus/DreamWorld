@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -49,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;</DefineConstants>
+	  <DefineConstants>NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -143,6 +143,7 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ThirdParty\SmartThreadPool\SmartThreadPool.csproj">
 		<Name>SmartThreadPool</Name>
@@ -151,6 +152,7 @@
 		<Private>False</Private>
 	  </ProjectReference>
 	</ItemGroup>
+
 	<ItemGroup>
 	  <Compile Include="AgentCircuitData.cs">
 		<SubType>Code</SubType>
@@ -504,6 +506,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="TerrainData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="TerrainTaintsArray.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="TextureRequestArgs.cs">

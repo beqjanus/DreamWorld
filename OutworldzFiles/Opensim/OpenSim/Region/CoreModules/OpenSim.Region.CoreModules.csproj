@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -49,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;</DefineConstants>
+	  <DefineConstants>NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -70,11 +70,6 @@
 		<HintPath>..\..\..\bin\CSJ2K.dll</HintPath>
 		<Private>False</Private>
 	  </Reference>
-	  <Reference Include="DotNetOpenMail" >
-		  <Name>DotNetOpenMail</Name>
-		<HintPath>..\..\..\bin\DotNetOpenMail.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
 	  <Reference Include="Ionic.Zip" >
 		  <Name>Ionic.Zip</Name>
 		<HintPath>..\..\..\bin\Ionic.Zip.dll</HintPath>
@@ -85,8 +80,16 @@
 		<HintPath>..\..\..\bin\log4net.dll</HintPath>
 		<Private>False</Private>
 	  </Reference>
+	  <Reference Include="MailKit" >
+		  <Name>MailKit</Name>
+		<Private>False</Private>
+	  </Reference>
 	  <Reference Include="Microsoft.CSharp" >
 		  <Name>Microsoft.CSharp</Name>
+		<Private>False</Private>
+	  </Reference>
+	  <Reference Include="MimeKit" >
+		  <Name>MimeKit</Name>
 		<Private>False</Private>
 	  </Reference>
 	  <Reference Include="Mono.Addins" >
@@ -163,6 +166,7 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Capabilities\OpenSim.Capabilities.csproj">
 		<Name>OpenSim.Capabilities</Name>
@@ -273,6 +277,7 @@
 		<Private>False</Private>
 	  </ProjectReference>
 	</ItemGroup>
+
 	<ItemGroup>
 	  <Compile Include="Agent\AssetTransaction\AgentAssetsTransactions.cs">
 		<SubType>Code</SubType>
@@ -692,9 +697,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Archiver\DearchiveScenesGroup.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="World\Cloud\CloudModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Estate\EstateConnector.cs">

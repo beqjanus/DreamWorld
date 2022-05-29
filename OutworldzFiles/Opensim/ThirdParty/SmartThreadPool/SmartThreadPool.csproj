@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -49,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;</DefineConstants>
+	  <DefineConstants>NET46;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -82,8 +82,7 @@
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
-	<ItemGroup>
-	</ItemGroup>
+
 	<ItemGroup>
 	  <Compile Include="CanceledWorkItemsGroup.cs">
 		<SubType>Code</SubType>
@@ -110,9 +109,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="STPStartInfo.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SynchronizedDictionary.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="WIGStartInfo.cs">

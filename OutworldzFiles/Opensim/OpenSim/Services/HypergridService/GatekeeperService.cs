@@ -25,8 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define DG
-// #undefine DG
 
 using System;
 using System.Collections.Generic;
@@ -37,6 +35,7 @@ using System.Text.RegularExpressions;
 
 using OpenSim.Framework;
 using OpenSim.Services.Interfaces;
+using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using OpenSim.Server.Base;
 using OpenSim.Services.Connectors.InstantMessage;
 using OpenSim.Services.Connectors.Hypergrid;
@@ -46,38 +45,44 @@ using OpenSim.Region.Framework;
 using Nini.Config;
 using log4net;
 
-using GridRegion = OpenSim.Services.Interfaces.GridRegion;
+
 using RegionFlags = OpenSim.Framework.RegionFlags;
 
 namespace OpenSim.Services.HypergridService
 {
     public class GatekeeperService : IGatekeeperService
     {
-        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog m_log =
+                LogManager.GetLogger(
+                MethodBase.GetCurrentMethod().DeclaringType);
+
+        private static bool m_Initialized = false;
+
+        private static IGridService m_GridService;
+        private static IPresenceService m_PresenceService;
+        private static IUserAccountService m_UserAccountService;
+        private static IUserAgentService m_UserAgentService;
+        private static ISimulationService m_SimulationService;
+        private static IGridUserService m_GridUserService;
+        private static IBansService m_BansService;
 
         private static string m_AllowedClients = string.Empty;
-        private static bool m_AllowTeleportsToAnyRegion;
-        private static IBansService m_BansService;
-        private static GridRegion m_DefaultGatewayRegion;
         private static string m_DeniedClients = string.Empty;
         private static string m_DeniedMacs = string.Empty;
         private static bool m_ForeignAgentsAllowed = true;
         private static List<string> m_ForeignsAllowedExceptions = new List<string>();
         private static List<string> m_ForeignsDisallowedExceptions = new List<string>();
+
+        private static UUID m_ScopeID;
+        private static bool m_AllowTeleportsToAnyRegion;
+
         private static OSHHTPHost m_gatekeeperHost;
         private static string m_gatekeeperURL;
-        private static IGridService m_GridService;
-        private static IGridUserService m_GridUserService;
-        private static bool m_Initialized = false;
-        private static string m_messageKey;
-        private static IPresenceService m_PresenceService;
-        private static UUID m_ScopeID;
-        private static ISimulationService m_SimulationService;
-        private static IUserAccountService m_UserAccountService;
-        private static IUserAgentService m_UserAgentService;
-        private static bool m_allowDuplicatePresences = false;
         private static HashSet<OSHHTPHost> m_gateKeeperAlias;
 
+        private static GridRegion m_DefaultGatewayRegion;
+        private static bool m_allowDuplicatePresences = false;
+        private static string m_messageKey;
         // SmartStart fkb
         protected static bool m_SmartStartEnabled = false;
         protected static string m_SmartStartUrl = string.Empty;
@@ -101,7 +106,7 @@ namespace OpenSim.Services.HypergridService
                 string gridUserService = serverConfig.GetString("GridUserService", string.Empty);
                 string bansService = serverConfig.GetString("BansService", string.Empty);
                 // These are mandatory, the others aren't
-                if (gridService == string.Empty || presenceService == string.Empty)
+                if (gridService.Length == 0 || presenceService.Length == 0)
                     throw new Exception("Incomplete specifications, Gatekeeper Service cannot function.");
 
                 string scope = serverConfig.GetString("ScopeID", UUID.Zero.ToString());
@@ -218,120 +223,13 @@ namespace OpenSim.Services.HypergridService
         {
         }
 
-        //DreamGrid SmartStart fkb
-        public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
+        protected void LoadDomainExceptionsFromConfig(IConfig config, string variable, List<string> exceptions)
         {
-            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
-            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-            if (m_SmartStartEnabled)
-            {
-                string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
-                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+            string value = config.GetString(variable, string.Empty);
+            string[] parts = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                HttpWebRequest webRequest;
-                try
-                {
-                    webRequest = (HttpWebRequest)WebRequest.Create(url);
-                }
-                catch
-                {
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
-                    return UUID.Zero;
-                }
-
-                webRequest.Timeout = 30000; //30 Second Timeout
-                webRequest.AllowWriteStreamBuffering = false;
-
-                try
-                {
-                    string tempStr;
-                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
-                    {
-                        using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
-                            tempStr = reader.ReadToEnd();
-                    }
-
-                    if (string.IsNullOrEmpty(tempStr))
-                    {
-                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
-                        return UUID.Zero;
-                    }
-
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
-                    regionID = UUID.Parse(tempStr);
-                }
-                catch (Exception ex)
-                {
-                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
-                }
-            }
-            return regionID;
-        }
-
-        public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
-        {
-            message = null;
-
-            if (!m_AllowTeleportsToAnyRegion)
-            {
-                // Don't even check the given regionID
-                m_log.DebugFormat(
-                    "[GATEKEEPER SERVICE]: Returning gateway region {0} {1} @ {2} to user {3}{4} as teleporting to arbitrary regions is not allowed.",
-                    m_DefaultGatewayRegion.RegionName,
-                    m_DefaultGatewayRegion.RegionID,
-                    m_DefaultGatewayRegion.ServerURI,
-                    agentID,
-                    agentHomeURI == null ? "" : " @ " + agentHomeURI);
-
-                message = "Teleport to the default region.";
-                return m_DefaultGatewayRegion;
-            }
-
-            GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
-
-            if (region == null)
-            {
-                m_log.DebugFormat(
-                    "[GATEKEEPER SERVICE]: Could not find region with ID {0} as requested by user {1}{2}.  Returning null.",
-                    regionID, agentID, (agentHomeURI == null) ? "" : " @ " + agentHomeURI);
-
-                message = "The teleport destination could not be found.";
-                return null;
-            }
-
-            // fkb
-            if (m_SmartStartEnabled)
-            {
-                if ((region.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
-                {
-                    UUID rid = GetSmartStartALTRegion(region.RegionID, agentID);
-                    if (rid == UUID.Zero)
-                    {
-                        message = "Region redirection check fail";
-                        return null;
-                    }
-
-                    if (rid != region.RegionID)
-                    {
-                        GridRegion r = m_GridService.GetRegionByUUID(m_ScopeID, rid);
-                        if (r == null)
-                        {
-                            message = "Redirect region not found";
-                            return null;
-                        }
-                        region = r;
-                    }
-                }
-            }
-            m_log.DebugFormat(
-                "[GATEKEEPER SERVICE]: Returning region {0} {1} @ {2} to user {3}{4}.",
-                region.RegionName,
-                region.RegionID,
-                region.ServerURI,
-                agentID,
-                agentHomeURI == null ? "" : " @ " + agentHomeURI);
-
-            return region;
+            foreach (string s in parts)
+                exceptions.Add(s.Trim());
         }
 
         public bool LinkRegion(string regionName, out UUID regionID, out ulong regionHandle, out string externalName, out string imageURL, out string reason, out int sizeX, out int sizeY)
@@ -345,8 +243,8 @@ namespace OpenSim.Services.HypergridService
             reason = string.Empty;
             GridRegion region = null;
 
-            //m_log.DebugFormat("[GATEKEEPER SERVICE]: Request to link to {0}", (regionName == string.Empty)? "default region" : regionName);
-            if (!m_AllowTeleportsToAnyRegion || regionName == string.Empty)
+            //m_log.DebugFormat("[GATEKEEPER SERVICE]: Request to link to {0}", (regionName.Length == 0)? "default region" : regionName);
+            if (!m_AllowTeleportsToAnyRegion || regionName.Length == 0)
             {
                 List<GridRegion> defs = m_GridService.GetDefaultHypergridRegions(m_ScopeID);
                 if (defs != null && defs.Count > 0)
@@ -384,17 +282,49 @@ namespace OpenSim.Services.HypergridService
             return true;
         }
 
-        protected void LoadDomainExceptionsFromConfig(IConfig config, string variable, List<string> exceptions)
+        public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
         {
-            string value = config.GetString(variable, string.Empty);
-            string[] parts = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            message = null;
 
-            foreach (string s in parts)
-                exceptions.Add(s.Trim());
+            if (!m_AllowTeleportsToAnyRegion)
+            {
+                // Don't even check the given regionID
+                m_log.DebugFormat(
+                    "[GATEKEEPER SERVICE]: Returning gateway region {0} {1} @ {2} to user {3}{4} as teleporting to arbitrary regions is not allowed.",
+                    m_DefaultGatewayRegion.RegionName,
+                    m_DefaultGatewayRegion.RegionID,
+                    m_DefaultGatewayRegion.ServerURI,
+                    agentID,
+                    agentHomeURI == null ? "" : " @ " + agentHomeURI);
+
+                message = "Teleporting to the default region.";
+                return m_DefaultGatewayRegion;
+            }
+
+            GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
+
+            if (region == null)
+            {
+                m_log.DebugFormat(
+                    "[GATEKEEPER SERVICE]: Could not find region with ID {0} as requested by user {1}{2}.  Returning null.",
+                    regionID, agentID, (agentHomeURI == null) ? "" : " @ " + agentHomeURI);
+
+                message = "The teleport destination could not be found.";
+                return null;
+            }
+
+            m_log.DebugFormat(
+                "[GATEKEEPER SERVICE]: Returning region {0} {1} @ {2} to user {3}{4}.",
+                region.RegionName,
+                region.RegionID,
+                region.ServerURI,
+                agentID,
+                agentHomeURI == null ? "" : " @ " + agentHomeURI);
+
+            return region;
         }
 
         #region Login Agent
-
         public bool LoginAgent(GridRegion source, AgentCircuitData aCircuit, GridRegion destination, out string reason)
         {
             reason = string.Empty;
@@ -746,7 +676,8 @@ namespace OpenSim.Services.HypergridService
             return false;
         }
 
-        #endregion Login Agent
+        #endregion
+
 
         #region Misc
 
@@ -804,7 +735,59 @@ namespace OpenSim.Services.HypergridService
 
             return true;
         }
+        #endregion
 
-        #endregion Misc
+
+        //DreamGrid SmartStart fkb
+        public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
+        {
+            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
+            if (m_SmartStartEnabled)
+            {
+                string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
+                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+
+                HttpWebRequest webRequest;
+                try
+                {
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
+                }
+                catch
+                {
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    return UUID.Zero;
+                }
+
+                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.AllowWriteStreamBuffering = false;
+
+                try
+                {
+                    string tempStr;
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
+                            tempStr = reader.ReadToEnd();
+                    }
+
+                    if (string.IsNullOrEmpty(tempStr))
+                    {
+                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        return UUID.Zero;
+                    }
+
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    regionID = UUID.Parse(tempStr);
+                }
+                catch (Exception ex)
+                {
+                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                }
+            }
+            return regionID;
+        }
+
     }
+
 }

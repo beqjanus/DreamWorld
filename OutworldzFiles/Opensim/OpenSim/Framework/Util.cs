@@ -82,8 +82,8 @@ namespace OpenSim.Framework
 
         FoldedMask = 0x0f,
 
-        FoldingShift = 13 ,  // number of bit shifts from normal perm to folded or back (same as Transfer shift below)
-                             // when doing as a block
+        FoldingShift = 13,  // number of bit shifts from normal perm to folded or back (same as Transfer shift below)
+                            // when doing as a block
 
         Transfer = 1 << 13, // 0x02000
         Modify = 1 << 14,   // 0x04000
@@ -125,17 +125,15 @@ namespace OpenSim.Framework
     /// </remarks>
     public class STPInfo
     {
-        public string Name { get; set; }
-        public STPStartInfo STPStartInfo { get; set; }
-        public WIGStartInfo WIGStartInfo { get; set; }
-        public bool IsIdle { get; set; }
-        public bool IsShuttingDown { get; set; }
-        public int MaxThreads { get; set; }
-        public int MinThreads { get; set; }
-        public int InUseThreads { get; set; }
-        public int ActiveThreads { get; set; }
-        public int WaitingCallbacks { get; set; }
-        public int MaxConcurrentWorkItems { get; set; }
+        public string Name;
+        public bool IsIdle;
+        public bool IsShuttingDown;
+        public int MaxThreads;
+        public int MinThreads;
+        public int InUseThreads;
+        public int ActiveThreads;
+        public int WaitingCallbacks;
+        public int MaxConcurrentWorkItems;
     }
 
     /// <summary>
@@ -164,9 +162,9 @@ namespace OpenSim.Framework
         {
             LogThreadPool = 0;
             LogOverloads = true;
-            TimeStampClockPeriod = 1.0D/ (double)Stopwatch.Frequency;
+            TimeStampClockPeriod = 1.0D / (double)Stopwatch.Frequency;
             TimeStampClockPeriodMS = 1e3 * TimeStampClockPeriod;
-            m_log.InfoFormat("[UTIL] TimeStamp clock with period of {0}ms", Math.Round(TimeStampClockPeriodMS,6,MidpointRounding.AwayFromZero));
+            m_log.InfoFormat("[UTIL] TimeStamp clock with period of {0}ms", Math.Round(TimeStampClockPeriodMS, 6, MidpointRounding.AwayFromZero));
         }
 
         private static uint nextXferID = 5000;
@@ -224,7 +222,7 @@ namespace OpenSim.Framework
         /// <returns></returns>
         public static double lerp(double a, double b, double c)
         {
-            return (b*a) + (c*(1 - a));
+            return (b * a) + (c * (1 - a));
         }
 
         /// <summary>
@@ -250,13 +248,13 @@ namespace OpenSim.Framework
         public static Encoding UTF8 = Encoding.UTF8;
         public static Encoding UTF8NoBomEncoding = new UTF8Encoding(false);
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] UTF8Getbytes(string s)
         {
             return UTF8.GetBytes(s);
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] UTF8NBGetbytes(string s)
         {
             return UTF8NoBomEncoding.GetBytes(s);
@@ -277,7 +275,7 @@ namespace OpenSim.Framework
         /// <returns>The distance between the two vectors</returns>
         public static double GetDistanceTo(Vector3 a, Vector3 b)
         {
-            return Vector3.Distance(a,b);
+            return Vector3.Distance(a, b);
         }
 
         /// <summary>
@@ -289,7 +287,7 @@ namespace OpenSim.Framework
         /// <returns></returns>
         public static bool DistanceLessThan(Vector3 a, Vector3 b, double amount)
         {
-            return Vector3.DistanceSquared(a,b) < (amount * amount);
+            return Vector3.DistanceSquared(a, b) < (amount * amount);
         }
 
         /// <summary>
@@ -334,16 +332,16 @@ namespace OpenSim.Framework
         public static Quaternion Axes2Rot(Vector3 fwd, Vector3 left, Vector3 up)
         {
             float s;
-            float tr = (float) (fwd.X + left.Y + up.Z + 1.0);
+            float tr = (float)(fwd.X + left.Y + up.Z + 1.0);
 
             if (tr >= 1.0)
             {
-                s = (float) (0.5 / Math.Sqrt(tr));
+                s = (float)(0.5 / Math.Sqrt(tr));
                 return new Quaternion(
                         (left.Z - up.Y) * s,
                         (up.X - fwd.Z) * s,
                         (fwd.Y - left.X) * s,
-                        (float) 0.25 / s);
+                        (float)0.25 / s);
             }
             else
             {
@@ -351,9 +349,9 @@ namespace OpenSim.Framework
 
                 if (max < fwd.X)
                 {
-                    s = (float) (Math.Sqrt(fwd.X - (left.Y + up.Z) + 1.0));
-                    float x = (float) (s * 0.5);
-                    s = (float) (0.5 / s);
+                    s = (float)(Math.Sqrt(fwd.X - (left.Y + up.Z) + 1.0));
+                    float x = (float)(s * 0.5);
+                    s = (float)(0.5 / s);
                     return new Quaternion(
                             x,
                             (fwd.Y + left.X) * s,
@@ -362,9 +360,9 @@ namespace OpenSim.Framework
                 }
                 else if (max == left.Y)
                 {
-                    s = (float) (Math.Sqrt(left.Y - (up.Z + fwd.X) + 1.0));
-                    float y = (float) (s * 0.5);
-                    s = (float) (0.5 / s);
+                    s = (float)(Math.Sqrt(left.Y - (up.Z + fwd.X) + 1.0));
+                    float y = (float)(s * 0.5);
+                    s = (float)(0.5 / s);
                     return new Quaternion(
                             (fwd.Y + left.X) * s,
                             y,
@@ -373,9 +371,9 @@ namespace OpenSim.Framework
                 }
                 else
                 {
-                    s = (float) (Math.Sqrt(up.Z - (fwd.X + left.Y) + 1.0));
-                    float z = (float) (s * 0.5);
-                    s = (float) (0.5 / s);
+                    s = (float)(Math.Sqrt(up.Z - (fwd.X + left.Y) + 1.0));
+                    float z = (float)(s * 0.5);
+                    s = (float)(0.5 / s);
                     return new Quaternion(
                             (up.X + fwd.Z) * s,
                             (left.Z + up.Y) * s,
@@ -390,7 +388,7 @@ namespace OpenSim.Framework
             get { return randomClass; }
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong UIntsToLong(uint X, uint Y)
         {
             return ((ulong)X << 32) | (ulong)Y;
@@ -400,16 +398,16 @@ namespace OpenSim.Framework
         // Region handles are based on the coordinate of the region corner with lower X and Y
         // var regions need more work than this to get that right corner from a generic world position
         // this corner must be on a grid point
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong RegionWorldLocToHandle(uint X, uint Y)
         {
-           ulong handle = X & 0xffffff00; // make sure it matchs grid coord points.
-           handle <<= 32; // to higher half
-           handle |= (Y & 0xffffff00);
-           return handle;
+            ulong handle = X & 0xffffff00; // make sure it matchs grid coord points.
+            handle <<= 32; // to higher half
+            handle |= (Y & 0xffffff00);
+            return handle;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong RegionGridLocToHandle(uint X, uint Y)
         {
             ulong handle = X;
@@ -418,14 +416,14 @@ namespace OpenSim.Framework
             return handle;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RegionHandleToWorldLoc(ulong handle, out uint X, out uint Y)
         {
             X = (uint)(handle >> 32);
             Y = (uint)(handle & 0xfffffffful);
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RegionHandleToRegionLoc(ulong handle, out uint X, out uint Y)
         {
             X = (uint)(handle >> 40) & 0x00ffffffu; //  bring from higher half, divide by 256 and clean
@@ -435,19 +433,61 @@ namespace OpenSim.Framework
 
         // A region location can be 'world coordinates' (meters) or 'region grid coordinates'
         // grid coordinates have a fixed step of 256m as defined by viewers
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint WorldToRegionLoc(uint worldCoord)
         {
             return worldCoord >> 8;
         }
 
         // Convert a region's 'region grid coordinate' to its 'world coordinate'.
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint RegionToWorldLoc(uint regionCoord)
         {
             return regionCoord << 8;
         }
 
+        public static bool CompareRegionHandles(ulong handle, Vector3 handleOffset, RegionInfo region, out Vector3 regionOffset)
+        {
+            RegionHandleToWorldLoc(handle, out uint uhX, out uint uhY);
+            double px = uhX - region.WorldLocX + (double)handleOffset.X;
+            double py = uhY - region.WorldLocY + (double)handleOffset.Y;
+            if (px >= 0 && px < region.RegionSizeX && py >= 0 && py < region.RegionSizeY)
+            {
+                regionOffset = new Vector3((float)px, (float)py, handleOffset.Z);
+                return true;
+            }
+            regionOffset = Vector3.Zero;
+            return false;
+        }
+
+        public static bool CompareRegionHandles(ulong handle, Vector3 handleOffset, ulong regionhandle, int regionSizeX, int regionSizeY, out Vector3 regionOffset)
+        {
+            RegionHandleToWorldLoc(handle, out uint uhX, out uint uhY);
+            RegionHandleToWorldLoc(regionhandle, out uint urX, out uint urY);
+            double px = uhX - urX + (double)handleOffset.X;
+            double py = uhY - urY + (double)handleOffset.Y;
+            if (px >= 0 && px < regionSizeX && py >= 0 && py < regionSizeY)
+            {
+                regionOffset = new Vector3((float)px, (float)py, handleOffset.Z);
+                return true;
+            }
+            regionOffset = Vector3.Zero;
+            return false;
+        }
+
+        public static bool CompareRegionHandles(ulong handle, Vector3 handleOffset, int regionX, int regionY, int regionSizeX, int regionSizeY, out Vector3 regionOffset)
+        {
+            RegionHandleToWorldLoc(handle, out uint uhX, out uint uhY);
+            double px = uhX - regionX + (double)handleOffset.X;
+            double py = uhY - regionY + (double)handleOffset.Y;
+            if (px >= 0 && px < regionSizeX && py >= 0 && py < regionSizeY)
+            {
+                regionOffset = new Vector3((float)px, (float)py, handleOffset.Z);
+                return true;
+            }
+            regionOffset = Vector3.Zero;
+            return false;
+        }
 
         public static bool checkServiceURI(string uristr, out string serviceURI, out string serviceHost, out string serviceIPstr)
         {
@@ -456,16 +496,16 @@ namespace OpenSim.Framework
             serviceIPstr = string.Empty;
             try
             {
-                Uri  uri = new Uri(uristr);
+                Uri uri = new Uri(uristr);
                 serviceURI = uri.AbsoluteUri;
-                if(uri.Port == 80)
-                    serviceURI = serviceURI.Trim(new char[] { '/', ' ' }) +":80/";
-                else if(uri.Port == 443)
-                    serviceURI = serviceURI.Trim(new char[] { '/', ' ' }) +":443/";
+                if (uri.Port == 80)
+                    serviceURI = serviceURI.Trim(new char[] { '/', ' ' }) + ":80/";
+                else if (uri.Port == 443)
+                    serviceURI = serviceURI.Trim(new char[] { '/', ' ' }) + ":443/";
                 serviceHost = uri.Host;
 
-                IPEndPoint ep = Util.getEndPoint(serviceHost,uri.Port);
-                if(ep == null)
+                IPEndPoint ep = Util.getEndPoint(serviceHost, uri.Port);
+                if (ep == null)
                     return false;
 
                 serviceIPstr = ep.Address.ToString();
@@ -479,7 +519,7 @@ namespace OpenSim.Framework
         }
 
 
-        
+
         public static bool buildHGRegionURI(string inputName, out string serverURI, out string regionName)
         {
             serverURI = string.Empty;
@@ -499,17 +539,17 @@ namespace OpenSim.Framework
 
                 string[] parts = inputName.Split(new char[] { ':' });
                 int indx;
-                if(parts.Length == 0)
+                if (parts.Length == 0)
                     return false;
                 if (parts.Length == 1)
                 {
                     indx = inputName.IndexOf('/');
                     if (indx < 0)
-                        serverURI = "http://"+ inputName + "/";
+                        serverURI = "http://" + inputName + "/";
                     else
                     {
-                        serverURI = "http://"+ inputName.Substring(0,indx + 1);
-                        if(indx + 2 < inputName.Length)
+                        serverURI = "http://" + inputName.Substring(0, indx + 1);
+                        if (indx + 2 < inputName.Length)
                             regionName = inputName.Substring(indx + 1);
                     }
                 }
@@ -520,7 +560,7 @@ namespace OpenSim.Framework
                     if (parts.Length >= 2)
                     {
                         indx = parts[1].IndexOf('/');
-                        if(indx < 0)
+                        if (indx < 0)
                         {
                             // If it's a number then assume it's a port. Otherwise, it's a region name.
                             if (!int.TryParse(parts[1], out port))
@@ -532,7 +572,7 @@ namespace OpenSim.Framework
                         else
                         {
                             string portstr = parts[1].Substring(0, indx);
-                            if(indx + 2 < parts[1].Length)
+                            if (indx + 2 < parts[1].Length)
                                 regionName = parts[1].Substring(indx + 1);
                             if (!int.TryParse(portstr, out port))
                                 port = 80;
@@ -541,10 +581,10 @@ namespace OpenSim.Framework
                     // always take the last one
                     if (parts.Length >= 3)
                     {
-                       regionName = parts[2];
+                        regionName = parts[2];
                     }
 
-                    serverURI = "http://"+ host +":"+ port.ToString() + "/";
+                    serverURI = "http://" + host + ":" + port.ToString() + "/";
                 }
             }
             else
@@ -561,9 +601,9 @@ namespace OpenSim.Framework
                 serverURI = parts[0];
 
                 int indx = serverURI.LastIndexOf('/');
-                if(indx > 10)
+                if (indx > 10)
                 {
-                    if(indx + 2 < inputName.Length)
+                    if (indx + 2 < inputName.Length)
                         regionName = inputName.Substring(indx + 1);
                     serverURI = inputName.Substring(0, indx + 1);
                 }
@@ -577,34 +617,37 @@ namespace OpenSim.Framework
             Uri uri;
             try
             {
-                    uri = new Uri(serverURI);
+                uri = new Uri(serverURI);
             }
             catch
             {
                 return false;
             }
 
-            if(!string.IsNullOrEmpty(regionName))
+            if (!string.IsNullOrEmpty(regionName))
                 regionName = regionName.Trim(new char[] { '"', ' ' });
             serverURI = uri.AbsoluteUri;
-            if(uri.Port == 80)
-                serverURI = serverURI.Trim(new char[] { '/', ' ' }) +":80/";
-            else if(uri.Port == 443)
-                serverURI = serverURI.Trim(new char[] { '/', ' ' }) +":443/";
+            if (uri.Port == 80)
+                serverURI = serverURI.Trim(new char[] { '/', ' ' }) + ":80/";
+            else if (uri.Port == 443)
+                serverURI = serverURI.Trim(new char[] { '/', ' ' }) + ":443/";
             return true;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Clamp<T>(T x, T min, T max)
             where T : IComparable<T>
         {
-            return x.CompareTo(max) > 0 ? max :
-                x.CompareTo(min) < 0 ? min :
-                x;
+            if (x.CompareTo(max) > 0)
+                return max;
+
+            if (x.CompareTo(min) < 0)
+                return min;
+            return x;
         }
 
         // Clamp the maximum magnitude of a vector
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 ClampV(Vector3 x, float max)
         {
             float lenSq = x.LengthSquared();
@@ -732,7 +775,7 @@ namespace OpenSim.Framework
         public static byte[] ResultFailureMessageEnd = osUTF8.GetASCIIBytes("</Message></ServerResponse>");
         public static byte[] ResultFailureMessage(string message)
         {
-            osUTF8  res = new osUTF8(ResultFailureMessageStart.Length + ResultFailureMessageEnd.Length + message.Length);
+            osUTF8 res = new osUTF8(ResultFailureMessageStart.Length + ResultFailureMessageEnd.Length + message.Length);
             res.Append(ResultFailureMessageStart);
             res.Append(message);
             res.Append(ResultFailureMessageEnd);
@@ -752,7 +795,7 @@ namespace OpenSim.Framework
             }
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static bool IsHexa(char c)
         {
             if (c >= '0' && c <= '9')
@@ -770,7 +813,7 @@ namespace OpenSim.Framework
             var ids = new List<UUID>();
 
             int endA = indx + len;
-            if(endA > s.Length)
+            if (endA > s.Length)
                 endA = s.Length;
             if (endA - indx < 36)
                 return ids;
@@ -876,7 +919,7 @@ namespace OpenSim.Framework
             return ids;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static bool IsHexa(byte c)
         {
             if (c >= '0' && c <= '9')
@@ -1073,35 +1116,41 @@ namespace OpenSim.Framework
             return true;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double UnixTimeSinceEpochSecs()
         {
             TimeSpan t = DateTime.UtcNow - UnixEpoch;
             return t.TotalSeconds;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int UnixTimeSinceEpoch()
         {
             TimeSpan t = DateTime.UtcNow - UnixEpoch;
             return (int)t.TotalSeconds;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong UnixTimeSinceEpoch_uS()
         {
             TimeSpan t = DateTime.UtcNow - UnixEpoch;
             return (ulong)(t.TotalMilliseconds * 1000);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ToUnixTime(DateTime stamp)
         {
             TimeSpan t = stamp.ToUniversalTime() - UnixEpoch;
             return (int)t.TotalSeconds;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime ToDateTime(ulong seconds)
         {
             return UnixEpoch.AddSeconds(seconds);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DateTime ToDateTime(int seconds)
         {
             return UnixEpoch.AddSeconds(seconds);
@@ -1112,7 +1161,7 @@ namespace OpenSim.Framework
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Md5Hash(string data)
         {
             return Md5Hash(data, Encoding.Default);
@@ -1127,9 +1176,10 @@ namespace OpenSim.Framework
             return sb.ToString();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static byte[] ComputeMD5Hash(string data, Encoding encoding)
         {
-            using(MD5 md5 = MD5.Create())
+            using (MD5 md5 = MD5.Create())
                 return md5.ComputeHash(encoding.GetBytes(data));
         }
 
@@ -1169,11 +1219,11 @@ namespace OpenSim.Framework
 
         public static string bytesToHexString(byte[] bytes, bool lowerCaps)
         {
-            if(bytes == null || bytes.Length == 0)
+            if (bytes == null || bytes.Length == 0)
                 return string.Empty;
 
-            char[] chars = new char[2* bytes.Length];
-            if(lowerCaps)
+            char[] chars = new char[2 * bytes.Length];
+            if (lowerCaps)
             {
                 for (int i = 0, j = 0; i < bytes.Length; ++i)
                 {
@@ -1194,11 +1244,13 @@ namespace OpenSim.Framework
             return new string(chars);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string SHA1Hash(string data, Encoding enc)
         {
             return SHA1Hash(enc.GetBytes(data));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string SHA1Hash(string data)
         {
             return SHA1Hash(Encoding.Default.GetBytes(data));
@@ -1217,12 +1269,11 @@ namespace OpenSim.Framework
 
         private static byte[] ComputeSHA1Hash(byte[] src)
         {
-            byte[] ret;
-            using (SHA1CryptoServiceProvider SHA1 = new SHA1CryptoServiceProvider())
-                ret = SHA1.ComputeHash(src);
-            return ret;
+             using (SHA1 sha = SHA1.Create())
+                return sha.ComputeHash(src);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UUID ComputeSHA1UUID(string src)
         {
             return ComputeSHA1UUID(Encoding.Default.GetBytes(src));
@@ -1289,6 +1340,7 @@ namespace OpenSim.Framework
             return false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string FieldToString(byte[] bytes)
         {
             return FieldToString(bytes, String.Empty);
@@ -1356,7 +1408,7 @@ namespace OpenSim.Framework
                     for (int j = 0; j < 16 && (i + j) < bytes.Length; j++)
                     {
                         if (bytes[i + j] >= 0x20 && bytes[i + j] < 0x7E)
-                            output.Append((char) bytes[i + j]);
+                            output.Append((char)bytes[i + j]);
                         else
                             output.Append(".");
                     }
@@ -1373,9 +1425,10 @@ namespace OpenSim.Framework
         /// </summary>
         /// <param name="url">URL Standard Format</param>
         /// <returns>A resolved IP Address</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IPAddress GetHostFromURL(string url)
         {
-            return GetHostFromDNS(url.Split(new char[] {'/', ':'})[3]);
+            return GetHostFromDNS(url.Split(new char[] { '/', ':' })[3]);
         }
 
         /// <summary>
@@ -1385,10 +1438,10 @@ namespace OpenSim.Framework
         /// <returns>An IP address, or null</returns>
         public static IPAddress GetHostFromDNS(string dnsAddress)
         {
-            if(String.IsNullOrWhiteSpace(dnsAddress))
+            if (String.IsNullOrWhiteSpace(dnsAddress))
                 return null;
 
-            if(dnscache.TryGetValue(dnsAddress, 300000, out IPAddress ia) && ia != null)
+            if (dnscache.TryGetValue(dnsAddress, 300000, out IPAddress ia) && ia != null)
                 return ia;
 
             ia = null;
@@ -1411,7 +1464,7 @@ namespace OpenSim.Framework
                 return null;
             }
 
-            if(IPH == null || IPH.AddressList.Length == 0)
+            if (IPH == null || IPH.AddressList.Length == 0)
                 return null;
 
             ia = null;
@@ -1426,14 +1479,14 @@ namespace OpenSim.Framework
                     break;
                 }
             }
-            if(ia != null)
+            if (ia != null)
                 dnscache.AddOrUpdate(dnsAddress, ia, 300);
             return ia;
         }
 
         public static IPEndPoint getEndPoint(IPAddress ia, int port)
         {
-            if(ia == null)
+            if (ia == null)
                 return null;
 
             IPEndPoint newEP = null;
@@ -1450,10 +1503,10 @@ namespace OpenSim.Framework
 
         public static IPEndPoint getEndPoint(string hostname, int port)
         {
-            if(String.IsNullOrWhiteSpace(hostname))
+            if (String.IsNullOrWhiteSpace(hostname))
                 return null;
 
-            if(dnscache.TryGetValue(hostname, 300000, out IPAddress ia) && ia != null)
+            if (dnscache.TryGetValue(hostname, 300000, out IPAddress ia) && ia != null)
                 return getEndPoint(ia, port);
 
             ia = null;
@@ -1479,7 +1532,7 @@ namespace OpenSim.Framework
                 return null;
             }
 
-            if(IPH == null || IPH.AddressList.Length == 0)
+            if (IPH == null || IPH.AddressList.Length == 0)
                 return null;
 
             ia = null;
@@ -1495,12 +1548,13 @@ namespace OpenSim.Framework
                 }
             }
 
-            if(ia != null)
+            if (ia != null)
                 dnscache.AddOrUpdate(hostname, ia, 300);
 
-            return getEndPoint(ia,port);
+            return getEndPoint(ia, port);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Uri GetURI(string protocol, string hostname, int port, string path)
         {
             return new UriBuilder(protocol, hostname, port, path).Uri;
@@ -1510,6 +1564,7 @@ namespace OpenSim.Framework
         /// Gets a list of all local system IP addresses
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IPAddress[] GetLocalHosts()
         {
             return Dns.GetHostAddresses(Dns.GetHostName());
@@ -1564,7 +1619,7 @@ namespace OpenSim.Framework
             if (id.Length == 0)
                 return -1;
 
-            if(id[0] != 'h' && id[0] != 'H')
+            if (id[0] != 'h' && id[0] != 'H')
             {
                 if (UUID.TryParse(id, out UUID luuid))
                 {
@@ -1575,13 +1630,13 @@ namespace OpenSim.Framework
             }
 
             OSHTTPURI uri = new OSHTTPURI(id, true);
-            if(uri.IsResolvedHost)
+            if (uri.IsResolvedHost)
             {
                 url = uri.URL;
                 string tmp = uri.Path;
-                if(tmp.Length < 36)
+                if (tmp.Length < 36)
                     return -3;
-                if(tmp[0] =='/')
+                if (tmp[0] == '/')
                     tmp = tmp.Substring(1);
                 if (UUID.TryParse(tmp, out UUID uuid))
                 {
@@ -1598,6 +1653,7 @@ namespace OpenSim.Framework
         /// </summary>
         /// <param name="path">path</param>
         /// <returns>safe path</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string SafePath(string path)
         {
             return Regex.Replace(path, regexInvalidPathChars, String.Empty);
@@ -1608,6 +1664,7 @@ namespace OpenSim.Framework
         /// </summary>
         /// <param name="path">filename</param>
         /// <returns>safe filename</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string SafeFileName(string filename)
         {
             return Regex.Replace(filename, regexInvalidFileChars, String.Empty);
@@ -1626,21 +1683,25 @@ namespace OpenSim.Framework
             return temp;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string assetsDir()
         {
             return Path.Combine(configDir(), "assets");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string inventoryDir()
         {
             return Path.Combine(configDir(), "inventory");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string configDir()
         {
             return ".";
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string dataDir()
         {
             return ".";
@@ -1672,6 +1733,7 @@ namespace OpenSim.Framework
             return "./OpenSimStats.log";
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string logDir()
         {
             return Path.GetDirectoryName(logFile());
@@ -1722,10 +1784,10 @@ namespace OpenSim.Framework
 
         public static void AddDataRowToConfig(IConfigSource config, DataRow row)
         {
-            config.Configs.Add((string) row[0]);
+            config.Configs.Add((string)row[0]);
             for (int i = 0; i < row.Table.Columns.Count; i++)
             {
-                config.Configs[(string) row[0]].Set(row.Table.Columns[i].ColumnName, row[i]);
+                config.Configs[(string)row[0]].Set(row.Table.Columns[i].ColumnName, row[i]);
             }
         }
 
@@ -1804,13 +1866,13 @@ namespace OpenSim.Framework
         {
             IConfig enVars = ConfigSource.Configs["Environment"];
             // if section does not exist then user isn't expecting them, so don't bother.
-            if( enVars != null )
+            if (enVars != null)
             {
                 // load the values from the environment
                 EnvConfigSource envConfigSource = new EnvConfigSource();
                 // add the requested keys
                 string[] env_keys = enVars.GetKeys();
-                foreach ( string key in env_keys )
+                foreach (string key in env_keys)
                 {
                     envConfigSource.AddEnv(key, string.Empty);
                 }
@@ -1943,22 +2005,6 @@ namespace OpenSim.Framework
         }
 
         #endregion
-
-        public static float Clip(float x, float min, float max)
-        {
-            return Math.Min(Math.Max(x, min), max);
-        }
-
-        public static int Clip(int x, int min, int max)
-        {
-            return Math.Min(Math.Max(x, min), max);
-        }
-
-        public static Vector3 Clip(Vector3 vec, float min, float max)
-        {
-            return new Vector3(Clip(vec.X, min, max), Clip(vec.Y, min, max),
-                Clip(vec.Z, min, max));
-        }
 
         /// <summary>
         /// Convert an UUID to a raw uuid string.  Right now this is a string without hyphens.
@@ -2217,7 +2263,7 @@ namespace OpenSim.Framework
             x = Utils.BytesToUInt(bytes, 8) & 0xffff;
             y = Utils.BytesToUInt(bytes, 12) & 0xffff;
             // validation may fail, just reducing the odds of using a real UUID as encoded parcel
-            return  ( bytes[0] == 0 && bytes[4] == 0 && // handler x,y multiples of 256
+            return (bytes[0] == 0 && bytes[4] == 0 && // handler x,y multiples of 256
                          bytes[9] < 64 && bytes[13] < 64 && // positions < 16km
                          bytes[14] == 0 && bytes[15] == 0);
         }
@@ -2250,19 +2296,19 @@ namespace OpenSim.Framework
         {
             string os = String.Empty;
 
-//            if (Environment.OSVersion.Platform != PlatformID.Unix)
-//            {
-//                os = Environment.OSVersion.ToString();
-//            }
-//            else
-//            {
-//                os = ReadEtcIssue();
-//            }
-//
-//            if (os.Length > 45)
-//            {
-//                os = os.Substring(0, 45);
-//            }
+            //            if (Environment.OSVersion.Platform != PlatformID.Unix)
+            //            {
+            //                os = Environment.OSVersion.ToString();
+            //            }
+            //            else
+            //            {
+            //                os = ReadEtcIssue();
+            //            }
+            //
+            //            if (os.Length > 45)
+            //            {
+            //                os = os.Substring(0, 45);
+            //            }
 
             return os;
         }
@@ -2273,18 +2319,18 @@ namespace OpenSim.Framework
 
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-               ru = "Unix/Mono";
+                ru = "Unix/Mono";
             }
             else
                 if (Environment.OSVersion.Platform == PlatformID.MacOSX)
-                    ru = "OSX/Mono";
+                ru = "OSX/Mono";
+            else
+            {
+                if (IsPlatformMono)
+                    ru = "Win/Mono";
                 else
-                {
-                    if (IsPlatformMono)
-                        ru = "Win/Mono";
-                    else
-                        ru = "Win/.NET";
-                }
+                    ru = "Win/.NET";
+            }
 
             return ru;
         }
@@ -2465,11 +2511,11 @@ namespace OpenSim.Framework
 
         public static string[] Glob(string path)
         {
-            string vol=String.Empty;
+            string vol = String.Empty;
 
             if (Path.VolumeSeparatorChar != Path.DirectorySeparatorChar)
             {
-                string[] vcomps = path.Split(new char[] {Path.VolumeSeparatorChar}, 2, StringSplitOptions.RemoveEmptyEntries);
+                string[] vcomps = path.Split(new char[] { Path.VolumeSeparatorChar }, 2, StringSplitOptions.RemoveEmptyEntries);
 
                 if (vcomps.Length > 1)
                 {
@@ -2478,15 +2524,15 @@ namespace OpenSim.Framework
                 }
             }
 
-            string[] comps = path.Split(new char[] {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar}, StringSplitOptions.RemoveEmptyEntries);
+            string[] comps = path.Split(new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
 
             // Glob
 
             path = vol;
             if (vol != String.Empty)
-                path += new String(new char[] {Path.VolumeSeparatorChar, Path.DirectorySeparatorChar});
+                path += new String(new char[] { Path.VolumeSeparatorChar, Path.DirectorySeparatorChar });
             else
-                path = new String(new char[] {Path.DirectorySeparatorChar});
+                path = new String(new char[] { Path.DirectorySeparatorChar });
 
             List<string> paths = new List<string>();
             List<string> found = new List<string>();
@@ -2522,7 +2568,7 @@ namespace OpenSim.Framework
             return found.ToArray();
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string AppendEndSlash(string path)
         {
             int len = path.Length;
@@ -2532,7 +2578,7 @@ namespace OpenSim.Framework
             return path;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string TrimEndSlash(string path)
         {
             int len = path.Length;
@@ -2544,7 +2590,7 @@ namespace OpenSim.Framework
 
         public static string ServerURIasIP(string uri)
         {
-            if (uri == string.Empty)
+            if (uri.Length == 0)
                 return string.Empty;
 
             // Get rid of eventual slashes at the end
@@ -2579,9 +2625,10 @@ namespace OpenSim.Framework
         /// Arguments to substitute into the string via the {} mechanism.
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes256(string str, params object[] args)
         {
-            return StringToBytes256(string.Format(str, args));
+            return Utils.StringToBytes(string.Format(str, args), 255);
         }
 
         /// <summary>
@@ -2592,16 +2639,10 @@ namespace OpenSim.Framework
         /// Using "\0" will return a conversion of the null character to a byte.  This is not the same as bytes[0]
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes256(string str)
         {
-            if (String.IsNullOrEmpty(str))
-                return Utils.EmptyBytes;
-
-            byte[] data = new byte[255];
-            int r = osUTF8Getbytes(str, data, 255, true); // real use limit is 255 not 256
-            if (r != 255)
-                Array.Resize<byte>(ref data, r);
-            return data;
+            return Utils.StringToBytes(str, 255);
         }
 
         /// <summary>
@@ -2615,9 +2656,10 @@ namespace OpenSim.Framework
         /// Arguments to substitute into the string via the {} mechanism.
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes1024(string str, params object[] args)
         {
-            return StringToBytes1024(string.Format(str, args));
+            return Utils.StringToBytes(string.Format(str, args), 1024);
         }
 
         /// <summary>
@@ -2628,16 +2670,10 @@ namespace OpenSim.Framework
         /// Using "\0" will return a conversion of the null character to a byte.  This is not the same as bytes[0]
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes1024(string str)
         {
-            if (String.IsNullOrEmpty(str))
-                return Utils.EmptyBytes;
-
-            byte[] data = new byte[1024];
-            int r = osUTF8Getbytes(str, data, 1024, true);
-            if (r != 1024)
-                Array.Resize<byte>(ref data, r);
-            return data;
+            return Utils.StringToBytes(str, 1024);
         }
 
         /// <summary>
@@ -2651,6 +2687,7 @@ namespace OpenSim.Framework
         /// Arguments to substitute into the string via the {} mechanism.
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes(string str, int MaxLength, params object[] args)
         {
             return StringToBytes1024(string.Format(str, args), MaxLength);
@@ -2664,32 +2701,19 @@ namespace OpenSim.Framework
         /// Using "\0" will return a conversion of the null character to a byte.  This is not the same as bytes[0]
         /// </param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytes(string str, int MaxLength)
         {
-            if (String.IsNullOrEmpty(str))
-                return Utils.EmptyBytes;
-
-            byte[] data = new byte[MaxLength];
-            int r = osUTF8Getbytes(str, data, MaxLength, true);
-            if (r != MaxLength)
-                Array.Resize<byte>(ref data, r);
-            return data;
+            return Utils.StringToBytes(str, MaxLength);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] StringToBytesNoTerm(string str, int MaxLength)
         {
-            if (String.IsNullOrEmpty(str))
-                return Utils.EmptyBytes;
-
-            byte[] data = new byte[MaxLength];
-            int r = osUTF8Getbytes(str, data, MaxLength, false);
-            if (r != MaxLength)
-                Array.Resize<byte>(ref data, r);
-
-            return data;
+            return Utils.StringToBytesNoTerm(str, MaxLength);
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int osUTF8Getbytes(string srcstr, byte[] dstarray, int maxdstlen, bool NullTerm = true)
         {
             return osUTF8Getbytes(srcstr, dstarray, 0, maxdstlen, NullTerm);
@@ -2723,10 +2747,10 @@ namespace OpenSim.Framework
             }
         }
 
-        public static unsafe int osUTF8Getbytes(char* srcarray, int srclenght, byte* dstarray, int maxdstlen, bool NullTerm = true)
+        public static unsafe int osUTF8Getbytes(char* srcarray, int srclength, byte* dstarray, int maxdstlen, bool NullTerm = true)
         {
             int dstlen = NullTerm ? maxdstlen - 1 : maxdstlen;
-            int srclen = srclenght >= dstlen ? dstlen : srclenght;
+            int srclen = srclength >= dstlen ? dstlen : srclength;
 
             char c;
             char* src = srcarray;
@@ -2761,7 +2785,7 @@ namespace OpenSim.Framework
                 {
                     if (c >= 0xDC00)
                         continue; // ignore invalid
-                    if (src + 1 >= srcend || dst + 3 >= dstend)
+                    if (src >= srcend || dst + 3 >= dstend)
                         break;
 
                     int a = c;
@@ -2831,7 +2855,7 @@ namespace OpenSim.Framework
         public static bool TryParseHttpRange(string header, out int start, out int end)
         {
             start = end = 0;
-            if(string.IsNullOrWhiteSpace(header))
+            if (string.IsNullOrWhiteSpace(header))
                 return false;
 
             if (header.StartsWith("bytes="))
@@ -2848,7 +2872,7 @@ namespace OpenSim.Framework
                         return false;
 
                     string rawEnd = rangeValues[1].Trim();
-                    if (rawEnd == "")
+                    if (rawEnd.Length == 0)
                     {
                         end = -1;
                         return true;
@@ -2921,10 +2945,10 @@ namespace OpenSim.Framework
                 case FireAndForgetMethod.SmartThreadPool:
                     return m_ThreadPool.MaxThreads - m_ThreadPool.InUseThreads;
                 case FireAndForgetMethod.Thread:
-                {
-                    using(Process p = System.Diagnostics.Process.GetCurrentProcess())
-                        return MAX_SYSTEM_THREADS - p.Threads.Count;
-                }
+                    {
+                        using (Process p = System.Diagnostics.Process.GetCurrentProcess())
+                            return MAX_SYSTEM_THREADS - p.Threads.Count;
+                    }
                 default:
                     throw new NotImplementedException();
             }
@@ -3035,7 +3059,7 @@ namespace OpenSim.Framework
 
                     // It's possible that the thread won't abort. To make sure the thread pool isn't
                     // depleted, increase the pool size.
-//                    m_ThreadPool.MaxThreads++;
+                    //                    m_ThreadPool.MaxThreads++;
                 }
             }
         }
@@ -3056,11 +3080,13 @@ namespace OpenSim.Framework
 
         private static readonly Dictionary<string, int> m_fireAndForgetCallsInProgress = new Dictionary<string, int>();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void FireAndForget(System.Threading.WaitCallback callback)
         {
             FireAndForget(callback, null, null);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void FireAndForget(System.Threading.WaitCallback callback, object obj)
         {
             FireAndForget(callback, obj, null);
@@ -3100,7 +3126,7 @@ namespace OpenSim.Framework
 
                     try
                     {
-                        if (loggingEnabled  && threadInfo.LogThread)
+                        if (loggingEnabled && threadInfo.LogThread)
                             m_log.DebugFormat("Run threadfunc {0} (Queued {1}, Running {2})", threadFuncNum, numQueued1, numRunning1);
 
                         Culture.SetCurrentCulture();
@@ -3146,7 +3172,7 @@ namespace OpenSim.Framework
                         threadInfo.WorkItem = m_ThreadPool.QueueWorkItem(realCallback, obj);
                         break;
                     case FireAndForgetMethod.Thread:
-                        Thread thread = new Thread(delegate(object o) { realCallback(o); realCallback = null;});
+                        Thread thread = new Thread(delegate (object o) { realCallback(o); realCallback = null; });
                         thread.Start(obj);
                         break;
                     default:
@@ -3243,73 +3269,73 @@ namespace OpenSim.Framework
         {
 
             return null;
-/*
-        not only this does not work on mono but it is not longer recomended on windows.
-        can cause deadlocks etc.
+            /*
+                    not only this does not work on mono but it is not longer recomended on windows.
+                    can cause deadlocks etc.
 
-            if (IsPlatformMono)
-            {
-                // This doesn't work in Mono
-                return null;
-            }
+                        if (IsPlatformMono)
+                        {
+                            // This doesn't work in Mono
+                            return null;
+                        }
 
-            ManualResetEventSlim fallbackThreadReady = new ManualResetEventSlim();
-            ManualResetEventSlim exitedSafely = new ManualResetEventSlim();
+                        ManualResetEventSlim fallbackThreadReady = new ManualResetEventSlim();
+                        ManualResetEventSlim exitedSafely = new ManualResetEventSlim();
 
-            try
-            {
-                new Thread(delegate()
-                {
-                    fallbackThreadReady.Set();
-                    while (!exitedSafely.Wait(200))
-                    {
                         try
                         {
-                            targetThread.Resume();
+                            new Thread(delegate()
+                            {
+                                fallbackThreadReady.Set();
+                                while (!exitedSafely.Wait(200))
+                                {
+                                    try
+                                    {
+                                        targetThread.Resume();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Whatever happens, do never stop to resume the main-thread regularly until the main-thread has exited safely.
+                                    }
+                                }
+                            }).Start();
+
+                            fallbackThreadReady.Wait();
+                            // From here, you have about 200ms to get the stack-trace
+
+                            targetThread.Suspend();
+
+                            StackTrace trace = null;
+                            try
+                            {
+                                trace = new StackTrace(targetThread, true);
+                            }
+                            catch (ThreadStateException)
+                            {
+                                //failed to get stack trace, since the fallback-thread resumed the thread
+                                //possible reasons:
+                                //1.) This thread was just too slow
+                                //2.) A deadlock ocurred
+                                //Automatic retry seems too risky here, so just return null.
+                            }
+
+                            try
+                            {
+                                targetThread.Resume();
+                            }
+                            catch (ThreadStateException)
+                            {
+                                // Thread is running again already
+                            }
+
+                            return trace;
                         }
-                        catch (Exception)
+                        finally
                         {
-                            // Whatever happens, do never stop to resume the main-thread regularly until the main-thread has exited safely.
+                            // Signal the fallack-thread to stop
+                            exitedSafely.Set();
                         }
-                    }
-                }).Start();
-
-                fallbackThreadReady.Wait();
-                // From here, you have about 200ms to get the stack-trace
-
-                targetThread.Suspend();
-
-                StackTrace trace = null;
-                try
-                {
-                    trace = new StackTrace(targetThread, true);
-                }
-                catch (ThreadStateException)
-                {
-                    //failed to get stack trace, since the fallback-thread resumed the thread
-                    //possible reasons:
-                    //1.) This thread was just too slow
-                    //2.) A deadlock ocurred
-                    //Automatic retry seems too risky here, so just return null.
-                }
-
-                try
-                {
-                    targetThread.Resume();
-                }
-                catch (ThreadStateException)
-                {
-                    // Thread is running again already
-                }
-
-                return trace;
-            }
-            finally
-            {
-                // Signal the fallack-thread to stop
-                exitedSafely.Set();
-            }
-*/
+            */
         }
 #pragma warning restore 0618
 
@@ -3324,10 +3350,9 @@ namespace OpenSim.Framework
             if (m_ThreadPool == null)
                 return null;
 
-            STPInfo stpi = new STPInfo()
+            return new STPInfo()
             {
                 Name = m_ThreadPool.Name,
-                STPStartInfo = m_ThreadPool.STPStartInfo,
                 IsIdle = m_ThreadPool.IsIdle,
                 IsShuttingDown = m_ThreadPool.IsShuttingdown,
                 MaxThreads = m_ThreadPool.MaxThreads,
@@ -3337,7 +3362,6 @@ namespace OpenSim.Framework
                 WaitingCallbacks = m_ThreadPool.WaitingCallbacks,
                 MaxConcurrentWorkItems = m_ThreadPool.Concurrency
             };
-            return stpi;
         }
 
         public static void StopThreadPool()
@@ -3347,7 +3371,7 @@ namespace OpenSim.Framework
             SmartThreadPool pool = m_ThreadPool;
             m_ThreadPool = null;
 
-            try { pool.Shutdown(); } catch {}          
+            try { pool.Shutdown(); } catch { }
         }
 
         #endregion FireAndForget Threading Pattern
@@ -3416,36 +3440,36 @@ namespace OpenSim.Framework
 
         // returns a timestamp in seconds as double
         // using the time resolution avaiable to StopWatch
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetTimeStamp()
         {
             return Stopwatch.GetTimestamp() * TimeStampClockPeriod;
         }
 
         // returns a timestamp in ms as double
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetTimeStampMS()
         {
             return Stopwatch.GetTimestamp() * TimeStampClockPeriodMS;
         }
 
         // doing math in ticks is usefull to avoid loss of resolution
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetTimeStampTicks()
         {
             return Stopwatch.GetTimestamp();
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double TimeStampTicksToMS(long ticks)
         {
             return ticks * TimeStampClockPeriodMS;
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void AddToGatheredIds(Dictionary<UUID, sbyte> uuids, UUID id, sbyte type)
         {
-            if (id == UUID.Zero)
+            if (id.IsZero())
                 return;
             uuids[id] = type;
         }
@@ -3533,7 +3557,7 @@ namespace OpenSim.Framework
         /// <returns></returns>
         public static IPEndPoint GetClientIPFromXFF(string xff)
         {
-            if (xff == string.Empty)
+            if (xff.Length == 0)
                 return null;
 
             string[] parts = xff.Split(new char[] { ',' });
@@ -3665,56 +3689,435 @@ namespace OpenSim.Framework
         /// <param name="firstname">the first name part (e.g. Test)</param>
         /// <param name="lastname">the last name part (e.g User)</param>
         /// <param name="secret">the secret part</param>
-        public static bool ParseUniversalUserIdentifier(string value, out UUID uuid, out string url, out string firstname, out string lastname, out string secret)
+        public static unsafe bool ParseUniversalUserIdentifier(string value, out UUID uuid, out string url, out string firstname, out string lastname, out string secret)
         {
-            uuid = UUID.Zero;
-            url = string.Empty;
-            firstname = "Unknown";
-            lastname = "UserUPUUI";
             secret = string.Empty;
 
-            string[] parts = value.Split(';');
-            if (parts.Length < 1)
-                return false;
-
-            if (!UUID.TryParse(parts[0], out uuid))
-                return false;
-
-            if (parts.Length >= 2)
+            if (value == null || value.Length == 36)
             {
-                url = parts[1].ToLower();
-
-                if (parts.Length >= 3)
-                {
-                    string[] name = parts[2].Split();
-                    if (name.Length == 2)
-                    {
-                        firstname = name[0];
-                        lastname = name[1];
-                    }
-
-                    if (parts.Length >= 4)
-                        secret = parts[3];
-                }
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return UUID.TryParse(value, out uuid);
             }
+
+            if (value.Length < 38)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
+            ++indxB;
+            if (indxB >= value.Length)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+            string n;
+            if (nseps == 2)
+                n = value.Substring(indxB).Trim();
+            else
+            {
+                indxA = seps[2];
+                n = value.Substring(indxB, indxA - indxB);
+                ++indxA;
+                if (indxA < value.Length)
+                    secret = value.Substring(indxA);
+            }
+
+            string[] name = n.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (name.Length == 0)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            firstname = name[0];
+            lastname = (name.Length > 1) ? name[1] : string.Empty;
+
+            return firstname.Length > 0;
+        }
+
+        public static unsafe bool ParseFullUniversalUserIdentifier(string value, out UUID uuid, out string url, out string firstname, out string lastname, out string secret)
+        {
+            secret = string.Empty;
+
+            if (value == null || value.Length < 38)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
+            ++indxB;
+            if (indxB >= value.Length)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+            string n;
+            if (nseps == 2)
+                n = value.Substring(indxB).Trim();
+            else
+            {
+                indxA = seps[2];
+                n = value.Substring(indxB, indxA - indxB);
+                ++indxA;
+                if (indxA < value.Length)
+                    secret = value.Substring(indxA);
+            }
+
+            string[] name = n.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (name.Length == 0)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            firstname = name[0];
+            lastname = (name.Length > 1) ? name[1] : string.Empty;
+
+            return firstname.Length > 0;
+        }
+
+        public static unsafe bool ParseUniversalUserIdentifier(string value, out UUID uuid, out string url, out string firstname, out string lastname)
+        {
+            if (value == null || value.Length == 36)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return UUID.TryParse(value, out uuid);
+            }
+
+            if (value.Length < 38)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
+            ++indxB;
+            if (indxB >= value.Length)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+            string n;
+            if (nseps == 2)
+                n = value.Substring(indxB);
+            else
+                n = value.Substring(indxB, seps[2] - indxB);
+
+            string[] name = n.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (name.Length == 0)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            firstname = name[0];
+            lastname = (name.Length > 1) ? name[1] : string.Empty;
+
+            return firstname.Length > 0;
+        }
+
+        public static unsafe bool ParseFullUniversalUserIdentifier(string value, out UUID uuid, out string url, out string firstname, out string lastname)
+        {
+            if (value == null || value.Length < 38)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
+            ++indxB;
+            if (indxB >= value.Length)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+            string n;
+            if (nseps == 2)
+                n = value.Substring(indxB);
+            else
+                n = value.Substring(indxB, seps[2] - indxB);
+
+            string[] name = n.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (name.Length == 0)
+            {
+                firstname = string.Empty;
+                lastname = string.Empty;
+                return false;
+            }
+
+            firstname = name[0];
+            lastname = (name.Length > 1) ? name[1] : string.Empty;
+
+            return firstname.Length > 0;
+        }
+
+        public static unsafe bool ParseFullUniversalUserIdentifier(string value, out UUID uuid, out string url)
+        {
+            if (value == null || value.Length < 38)
+            {
+                url = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
+            indxA = seps[1] + 3;
+            indxB = nseps > 2 ? seps[2] : value.Length;
+
+            return indxA < indxB;
+        }
+
+        public static unsafe bool ParseUniversalUserIdentifier(string value, out UUID uuid, out string url)
+        {
+            if (value == null || value.Length < 38)
+            {
+                url = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, 36), out uuid))
+            {
+                url = string.Empty;
+                return false;
+            }
+
+            int* seps = stackalloc int[3];
+            int nseps = 0;
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+
+            if (nseps < 2)
+            {
+                url = string.Empty;
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            int indxA = seps[0] + 1;
+            int indxB = seps[1];
+            url = value.Substring(indxA, indxB - indxA).Trim().ToLower();
+
             return true;
         }
 
-        public static bool ParseUniversalUserIdentifier(string value, out UUID uuid, out string url)
+        public static unsafe bool ParseFullUniversalUserIdentifier(string value, out UUID uuid)
         {
-            uuid = UUID.Zero;
-            url = string.Empty;
+            if (value == null || value.Length < 38)
+            {
+                uuid = UUID.Zero;
+                return false;
+            }
 
-            string[] parts = value.Split(';');
-            if (parts.Length < 1)
+            int nseps = 0;
+            int* seps = stackalloc int[3];
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+            if (nseps < 2)
+            {
+                uuid = UUID.Zero;
+                return false;
+            }
+
+            if (!UUID.TryParse(value.Substring(0, seps[0]), out uuid))
                 return false;
 
-            if (!UUID.TryParse(parts[0], out uuid))
-                return false;
+            int indxA = seps[1] + 3;
+            int indxB = nseps > 2 ? seps[2] : value.Length;
 
-            if (parts.Length >= 2)
-                url = parts[1].ToLower();
-            return true;
+            return indxA < indxB;
+        }
+
+        public static bool ParseUniversalUserIdentifier(string value, out UUID uuid)
+        {
+            if (value == null || value.Length < 36)
+            {
+                uuid = UUID.Zero;
+                return false;
+            }
+            return (value.Length == 36) ? UUID.TryParse(value, out uuid) : UUID.TryParse(value.Substring(0, 36), out uuid);
+        }
+
+        public static unsafe string RemoveUniversalUserIdentifierSecret(string value)
+        {
+            if (value.Length < 39)
+                return value;
+            int nseps = 0;
+            int* seps = stackalloc int[3];
+            for (int i = 36; i < value.Length && nseps < 3; ++i)
+            {
+                if (value[i] == ';')
+                    seps[nseps++] = i;
+            }
+            if (nseps < 3)
+                return value;
+            return value.Substring(0, seps[3]);
         }
 
         /// <summary>
@@ -3729,7 +4132,7 @@ namespace OpenSim.Framework
                 return false;
 
             string[] parts = firstname.Split('.');
-            if(parts.Length != 2)
+            if (parts.Length != 2)
                 return false;
 
             realFirstName = parts[0].Trim();
@@ -3797,7 +4200,7 @@ namespace OpenSim.Framework
                 }
                 else if (c == '@')
                 {
-                    if(i >= name.Length - 1)
+                    if (i >= name.Length - 1)
                         return 0;
 
                     int j = i;
@@ -3854,10 +4257,10 @@ namespace OpenSim.Framework
             {
                 string[] parts = firstName.Split(new char[] { '.' });
                 if (parts.Length == 2)
-                    return CalcUniversalIdentifier(id, agentsURI, parts[0] + " " + parts[1]);
+                    return CalcUniversalIdentifier(id, agentsURI, parts[0].Trim() + " " + parts[1].Trim());
             }
 
-            return CalcUniversalIdentifier(id, agentsURI, firstName + " " + lastName);
+            return CalcUniversalIdentifier(id, agentsURI, firstName.Trim() + " " + lastName.Trim());
         }
 
         private static string CalcUniversalIdentifier(UUID id, string agentsURI, string name)
@@ -3881,9 +4284,9 @@ namespace OpenSim.Framework
             }
             catch (UriFormatException)
             {
-                return firstName + " " + lastName;
+                return firstName.Trim() + " " + lastName.Trim();
             }
-            return firstName + "." + lastName + " " + "@" + uri.Authority;
+            return firstName.Trim() + "." + lastName.Trim() + " " + "@" + uri.Authority;
         }
         #endregion
 
@@ -3933,10 +4336,10 @@ namespace OpenSim.Framework
         public static void LogFailedXML(string message, string xml)
         {
             int length = xml.Length;
-            if (length > 2000)
-                xml = xml.Substring(0, 2000) + "...";
+            if (length > 250)
+                xml = xml.Substring(0, 250) + "...";
 
-            for (int i = 0 ; i < xml.Length ; i++)
+            for (int i = 0; i < xml.Length; i++)
             {
                 if (xml[i] < 0x20)
                 {
@@ -3969,7 +4372,7 @@ namespace OpenSim.Framework
                 graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
 
-                graphics.DrawImage(image,new Rectangle(0,0, result.Width, result.Height),
+                graphics.DrawImage(image, new Rectangle(0, 0, result.Width, result.Height),
                     0, 0, image.Width, image.Height, GraphicsUnit.Pixel, atrib);
             }
 
@@ -3989,121 +4392,121 @@ namespace OpenSim.Framework
             bw.Close();
             fs.Close();
         }
-        }
+    }
 
-/*  don't like this code
-    public class DoubleQueue<T> where T:class
-    {
-        private Queue<T> m_lowQueue = new Queue<T>();
-        private Queue<T> m_highQueue = new Queue<T>();
-
-        private object m_syncRoot = new object();
-        private Semaphore m_s = new Semaphore(0, 1);
-
-        public DoubleQueue()
+    /*  don't like this code
+        public class DoubleQueue<T> where T:class
         {
-        }
+            private Queue<T> m_lowQueue = new Queue<T>();
+            private Queue<T> m_highQueue = new Queue<T>();
 
-        public virtual int Count
-        {
-            get
+            private object m_syncRoot = new object();
+            private Semaphore m_s = new Semaphore(0, 1);
+
+            public DoubleQueue()
+            {
+            }
+
+            public virtual int Count
+            {
+                get
+                {
+                    lock (m_syncRoot)
+                        return m_highQueue.Count + m_lowQueue.Count;
+                }
+            }
+
+            public virtual void Enqueue(T data)
+            {
+                Enqueue(m_lowQueue, data);
+            }
+
+            public virtual void EnqueueLow(T data)
+            {
+                Enqueue(m_lowQueue, data);
+            }
+
+            public virtual void EnqueueHigh(T data)
+            {
+                Enqueue(m_highQueue, data);
+            }
+
+            private void Enqueue(Queue<T> q, T data)
             {
                 lock (m_syncRoot)
-                    return m_highQueue.Count + m_lowQueue.Count;
-            }
-        }
-
-        public virtual void Enqueue(T data)
-        {
-            Enqueue(m_lowQueue, data);
-        }
-
-        public virtual void EnqueueLow(T data)
-        {
-            Enqueue(m_lowQueue, data);
-        }
-
-        public virtual void EnqueueHigh(T data)
-        {
-            Enqueue(m_highQueue, data);
-        }
-
-        private void Enqueue(Queue<T> q, T data)
-        {
-            lock (m_syncRoot)
-            {
-                q.Enqueue(data);
-                m_s.WaitOne(0);
-                m_s.Release();
-            }
-        }
-
-        public virtual T Dequeue()
-        {
-            return Dequeue(Timeout.Infinite);
-        }
-
-        public virtual T Dequeue(int tmo)
-        {
-            return Dequeue(TimeSpan.FromMilliseconds(tmo));
-        }
-
-        public virtual T Dequeue(TimeSpan wait)
-        {
-            T res = null;
-
-            if (!Dequeue(wait, ref res))
-                return null;
-
-            return res;
-        }
-
-        public bool Dequeue(int timeout, ref T res)
-        {
-            return Dequeue(TimeSpan.FromMilliseconds(timeout), ref res);
-        }
-
-        public bool Dequeue(TimeSpan wait, ref T res)
-        {
-            if (!m_s.WaitOne(wait))
-                return false;
-
-            lock (m_syncRoot)
-            {
-                if (m_highQueue.Count > 0)
-                    res = m_highQueue.Dequeue();
-                else if (m_lowQueue.Count > 0)
-                    res = m_lowQueue.Dequeue();
-
-                if (m_highQueue.Count == 0 && m_lowQueue.Count == 0)
-                    return true;
-
-                try
                 {
+                    q.Enqueue(data);
+                    m_s.WaitOne(0);
                     m_s.Release();
                 }
-                catch
-                {
-                }
-
-                return true;
             }
-        }
 
-        public virtual void Clear()
-        {
-
-            lock (m_syncRoot)
+            public virtual T Dequeue()
             {
-                // Make sure sem count is 0
-                m_s.WaitOne(0);
+                return Dequeue(Timeout.Infinite);
+            }
 
-                m_lowQueue.Clear();
-                m_highQueue.Clear();
+            public virtual T Dequeue(int tmo)
+            {
+                return Dequeue(TimeSpan.FromMilliseconds(tmo));
+            }
+
+            public virtual T Dequeue(TimeSpan wait)
+            {
+                T res = null;
+
+                if (!Dequeue(wait, ref res))
+                    return null;
+
+                return res;
+            }
+
+            public bool Dequeue(int timeout, ref T res)
+            {
+                return Dequeue(TimeSpan.FromMilliseconds(timeout), ref res);
+            }
+
+            public bool Dequeue(TimeSpan wait, ref T res)
+            {
+                if (!m_s.WaitOne(wait))
+                    return false;
+
+                lock (m_syncRoot)
+                {
+                    if (m_highQueue.Count > 0)
+                        res = m_highQueue.Dequeue();
+                    else if (m_lowQueue.Count > 0)
+                        res = m_lowQueue.Dequeue();
+
+                    if (m_highQueue.Count == 0 && m_lowQueue.Count == 0)
+                        return true;
+
+                    try
+                    {
+                        m_s.Release();
+                    }
+                    catch
+                    {
+                    }
+
+                    return true;
+                }
+            }
+
+            public virtual void Clear()
+            {
+
+                lock (m_syncRoot)
+                {
+                    // Make sure sem count is 0
+                    m_s.WaitOne(0);
+
+                    m_lowQueue.Clear();
+                    m_highQueue.Clear();
+                }
             }
         }
-    }
-*/
+    */
     public class BetterRandom
     {
         private const int BufferSize = 1024;  // must be a multiple of 4
