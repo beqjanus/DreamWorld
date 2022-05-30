@@ -9,7 +9,9 @@ Module GlobalSettings
 
 #Region "Const"
 
+    '
     Public Const _Domain As String = "http://www.outworldz.com"
+
     Public Const _httpsDomain As String = "https://www.outworldz.com"
     Public Const _MyVersion As String = "4.999"
     Public Const _SimVersion As String = "Opensim Core d6760ec0ef (a few changes For mantis 9006 attachment moveToTarget()"
