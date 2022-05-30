@@ -19,7 +19,7 @@ my $dir = getcwd;
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
 #my $Contabo = '\\\\contabo2.outworldz.com/c';
 my $Fleta = '\\\\fleta/c';
-my $Dest = "F:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
+my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
 
 CheckDistro();
 
@@ -509,7 +509,7 @@ sub JustDelete {
         doUnlink ($path);
         return;
     }
-
+    sleep(1);
     use File::Path;
     rmtree $path;
 }
@@ -641,8 +641,7 @@ sub GetDate {
     return DateTime->now->set_time_zone('America/Chicago')->ymd('/');
 }
 
-sub GetTime {p
-             
+sub GetTime {             
     use DateTime;
     return DateTime->now->set_time_zone('America/Chicago')->hms(':');
 }

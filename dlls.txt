@@ -1,3 +1,4 @@
+\OutworldzFiles\Opensim\bin\BouncyCastle.Crypto.dll
 \OutworldzFiles\Opensim\bin\BulletXNA.dll
 \OutworldzFiles\Opensim\bin\C5.dll
 \OutworldzFiles\Opensim\bin\CSJ2K.dll
@@ -14,10 +15,16 @@
 \OutworldzFiles\Opensim\bin\Diva.Wifi.ScriptEngine.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenId.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenMail.dll
+\OutworldzFiles\Opensim\bin\Gloebit.dll
 \OutworldzFiles\Opensim\bin\ICSharpCode.SharpZipLib.dll
 \OutworldzFiles\Opensim\bin\Ionic.Zip.dll
+\OutworldzFiles\Opensim\bin\jOpenSimProfile.Modules.dll
+\OutworldzFiles\Opensim\bin\jOpenSimSearch.Modules.dll
+\OutworldzFiles\Opensim\bin\lame_enc.dll
 \OutworldzFiles\Opensim\bin\log4net.dll
 \OutworldzFiles\Opensim\bin\LukeSkywalker.IPNetwork.dll
+\OutworldzFiles\Opensim\bin\MailKit.dll
+\OutworldzFiles\Opensim\bin\MimeKit.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.CecilReflector.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.Setup.dll
@@ -27,6 +34,7 @@
 \OutworldzFiles\Opensim\bin\MySql.Data.dll
 \OutworldzFiles\Opensim\bin\NDesk.Options.dll
 \OutworldzFiles\Opensim\bin\netcd.dll
+\OutworldzFiles\Opensim\bin\Newtonsoft.Json.dll
 \OutworldzFiles\Opensim\bin\Nini.dll
 \OutworldzFiles\Opensim\bin\Npgsql.dll
 \OutworldzFiles\Opensim\bin\nunit.framework.dll
@@ -119,7 +127,7 @@
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Performance.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Permissions.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Stress.dll
-\OutworldzFiles\Opensim\bin\OpenSimMutelist.Modules.dll
+\OutworldzFiles\Opensim\bin\OpenSimBirds.Module.dll
 \OutworldzFiles\Opensim\bin\OpenSimSearch.Modules.dll
 \OutworldzFiles\Opensim\bin\OpenSimTide.Module.dll
 \OutworldzFiles\Opensim\bin\PrimMesher.dll
@@ -139,9 +147,11 @@
 \OutworldzFiles\Opensim\bin\lib32\BulletSim.dll
 \OutworldzFiles\Opensim\bin\lib32\ode.dll
 \OutworldzFiles\Opensim\bin\lib32\sqlite3.dll
+\OutworldzFiles\Opensim\bin\lib32\ubode.dll
 \OutworldzFiles\Opensim\bin\lib64\BulletSim.dll
 \OutworldzFiles\Opensim\bin\lib64\ode.dll
 \OutworldzFiles\Opensim\bin\lib64\sqlite3.dll
+\OutworldzFiles\Opensim\bin\lib64\ubode.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\opensim\bin\jOpensimProfile.Modules.dll
 \OutworldzFiles\opensim\bin\jOpensimSearch.Modules.dll

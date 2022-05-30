@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.999
+Back to Opensim 0.9.2.2  eee11f5d5 ("Opensim Core d6760ec0ef ("a few changes for mantis 9006 attachment moveToTarget()"", 2022-05-29)
+The only thing not working is Smart Start.  This is bacuase og changes inside Opensim 0.9.2.2
+
+
 V4.998
 Visitors not always showing in Log on home page.
 Text in some DOS boxes not sticking. Windows API is very unreliable. Added loop where it must be and written  and read back 3 times.
