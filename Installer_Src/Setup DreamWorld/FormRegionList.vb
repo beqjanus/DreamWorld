@@ -616,6 +616,7 @@ SetWindowOnTop_Err:
                     New DataColumn("Y", GetType(String)),
                     New DataColumn("Size", GetType(String)),
                     New DataColumn("Estate", GetType(String)),
+                    New DataColumn("Parcel Perms", GetType(String)),
                     New DataColumn("Prims", GetType(String)),
                     New DataColumn("Region Port", GetType(String)),
                     New DataColumn("Group Port", GetType(String)),
@@ -666,7 +667,8 @@ SetWindowOnTop_Err:
                                          i.SubItems(25).Text.Trim,
                                          i.SubItems(26).Text.Trim,
                                          i.SubItems(27).Text.Trim,
-                                         i.SubItems(28).Text.Trim)
+                                         i.SubItems(28).Text.Trim,
+                                         i.SubItems(2).Text.Trim)
                         Next
 
                         DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
