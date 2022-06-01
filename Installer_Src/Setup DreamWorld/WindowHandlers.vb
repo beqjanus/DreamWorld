@@ -176,7 +176,6 @@ Module WindowHandlers
             Return IntPtr.Zero
         End If
 
-
         Return IntPtr.Zero
 
     End Function
@@ -323,7 +322,7 @@ Module WindowHandlers
                 Else
                     If myProcess Is Nothing Then Return False
                     myProcess.Refresh()
-                    Thread.Sleep(100)
+                    Thread.Sleep(10)
                     If myProcess.MainWindowTitle = windowName Then
                         isthere += 1
                     End If
@@ -336,10 +335,11 @@ Module WindowHandlers
                 End If
             Catch ex As Exception ' can fail to be a valid window handle
                 BreakPoint.Dump(ex)
+                Return False
             End Try
 
             WindowCounter += 1
-            If WindowCounter > 1200 Then '  2 minutes                
+            If WindowCounter > 1200 Then '  2 minutes
                 ErrorLog(windowName & " timeout setting title")
                 Return False
             End If
