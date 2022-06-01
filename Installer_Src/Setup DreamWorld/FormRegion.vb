@@ -1429,6 +1429,7 @@ Public Class FormRegion
 
         If Initted1 Then Changed1 = True
         OpensimWorldAPIKey(RegionUUID) = APIKey.Text
+        SendToOpensimWorld(RegionUUID, 0)
 
     End Sub
 
