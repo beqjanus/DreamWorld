@@ -321,6 +321,9 @@ namespace OpenSim.Services.HypergridService
                 agentID,
                 agentHomeURI == null ? "" : " @ " + agentHomeURI);
 
+            // GetSmartStartALTRegion Start TODO
+
+
             return region;
         }
 
@@ -515,8 +518,8 @@ namespace OpenSim.Services.HypergridService
 
             if (m_SmartStartEnabled)
             {
-                if ((destination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
-                {
+                //if ((destination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
+                //{
                     UUID rid = GetSmartStartALTRegion(destination.RegionID, account.PrincipalID);
                     if(rid == UUID.Zero)
                     {
@@ -534,7 +537,7 @@ namespace OpenSim.Services.HypergridService
                         }
                         destination = r;
                     }
-                }
+                //}
             }
 
             m_log.DebugFormat(
