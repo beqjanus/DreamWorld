@@ -1516,7 +1516,11 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(Estate(RegionUUID))
 
                 ' Parcel settings
-                If UseMysql Then item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                If UseMysql Then
+                    item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                Else
+                    item1.SubItems.Add("")
+                End If
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
@@ -1588,7 +1592,7 @@ SetWindowOnTop_Err:
                     item1.SubItems.Add("-".ToUpperInvariant)
                 End If
 
-                If Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
+                If Smart_Start(RegionUUID) = "True" Then
                     item1.SubItems.Add(My.Resources.Yes_word)
                 Else
                     item1.SubItems.Add("-".ToUpperInvariant)
