@@ -111,6 +111,15 @@ Public Class UpdateGrid
                 ProgressBar1.Value = 70
                 Application.DoEvents()
 
+                Label1.Text = "Stopping Dreamgrid"
+                For Each p As Process In Process.GetProcessesByName("Start")
+                    p.Kill()
+                Next
+                ProgressBar1.Value = 80
+                Application.DoEvents()
+                Thread.Sleep(1000)
+
+
                 Dim err As Integer = 0
                 Dim fname As String = ""
 
