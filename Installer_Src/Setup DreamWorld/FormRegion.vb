@@ -22,6 +22,7 @@ Public Class FormRegion
     Dim isNew As Boolean
 
     Dim oldname As String = ""
+    Dim OldUUID As String
     Dim RName As String
 
 #End Region
@@ -178,6 +179,9 @@ Public Class FormRegion
         GodEstate.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
         GodManager.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
 
+        LandingSpotLabel.Text = Global.Outworldz.My.Resources.DefaultLandingSpot
+        LandingSpotTextBox.Text = Settings.LandingSpot
+
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapGroupBox.Text = Global.Outworldz.My.Resources.Maps_word
@@ -222,6 +226,7 @@ Public Class FormRegion
         ToolTip1.SetToolTip(FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
         ToolTip1.SetToolTip(PhysicsGroupbox, Global.Outworldz.My.Resources.Sim_Rate)
         ToolTip1.SetToolTip(GodManager, Global.Outworldz.My.Resources.EMGod)
+        ToolTip1.SetToolTip(LandingSpotTextBox, Global.Outworldz.My.Resources.LandingSpotTooltip)
         ToolTip1.SetToolTip(MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
         ToolTip1.SetToolTip(MaxMAvatarsLabel, Global.Outworldz.My.Resources.Max_Agents)
         ToolTip1.SetToolTip(MaxNPrimsLabel, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
@@ -446,6 +451,8 @@ Public Class FormRegion
             APIKey.Text = OpensimWorldAPIKey(RegionUUID)
 
         End If
+
+        OldUUID = UUID.Text
 
         If PropOpensimIsRunning Then
             UUID.ReadOnly = True
@@ -845,7 +852,9 @@ Public Class FormRegion
     End Sub
 
     Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
+
         RegionName.Text = RegionName.Text.Trim() ' remove spaces
+
     End Sub
 
     Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
@@ -940,18 +949,26 @@ Public Class FormRegion
 
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
-        If UUID.Text <> UUID.Text And Initted1 Then
+        If UUID.Text <> OldUUID And Initted1 Then
             Dim resp = MsgBox(My.Resources.Change_UUID, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If resp = vbYes Then
-                Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
+                    OldUUID = UUID.Text
+                    Changed1 = True
                 Else
                     Dim ok = MsgBox(My.Resources.NotValidUUID, MsgBoxStyle.OkCancel Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
+                        Changed1 = True
+                    Else
+                        UUID.Text = OldUUID
+                        Changed1 = False
                     End If
                 End If
+            Else
+                UUID.Text = OldUUID
+                Changed1 = False
             End If
         End If
 
@@ -1540,6 +1557,23 @@ Public Class FormRegion
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+    End Sub
+
+    Private Sub LandingSpotTextBox_lostfocus(sender As Object, e As EventArgs) Handles LandingSpotTextBox.LostFocus
+
+        Dim Parser = New Regex("<\d*\.?\d*,\d*\.?\d*,\d*\.?\d*>")   ' floats <x, y, z>
+        Dim result = Parser.Match(LandingSpotTextBox.Text)
+        If Not result.Success Then
+            MsgBox(My.Resources.NotValidVector, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            LandingSpotTextBox.BackColor = Color.Red
+        Else
+            LandingSpotTextBox.BackColor = Color.White
+        End If
+
+    End Sub
+
+    Private Sub LandingSpotTextBox_TextChanged(sender As Object, e As EventArgs) Handles LandingSpotTextBox.TextChanged
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged

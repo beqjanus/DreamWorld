@@ -4208,4 +4208,13 @@
   <data name="rezzableParcels" xml:space="preserve">
     <value>Parcels Settings</value>
   </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Default Landing Spot</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Set Default Landing Location (Defaults to &lt;128,128, 30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Not a Valid Vector! &lt;X, Y, Z&gt;, where values are &gt; 0 </value>
+  </data>
 </root>

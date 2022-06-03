@@ -1243,6 +1243,19 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Default LandingSpot
+    ''' </summary>
+    ''' <returns><128,128,30></returns>
+    Public Property LandingSpot() As String
+        Get
+            Return GetMySetting("LandingSpot", "<128,128,30>")
+        End Get
+        Set
+            SetMySetting("LandingSpot", Value)
+        End Set
+    End Property
+
     Public Property LandNoise() As Boolean
         Get
             Return CType(GetMySetting("LandNoise", "False"), Boolean)
