@@ -238,6 +238,11 @@ Module Robust
         Dim ViewerString As String = ""
         Dim GridString As String = ""
         Dim Bans As String = Settings.BanList
+        Dim filename As String
+        If Bans.Length = 0 Then
+            filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Opensim/BanListProto.txt")
+            Bans = ReadBanList(filename)
+        End If
 
         Dim Banlist As String()
         Banlist = Bans.Split("|".ToCharArray())
@@ -270,9 +275,9 @@ Module Robust
             End If
 
             ' ban MAC Addresses with and without caps and :
-            Dim pattern4 = New Regex("^[a-f0-9A-F]{32}")
-            Dim match4 As Match = pattern4.Match(s)
-            If match4.Success Then
+            Dim result As Guid
+            If Guid.TryParse(s, result) Then
+                s = s.ToLowerInvariant
                 MACString += s & " " ' delimiter is a " " and  not a pipe
                 Continue For
             End If
@@ -288,6 +293,7 @@ Module Robust
         If GridString.Length > 0 Then
             GridString = Mid(GridString, 1, GridString.Length - 1)
         End If
+
         INI.SetIni("GatekeeperService", "AllowExcept", GridString)
 
         ' Ban Macs
@@ -298,9 +304,6 @@ Module Robust
         INI.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
         'Ban Viewers
-        If ViewerString.Length > 0 Then
-            ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
-        End If
         If ViewerString.Length > 0 Then
             ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
         End If
@@ -393,6 +396,9 @@ Module Robust
         INI.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
 
         DoBanList(INI)
+
+        ' Smart Start cannot boot a HG region so send them to welcome.
+        INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(Settings.Smart_Start))
 
         INI.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
         INI.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
@@ -545,6 +551,25 @@ Module Robust
         End If
         MarkRobustOffline()
         Return False
+
+    End Function
+
+    Public Function ReadBanList(filename As String) As String
+
+        Dim output As String = ""
+
+        If filename.Length > 0 Then
+            Using reader As IO.StreamReader = System.IO.File.OpenText(filename)
+                'now loop through each line
+                While reader.Peek <> -1
+                    Dim line = reader.ReadLine()
+                    Dim words() = line.Split("|".ToCharArray)
+                    output += words(0) & "|"
+                End While
+            End Using
+        End If
+
+        Return output
 
     End Function
 
