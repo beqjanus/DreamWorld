@@ -155,26 +155,31 @@ Module WindowHandlers
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
+
         If Groupname <> RobustName() Then
-            ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
-            Dim AllProcesses = Process.GetProcessesByName("Opensim")
-            For Each p As Process In AllProcesses
-                If p.MainWindowTitle = Groupname Then
-                    Return p.MainWindowHandle
-                End If
-            Next
+            Try
+                ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
+                Dim AllProcesses = Process.GetProcessesByName("Opensim")
+                For Each p As Process In AllProcesses
+                    If p.MainWindowTitle = Groupname Then
+                        Return p.MainWindowHandle
+                    End If
+                Next
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
         Else
-            For Each pList As Process In Process.GetProcessesByName("Robust")
-                If pList.ProcessName = "Robust" Then
-                    Try
-                        pList.Refresh()
-                        Return pList.MainWindowHandle
-                    Catch
-                    End Try
-                End If
-            Next
-            Return IntPtr.Zero
-        End If
+                For Each pList As Process In Process.GetProcessesByName("Robust")
+                    If pList.ProcessName = "Robust" Then
+                        Try
+                            pList.Refresh()
+                            Return pList.MainWindowHandle
+                        Catch
+                        End Try
+                    End If
+                Next
+                Return IntPtr.Zero
+            End If
 
         Return IntPtr.Zero
 
