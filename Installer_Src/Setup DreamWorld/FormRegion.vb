@@ -180,7 +180,7 @@ Public Class FormRegion
         GodManager.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
 
         LandingSpotLabel.Text = Global.Outworldz.My.Resources.DefaultLandingSpot
-        LandingSpotTextBox.Text = Settings.LandingSpot
+
 
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
@@ -451,6 +451,8 @@ Public Class FormRegion
             APIKey.Text = OpensimWorldAPIKey(RegionUUID)
 
         End If
+
+        LandingSpotTextBox.Text = LandingSpot(RegionUUID)
 
         OldUUID = UUID.Text
 
@@ -1376,6 +1378,7 @@ Public Class FormRegion
                                 "MaxAgents=" & MaxAgents.Text & vbCrLf &
                                 "MaxPrims=" & MaxPrims.Text & vbCrLf &
                                 "RegionType = Estate" & vbCrLf & vbCrLf &
+                                "DefaultLanding = " & LandingSpotTextBox.Text & vbCrLf & vbCrLf &
                                 ";# Extended region properties from Dreamgrid" & vbCrLf &
                                 "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
                                 "FrameTime=" & FrametimeBox.Text & vbCrLf &
@@ -1561,6 +1564,7 @@ Public Class FormRegion
 
     Private Sub LandingSpotTextBox_lostfocus(sender As Object, e As EventArgs) Handles LandingSpotTextBox.LostFocus
 
+        If LandingSpotTextBox.Text.Length = 0 Then Return
         Dim Parser = New Regex("<\d*\.?\d*,\d*\.?\d*,\d*\.?\d*>")   ' floats <x, y, z>
         Dim result = Parser.Match(LandingSpotTextBox.Text)
         If Not result.Success Then
@@ -1573,6 +1577,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub LandingSpotTextBox_TextChanged(sender As Object, e As EventArgs) Handles LandingSpotTextBox.TextChanged
+        If LandingSpotTextBox.Text.Length = 0 Then Return
         If Initted1 Then Changed1 = True
     End Sub
 

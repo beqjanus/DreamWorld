@@ -1074,7 +1074,6 @@ Partial Class FormRegion
         Me.LandingSpotTextBox.Name = "LandingSpotTextBox"
         Me.LandingSpotTextBox.Size = New System.Drawing.Size(87, 20)
         Me.LandingSpotTextBox.TabIndex = 139
-        Me.LandingSpotTextBox.Text = "<128, 128, 30>"
         '
         'Maps_Use_Default
         '

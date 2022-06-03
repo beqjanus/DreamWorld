@@ -615,7 +615,7 @@ Module RegionMaker
                                 GDPR(uuid) = CStr(INI.GetIni(fName, "Publicity", "", "String"))
                                 Concierge(uuid) = CStr(INI.GetIni(fName, "Concierge", "", "String"))
                                 Smart_Start(uuid) = CStr(INI.GetIni(fName, "SmartStart", "False", "String"))
-                                LandingSpot(uuid) = CStr(INI.GetIni(fName, "LandingSpot", "", "String"))
+                                LandingSpot(uuid) = CStr(INI.GetIni(fName, "DefaultLanding", "", "String"))
                                 OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
                                 Cores(uuid) = CInt(0 & INI.GetIni(fName, "Cores", "", "String"))
                                 Priority(uuid) = CStr(INI.GetIni(fName, "Priority", "", "String"))
@@ -2202,6 +2202,8 @@ Module RegionMaker
                 ' Need the filename from this INI
 
                 Name = Region_Name(uuid)
+
+                If regionINI.SetIni(Name, "DefaultLanding", LandingSpot(uuid)) Then Return True
 
                 If regionINI.SetIni(Name, "InternalPort", CStr(Region_Port(uuid))) Then Return True
                 If regionINI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
