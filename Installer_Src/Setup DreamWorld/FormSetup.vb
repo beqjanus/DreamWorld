@@ -2419,7 +2419,7 @@ Public Class FormSetup
         End If
 
         If TimerBusy Then
-            Application.DoEvents()
+
             Return
         End If
         TimerBusy = True
