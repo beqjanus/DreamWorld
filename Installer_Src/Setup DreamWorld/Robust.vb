@@ -277,7 +277,7 @@ Module Robust
             ' ban MAC Addresses with and without caps and :
             Dim result As Guid
             If Guid.TryParse(s, result) Then
-                s = s.ToLowerInvariant
+                s = s.ToUpperInvariant
                 MACString += s & " " ' delimiter is a " " and  not a pipe
                 Continue For
             End If
