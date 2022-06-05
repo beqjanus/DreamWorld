@@ -741,11 +741,12 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 return;
             }
 
-            //DreamGrid
+            
+            // Smartstart
             //This is still a test.
             // this possible should only be called if query fails with a limites set of errors like connection refused.
-           // if (reg.RegionLocY != 0) // not on HG
-           // {
+            if (reg.RegionLocY != 0) // not on HG
+            {
                 //if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
                 //{
                     UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); // fkb
@@ -767,11 +768,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                         reg = finalDestination;
                     }
                 //
-            //}
+        	}
 
-            // Let's do DNS resolution only once in this process, please!
-            // This may be a costly operation. The reg.ExternalEndPoint field is not a passive field,
-            // it's actually doing a lot of work.
             IPEndPoint endPoint = finalDestination.ExternalEndPoint;
             if (endPoint == null || endPoint.Address == null)
             {
@@ -783,7 +781,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 m_log.DebugFormat(
                     "[ENTITY TRANSFER MODULE]: Failed validation of all attachments for teleport of {0} from {1} to {2}.  Continuing.",
                     sp.Name, sp.Scene.Name, finalDestination.RegionName);
-
             string reason;
             EntityTransferContext ctx = new EntityTransferContext();
 
