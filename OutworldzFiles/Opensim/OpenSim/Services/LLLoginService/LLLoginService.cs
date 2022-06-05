@@ -705,15 +705,15 @@ namespace OpenSim.Services.LLLoginService
             //RegionFlags.RegionOnline should had a major role here, but it is still unreliable
             //Jump out if a special region that must be always up
             // for now the smartstart wait region must have one such flags
-            if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
-                return dest;
+            //if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
+            //    return dest;
 
             UUID rid = GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);
             if (rid == dest.RegionID)
                 return dest;
 
             if (rid == UUID.Zero)
-                return null; //??
+                return null; 
 
             return m_GridService.GetRegionByUUID(scopeID, rid);
         }
