@@ -37,6 +37,9 @@ using OpenSim.Framework;
 using OpenSim.Services.Interfaces;
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using OpenSim.Server.Base;
+
+using RegionFlags = OpenSim.Framework.RegionFlags;
+
 using OpenSim.Services.Connectors.InstantMessage;
 using OpenSim.Services.Connectors.Hypergrid;
 using OpenMetaverse;
@@ -45,8 +48,6 @@ using OpenSim.Region.Framework;
 using Nini.Config;
 using log4net;
 
-
-using RegionFlags = OpenSim.Framework.RegionFlags;
 
 namespace OpenSim.Services.HypergridService
 {
@@ -301,6 +302,8 @@ namespace OpenSim.Services.HypergridService
                 return m_DefaultGatewayRegion;
             }
 
+            regionID = GetSmartStartALTRegionB(regionID, agentID);
+
             GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
 
             if (region == null)
@@ -311,7 +314,7 @@ namespace OpenSim.Services.HypergridService
 
                 message = "The teleport destination could not be found.";
                 return null;
-            }
+            }                  
 
             m_log.DebugFormat(
                 "[GATEKEEPER SERVICE]: Returning region {0} {1} @ {2} to user {3}{4}.",
@@ -321,10 +324,58 @@ namespace OpenSim.Services.HypergridService
                 agentID,
                 agentHomeURI == null ? "" : " @ " + agentHomeURI);
 
-            // GetSmartStartALTRegion Start TODO Smart Start
-
 
             return region;
+        }
+
+        //DreamGrid SmartStart fkb
+        public UUID GetSmartStartALTRegionB(UUID regionID, UUID agentID)
+        {
+            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
+            if (m_SmartStartEnabled)
+            {
+                string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
+                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+
+                HttpWebRequest webRequest;
+                try
+                {
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
+                }
+                catch
+                {
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    return UUID.Zero;
+                }
+
+                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.AllowWriteStreamBuffering = false;
+
+                try
+                {
+                    string tempStr;
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
+                            tempStr = reader.ReadToEnd();
+                    }
+
+                    if (string.IsNullOrEmpty(tempStr))
+                    {
+                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        return UUID.Zero;
+                    }
+
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    regionID = UUID.Parse(tempStr);
+                }
+                catch (Exception ex)
+                {
+                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                }
+            }
+            return regionID;
         }
 
         #region Login Agent
