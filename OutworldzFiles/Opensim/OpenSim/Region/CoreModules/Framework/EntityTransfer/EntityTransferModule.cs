@@ -744,8 +744,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             //DreamGrid
             //This is still a test.
             // this possible should only be called if query fails with a limites set of errors like connection refused.
-            if (reg.RegionLocY != 0) // not on HG
-            {
+           // if (reg.RegionLocY != 0) // not on HG
+           // {
                 //if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
                 //{
                     UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); // fkb
@@ -767,7 +767,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                         reg = finalDestination;
                     }
                 //
-            }
+            //}
 
             // Let's do DNS resolution only once in this process, please!
             // This may be a costly operation. The reg.ExternalEndPoint field is not a passive field,
