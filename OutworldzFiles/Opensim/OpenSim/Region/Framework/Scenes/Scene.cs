@@ -5334,18 +5334,6 @@ Label_GroupsDone:
             return m_sceneGraph.GetRootAgentCount();
         }
 
-
-        public int GetRootAvatarCount()
-        {
-
-            int roots = 0;
-            foreach (ScenePresence sp in GetScenePresences())
-                if (!sp.IsChildAgent && !sp.IsNPC)
-                    roots++;
-
-            return roots;
-
-        }
         public int GetRootNPCCount()
         {
             return m_sceneGraph.GetRootAgentCount();
