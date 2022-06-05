@@ -321,7 +321,7 @@ namespace OpenSim.Services.HypergridService
                 agentID,
                 agentHomeURI == null ? "" : " @ " + agentHomeURI);
 
-            // GetSmartStartALTRegion Start TODO
+            // GetSmartStartALTRegion Start TODO Smart Start
 
 
             return region;
@@ -666,7 +666,7 @@ namespace OpenSim.Services.HypergridService
             OSHHTPHost reqGrid = new OSHHTPHost(parts[0], false);
             if (!reqGrid.IsValidHost)
             {
-                m_log.DebugFormat("[GATEKEEPER SERVICE]: Visitor provided malformed gird address {0}", parts[0]);
+                m_log.DebugFormat("[GATEKEEPER SERVICE]: Visitor provided malformed grid address {0}", parts[0]);
                 return false;
             }
 
