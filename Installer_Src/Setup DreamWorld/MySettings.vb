@@ -996,7 +996,7 @@ Public Class MySettings
 
     Public Property EnableHypergrid() As Boolean
         Get
-            Return CType(GetMySetting("EnableHypergrid", "False"), Boolean)
+            Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
         End Get
         Set
             SetMySetting("EnableHypergrid", CStr(Value))
@@ -1242,7 +1242,6 @@ Public Class MySettings
             SetMySetting("KeepVisits", CStr(Value))
         End Set
     End Property
-
 
     Public Property LandNoise() As Boolean
         Get
