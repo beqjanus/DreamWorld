@@ -1031,7 +1031,6 @@ Public Class FormSetup
             Startup()
         Else
             TextPrint(My.Resources.Ready_to_Launch & vbCrLf & "------------------" & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
-            Application.DoEvents()
             Buttons(StartButton)
         End If
 
