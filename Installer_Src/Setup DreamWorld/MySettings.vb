@@ -2631,7 +2631,7 @@ Public Class MySettings
             End If
         Next
         If Not found Then
-            Diagnostics.Debug.Print("Error: Did not find " & Name & " to set value of " & value)
+            BreakPoint.Print("Error: Did not find " & Name & " to set value of " & value)
         End If
         Apachein.Clear()
         For Each item In Apacheout

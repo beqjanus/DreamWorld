@@ -1112,7 +1112,7 @@ Public Module MysqlInterface
                             End If
 
                             str += ")"
-                            Diagnostics.Debug.Print(str)
+
                         End If
                     End Using
                 End Using

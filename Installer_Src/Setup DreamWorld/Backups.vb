@@ -20,7 +20,7 @@ Public Class Backups
 
     Private Shared Sub Break(msg As String)
 
-        Diagnostics.Debug.Print(msg)
+        BreakPoint.Print(msg)
 
     End Sub
 

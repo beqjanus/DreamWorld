@@ -60,7 +60,7 @@ Namespace My
         ''' <returns></returns>
         'Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
         'Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
-        '   Diagnostics.Debug.Print("Loading Assembly " & desiredAssembly.Name)
+        '   Breakpoint.Print("Loading Assembly " & desiredAssembly.Name)
         'If desiredAssembly.Name = "Ionic.Zip" Then
         'Return Nothing
         '     Return Reflection.Assembly.Load("") 'replace with your assembly's resource name

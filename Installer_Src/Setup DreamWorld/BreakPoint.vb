@@ -18,13 +18,15 @@ Module BreakPoint
                 Message &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
             End If
         Next
-        Diagnostics.Debug.Print(Message)
+        BreakPoint.Print(Message)
 
     End Sub
 
     Public Sub Print(Message As String)
 
-        Diagnostics.Debug.Print(Message)
+        If Settings.LogLevel = "DEBUG" Then
+            TextPrint($"> {Message}")
+        End If
 
     End Sub
 

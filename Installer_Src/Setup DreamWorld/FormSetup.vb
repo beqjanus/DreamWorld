@@ -440,13 +440,13 @@ Public Class FormSetup
         Settings.SaveSettings()
 
         'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
-        'Diagnostics.Debug.Print("")
-        'Diagnostics.Debug.Print(ci.Name)
-        'Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
-        'Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
-        'Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
-        'Diagnostics.Debug.Print(ci.DisplayName)
-        'Diagnostics.Debug.Print(ci.EnglishName)
+        'Breakpoint.Print("")
+        'Breakpoint.Print(ci.Name)
+        'Breakpoint.Print(ci.TwoLetterISOLanguageName)
+        'Breakpoint.Print(ci.ThreeLetterISOLanguageName)
+        'Breakpoint.Print(ci.ThreeLetterWindowsLanguageName)
+        'Breakpoint.Print(ci.DisplayName)
+        'Breakpoint.Print(ci.EnglishName)
         'Next
 
         My.Application.ChangeUICulture(Settings.Language)
@@ -481,7 +481,6 @@ Public Class FormSetup
         CheckOverLap()
 
         StartThreads()
-        Application.DoEvents()
 
         If Settings.ServerType = RobustServerName Then
             StartRobust()
@@ -519,7 +518,7 @@ Public Class FormSetup
         For Each RegionName As String In ListOfNames
 
             Dim RegionUUID = FindRegionByName(RegionName)
-            Diagnostics.Debug.Print($"Starting {RegionName}")
+            BreakPoint.Print($"Starting {RegionName}")
 
             If RegionEnabled(RegionUUID) Then
                 Dim BootNeeded As Boolean = False
@@ -940,7 +939,6 @@ Public Class FormSetup
             Return
         End If
 
-
         ' Boot Port 8001 Server
         TextPrint(My.Resources.Starting_WebServer_word)
         PropWebserver = NetServer.GetWebServer
@@ -1000,7 +998,6 @@ Public Class FormSetup
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
         If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
-
 
         IsMySqlRunning()
         IsRobustRunning()
@@ -1120,7 +1117,7 @@ Public Class FormSetup
             Dim Status = RegionStatus(RegionUUID)
             Dim RegionName = Region_Name(RegionUUID)
 
-            Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
+            BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
                 Application.DoEvents()
@@ -1360,7 +1357,7 @@ Public Class FormSetup
 
                         If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
                             'Continue For
-                            Diagnostics.Debug.Print("State Changed to ShuttingDown", GroupName, "Teleport")
+                            BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                             Else
@@ -1396,14 +1393,14 @@ Public Class FormSetup
                     Else
 
                         ' shut down the group when AutoRestartInterval has gone by.
-                        Diagnostics.Debug.Print("State Is Time Exceeded, shutdown")
+                        BreakPoint.Print("State Is Time Exceeded, shutdown")
 
                         ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
 
-                        Diagnostics.Debug.Print("State changed to ShuttingDownForGood")
+                        BreakPoint.Print("State changed to ShuttingDownForGood")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
                         PropUpdateView = True
                         Continue For
@@ -1417,14 +1414,14 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Diagnostics.Debug.Print("State Is RestartPending")
+                    BreakPoint.Print("State Is RestartPending")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         PokeRegionTimer(RegionUUID)
                         Boot(RegionName)
                     Next
 
-                    Diagnostics.Debug.Print("State Is now Booted")
+                    BreakPoint.Print("State Is now Booted")
                     PropUpdateView = True
                     Continue For
                 End If
@@ -1434,7 +1431,7 @@ Public Class FormSetup
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
 
-                    Diagnostics.Debug.Print($"{GroupName} Is Resuming")
+                    BreakPoint.Print($"{GroupName} Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         ' if boot, just do it, else try to resume it, else boot it
@@ -1461,7 +1458,7 @@ Public Class FormSetup
                     For Each R In GroupList
                         RegionStatus(R) = SIMSTATUSENUM.RestartPending
                         PokeRegionTimer(RegionUUID)
-                        Diagnostics.Debug.Print("State changed to RestartPending", Region_Name(R), "Teleport")
+                        BreakPoint.Print($"State changed to RestartPending {Region_Name(R)}")
                     Next
                     PropUpdateView = True ' make form refresh
                     Continue For
@@ -1478,42 +1475,42 @@ Public Class FormSetup
 
     Private Sub DidItDie()
 
-        Bench.Print("DidItDie Begins")
+        While PropOpensimIsRunning
 
-        Dim l As New List(Of String)
-        ' check to see if a handle to all regions exists. If not, then it died.
-        For Each RegionUUID As String In RegionUuids()
-            l.Add(RegionUUID)
-        Next
-        l.Sort()
-        Application.DoEvents()
+            Dim l As New List(Of String)
+            ' check to see if a handle to all regions exists. If not, then it died.
+            For Each RegionUUID As String In RegionUuids()
+                l.Add(RegionUUID)
+            Next
+            l.Sort()
+            Application.DoEvents()
 
-        For Each RegionUUID As String In l
+            For Each RegionUUID As String In l
 
-            If Not PropOpensimIsRunning() Then Return
-            If Not RegionEnabled(RegionUUID) Then Continue For
+                If Not PropOpensimIsRunning() Then Return
+                If Not RegionEnabled(RegionUUID) Then Continue For
 
-            Dim status = RegionStatus(RegionUUID)
-            If CBool((status = SIMSTATUSENUM.Booted) Or
-                    (status = SIMSTATUSENUM.Booting) Or
-                    (status = SIMSTATUSENUM.RecyclingDown) Or
-                    (status = SIMSTATUSENUM.NoError) Or
-                    (status = SIMSTATUSENUM.ShuttingDownForGood) Or
-                    (status = SIMSTATUSENUM.Suspended)) Then
+                Dim status = RegionStatus(RegionUUID)
+                If CBool((status = SIMSTATUSENUM.Booted) Or
+                        (status = SIMSTATUSENUM.Booting) Or
+                        (status = SIMSTATUSENUM.RecyclingDown) Or
+                        (status = SIMSTATUSENUM.NoError) Or
+                        (status = SIMSTATUSENUM.ShuttingDownForGood) Or
+                        (status = SIMSTATUSENUM.Suspended)) Then
 
-                Dim Groupname = Group_Name(RegionUUID)
-                If GetHwnd(Groupname) = IntPtr.Zero Then
-                    'If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                    If Not exitList.ContainsKey(Groupname) Then
-                        exitList.TryAdd(Groupname, "Exit")
-                        Application.DoEvents()
+                    Dim Groupname = Group_Name(RegionUUID)
+                    If GetHwnd(Groupname) = IntPtr.Zero Then
+                        If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
+                            If Not exitList.ContainsKey(Groupname) Then
+                                exitList.TryAdd(Groupname, "Exit")
+                                Application.DoEvents()
+                            End If
+                        End If
                     End If
-                    'End If
                 End If
-            End If
-
-        Next
-        Bench.Print("DidItDie Ends")
+            Next
+            Sleep(1000)
+        End While
 
     End Sub
 
@@ -1526,7 +1523,7 @@ Public Class FormSetup
     ''' <param name="Taskname">A Task Name</param>
     Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
 
-        Diagnostics.Debug.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
+        BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
         ReBoot(RegionUUID)
         Sleep(1000)
@@ -1593,7 +1590,7 @@ Public Class FormSetup
 
         If ToDoList.ContainsKey(RegionUUID) Then
 
-            Diagnostics.Debug.Print($"Running tasks for {Region_Name(RegionUUID)}")
+            BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 ToDoList.Remove(RegionUUID)
@@ -2366,22 +2363,23 @@ Public Class FormSetup
     Private Sub StartThreads()
 
         If _ThreadsArerunning Then Return
-
+        _ThreadsArerunning = True
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
-        Dim WebThread = New Thread(start1)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        Dim Thread1 = New Thread(start1)
+        Thread1.SetApartmentState(ApartmentState.STA)
+        Thread1.Priority = ThreadPriority.Normal
 
-        Dim O As New CPUStuff With {
-            .CounterList = CounterList,
-            .CPUValues = CPUValues,
-            .PropInstanceHandles = PropInstanceHandles
-        }
-        WebThread.Start(O)
-
-        _ThreadsArerunning = True
+        Thread1.Start()
+        Sleep(100)
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start2 As ParameterizedThreadStart = AddressOf DidItDie
+#Enable Warning BC42016 ' Implicit conversion
+        Dim Thread2 = New Thread(start2)
+        Thread2.SetApartmentState(ApartmentState.STA)
+        Thread2.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        Thread2.Start()
 
     End Sub
 
@@ -2419,7 +2417,7 @@ Public Class FormSetup
         End If
 
         If TimerBusy Then
-            Application.DoEvents()
+
             Return
         End If
         TimerBusy = True

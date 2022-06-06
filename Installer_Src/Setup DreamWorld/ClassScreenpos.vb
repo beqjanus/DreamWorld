@@ -73,7 +73,7 @@ Public Class ClassScreenpos
         If w = 0 Then
             Return size
         End If
-        Diagnostics.Debug.Print(name & "_width" & w.ToString(Globalization.CultureInfo.CurrentCulture))
+        BreakPoint.Print(name & "_width" & w.ToString(Globalization.CultureInfo.CurrentCulture))
         Return w
 
     End Function

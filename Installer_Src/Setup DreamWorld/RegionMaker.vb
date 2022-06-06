@@ -403,7 +403,7 @@ Module RegionMaker
                     ' no see if anyone is in the surrounding sim
                     If IsAgentInRegion(Map.Item(gr)) Then
                         'Dim Name = Region_Name(RegionUUID)
-                        'Diagnostics.Debug.Print("Avatar is detected near region " & NameRegion)
+                        'Breakpoint.Print("Avatar is detected near region " & NameRegion)
                         Return True
                     End If
                 End If
@@ -451,7 +451,7 @@ Module RegionMaker
                         .Y = Coord_Y(RegionUUID) + Y
                     }
                     Regions.Add(map)
-                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}") End If
+                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Breakpoint.Print($"{Name} {map.X} {map.Y}") End If
                 Next
             Next
         Next
@@ -649,7 +649,7 @@ Module RegionMaker
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} to {fName}", "Port")
                                     '
                                     GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
-                                    Diagnostics.Debug.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
+                                    BreakPoint.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}")
                                     '
                                     If GroupPort(uuid) = 0 Then
                                         GroupPort(uuid) = ThisGroup

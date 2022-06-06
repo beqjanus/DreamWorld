@@ -911,7 +911,7 @@ SetWindowOnTop_Err:
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
                 INI.SaveINI()
             Else
-                BreakPoint.Print("cannot locate region in group " & GroupName)
+                BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
 
         Next
@@ -1276,11 +1276,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
-
-        Debug.Print(e.Label)
-
-    End Sub
 
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
 
