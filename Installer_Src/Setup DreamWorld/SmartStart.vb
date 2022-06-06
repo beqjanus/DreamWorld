@@ -91,11 +91,16 @@ Module SmartStart
                 For Each RegionUUID As String In RegionUuids()
 
                     ' see if there is a window still open. If so, its running
-                    If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                        'Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
+                    'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
+
+                    Dim status = RegionStatus(RegionUUID)
+                    If CBool((status = SIMSTATUSENUM.Booting) Or
+                        (status = SIMSTATUSENUM.RecyclingDown) Or
+                        (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
+                        BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
-                        'Diagnostics.Debug.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
+                        'Breakpoint.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
                     End If
 
                 Next
