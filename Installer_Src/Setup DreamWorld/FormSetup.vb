@@ -16,13 +16,9 @@ Public Class FormSetup
 #Region "Vars"
 
     Public exitList As New ConcurrentDictionary(Of String, String)
-
     Public MyCPUCollection As New List(Of Double)
-
     Public MyRAMCollection As New List(Of Double)
-
     Public ToDoList As New Dictionary(Of String, TaskObject)
-
     Public Visitor As New Dictionary(Of String, String)
 
     Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
@@ -53,7 +49,7 @@ Public Class FormSetup
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
     Private _ThreadsArerunning As Boolean
-    Private _timerBusy1 As Boolean
+
     Private _WasRunning As String = ""
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
@@ -227,15 +223,6 @@ Public Class FormSetup
 
     Public Property Searcher1 As ManagementObjectSearcher
         Get
-            Return Searcher2
-        End Get
-        Set(value As ManagementObjectSearcher)
-            Searcher2 = value
-        End Set
-    End Property
-
-    Public Property Searcher2 As ManagementObjectSearcher
-        Get
             Return searcher
         End Get
         Set(value As ManagementObjectSearcher)
@@ -249,15 +236,6 @@ Public Class FormSetup
         End Get
         Set(ByVal Value As Integer)
             _DNSSTimer = Value
-        End Set
-    End Property
-
-    Public Property TimerBusy As Boolean
-        Get
-            Return _timerBusy1
-        End Get
-        Set(value As Boolean)
-            _timerBusy1 = value
         End Set
     End Property
 
@@ -388,10 +366,10 @@ Public Class FormSetup
                 Application.DoEvents()
                 counter -= 1
 
-                Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
                 Dim ListofPIDs = RegionPIDs()
                 Dim CountisRunning As New List(Of Integer)
-                For Each P In RunningTasks
+                Dim AllProcesses() = Process.GetProcessesByName("Opensim") ' cache of processes
+                For Each P In AllProcesses
                     If ListofPIDs.Contains(P.Id) Then
                         CountisRunning.Add(P.Id)
                     End If
@@ -425,7 +403,6 @@ Public Class FormSetup
         Zap("cports")
 
         TimerMain.Stop()
-        TimerBusy = False
 
         PropOpensimIsRunning() = False
         PropUpdateView = True ' make form refresh
@@ -852,8 +829,6 @@ Public Class FormSetup
         SetupPerlModules() ' Perl Language interpreter
         Settings.DotnetUpgraded() = True
 
-        FixPresence() ' Fixes stuck avatars
-
         TextPrint(My.Resources.Getting_regions_word)
 
         PropChangedRegionSettings = True
@@ -999,7 +974,13 @@ Public Class FormSetup
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
         If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
-        IsMySqlRunning()
+        ' If we are booting and nothing is running, we clear the registered regions and people
+        Dim OpensimRunning() = Process.GetProcessesByName("Opensim")
+        If IsMySqlRunning() And Not IsRobustRunning() And OpensimRunning.Count = 0 Then
+            MysqlInterface.DeregisterRegions(False)
+            FixPresence() ' Fixes stuck avatars
+        End If
+        ' also turn on the lights for the other services.
         IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
@@ -1095,7 +1076,8 @@ Public Class FormSetup
                 ' Already done, just being safe here
                 PID = ProcessID(RegionUUID)
                 If PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Remove(PID)
+                    Dim S As String = ""
+                    PropInstanceHandles.TryRemove(PID, S)
                 End If
             Else
                 BreakPoint.Print("No UUID!")
@@ -2399,7 +2381,6 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
-        TimerBusy = False
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
 
@@ -2416,106 +2397,98 @@ Public Class FormSetup
             Return
         End If
 
-        If TimerBusy Then
-
-            Return
+        ' Reload regions from disk
+        If PropChangedRegionSettings Then
+            GetAllRegions(False)
         End If
-        TimerBusy = True
 
-        SyncLock TimerLock ' stop other threads from firing this
-            ' Reload regions from disk
-            If PropChangedRegionSettings Then
-                GetAllRegions(False)
+        CheckPost()                 ' see if anything arrived in the web server
+        CheckForBootedRegions()     ' and also see if any booted up
+        TeleportAgents()            ' send them onward
+
+        If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
+            Chart()                     ' do charts collection each 2 second or s
+            CachedAvatars = GetAllAgents()
+        End If
+
+        If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
+
+            Bench.Print("5 second worker")
+            PrintBackups()
+            CalcDiskFree()              ' check for free disk space
+            ScanAgents()                ' update agent count
+            Chat2Speech()               ' speak of the devil
+            RestartDOSboxes()
+            Bench.Print("5 second worker ends")
+        End If
+
+        If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("10 second worker")
+            DidItDie()
+            ProcessQuit()               ' check if any processes exited
+            Bench.Print("10 second worker ends")
+        End If
+
+        If SecondsTicker = 60 Then
+            Bench.Print("Initial 60 second worker")
+            Delete_all_visitor_maps()
+            MakeMaps()
+            Bench.Print("Initial 60 second worker ends")
+        End If
+
+        If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("60 second worker")
+            DeleteOldWave()
+            ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
+            BackupThread.RunAllBackups(False) ' run background based on time of day = false
+            RegionListHTML("Name") ' create HTML for old teleport boards
+            VisitorCount()
+            Bench.Print("60 second work done")
+        End If
+
+        ' Run Search and events once at 5 minute mark
+        If SecondsTicker = 300 Then
+            Bench.Print("300 second worker")
+            RunParser()
+            GetEvents()
+            ScanOpenSimWorld(True)
+            Bench.Print("300 second worker ends")
+        End If
+
+        If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
+            If TestPrivateLoopback(False) Then
+                ErrorLog("Diagnostic Listener port failed")
+                TextPrint("Diagnostic Listener port failed")
             End If
+        End If
 
-            CheckPost()                 ' see if anything arrived in the web server
-            CheckForBootedRegions()     ' and also see if any booted up
-            TeleportAgents()            ' send them onward
+        ' half hour
+        If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("half hour worker")
+            ScanOpenSimWorld(True)
+            GetEvents()
+            RunParser()
+            MakeMaps()
+            Bench.Print("half hour worker ends")
+        End If
 
-            If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-                Chart()                     ' do charts collection each 2 second or s
-            End If
+        ' print hourly marks on console
+        If SecondsTicker Mod 3600 = 0 Then
+            Bench.Print("hour worker")
+            TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
+            ' Dynamically adjust Mysql for size of DB
 
-            If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("5 second worker")
-                PrintBackups()
-                CalcDiskFree()              ' check for free disk space
-                ScanAgents()                ' update agent count
-                Chat2Speech()               ' speak of the devil
-                RestartDOSboxes()
-                Bench.Print("5 second worker ends")
-            End If
+            SetPublicIP() ' Adjust to any IP changes
+            ExpireLogsByAge()
+            DeleteDirectoryTmp()
+            DeleteOldVisitors()
+            ' set mysql for amount of buffer to use now that it running.
+            ' Will take effect next time Mysql is started.
+            Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
 
-            If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("10 second worker")
-                DidItDie()
-                ProcessQuit()               ' check if any processes exited
-                Bench.Print("10 second worker ends")
-            End If
-
-            If SecondsTicker = 60 Then
-                Bench.Print("Initial 60 second worker")
-                Delete_all_visitor_maps()
-                MakeMaps()
-                Bench.Print("Initial 60 second worker ends")
-            End If
-
-            If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("60 second worker")
-                DeleteOldWave()
-                ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
-                BackupThread.RunAllBackups(False) ' run background based on time of day = false
-                RegionListHTML("Name") ' create HTML for old teleport boards
-                VisitorCount()
-                Bench.Print("60 second work done")
-            End If
-
-            ' Run Search and events once at 5 minute mark
-            If SecondsTicker = 300 Then
-                Bench.Print("300 second worker")
-                RunParser()
-                GetEvents()
-                ScanOpenSimWorld(True)
-                Bench.Print("300 second worker ends")
-            End If
-
-            If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
-                If TestPrivateLoopback(False) Then
-                    ErrorLog("Diagnostic Listener port failed")
-                    TextPrint("Diagnostic Listener port failed")
-                End If
-            End If
-
-            ' half hour
-            If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("half hour worker")
-                ScanOpenSimWorld(True)
-                GetEvents()
-                RunParser()
-                MakeMaps()
-                Bench.Print("half hour worker ends")
-            End If
-
-            ' print hourly marks on console
-            If SecondsTicker Mod 3600 = 0 Then
-                Bench.Print("hour worker")
-                TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
-                ' Dynamically adjust Mysql for size of DB
-
-                SetPublicIP() ' Adjust to any IP changes
-                ExpireLogsByAge()
-                DeleteDirectoryTmp()
-                DeleteOldVisitors()
-                ' set mysql for amount of buffer to use now that it running.
-                ' Will take effect next time Mysql is started.
-                Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
-
-                Bench.Print("hour worker ends")
-            End If
-            SecondsTicker += 1
-
-        End SyncLock
-        TimerBusy = False
+            Bench.Print("hour worker ends")
+        End If
+        SecondsTicker += 1
 
     End Sub
 
