@@ -398,7 +398,8 @@ Module Robust
         DoBanList(INI)
 
         ' Smart Start cannot boot a HG region so send them to welcome.
-        INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(Settings.Smart_Start))
+        'INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(Settings.Smart_Start))
+        INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(True))
 
         INI.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
         INI.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
