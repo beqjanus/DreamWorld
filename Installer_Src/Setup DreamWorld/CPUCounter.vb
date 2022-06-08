@@ -1,16 +1,20 @@
+Imports System.Collections.Concurrent
 Imports System.Threading
 
 Module CPUCounter
 
-    Public O As New CPUStuff With {
+    Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
+
+    Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
+
+    Private ReadOnly _regionHandles As New ConcurrentDictionary(Of Integer, String)
+
+    Private ReadOnly O As New CPUStuff With {
             .CounterList = CounterList,
             .CPUValues = CPUValues,
             .PropInstanceHandles = PropInstanceHandles
         }
 
-    Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
-    Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
-    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private _PCList As Dictionary(Of Integer, PerformanceCounter)
 
     Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
@@ -32,7 +36,7 @@ Module CPUCounter
         End Get
     End Property
 
-    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
+    Public ReadOnly Property PropInstanceHandles As ConcurrentDictionary(Of Integer, String)
         Get
             Return _regionHandles
         End Get
@@ -57,10 +61,9 @@ Module CPUCounter
     Public Sub CalcCPU()
 
         While PropOpensimIsRunning
-
-            Dim OpensimProcesses() = Process.GetProcessesByName("Opensim")
+            Dim AllProcesses() = Process.GetProcessesByName("Opensim")
             Try
-                For Each p As Process In OpensimProcesses
+                For Each p As Process In AllProcesses
                     If PropInstanceHandles.ContainsKey(p.Id) Then
                         Dim Gname As String = PropInstanceHandles.Item(p.Id)
                         Dim c As PerformanceCounter = Nothing
@@ -95,9 +98,9 @@ Module CPUCounter
 
                         End If
                     Else
-                        PropInstanceHandles.Add(p.Id, p.MainWindowTitle)
+                        PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
                     End If
-                    Thread.Sleep(100)
+                    Thread.Sleep(10)
                 Next
             Catch
                 Try
@@ -153,7 +156,7 @@ Module CPUCounter
     Public Class CPUStuff
         Public CounterList As Dictionary(Of String, PerformanceCounter)
         Public CPUValues As Dictionary(Of String, Double)
-        Public PropInstanceHandles As Dictionary(Of Integer, String)
+        Public PropInstanceHandles As ConcurrentDictionary(Of Integer, String)
     End Class
 
 End Module
