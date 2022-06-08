@@ -302,8 +302,8 @@ namespace OpenSim.Services.HypergridService
                 return m_DefaultGatewayRegion;
             }
 
-            //fkb off
-            // regionID = GetSmartStartALTRegion(regionID, agentID);
+            //fkb 
+            regionID = GetSmartStartALTRegion(regionID, agentID);
 
             GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
 
@@ -568,12 +568,10 @@ namespace OpenSim.Services.HypergridService
                 return false;
             }
 
-            //fkb off
-            if (!m_SmartStartEnabled)
+            //fkb 
+            if (true)
             {
-                //if ((destination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
-                //{
-                UUID rid = GetSmartStartALTRegion(destination.RegionID, account.PrincipalID);
+                UUID rid = GetSmartStartALTRegion(destination.RegionID, aCircuit.AgentID);
                 if (rid == UUID.Zero)
                 {
                     m_log.Debug("[GateKeeper]: Smart Start Region redirection check fail, regionid = 0");
@@ -592,7 +590,6 @@ namespace OpenSim.Services.HypergridService
                     }
                     destination = r;
                 }
-                //}
             }
 
             m_log.DebugFormat(
