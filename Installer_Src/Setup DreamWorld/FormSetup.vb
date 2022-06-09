@@ -1008,7 +1008,6 @@ Public Class FormSetup
             Startup()
         Else
             TextPrint(My.Resources.Ready_to_Launch & vbCrLf & "------------------" & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
-            Application.DoEvents()
             Buttons(StartButton)
         End If
 
@@ -1494,7 +1493,7 @@ Public Class FormSetup
                     End If
                 End If
             Next
-            Sleep(1000)
+            Thread.Sleep(1000)
         End While
 
     End Sub
@@ -2366,7 +2365,7 @@ Public Class FormSetup
 #Enable Warning BC42016 ' Implicit conversion
         Dim Thread2 = New Thread(start2)
         Thread2.SetApartmentState(ApartmentState.STA)
-        Thread2.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        Thread2.Priority = ThreadPriority.Lowest ' UI gets priority
         Thread2.Start()
 
     End Sub

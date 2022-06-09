@@ -152,13 +152,13 @@ Public Class Backups
             End Using
             ' stupid windows does not flush buffers!
             While Not File.Exists(Bak)
-                Sleep(100)
+                Thread.Sleep(100)
             End While
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
 
-            Sleep(100)
+            Thread.Sleep(100)
             DeleteFile(SQLFile)
-            Sleep(100)
+            Thread.Sleep(100)
             DeleteFolder(_folder)
         Catch ex As Exception
             Break(ex.Message)
@@ -410,9 +410,9 @@ Public Class Backups
             Try
                 If zipused = True Then
                     Z.Save()
-                    Sleep(5000)
+                    Thread.Sleep(5000)
                     MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                    Sleep(1000)
+                    Thread.Sleep(1000)
                 End If
 
                 DeleteFolder(_folder)
