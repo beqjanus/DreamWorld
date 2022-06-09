@@ -356,6 +356,7 @@ SetWindowOnTop_Err:
             SaveOar(RegionName)
 
         End If
+        Choices.Close()
 
     End Sub
 
@@ -1275,7 +1276,6 @@ SetWindowOnTop_Err:
         SearchBusy = False
 
     End Sub
-
 
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
 
