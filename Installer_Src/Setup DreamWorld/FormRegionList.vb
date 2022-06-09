@@ -356,6 +356,7 @@ SetWindowOnTop_Err:
             SaveOar(RegionName)
 
         End If
+        Choices.Close()
 
     End Sub
 
@@ -911,7 +912,7 @@ SetWindowOnTop_Err:
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
                 INI.SaveINI()
             Else
-                BreakPoint.Print("cannot locate region in group " & GroupName)
+                BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
 
         Next
@@ -1276,12 +1277,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
-
-        Debug.Print(e.Label)
-
-    End Sub
-
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
 
         If Not initted Then Return
@@ -1516,7 +1511,11 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(Estate(RegionUUID))
 
                 ' Parcel settings
-                If UseMysql Then item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                If UseMysql Then
+                    item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                Else
+                    item1.SubItems.Add("")
+                End If
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
@@ -1588,7 +1587,7 @@ SetWindowOnTop_Err:
                     item1.SubItems.Add("-".ToUpperInvariant)
                 End If
 
-                If Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
+                If Smart_Start(RegionUUID) = "True" Then
                     item1.SubItems.Add(My.Resources.Yes_word)
                 Else
                     item1.SubItems.Add("-".ToUpperInvariant)

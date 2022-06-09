@@ -8,6 +8,7 @@
 \OutworldzFiles\Opensim\bin\Diva.Data.MySQL.dll
 \OutworldzFiles\Opensim\bin\Diva.Data.SQLite.dll
 \OutworldzFiles\Opensim\bin\Diva.Interfaces.dll
+\OutworldzFiles\Opensim\bin\Diva.OnLook.dll
 \OutworldzFiles\Opensim\bin\Diva.OpenSimServices.dll
 \OutworldzFiles\Opensim\bin\Diva.Utils.dll
 \OutworldzFiles\Opensim\bin\Diva.Wifi.dll
@@ -123,6 +124,7 @@
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Performance.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Permissions.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Stress.dll
+\OutworldzFiles\Opensim\bin\OpenSimBirds.Module.dll
 \OutworldzFiles\Opensim\bin\OpenSimSearch.Modules.dll
 \OutworldzFiles\Opensim\bin\OpenSimTide.Module.dll
 \OutworldzFiles\Opensim\bin\PrimMesher.dll

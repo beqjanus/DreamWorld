@@ -48,28 +48,30 @@ Module SmartStart
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
         ' Scan all the regions
-        'Dim FakeAgents = GetAgentList()
-        'Dim AllAgents As Dictionary(Of String, String)
+        Dim Agents = New Dictionary(Of String, String)
+
         Dim Presence = GetPresence()
+        Dim HGUsers = GetGridUsers()
 
-        'For Each item In AllAgents
-        'If AllAgents.ContainsKey(item.Key) Then
-        'AllAgents.Item(item.Key) = item.Value
-        'Else
-        'AllAgents.Add(item.Key, item.Value)
-        'End If
+        For Each item In Presence
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
+
+        For Each item In HGUsers
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
+
         'Next
 
-        'For Each item In Presence
-        'If AllAgents.ContainsKey(item.Key) Then
-        'AllAgents.Item(item.Key) = item.Value
-        'Else
-        'AllAgents.Add(item.Key, item.Value)
-        'End If
-
-        'Next
-
-        Return Presence
+        Return Agents
 
     End Function
 
@@ -91,11 +93,17 @@ Module SmartStart
                 For Each RegionUUID As String In RegionUuids()
 
                     ' see if there is a window still open. If so, its running
-                    If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                        'Diagnostics.Debug.Print($"Waiting On {Region_Name(RegionUUID)}")
+                    'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
+
+                    Dim status = RegionStatus(RegionUUID)
+
+                    If CBool((status = SIMSTATUSENUM.Booting) Or
+                        (status = SIMSTATUSENUM.RecyclingDown) Or
+                        (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
+                        BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
-                        'Diagnostics.Debug.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
+                        'Breakpoint.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
                     End If
 
                 Next
@@ -450,7 +458,7 @@ Module SmartStart
                     Dim PID As Integer = GetPIDofWindow(GroupName)
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     If Settings.BootOrSuspend Then
@@ -477,7 +485,7 @@ Module SmartStart
                     ' TextPrint(BootName & " " & My.Resources.Running_word)
                     Dim PID As Integer = GetPIDofWindow(GroupName)
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     For Each UUID As String In RegionUuidListByName(GroupName)
@@ -489,7 +497,6 @@ Module SmartStart
                         End If
 
                         ProcessID(UUID) = PID
-                        Application.DoEvents()
                     Next
                     ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
@@ -587,7 +594,7 @@ Module SmartStart
                     End If
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     ' Mark them before we boot as a crash will immediately trigger the event that it exited

@@ -122,7 +122,7 @@ Module Disk
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub PauseRegion(RegionUUID As String)
 
-        Diagnostics.Debug.Print($"Pausing {Region_Name(RegionUUID)}")
+        BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
 
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
 
@@ -139,7 +139,7 @@ Module Disk
             Return True
         End If
 
-        Diagnostics.Debug.Print($"Resume {Region_Name(RegionUUID)}")
+        BreakPoint.Print($"Resume {Region_Name(RegionUUID)}")
         ' SuUspend mode and there is a DOS box then...
         If Settings.BootOrSuspend = False And CBool(GetHwnd(Group_Name(RegionUUID))) Then
             FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))

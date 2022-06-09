@@ -14,6 +14,7 @@ Imports MySqlConnector
 
 Public Module MysqlInterface
     Public WithEvents ProcessMySql As Process = New Process()
+    Public CachedAvatars As New Dictionary(Of String, String)
     Private Const Rezzable As Integer = 64 '     Region flag for rez
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
@@ -741,26 +742,26 @@ Public Module MysqlInterface
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
-        Dim pattern As String = "(.*?);.*;(.*)$"
-        Dim Avatar As String
-        Dim UUID As String
+        Dim pattern As String = "(.*?);(.*?);(.*)$"
         Dim HGDict As New Dictionary(Of String, String)
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-
             Try
                 NewSQLConn.Open()
-
                 Using cmd = New MySqlCommand(UserStmt, NewSQLConn)
-
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             ' Debug.Print(reader.GetString(0))
                             Dim LongName = reader.GetString(0)
-                            UUID = reader.GetString(1)
+                            Dim UUID = reader.GetString(1)
                             For Each m In Regex.Matches(LongName, pattern)
                                 ' Debug.Print("Avatar {0}", m.Groups(2).Value)
                                 ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
-                                Avatar = m.Groups(2).Value.ToString
+                                Dim grid = m.Groups(2).Value.ToString
+                                grid = grid.Replace("http://", "")
+                                grid = grid.Replace("/", "")
+
+                                Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
+
                                 If HGDict.ContainsKey(Avatar) Then
                                     HGDict.Item(Avatar) = UUID
                                 Else
@@ -769,14 +770,10 @@ Public Module MysqlInterface
                             Next
                         End While
                     End Using
-
                 End Using
-            Catch ex As MySqlException
-                ErrorLog(ex.Message)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
-
         End Using
 
         ' Debug leaving and entering
@@ -900,10 +897,7 @@ Public Module MysqlInterface
 
         If Settings.ServerType <> RobustServerName Then Return False
         If Not RegionEnabled(regionuuid) Then Return False
-        Dim RegionName = Region_Name(regionuuid)
-
-        Dim l = GetAllAgents()
-        Return l.ContainsValue(regionuuid)
+        Return CachedAvatars.ContainsValue(regionuuid)
 
     End Function
 
@@ -1112,7 +1106,7 @@ Public Module MysqlInterface
                             End If
 
                             str += ")"
-                            Diagnostics.Debug.Print(str)
+
                         End If
                     End Using
                 End Using

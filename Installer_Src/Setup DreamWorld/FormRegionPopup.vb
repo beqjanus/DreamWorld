@@ -146,6 +146,12 @@ Public Class FormRegionPopup
 
     End Sub
 
+    Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+
+        Diagnostics.Debug.Print("closing")
+
+    End Sub
+
 #End Region
 
 #Region "Private Methods"

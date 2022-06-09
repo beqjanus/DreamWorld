@@ -30,6 +30,8 @@ Module WindowHandlers
 
 #End Region
 
+    Private AllProcesses() As Process
+
     Public Function CachedProcess(PID As Integer) As Process
 
         If Not ProcessIdDict.ContainsKey(PID) Then
@@ -156,13 +158,17 @@ Module WindowHandlers
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname <> RobustName() Then
-            ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
-            Dim AllProcesses = Process.GetProcessesByName("Opensim")
-            For Each p As Process In AllProcesses
-                If p.MainWindowTitle = Groupname Then
-                    Return p.MainWindowHandle
-                End If
-            Next
+            AllProcesses = Process.GetProcessesByName("Opensim") ' cache of processes
+            Try
+                ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
+                For Each p As Process In AllProcesses
+                    If p.MainWindowTitle = Groupname Then
+                        Return p.MainWindowHandle
+                    End If
+                Next
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
         Else
             For Each pList As Process In Process.GetProcessesByName("Robust")
                 If pList.ProcessName = "Robust" Then
@@ -196,7 +202,7 @@ Module WindowHandlers
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
-        For Each pList As Process In Process.GetProcessesByName("Opensim")
+        For Each pList As Process In AllProcesses
             Try
                 If pList.MainWindowTitle = GroupName Then
                     Return pList.Id
@@ -315,23 +321,17 @@ Module WindowHandlers
         Dim isthere As Integer = 0
         While True
             Try
-                status = SetWindowText(myhandle, windowName)
-                If Not status Then
-                    Dim err = Marshal.GetLastWin32Error()
-                    BreakPoint.Print($"Error {CStr(err)}")
-                Else
-                    If myProcess Is Nothing Then Return False
-                    myProcess.Refresh()
-                    Thread.Sleep(10)
-                    If myProcess.MainWindowTitle = windowName Then
-                        isthere += 1
-                    End If
-                    If myProcess.MainWindowTitle = windowName And isthere > 3 Then
+
+                myProcess.Refresh()
+                Thread.Sleep(100)
+                If myProcess.MainWindowTitle = windowName Then
+                    isthere += 1
+                    If isthere > 3 Then
                         Return True
-                    Else
-                        'Dim err = GetLastError()
-                        status = False
                     End If
+                Else
+                    isthere = 0
+                    status = SetWindowText(myhandle, windowName)
                 End If
             Catch ex As Exception ' can fail to be a valid window handle
                 BreakPoint.Dump(ex)
@@ -343,8 +343,6 @@ Module WindowHandlers
                 ErrorLog(windowName & " timeout setting title")
                 Return False
             End If
-            Thread.Sleep(100)
-            myProcess.Refresh()
 
         End While
 

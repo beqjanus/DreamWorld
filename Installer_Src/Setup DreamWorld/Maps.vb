@@ -74,8 +74,8 @@ Module Maps
                     Y = CInt(SimSize - (SimSize / XS))
                     For Ystep = 0 To XS - 1
                         Dim MapImage = $"map-1-{Coord_X(regionUUID) + Xstep }-{Coord_Y(regionUUID) + Ystep  }-objects.jpg"
-                        Diagnostics.Debug.Print(Name)
-                        Diagnostics.Debug.Print(MapImage)
+                        BreakPoint.Print(Name)
+                        BreakPoint.Print(MapImage)
 
                         ' images plot at up[per left, Opensim is lower left
                         ' for a 2X2 this is the value
@@ -88,7 +88,7 @@ Module Maps
                         If IO.File.Exists(RegionSrc) Then
                             Src = Image.FromFile(RegionSrc)
                             Using g As Graphics = Graphics.FromImage(Out)
-                                'Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
+                                'Breakpoint.Print(CStr(X) & ":" & CStr(Y))
                                 Try
                                     g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
                                     Out.Save(IO.Path.Combine(SavePath, $"{Name}.png"))
