@@ -163,10 +163,6 @@ Module RegionMaker
 
     Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
 
-        While CreateRegionLock
-            Sleep(100)
-        End While
-
         CreateRegionLock = True
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
