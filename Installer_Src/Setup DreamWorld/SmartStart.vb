@@ -96,7 +96,7 @@ Module SmartStart
                     'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
                     Dim status = RegionStatus(RegionUUID)
-                    BreakPoint.Print(GetStateString(status))
+
                     If CBool((status = SIMSTATUSENUM.Booting) Or
                         (status = SIMSTATUSENUM.RecyclingDown) Or
                         (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
@@ -497,7 +497,6 @@ Module SmartStart
                         End If
 
                         ProcessID(UUID) = PID
-                        Application.DoEvents()
                     Next
                     ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
