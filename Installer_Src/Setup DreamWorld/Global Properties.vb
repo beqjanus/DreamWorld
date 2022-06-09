@@ -197,7 +197,6 @@ Module Global_Properties
         End Set
     End Property
 
-    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
     Public Property PropChangedRegionSettings As Boolean
         Get
             Return _RegionFilesChanged
