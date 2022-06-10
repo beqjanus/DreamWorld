@@ -2399,11 +2399,11 @@ Public Class MySettings
     Public Property Total_InnoDB_GBytes() As Double
         Get
             Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"), Globalization.CultureInfo.InvariantCulture)
-            If amount > 4 Then amount = 4
+            If amount > 2 Then amount = 2
             Return amount
         End Get
         Set
-            If Value > 4 Then Value = 4
+            If Value > 2 Then Value = 2
             SetMySetting("Total_InnoDB_GBytes", CType(Value, String))
         End Set
     End Property
@@ -2630,9 +2630,6 @@ Public Class MySettings
                 Apacheout.Add(Item)
             End If
         Next
-        If Not found Then
-            BreakPoint.Print("Error: Did not find " & Name & " to set value of " & value)
-        End If
         Apachein.Clear()
         For Each item In Apacheout
             Apachein.Add(item)
