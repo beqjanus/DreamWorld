@@ -1236,7 +1236,9 @@ Public Class FormSetup
 #End Region
 
 #Region "Scanner"
-
+    ''' <summary>
+    ''' Scan if any booted up, if so runs the futures task list
+    ''' </summary>
     Public Sub CheckForBootedRegions()
 
         ' booted regions from web server
@@ -2114,10 +2116,10 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
-            Dim combined = GetAllAgents()
+            CachedAvatars = GetAllAgents()
 
-            If combined IsNot Nothing AndAlso combined.Count > 0 Then
-                BuildLand(combined)
+            If CachedAvatars IsNot Nothing AndAlso CachedAvatars.Count > 0 Then
+                BuildLand(CachedAvatars)
             End If
 
             ' start with zero avatars
@@ -2125,7 +2127,7 @@ Public Class FormSetup
                 AvatarCount(RegionUUID) = 0
             Next
 
-            For Each NameValue In combined
+            For Each NameValue In CachedAvatars
                 Dim Avatar = NameValue.Key
                 Dim RegionUUID = NameValue.Value
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
@@ -2169,7 +2171,7 @@ Public Class FormSetup
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
 
-                If Not combined.ContainsKey(Avatar) Then
+                If Not CachedAvatars.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
@@ -2184,7 +2186,7 @@ Public Class FormSetup
                 End If
             Next
 
-            total = combined.Count
+            total = CachedAvatars.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -2401,7 +2403,7 @@ Public Class FormSetup
             Return
         End If
 
-        TimerMain.Stop()
+        TimerMain.Stop()    ' prevent recursion
 
         ' Reload regions from disk
         If PropChangedRegionSettings Then
@@ -2413,49 +2415,48 @@ Public Class FormSetup
         TeleportAgents()            ' send them onward
 
         If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-            Chart()                     ' do charts collection each 2 second or s
-            CachedAvatars = GetAllAgents()
+            ScanAgents()                ' update agent count
+            RestartDOSboxes()           ' Icons for failed region
         End If
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("5 second worker")
-            PrintBackups()
+            Chart()                     ' do charts collection each 5 seconds
+            PrintBackups()              ' print if backups are running
             CalcDiskFree()              ' check for free disk space
-            ScanAgents()                ' update agent count
-            Chat2Speech()               ' speak of the devil
-            RestartDOSboxes()
+            Chat2Speech()               ' speak of the devil            
             Bench.Print("5 second worker ends")
         End If
 
         If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("10 second worker")
-            DidItDie()
+            DidItDie()                  ' scans for missing DOS boxes
             ProcessQuit()               ' check if any processes exited
             Bench.Print("10 second worker ends")
         End If
 
         If SecondsTicker = 60 Then
             Bench.Print("Initial 60 second worker")
-            Delete_all_visitor_maps()
-            MakeMaps()
+            DeleteDirectoryTmp()      ' clean up old tmp folder
+            MakeMaps()                 ' Make all the large maps
             Bench.Print("Initial 60 second worker ends")
         End If
 
         If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("60 second worker")
-            DeleteOldWave()
+            DeleteOldWave()         ' clean up TTS cache
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
-            BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML("Name") ' create HTML for old teleport boards
-            VisitorCount()
+            VisitorCount()         ' For the large maps
             Bench.Print("60 second work done")
         End If
 
         ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             Bench.Print("300 second worker")
-            RunParser()
-            GetEvents()
+            BackupThread.RunAllBackups(False) ' run background based on time of day = false
+            RunParser()     ' PHP parse for Publicity
+            GetEvents()     ' fetch events from Outworldz
             ScanOpenSimWorld(True)
             Bench.Print("300 second worker ends")
         End If
@@ -2471,9 +2472,9 @@ Public Class FormSetup
         If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("half hour worker")
             ScanOpenSimWorld(True)
-            GetEvents()
-            RunParser()
-            MakeMaps()
+            GetEvents()             ' fetch events from Outworldz
+            RunParser()             ' PHP parse for Publicity
+            MakeMaps()              ' Make all the large maps
             Bench.Print("half hour worker ends")
         End If
 
@@ -2481,12 +2482,11 @@ Public Class FormSetup
         If SecondsTicker Mod 3600 = 0 Then
             Bench.Print("hour worker")
             TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
-            ' Dynamically adjust Mysql for size of DB
+            SetPublicIP()           ' Adjust to any IP changes
+            ExpireLogsByAge()       ' clean up old logs
+            DeleteOldVisitors()     ' can be pretty old
 
-            SetPublicIP() ' Adjust to any IP changes
-            ExpireLogsByAge()
-            DeleteDirectoryTmp()
-            DeleteOldVisitors()
+            ' Dynamically adjust Mysql for size of DB
             ' set mysql for amount of buffer to use now that it running.
             ' Will take effect next time Mysql is started.
             Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
@@ -2620,7 +2620,6 @@ Public Class FormSetup
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         PropAborting = True
-        ClearAllRegions()
 
         PropUpdateView = True ' make form refresh
 
