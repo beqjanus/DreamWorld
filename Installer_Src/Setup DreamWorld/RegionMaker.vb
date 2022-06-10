@@ -91,7 +91,9 @@ Module RegionMaker
 #End Region
 
 #Region "CheckPost"
-
+    ''' <summary>
+    ''' see if anything arrived in the web server on port 8001
+    ''' </summary>
     Public Sub CheckPost()
 
         For Each TKey In WebserverList
@@ -491,7 +493,11 @@ Module RegionMaker
         Return -1
 
     End Function
-
+    ''' <summary>
+    ''' Fetches all regions from Disk Into RAM
+    ''' </summary>
+    ''' <param name="Verbose"></param>
+    ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
         If Not PropChangedRegionSettings Then Return RegionList.Count
