@@ -197,7 +197,6 @@ Module Global_Properties
         End Set
     End Property
 
-    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
     Public Property PropChangedRegionSettings As Boolean
         Get
             Return _RegionFilesChanged
@@ -256,7 +255,7 @@ Module Global_Properties
             Return _UpdateView
         End Get
         Set(ByVal Value As Boolean)
-            'If Debugger.IsAttached Then Diagnostics.Debug.Print("View refresh")
+            'If Debugger.IsAttached Then Breakpoint.Print("View refresh")
             _UpdateView = Value
         End Set
     End Property

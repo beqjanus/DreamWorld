@@ -2812,6 +2812,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Default Landing Spot.
+        '''</summary>
+        Friend ReadOnly Property DefaultLandingSpot() As String
+            Get
+                Return ResourceManager.GetString("DefaultLandingSpot", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Region Ready Delay.
         '''</summary>
         Friend ReadOnly Property DelayAfterRegionReady() As String
@@ -5825,6 +5834,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Set Default Landing Location (Defaults to &lt;128,128, 30&gt;).
+        '''</summary>
+        Friend ReadOnly Property LandingSpotTooltip() As String
+            Get
+                Return ResourceManager.GetString("LandingSpotTooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Land Maker.
         '''</summary>
         Friend ReadOnly Property LandMaker() As String
@@ -7507,6 +7525,15 @@ Namespace My.Resources
         Friend ReadOnly Property NotValidUUID() As String
             Get
                 Return ResourceManager.GetString("NotValidUUID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Not a Valid Vector! &lt;X, Y, Z&gt;, where values are &gt; 0 .
+        '''</summary>
+        Friend ReadOnly Property NotValidVector() As String
+            Get
+                Return ResourceManager.GetString("NotValidVector", resourceCulture)
             End Get
         End Property
         

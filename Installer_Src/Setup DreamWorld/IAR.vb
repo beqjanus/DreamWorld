@@ -279,7 +279,7 @@ Module IAR
                 same = 0
             End If
             ctr -= 1
-            Sleep(1000)
+            Thread.Sleep(1000)
             oldsize = s
         End While
 

@@ -356,6 +356,7 @@ SetWindowOnTop_Err:
             SaveOar(RegionName)
 
         End If
+        Choices.Close()
 
     End Sub
 
@@ -911,7 +912,7 @@ SetWindowOnTop_Err:
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
                 INI.SaveINI()
             Else
-                BreakPoint.Print("cannot locate region in group " & GroupName)
+                BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
 
         Next
@@ -1206,7 +1207,8 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icemelted", Globalization.CultureInfo.InvariantCulture))  '  19 - icecube
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-                Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
+                CalcCPU()
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
 
@@ -1273,12 +1275,6 @@ SetWindowOnTop_Err:
         End Select
 
         SearchBusy = False
-
-    End Sub
-
-    Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
-
-        Debug.Print(e.Label)
 
     End Sub
 
@@ -1516,7 +1512,11 @@ SetWindowOnTop_Err:
                 item1.SubItems.Add(Estate(RegionUUID))
 
                 ' Parcel settings
-                If UseMysql Then item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                If UseMysql Then
+                    item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                Else
+                    item1.SubItems.Add("")
+                End If
 
                 If UseMysql Then
                     item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
@@ -1588,7 +1588,7 @@ SetWindowOnTop_Err:
                     item1.SubItems.Add("-".ToUpperInvariant)
                 End If
 
-                If Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then
+                If Smart_Start(RegionUUID) = "True" Then
                     item1.SubItems.Add(My.Resources.Yes_word)
                 Else
                     item1.SubItems.Add("-".ToUpperInvariant)
@@ -1735,6 +1735,7 @@ SetWindowOnTop_Err:
 
     Private Sub ShowUsers()
 
+
         AllNone.Visible = True
         UserView.TabIndex = 0
 
@@ -1743,7 +1744,7 @@ SetWindowOnTop_Err:
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-
+        CalcCPU()
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1822,6 +1823,10 @@ SetWindowOnTop_Err:
         If TheView1 = ViewType.Users Then
             Timer1.Stop()
             Return
+        End If
+
+        If TheView1 = ViewType.Details Then
+            CalcCPU()
         End If
 
         If PropUpdateView() Then ' force a refresh

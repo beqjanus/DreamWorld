@@ -278,7 +278,7 @@ namespace OpenSim.Services.LLLoginService
             if (m_SmartStartEnabled)
             {
                 string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
-                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+                m_log.DebugFormat("[LLoginService]: Smart Start Sending request {0}", url);
 
                 HttpWebRequest webRequest;
                 try
@@ -287,7 +287,7 @@ namespace OpenSim.Services.LLLoginService
                 }
                 catch
                 {
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    m_log.Debug("[LLoginService]: Smart Start failed to create url");
                     return UUID.Zero;
                 }
 
@@ -305,16 +305,16 @@ namespace OpenSim.Services.LLLoginService
 
                     if (string.IsNullOrEmpty(tempStr))
                     {
-                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        m_log.Debug("[LLoginService]: Smart Start returned null");
                         return UUID.Zero;
                     }
 
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    m_log.Debug("[LLoginService]: Smart Start returned " + tempStr);
                     regionID = UUID.Parse(tempStr);
                 }
                 catch (Exception ex)
                 {
-                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                    m_log.Warn("[LLoginService]: Smart Start exception: " + ex.Message);
                 }
             }
             return regionID;
@@ -692,33 +692,6 @@ namespace OpenSim.Services.LLLoginService
         }
 
         protected GridRegion FindDestination(
-            UserAccount account, UUID scopeID, GridUserInfo pinfo, UUID sessionID, string startLocation,
-            GridRegion home, out GridRegion gatekeeper,
-            out string where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)
-        {
-            GridRegion dest = FindDestinationNormal(account, scopeID, pinfo, sessionID, startLocation, home,
-                out gatekeeper, out where, out position, out lookAt, out flags);
-
-            if(!m_SmartStartEnabled || dest == null)
-                return dest;
-
-            //RegionFlags.RegionOnline should had a major role here, but it is still unreliable
-            //Jump out if a special region that must be always up
-            // for now the smartstart wait region must have one such flags
-            if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
-                return dest;
-
-            UUID rid = GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);
-            if (rid == dest.RegionID)
-                return dest;
-
-            if (rid == UUID.Zero)
-                return null; //??
-
-            return m_GridService.GetRegionByUUID(scopeID, rid);
-        }
-
-        protected GridRegion FindDestinationNormal(
             UserAccount account, UUID scopeID, GridUserInfo pinfo, UUID sessionID, string startLocation,
             GridRegion home, out GridRegion gatekeeper,
             out string where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)

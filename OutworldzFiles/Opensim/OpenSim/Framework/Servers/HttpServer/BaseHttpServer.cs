@@ -2442,6 +2442,13 @@ namespace OpenSim.Framework.Servers.HttpServer
                 httpResponse.StatusCode = (int)HttpStatusCode.NotFound; ;
                 return;
             }
+            // Smartstart
+            if (httpRequest.QueryFlags.Contains("version"))
+            {
+                httpResponse.StatusCode = (int)HttpStatusCode.OK;
+                httpResponse.RawBuffer = Encoding.ASCII.GetBytes(VersionInfo.Version);
+                return;
+            }
 
             string[] splited = methods.Split(new char[] { ',' });
             string method = splited[0];

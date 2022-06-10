@@ -106,6 +106,8 @@ Partial Class FormRegion
         Me.Gods_Use_Default = New System.Windows.Forms.CheckBox()
         Me.RichTextBoxPermissions = New System.Windows.Forms.RichTextBox()
         Me.MapGroupBox = New System.Windows.Forms.GroupBox()
+        Me.LandingSpotLabel = New System.Windows.Forms.Label()
+        Me.LandingSpotTextBox = New System.Windows.Forms.TextBox()
         Me.Maps_Use_Default = New System.Windows.Forms.RadioButton()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
         Me.MapNone = New System.Windows.Forms.RadioButton()
@@ -171,6 +173,7 @@ Partial Class FormRegion
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -1040,6 +1043,8 @@ Partial Class FormRegion
         '
         'MapGroupBox
         '
+        Me.MapGroupBox.Controls.Add(Me.LandingSpotLabel)
+        Me.MapGroupBox.Controls.Add(Me.LandingSpotTextBox)
         Me.MapGroupBox.Controls.Add(Me.Maps_Use_Default)
         Me.MapGroupBox.Controls.Add(Me.MapPicture)
         Me.MapGroupBox.Controls.Add(Me.MapNone)
@@ -1053,6 +1058,22 @@ Partial Class FormRegion
         Me.MapGroupBox.TabIndex = 5
         Me.MapGroupBox.TabStop = False
         Me.MapGroupBox.Text = "Maps"
+        '
+        'LandingSpotLabel
+        '
+        Me.LandingSpotLabel.AutoSize = True
+        Me.LandingSpotLabel.Location = New System.Drawing.Point(116, 174)
+        Me.LandingSpotLabel.Name = "LandingSpotLabel"
+        Me.LandingSpotLabel.Size = New System.Drawing.Size(70, 13)
+        Me.LandingSpotLabel.TabIndex = 143
+        Me.LandingSpotLabel.Text = "Landing Spot"
+        '
+        'LandingSpotTextBox
+        '
+        Me.LandingSpotTextBox.Location = New System.Drawing.Point(23, 171)
+        Me.LandingSpotTextBox.Name = "LandingSpotTextBox"
+        Me.LandingSpotTextBox.Size = New System.Drawing.Size(87, 20)
+        Me.LandingSpotTextBox.TabIndex = 139
         '
         'Maps_Use_Default
         '
@@ -1733,6 +1754,11 @@ Partial Class FormRegion
         Me.Label9.Size = New System.Drawing.Size(0, 13)
         Me.Label9.TabIndex = 2
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1929,4 +1955,7 @@ Partial Class FormRegion
     Friend WithEvents Core2Button As CheckBox
     Friend WithEvents ConciergeCheckBox As CheckBox
     Friend WithEvents ScriptOffButton As RadioButton
+    Friend WithEvents LandingSpotLabel As Label
+    Friend WithEvents LandingSpotTextBox As TextBox
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
 End Class

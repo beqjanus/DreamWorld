@@ -142,7 +142,7 @@ Module Build
 
         For Each possible As String In xy
             If RegionXY.ContainsKey(possible) Then
-                If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & Region_Name(RegionXY.Item(possible)))
+                If Debugger.IsAttached Then BreakPoint.Print("Region exists: " & Region_Name(RegionXY.Item(possible)))
             Else
                 Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                 Dim nX = CInt(CStr(parts(0).Trim))

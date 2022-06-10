@@ -5,6 +5,8 @@
 
 #End Region
 
+Imports System.Net
+
 Public Module IPCheck
 
     Public Function CreateMD5(ByVal input As String) As String
@@ -58,6 +60,9 @@ Public Module IPCheck
         ''' <remarks></remarks>
         If check Is Nothing Then Return False
         If check = "localhost" Then Return True
+
+        Dim ip As New IPAddress(0)
+        If Not IPAddress.TryParse(check, ip) Then Return False
 
         Dim Quad1, Quad2 As Integer
 

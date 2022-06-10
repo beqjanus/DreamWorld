@@ -73,7 +73,7 @@ Public Class ClassScreenpos
         If w = 0 Then
             Return size
         End If
-        Diagnostics.Debug.Print(name & "_width" & w.ToString(Globalization.CultureInfo.CurrentCulture))
+        'BreakPoint.Print(name & "_width" & w.ToString(Globalization.CultureInfo.CurrentCulture))
         Return w
 
     End Function
@@ -126,8 +126,8 @@ Public Class ClassScreenpos
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString(Globalization.CultureInfo.CurrentCulture))
-        Debug.Print("W<" + ValueWOld.ToString(Globalization.CultureInfo.CurrentCulture))
+        ' Debug.Print("H<" + ValueHOld.ToString(Globalization.CultureInfo.CurrentCulture))
+        ' Debug.Print("W<" + ValueWOld.ToString(Globalization.CultureInfo.CurrentCulture))
         Return r
 
     End Function
@@ -159,8 +159,8 @@ Public Class ClassScreenpos
                 ValueYOld
             }
 
-            Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
-            Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
+            ' Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
+            ' Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
         Catch ex As Exception
             Logger("Resize", ex.Message, "Error")
@@ -219,8 +219,8 @@ Public Class ClassScreenpos
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", valueH.ToString(Globalization.CultureInfo.CurrentCulture))
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_W", valueW.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
-        Debug.Print("H>" + valueH.ToString(Globalization.CultureInfo.InvariantCulture))
-        Debug.Print("W>" + valueW.ToString(Globalization.CultureInfo.InvariantCulture))
+        'Debug.Print("H>" + valueH.ToString(Globalization.CultureInfo.InvariantCulture))
+        'Debug.Print("W>" + valueW.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
@@ -229,8 +229,8 @@ Public Class ClassScreenpos
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_X", valueX.ToString(Globalization.CultureInfo.CurrentCulture))
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Y", valueY.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
-        Debug.Print("X>" + valueX.ToString(Globalization.CultureInfo.CurrentCulture))
-        Debug.Print("Y>" + valueY.ToString(Globalization.CultureInfo.CurrentCulture))
+        ' Debug.Print("X>" + valueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        ' Debug.Print("Y>" + valueY.ToString(Globalization.CultureInfo.CurrentCulture))
 
     End Sub
 

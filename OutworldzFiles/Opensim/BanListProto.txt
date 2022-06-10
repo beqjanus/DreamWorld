@@ -1,6 +1,9 @@
 ﻿# Examples are below.|You can ban a viewer, an IP and/or a MAC address.
 # 34.206.39.153|This IP from 'junk.com' is banned.
-# SolarStorm|Singularity Solar Storm Copybot
-# bacbf6d9e97686d38d6fc1c2b335f126|This MAC address is banned. Get MACs from the Robust log.
-# http://griefergrid.com|Ban the grid
-# The # is a comment|Delete or modify any rules then close this window. Robust will restart if running.
+# Example: Agent uses the viewer "Imprudence 1.3.2.0"
+# - "Imprudence" has no access
+# - "Imprudence 1.3" has no access
+# - "Imprudence 1.3.1" has access
+# bacbf6d9e97686d38d6fc1c2b335f126|This sample MAC address is banned. 
+# http://griefergrid.com|Ban this griefer grid (must start with http://)
+# Lines beginning with # is a comment and is ignored

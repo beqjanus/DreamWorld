@@ -828,8 +828,7 @@ namespace OpenSim.Region.Framework.Scenes
 
 
         #region Constructors
-
-        //DreamGrid
+        
         //DreamGrid SmartStart
         public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
         {
@@ -838,16 +837,16 @@ namespace OpenSim.Region.Framework.Scenes
             if (m_SmartStartEnabled)
             {
                 string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
-                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+                m_log.DebugFormat("[LLoginService]: Smart Start Sending request {0}", url);
 
-                HttpWebRequest webRequest;
+                System.Net.HttpWebRequest webRequest;
                 try
                 {
-                    webRequest = (HttpWebRequest)WebRequest.Create(url);
+                    webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
                 }
                 catch
                 {
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    m_log.Debug("[LLoginService]: Smart Start failed to create url");
                     return UUID.Zero;
                 }
 
@@ -857,7 +856,7 @@ namespace OpenSim.Region.Framework.Scenes
                 try
                 {
                     string tempStr;
-                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                    using (System.Net.HttpWebResponse webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse())
                     {
                         using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
                             tempStr = reader.ReadToEnd();
@@ -865,16 +864,16 @@ namespace OpenSim.Region.Framework.Scenes
 
                     if (string.IsNullOrEmpty(tempStr))
                     {
-                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        m_log.Debug("[LLoginService]: Smart Start returned null");
                         return UUID.Zero;
                     }
 
-                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    m_log.Debug("[LLoginService]: Smart Start returned " + tempStr);
                     regionID = UUID.Parse(tempStr);
                 }
                 catch (Exception ex)
                 {
-                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                    m_log.Warn("[LLoginService]: Smart Start exception: " + ex.Message);
                 }
             }
             return regionID;
@@ -5334,18 +5333,6 @@ Label_GroupsDone:
             return m_sceneGraph.GetRootAgentCount();
         }
 
-
-        public int GetRootAvatarCount()
-        {
-
-            int roots = 0;
-            foreach (ScenePresence sp in GetScenePresences())
-                if (!sp.IsChildAgent && !sp.IsNPC)
-                    roots++;
-
-            return roots;
-
-        }
         public int GetRootNPCCount()
         {
             return m_sceneGraph.GetRootAgentCount();

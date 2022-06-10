@@ -155,7 +155,7 @@ Public Class FormBanList
         Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
 
         colsize.PutSize(name, w)
-        Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
+        BreakPoint.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
         ScreenPosition.SaveFormSettings()
 
     End Sub
@@ -205,7 +205,7 @@ Public Class FormBanList
             If Settings.BanList.Length > 0 Then
                 Dim words() = Settings.BanList.Split("|".ToCharArray)
                 For index As Integer = 0 To words.Length - 1
-                    Diagnostics.Debug.Print(words(index))
+                    BreakPoint.Print(words(index))
                     Dim elems() As String = words(index).Split("="c)
                     If elems.Length = 1 Then
                         table.Rows.Add(elems(0).Trim, "")
@@ -235,7 +235,12 @@ Public Class FormBanList
                                 words(0) = "#469947894f9e298a7726b4a58ff7bf9f"
                                 words(1) = "Should not be banned as it a loopback adapter. Use Disk ID instead."
                             End If
-                            table.Rows.Add(words(0), words(1))
+                            Try
+                                table.Rows.Add(words(0), words(1))
+                            Catch
+                                table.Rows.Add(words(0), "")
+                            End Try
+
                             ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on close
                             Dim I As System.Net.IPAddress = Nothing
                             If IPAddress.TryParse(words(0), I) Then Firewall.ReleaseIp(words(0))

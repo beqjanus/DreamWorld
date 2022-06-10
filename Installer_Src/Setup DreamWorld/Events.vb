@@ -13,7 +13,7 @@ Module Events
                 Dim stm = "delete from ossearch.events"
                 Using cmd = New MySqlCommand(stm, osconnection)
                     Dim rowsdeleted = cmd.ExecuteNonQuery()
-                    Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
+                    BreakPoint.Print($"Rows: rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture)")
                 End Using
             End Using
         Catch
@@ -65,14 +65,14 @@ Module Events
                                     If a.Length = 2 Then
                                         a(1) = a(1).Replace("'", "\'")
                                         a(1) = a(1).Replace("`", vbLf)
-                                        'Diagnostics.Debug.Print("{0}:{1}", a(0), a(1))
+                                        'Breakpoint.Print("{0}:{1}", a(0), a(1))
                                         If Not Simevent.ContainsKey(a(0)) Then
                                             Simevent.Add(a(0), a(1))
                                         End If
                                     End If
                                 Next
 
-                                Diagnostics.Debug.Print(Simevent.Item("description"))
+                                BreakPoint.Print(Simevent.Item("description"))
 
                                 Using cmd1 = New MySqlCommand(stm, osconnection)
 

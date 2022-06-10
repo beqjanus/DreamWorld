@@ -163,10 +163,6 @@ Module RegionMaker
 
     Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
 
-        While CreateRegionLock
-            Sleep(100)
-        End While
-
         CreateRegionLock = True
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
@@ -403,7 +399,7 @@ Module RegionMaker
                     ' no see if anyone is in the surrounding sim
                     If IsAgentInRegion(Map.Item(gr)) Then
                         'Dim Name = Region_Name(RegionUUID)
-                        'Diagnostics.Debug.Print("Avatar is detected near region " & NameRegion)
+                        'Breakpoint.Print("Avatar is detected near region " & NameRegion)
                         Return True
                     End If
                 End If
@@ -451,7 +447,7 @@ Module RegionMaker
                         .Y = Coord_Y(RegionUUID) + Y
                     }
                     Regions.Add(map)
-                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}") End If
+                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Breakpoint.Print($"{Name} {map.X} {map.Y}") End If
                 Next
             Next
         Next
@@ -615,7 +611,7 @@ Module RegionMaker
                                 GDPR(uuid) = CStr(INI.GetIni(fName, "Publicity", "", "String"))
                                 Concierge(uuid) = CStr(INI.GetIni(fName, "Concierge", "", "String"))
                                 Smart_Start(uuid) = CStr(INI.GetIni(fName, "SmartStart", "False", "String"))
-                                LandingSpot(uuid) = CStr(INI.GetIni(fName, "LandingSpot", "", "String"))
+                                LandingSpot(uuid) = CStr(INI.GetIni(fName, "DefaultLanding", "", "String"))
                                 OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
                                 Cores(uuid) = CInt(0 & INI.GetIni(fName, "Cores", "", "String"))
                                 Priority(uuid) = CStr(INI.GetIni(fName, "Priority", "", "String"))
@@ -649,7 +645,7 @@ Module RegionMaker
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} to {fName}", "Port")
                                     '
                                     GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
-                                    Diagnostics.Debug.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
+                                    BreakPoint.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}")
                                     '
                                     If GroupPort(uuid) = 0 Then
                                         GroupPort(uuid) = ThisGroup
@@ -2202,6 +2198,8 @@ Module RegionMaker
                 ' Need the filename from this INI
 
                 Name = Region_Name(uuid)
+
+                If regionINI.SetIni(Name, "DefaultLanding", LandingSpot(uuid)) Then Return True
 
                 If regionINI.SetIni(Name, "InternalPort", CStr(Region_Port(uuid))) Then Return True
                 If regionINI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True

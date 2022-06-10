@@ -996,7 +996,7 @@ Public Class MySettings
 
     Public Property EnableHypergrid() As Boolean
         Get
-            Return CType(GetMySetting("EnableHypergrid", "False"), Boolean)
+            Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
         End Get
         Set
             SetMySetting("EnableHypergrid", CStr(Value))
@@ -2631,7 +2631,7 @@ Public Class MySettings
             End If
         Next
         If Not found Then
-            Diagnostics.Debug.Print("Error: Did not find " & Name & " to set value of " & value)
+            BreakPoint.Print("Error: Did not find " & Name & " to set value of " & value)
         End If
         Apachein.Clear()
         For Each item In Apacheout
