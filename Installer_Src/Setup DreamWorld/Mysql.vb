@@ -1010,7 +1010,6 @@ Public Module MysqlInterface
         Else
             FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
         End If
-        Application.DoEvents()
 
     End Sub
 
