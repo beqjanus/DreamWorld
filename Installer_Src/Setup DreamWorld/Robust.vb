@@ -523,7 +523,7 @@ Module Robust
                 .Timeout = 2000
             }
             Dim url As String
-            If Settings.ServerType = "Robust" Then
+            If Settings.ServerType = RobustServerName Then
                 url = "http://" & Settings.LANIP & ":" & Settings.HttpPort & "/index.php?version"
             Else
                 url = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version"

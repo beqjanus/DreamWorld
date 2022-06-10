@@ -972,7 +972,7 @@ Public Class FormSetup
 
         ' If we are booting and nothing is running, we clear the registered regions and people
         Dim OpensimRunning() = Process.GetProcessesByName("Opensim")
-        If IsMySqlRunning() And Not IsRobustRunning() And OpensimRunning.Length = 0 Then
+        If IsMySqlRunning() And Not IsRobustRunning() And OpensimRunning.Length = 0 And Settings.ServerType = RobustServerName Then
             MysqlInterface.DeregisterRegions(False)
             FixPresence() ' Fixes stuck avatars
         End If
