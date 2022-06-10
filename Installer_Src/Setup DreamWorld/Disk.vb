@@ -4,48 +4,11 @@ Imports System.Threading
 Module Disk
 
 #Region "Disk"
-
     Private ReadOnly Sleeping As New List(Of String)
 
-    Public Function CalcDiskFree() As Long
 
-        Dim d = DriveInfo.GetDrives()
-        Dim c = CurDir()
-        Dim Free As Long
-        Try
-            For Each drive As DriveInfo In d
-                Dim x = Mid(c, 1, 1)
-                If x = Mid(drive.Name, 1, 1) Then
-                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
-                    Dim FreeDisk = Percent * 100
-                    Free = drive.AvailableFreeSpace
 
-                    If Sleeping.Count = 0 Then
-                        If Free < FreeDiskSpaceWarn Then
-                            Dim SThread = New Thread(AddressOf FreezeAll)
-                            SThread.SetApartmentState(ApartmentState.STA)
-                            SThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-                            SThread.Start()
-                            Busy = True
-                            MsgBox(My.Resources.Diskspacelow & $" {Free:n0} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-                        End If
-                    End If
-
-                    Dim tt = My.Resources.Available
-                    Dim Text = $"{Percent:P1} {tt}"
-
-                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
-                    Exit For
-                End If
-
-            Next
-        Catch
-        End Try
-
-        Return Free
-
-    End Function
-
+#Region "Freeze"
     Public Sub FreezeAll()
 
         Dim running As Boolean
@@ -113,81 +76,44 @@ Module Disk
     End Sub
 
 #End Region
+    Public Function CalcDiskFree() As Long
 
-#Region "FreezeThaw"
+        Dim d = DriveInfo.GetDrives()
+        Dim c = CurDir()
+        Dim Free As Long
+        Try
+            For Each drive As DriveInfo In d
+                Dim x = Mid(c, 1, 1)
+                If x = Mid(drive.Name, 1, 1) Then
+                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
+                    Dim FreeDisk = Percent * 100
+                    Free = drive.AvailableFreeSpace
 
-    ''' <summary>
-    ''' Suspends region
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    Public Sub PauseRegion(RegionUUID As String)
+                    If Sleeping.Count = 0 Then
+                        If Free < FreeDiskSpaceWarn Then
+                            Dim SThread = New Thread(AddressOf FreezeAll)
+                            SThread.SetApartmentState(ApartmentState.STA)
+                            SThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+                            SThread.Start()
+                            Busy = True
+                            MsgBox(My.Resources.Diskspacelow & $" {Free:n0} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                        End If
+                    End If
 
-        BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
+                    Dim tt = My.Resources.Available
+                    Dim Text = $"{Percent:P1} {tt}"
 
-        FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
+                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
+                    Exit For
+                End If
 
-    End Sub
+            Next
+        Catch
+        End Try
 
-    ''' <summary>
-    ''' Resumes Region from frozen state
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    ''' <returns>0 if success</returns>
-    Public Function ResumeRegion(RegionUUID As String) As Boolean
-
-        If ProcessID(RegionUUID) = 0 Then
-            Return True
-        End If
-
-        BreakPoint.Print($"Resume {Region_Name(RegionUUID)}")
-        ' SuUspend mode and there is a DOS box then...
-        If Settings.BootOrSuspend = False And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-            FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-            TeleportAgents()
-            Return False ' no need to boot as we are up.
-        End If
-        ReBoot(RegionUUID)
-        Return True
-
-    End Function
-
-    Private Function FreezeThaw(RegionUUID As String, Arg As String) As Boolean
-
-        ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
-        Dim result As Boolean
-        Using SuspendProcess As New Process()
-            Dim pi = New ProcessStartInfo With {
-                .Arguments = Arg,
-                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-            }
-
-            pi.CreateNoWindow = True
-            pi.WindowStyle = ProcessWindowStyle.Hidden
-
-            SuspendProcess.StartInfo = pi
-
-            Try
-                SuspendProcess.Start()
-            Catch ex As Exception
-                result = True
-            End Try
-        End Using
-
-        PokeRegionTimer(RegionUUID)
-        PropUpdateView = True ' make form refresh
-
-        If Arg.Contains("-rpid") Then
-            TextPrint($"{Region_Name(RegionUUID)} Resumed")
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-        Else
-            TextPrint($"{Region_Name(RegionUUID)} Suspended")
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-        End If
-
-        Return result
+        Return Free
 
     End Function
-
 #End Region
 
 End Module
