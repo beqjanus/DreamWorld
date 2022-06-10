@@ -2364,7 +2364,7 @@ Public Class FormSetup
         Dim Thread2 = New Thread(start2)
         Thread2.SetApartmentState(ApartmentState.STA)
         Thread2.Priority = ThreadPriority.Lowest ' UI gets priority
-        'Thread2.Start()
+        Thread2.Start()
 
     End Sub
 
@@ -2412,7 +2412,6 @@ Public Class FormSetup
         TeleportAgents()            ' send them onward
 
         If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-            ' CalcCPU()
             Chart()                     ' do charts collection each 2 second or s
             CachedAvatars = GetAllAgents()
         End If

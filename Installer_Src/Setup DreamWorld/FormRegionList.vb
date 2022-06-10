@@ -1207,7 +1207,8 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icemelted", Globalization.CultureInfo.InvariantCulture))  '  19 - icecube
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-                Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
+                CalcCPU()
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
 
@@ -1734,6 +1735,7 @@ SetWindowOnTop_Err:
 
     Private Sub ShowUsers()
 
+
         AllNone.Visible = True
         UserView.TabIndex = 0
 
@@ -1742,7 +1744,7 @@ SetWindowOnTop_Err:
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-
+        CalcCPU()
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1821,6 +1823,10 @@ SetWindowOnTop_Err:
         If TheView1 = ViewType.Users Then
             Timer1.Stop()
             Return
+        End If
+
+        If TheView1 = ViewType.Details Then
+            CalcCPU()
         End If
 
         If PropUpdateView() Then ' force a refresh
