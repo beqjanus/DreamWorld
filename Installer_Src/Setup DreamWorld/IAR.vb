@@ -138,10 +138,8 @@ Module IAR
 
                     Dim Name = SaveIAR.GAvatarName
 
-                    Dim opt As String = " --creators  "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & " "
-                    End If
+                    Dim opt As String = "  "
+
 
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
@@ -194,10 +192,6 @@ Module IAR
                         Return
                     End If
 
-                    Dim opt As String = " --creators  "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & ":" & Settings.HttpPort & " "
-                    End If
 
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
@@ -211,6 +205,8 @@ Module IAR
                     If Not SaveIAR.GModify Then
                         Perm += "M"
                     End If
+
+                    Dim opt As String = " "
 
                     If Perm.Length > 0 Then
                         opt += " --perm=" & Perm & " "
@@ -238,7 +234,7 @@ Module IAR
 
     Public Sub SaveThreadIARS()
 
-        Dim opt As String = " --creators  "
+        Dim opt As String = "   "
         If Settings.DNSName.Length > 0 Then
             opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
         End If
