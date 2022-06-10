@@ -19,6 +19,8 @@ Module Maps
 
     Private Sub BuildMap()
 
+        Delete_all_visitor_maps()
+
         For Each RegionUUID In RegionUuids()
             Application.DoEvents()
             Make_Region_Map(RegionUUID)
