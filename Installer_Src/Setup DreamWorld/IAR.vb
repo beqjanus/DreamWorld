@@ -267,7 +267,7 @@ Module IAR
         Dim same As Integer = 0
         Dim fi = New System.IO.FileInfo(FolderAndFileName)
         While same < 15 And ctr > 0 And PropOpensimIsRunning
-            PokeGroupTimer(Group_Name(RegionUUID))
+            PokeRegionTimer(RegionUUID)
             Try
                 s = fi.Length
             Catch ex As Exception

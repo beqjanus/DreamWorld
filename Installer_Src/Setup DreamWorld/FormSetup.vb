@@ -1255,26 +1255,25 @@ Public Class FormSetup
                 If Not RegionEnabled(RegionUUID) Then Continue While
 
                 Dim RegionName = Region_Name(RegionUUID)
+                GroupName = Group_Name(RegionUUID)
 
                 ' see how long it has been since we booted
                 Dim seconds = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), DateTime.Now)
+                If seconds < 0 Then seconds = 0
+
                 TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
                 PokeRegionTimer(RegionUUID)
 
                 SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
 
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
 
                 If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
                     BootTime(RegionUUID) = CInt(seconds)
                 Else
                     MapTime(RegionUUID) = CInt(seconds)
                 End If
-
-                'If Smart_Start(RegionUUID) = "True" Then
-                'MysqlSetRegionFlagOnline(RegionUUID)
-                'End If
 
                 TeleportAgents()
 
@@ -1313,7 +1312,7 @@ Public Class FormSetup
 
                 ' if anyone is in home stay alive
                 If AvatarsIsInGroup(GroupName) Then
-                    PokeGroupTimer(GroupName)
+                    PokeRegionTimer(RegionUUID)
                 End If
 
                 RunTaskList(RegionUUID)
@@ -1332,12 +1331,13 @@ Public Class FormSetup
 
                     ' keep smart start regions alive if someone is near
                     If AvatarIsNearby(RegionUUID) Then
-                        PokeGroupTimer(GroupName)
+                        PokeRegionTimer(RegionUUID)
                     End If
 
                     ' Smart Start Timer
                     If Smart_Start(RegionUUID) = "True" AndAlso status = SIMSTATUSENUM.Booted Then
                         Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
+                        If diff < 0 Then diff = 0
 
                         If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
                             'Continue For
@@ -1362,6 +1362,7 @@ Public Class FormSetup
 
                 Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+                If Expired < 0 Then Expired = 0
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
                     AndAlso Expired > 0 _
@@ -1371,7 +1372,7 @@ Public Class FormSetup
                     If AvatarsIsInGroup(GroupName) Then
                         ' keep smart start regions alive if someone is near
                         If AvatarIsNearby(RegionUUID) Then
-                            PokeGroupTimer(GroupName)
+                            PokeRegionTimer(RegionUUID)
                         End If
                         Continue For
                     Else

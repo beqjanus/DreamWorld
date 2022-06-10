@@ -42,7 +42,7 @@ Module Global_Properties
 
     Public Sub PokeRegionTimer(UUID As String)
 
-        Timer(UUID) = Date.Now ' wait another interval
+        PokeGroupTimer(Group_Name(UUID))
 
     End Sub
 
