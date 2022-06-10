@@ -71,7 +71,9 @@ Module CPUCounter
                 Application.DoEvents()
                 Dim RegionName = Region_Name(RegionUUID)
                 Dim PID = ProcessID(RegionUUID)
-                If PID = 0 Then Continue For
+                If PID = 0 Then
+                    Continue For
+                End If
 
                 Dim c As PerformanceCounter = Nothing
 
