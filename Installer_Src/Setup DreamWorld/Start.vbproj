@@ -663,6 +663,7 @@
     <Compile Include="FormUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FreezeThaw.vb" />
     <Compile Include="Global Properties.vb" />
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GridNames.vb" />
