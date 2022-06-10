@@ -464,14 +464,12 @@ Module SmartStart
                     If Settings.BootOrSuspend Then
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             RegionStatus(UUID) = SIMSTATUSENUM.Resume
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     Else
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             ResumeRegion(UUID)
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     End If
@@ -495,7 +493,6 @@ Module SmartStart
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
                             SendToOpensimWorld(RegionUUID, 0)
                         End If
-
                         ProcessID(UUID) = PID
                     Next
                     ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
