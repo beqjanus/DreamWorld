@@ -5834,7 +5834,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Set Default Landing Location (Defaults to &lt;128,128, 30&gt;).
+        '''  Looks up a localized string similar to Set Default Landing Location (Defaults to &lt;128,128,30&gt;).
         '''</summary>
         Friend ReadOnly Property LandingSpotTooltip() As String
             Get
