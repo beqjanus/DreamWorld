@@ -1461,6 +1461,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub DidItDie()
+        Return
 
         If PropOpensimIsRunning Then
 
