@@ -91,6 +91,7 @@ Module RegionMaker
 #End Region
 
 #Region "CheckPost"
+
     ''' <summary>
     ''' see if anything arrived in the web server on port 8001
     ''' </summary>
@@ -493,6 +494,7 @@ Module RegionMaker
         Return -1
 
     End Function
+
     ''' <summary>
     ''' Fetches all regions from Disk Into RAM
     ''' </summary>
@@ -1285,7 +1287,12 @@ Module RegionMaker
 
     Public Property LandingSpot(uuid As String) As String
         Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._RegionLandingSpot
+            If RegionList.ContainsKey(uuid) Then
+                If RegionList(uuid)._RegionLandingSpot.Length = 0 Then
+                    RegionList(uuid)._RegionLandingSpot = "<128,128,30>"
+                End If
+                Return RegionList(uuid)._RegionLandingSpot
+            End If
             BadUUID(uuid)
             Return ""
         End Get

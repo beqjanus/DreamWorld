@@ -69,8 +69,6 @@ Module SmartStart
             End If
         Next
 
-        'Next
-
         Return Agents
 
     End Function
