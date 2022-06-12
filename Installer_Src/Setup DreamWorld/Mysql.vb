@@ -77,10 +77,10 @@ Public Module MysqlInterface
 
             INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "0")
 
-            ' The doublewrite buffer is a storage area where InnoDB writes pages flushed from the buffer 
-            ' pool before writing the pages To their proper positions In the InnoDB data files. 
-            ' If there Is an operating system, storage subsystem, or unexpected mysqld process 
-            ' Exit In the middle Of a page write, InnoDB can find a good copy Of the page from the 
+            ' The doublewrite buffer is a storage area where InnoDB writes pages flushed from the buffer
+            ' pool before writing the pages To their proper positions In the InnoDB data files.
+            ' If there Is an operating system, storage subsystem, or unexpected mysqld process
+            ' Exit In the middle Of a page write, InnoDB can find a good copy Of the page from the
             ' doublewrite Buffer during crash recovery.
             INI.SetIni("mysqld", "innodb_doublewrite", "1")
 
@@ -362,9 +362,12 @@ Public Module MysqlInterface
             Return
         End If
 
-        If MysqlInterface.IsMySqlRunning() Then
-            QueryString("delete from presence;")
-            QueryString("update robust.griduser set online = 'false';")
+        ' If we are booting and nothing is running, we clear the registered regions and people
+        Dim OpensimRunning() = Process.GetProcessesByName("Opensim")
+        If IsMySqlRunning() And OpensimRunning.Length = 0 And Settings.ServerType = RobustServerName Then
+            MysqlInterface.DeregisterRegions(False)
+            FixPresence()
+            QueryString("delete from griduser;")
         End If
 
     End Sub

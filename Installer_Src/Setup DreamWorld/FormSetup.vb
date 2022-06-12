@@ -970,12 +970,6 @@ Public Class FormSetup
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
         If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
-        ' If we are booting and nothing is running, we clear the registered regions and people
-        Dim OpensimRunning() = Process.GetProcessesByName("Opensim")
-        If IsMySqlRunning() And Not IsRobustRunning() And OpensimRunning.Length = 0 And Settings.ServerType = RobustServerName Then
-            MysqlInterface.DeregisterRegions(False)
-            FixPresence() ' Fixes stuck avatars
-        End If
         ' also turn on the lights for the other services.
         IsRobustRunning()
         IsApacheRunning()
@@ -1236,6 +1230,7 @@ Public Class FormSetup
 #End Region
 
 #Region "Scanner"
+
     ''' <summary>
     ''' Scan if any booted up, if so runs the futures task list
     ''' </summary>
@@ -1683,6 +1678,8 @@ Public Class FormSetup
             Return
         End If
 
+        DeleteOnlineUsers()
+
         If Not StartRobust() Then
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
@@ -1691,10 +1688,8 @@ Public Class FormSetup
 
         ' create tables in case we need them
         SetupWordPress()    ' in case they want to use WordPress
-
         SetupSimStats()     ' Perl code
         SetupLocalSearch()  ' local search database
-
         StartApache()
         StartIcecast()
         UploadPhoto()
@@ -2424,7 +2419,7 @@ Public Class FormSetup
             Chart()                     ' do charts collection each 5 seconds
             PrintBackups()              ' print if backups are running
             CalcDiskFree()              ' check for free disk space
-            Chat2Speech()               ' speak of the devil            
+            Chat2Speech()               ' speak of the devil
             Bench.Print("5 second worker ends")
         End If
 
