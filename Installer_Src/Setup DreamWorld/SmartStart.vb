@@ -699,9 +699,8 @@ Module SmartStart
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-        TextPrint($"{Region_Name(RegionUUID)} load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
-        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+        TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
