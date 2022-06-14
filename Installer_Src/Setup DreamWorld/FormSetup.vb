@@ -316,15 +316,6 @@ Public Class FormSetup
 
         Dim n As Integer = RegionCount()
 
-        Dim TotalRunningRegions As Integer
-
-        For Each RegionUUID As String In RegionUuids()
-            If IsBooted(RegionUUID) Then
-                TotalRunningRegions += 1
-            End If
-        Next
-        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
-
         ' alphabetical shutdown
         Dim r As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
@@ -339,20 +330,20 @@ Public Class FormSetup
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
+                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
                     ResumeRegion(RegionUUID)
                 End If
 
-                'ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 ConsoleCommand(RegionUUID, "q")
 
-                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
             End If
         Next
 
         Dim LastCount As Integer = 0
-        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
+        Dim counter As Integer = 6000 ' 1 minutes to quit all regions
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -388,7 +379,7 @@ Public Class FormSetup
                 ProcessQuit()   '  check if any processes exited
                 CheckForBootedRegions()
 
-                Sleep(1000)
+                Sleep(100)
             End While
             PropUpdateView = True ' make form refresh
         End If
@@ -2425,7 +2416,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("10 second worker")
-            DidItDie()                  ' scans for missing DOS boxes
+            'DidItDie()                  ' scans for missing DOS boxes
             ProcessQuit()               ' check if any processes exited
             Bench.Print("10 second worker ends")
         End If
