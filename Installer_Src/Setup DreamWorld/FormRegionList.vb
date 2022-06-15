@@ -588,6 +588,8 @@ SetWindowOnTop_Err:
 
     Private Sub ExportButton_Click(sender As Object, e As EventArgs) Handles ExportButton.Click
 
+        If TheView1 <> ViewType.Details Then Return
+
         Dim BaseFolder As String
         Dim f = Settings.BackupFolder.Replace("/", "\")
         'Create an instance of the open file dialog box.

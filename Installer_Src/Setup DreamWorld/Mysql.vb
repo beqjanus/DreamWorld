@@ -1080,7 +1080,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "SELECT name, landflags FROM opensim.land where regionuuid = @UUID and ((landflags & 64) or (landflags & 16) );"
+                Dim stm = "SELECT name, landflags FROM land where regionuuid = @UUID and ((landflags & 64) or (landflags & 16) );"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 #Enable Warning
