@@ -1630,9 +1630,9 @@ Module RegionMaker
                 ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                 Dim result As Integer = 1
 
-                Dim myConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                Dim myConnection = New MySqlConnection(Settings.RegionMySqlConnection)
 
-                Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
+                Dim Query1 = "update griduser set TOS = 1 where UserID = @p1; "
                 Dim myCommand1 = New MySqlCommand(Query1) With {
                     .Connection = myConnection
                 }
