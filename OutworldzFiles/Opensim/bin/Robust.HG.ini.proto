@@ -69,6 +69,9 @@ MachineID=
 ; *
 [Startup]
 
+; RegionOnline is Set when a region comes online, unset when it unregisters and DeleteOnUnregister is false
+DeleteOnUnregister = True
+
 ; Place to create a PID file
 ; If no path if specified then a PID file is not created.
 ; PIDFile = "/tmp/Robust.exe.pid"
