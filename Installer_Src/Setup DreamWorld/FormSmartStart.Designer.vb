@@ -50,7 +50,6 @@ Partial Class FormSmartStart
         Me.ListBox2 = New System.Windows.Forms.ListBox()
         Me.ParkingRegion = New System.Windows.Forms.Label()
         Me.ParkingSpot = New System.Windows.Forms.ListBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
         Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BulkLoadRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -269,11 +268,13 @@ Partial Class FormSmartStart
         Me.TabPage1.Controls.Add(Me.SuspendButton)
         Me.TabPage1.Controls.Add(Me.ShutDownButton)
         Me.TabPage1.Controls.Add(Me.DelayRegionReady)
+        Me.TabPage1.Controls.Add(Me.PictureBox4)
         Me.TabPage1.Controls.Add(Me.DelayLabelRegionReady)
+        Me.TabPage1.Controls.Add(Me.FillSizeLabel)
         Me.TabPage1.Controls.Add(Me.EndlessLand)
         Me.TabPage1.Controls.Add(Me.ParkingRegion)
+        Me.TabPage1.Controls.Add(Me.ListBox2)
         Me.TabPage1.Controls.Add(Me.ParkingSpot)
-        Me.TabPage1.Controls.Add(Me.TextBox1)
         Me.TabPage1.Controls.Add(Me.Seconds)
         Me.TabPage1.Controls.Add(Me.SmartStartEnabled)
         Me.TabPage1.Controls.Add(Me.DelayLabelShutDown)
@@ -330,14 +331,11 @@ Partial Class FormSmartStart
         Me.EndlessLand.Controls.Add(Me.AviName)
         Me.EndlessLand.Controls.Add(Me.DeleteAllRegions)
         Me.EndlessLand.Controls.Add(Me.TempCheckBox)
-        Me.EndlessLand.Controls.Add(Me.PictureBox4)
         Me.EndlessLand.Controls.Add(Me.AutoFillEnable)
-        Me.EndlessLand.Controls.Add(Me.FillSizeLabel)
         Me.EndlessLand.Controls.Add(Me.OwnerLabel)
-        Me.EndlessLand.Controls.Add(Me.ListBox2)
         Me.EndlessLand.Location = New System.Drawing.Point(621, 39)
         Me.EndlessLand.Name = "EndlessLand"
-        Me.EndlessLand.Size = New System.Drawing.Size(200, 307)
+        Me.EndlessLand.Size = New System.Drawing.Size(200, 214)
         Me.EndlessLand.TabIndex = 50
         Me.EndlessLand.TabStop = False
         Me.EndlessLand.Text = "Endless Land & Seas"
@@ -351,7 +349,7 @@ Partial Class FormSmartStart
         '
         'DeleteAllRegions
         '
-        Me.DeleteAllRegions.Location = New System.Drawing.Point(6, 278)
+        Me.DeleteAllRegions.Location = New System.Drawing.Point(0, 166)
         Me.DeleteAllRegions.Name = "DeleteAllRegions"
         Me.DeleteAllRegions.Size = New System.Drawing.Size(188, 23)
         Me.DeleteAllRegions.TabIndex = 48
@@ -373,7 +371,7 @@ Partial Class FormSmartStart
         '
         Me.PictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources._3x3
-        Me.PictureBox4.Location = New System.Drawing.Point(83, 172)
+        Me.PictureBox4.Location = New System.Drawing.Point(91, 172)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(102, 90)
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -394,7 +392,7 @@ Partial Class FormSmartStart
         'FillSizeLabel
         '
         Me.FillSizeLabel.AutoSize = True
-        Me.FillSizeLabel.Location = New System.Drawing.Point(18, 156)
+        Me.FillSizeLabel.Location = New System.Drawing.Point(26, 156)
         Me.FillSizeLabel.Name = "FillSizeLabel"
         Me.FillSizeLabel.Size = New System.Drawing.Size(42, 13)
         Me.FillSizeLabel.TabIndex = 42
@@ -413,7 +411,7 @@ Partial Class FormSmartStart
         '
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.Items.AddRange(New Object() {"0", "1", "2", "3"})
-        Me.ListBox2.Location = New System.Drawing.Point(21, 172)
+        Me.ListBox2.Location = New System.Drawing.Point(29, 172)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(56, 56)
         Me.ListBox2.TabIndex = 39
@@ -432,19 +430,8 @@ Partial Class FormSmartStart
         Me.ParkingSpot.FormattingEnabled = True
         Me.ParkingSpot.Location = New System.Drawing.Point(401, 46)
         Me.ParkingSpot.Name = "ParkingSpot"
-        Me.ParkingSpot.Size = New System.Drawing.Size(202, 303)
+        Me.ParkingSpot.Size = New System.Drawing.Size(202, 212)
         Me.ParkingSpot.TabIndex = 38
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(17, 154)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(330, 193)
-        Me.TextBox1.TabIndex = 34
         '
         'MenuStrip4
         '
@@ -474,14 +461,14 @@ Partial Class FormSmartStart
         '
         Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
-        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
         Me.StartToolStripMenuItem.Text = "Start"
         '
         'AbortToolStripMenuItem
         '
         Me.AbortToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
         Me.AbortToolStripMenuItem.Name = "AbortToolStripMenuItem"
-        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AbortToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
         Me.AbortToolStripMenuItem.Text = "Stop"
         '
         'TabPage2
@@ -1773,7 +1760,6 @@ Partial Class FormSmartStart
     Friend WithEvents TerrainApply As Button
     Friend WithEvents LabelName As Label
     Friend WithEvents AutoFillEnable As CheckBox
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Noise As CheckBox
     Friend WithEvents Smooth As CheckBox

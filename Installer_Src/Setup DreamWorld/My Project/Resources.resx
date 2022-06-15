@@ -4217,4 +4217,7 @@
   <data name="NotValidVector" xml:space="preserve">
     <value>Not a Valid Vector! &lt;X, Y, Z&gt;, where values are &gt; 0 </value>
   </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Deleting Temp Region</value>
+  </data>
 </root>

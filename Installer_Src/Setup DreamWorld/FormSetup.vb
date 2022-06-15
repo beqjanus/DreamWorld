@@ -479,6 +479,13 @@ Public Class FormSetup
 
         ListOfNames.Sort()
 
+        For Each RegionUUID In ListOfNames
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+        Next
+
         For Each RegionName As String In ListOfNames
 
             Dim RegionUUID = FindRegionByName(RegionName)
@@ -917,6 +924,15 @@ Public Class FormSetup
         ' Run Diagnostics
         CheckDiagPort()
 
+        ' clear any temp regions on boot.
+        For Each RegionUUID As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+        Next
+
         With Cpu1
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -1116,9 +1132,9 @@ Public Class FormSetup
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
-            Status = SIMSTATUSENUM.Booting Or
-            Status = SIMSTATUSENUM.Booted) And
-            Not PropAborting Then
+                Status = SIMSTATUSENUM.Booting Or
+                Status = SIMSTATUSENUM.Booted) And
+                Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
                 Status = SIMSTATUSENUM.Error
@@ -1307,10 +1323,11 @@ Public Class FormSetup
 
                 If Settings.Smart_Start Then
 
-                    ' If a region i stopped or suspended, boot it if someone is nearby
+                    Dim Nearby = AvatarIsNearby(RegionUUID)
+                    ' If a region is stopped or suspended, boot it if someone is nearby
                     If status = SIMSTATUSENUM.Stopped _
                         Or status = SIMSTATUSENUM.Suspended Then
-                        If AvatarIsNearby(RegionUUID) Then
+                        If Nearby Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
                             Continue For
@@ -1318,7 +1335,7 @@ Public Class FormSetup
                     End If
 
                     ' keep smart start regions alive if someone is near
-                    If AvatarIsNearby(RegionUUID) Then
+                    If Nearby Then
                         PokeRegionTimer(RegionUUID)
                     End If
 
@@ -1328,7 +1345,6 @@ Public Class FormSetup
                         If diff < 0 Then diff = 0
 
                         If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
-                            'Continue For
                             BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
@@ -1897,6 +1913,11 @@ Public Class FormSetup
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
