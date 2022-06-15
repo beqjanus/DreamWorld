@@ -316,15 +316,6 @@ Public Class FormSetup
 
         Dim n As Integer = RegionCount()
 
-        Dim TotalRunningRegions As Integer
-
-        For Each RegionUUID As String In RegionUuids()
-            If IsBooted(RegionUUID) Then
-                TotalRunningRegions += 1
-            End If
-        Next
-        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
-
         ' alphabetical shutdown
         Dim r As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
@@ -339,20 +330,20 @@ Public Class FormSetup
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
+                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
                     ResumeRegion(RegionUUID)
                 End If
 
-                'ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 ConsoleCommand(RegionUUID, "q")
 
-                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Application.DoEvents()
             End If
         Next
 
         Dim LastCount As Integer = 0
-        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
+        Dim counter As Integer = 6000 ' 1 minutes to quit all regions
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -388,7 +379,7 @@ Public Class FormSetup
                 ProcessQuit()   '  check if any processes exited
                 CheckForBootedRegions()
 
-                Sleep(1000)
+                Sleep(100)
             End While
             PropUpdateView = True ' make form refresh
         End If
@@ -487,6 +478,13 @@ Public Class FormSetup
         Next
 
         ListOfNames.Sort()
+
+        For Each RegionUUID In ListOfNames
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+        Next
 
         For Each RegionName As String In ListOfNames
 
@@ -926,6 +924,15 @@ Public Class FormSetup
         ' Run Diagnostics
         CheckDiagPort()
 
+        ' clear any temp regions on boot.
+        For Each RegionUUID As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+        Next
+
         With Cpu1
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -1125,9 +1132,9 @@ Public Class FormSetup
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
-            Status = SIMSTATUSENUM.Booting Or
-            Status = SIMSTATUSENUM.Booted) And
-            Not PropAborting Then
+                Status = SIMSTATUSENUM.Booting Or
+                Status = SIMSTATUSENUM.Booted) And
+                Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
                 Status = SIMSTATUSENUM.Error
@@ -1316,10 +1323,11 @@ Public Class FormSetup
 
                 If Settings.Smart_Start Then
 
-                    ' If a region i stopped or suspended, boot it if someone is nearby
+                    Dim Nearby = AvatarIsNearby(RegionUUID)
+                    ' If a region is stopped or suspended, boot it if someone is nearby
                     If status = SIMSTATUSENUM.Stopped _
                         Or status = SIMSTATUSENUM.Suspended Then
-                        If AvatarIsNearby(RegionUUID) Then
+                        If Nearby Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
                             Continue For
@@ -1327,7 +1335,7 @@ Public Class FormSetup
                     End If
 
                     ' keep smart start regions alive if someone is near
-                    If AvatarIsNearby(RegionUUID) Then
+                    If Nearby Then
                         PokeRegionTimer(RegionUUID)
                     End If
 
@@ -1337,7 +1345,6 @@ Public Class FormSetup
                         If diff < 0 Then diff = 0
 
                         If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
-                            'Continue For
                             BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
@@ -1907,6 +1914,11 @@ Public Class FormSetup
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
@@ -2426,7 +2438,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("10 second worker")
-            DidItDie()                  ' scans for missing DOS boxes
+            'DidItDie()                  ' scans for missing DOS boxes
             ProcessQuit()               ' check if any processes exited
             Bench.Print("10 second worker ends")
         End If

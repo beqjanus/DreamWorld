@@ -1148,7 +1148,6 @@ Public Module MysqlInterface
 #Enable Warning
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
-            Catch ex As MySqlException
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

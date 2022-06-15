@@ -175,8 +175,7 @@ Module SmartStart
         ' wait 2 minute for the region to quit
         Dim ctr = 120
 
-        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
-             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
+        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
             If ctr = 0 Then Exit While
@@ -699,9 +698,8 @@ Module SmartStart
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-        TextPrint($"{Region_Name(RegionUUID)} load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
-        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+        TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood

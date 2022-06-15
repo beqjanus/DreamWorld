@@ -14,8 +14,9 @@ Module CPUCounter
             .CPUValues = CPUValues,
             .PropInstanceHandles = PropInstanceHandles
         }
-    Private CalcCPUIsBusy As Boolean
+
     Private _PCList As Dictionary(Of Integer, PerformanceCounter)
+    Private CalcCPUIsBusy As Boolean
 
     Public ReadOnly Property CPUValues As Dictionary(Of String, Double)
         Get
@@ -102,7 +103,7 @@ Module CPUCounter
                     Try
                         a = Convert.ToDouble(CounterList.Item(RegionName).NextValue(), Globalization.CultureInfo.InvariantCulture)
                     Catch ex As Exception
-                        CounterList.Item(RegionName).Close()
+                        ' CounterList.Item(RegionName).Close()
                     End Try
 
                     Dim b = (a / Environment.ProcessorCount)

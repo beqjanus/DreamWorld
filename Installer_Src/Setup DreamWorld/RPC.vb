@@ -134,7 +134,6 @@ Module RPC
            {"command", Message}
         }
         Debug.Print($"admin_console_command {Message}")
-        Application.DoEvents()
         Return SendRPC(RegionUUID, "admin_console_command", ht)
 
     End Function
@@ -254,7 +253,7 @@ Module RPC
 
     End Function
 
-    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 2000) As Boolean
+    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 1000) As Boolean
 
         If RegionUUID.Length = 0 Then Return False
 
@@ -288,6 +287,7 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
+            Return False
         End Try
         Return True
 
