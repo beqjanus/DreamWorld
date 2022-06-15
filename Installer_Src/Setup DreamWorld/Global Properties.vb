@@ -34,15 +34,15 @@ Module Global_Properties
 
     Public Sub PokeGroupTimer(GroupName As String)
 
-        For Each UUID In RegionUuidListByName(GroupName)
-            PokeRegionTimer(UUID)
+        For Each RegionUUID In RegionUuidListByName(GroupName)
+            Timer(RegionUUID) = Date.Now()
         Next
 
     End Sub
 
-    Public Sub PokeRegionTimer(UUID As String)
+    Public Sub PokeRegionTimer(RegionUUID As String)
 
-        Timer(UUID) = Date.Now ' wait another interval
+        PokeGroupTimer(Group_Name(RegionUUID))
 
     End Sub
 
@@ -196,7 +196,10 @@ Module Global_Properties
             _PropAborting = Value
         End Set
     End Property
-
+    ''' <summary>
+    ''' Set when the RegionList should be refreshed
+    ''' </summary>
+    ''' <returns>true if it need refresh</returns>
     Public Property PropChangedRegionSettings As Boolean
         Get
             Return _RegionFilesChanged
@@ -225,7 +228,10 @@ Module Global_Properties
             Return _MyVersion
         End Get
     End Property
-
+    ''' <summary>
+    ''' Property set if Opensim when supposed to be running
+    ''' </summary>
+    ''' <returns>True if running</returns>
     Public Property PropOpensimIsRunning() As Boolean
         Get
             Return _IsRunning

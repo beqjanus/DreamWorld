@@ -4212,9 +4212,12 @@
     <value>Default Landing Spot</value>
   </data>
   <data name="LandingSpotTooltip" xml:space="preserve">
-    <value>Set Default Landing Location (Defaults to &lt;128,128, 30&gt;)</value>
+    <value>Set Default Landing Location (Defaults to &lt;128,128,30&gt;)</value>
   </data>
   <data name="NotValidVector" xml:space="preserve">
     <value>Not a Valid Vector! &lt;X, Y, Z&gt;, where values are &gt; 0 </value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Deleting Temp Region</value>
   </data>
 </root>

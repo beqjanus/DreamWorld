@@ -69,8 +69,6 @@ Module SmartStart
             End If
         Next
 
-        'Next
-
         Return Agents
 
     End Function
@@ -177,8 +175,7 @@ Module SmartStart
         ' wait 2 minute for the region to quit
         Dim ctr = 120
 
-        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
-             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
+        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
             If ctr = 0 Then Exit While
@@ -464,14 +461,12 @@ Module SmartStart
                     If Settings.BootOrSuspend Then
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             RegionStatus(UUID) = SIMSTATUSENUM.Resume
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     Else
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             ResumeRegion(UUID)
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     End If
@@ -495,7 +490,6 @@ Module SmartStart
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
                             SendToOpensimWorld(RegionUUID, 0)
                         End If
-
                         ProcessID(UUID) = PID
                     Next
                     ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
@@ -704,9 +698,8 @@ Module SmartStart
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-        TextPrint($"{Region_Name(RegionUUID)} load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
-        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+        TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood

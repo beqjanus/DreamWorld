@@ -289,6 +289,7 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Console" Then
 
             ResumeRegion(RegionUUID)
+
             Dim hwnd = GetHwnd(Group_Name(RegionUUID))
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
@@ -309,7 +310,7 @@ SetWindowOnTop_Err:
                     DelPidFile(RegionUUID)
                     Return
                 End If
-
+                Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
                 SetWindowOnTop(hwnd.ToInt32)
                 Settings.ConsoleShow = tmp
             End If

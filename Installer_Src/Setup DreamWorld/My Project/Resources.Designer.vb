@@ -2893,6 +2893,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Deleting Temp Region.
+        '''</summary>
+        Friend ReadOnly Property DeletingTempRegion() As String
+            Get
+                Return ResourceManager.GetString("DeletingTempRegion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Delete All Maps.
         '''</summary>
         Friend ReadOnly Property DelMaps() As String
@@ -5834,7 +5843,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Set Default Landing Location (Defaults to &lt;128,128, 30&gt;).
+        '''  Looks up a localized string similar to Set Default Landing Location (Defaults to &lt;128,128,30&gt;).
         '''</summary>
         Friend ReadOnly Property LandingSpotTooltip() As String
             Get

@@ -1,11 +1,17 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V4.99992
+Ai Austin spotted that the default landing spot in Regions->Maps was blank which caused a error in Opensim to be printed. Default is set back to 128,128,30 which is core default setting.
+David Monday reported that the Visitors list had him listed twice.  Old data in the table is now cleared if opensim is started from the beginning.
+New regions will have parcels with Scripts, Terrain editing, and Build off to help stop griefers. Scripts may go back on by default based on a survey this week. This has no effect on existing regions.
+Viewing the region console with the region popup "View Console"" sets the shutdown timer to 5 minutes to give you more time.
+MySQL now enables "innodb_doublewrite" buffer for better crash recovery. If Mysql is running as a service on a UPS/Generator, it is disabled for performance. 
+MySQL RAM use is also limited to 1 or 2 GB based on many calculated factors. 
 
 V4.99991
 Manuals:  Added more help to the troubleshooting guide.
-Windows:  SetWindowText(myhandle, windowName) is horrifically unreliable. Added a better retry loop with longer waits. 
-		  
+Windows:  SetWindowText(myhandle, windowName) is horrifically unreliable. Added a better retry loop with longer waits. 		  
 Bans: Read ban list at boot instead of waiting until you start, otherwise you might think it was gone.
 Region Editor: Added a editable default per region where people land. <128,1128,35> is the usual default
 Opensim: PhysicalPrimMax was getting the PhysicalPrimMin, then getting overwritten. Filed a Mantis and it was fixed.

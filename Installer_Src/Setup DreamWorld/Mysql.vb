@@ -66,6 +66,7 @@ Public Module MysqlInterface
         INI.SetIni("mysqld", "innodb_buffer_pool_size", $"{Settings.Total_InnoDB_GBytes()}G")
 
         If Settings.MysqlRunasaService Then
+            INI.SetIni("mysqld", "innodb_doublewrite", "0")
             INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
             INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
         Else
@@ -76,7 +77,14 @@ Public Module MysqlInterface
 
             INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "0")
 
-            'If Set To 1, InnoDB will flush (fsync) the transaction logs To the
+            ' The doublewrite buffer is a storage area where InnoDB writes pages flushed from the buffer
+            ' pool before writing the pages To their proper positions In the InnoDB data files.
+            ' If there Is an operating system, storage subsystem, or unexpected mysqld process
+            ' Exit In the middle Of a page write, InnoDB can find a good copy Of the page from the
+            ' doublewrite Buffer during crash recovery.
+            INI.SetIni("mysqld", "innodb_doublewrite", "1")
+
+            ' If set To 1, InnoDB will flush (fsync) the transaction logs To the
             ' disk at Each commit, which offers full ACID behavior. If you are
             ' willing To compromise this safety, And you are running small
             ' transactions, you may Set this To 0 Or 2 To reduce disk I/O To the
@@ -354,9 +362,12 @@ Public Module MysqlInterface
             Return
         End If
 
-        If MysqlInterface.IsMySqlRunning() Then
-            QueryString("delete from presence;")
-            QueryString("update robust.griduser set online = 'false';")
+        ' If we are booting and nothing is running, we clear the registered regions and people
+        Dim OpensimRunning() = Process.GetProcessesByName("Opensim")
+        If IsMySqlRunning() And OpensimRunning.Length = 0 And Settings.ServerType = RobustServerName Then
+            MysqlInterface.DeregisterRegions(False)
+            FixPresence()
+            QueryString("delete from griduser;")
         End If
 
     End Sub
@@ -1137,7 +1148,6 @@ Public Module MysqlInterface
 #Enable Warning
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
-            Catch ex As MySqlException
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

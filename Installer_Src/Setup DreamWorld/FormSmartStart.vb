@@ -146,7 +146,7 @@ Public Class FormSmartStart
                     If Guid.TryParse(RegionUUID, o) Then
                         Dim Prims = GetPrimCount(RegionUUID)
                         If Prims > 0 Then
-                            ProgressPrint($"{J.Name} {My.Resources.Ok} ")
+                            TextPrint($"{J.Name} {My.Resources.Ok} ")
                             Continue For
                         End If
                     Else
@@ -155,7 +155,7 @@ Public Class FormSmartStart
                     End If
                 Else
                     ' its a new region
-                    ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
+                    TextPrint($"{My.Resources.Add_Region_word} {J.Name} ")
 
                     If StopLoading = "StopRequested" Then Exit For
                     RegionUUID = CreateRegionStruct(shortname)
@@ -235,7 +235,7 @@ Public Class FormSmartStart
                 Dim Region_Name = line.Key
                 Dim RegionUUID = line.Value
 
-                ProgressPrint($"{My.Resources.Start_word} {Region_Name}")
+                TextPrint($"{My.Resources.Start_word} {Region_Name}")
                 If Not PropOpensimIsRunning Then Return
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
                 Dim obj As New TaskObject With {
@@ -292,21 +292,6 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Scrolling text box"
-
-    Public Sub ProgressPrint(Value As String)
-        Log(My.Resources.Info_word, Value)
-        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
-        TextBox1.Text += $"{dt} {Value}" & vbCrLf
-        If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
-            TextBox1.Text = Mid(TextBox1.Text, 1000)
-        End If
-    End Sub
-
-    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
-        Dim ln As Integer = TextBox1.Text.Length
-        TextBox1.SelectionStart = ln
-        TextBox1.ScrollToCaret()
-    End Sub
 
 #End Region
 
@@ -1279,7 +1264,7 @@ Public Class FormSmartStart
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
         Settings.SaveSettings()
         If Settings.SmartStartTimeout < 10 Then Settings.SmartStartTimeout = 10
-        ProgressPrint(My.Resources.minkeepalive)
+        TextPrint(My.Resources.minkeepalive)
 
     End Sub
 
@@ -1310,8 +1295,12 @@ Public Class FormSmartStart
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         If Not _initialized Then Return
+
+        If Not SmartStartEnabled.Checked Then Return
+        If SuspendButton.Checked Then DelayRegionReady.Text = "0"
+
         Settings.Smart_Start = SmartStartEnabled.Checked
-        ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
+        TextPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
         Settings.SaveSettings()
     End Sub
 
@@ -1504,7 +1493,7 @@ Public Class FormSmartStart
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
 
         Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
-        ProgressPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
+        TextPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
         Settings.SaveSettings()
 
     End Sub
@@ -1648,7 +1637,7 @@ Public Class FormSmartStart
     Private Sub AbortToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbortToolStripMenuItem.Click
 
         StopLoading = "StopRequested"
-        ProgressPrint("Stop Requested")
+        TextPrint("Stop Requested")
 
     End Sub
 
@@ -1656,7 +1645,9 @@ Public Class FormSmartStart
 
         If Not _initialized Then Return
         AviName.BackColor = Color.Red
-        If Not IsMySqlRunning() Then Return
+        If Not IsMySqlRunning() Then
+            StartMySQL()
+        End If
 
         If AviName.Text.Length > 0 Then
             Settings.SurroundOwner = AviName.Text
@@ -1722,10 +1713,10 @@ Public Class FormSmartStart
                 End If
             Next
         Else
-            ProgressPrint(My.Resources.Cancelled_word)
+            TextPrint(My.Resources.Cancelled_word)
         End If
 
-        ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
+        TextPrint($"{ctr} {My.Resources.Regions_Deleted}")
 
     End Sub
 
@@ -1735,7 +1726,7 @@ Public Class FormSmartStart
         DelayRegionReady.Text = digitsOnly.Replace(DelayRegionReady.Text, "")
         Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
         If Settings.TeleportSleepTime < 0 Then Settings.TeleportSleepTime = 0
-        ProgressPrint(My.Resources.Min_time)
+        TextPrint(My.Resources.Min_time)
         Settings.SaveSettings()
 
     End Sub
@@ -1766,6 +1757,8 @@ Public Class FormSmartStart
     Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShutDownButton.CheckedChanged
 
         If Not _initialized Then Return
+        If Not ShutDownButton.Checked Then Return
+        DelayRegionReady.Text = "20"
         Settings.BootOrSuspend = True
         Settings.SaveSettings()
 
@@ -1774,6 +1767,8 @@ Public Class FormSmartStart
     Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles SuspendButton.CheckedChanged
 
         If Not _initialized Then Return
+        If Not SuspendButton.Checked Then Return
+        DelayRegionReady.Text = "0"
         Settings.BootOrSuspend = False
         Settings.SaveSettings()
 
@@ -1794,7 +1789,7 @@ Public Class FormSmartStart
 
         StartLoading()
 
-        ProgressPrint("Loading Stopped")
+        TextPrint("Loading Stopped")
         gEstateName = ""
 
     End Sub
