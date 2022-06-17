@@ -137,6 +137,7 @@ Public Class UpdateGrid
                         Label1.Text = "Unzipping"
                         ProgressBar1.Value = 100
                         Thread.Sleep(1000)
+                        Application.DoEvents()
 
                         For Each ZipEntry In zip.Entries
                             counter += 1
@@ -144,7 +145,7 @@ Public Class UpdateGrid
 
                             If percent * 100 > 100 Then percent = 1
                             ProgressBar1.Value = percent * 100
-
+                            Application.DoEvents()
                             fname = ZipEntry.Name
                             If fname.Length = 0 Then
                                 Continue For

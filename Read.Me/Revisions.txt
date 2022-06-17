@@ -1,6 +1,17 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+
+V5.0
+Push notification Release
+
+V4.99993
+Fixed the surround Sim features in Smart Boot. It would not always surround a region.
+The surrounding regions will be powered on if you have Smart Start on and a region next to you is smart start enabled.  The number of regions is controlled by the size of the region surround setting on the same page.
+Temp Regions are in the Estate SimSurround. 
+Temp regions are deleted if you stop the grid or start it.
+Flushes OARs to disk after they load with 'backup' command
+Ban list is lower case MAC addresses, UPPER CASE does not work.
 V4.99992
 Ai Austin spotted that the default landing spot in Regions->Maps was blank which caused a error in Opensim to be printed. Default is set back to 128,128,30 which is core default setting.
 David Monday reported that the Visitors list had him listed twice.  Old data in the table is now cleared if opensim is started from the beginning.

@@ -724,6 +724,7 @@ sub GetVersion
     if ( !$ver ) {
         PrintDate('no version!');
         exit;
+        
     }
     return $ver   ;
 }

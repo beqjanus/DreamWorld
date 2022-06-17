@@ -74,6 +74,10 @@ Public Class Downloader
             ChDir(MyFolder)
         End If
 
+        ' Fix for Windows 7
+        ServicePointManager.Expect100Continue = True
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+
         Dim Filename As String = ""
         whereToSave = MyFolder & "\" & "DreamGrid.zip"
         IO.File.Delete(MyFolder & "\Updater.log")
