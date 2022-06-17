@@ -161,7 +161,7 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' Diva Wifi User Name (Admin)
+    ''' Diva Wifi User Name (Wifi)
     ''' </summary>
     ''' <returns>Admin</returns>
     Public Property AdminLast() As String
@@ -184,6 +184,7 @@ Public Class MySettings
         Set
             SetMySetting("Allow_grid_gods", CStr(Value))
         End Set
+
     End Property
 
     ''' <summary>
@@ -2050,6 +2051,19 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ShowFsAssetBackup", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' ShowRegionListOnBoot brings up the Region list if enabled
+    ''' </summary>
+    ''' <returns>T/F</returns>
+    Public Property ShowRegionListOnBoot() As Boolean
+        Get
+            Return CBool(GetMySetting("ShowRegionListOnBoot", "True"))
+        End Get
+        Set
+            SetMySetting("ShowRegionListOnBoot", CStr(Value))
         End Set
     End Property
 
