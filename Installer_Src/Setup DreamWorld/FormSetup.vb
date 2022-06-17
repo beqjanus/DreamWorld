@@ -436,6 +436,7 @@ Public Class FormSetup
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
+
         If Not PropOpensimIsRunning Then Return False
         PropAborting = False
         Buttons(BusyButton)
@@ -466,10 +467,6 @@ Public Class FormSetup
             G()
         End If
 
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
-
         Dim ListOfNames As New List(Of String)
 
         ' Boot them up sorted in Alphabetical Order
@@ -478,13 +475,6 @@ Public Class FormSetup
         Next
 
         ListOfNames.Sort()
-
-        For Each RegionUUID In ListOfNames
-            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
-                DeleteAllRegionData(RegionUUID)
-                PropChangedRegionSettings = True
-            End If
-        Next
 
         For Each RegionName As String In ListOfNames
 
@@ -924,14 +914,18 @@ Public Class FormSetup
         ' Run Diagnostics
         CheckDiagPort()
 
-        ' clear any temp regions on boot.
-        For Each RegionUUID As String In RegionUuids()
-            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
-                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
-                DeleteAllRegionData(RegionUUID)
-                PropChangedRegionSettings = True
-            End If
-        Next
+        Dim DB = IsMySqlRunning()
+
+        If DB Then
+            ' clear any temp regions on boot.
+            For Each RegionUUID As String In RegionUuids()
+                If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                    TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
+                    DeleteAllRegionData(RegionUUID)
+                    PropChangedRegionSettings = True
+                End If
+            Next
+        End If
 
         With Cpu1
             .CategoryName = "Processor"
@@ -943,6 +937,10 @@ Public Class FormSetup
 
         LoadHelp()      ' Help loads once
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
+
+        If Settings.ShowRegionListOnBoot Then
+            ShowRegionform()
+        End If
 
         If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
             Dim Password = New PassGen
@@ -1691,6 +1689,15 @@ Public Class FormSetup
             TextPrint(My.Resources.Stopped_word)
             Return
         End If
+
+        ' clear any temp regions on boot.
+        For Each Region As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(Region) = "SimSurround" Then
+                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(Region)}")
+                DeleteAllRegionData(Region)
+                PropChangedRegionSettings = True
+            End If
+        Next
 
         ' create tables in case we need them
         SetupWordPress()    ' in case they want to use WordPress
