@@ -1686,8 +1686,6 @@ Public Class FormSetup
             Return
         End If
 
-        DeleteOnlineUsers()
-
         If Not StartRobust() Then
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
@@ -1765,8 +1763,6 @@ Public Class FormSetup
         End Try
 
         If PropWebserver IsNot Nothing Then PropWebserver.StopWebserver()
-
-        DeleteOnlineUsers()
 
         PropAborting = True
         StopMysql()
