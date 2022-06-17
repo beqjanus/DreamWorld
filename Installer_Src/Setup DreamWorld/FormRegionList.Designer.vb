@@ -50,6 +50,7 @@ Partial Class FormRegionlist
         Me.KOT = New System.Windows.Forms.ToolStripMenuItem()
         Me.OnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FloatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowUponBootToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -448,7 +449,7 @@ Partial Class FormRegionlist
         '
         'KOT
         '
-        Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
+        Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem, Me.ShowUponBootToolStripMenuItem})
         Me.KOT.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.KOT.Name = "KOT"
         Me.KOT.Size = New System.Drawing.Size(83, 28)
@@ -458,15 +459,21 @@ Partial Class FormRegionlist
         '
         Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.On_Top
         '
         'FloatToolStripMenuItem
         '
         Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Float
+        '
+        'ShowUponBootToolStripMenuItem
+        '
+        Me.ShowUponBootToolStripMenuItem.Name = "ShowUponBootToolStripMenuItem"
+        Me.ShowUponBootToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ShowUponBootToolStripMenuItem.Text = "Show upon Boot"
         '
         'FormRegionlist
         '
@@ -536,4 +543,5 @@ Partial Class FormRegionlist
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents Emails As Button
+    Friend WithEvents ShowUponBootToolStripMenuItem As ToolStripMenuItem
 End Class

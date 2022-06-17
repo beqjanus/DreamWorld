@@ -1215,6 +1215,9 @@ SetWindowOnTop_Err:
                 Timer1.Start() 'Timer starts functioning
             End If
 
+            ShowUponBootToolStripMenuItem.Checked = Settings.ShowRegionListOnBoot
+            Settings.SaveSettings()
+
             Timer1.Start()
             LoadMyListView()
 
@@ -1738,7 +1741,6 @@ SetWindowOnTop_Err:
 
     Private Sub ShowUsers()
 
-
         AllNone.Visible = True
         UserView.TabIndex = 0
 
@@ -1867,6 +1869,14 @@ SetWindowOnTop_Err:
             EmailForm.Activate()
         Catch
         End Try
+
+    End Sub
+
+    Private Sub ShowUponBootToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUponBootToolStripMenuItem.Click
+
+        ShowUponBootToolStripMenuItem.Checked = Not ShowUponBootToolStripMenuItem.Checked
+        Settings.ShowRegionListOnBoot = ShowUponBootToolStripMenuItem.Checked
+        Settings.SaveSettings()
 
     End Sub
 
