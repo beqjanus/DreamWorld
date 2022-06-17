@@ -1297,7 +1297,7 @@ Public Class FormSmartStart
         If Not _initialized Then Return
 
         If Not SmartStartEnabled.Checked Then Return
-        If SuspendButton.Checked Then DelayRegionReady.Text = "0"
+        If SuspendButton.Checked Then DelayRegionReady.Text = My.Resources._0
 
         Settings.Smart_Start = SmartStartEnabled.Checked
         TextPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
@@ -1758,7 +1758,7 @@ Public Class FormSmartStart
 
         If Not _initialized Then Return
         If Not ShutDownButton.Checked Then Return
-        DelayRegionReady.Text = "20"
+        DelayRegionReady.Text = My.Resources._20
         Settings.BootOrSuspend = True
         Settings.SaveSettings()
 
@@ -1768,7 +1768,7 @@ Public Class FormSmartStart
 
         If Not _initialized Then Return
         If Not SuspendButton.Checked Then Return
-        DelayRegionReady.Text = "0"
+        DelayRegionReady.Text = My.Resources._0
         Settings.BootOrSuspend = False
         Settings.SaveSettings()
 
