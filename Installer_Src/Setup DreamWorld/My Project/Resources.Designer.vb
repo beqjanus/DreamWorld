@@ -90,6 +90,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 20.
+        '''</summary>
+        Friend ReadOnly Property _20() As String
+            Get
+                Return ResourceManager.GetString("_20", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property _3x3() As System.Drawing.Bitmap
