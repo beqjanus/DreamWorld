@@ -423,7 +423,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}.json"
+                Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}.json?r={CStr(Random())}"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
@@ -501,7 +501,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As New Uri($"{PropHttpsDomain}/Outworldz_installer/{_type}/{item.Photo}")
+                        Dim link As New Uri($"{PropHttpsDomain}/Outworldz_installer/{_type}/{item.Photo}?r={CStr(Random())}")
 #Disable Warning CA2000
                         img = GetImageFromURL(link)
 #Enable Warning CA2000
