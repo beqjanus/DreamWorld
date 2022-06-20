@@ -659,6 +659,19 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' BulkLoadOwner User Name
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property BulkLoadOwner() As String
+        Get
+            Return GetMySetting("BulkLoadOwner", "")
+        End Get
+        Set
+            SetMySetting("BulkLoadOwner", Value)
+        End Set
+    End Property
+
     Public Property CacheEnabled() As Boolean
         Get
             Return CType(GetMySetting("CacheEnabled", "True"), Boolean)
