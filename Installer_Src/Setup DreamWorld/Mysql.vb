@@ -325,7 +325,7 @@ Public Module MysqlInterface
     ''' </summary>
     Public Sub DeleteOldVisitors()
 
-        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
+        Dim stm = $"delete from visitor WHERE dateupdated < NOW() - INTERVAL {Settings.KeepVisits} DAY "
         QueryString(stm)
 
         ' make a list of  'uuid1', 'uuid2' etc
@@ -374,7 +374,7 @@ Public Module MysqlInterface
 
     Public Sub DelRobustMaps()
 
-        Dim q = "delete from robust.fsassets WHERE name LIKE ""terrainImage_%"";"
+        Dim q = "delete from fsassets WHERE name LIKE ""terrainImage_%"";"
         QueryString(q)
 
     End Sub
@@ -385,7 +385,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "delete from robust.regions where LocX=@X and LocY=@Y"
+                Dim stm = "delete from regions where LocX=@X and LocY=@Y"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@X", X * 256)
                     cmd.Parameters.AddWithValue("@Y", Y * 256)
@@ -400,7 +400,7 @@ Public Module MysqlInterface
     End Sub
 
     ''' <summary>
-    ''' deletes all regions from robust.regions
+    ''' deletes all regions from robust regions
     ''' </summary>
     ''' <param name="force"></param>
     Public Sub DeregisterRegions(force As Boolean)
@@ -411,7 +411,7 @@ Public Module MysqlInterface
         End If
 
         If MysqlInterface.IsMySqlRunning() Then
-            QueryString("delete from robust.regions;")
+            QueryString($"delete from regions;")
             TextPrint(My.Resources.Deregister_All)
         End If
 
@@ -427,7 +427,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "delete from robust.regions where uuid = @UUID;"
+                Dim stm = "delete from regions where uuid = @UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     cmd.ExecuteNonQuery()
@@ -448,7 +448,7 @@ Public Module MysqlInterface
         Using EstateConnection As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 EstateConnection.Open()
-                Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
+                Dim stm = "select EstateID from estate_map where RegionID=@UUID"
                 Using cmd = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
 
@@ -507,7 +507,7 @@ Public Module MysqlInterface
     Public Sub FixPresence()
 
         'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
-        Dim q = "Delete From robust.Presence Where Not exists (select * from robust.GridUser  where robust.Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
+        Dim q = "Delete From Presence Where Not exists (select * from GridUser  where Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
         QueryString(q)
 
     End Sub
@@ -650,21 +650,26 @@ Public Module MysqlInterface
 
         If avatarname.Length = 0 Then Return ""
         Dim Val As String = ""
-
+        Dim stm = "Select PrincipalID  from useraccounts where FirstName like CONCAT('%', @Fname, '%')"
         Dim parts As String() = avatarname.Split(" ".ToCharArray())
         Dim Fname = parts(0).Trim
-        Dim LName = parts(1).Trim
+        Dim LName As String = ""
+        If parts.Length = 2 Then
+            LName = parts(1).Trim
+            stm = "Select PrincipalID  from useraccounts where FirstName= @Fname And LastName like CONCAT('%', @Lname, '%')"
+        End If
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
-
                 MysqlConn.Open()
 
-                Dim stm = "Select PrincipalID  from useraccounts where FirstName= @Fname And LastName=@LName "
                 Using cmd = New MySqlCommand(stm, MysqlConn)
 
                     cmd.Parameters.AddWithValue("@Fname", Fname)
-                    cmd.Parameters.AddWithValue("@Lname", LName)
+                    If parts.Length = 2 Then
+                        cmd.Parameters.AddWithValue("@Lname", LName)
+                    End If
+
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             'Debug.Print("ID = {0}", reader.GetString(0))\
@@ -673,8 +678,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -986,7 +989,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from robust.useraccounts where principalID = @UUID"
+                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from useraccounts where principalID = @UUID"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", uuid)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -1031,7 +1034,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "update robust.useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
+                Dim stm = "update useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@level", ud.Level)
                     cmd.Parameters.AddWithValue("@UUID", ud.PrincipalID)
@@ -1063,7 +1066,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "update robust.regions set flags = @flag where uuid = @UUID;"
+                Dim stm = "update regions set flags = @flag where uuid = @UUID;"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@flag", RegionFlag)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
@@ -1169,7 +1172,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
+                Dim stm = "Select count(*) as cnt from regions where uuid = @UUID"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -1204,7 +1207,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID And flags & 4 = 4 "
+                Dim stm = "Select count(*) as cnt from regions where uuid = @UUID And flags & 4 = 4 "
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
