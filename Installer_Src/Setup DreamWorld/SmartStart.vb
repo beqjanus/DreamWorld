@@ -84,20 +84,15 @@ Module SmartStart
         If Settings.SequentialMode = 0 Then
             Return
         ElseIf Settings.SequentialMode = 1 Then
-            Dim ctr = 5 * 60  ' 5 minute max to start a region
+            Dim ctr = 60 ' 1 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
 
-                    ' see if there is a window still open. If so, its running
-                    'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-
                     Dim status = RegionStatus(RegionUUID)
 
-                    If CBool((status = SIMSTATUSENUM.Booting) Or
-                        (status = SIMSTATUSENUM.RecyclingDown) Or
-                        (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
+                    If status = SIMSTATUSENUM.Booting Then
                         BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
@@ -699,7 +694,7 @@ Module SmartStart
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood

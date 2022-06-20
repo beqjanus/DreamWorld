@@ -350,6 +350,12 @@
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Disk.vb" />
     <Compile Include="Events.vb" />
+    <Compile Include="FormBlockify.Designer.vb">
+      <DependentUpon>FormBlockify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormBlockify.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDebug.Designer.vb">
       <DependentUpon>FormDebug.vb</DependentUpon>
     </Compile>
@@ -755,6 +761,9 @@
     <Compile Include="WordWrap.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormBlockify.resx">
+      <DependentUpon>FormBlockify.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDebug.resx">
       <DependentUpon>FormDebug.vb</DependentUpon>
     </EmbeddedResource>
