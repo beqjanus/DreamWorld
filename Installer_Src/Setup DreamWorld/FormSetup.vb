@@ -1354,6 +1354,7 @@ Public Class FormSetup
                             End If
 
                             PropUpdateView = True ' make form refresh
+                            Application.DoEvents()
                             Continue For
                         End If
                     End If
@@ -1461,18 +1462,11 @@ Public Class FormSetup
     End Sub
 
     Private Sub DidItDie()
-        Return
+
 
         If PropOpensimIsRunning Then
 
-            Dim l As New List(Of String)
-            ' check to see if a handle to all regions exists. If not, then it died.
             For Each RegionUUID As String In RegionUuids()
-                l.Add(RegionUUID)
-            Next
-            l.Sort()
-
-            For Each RegionUUID As String In l
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return
                 If Not RegionEnabled(RegionUUID) Then Continue For
@@ -1487,11 +1481,11 @@ Public Class FormSetup
 
                     Dim Groupname = Group_Name(RegionUUID)
                     If GetHwnd(Groupname) = IntPtr.Zero Then
-                        If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                            If Not exitList.ContainsKey(Groupname) Then
-                                exitList.TryAdd(Groupname, "Exit")
-                            End If
+                        'If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
+                        If Not exitList.ContainsKey(Groupname) Then
+                            exitList.TryAdd(Groupname, "Exit")
                         End If
+                        'End If
                     End If
                 End If
             Next
@@ -1555,13 +1549,19 @@ Public Class FormSetup
                 Continue For
             End If
 
-            If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
+            If (Status = SIMSTATUSENUM.Booting Or
+                Status = SIMSTATUSENUM.Booted Or
+                Status = SIMSTATUSENUM.Suspended) Then
+                ResumeRegion(RegionUUID)
+
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
                 ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             Else
                 ' Smart Start Enabled and stopped
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+                'RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+                'Application.DoEvents()
+                'ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             End If
             Application.DoEvents()
         Next
@@ -2441,7 +2441,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("10 second worker")
-            'DidItDie()                  ' scans for missing DOS boxes
+            DidItDie()                  ' scans for missing DOS boxes
             ProcessQuit()               ' check if any processes exited
             Bench.Print("10 second worker ends")
         End If
