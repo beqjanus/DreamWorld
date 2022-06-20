@@ -1,8 +1,64 @@
 ﻿Imports System.Threading
+Imports Ionic.Zip
 
 Module Backup
 
 #Region "Backups"
+
+    Public Sub BackupINI()
+
+        Dim Name = "Region"
+        RunningBackupName = Name
+        Dim zipused As Boolean
+        'used to zip it, zip it good
+        Dim _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Region_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+        FileIO.FileSystem.CreateDirectory(_folder)
+
+        Dim Foldername = "Region_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+
+        Using Z = New ZipFile(Bak) With {
+                .UseZip64WhenSaving = Zip64Option.AsNecessary,
+                .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+            }
+
+            Try
+                Dim sourcePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions")
+                Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
+                For Each fileSystemInfo In sourceDirectoryInfo.GetDirectories
+                    Try
+                        Dim folder = fileSystemInfo.FullName
+                        Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
+                        Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
+                        For Each RegionName In RegionDirectoryInfo.GetFileSystemInfos
+                            If RegionName.Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
+                                Dim shortname = RegionName.Name.Replace(".ini", "")
+                                Z.AddFile(IO.Path.Combine(Regionpath, RegionName.Name), $"\Regions\{shortname}\Region\")
+                                zipused = True
+                            End If
+                        Next
+                    Catch ex As Exception
+                        BreakPoint.Print(ex.Message)
+                    End Try
+                Next
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+
+            Try
+                If zipused = True Then
+                    Z.Save()
+                    Sleep(500)
+                    MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                End If
+
+                DeleteFolder(_folder)
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+
+        End Using
+    End Sub
 
     Public Function BackupPath() As String
 
