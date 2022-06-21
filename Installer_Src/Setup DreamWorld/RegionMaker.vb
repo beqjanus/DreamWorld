@@ -374,7 +374,7 @@ Module RegionMaker
         If Settings.Skirtsize = 0 Then Return False
 
         Dim NameRegion = Region_Name(RegionUUID)
-        Debug.Print("Looking for nearby to {NameRegion}")
+        'Debug.Print($"Looking for nearby to {NameRegion}")
         Dim Xloc = Coord_X(RegionUUID)
         Dim Yloc = Coord_Y(RegionUUID)
 
