@@ -44,7 +44,7 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-    Private _ThreadsArerunning As Boolean
+
     Private _WasRunning As String = ""
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
@@ -497,7 +497,7 @@ Public Class FormSetup
                                 BootNeeded = True
                             End If
 
-                            ' If running, make them boot so we can hook on and shut them doen
+                            ' If running, make them boot so we can hook on and shut them down
                             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                                 BootNeeded = True
                             End If
@@ -1463,8 +1463,7 @@ Public Class FormSetup
 
     Private Sub DidItDie()
 
-
-        If PropOpensimIsRunning Then
+        While PropOpensimIsRunning
 
             For Each RegionUUID As String In RegionUuids()
                 Application.DoEvents()
@@ -1480,17 +1479,15 @@ Public Class FormSetup
                         (status = SIMSTATUSENUM.Suspended)) Then
 
                     Dim Groupname = Group_Name(RegionUUID)
-                    If GetHwnd(Groupname) = IntPtr.Zero Then
-                        'If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
+                    If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
                         If Not exitList.ContainsKey(Groupname) Then
                             exitList.TryAdd(Groupname, "Exit")
                         End If
-                        'End If
                     End If
                 End If
+                Sleep(100)
             Next
-
-        End If
+        End While
 
     End Sub
 
@@ -1506,7 +1503,7 @@ Public Class FormSetup
         BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
         ReBoot(RegionUUID)
-        Sleep(1000)
+        Application.DoEvents()
         ' TODO add task queue
         ' so we can have more than one command
         'TaskQue.Add(TObj)
@@ -1516,6 +1513,7 @@ Public Class FormSetup
             ToDoList.Add(RegionUUID, TObj)
         End If
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            ResumeRegion(RegionUUID)
             RunTaskList(RegionUUID)
         End If
 
@@ -2360,8 +2358,8 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
-        If _ThreadsArerunning Then Return
-        _ThreadsArerunning = True
+        If ThreadsArerunning Then Return
+        ThreadsArerunning = True
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
@@ -2441,7 +2439,6 @@ Public Class FormSetup
 
         If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("10 second worker")
-            DidItDie()                  ' scans for missing DOS boxes
             ProcessQuit()               ' check if any processes exited
             Bench.Print("10 second worker ends")
         End If
