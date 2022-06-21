@@ -1,8 +1,5 @@
 ﻿Module FreezeThaw
 
-
-
-
 #Region "FreezeThaw"
 
     ''' <summary>
@@ -15,19 +12,6 @@
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
 
     End Sub
-
-    Function GetPIDOfRegionWindow(RegionUUID As String) As Integer
-        Debug.Print($"GetPID {Region_Name(RegionUUID)}")
-
-
-
-
-
-        Return 0
-
-
-
-    End Function
 
     ''' <summary>
     ''' Resumes Region from frozen state
