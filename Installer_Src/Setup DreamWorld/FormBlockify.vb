@@ -123,25 +123,29 @@ Public Class FormBlockify
         For Each RegionName In ListRegions
 
             Dim RegionUUID = FindRegionByName(RegionName)
-            Coord_X(RegionUUID) = X
-            Coord_Y(RegionUUID) = Y
 
-            SizeRegion = CInt(SizeX(RegionUUID) / 256)
+            If RegionEnabled(RegionUUID) Then
 
-            WriteRegionObject(Group_Name(RegionUUID), Region_Name(RegionUUID))
+                Coord_X(RegionUUID) = X
+                Coord_Y(RegionUUID) = Y
 
-            If MaxSizeThisRow <= SizeRegion Then
-                MaxSizeThisRow = SizeRegion
+                SizeRegion = CInt(SizeX(RegionUUID) / 256)
+
+                WriteRegionObject(Group_Name(RegionUUID), Region_Name(RegionUUID))
+
+                If MaxSizeThisRow <= SizeRegion Then
+                    MaxSizeThisRow = SizeRegion
+                End If
+
+                X += SizeRegion + Spacer
+
+                If X >= StartX + Sizer Then   ' if past right border,
+                    X = StartX              ' go back to left border
+                    Y += MaxSizeThisRow + Spacer ' Add the largest size +1 and move up
+                End If
+
+                Delete_Region_Map(RegionUUID)
             End If
-
-            X += SizeRegion + Spacer
-
-            If X >= StartX + Sizer Then   ' if past right border,
-                X = StartX              ' go back to left border
-                Y += MaxSizeThisRow + Spacer ' Add the largest size +1 and move up
-            End If
-
-            Delete_Region_Map(RegionUUID)
 
         Next
 
