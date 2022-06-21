@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
+V5.1 Release 2
+I left some debug in, so restart regions did not work. This is a release that will notify you.
+
+
 V5.01 Post-release fixes
 Diva (in Robust) exposed a Denial of Service attack vector that was fixed by Diva just this week. We've always had the fix since I first spotted and reported it a year ago. But the 4.999's didn't have it due to the new Opensim.
 Banlist did not accept Mac addresses due to Upper Case bug
