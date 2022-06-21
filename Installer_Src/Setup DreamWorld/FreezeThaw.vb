@@ -45,13 +45,10 @@
         End If
 
         BreakPoint.Print($"Resume {Region_Name(RegionUUID)}")
-        ' SuUspend mode and there is a DOS box then...
-        If Settings.BootOrSuspend = False And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-            FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
-            TeleportAgents()
-            Return False ' no need to boot as we are up.
-        End If
+
+        FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
         ReBoot(RegionUUID)
+        TeleportAgents()
         Return True
 
     End Function
