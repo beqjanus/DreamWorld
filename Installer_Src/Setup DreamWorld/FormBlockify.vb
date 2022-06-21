@@ -48,14 +48,16 @@ Public Class FormBlockify
 
         GoButton.Text = My.Resources.Packregions
         Label1.Text = My.Resources.Spacing
+        Label2.Text = My.Resources.Width
+        Me.Text = Global.Outworldz.My.Resources.Pack_Word
+        ToolTip1.SetToolTip(GoButton, Global.Outworldz.My.Resources.PackRegionTT)
         ToolTip1.SetToolTip(Label1, Global.Outworldz.My.Resources.SpacingTT)
         ToolTip1.SetToolTip(RowSizeTextbox, Global.Outworldz.My.Resources.RowSizeTT)
-        Label2.Text = My.Resources.Width
-        ToolTip1.SetToolTip(SpacingTextBox, Global.Outworldz.My.Resources.SpacingTT)
         ToolTip1.SetToolTip(RowSizeTextbox, Global.Outworldz.My.Resources.RowSizeTT)
-        Me.Text = Global.Outworldz.My.Resources.Pack_Word
+        ToolTip1.SetToolTip(SpacingTextBox, Global.Outworldz.My.Resources.SpacingTT)
 
-        ToolTip1.SetToolTip(GoButton, Global.Outworldz.My.Resources.PackRegionTT)
+        SetScreen()
+
         HelpOnce("Rearrange")
 
     End Sub
