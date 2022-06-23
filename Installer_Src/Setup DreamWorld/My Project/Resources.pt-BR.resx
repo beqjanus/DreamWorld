@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Visualizar mapa do Google</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Regiões de carregamento em massa</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>É necessária a confirmação do Diva Manager para novos usuários?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Banco de dados de ativos FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Configurações de encomendas</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Ponto de pouso padrão</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Definir local de pouso padrão (padrão para &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Não é um vetor válido! &lt;X, Y, Z&gt;, onde os valores são &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Excluindo região temporária</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Cuidado! Isso moverá todas as regiões para um bloco quadrado.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Fazendo backup de todas as regiões para a pasta de backup automático</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator deve ser parado</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Embalando todas as regiões</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Embalar todas as regiões</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Empacota todas as regiões em ordem alfabética do canto inferior esquerdo ao canto superior direito</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Reorganizar regiões</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Quantas linhas de largura? 1 = 1 região padrão 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Espaçamento</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Quanto espaço entre as regiões. 0 = tocando. Padrão = 4 para que você não possa ver a próxima região.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Largura</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abortar</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Abortando</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Proprietário de Novas Regiões</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pacote</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Defina o proprietário e tente novamente</value>
+  </data>
 </root>

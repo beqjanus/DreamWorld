@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>查看谷歌地圖</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>批量加載區域</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>新用戶需要 Diva Manager 確認嗎？</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS 資產數據庫</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>包裹設置</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>默認著陸點</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>設置默認著陸位置（默認為 &lt;128,128,30&gt;）</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>不是一個有效的向量！ &lt;X, Y, Z&gt;，其中值 &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>刪除臨時區域</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>警告！這會將所有區域移動到方形塊中。</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>將所有區域備份到自動備份文件夾</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>必須停止 Opensimulator</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>打包所有區域</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>打包所有地區</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>從左下角到右上角按字母順序打包所有區域</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>重新排列區域</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>橫穿多少行？ 1 = 1 個標準 256X256 區域。</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>間距</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>區域之間有多少空間。 0 = 觸摸。默認 = 4，因此您看不到下一個區域。</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>寬度</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>新區域的所有者</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>盒</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>設置所有者並重試</value>
+  </data>
 </root>

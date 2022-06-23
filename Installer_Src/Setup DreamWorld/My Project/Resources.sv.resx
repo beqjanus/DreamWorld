@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Visa Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Bulkbelastningsregioner</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Behövs Diva Manager-bekräftelse för nya användare?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Asset Database</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Paketinställningar</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Standard landningsplats</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Ställ in standard landningsplats (standard till &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Inte en giltig vektor! &lt;X, Y, Z&gt;, där värdena är &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Tar bort Temp Region</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Varning! Detta kommer att flytta alla regioner till ett kvadratiskt block.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Säkerhetskopiera alla regioner till mappen Automatisk säkerhetskopiering</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator måste stoppas</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Packar alla regioner</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Packa alla regioner</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Packar alla regioner alfabetiskt från nedre vänstra till övre högra</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Ordna om regioner</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Hur många rader tvärs över? 1 = 1 standard 256X256 region.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Mellanrum</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Hur mycket utrymme mellan regioner. 0 = beröring. Standard = 4 så du kan inte se nästa region.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Bredd</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Avbryter</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Ägare av New Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Packa</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Ställ in ägaren och försök igen</value>
+  </data>
 </root>

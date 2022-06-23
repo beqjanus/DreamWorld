@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Google Haritasını Görüntüle</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Toplu Yükleme Bölgeleri</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Yeni kullanıcılar için Diva Manager onayı gerekiyor mu?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Varlık Veritabanı</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Parsel Ayarları</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Varsayılan İniş Noktası</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Varsayılan İniş Konumunu Ayarla (Varsayılan olarak &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Geçerli Bir Vektör Değil! &lt;X, Y, Z&gt;, burada değerler &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Sıcaklık Bölgesini Silme</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Dikkat! Bu, tüm bölgeleri bir Kare bloğa taşıyacaktır.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Tüm Bölgeleri Otomatik yedekleme klasörüne yedekleme</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimülatör Durdurulmalı</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Tüm bölgeleri paketleme</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Tüm Bölgeleri Paketle</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Tüm bölgeleri sol alttan sağ üste alfabetik olarak paketler</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Bölgeleri Yeniden Düzenleme</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Arada kaç sıra var? 1 = 1 standart 256X256 bölge.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>boşluk</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Bölgeler arasında ne kadar boşluk var. 0 = dokunmak. Varsayılan = 4 yani sonraki bölgeyi göremezsiniz.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Genişlik</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>iptal</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>iptal</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Yeni Bölgelerin Sahibi</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Ambalaj</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Sahibi ayarlayın ve tekrar deneyin</value>
+  </data>
 </root>

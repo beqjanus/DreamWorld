@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Google-Karte ansehen</value>
   </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Diva Manager-Bestätigung für neue Benutzer erforderlich?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Asset-Datenbank</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Paketeinstellungen</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Standard-Landeplatz</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Standard-Landeplatz festlegen (Standard auf &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Kein gültiger Vektor! &lt;X, Y, Z&gt;, wobei Werte &gt; 0 sind</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Temporäre Region löschen</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Vorsicht! Dadurch werden alle Regionen in einen quadratischen Block verschoben.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Sichern aller Regionen im automatischen Sicherungsordner</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator muss gestoppt werden</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Alle Regionen packen</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Alle Regionen packen</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Packt alle Regionen alphabetisch von links unten nach rechts oben</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Regionen neu anordnen</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Wie viele Reihen quer? 1 = 1 Standardbereich 256 x 256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Abstand</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Wie viel Platz zwischen den Regionen. 0 = berühren. Standard = 4, sodass Sie die nächste Region nicht sehen können.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breite</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Massenladeregionen</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Eigentümer von New Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pack</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Legen Sie den Eigentümer fest und versuchen Sie es erneut</value>
+  </data>
 </root>

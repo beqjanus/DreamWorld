@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Afficher la carte Google</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Régions de chargement en bloc</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Besoin d'une confirmation de Diva Manager pour les nouveaux utilisateurs ?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Base de données des actifs FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Paramètres des parcelles</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Point d'atterrissage par défaut</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Définir l'emplacement d'atterrissage par défaut (par défaut &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Pas un vecteur valide ! &lt;X, Y, Z&gt;, où les valeurs sont &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Suppression de la région temporaire</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Mise en garde! Cela déplacera toutes les régions dans un bloc carré.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Sauvegarde de toutes les régions dans le dossier de sauvegarde automatique</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator doit être arrêté</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Emballage toutes régions</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Emballez toutes les régions</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Emballe toutes les régions par ordre alphabétique du bas à gauche au haut à droite</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Réorganiser les régions</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Combien de rangées de part et d'autre ? 1 = 1 région standard 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Espacement</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Combien d'espace entre les régions. 0 = toucher. Par défaut = 4, vous ne pouvez donc pas voir la région suivante.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Largeur</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Avorter</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Abandon</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Propriétaire de nouvelles régions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Paquet</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Définissez le propriétaire et réessayez</value>
+  </data>
 </root>

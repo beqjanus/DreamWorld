@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Bekijk Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Bulklaadregio's</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Diva Manager bevestiging voor nieuwe gebruikers nodig?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS-activadatabase</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Pakketinstellingen</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Standaard landingsplaats</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Standaard landingslocatie instellen (standaard ingesteld op &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Geen geldige vector! &lt;X, Y, Z&gt;, waarbij de waarden &gt; 0 . zijn</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Tijdelijke regio verwijderen</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Voorzichtigheid! Hiermee worden alle regio's naar een vierkant blok verplaatst.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Een back-up maken van alle regio's naar de automatische back-upmap</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator moet worden gestopt</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Alle regio's inpakken</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Alle regio's inpakken</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Verpakt alle regio's alfabetisch van linksonder naar rechtsboven</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Regio's herschikken</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Hoeveel rijen over? 1 = 1 standaard 256X256 regio.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Spatiëring</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Hoeveel ruimte tussen regio's. 0 = aanraken. Standaard = 4 zodat u de volgende regio niet kunt zien.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breedte</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>afbreken</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>afbreken</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Eigenaar van New Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pak</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Stel de eigenaar in en probeer het opnieuw</value>
+  </data>
 </root>

@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Προβολή χάρτη Google</value>
   </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Χρειάζεται επιβεβαίωση του Diva Manager για νέους χρήστες;</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Asset Database</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Ρυθμίσεις δεμάτων</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Προεπιλεγμένο σημείο προσγείωσης</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Ορισμός προεπιλεγμένης τοποθεσίας προσγείωσης (προεπιλογή σε &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Δεν είναι έγκυρο διάνυσμα! &lt;X, Y, Z&gt;, όπου οι τιμές είναι &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Διαγραφή περιοχής θερμοκρασίας</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Προσοχή! Αυτό θα μετακινήσει όλες τις περιοχές σε ένα τετραγωνικό μπλοκ.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Δημιουργία αντιγράφων ασφαλείας όλων των περιοχών στον φάκελο αυτόματης δημιουργίας αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Το Opensimulator πρέπει να σταματήσει</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Συσκευασία όλων των περιοχών</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Συσκευάστε όλες τις περιοχές</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Συσκευάζει όλες τις περιοχές αλφαβητικά από κάτω αριστερά προς τα πάνω δεξιά</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Αναδιάταξη περιοχών</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Πόσες σειρές κατά μήκος; 1 = 1 τυπική περιοχή 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Διάστημα</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Πόσος χώρος μεταξύ των περιοχών. 0 = άγγιγμα. Προεπιλογή = 4, επομένως δεν μπορείτε να δείτε την επόμενη περιοχή.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Πλάτος</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Κάνω αποβολή</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Περιοχές μαζικού φορτίου</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Ιδιοκτήτης Νέων Περιφερειών</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Πακέτο</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Ορίστε τον Κάτοχο και δοκιμάστε ξανά</value>
+  </data>
 </root>

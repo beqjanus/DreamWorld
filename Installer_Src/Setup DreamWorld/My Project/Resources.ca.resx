@@ -3655,4 +3655,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Veure Google Map</value>
   </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Necessites confirmació de Diva Manager per a usuaris nous?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Base de dades d'actius FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Configuració de paquets</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Punt d'aterratge predeterminat</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Estableix la ubicació d'aterratge predeterminada (per defecte a &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>No és un vector vàlid! &lt;X, Y, Z&gt;, on els valors són &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>S'està suprimint la regió temporal</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Atenció! Això mourà totes les regions a un bloc quadrat.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Còpia de seguretat de totes les regions a la carpeta de còpia de seguretat automàtica</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator s'ha d'aturar</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Embalatge de totes les regions</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Empaqueta totes les regions</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Empaqueta totes les regions alfabèticament des de la part inferior esquerra fins a la part superior dreta</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Reordena les regions</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Quantes files a través? 1 = 1 regió estàndard de 256 X 256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Espaiat</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Quant espai entre regions. 0 = tocar. Per defecte = 4, de manera que no podeu veure la regió següent.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Amplada</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Avortar</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Avortant</value>
+  </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Regions de càrrega massiva</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Propietari de Noves Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pack</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Estableix el propietari i torna-ho a provar</value>
+  </data>
 </root>

@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Xem bản đồ Google</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Khu vực tải hàng loạt</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Cần xác nhận Diva Manager cho người dùng mới?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Cơ sở dữ liệu tài sản FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Cài đặt bưu kiện</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Điểm hạ cánh mặc định</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Đặt Vị trí Đích mặc định (Mặc định thành &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Không phải là một vectơ hợp lệ! &lt;X, Y, Z&gt;, trong đó các giá trị&gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Xóa vùng nhiệt độ</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Thận trọng! Thao tác này sẽ chuyển tất cả các vùng thành một khối Hình vuông.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Sao lưu tất cả các khu vực vào thư mục sao lưu tự động</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator phải được dừng lại</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Đóng gói tất cả các vùng</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Đóng gói tất cả các khu vực</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Đóng gói tất cả các vùng theo thứ tự bảng chữ cái từ dưới cùng bên trái sang phía trên bên phải</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Sắp xếp lại các khu vực</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Có bao nhiêu hàng ngang? 1 = 1 vùng tiêu chuẩn 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>khoảng cách</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Khoảng cách giữa các vùng là bao nhiêu. 0 = cảm động. Mặc định = 4 nên bạn không thể nhìn thấy vùng tiếp theo.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Bề rộng</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Huỷ bỏ</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Chủ sở hữu của các khu vực mới</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Đóng gói</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Đặt Chủ sở hữu và thử lại</value>
+  </data>
 </root>

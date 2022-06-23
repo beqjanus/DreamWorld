@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Se Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Bulkbelastningsregioner</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Trenger du Diva Manager-bekreftelse for nye brukere?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Asset Database</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Pakkeinnstillinger</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Standard landingssted</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Angi standard landingssted (standard til &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Ikke en gyldig vektor! &lt;X, Y, Z&gt;, der verdiene er &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Sletter Temp Region</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Forsiktighet! Dette vil flytte alle regioner til en kvadratisk blokk.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Sikkerhetskopierer alle regioner til mappen Automatisk sikkerhetskopiering</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator må stoppes</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Pakker alle regioner</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Pakk alle regioner</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Pakker alle regioner alfabetisk fra nedre venstre til øvre høyre</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Omorganiser regioner</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Hvor mange rader på tvers? 1 = 1 standard 256X256-område.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Avstand</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Hvor mye plass mellom regioner. 0 = berøring. Standard = 4 slik at du ikke kan se neste region.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Bredde</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Avbryte</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Avbryter</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Eier av New Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pakke</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Still inn eieren og prøv igjen</value>
+  </data>
 </root>

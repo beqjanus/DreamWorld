@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>צפה במפת גוגל</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>אזורי עומס בכמויות גדולות</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>יש צורך באישור דיווה מנהל למשתמשים חדשים?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>מסד נתונים של נכסי FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>הגדרות חבילות</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>נקודת נחיתה כברירת מחדל</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>הגדר את מיקום הנחיתה המוגדר כברירת מחדל (ברירת המחדל היא &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>וקטור לא חוקי! &lt;X, Y, Z&gt;, כאשר הערכים הם &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>מוחק אזור טמפ'</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>זְהִירוּת! זה יעביר את כל האזורים לבלוק מרובע.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>גיבוי כל האזורים לתיקיית הגיבוי האוטומטי</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator חייב להיעצר</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>אריזה של כל האזורים</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>ארוז את כל האזורים</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>אורז את כל האזורים בסדר אלפביתי משמאל למטה לימין למעלה</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>סידור מחדש של אזורים</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>כמה שורות לרוחב? 1 = 1 אזור סטנדרטי 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>מרווחים</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>כמה מרווח בין אזורים. 0 = נגיעה. ברירת מחדל = 4 כך שאינך יכול לראות את האזור הבא.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>רוֹחַב</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>לְהַפִּיל</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>הפלה</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>בעלים של אזורים חדשים</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>חבילה</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>הגדר את הבעלים ונסה שוב</value>
+  </data>
 </root>

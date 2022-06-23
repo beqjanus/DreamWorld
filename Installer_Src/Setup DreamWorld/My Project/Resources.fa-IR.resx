@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>مشاهده نقشه گوگل</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>مناطق بار فله</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>تایید دیوا مدیر برای کاربران جدید مورد نیاز؟!</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>بانک اطلاعات دارایی FS!</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>تنظیمات بسته ها!</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>نقطه فرود پیش فرض!</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>تعیین محل فرود پیش فرض (پیش فرض به &amp;lt;128,128,30&amp;gt;)!&amp;lt;/128,128,30&amp;gt;</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>نه یک بردار معتبر! &amp;lt;X, y,="" z=""&amp;gt;, که در آن مقادیر &amp;gt; 0 !&amp;lt;/X,&amp;gt;</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>حذف منطقه تمپ!</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>احتیاط! این کار تمام مناطق را به یک بلوک مربعی منتقل خواهد کرد.   !</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>پشتیبان گیری از همه مناطق به پوشه پشتیبان گیری خودکار!</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>باز کننده باید متوقف شود!</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>بسته بندی تمام مناطق!</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>همه نواحی</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>بسته تمام مناطق حروف الفبا از پایین چپ به بالا سمت راست!</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>مناطق بازآرایی!</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>چند تا رديف اون طرف؟  1 = 1 استاندارد 256X256 منطقه.!</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>فاصله</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>چقدر فضا بين مناطق .  0 = لمس کردن. پیش فرض = 4 تا شما نمی توانید منطقه بعدی را ببینید.!</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>بی نتیجه</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>بی نتیجه مانده است...</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>صاحب مناطق جدید!</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>بسته</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>تنظیم مالک و دوباره سعی کنید!</value>
+  </data>
 </root>

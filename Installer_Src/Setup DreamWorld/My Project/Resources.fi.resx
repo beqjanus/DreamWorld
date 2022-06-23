@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Näytä Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Irtolastialueet</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Diva Manager -vahvistus uusille käyttäjille tarvitaan?!</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS-resurssitietokanta!</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Pakettien asetukset!</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Oletuslaskupaikka!</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Aseta oletuslaskupaikka (oletusarvo on &amp;lt;128,128,30&amp;gt;)!&amp;lt;/128,128,30&amp;gt;</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Ei kelvollinen vektori! &amp;lt;X, y,="" z=""&amp;gt;, jossa arvot ovat &amp;gt; 0!&amp;lt;/X,&amp;gt;</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Poistetaan temp-aluetta!</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Varoitus! Tämä siirtää kaikki alueet neliön lohkoon.   !</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Varmuuskopioi kaikki alueet automaattiseen varmuuskopiokansioon!</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator on pysäytettävä!</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Pakkaa kaikki alueet!</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Kaikki alueet</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Pakkaa kaikki alueet aakkosjärjestykseen vasemmasta alakulmasta oikeaan yläkulmaan!</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Järjestä alueet uudelleen!</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Kuinka monta riviä poikki?  1 = 1 vakioalue 256X256 alue.!</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Välistys</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Kuinka paljon tilaa alueiden välillä. 0 = koskettava. Oletus = 4, joten et näe seuraavaa aluetta.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Leveys</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Keskeyttää</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Keskeytetään</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Uusien alueiden omistaja</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pakkaus</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Aseta omistaja ja yritä uudelleen</value>
+  </data>
 </root>

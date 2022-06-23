@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>View Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Bulk Load Regions</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Diva Manager confirmation for new users needed?!</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Asset Database!</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Parcels Settings!</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Default Landing Spot!</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Set Default Landing Location (Defaults to &lt;128,128,30&gt;)!</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Not a Valid Vector! &lt;X, Y, Z&gt;, where values are &gt; 0 !</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Deleting Temp Region!</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Caution! This will move all regions  into a Square block.   !</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Backing Up All Regions to Automatic backup folder!</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator  Must Be Stopped!</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Packing all regions!</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Alle Regionen</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Packs all regions alphabetically from bottom left to upper right!</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Rearrange Regions!</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>How many rows across?  1 = 1 standard 256X256 region.!</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Spacing</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>How much space between regions.  0 = touching. Default = 4 so you cannot see the next region.!</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Aborting!</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Owner of New Regions!</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pack</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Set the Owner and try again!</value>
+  </data>
 </root>

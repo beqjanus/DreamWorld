@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>عرض خريطة جوجل</value>
   </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>مطلوب تأكيد مدير Diva للمستخدمين الجدد؟</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>قاعدة بيانات الأصول FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>إعدادات الطرود</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>نقطة الهبوط الافتراضية</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>تعيين موقع الهبوط الافتراضي (الافتراضيات إلى &lt;128،128،30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>ليس ناقل صالح! &lt;X ، Y ، Z&gt; ، حيث تكون القيم&gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>حذف منطقة درجة الحرارة</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>حذر! سيؤدي هذا إلى نقل جميع المناطق إلى كتلة مربعة.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>نسخ جميع المناطق احتياطيًا إلى مجلد النسخ الاحتياطي التلقائي</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>يجب إيقاف Opensimulator</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>تعبئة جميع المناطق</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>حزمة جميع المناطق</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>حزم جميع المناطق أبجديًا من أسفل اليسار إلى أعلى اليمين</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>إعادة ترتيب المناطق</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>كم عدد الصفوف عبر؟ 1 = منطقة 256X256 قياسية.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>تباعد</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>كم مساحة بين المناطق. 0 = لمس. الافتراضي = 4 لذلك لا يمكنك رؤية المنطقة التالية.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>إحباط</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>إجهاض</value>
+  </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>مناطق التحميل المجمع</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>مالك مناطق جديدة</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>علية</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>اضبط المالك وحاول مرة أخرى</value>
+  </data>
 </root>

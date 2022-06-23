@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Féach ar Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Réigiúin Luchtaithe Bulc</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Deimhniú an Bhainisteora Diva ag teastáil le haghaidh úsáideoirí nua?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>Bunachar Sonraí Sócmhainní FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Socruithe beartán</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Áit Tuirlingthe Réamhshocraithe</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Socraigh Suíomh Toirte Réamhshocraithe (Réamhshocrú go &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Ní Veicteoir Bailí é! &lt;X, Y, Z&gt;, áit a bhfuil na luachanna&gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Réigiún Temp a scriosadh</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Rabhadh! Bogfaidh sé seo gach réigiún go bloc Cearnógach.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Cúltaca Gach Réigiún chuig fillteán cúltaca Uathoibríoch</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Ní mór Opensimulator a Stopadh</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Gach réigiún a phacáil</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Pacáiste Gach Réigiún</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Pacáistí sé gach réigiún in ord aibítre ón mbun ar chlé go dtí an taobh uachtarach ar dheis</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Réigiúin a Athshocrú</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Cé mhéad sraith trasna? 1 = 1 réigiún caighdeánach 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Spásáil</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Cé mhéad spáis idir réigiúin. 0 = suairc. Réamhshocrú = 4 mar sin ní féidir leat an chéad réigiún eile a fheiceáil.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Leithead</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>ginmhilleadh</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Ag ginmhilleadh</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Úinéir na Réigiúin Nua</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pacáiste</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Socraigh an tÚinéir agus bain triail eile as</value>
+  </data>
 </root>

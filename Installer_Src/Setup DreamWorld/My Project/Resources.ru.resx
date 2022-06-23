@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Посмотреть карту Google</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Области массовой загрузки</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Требуется подтверждение Diva Manager для новых пользователей?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>База данных активов FS</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Настройки посылок</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Место приземления по умолчанию</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Установить место посадки по умолчанию (по умолчанию &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Недопустимый вектор! &lt;X, Y, Z&gt;, где значения &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Удаление временной области</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Осторожность! Это переместит все регионы в квадратный блок.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Резервное копирование всех регионов в папку автоматического резервного копирования</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator должен быть остановлен</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Упаковка всех регионов</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Упаковать все регионы</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Упаковывает все регионы в алфавитном порядке, начиная с левого нижнего угла и заканчивая правым верхним.</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Изменить регионы</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Сколько рядов в поперечнике? 1 = 1 стандартный регион 256X256.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Расстояние</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Сколько места между регионами. 0 = касание. По умолчанию = 4, поэтому вы не можете видеть следующий регион.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ширина</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Прервать</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Прерывание</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Владелец новых регионов</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Пакет</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Установите владельца и повторите попытку.</value>
+  </data>
 </root>

@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Ikusi Google Map</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Karga handiko eskualdeak</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Zein bidaltze moeta da lehenetsia erabiltzaile berrientzat?</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Ezarpenak</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Fitxategi hau ezin da gelditu</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Eskualdeaksouthkorea. kgm</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Tartea</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Zabalera</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Bertan behera uzten</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Etiketen iragazkia</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Paketatu</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Saiatu berriro</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS Aktiboen Datu-basea</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Lehorreratzeko leku lehenetsia</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Ezarri lurreratzeko kokapen lehenetsia (lehenetsia &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Ez da baliozko bektore bat! &lt;X, Y, Z&gt;, non balioak &gt; 0 diren</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Tenperaturako eskualdea ezabatzen</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Kontuz! Honek eskualde guztiak karratu bloke batera eramango ditu.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Eskualde guztien babeskopia automatikoko babeskopia karpetan egitea</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Eskualde guztiak paketatzea</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Eskualde guztiak paketatu</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Eskualde guztiak alfabetikoki biltzen ditu beheko ezkerretik goiko eskuinera</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Zenbat errenkada zehar? 1 = 256X256 eskualde estandar 1.</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Eskualdeen artean zenbat espazio. 0 = hunkigarria. Lehenetsia = 4, beraz, ezin duzu hurrengo eskualdea ikusi.</value>
+  </data>
 </root>

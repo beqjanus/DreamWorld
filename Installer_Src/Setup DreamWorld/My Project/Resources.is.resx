@@ -3654,4 +3654,79 @@
   <data name="ViewGoogleMap" xml:space="preserve">
     <value>Skoða Google kort</value>
   </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>Magn álagssvæði</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>Staðfesting Diva Manager fyrir nýja notendur þörf?</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS eignagagnagrunnur</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>Pakkastillingar</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>Sjálfgefinn lendingarstaður</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>Stilla sjálfgefinn lendingarstað (sjálfgefið á &lt;128,128,30&gt;)</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>Ekki gildur vektor! &lt;X, Y, Z&gt;, þar sem gildin eru &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>Eyðir Temp svæði</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>Varúð! Þetta mun færa öll svæði í Square blokk.</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>Afritaðu öll svæði í sjálfvirka afritunarmöppu</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>Opensimulator verður að stöðva</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>Pökkun á öllum svæðum</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>Pakkaðu öll svæði</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>Pakkar öllum svæðum í stafrófsröð frá neðst til vinstri til efra hægra</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>Endurraða svæðum</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>Hversu margar raðir þvert á? 1 = 1 staðall 256X256 svæði.</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>Bil</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>Hversu mikið bil á milli svæða. 0 = snerta. Sjálfgefið = 4 þannig að þú getur ekki séð næsta svæði.</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Breidd</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Hætta</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>Að hætta</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>Eigandi New Regions</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>Pakki</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Stilltu eiganda og reyndu aftur</value>
+  </data>
 </root>
