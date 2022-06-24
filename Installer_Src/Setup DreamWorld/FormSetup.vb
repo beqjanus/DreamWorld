@@ -1048,9 +1048,11 @@ Public Class FormSetup
         While Not exitList.IsEmpty
             Dim GroupName = exitList.Keys.First
             Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
-            Dim out As String = ""
+
             Application.DoEvents()
+
             TextPrint(GroupName & " " & Reason)
+            Dim out As String = ""
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
@@ -1102,7 +1104,7 @@ Public Class FormSetup
                     DeleteAllRegionData(RegionUUID)
                 End If
 
-                PropUpdateView = True ' make form refresh                
+                PropUpdateView = True ' make form refresh
                 exitList.TryRemove(GroupName, out)
                 Continue While
 
