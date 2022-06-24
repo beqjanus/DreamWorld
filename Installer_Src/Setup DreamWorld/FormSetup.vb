@@ -197,8 +197,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropUseIcons As Boolean
-
     Public Property PropWebserver As NetServer
         Get
             Return ws
@@ -345,44 +343,41 @@ Public Class FormSetup
         Dim LastCount As Integer = 0
         Dim counter As Integer = 6000 ' 1 minutes to quit all regions
 
-        ' only wait if the port 8001 is working
-        If PropUseIcons Then
-            If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
+        If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
-            While (counter > 0 AndAlso PropOpensimIsRunning())
-                Application.DoEvents()
-                counter -= 1
+        While (counter > 0 AndAlso PropOpensimIsRunning())
+            Application.DoEvents()
+            counter -= 1
 
-                Dim ListofPIDs = RegionPIDs()
-                Dim CountisRunning As New List(Of Integer)
-                Dim AllProcesses() = Process.GetProcessesByName("Opensim") ' cache of processes
-                For Each P In AllProcesses
-                    If ListofPIDs.Contains(P.Id) Then
-                        CountisRunning.Add(P.Id)
-                    End If
-                Next
-
-                If CountisRunning.Count <> LastCount Then
-                    If CountisRunning.Count = 1 Then
-                        TextPrint(My.Resources.One_region)
-                    Else
-                        TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
-                    End If
+            Dim ListofPIDs = RegionPIDs()
+            Dim CountisRunning As New List(Of Integer)
+            Dim AllProcesses() = Process.GetProcessesByName("Opensim") ' cache of processes
+            For Each P In AllProcesses
+                If ListofPIDs.Contains(P.Id) Then
+                    CountisRunning.Add(P.Id)    ' only use our regions, not some other grid on same server
                 End If
+            Next
 
-                LastCount = CountisRunning.Count
-
-                If CountisRunning.Count = 0 Then
-                    counter = 0
+            If CountisRunning.Count <> LastCount Then
+                If CountisRunning.Count = 1 Then
+                    TextPrint(My.Resources.One_region)
+                Else
+                    TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
                 End If
+            End If
 
-                ProcessQuit()   '  check if any processes exited
-                CheckForBootedRegions()
+            LastCount = CountisRunning.Count
 
-                Sleep(100)
-            End While
-            PropUpdateView = True ' make form refresh
-        End If
+            If CountisRunning.Count = 0 Then
+                counter = 0
+            End If
+
+            ProcessQuit()   '  check if any processes exited
+            CheckForBootedRegions()
+
+            Sleep(100)
+        End While
+        PropUpdateView = True ' make form refresh
 
         ClearAllRegions()
         StopRobust()
@@ -1051,11 +1046,10 @@ Public Class FormSetup
 
         ' now look at the exit stack
         While Not exitList.IsEmpty
-            Application.DoEvents()
             Dim GroupName = exitList.Keys.First
             Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
             Dim out As String = ""
-
+            Application.DoEvents()
             TextPrint(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
@@ -1066,16 +1060,14 @@ Public Class FormSetup
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
                 DelPidFile(RegionUUID) 'kill the disk PID
-
-                ' Already done, just being safe here
                 PID = ProcessID(RegionUUID)
+                ProcessID(RegionUUID) = 0
                 If PropInstanceHandles.ContainsKey(PID) Then
                     Dim S As String = ""
                     PropInstanceHandles.TryRemove(PID, S)
                 End If
             Else
                 BreakPoint.Print("No UUID!")
-                Application.DoEvents()
                 exitList.TryRemove(GroupName, out)
                 Continue While
             End If
@@ -1087,7 +1079,6 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                Application.DoEvents()
                 exitList.TryRemove(GroupName, out)
                 Continue While
             End If
@@ -1098,7 +1089,6 @@ Public Class FormSetup
             BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
-                Application.DoEvents()
                 exitList.TryRemove(GroupName, out)
                 Continue While
             End If
@@ -1112,8 +1102,7 @@ Public Class FormSetup
                     DeleteAllRegionData(RegionUUID)
                 End If
 
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+                PropUpdateView = True ' make form refresh                
                 exitList.TryRemove(GroupName, out)
                 Continue While
 
@@ -1125,7 +1114,6 @@ Public Class FormSetup
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
                 PropUpdateView = True
-                Application.DoEvents()
                 exitList.TryRemove(GroupName, out)
                 Continue While
 
@@ -1150,7 +1138,6 @@ Public Class FormSetup
                         If (yesno = vbYes) Then
                             Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                         End If
-                        Application.DoEvents()
                         exitList.TryRemove(GroupName, out)
                         Continue While
                     End If
@@ -1165,8 +1152,8 @@ Public Class FormSetup
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
 
-                    Continue While
                     exitList.TryRemove(GroupName, out)
+                    Continue While
                 Else
                     If PropAborting Then
                         exitList.TryRemove(GroupName, out)
@@ -2677,12 +2664,10 @@ Public Class FormSetup
 
     Private Sub CheckDiagPort()
 
-        PropUseIcons = True
         TextPrint(My.Resources.Check_Diag)
         Dim wsstarted = IsRegionReady(CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
-            PropUseIcons = False
         End If
 
     End Sub
