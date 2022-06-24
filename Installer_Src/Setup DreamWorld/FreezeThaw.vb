@@ -8,7 +8,10 @@
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub PauseRegion(RegionUUID As String)
 
-        BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
+        If Settings.Smart_Start Then
+            BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
+        End If
+
         FreezeThaw(RegionUUID, "-pid " & ProcessID(RegionUUID))
 
     End Sub
@@ -20,15 +23,12 @@
     ''' <returns>0 if success</returns>
     Public Function ResumeRegion(RegionUUID As String) As Boolean
 
-        BreakPoint.Print($"Resume {Region_Name(RegionUUID)}")
         If ProcessID(RegionUUID) = 0 Then
             ProcessID(RegionUUID) = GetPIDofWindow(Group_Name(RegionUUID))
             If ProcessID(RegionUUID) = 0 Then
                 Return True
             End If
         End If
-
-        BreakPoint.Print($"Resume {Region_Name(RegionUUID)}")
 
         FreezeThaw(RegionUUID, "-rpid " & ProcessID(RegionUUID))
         ReBoot(RegionUUID)
@@ -63,10 +63,16 @@
         PropUpdateView = True ' make form refresh
 
         If Arg.Contains("-rpid") Then
-            TextPrint($"{Region_Name(RegionUUID)} Resumed")
+            If Settings.Smart_Start Then
+                TextPrint($"{Region_Name(RegionUUID)} Resumed")
+            End If
+
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
         Else
-            TextPrint($"{Region_Name(RegionUUID)} Suspended")
+            If Settings.Smart_Start Then
+                TextPrint($"{Region_Name(RegionUUID)} Suspended")
+            End If
+
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
         End If
 

@@ -66,7 +66,7 @@ Public Class FormSetup
     Public Enum TaskName As Integer
 
         None = 0
-        RPCBackupper = 1        ' run backups via XMLRPC
+        LaunchBackupper = 1        ' run backups via XMLRPC
         TeleportClicked = 2     ' click the teleport button in the region pop up
         LoadOar = 3             ' for Loading a series of OARS
         LoadOneOarTask = 4      ' loading One Oar
@@ -321,23 +321,33 @@ Public Class FormSetup
         Next
         r.Sort()
 
+        Dim LastCount As Integer = 0
+        Dim counter As Integer = 1200 ' 2 minutes to quit all regions at 100 ms
+
+        ' only wait if the port 8001 is working
+
+        If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
+
         For Each RegionUUID As String In r
             If RegionEnabled(RegionUUID) And
-                (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
+            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
                 If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
                     ResumeRegion(RegionUUID)
                 End If
-
-                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                ConsoleCommand(RegionUUID, "q")
-
-                Application.DoEvents()
+                If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                    TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                    ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                    ConsoleCommand(RegionUUID, "q")
+                    Application.DoEvents()
+                Else
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
+                End If
             End If
+            Application.DoEvents()
         Next
 
         Dim LastCount As Integer = 0
@@ -354,7 +364,7 @@ Public Class FormSetup
             Dim AllProcesses() = Process.GetProcessesByName("Opensim") ' cache of processes
             For Each P In AllProcesses
                 If ListofPIDs.Contains(P.Id) Then
-                    CountisRunning.Add(P.Id)    ' only use our regions, not some other grid on same server
+                    CountisRunning.Add(P.Id)
                 End If
             Next
 
@@ -386,8 +396,8 @@ Public Class FormSetup
 
         TimerMain.Stop()
 
+        PropInstanceHandles.Clear()
         PropOpensimIsRunning() = False
-        PropUpdateView = True ' make form refresh
 
         Settings.SaveSettings()
 
@@ -472,11 +482,11 @@ Public Class FormSetup
         ListOfNames.Sort()
 
         For Each RegionName As String In ListOfNames
-
             Dim RegionUUID = FindRegionByName(RegionName)
-            BreakPoint.Print($"Starting {RegionName}")
-
             If RegionEnabled(RegionUUID) Then
+
+                If Settings.WelcomeRegion = RegionName Then Continue For
+
                 Dim BootNeeded As Boolean = False
                 Select Case Settings.Smart_Start
                     Case True
@@ -484,17 +494,20 @@ Public Class FormSetup
                         ' Suspend mode needs to always run regions, even smart start
                         If Smart_Start(RegionUUID) = "True" And Not Settings.BootOrSuspend Then
                             BootNeeded = True
+                            BreakPoint.Print($"Boot Needed for {RegionName}")
                         End If
 
                         ' Really Smart Start, not in Region table
                         If Smart_Start(RegionUUID) = "True" Then
                             If Not RegionIsRegistered(RegionUUID) Then
                                 BootNeeded = True
+                                BreakPoint.Print($"{RegionName} is not registered, boot needed")
                             End If
 
                             ' If running, make them boot so we can hook on and shut them down
                             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                                 BootNeeded = True
+                                BreakPoint.Print($"No window for {RegionName}, boot needed")
                             End If
                         End If
 
@@ -1065,12 +1078,13 @@ Public Class FormSetup
                 PID = ProcessID(RegionUUID)
                 ProcessID(RegionUUID) = 0
                 If PropInstanceHandles.ContainsKey(PID) Then
-                    Dim S As String = ""
+                    Dim S As String = PropInstanceHandles.Item(PID)
                     PropInstanceHandles.TryRemove(PID, S)
                 End If
             Else
                 BreakPoint.Print("No UUID!")
                 exitList.TryRemove(GroupName, out)
+                PropInstanceHandles.TryRemove(PID, PropInstanceHandles.Item(PID))
                 Continue While
             End If
 
@@ -1454,11 +1468,18 @@ Public Class FormSetup
 
         While PropOpensimIsRunning
 
+            Dim ListofPIDs = RegionPIDs()
+            Dim processes = Process.GetProcessesByName("Opensim")
+            For Each p In processes
+                If Not ListofPIDs.Contains(p.Id) Then
+                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
+                End If
+            Next
+
             For Each RegionUUID As String In RegionUuids()
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return
                 If Not RegionEnabled(RegionUUID) Then Continue For
-
                 Dim status = RegionStatus(RegionUUID)
                 If CBool((status = SIMSTATUSENUM.Booted) Or
                         (status = SIMSTATUSENUM.Booting) Or
@@ -1468,15 +1489,16 @@ Public Class FormSetup
                         (status = SIMSTATUSENUM.Suspended)) Then
 
                     Dim Groupname = Group_Name(RegionUUID)
-                    If GetHwnd(Groupname) = IntPtr.Zero And Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                        If Not exitList.ContainsKey(Groupname) Then
-                            exitList.TryAdd(Groupname, "Exit")
+                    If GetHwnd(Groupname) = IntPtr.Zero Then
+                        If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
+                            If Not exitList.ContainsKey(Groupname) Then
+                                exitList.TryAdd(Groupname, "Exit")
+                            End If
                         End If
                     End If
                 End If
-
-                Sleep(100)
             Next
+            Sleep(1000)
         End While
 
     End Sub
@@ -1563,14 +1585,14 @@ Public Class FormSetup
     Public Sub RunTaskList(RegionUUID As String)
 
         If ToDoList.ContainsKey(RegionUUID) Then
-
-            BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
+            BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
                 Dim T = Task.TaskName
                 Select Case T
-                    Case TaskName.RPCBackupper      '1
+                    Case TaskName.LaunchBackupper      '1
                         Backupper(RegionUUID, Task.Command)
                     Case TaskName.TeleportClicked   '2
                         TeleportClicked(RegionUUID)
@@ -2350,15 +2372,16 @@ Public Class FormSetup
 
         If ThreadsArerunning Then Return
         ThreadsArerunning = True
+
 #Disable Warning BC42016 ' Implicit conversion
-        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
+        'Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
 #Enable Warning BC42016 ' Implicit conversion
-        Dim Thread1 = New Thread(start1)
-        Thread1.SetApartmentState(ApartmentState.STA)
-        Thread1.Priority = ThreadPriority.Normal
+        'Dim Thread1 = New Thread(start1)
+        'Thread1.SetApartmentState(ApartmentState.STA)
+        'Thread1.Priority = ThreadPriority.Normal
 
         'Thread1.Start()
-        Sleep(100)
+        'Sleep(100)
 
 #Disable Warning BC42016 ' Implicit conversion
         Dim start2 As ParameterizedThreadStart = AddressOf DidItDie

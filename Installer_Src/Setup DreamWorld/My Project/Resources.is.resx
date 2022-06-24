@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3657,6 +3657,7 @@
   <data name="BulkLoadRegions" xml:space="preserve">
     <value>Magn álagssvæði</value>
   </data>
+
   <data name="AccountConfirm" xml:space="preserve">
     <value>Staðfesting Diva Manager fyrir nýja notendur þörf?</value>
   </data>
@@ -3729,4 +3730,5 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Stilltu eiganda og reyndu aftur</value>
   </data>
+
 </root>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3657,6 +3657,7 @@
   <data name="BulkLoadRegions" xml:space="preserve">
     <value>Bulk Load Regions</value>
   </data>
+
   <data name="AccountConfirm" xml:space="preserve">
     <value>Diva Manager confirmation for new users needed?!</value>
   </data>
@@ -3729,4 +3730,5 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Set the Owner and try again!</value>
   </data>
+
 </root>

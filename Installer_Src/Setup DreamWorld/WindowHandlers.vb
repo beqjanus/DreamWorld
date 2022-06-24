@@ -30,8 +30,6 @@ Module WindowHandlers
 
 #End Region
 
-    Private AllProcesses() As Process
-
     Public Function CachedProcess(PID As Integer) As Process
 
         If Not ProcessIdDict.ContainsKey(PID) Then
@@ -66,7 +64,7 @@ Module WindowHandlers
                     ResumeRegion(RegionUUID)
 
                     Try
-                        If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+                        If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
                         ' may not be able to find the window
                         Return RPC_Region_Command(RegionUUID, command)
@@ -83,7 +81,7 @@ Module WindowHandlers
                 End Try
             Else ' Robust
                 Try
-                    If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
+                    If Not noChange Then ShowDOSWindow(CachedProcess(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
                     Return True
                 End Try
@@ -158,28 +156,21 @@ Module WindowHandlers
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname <> RobustName() Then
-            AllProcesses = Process.GetProcessesByName("Opensim") ' cache of processes
             Try
-                ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
-                For Each p As Process In AllProcesses
-                    If p.MainWindowTitle = Groupname Then
-                        Return p.MainWindowHandle
+                For Each p In PropInstanceHandles
+                    If p.Value = Groupname Then
+                        Return CachedProcess(p.Key).MainWindowHandle
                     End If
                 Next
             Catch ex As Exception
-                BreakPoint.Print(ex.Message)
+                'BreakPoint.Print(ex.Message)
             End Try
         Else
-            For Each pList As Process In Process.GetProcessesByName("Robust")
-                If pList.ProcessName = "Robust" Then
-                    Try
-                        pList.Refresh()
-                        Return pList.MainWindowHandle
-                    Catch
-                    End Try
-                End If
-            Next
-            Return IntPtr.Zero
+            Try
+                Return CachedProcess(PropRobustProcID).MainWindowHandle
+            Catch
+            End Try
+
         End If
 
         Return IntPtr.Zero
@@ -201,15 +192,14 @@ Module WindowHandlers
     End Function
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
-
-        For Each pList As Process In AllProcesses
-            Try
-                If pList.MainWindowTitle = GroupName Then
-                    Return pList.Id
+        Try
+            For Each pList In PropInstanceHandles
+                If pList.Value = GroupName Then
+                    Return pList.Key
                 End If
-            Catch
-            End Try
-        Next
+            Next
+        Catch
+        End Try
         Return 0
 
     End Function
@@ -312,7 +302,7 @@ Module WindowHandlers
                 myhandle = myProcess.MainWindowHandle
             End While
         Catch ex As Exception
-            ErrorLog(windowName & ":" & ex.Message)
+            BreakPoint.Print(windowName & ":" & ex.Message)
             Return False
         End Try
 
@@ -334,7 +324,7 @@ Module WindowHandlers
                     status = SetWindowText(myhandle, windowName)
                 End If
             Catch ex As Exception ' can fail to be a valid window handle
-                BreakPoint.Dump(ex)
+                BreakPoint.Print(ex.Message)
                 Return False
             End Try
 
@@ -388,7 +378,7 @@ Module WindowHandlers
         ' 2 minutes for old hardware and it to build DB
         Do While TooMany < 60
             Try
-                p = Process.GetProcessById(myProcess.Id)
+                p = CachedProcess(myProcess.Id)
             Catch ex As Exception
             End Try
 

@@ -45,11 +45,8 @@ Module DNS
     Public Function RegisterName(DNSName As String) As Boolean
 
         DNSName = DNSName.Trim
-
         If DNSName Is Nothing Then Return False
-
         If DNSName.Length = 0 Then Return False
-
         Dim Checkname As String = String.Empty
 
         If IPCheck.IsPrivateIP(DNSName) Then

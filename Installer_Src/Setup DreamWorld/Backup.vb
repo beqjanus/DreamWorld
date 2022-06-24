@@ -5,6 +5,9 @@ Module Backup
 
 #Region "Backups"
 
+    ''' <summary>
+    ''' Zip up Regions
+    ''' </summary>
     Public Sub BackupINI()
 
         Dim Name = "Region"
@@ -60,6 +63,10 @@ Module Backup
         End Using
     End Sub
 
+    ''' <summary>
+    ''' Get the path to the Autobackup folder. Make it if necessary
+    ''' </summary>
+    ''' <returns>file path</returns>
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
@@ -81,6 +88,9 @@ Module Backup
 
 #Region "Tasks"
 
+    ''' <summary>
+    ''' Background backup all OARS as a thread
+    ''' </summary>
     Public Sub BackupAllRegions()
 
 #Disable Warning BC42016 ' Implicit conversion
@@ -92,6 +102,10 @@ Module Backup
         SaveIARThread.Start()
 
     End Sub
+
+    ''' <summary>
+    ''' Background Thread to save all OARS
+    ''' </summary>
 
     Public Sub BackupAllRegionsTask()
 
@@ -106,7 +120,7 @@ Module Backup
          DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.RPCBackupper,
+                .TaskName = FormSetup.TaskName.LaunchBackupper,
                 .Command = file
             }
             FormSetup.RebootAndRunTask(RegionUUID, Obj)

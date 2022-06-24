@@ -411,6 +411,10 @@ SetWindowOnTop_Err:
                 If name.Length > 0 Then
                     RegionUUID = FindRegionByName(name)
 
+                    If Not X.Checked Then
+                        DeregisterRegionUUID(RegionUUID)
+                    End If
+
                     If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
                     If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
@@ -906,6 +910,9 @@ SetWindowOnTop_Err:
 
             If (e.NewValue = CheckState.Unchecked) Then
                 RegionEnabled(RegionUUID) = False
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                ConsoleCommand(RegionUUID, "q")
+                DeregisterRegionUUID(RegionUUID)
             Else
                 RegionEnabled(RegionUUID) = True
             End If

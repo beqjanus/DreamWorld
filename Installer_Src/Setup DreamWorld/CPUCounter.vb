@@ -82,7 +82,7 @@ Module CPUCounter
                     Try
                         Using counter As PerformanceCounter = GetPerfCounterForProcessId(PID)
                             If counter IsNot Nothing Then
-                                Debug.Print($"> CounterList {CStr(CounterList.Count)}")
+                                Debug.Print($"> Creating new CPU counter for {RegionName}")
                                 CounterList.Add(RegionName, counter)
                                 counter.NextValue() ' start the counter
                             End If
@@ -96,7 +96,6 @@ Module CPUCounter
                 End If
 
                 If Not CPUValues.ContainsKey(RegionName) Then
-                    Debug.Print($"> CPUValues {CStr(CPUValues.Count)}")
                     CPUValues.Add(RegionName, 0)
                 Else
                     Dim a As Double
@@ -108,7 +107,7 @@ Module CPUCounter
 
                     Dim b = (a / Environment.ProcessorCount)
                     CPUValues.Item(RegionName) = Math.Round(b, 3)
-                    Debug.Print($"> CPU {RegionName} = {CStr(Math.Round(b, 3))}")
+                    ' Debug.Print($"> CPU {RegionName} = {CStr(Math.Round(b, 3))}")
                 End If
             Next
 

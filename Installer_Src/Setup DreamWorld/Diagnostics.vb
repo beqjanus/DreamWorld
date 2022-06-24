@@ -47,7 +47,7 @@ Module Diags
 
     Public Function GetPostData(Optional Name As String = "") As String
 
-        If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
+        If Name.Length = 0 Then Name = Settings.PublicIP   ' optional Alt DNS name can come in
         Dim TotalSize As Double
         Dim L = RegionUuids()
         L.Sort()
@@ -67,7 +67,7 @@ Module Diags
         & "&Port=" & CStr(Settings.HttpPort()) _
         & "&Category=" & Settings.Categories _
         & "&Description=" & Settings.Description _
-        & "&IP=" & Settings.PublicIP _
+        & "&IP=" & Name _
         & "&ServerType=" & Settings.ServerType _
         & "&MAC=" & Settings.MacAddress _
         & "&ID0=" & CreateMD5(CStr(d.SerialNumber)) _
