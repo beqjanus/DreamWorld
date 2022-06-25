@@ -76,8 +76,8 @@ Module Maps
                     Y = CInt(SimSize - (SimSize / XS))
                     For Ystep = 0 To XS - 1
                         Dim MapImage = $"map-1-{Coord_X(regionUUID) + Xstep }-{Coord_Y(regionUUID) + Ystep  }-objects.jpg"
-                        BreakPoint.Print(Name)
-                        BreakPoint.Print(MapImage)
+                        '  BreakPoint.Print(Name)
+                        '  BreakPoint.Print(MapImage)
 
                         ' images plot at up[per left, Opensim is lower left
                         ' for a 2X2 this is the value

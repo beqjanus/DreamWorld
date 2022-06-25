@@ -4,7 +4,6 @@
 
 #End Region
 
-Imports System.Collections.Concurrent
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -15,7 +14,6 @@ Public Class FormSetup
 
 #Region "Vars"
 
-    Public exitList As New ConcurrentDictionary(Of String, String)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
     Public ToDoList As New Dictionary(Of String, TaskObject)
@@ -382,6 +380,16 @@ Public Class FormSetup
             ProcessQuit()   '  check if any processes exited
             CheckForBootedRegions()
 
+            For Each PID In CountisRunning
+                For Each RegionUUID In RegionUuids()
+                    If ProcessID(RegionUUID) = PID Then
+                        ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                        ConsoleCommand(RegionUUID, "q")
+                        Application.DoEvents()
+                    End If
+                Next
+            Next
+
             Sleep(100)
         End While
         PropUpdateView = True ' make form refresh
@@ -447,8 +455,6 @@ Public Class FormSetup
 
         CheckOverLap()
 
-        StartThreads()
-
         If Settings.ServerType = RobustServerName Then
             StartRobust()
             Dim ctr = 60
@@ -491,7 +497,7 @@ Public Class FormSetup
                         ' Suspend mode needs to always run regions, even smart start
                         If Smart_Start(RegionUUID) = "True" And Not Settings.BootOrSuspend Then
                             BootNeeded = True
-                            BreakPoint.Print($"Boot Needed for {RegionName}")
+                            Diagnostics.Debug.Print($"Boot Needed for {RegionName}")
                         End If
 
                         ' Really Smart Start, not in Region table
@@ -504,7 +510,7 @@ Public Class FormSetup
                             ' If running, make them boot so we can hook on and shut them down
                             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                                 BootNeeded = True
-                                BreakPoint.Print($"No window for {RegionName}, boot needed")
+                                'BreakPoint.Print($"{RegionName} boot needed to capture events")
                             End If
                         End If
 
@@ -1055,9 +1061,10 @@ Public Class FormSetup
     Public Sub ProcessQuit()
 
         ' now look at the exit stack
-        While Not exitList.IsEmpty
-            Dim GroupName = exitList.Keys.First
-            Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
+        While Not ExitList.exitList.IsEmpty
+
+            Dim GroupName = ExitList.exitList.Keys.First
+            Dim Reason = ExitList.exitList.Item(GroupName) ' NoLogin or Exit
 
             Application.DoEvents()
 
@@ -1071,17 +1078,22 @@ Public Class FormSetup
             Dim RegionUUID As String = ""
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
-                DelPidFile(RegionUUID) 'kill the disk PID
+
                 PID = ProcessID(RegionUUID)
                 ProcessID(RegionUUID) = 0
+                DelPidFile(RegionUUID) 'kill the disk PID
+
                 If PropInstanceHandles.ContainsKey(PID) Then
                     Dim S As String = PropInstanceHandles.Item(PID)
                     PropInstanceHandles.TryRemove(PID, S)
                 End If
             Else
                 BreakPoint.Print("No UUID!")
-                exitList.TryRemove(GroupName, out)
-                PropInstanceHandles.TryRemove(PID, PropInstanceHandles.Item(PID))
+
+                If PID > 0 Then
+                    PropInstanceHandles.TryRemove(PID, PropInstanceHandles.Item(PID))
+                End If
+
                 Continue While
             End If
 
@@ -1092,7 +1104,7 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                exitList.TryRemove(GroupName, out)
+                ExitList.exitList.TryRemove(RegionUUID, out)
                 Continue While
             End If
 
@@ -1102,7 +1114,7 @@ Public Class FormSetup
             BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
-                exitList.TryRemove(GroupName, out)
+                ExitList.exitList.TryRemove(GroupName, out)
                 Continue While
             End If
 
@@ -1116,7 +1128,7 @@ Public Class FormSetup
                 End If
 
                 PropUpdateView = True ' make form refresh
-                exitList.TryRemove(GroupName, out)
+                ExitList.exitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
@@ -1127,12 +1139,13 @@ Public Class FormSetup
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
                 PropUpdateView = True
-                exitList.TryRemove(GroupName, out)
+                ExitList.exitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
                 Status = SIMSTATUSENUM.Booting Or
-                Status = SIMSTATUSENUM.Booted) And
+                Status = SIMSTATUSENUM.Booted Or
+                Status = SIMSTATUSENUM.Suspended) And
                 Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
@@ -1151,7 +1164,7 @@ Public Class FormSetup
                         If (yesno = vbYes) Then
                             Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                         End If
-                        exitList.TryRemove(GroupName, out)
+                        ExitList.exitList.TryRemove(GroupName, out)
                         Continue While
                     End If
 
@@ -1165,11 +1178,11 @@ Public Class FormSetup
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
 
-                    exitList.TryRemove(GroupName, out)
+                    ExitList.exitList.TryRemove(GroupName, out)
                     Continue While
                 Else
                     If PropAborting Then
-                        exitList.TryRemove(GroupName, out)
+                        ExitList.exitList.TryRemove(GroupName, out)
                         Continue While
                     End If
 
@@ -1185,7 +1198,7 @@ Public Class FormSetup
                 StopGroup(GroupName)
             End If
 
-            exitList.TryRemove(GroupName, out)
+            ExitList.exitList.TryRemove(GroupName, out)
 
         End While
 
@@ -1458,45 +1471,6 @@ Public Class FormSetup
             BreakPoint.Dump(ex)
         End Try
         Bench.Print("Scan Region State End")
-
-    End Sub
-
-    Private Sub DidItDie()
-
-        While PropOpensimIsRunning
-
-            Dim ListofPIDs = RegionPIDs()
-            Dim processes = Process.GetProcessesByName("Opensim")
-            For Each p In processes
-                If Not ListofPIDs.Contains(p.Id) Then
-                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
-                End If
-            Next
-
-            For Each RegionUUID As String In RegionUuids()
-                Application.DoEvents()
-                If Not PropOpensimIsRunning() Then Return
-                If Not RegionEnabled(RegionUUID) Then Continue For
-                Dim status = RegionStatus(RegionUUID)
-                If CBool((status = SIMSTATUSENUM.Booted) Or
-                        (status = SIMSTATUSENUM.Booting) Or
-                        (status = SIMSTATUSENUM.RecyclingDown) Or
-                        (status = SIMSTATUSENUM.NoError) Or
-                        (status = SIMSTATUSENUM.ShuttingDownForGood) Or
-                        (status = SIMSTATUSENUM.Suspended)) Then
-
-                    Dim Groupname = Group_Name(RegionUUID)
-                    If GetHwnd(Groupname) = IntPtr.Zero Then
-                        If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                            If Not exitList.ContainsKey(Groupname) Then
-                                exitList.TryAdd(Groupname, "Exit")
-                            End If
-                        End If
-                    End If
-                End If
-            Next
-            Sleep(1000)
-        End While
 
     End Sub
 
@@ -1935,7 +1909,7 @@ Public Class FormSetup
         Next
 
         Try
-            exitList.Clear()
+            ExitList.exitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
@@ -2362,34 +2336,6 @@ Public Class FormSetup
 
     End Sub
 
-    ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
-    ''' </summary>
-    Private Sub StartThreads()
-
-        If ThreadsArerunning Then Return
-        ThreadsArerunning = True
-
-#Disable Warning BC42016 ' Implicit conversion
-        'Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
-#Enable Warning BC42016 ' Implicit conversion
-        'Dim Thread1 = New Thread(start1)
-        'Thread1.SetApartmentState(ApartmentState.STA)
-        'Thread1.Priority = ThreadPriority.Normal
-
-        'Thread1.Start()
-        'Sleep(100)
-
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start2 As ParameterizedThreadStart = AddressOf DidItDie
-#Enable Warning BC42016 ' Implicit conversion
-        Dim Thread2 = New Thread(start2)
-        Thread2.SetApartmentState(ApartmentState.STA)
-        Thread2.Priority = ThreadPriority.Lowest ' UI gets priority
-        Thread2.Start()
-
-    End Sub
-
 #End Region
 
 #Region "Scrolling text box"
@@ -2432,25 +2378,17 @@ Public Class FormSetup
         CheckPost()                 ' see if anything arrived in the web server
         CheckForBootedRegions()     ' and also see if any booted up
         TeleportAgents()            ' send them onward
-
-        If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-            ScanAgents()                ' update agent count
-            RestartDOSboxes()           ' Icons for failed region
-        End If
+        ProcessQuit()               ' check if any processes exited
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("5 second worker")
+            ScanAgents()                ' update agent count
+            RestartDOSboxes()           ' Icons for failed Services
             Chart()                     ' do charts collection each 5 seconds
             PrintBackups()              ' print if backups are running
             CalcDiskFree()              ' check for free disk space
             Chat2Speech()               ' speak of the devil
             Bench.Print("5 second worker ends")
-        End If
-
-        If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
-            Bench.Print("10 second worker")
-            ProcessQuit()               ' check if any processes exited
-            Bench.Print("10 second worker ends")
         End If
 
         If SecondsTicker = 60 Then

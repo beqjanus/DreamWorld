@@ -264,7 +264,7 @@ SetWindowOnTop_Err:
             PropOpensimIsRunning() = True
 
         ElseIf chosen = "Stop" Then
-            ResumeRegion(RegionUUID)
+
             ' if any avatars in any region, give them a choice.
             Dim StopIt As Boolean = True
             For Each num In RegionUuidListByName(Group_Name(RegionUUID))
@@ -327,7 +327,7 @@ SetWindowOnTop_Err:
             RegionForm.Select()
 
         ElseIf chosen = "Restart" Then
-            ResumeRegion(RegionUUID)
+
             FormSetup.Buttons(FormSetup.BusyButton)
 
             ' shut down all regions in the DOS box

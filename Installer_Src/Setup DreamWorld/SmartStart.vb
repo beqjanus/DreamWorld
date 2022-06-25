@@ -434,6 +434,13 @@ Module SmartStart
             PropOpensimIsRunning() = True
             If PropAborting Then Return True
 
+            Dim processes = Process.GetProcessesByName("Opensim")
+            For Each p In processes
+                If Not PropInstanceHandles.ContainsKey(p.Id) Then
+                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
+                End If
+            Next
+
             Dim RegionUUID As String = FindRegionByName(BootName)
             If Not RegionEnabled(RegionUUID) Then Return True
             Dim GroupName = Group_Name(RegionUUID)
@@ -452,6 +459,12 @@ Module SmartStart
                     Logger("Suspended, Resuming it", BootName, "Teleport")
 
                     Dim PID As Integer = GetPIDofWindow(GroupName)
+                    Try
+                        Dim P = Process.GetProcessById(PID)
+                        P.EnableRaisingEvents = True
+                        AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
+                    Catch
+                    End Try
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.TryAdd(PID, GroupName)
@@ -470,7 +483,7 @@ Module SmartStart
                         Next
                     End If
 
-                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                    '   ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
                     Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                     PropUpdateView = True ' make form refresh
                     Return True
@@ -478,6 +491,14 @@ Module SmartStart
 
                     ' TextPrint(BootName & " " & My.Resources.Running_word)
                     Dim PID As Integer = GetPIDofWindow(GroupName)
+                    Try
+                        Dim P = Process.GetProcessById(PID)
+                        P.EnableRaisingEvents = True
+                        AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
+                    Catch ex As Exception
+                        BreakPoint.Print(ex.Message)
+                    End Try
+
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
@@ -490,8 +511,9 @@ Module SmartStart
                             SendToOpensimWorld(RegionUUID, 0)
                         End If
                         ProcessID(UUID) = PID
+
                     Next
-                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                    'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
                     PropUpdateView = True ' make form refresh
                     Return True
@@ -510,6 +532,7 @@ Module SmartStart
                 .EnableRaisingEvents = True
             }
 #Enable Warning CA2000 ' Dispose objects before losing scope
+            AddHandler BootProcess.Exited, AddressOf OpensimExited ' Registering event handler
 
             BootProcess.StartInfo.UseShellExecute = True
             BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
@@ -543,6 +566,7 @@ Module SmartStart
                 Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
 
                 If PID > 0 Then
+
                     If ProcessIdDict.ContainsKey(PID) Then
                         ProcessIdDict.Item(PID) = CachedProcess(PID)
                     Else
@@ -581,9 +605,7 @@ Module SmartStart
                         BreakPoint.Dump(ex)
                     End Try
 
-                    If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        ShutDown(RegionUUID, SIMSTATUSENUM.Error)
-                    End If
+                    SetWindowTextCall(BootProcess, GroupName)
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.TryAdd(PID, GroupName)
@@ -615,10 +637,6 @@ Module SmartStart
 
     End Function
 
-    ''' <summary>
-    ''' Sets status to Resume if stopped or paused
-    ''' </summary>
-
     Public Sub ReBoot(RegionUUID As String)
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
@@ -636,6 +654,24 @@ Module SmartStart
         End If
 
     End Sub
+
+    Private Sub OpensimExited(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        Dim S As System.Diagnostics.Process = CType(sender, Process)
+        Dim RegionUUID = FindRegionUUIDByPID(S.Id)
+        Dim GroupName = Group_Name(RegionUUID)
+        Debug.Print($"{GroupName} Exited")
+        If RegionUUID.Length = 0 Then
+            Return
+        End If
+
+        ExitList.exitList.TryAdd(GroupName, "Exit")
+
+    End Sub
+
+    ''' <summary>
+    ''' Sets status to Resume if stopped or paused
+    ''' </summary>
 
 #End Region
 

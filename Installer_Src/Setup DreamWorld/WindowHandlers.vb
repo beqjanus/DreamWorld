@@ -61,8 +61,7 @@ Module WindowHandlers
                 PID = ProcessID(RegionUUID)
 
                 If PID > 0 Then
-                    ResumeRegion(RegionUUID)
-
+                    FreezeThaw.FreezeThaw(RegionUUID, False)
                     Try
                         If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
@@ -274,7 +273,7 @@ Module WindowHandlers
     ''' <param name="myProcess">PID</param>
     ''' <param name="windowName">WindowName</param>
     ''' <returns>True if window is set</returns>
-    Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
+    Public Sub SetWindowTextCall(myProcess As Process, windowName As String)
         ''' <summary>
         ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
         ''' timer to make sure we do not get stuck
@@ -283,7 +282,7 @@ Module WindowHandlers
         ''' <param name="windowName">the name of the Window</param>
 
         If myProcess Is Nothing Then
-            Return False
+            Return
         End If
 
         Dim WindowCounter As Integer = 0
@@ -295,7 +294,7 @@ Module WindowHandlers
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
-                    Return False
+                    Return
                 End If
                 Thread.Sleep(100)
                 myProcess.Refresh()
@@ -303,7 +302,7 @@ Module WindowHandlers
             End While
         Catch ex As Exception
             BreakPoint.Print(windowName & ":" & ex.Message)
-            Return False
+            Return
         End Try
 
         Dim status As Boolean
@@ -317,7 +316,7 @@ Module WindowHandlers
                 If myProcess.MainWindowTitle = windowName Then
                     isthere += 1
                     If isthere > 3 Then
-                        Return True
+                        Return
                     End If
                 Else
                     isthere = 0
@@ -325,20 +324,20 @@ Module WindowHandlers
                 End If
             Catch ex As Exception ' can fail to be a valid window handle
                 BreakPoint.Print(ex.Message)
-                Return False
+                Return
             End Try
 
             WindowCounter += 1
             If WindowCounter > 1200 Then '  2 minutes
                 ErrorLog(windowName & " timeout setting title")
-                Return False
+                Return
             End If
 
         End While
 
-        Return False
+        Return
 
-    End Function
+    End Sub
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 

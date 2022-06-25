@@ -1130,6 +1130,11 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Disable on-line flag for suspended regions
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
 
@@ -1280,6 +1285,50 @@ Public Module MysqlInterface
                 End Try
             End Using
         End If
+    End Sub
+
+    ''' <summary>
+    ''' Sets region flag to offline for one region
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub SetRegionOffline(RegionUUID As String)
+
+        ' bit 4 is the on-line bit
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "update regions set flags = (flags) & ~4 where uuid = @UUID;"
+#Disable Warning CA2100
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+#Enable Warning
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+    Public Sub SetRegionOnline(RegionUUID As String)
+
+        ' bit 4 is the on-line bit
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "update regions set flags = (flags) | 4 where uuid = @UUID;"
+#Disable Warning CA2100
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+#Enable Warning
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
     End Sub
 
     Public Sub SetupLocalSearch()

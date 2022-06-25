@@ -193,10 +193,10 @@ Module RPC
 
     Public Sub ShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
-        ConsoleCommand(RegionUUID, "q", True)
+        FreezeThaw.FreezeThaw(RegionUUID, False)
+        RPC_Region_Command(RegionUUID, "quit")
 
         Dim Group = Group_Name(RegionUUID)
-        Logger("RecyclingDown", Group, "Status")
 
         For Each RegionUUID In RegionUuidListByName(Group)
             RegionStatus(RegionUUID) = nextstate

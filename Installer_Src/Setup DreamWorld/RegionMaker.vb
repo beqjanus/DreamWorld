@@ -742,12 +742,10 @@ Module RegionMaker
 
     Public Sub StopRegion(RegionUUID As String)
 
+        FreezeThaw.FreezeThaw(RegionUUID, False)
         Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-
             SequentialPause()
-
-            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
             ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         Else
             ' shut down all regions in the DOS box
@@ -1476,6 +1474,18 @@ Module RegionMaker
             End If
         Next
         'RegionDump()
+        Return ""
+
+    End Function
+
+    Public Function FindRegionUUIDByPID(PID As Integer) As String
+
+        Dim pair As KeyValuePair(Of String, Region_data)
+        For Each pair In RegionList
+            If PID = pair.Value._ProcessID Then               '
+                Return pair.Value._UUID
+            End If
+        Next
         Return ""
 
     End Function
