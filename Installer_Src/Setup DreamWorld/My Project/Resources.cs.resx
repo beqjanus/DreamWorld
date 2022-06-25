@@ -3726,4 +3726,10 @@
   <data name="Speech" xml:space="preserve">
     <value>Mluvený projev</value>
   </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>poznámkový blok</value>
+  </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Zobrazit při spuštění</value>
+  </data>
 </root>

@@ -3726,4 +3726,10 @@
   <data name="Speech" xml:space="preserve">
     <value>خطاب</value>
   </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>المفكرة</value>
+  </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>عرض عند بدء التشغيل</value>
+  </data>
 </root>

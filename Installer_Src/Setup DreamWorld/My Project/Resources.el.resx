@@ -3726,4 +3726,10 @@
   <data name="Speech" xml:space="preserve">
     <value>Ομιλία</value>
   </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Μπλοκ ΣΗΜΕΙΩΣΕΩΝ</value>
+  </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Εμφάνιση κατά την εκκίνηση</value>
+  </data>
 </root>
