@@ -835,7 +835,7 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.Pine1)
         Me.GroupBox1.Location = New System.Drawing.Point(17, 41)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(803, 292)
+        Me.GroupBox1.Size = New System.Drawing.Size(819, 292)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
@@ -846,7 +846,7 @@ Partial Class FormSmartStart
         Me.Delete_TreeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Delete_TreeButton.Location = New System.Drawing.Point(655, 94)
         Me.Delete_TreeButton.Name = "Delete_TreeButton"
-        Me.Delete_TreeButton.Size = New System.Drawing.Size(111, 34)
+        Me.Delete_TreeButton.Size = New System.Drawing.Size(142, 34)
         Me.Delete_TreeButton.TabIndex = 27
         Me.Delete_TreeButton.Text = "Delete All"
         Me.Delete_TreeButton.UseVisualStyleBackColor = True
@@ -897,7 +897,7 @@ Partial Class FormSmartStart
         Me.ApplyPlantButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ApplyPlantButton.Location = New System.Drawing.Point(655, 144)
         Me.ApplyPlantButton.Name = "ApplyPlantButton"
-        Me.ApplyPlantButton.Size = New System.Drawing.Size(111, 37)
+        Me.ApplyPlantButton.Size = New System.Drawing.Size(142, 37)
         Me.ApplyPlantButton.TabIndex = 10
         Me.ApplyPlantButton.Text = "Apply"
         Me.ApplyPlantButton.UseVisualStyleBackColor = True
@@ -1077,9 +1077,9 @@ Partial Class FormSmartStart
         '
         Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(351, 21)
+        Me.PictureBox1.Location = New System.Drawing.Point(370, 41)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(284, 265)
+        Me.PictureBox1.Size = New System.Drawing.Size(265, 245)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 5
         Me.PictureBox1.TabStop = False

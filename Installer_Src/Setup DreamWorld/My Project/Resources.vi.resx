@@ -723,9 +723,6 @@
   <data name="Configger" xml:space="preserve">
     <value>Định cấu hình tất cả các khu vực</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Cần xác nhận để đăng nhập?</value>
-  </data>
   <data name="Consoles_word" xml:space="preserve">
     <value>Bảng điều khiển</value>
   </data>
@@ -857,9 +854,6 @@
   </data>
   <data name="DelayAfterRegionReady" xml:space="preserve">
     <value>Khu vực sẵn sàng trì hoãn</value>
-  </data>
-  <data name="DelayBeforeExit" xml:space="preserve">
-    <value>Giây trước khi chờ đợi</value>
   </data>
   <data name="DeletebyAge" xml:space="preserve">
     <value>Xóa theo độ tuổi</value>
@@ -1220,9 +1214,6 @@
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Nội dung dưới dạng tệp</value>
-  </data>
-  <data name="FSassets" xml:space="preserve">
-    <value>Cơ sở dữ liệu hệ thống tệp</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
     <value>Máy chủ tài sản hệ thống Fie</value>
@@ -2109,16 +2100,10 @@
   <data name="Parcels" xml:space="preserve">
     <value>Bưu kiện</value>
   </data>
-  <data name="ParkingRegion" xml:space="preserve">
-    <value>Đậu xe</value>
-  </data>
   <data name="ParkingRegion1" xml:space="preserve">
     <value>Khu vực đậu xe</value>
   </data>
   <data name="Parking_Spot" xml:space="preserve">
-    <value>Sim đậu xe</value>
-  </data>
-  <data name="Parking_Spot1" xml:space="preserve">
     <value>Sim đậu xe</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
@@ -2138,9 +2123,6 @@
   </data>
   <data name="Pending_word" xml:space="preserve">
     <value>Đang chờ xử lý</value>
-  </data>
-  <data name="people_are_in" xml:space="preserve">
-    <value>mọi người đang ở</value>
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>Quyền</value>
@@ -2519,9 +2501,6 @@
   </data>
   <data name="Robust_word" xml:space="preserve">
     <value>Mạnh mẽ</value>
-  </data>
-  <data name="Row" xml:space="preserve">
-    <value>Nhấp vào một hàng đã bật để bắt đầu hoặc dừng khu vực. Nhấp vào một hàng bị vô hiệu hóa để chỉnh sửa khu vực.</value>
   </data>
   <data name="Row_note" xml:space="preserve">
     <value>Nhấp vào một hàng để kiểm soát khu vực. Chọn hộp để bật / tắt.</value>
@@ -3336,15 +3315,6 @@
   <data name="XEngine_word" xml:space="preserve">
     <value>Động cơ X</value>
   </data>
-  <data name="XMLRPC" xml:space="preserve">
-    <value>XMLRPC</value>
-  </data>
-  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
-    <value>Cổng khu vực XMLRPC</value>
-  </data>
-  <data name="XMLRP_start" xml:space="preserve">
-    <value>Số bắt đầu cổng XMLRPC</value>
-  </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
   </data>
@@ -3657,7 +3627,6 @@
   <data name="BulkLoadRegions" xml:space="preserve">
     <value>Khu vực tải hàng loạt</value>
   </data>
-
   <data name="AccountConfirm" xml:space="preserve">
     <value>Cần xác nhận Diva Manager cho người dùng mới?</value>
   </data>
@@ -3730,5 +3699,13 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Đặt Chủ sở hữu và thử lại</value>
   </data>
-
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Mực nước cao</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Mực nước thấp</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Kênh thông tin về thủy triều</value>
+  </data>
 </root>

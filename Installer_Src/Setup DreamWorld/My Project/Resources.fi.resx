@@ -3699,4 +3699,13 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Aseta omistaja ja yritä uudelleen</value>
   </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Korkea vedenkorkeus</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Matala vedenkorkeus</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Vuorovesien tietokanava</value>
+  </data>
 </root>

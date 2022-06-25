@@ -33,7 +33,7 @@ Module Maps
 
     Public Sub Make_Region_Map(regionUUID As String)
 
-        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
+        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Stats\Maps")
         Try
             FileIO.FileSystem.CreateDirectory(SavePath)
         Catch ex As Exception
@@ -114,7 +114,7 @@ Module Maps
 
     Public Sub Delete_all_visitor_maps()
 
-        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
+        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Stats\Maps")
         DeleteDirectory(SavePath, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub

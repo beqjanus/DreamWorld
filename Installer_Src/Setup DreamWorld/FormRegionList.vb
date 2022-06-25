@@ -963,6 +963,8 @@ SetWindowOnTop_Err:
             Users.Text = Global.Outworldz.My.Resources.Users_word
             Emails.Text = Global.Outworldz.My.Resources.Email_word
 
+            ShowUponBootToolStripMenuItem.Text = My.Resources.ShowUponStart
+
             IconView.SmallImageList = ImageListSmall
             ImageListSmall.ImageSize = New Drawing.Size(16, 16)
             ListView1.SmallImageList = ImageListSmall

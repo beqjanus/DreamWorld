@@ -3699,4 +3699,13 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Owner را تنظیم کنید و دوباره امتحان کنید</value>
   </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>سطح آب بالا</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>سطح آب پایین</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>کانال اطلاعات جزر و مد</value>
+  </data>
 </root>

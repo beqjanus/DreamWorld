@@ -321,9 +321,6 @@ Public Class FormSetup
         Next
         r.Sort()
 
-        Dim LastCount As Integer = 0
-        Dim counter As Integer = 1200 ' 2 minutes to quit all regions at 100 ms
-
         ' only wait if the port 8001 is working
 
         If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)

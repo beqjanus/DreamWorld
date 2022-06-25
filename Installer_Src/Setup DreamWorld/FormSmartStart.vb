@@ -584,6 +584,7 @@ Public Class FormSmartStart
         RegionMakingToolStripMenuItem.Text = My.Resources.RegionMaker
         RevertButton.Text = My.Resources.Revert
         SaveTerrain.Text = My.Resources.SaveTerrain
+        SaveAllTerrain.Text = My.Resources.SaveTerrain
         SeaSword.Text = My.Resources.SeaSword
         Seconds.Name = My.Resources.Seconds
         Seconds.Text = CStr(Settings.SmartStartTimeout)
@@ -596,6 +597,7 @@ Public Class FormSmartStart
         TabPage2.Text = My.Resources.Terrain_word
         TabPage3.Text = My.Resources.TreesAndPlants
         TabPage4.Text = My.Resources.EditorWord
+        TabPage5.Text = My.Resources.EndlessLandAndSea
         TaperTextBox.Text = CStr(Settings.LandTaper)
         TempCheckBox.Text = My.Resources.Temporary_Regions
         TerrainApply.Text = My.Resources.Apply

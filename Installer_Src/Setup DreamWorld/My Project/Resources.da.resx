@@ -3699,4 +3699,31 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Indstil ejeren og prøv igen</value>
   </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Log benchmarks</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Ren Satyr Farm</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Uendeligt land og hav</value>
+  </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Høj vandstand</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Lav vandstand</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Tidevands infokanal</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tidevand høj/lav kanal</value>
+  </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Globa lTide-indstillinger</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Tale</value>
+  </data>
 </root>

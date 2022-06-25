@@ -131,6 +131,7 @@ Module Backup
         Next
     End Sub
 
+    '' must use console as otherwise Smart Start will shutdown
     Public Sub Backupper(RegionUUID As String, file As String)
 
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""")

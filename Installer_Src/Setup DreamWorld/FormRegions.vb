@@ -223,6 +223,7 @@ Public Class FormRegions
         Button_Region.Text = Global.Outworldz.My.Resources.Configger
         CheckboxConcierge.Checked = Settings.Concierge
         CheckboxConcierge.Checked = Settings.Concierge
+        ClearFarmButton.Text = Global.Outworldz.My.Resources.CleanSatyrFarm
         CheckboxConcierge.Text = Global.Outworldz.My.Resources.Announce_visitors
         GroupBoxChat.Text = Global.Outworldz.My.Resources.Chat_Channel_word
         GroupBoxConcierge.Text = Global.Outworldz.My.Resources.Concierge_word

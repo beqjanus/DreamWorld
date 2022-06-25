@@ -3699,4 +3699,31 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Ορίστε τον Κάτοχο και δοκιμάστε ξανά</value>
   </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Σημεία αναφοράς καταγραφής</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Clean Satyr Farm</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Ατελείωτη Γη και Θάλασσα</value>
+  </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Υψηλή στάθμη νερού</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Χαμηλή στάθμη νερού</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Tide Info Channel</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel</value>
+  </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Ρυθμίσεις Globa lTide</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Ομιλία</value>
+  </data>
 </root>

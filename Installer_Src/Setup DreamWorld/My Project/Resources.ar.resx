@@ -3699,4 +3699,31 @@
   <data name="TryAgain" xml:space="preserve">
     <value>اضبط المالك وحاول مرة أخرى</value>
   </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>سجل المعايير</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>تنظيف مزرعة ساتير</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>لا نهاية لها من الأرض والبحر</value>
+  </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>ارتفاع منسوب المياه</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>انخفاض منسوب المياه</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>قناة معلومات المد</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>المد والجزر قناة عالية / منخفضة</value>
+  </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>إعدادات Globa lTide</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>خطاب</value>
+  </data>
 </root>

@@ -3699,4 +3699,13 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Définissez le propriétaire et réessayez</value>
   </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Niveau d'eau élevé</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Niveau d'eau bas</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Canal d'informations sur les marées</value>
+  </data>
 </root>

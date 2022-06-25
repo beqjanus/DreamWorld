@@ -117,4 +117,3595 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Data_Folder_word" xml:space="preserve">
+    <value>數據文件夾</value>
+  </data>
+  <data name="tt_Apache_Other" xml:space="preserve">
+    <value>“其他”文件夾的名稱。必須位於 Apache\htdocs 文件夾中。到 / 頁面的所有網絡流量都將重定向到此文件夾。</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>地區統計</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>區域端口開始#</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>重新啟動所有選中的區域</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>腳本計時器速率 (0.2)</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>加載區域 OAR</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>單擊以設置 Shoutcast/Icecast</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>啟用 JOpensim</value>
+  </data>
+  <data name="Manager_God_word" xml:space="preserve">
+    <value>經理神</value>
+  </data>
+  <data name="Install_word" xml:space="preserve">
+    <value>安裝</value>
+  </data>
+  <data name="View_Statistics_Word" xml:space="preserve">
+    <value>查看統計信息</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>可用的</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>從 IAR 文件夾加載本地 IAR</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>單擊以設置啟動/停止/回收和崩潰選項</value>
+  </data>
+  <data name="TOS" xml:space="preserve">
+    <value>TOS 模塊向您的用戶和/或訪問者顯示此 HTML 文本。</value>
+  </data>
+  <data name="tt_Bird_Border_size" xml:space="preserve">
+    <value>鳥兒將飛離模擬邊界多近。如果它們靠得太近，它們就會飛入另一個模擬。並死去。並死去。然後死去，直到填滿 sim</value>
+  </data>
+  <data name="Checking_LAN_Loopback_word" xml:space="preserve">
+    <value>檢查 LAN 環回</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>將環回適配器設置為公共 IP 地址</value>
+  </data>
+  <data name="First_name_word" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="No_Locate_FSassets" xml:space="preserve">
+    <value>找不到 FSasset 文件夾：</value>
+  </data>
+  <data name="Diag_Port_word" xml:space="preserve">
+    <value>診斷端口</value>
+  </data>
+  <data name="Search_Events" xml:space="preserve">
+    <value>搜索對象和事件 (www)</value>
+  </data>
+  <data name="Increasing_time_to_word" xml:space="preserve">
+    <value>增加時間</value>
+  </data>
+  <data name="webserver_Search_map" xml:space="preserve">
+    <value>Web 服務器 + 搜索和地圖</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>所有區域均已註銷</value>
+  </data>
+  <data name="LoadHelp" xml:space="preserve">
+    <value>加載幫助文件</value>
+  </data>
+  <data name="Grid_Address_is_word" xml:space="preserve">
+    <value>網格地址是</value>
+  </data>
+  <data name="All_word" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>待辦的</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>外部主機名的默認值是空白，它將成為您的 DNS 名稱或 IP。僅當您運行沒有 NAT 的區域服務器時才設置此項。</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>傳入的 Hypergrid 正在工作</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>輸入對象名稱（'/' 將備份所有內容，'/Objects/box' 將備份文件夾 Objects 中的 'box'</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>你不能做一個比這更大的物理 prim</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="Run_All_word" xml:space="preserve">
+    <value>全部運行</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>包裹</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>點擊獲取有關上帝模式的幫助</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>發佈網格</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>烤</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>讀取區域文件</value>
+  </data>
+  <data name="Create_Sandbox_word" xml:space="preserve">
+    <value>創建沙盒</value>
+  </data>
+  <data name="View_Map_word" xml:space="preserve">
+    <value>查看地圖</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>輸入網格所有者信息</value>
+  </data>
+  <data name="tt_Backup_SQL" xml:space="preserve">
+    <value>將 MySQL 備份到兩個 MySQLDump 文件，一個用於健壯，一個用於區域。這是一種可移植的、人類可讀的格式</value>
+  </data>
+  <data name="GlobalSettings_word" xml:space="preserve">
+    <value>全局設置</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>腳本計時器速度設置。默認為 1/11 秒 (0.0909)</value>
+  </data>
+  <data name="Help_On_LoopBack_word" xml:space="preserve">
+    <value>環回幫助</value>
+  </data>
+  <data name="Group_word" xml:space="preserve">
+    <value>團體</value>
+  </data>
+  <data name="Female_Voice" xml:space="preserve">
+    <value>F：以字母 F 開頭和冒號的一行是用女性的聲音說的。</value>
+  </data>
+  <data name="Merge_OAR_word" xml:space="preserve">
+    <value>合併槳</value>
+  </data>
+  <data name="Stopping_Webserver" xml:space="preserve">
+    <value>停止 Web 服務器</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>OAR - 區域加載和保存</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>保存地形</value>
+  </data>
+  <data name="Secret_word" xml:space="preserve">
+    <value>秘密</value>
+  </data>
+  <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
+    <value>已啟用 Diva Wifi</value>
+  </data>
+  <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
+    <value>允許基於等級的神</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>原始的第二人生雲</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>如果某個區域崩潰，該區域將重新啟動</value>
+  </data>
+  <data name="CMS" xml:space="preserve">
+    <value>內容管理者</value>
+  </data>
+  <data name="AllNone_word" xml:space="preserve">
+    <value>全部/無</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>觀看者在 45,000 處停止計數</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>該地區只允許業主和物業經理</value>
+  </data>
+  <data name="Reset_To_Default" xml:space="preserve">
+    <value>.重置為默認</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>區域名稱不能為空</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>沒有任何</value>
+  </data>
+  <data name="Catalan" xml:space="preserve">
+    <value>加泰羅尼亞語</value>
+  </data>
+  <data name="Enable_word" xml:space="preserve">
+    <value>使能夠</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>雷根地形</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>創建應用程序並獲取密鑰</value>
+  </data>
+  <data name="Viewer_Cache_word" xml:space="preserve">
+    <value>查看器緩存</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
+    <value>動態 DNS 密碼</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>在自動備份發生之前 Opensim 運行了多長時間</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>這似乎沒有轉發到路由器中的這台機器，因此 Hypergrid 不可用。這可以通過路由器中的“端口轉發”來解決。見幫助-&gt;端口轉發。</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>如果您有一個小型系統並希望自動設置路由器端口，請啟用此項</value>
+  </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>樓主大神</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>在會話開始時向用戶顯示 Gloebts 授權即時消息？</value>
+  </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim 搜索</value>
+  </data>
+  <data name="Transfer_word" xml:space="preserve">
+    <value>轉移</value>
+  </data>
+  <data name="tt_Apache_EnableJOpensim" xml:space="preserve">
+    <value>啟用主頁重定向到 htdocs 中的 JOpensim 文件夾</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>你想對這個地區說些什麼？</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>Web 界面可用於添加新用戶</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>向用戶發送警報</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>免費下載內容</value>
+  </data>
+  <data name="Step2_word" xml:space="preserve">
+    <value>第2步：</value>
+  </data>
+  <data name="Float" xml:space="preserve">
+    <value>漂浮</value>
+  </data>
+  <data name="Caches_word" xml:space="preserve">
+    <value>緩存</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>什麼莊園？</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>離線</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>令人耳目一新的免費內容 (OAR)</value>
+  </data>
+  <data name="Click_for_God_Mode" xml:space="preserve">
+    <value>點擊設置神模式等權限</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>高水位</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>安裝桌面圖標</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>清除區域列表</value>
+  </data>
+  <data name="Clearing_Bake_Cache_word" xml:space="preserve">
+    <value>清除烘焙緩存</value>
+  </data>
+  <data name="System_Backup_Now_word" xml:space="preserve">
+    <value>立即運行備份</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>出口</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>運行幾分鐘後，這些區域將全部自動重啟</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>最短時間為 0 秒。默認值為 15 秒。</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>0 - （錯誤）僅錯誤，需要重新啟動</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>查看模擬器統計信息</value>
+  </data>
+  <data name="Scripts_Suspend_word" xml:space="preserve">
+    <value>腳本暫停</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>你想要什麼莊園名字？空白 = Outworldz</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>區域特定設置覆蓋默認設置</value>
+  </data>
+  <data name="Auto_Backup_word" xml:space="preserve">
+    <value>自動備份</value>
+  </data>
+  <data name="tt_Backup_Now" xml:space="preserve">
+    <value>立即運行選定的備份。</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>發布標記為搜索的項目</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>加載庫存 IAR</value>
+  </data>
+  <data name="Restart_Periodically_word" xml:space="preserve">
+    <value>定期重啟</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>作為區域服務器運行</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>發出控制台命令</value>
+  </data>
+  <data name="Server_Type_word" xml:space="preserve">
+    <value>服務器類型</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>此網格的友好名稱</value>
+  </data>
+  <data name="Content_word" xml:space="preserve">
+    <value>內容</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>末端尺寸 XYZ</value>
+  </data>
+  <data name="Regions_word" xml:space="preserve">
+    <value>地區</value>
+  </data>
+  <data name="Show_User_Details_word" xml:space="preserve">
+    <value>顯示用戶詳細信息</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>這將允許在此位置放置另一個區域。繼續？</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>Wifi 接口管理員</value>
+  </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>金絲桃搜索</value>
+  </data>
+  <data name="Admin_Web_Page_word" xml:space="preserve">
+    <value>管理網頁</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>幫助智能啟動</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>在區域顯示為已滿之前，該區域中可以有多少個 Avatars + NPC。實際值在查看器的 Estate Settings 中設置。</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>西班牙語</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** 這將刪除 Estate 'SimSurround' 中的所有區域！</value>
+  </data>
+  <data name="On_Top" xml:space="preserve">
+    <value>在上面</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>幀率</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>區域已存在</value>
+  </data>
+  <data name="Region_Ports_word" xml:space="preserve">
+    <value>地區港口</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>你可以選擇把這些送給一個人。默認為地產所有者。</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>冬季白楊</value>
+  </data>
+  <data name="Smart_Start_word" xml:space="preserve">
+    <value>智能啟動</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>停止 Apache Web 服務器</value>
+  </data>
+  <data name="Auto_Restart_word" xml:space="preserve">
+    <value>自動重啟</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>沙灘草</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>更多自由島和部分</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>點擊尋求幫助</value>
+  </data>
+  <data name="Logging_word" xml:space="preserve">
+    <value>日誌記錄</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>備份數據庫</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>OAR 文件是整個群島的備份</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>停車區</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>請輸入有效的 DNS 名稱，例如“name.outworldz.net”，或在 http://www.noip.com 註冊一個</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>不是有效的非物理 Prim 最大值。必須大於 0</value>
+  </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>診斷端口</value>
+  </data>
+  <data name="Teleporter_Enable_word" xml:space="preserve">
+    <value>傳送標誌啟用</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>以米為單位的低水位線和高水位線</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>單擊以設置默認物理場</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>查看日誌</value>
+  </data>
+  <data name="Keep_for_Days_word" xml:space="preserve">
+    <value>保存幾天</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>安裝。請稍等 ...</value>
+  </data>
+  <data name="NVMaxAgents" xml:space="preserve">
+    <value>不是有效的最大代理值數。必須大於 0。</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>同一群中其他鳥類的最大距離</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>互聯網地址</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>智能啟動（字母代碼）設置</value>
+  </data>
+  <data name="Auto_Startup_word" xml:space="preserve">
+    <value>自動啟動</value>
+  </data>
+  <data name="No_Autobackup" xml:space="preserve">
+    <value>沒有自動 OAR 備份</value>
+  </data>
+  <data name="Last_Name_Word" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="Birds_word" xml:space="preserve">
+    <value>鳥類</value>
+  </data>
+  <data name="Hebrew" xml:space="preserve">
+    <value>希伯來語</value>
+  </data>
+  <data name="Warn_word" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>網頁控制面板</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>解決</value>
+  </data>
+  <data name="Shutdown_word" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Group_Ports_word" xml:space="preserve">
+    <value>組端口</value>
+  </data>
+  <data name="AxisXTitle" xml:space="preserve">
+    <value>10分鐘</value>
+  </data>
+  <data name="Viewer_Greeting_word" xml:space="preserve">
+    <value>觀眾問候</value>
+  </data>
+  <data name="Use_Default_word" xml:space="preserve">
+    <value>默認情況下使用</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>水</value>
+  </data>
+  <data name="Click_to_View_this_word" xml:space="preserve">
+    <value>點擊查看這個</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>設置語音服務</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>挪威</value>
+  </data>
+  <data name="About_word" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>沒有登錄</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>網絡診斷</value>
+  </data>
+  <data name="Asset_Cache_word" xml:space="preserve">
+    <value>資產緩存</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>加載地形</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>通知電子郵件</value>
+  </data>
+  <data name="Region_Port_word" xml:space="preserve">
+    <value>地區港口</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>允許 LSL 聯繫服務器</value>
+  </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>土地製造者</value>
+  </data>
+  <data name="Add_User_word" xml:space="preserve">
+    <value>添加用戶</value>
+  </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>主題</value>
+  </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>清除網格緩存</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>DNS 名稱或 SomeName.Outworldz.net 或 IP</value>
+  </data>
+  <data name="is_Off_word" xml:space="preserve">
+    <value>已關閉</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>每隻鳥每次更新可以走多遠（以米為單位）？</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>無法識別的文件類型</value>
+  </data>
+  <data name="Clamp_Prim_Size_word" xml:space="preserve">
+    <value>夾頭尺寸</value>
+  </data>
+  <data name="Error_word" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="tt_Backup_IARs" xml:space="preserve">
+    <value>對所有用戶進行非常耗時的 IAR 備份。注意 ** 使用大量磁盤空間 **</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>新內容正在加載</value>
+  </data>
+  <data name="Click_to_Setup_Search" xml:space="preserve">
+    <value>單擊以設置 Hyperica 或 JOpensim 的搜索選項</value>
+  </data>
+  <data name="DBName_word" xml:space="preserve">
+    <value>數據庫名稱</value>
+  </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>等待 Robust 開始</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>當地的</value>
+  </data>
+  <data name="Text2Speech" xml:space="preserve">
+    <value>在 prim 上用於媒體的文本到語音</value>
+  </data>
+  <data name="UBODE_words" xml:space="preserve">
+    <value>Ubit 開放動態引擎</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>松樹 1</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>動態 DNS 名稱已被使用。也許您使用了錯誤的密碼？</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>SL 運行 55 FPS。 Opensim 是 11 幀/秒。默認 =0.0909，或 1/11</value>
+  </data>
+  <data name="Running_word" xml:space="preserve">
+    <value>跑步</value>
+  </data>
+  <data name="Do_Not_Interrupt_word" xml:space="preserve">
+    <value>不要打斷！</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>點擊開始或停止健壯</value>
+  </data>
+  <data name="Scripts_Stop_word" xml:space="preserve">
+    <value>腳本停止</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>錯誤：無法啟動 DreamGridInstaller.exe。</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>必須是 PNG 文件</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>停止所有選中的區域</value>
+  </data>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>選擇的電子郵件</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>始終隱藏區域</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>創建生產帳戶</value>
+  </data>
+  <data name="Physics_word" xml:space="preserve">
+    <value>物理</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>這會移動所有區域，因此所選區域位於 1000,1000 以適合地圖。繼續？</value>
+  </data>
+  <data name="Send_word" xml:space="preserve">
+    <value>發送</value>
+  </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>一個名為 Robust 的 DOS Box 已經在運行</value>
+  </data>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>遠程管理端口已設置</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>從 Outworldz 網站加載 IARS</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>桉樹</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>重新加載網格</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>請等待 Robust 完全啟動。這可能需要幾分鐘。</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>導出所有地圖</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>到達</value>
+  </data>
+  <data name="UPnP_Enabled_word" xml:space="preserve">
+    <value>啟用 UPnP</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>平坦的</value>
+  </data>
+  <data name="Folder_To_Save_To_word" xml:space="preserve">
+    <value>要保存到的文件夾</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>完成後隱藏區域</value>
+  </data>
+  <data name="View_word" xml:space="preserve">
+    <value>看法</value>
+  </data>
+  <data name="Starting_WebServer_word" xml:space="preserve">
+    <value>啟動網絡服務器</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>區域就緒延遲</value>
+  </data>
+  <data name="Interval_word" xml:space="preserve">
+    <value>間隔</value>
+  </data>
+  <data name="ubODE_Hybrid_word" xml:space="preserve">
+    <value>ubODE 混合</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>啟動 Icecast</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>忽略新的宗地數據。</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>年齡</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>端口轉發幫助</value>
+  </data>
+  <data name="Database_Setup_word" xml:space="preserve">
+    <value>數據庫設置</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>啟用 MAXPRIMS 限制</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>映射啟動時間</value>
+  </data>
+  <data name="Restore_word" xml:space="preserve">
+    <value>從備份還原</value>
+  </data>
+  <data name="Bullet_Physics_word" xml:space="preserve">
+    <value>子彈物理</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>此端口不工作。 DreamGrid 被防火牆或防病毒軟件阻止，因此區域圖標被禁用。</value>
+  </data>
+  <data name="Black_word" xml:space="preserve">
+    <value>黑色的</value>
+  </data>
+  <data name="Max_Avatars" xml:space="preserve">
+    <value>最大頭像 + NPC 數量</value>
+  </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>地圖 X：</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>幫助地形</value>
+  </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>巴西（葡萄牙語）</value>
+  </data>
+  <data name="Mode_word" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>不變</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>這可能需要一些時間來加載</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>診斷 TCP 端口已設置</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>LSL 腳本無法訪問其他 LAN PC。如果您打開它，他們可以訪問任何 PC 上 LAN 上的端口。這是危險的！</value>
+  </data>
+  <data name="Current_Size" xml:space="preserve">
+    <value>磁盤上的當前大小</value>
+  </data>
+  <data name="Busy_word" xml:space="preserve">
+    <value>忙碌的</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>區域可能以組的形式開始或停止，具體取決於您的區域文件夾的組織方式。</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>區域數據庫</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>Icecast 已禁用</value>
+  </data>
+  <data name="RAM_Word" xml:space="preserve">
+    <value>內存</value>
+  </data>
+  <data name="Better_Prims" xml:space="preserve">
+    <value>更好（Prims，慢）</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>松 2</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>Opensim 將在運行這麼長時間後保存 OARS</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>等待</value>
+  </data>
+  <data name="DOS_Box_word" xml:space="preserve">
+    <value>DOS框</value>
+  </data>
+  <data name="Avatar_Name_word" xml:space="preserve">
+    <value>頭像名稱</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>錯誤：無法為區域設置 Opensim.ini</value>
+  </data>
+  <data name="Admin_Password_word" xml:space="preserve">
+    <value>管理員密碼</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>區域控制</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>海劍</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>設置搜索數據庫</value>
+  </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>密碼太短</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>主題設置為自定義</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>服務器類型是</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>沒有人在線</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>以分鐘為單位的重啟間隔</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>加載免費 DreamGrid OAR (www)</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="KeepOnTop_word" xml:space="preserve">
+    <value>保持在最前</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>數量</value>
+  </data>
+  <data name="Vivox_Voice_word" xml:space="preserve">
+    <value>Vivox 語音</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>抱歉，目前尚無此方面的幫助。</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>是的</value>
+  </data>
+  <data name="Click_Fsassets" xml:space="preserve">
+    <value>單擊以設置文件系統資產數據庫 (FSassets)，這是一個快速可靠的文件數據庫</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>看法</value>
+  </data>
+  <data name="Starting_word" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>默認的“歡迎”區域未啟用。繼續？</value>
+  </data>
+  <data name="Export_SQL_file_word" xml:space="preserve">
+    <value>導出 SQL 文件</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>OARS 上的 Wiki 頁面</value>
+  </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>更多自由島和部分 (www)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Getting_regions_word" xml:space="preserve">
+    <value>獲取區域</value>
+  </data>
+  <data name="Checking_Router_word" xml:space="preserve">
+    <value>檢查路由器</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>點擊申請語音服務</value>
+  </data>
+  <data name="Ignore_Parcel_word" xml:space="preserve">
+    <value>忽略包裹</value>
+  </data>
+  <data name="tt_Apache_EnableWP" xml:space="preserve">
+    <value>啟用主頁重定向到 htdocs 中的“WordPress”文件夾</value>
+  </data>
+  <data name="EnableOther_Word" xml:space="preserve">
+    <value>啟用其他</value>
+  </data>
+  <data name="Restart_Robust_word" xml:space="preserve">
+    <value>重啟健壯</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>關閉電網？</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>找不到文件夾</value>
+  </data>
+  <data name="View_Console_word" xml:space="preserve">
+    <value>查看控制台</value>
+  </data>
+  <data name="Restart_All_word" xml:space="preserve">
+    <value>重新啟動所有</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>啟用 Gloebit</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>說話</value>
+  </data>
+  <data name="Start_word" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Save_Inventory_IAR_word" xml:space="preserve">
+    <value>保存庫存 IAR</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>柏樹 1</value>
+  </data>
+  <data name="EnableOneClickStart_word" xml:space="preserve">
+    <value>啟用一鍵啟動</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>如果您禁用手提箱，這將不太安全，但會更容易重新定位外部網格上的對象</value>
+  </data>
+  <data name="Scripts_Resume_word" xml:space="preserve">
+    <value>腳本簡歷</value>
+  </data>
+  <data name="Test_DNS_word" xml:space="preserve">
+    <value>測試 DNS</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>從 OAR 文件夾加載本地 OAR</value>
+  </data>
+  <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
+    <value>允許區域所有者神</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>禁用庫存手提箱會將您的所有庫存暴露給其他網格。但是給對像很容易。</value>
+  </data>
+  <data name="Estate_word" xml:space="preserve">
+    <value>財產</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>JOpensim 設置</value>
+  </data>
+  <data name="Items_word" xml:space="preserve">
+    <value>項目</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>區域坐標 Y 太大</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>完成的</value>
+  </data>
+  <data name="Help_Troubleshooting_word" xml:space="preserve">
+    <value>幫助故障排除</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>海帶 2</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>葡萄牙語</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>網絡服務器正在運行</value>
+  </data>
+  <data name="Contact_Info_word" xml:space="preserve">
+    <value>聯繫方式</value>
+  </data>
+  <data name="Clear_Cache_word" xml:space="preserve">
+    <value>清除緩存</value>
+  </data>
+  <data name="ViewCacheFolder" xml:space="preserve">
+    <value>查看緩存文件夾</value>
+  </data>
+  <data name="Clear_and_Load_word" xml:space="preserve">
+    <value>清除並加載</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>服務條款</value>
+  </data>
+  <data name="Clouds_word" xml:space="preserve">
+    <value>雲</value>
+  </data>
+  <data name="IAR_Load_and_Save_word" xml:space="preserve">
+    <value>IAR 加載和保存</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - 關閉。距離自動重啟還有多少分鐘？</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>潛在的重疊區域</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>植物</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>使用通用即插即用打開路由器端口</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>單擊以設置基本區域選項。</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>在瀏覽器中預覽</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>端口 2</value>
+  </data>
+  <data name="Avatar_Password_word" xml:space="preserve">
+    <value>頭像密碼</value>
+  </data>
+  <data name="Enable_Events_word" xml:space="preserve">
+    <value>啟用事件</value>
+  </data>
+  <data name="Load_Bird_IAR_word" xml:space="preserve">
+    <value>加載鳥 IAR</value>
+  </data>
+  <data name="Hypergrid_word" xml:space="preserve">
+    <value>超網格</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>設置 Perl 語言</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>哈薩克斯坦</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>半徑</value>
+  </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>重複輸入密碼</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>每個區域只有在前一個區域加載後才會啟動</value>
+  </data>
+  <data name="Cannot_resolve_word" xml:space="preserve">
+    <value>無法解決</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>海帶 1</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>點擊設置宣傳</value>
+  </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>加載本地 IAR</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>單獨線程中的子彈物理</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>地區列表</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>將調試信息發送到控制台</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>備份 FSAssets 文件夾</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>廣播潮信息</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>無需再次單擊“開始”按鈕。啟動時啟動。</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>Opensim 正在加載您的項目。你會發現它在</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>清除所有註冊</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>您不能製作比這更大的常規 prim。</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>請只選擇一行</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>橡木</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>這將安裝 JOpensim。你想繼續嗎？</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>控制台命令上的 Wiki 頁面</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>下一個</value>
+  </data>
+  <data name="Common_Settings_word" xml:space="preserve">
+    <value>常用設置</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Metro.land 區域服務器</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>漂浮物資產緩存</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>您正在使用 LAN IP。跳過此測試。</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>現在重新啟動</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>Opensim Dos Box 可以自動最小化</value>
+  </data>
+  <data name="Map_Center_Location_word" xml:space="preserve">
+    <value>地圖中心位置：</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>資產作為文件</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>不會使用自動備份保存 OAR。</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>查看地形文件夾</value>
+  </data>
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+    <value>網格 TCP 端口已設置</value>
+  </data>
+  <data name="Default_8002_word" xml:space="preserve">
+    <value>默認 8002</value>
+  </data>
+  <data name="Sandbox_Mode_word" xml:space="preserve">
+    <value>沙盒模式</value>
+  </data>
+  <data name="tt_BirdsMaxHeightTextBox" xml:space="preserve">
+    <value>離地最大高度</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>將樹製作為 XML 文件</value>
+  </data>
+  <data name="tt_Click_to_Set_Backup_Types" xml:space="preserve">
+    <value>單擊以設置備份類型。通常它們都應該設置為開。</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>腳本計時器速度設置。 0.2 是默認值</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>點擊設置鳥類模塊</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>如何修復 Windows 上的環回</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>Icecast 端口已設置</value>
+  </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>記錄日期和時間</value>
+  </data>
+  <data name="Home_word" xml:space="preserve">
+    <value>家</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>超網格 DNS 名稱</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>只是選項</value>
+  </data>
+  <data name="Quit_Now_Word" xml:space="preserve">
+    <value>立即退出</value>
+  </data>
+  <data name="Modify_word" xml:space="preserve">
+    <value>調整</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>無法為訪客設置默認 sim。請參閱區域面板。</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>已設置 Web 服務器端口</value>
+  </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>啟用 Diva 頁面</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>沙灘草 1</value>
+  </data>
+  <data name="Show_word" xml:space="preserve">
+    <value>始終顯示區域</value>
+  </data>
+  <data name="Merge_Objects_word" xml:space="preserve">
+    <value>合併對象</value>
+  </data>
+  <data name="tt_BirdsFlockSize" xml:space="preserve">
+    <value>會出現多少隻鳥，1-100，鳥越多，CPU 和網絡就越好</value>
+  </data>
+  <data name="Restarting_word" xml:space="preserve">
+    <value>重啟</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Quit_Message0" xml:space="preserve">
+    <value>系統和其他應用程序沒有受到影響。已創建報告以幫助識別此問題。</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>關於如何配置事物的技術 Mumbo Jumbo</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>剛剛加載的新內容</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>單擊以設置您的 Web 控制面板</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
+  <data name="Updating_Ports_word" xml:space="preserve">
+    <value>更新端口</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>Opensim 通常不強制執行。查看器不會顯示超過 45,000 個。在此處設置並在設置中啟用此設置將強制執行限制並可能返回 prims！</value>
+  </data>
+  <data name="Database_Help_word" xml:space="preserve">
+    <value>數據庫幫助</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>技術信息幫助</value>
+  </data>
+  <data name="Hours_word" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>不要覆蓋現有區域的地形。</value>
+  </data>
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
+    <value>強大的網格服務器</value>
+  </data>
+  <data name="Enable_Hypergrid_word" xml:space="preserve">
+    <value>啟用超網格</value>
+  </data>
+  <data name="picfilter" xml:space="preserve">
+    <value>PNG (*.PNG,*.png)|*.png;|所有文件 (*.*)|*.*</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>重新開始</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Clamp Prim Size' 是確保沒有 prim 可以超過設定尺寸的選項</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>選擇一個文件夾</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>區域坐標 X 太大</value>
+  </data>
+  <data name="tt_Apache_EnableDiva" xml:space="preserve">
+    <value>啟用主頁重定向到 htdocs 中的“Dreamgrid”文件夾</value>
+  </data>
+  <data name="Minutes_word" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>最大高度（默認=45.0）</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>新用戶首頁 X,Y,Z</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>一個完整的循環時間以秒為單位。低-&gt;高-&gt;低</value>
+  </data>
+  <data name="Default_Region_word" xml:space="preserve">
+    <value>默認區域</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>主題設置為白色</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>啟動畫面</value>
+  </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="SearchOptions_word" xml:space="preserve">
+    <value>搜索選項</value>
+  </data>
+  <data name="Checking_for_Updates_word" xml:space="preserve">
+    <value>查詢更新</value>
+  </data>
+  <data name="tt_Apache_Sitemap" xml:space="preserve">
+    <value>為搜索引擎創建基本站點地圖以查找和索引您的網格。</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>選擇您的歡迎地區</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>您可以將此地址提供給人們，他們可以訪問您的網格</value>
+  </data>
+  <data name="Email_Address_words" xml:space="preserve">
+    <value>如果我們需要更多信息，您的電子郵件地址將允許我們與您聯繫。</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>樹木和植物</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>無法找到自動備份文件夾，因此文件夾已重置為默認值。</value>
+  </data>
+  <data name="CacheSizeInHours" xml:space="preserve">
+    <value>緩存大小（以小時為單位）</value>
+  </data>
+  <data name="Region_Owner_Is_God_word" xml:space="preserve">
+    <value>區域所有者是上帝</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>必須與 X 相同</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 米的火風暴。 1500米奇點。你不能做一個比這更大的常規 prim</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>魯棒退出。您想查看錯誤日誌文件嗎？</value>
+  </data>
+  <data name="Clearing_Image_Cache_word" xml:space="preserve">
+    <value>清除圖像緩存</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>打開模擬器正在加載</value>
+  </data>
+  <data name="Copy_Word" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>引導</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>加載所有空閒槳</value>
+  </data>
+  <data name="Export_Backup_file_word" xml:space="preserve">
+    <value>導出備份文件</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL 在我啟動時正在運行，所以我將 MySQL 保持打開狀態。</value>
+  </data>
+  <data name="Script_Rate_word" xml:space="preserve">
+    <value>腳本速率</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>avatrar 離開後，正在運行的 Region 將保持多長時間</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>點擊獲取鳥類幫助</value>
+  </data>
+  <data name="tt_Backup_Regions" xml:space="preserve">
+    <value>備份所有區域 INI 文件</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Region_Server_word" xml:space="preserve">
+    <value>區域服務器</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast 退出了。您想查看錯誤日誌文件嗎？</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>我們可以在不擔心的情況下離事物的邊緣有多近？</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>這將擦除整個 sim 並加載新的 sim。你確定嗎？</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>本地搜索</value>
+  </data>
+  <data name="Avatars_word" xml:space="preserve">
+    <value>頭像</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>物理崩潰時重啟</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>備份名稱</value>
+  </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>區域坐標 X 不能小於 0</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>柏樹 1</value>
+  </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR - 加載、保存和備份</value>
+  </data>
+  <data name="tt_Backup_OARs" xml:space="preserve">
+    <value>將所有區域備份到 OAR 文件</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>MySQL 正在運行</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>地圖</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>超網格診斷失敗。這些可以隨時重新運行。見幫助-&gt;網絡診斷”、“環回”和“端口轉發”</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>蕨類</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>通過 LAN 環回測試</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>刪除然後應用</value>
+  </data>
+  <data name="Updated_word" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>備份自定義網頁</value>
+  </data>
+  <data name="Modules_word" xml:space="preserve">
+    <value>模塊</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>選擇一個文件夾</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>錯誤的</value>
+  </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Diva_Panel_word" xml:space="preserve">
+    <value>女主角面板</value>
+  </data>
+  <data name="Permissions_word" xml:space="preserve">
+    <value>權限</value>
+  </data>
+  <data name="Remote_Admin_word" xml:space="preserve">
+    <value>遠程管理</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="Teleporting_word" xml:space="preserve">
+    <value>傳送</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>如果刪除所有地圖，則需要通過地圖設置重新啟動來重新生成地圖</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>真的</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name_word" xml:space="preserve">
+    <value>頭像和姓氏</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>IAR - 庫存加載和保存</value>
+  </data>
+  <data name="All_Global_Settings_word" xml:space="preserve">
+    <value>所有全局設置</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>輸入將擁有任何未分配對象的人的名字和姓氏</value>
+  </data>
+  <data name="Exit__word" xml:space="preserve">
+    <value>出口</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>該地區不允許訪問任何 Hypergrid 訪問者</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>備份文件夾</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>X引擎</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>檢查診斷端口</value>
+  </data>
+  <data name="Stopped_word" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>準備好</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>除非數據庫已經創建，否則不要更改</value>
+  </data>
+  <data name="Source_Code_word" xml:space="preserve">
+    <value>源代碼</value>
+  </data>
+  <data name="SMTPHost_word" xml:space="preserve">
+    <value>SMTP 主機</value>
+  </data>
+  <data name="Agents_word" xml:space="preserve">
+    <value>代理</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>這決定了模塊是否做任何事情</value>
+  </data>
+  <data name="Apply_word" xml:space="preserve">
+    <value>申請</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>好的</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>請在 Robust 窗口中輸入 Grid Owner 的頭像名稱。按 &lt;enter&gt; 輸入 UUID 和型號名稱。然後按此確定按鈕</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>設置網絡</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>DNS 名稱和超網格</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>環回測試失敗。網址沒有回應。</value>
+  </data>
+  <data name="Checking_Apache_service_word" xml:space="preserve">
+    <value>檢查 Apache 服務</value>
+  </data>
+  <data name="Cache_Enabled_word" xml:space="preserve">
+    <value>緩存啟用</value>
+  </data>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>刪除 tmp 文件夾</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>英語</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>園林綠化</value>
+  </data>
+  <data name="Search_grids" xml:space="preserve">
+    <value>搜索網格 (www)</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>啟動 Web 服務器</value>
+  </data>
+  <data name="Region_word" xml:space="preserve">
+    <value>地區</value>
+  </data>
+  <data name="BanList_string" xml:space="preserve">
+    <value>單擊以設置網格、MAC 地址和 IP 禁令</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>在會話開始時向用戶顯示購買 Gloebits 即時消息？</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>傳送 API</value>
+  </data>
+  <data name="Resuming_word" xml:space="preserve">
+    <value>恢復</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>網格 UDP 端口已設置</value>
+  </data>
+  <data name="Global_Settings_word" xml:space="preserve">
+    <value>全局設置</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>希臘語</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
+    <value>對象路徑和名稱</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>您想查看日誌文件嗎？</value>
+  </data>
+  <data name="Private_Port_Word" xml:space="preserve">
+    <value>私人港口</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>熱帶叢林 1</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>點擊設置 MySQL 數據庫</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>全局鳥類設置將應用於該區域</value>
+  </data>
+  <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
+    <value>漂浮物資產緩存</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>隨機地形</value>
+  </data>
+  <data name="Saving_word" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>貨幣</value>
+  </data>
+  <data name="File_word" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Setup_Ports_word" xml:space="preserve">
+    <value>設置端口</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>健壯啟動失敗</value>
+  </data>
+  <data name="Grid_address_word" xml:space="preserve">
+    <value>網格地址</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>用戶</value>
+  </data>
+  <data name="Publicity_Word" xml:space="preserve">
+    <value>宣傳</value>
+  </data>
+  <data name="Banned_word" xml:space="preserve">
+    <value>禁止</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>互聯網出了點問題。</value>
+  </data>
+  <data name="tt_Apache_EnableOther" xml:space="preserve">
+    <value>啟用主頁重定向到 htdocs 中的“其他”文件夾</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>離開</value>
+  </data>
+  <data name="Thread_pools_word" xml:space="preserve">
+    <value>線程池</value>
+  </data>
+  <data name="Assets_as_Files_word" xml:space="preserve">
+    <value>資產作為文件</value>
+  </data>
+  <data name="Message_sent_word" xml:space="preserve">
+    <value>已發送消息</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>法語</value>
+  </data>
+  <data name="Update_word" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>行動</value>
+  </data>
+  <data name="Scripts_word" xml:space="preserve">
+    <value>腳本</value>
+  </data>
+  <data name="Restart_one_region_word" xml:space="preserve">
+    <value>重啟一個區域</value>
+  </data>
+  <data name="MakeVoices" xml:space="preserve">
+    <value>發出聲音</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>點擊設置 Vivox 語音</value>
+  </data>
+  <data name="Icecast_Started_word" xml:space="preserve">
+    <value>Icecast 開始</value>
+  </data>
+  <data name="Production_Mode_Word" xml:space="preserve">
+    <value>生產模式</value>
+  </data>
+  <data name="Restart_Region_word" xml:space="preserve">
+    <value>重啟區域</value>
+  </data>
+  <data name="Disable_Gloebits_word" xml:space="preserve">
+    <value>禁用所有 Globbits</value>
+  </data>
+  <data name="Just_one_region_word" xml:space="preserve">
+    <value>只有一個地區</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>在控制台上提供潮汐信息？</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>熱帶叢林 2</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>所需的分離（默認=5.0）</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>捷克語</value>
+  </data>
+  <data name="ubODE_word" xml:space="preserve">
+    <value>ubODE</value>
+  </data>
+  <data name="backup_running" xml:space="preserve">
+    <value>備份運行</value>
+  </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>鑰匙</value>
+  </data>
+  <data name="Revision_History_word" xml:space="preserve">
+    <value>修訂記錄</value>
+  </data>
+  <data name="Step1_word" xml:space="preserve">
+    <value>步驟1：</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>光滑的</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>保留您的 DYN DNS 名稱。這是您的網格名稱的密碼。</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>冬松 1</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>這將限制包裹上的 prim 數量。禁用時除了內存沒有限制。</value>
+  </data>
+  <data name="SMTPPort_word" xml:space="preserve">
+    <value>SMTP 端口</value>
+  </data>
+  <data name="Bird_Flock_Size_word" xml:space="preserve">
+    <value>鳥群大小</value>
+  </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>導出此列表</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>錐度</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>阿帕奇退出。您想查看錯誤日誌文件嗎？</value>
+  </data>
+  <data name="Chinese_Simplifed" xml:space="preserve">
+    <value>簡體中文</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>物業經理是上帝 - 物業經理可以成為神，但只是為了這個物業</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>柏樹 2</value>
+  </data>
+  <data name="Tide_Info_Channel_word" xml:space="preserve">
+    <value>潮汐資訊頻道</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>數字越大，緩存越大。</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>未啟用 Web 服務器</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>區域經理是上帝 - 地產經理可以成為神，但只是為了這個地產</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>查看區域地圖</value>
+  </data>
+  <data name="Make_a_backup_word" xml:space="preserve">
+    <value>做備份？</value>
+  </data>
+  <data name="Click_Setup_Jopensim" xml:space="preserve">
+    <value>單擊以設置可選的 Joomla 和 jOpensim CMS 管理器 - Opensim 的 Web UI</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Prim 名稱（默認 ='SeaGull1'）</value>
+  </data>
+  <data name="Size_word" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
+  <data name="Save_IAR_word" xml:space="preserve">
+    <value>保存 IAR</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>最短時間為 10 秒。默認為 20 秒。</value>
+  </data>
+  <data name="Help_Manuals_word" xml:space="preserve">
+    <value>幫助手冊</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>秒關機</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>稍後提醒我</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>申請</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>幫助美化</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>啟用庫存手提箱</value>
+  </data>
+  <data name="Run_as_a_Service_word" xml:space="preserve">
+    <value>作為服務運行</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>Web 服務器沒有停止</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>松樹 1</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>點擊網站上的更多幫助</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>單擊以設置腳本、資產和圖像的緩存</value>
+  </data>
+  <data name="Sim_Size_word" xml:space="preserve">
+    <value>模擬大小</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>字母數字加空格</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>除非系統正在運行，否則無法運行診斷程序。單擊“開始”，然後重試。</value>
+  </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>等級</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>冬季白楊</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>使用臨時區域</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>端口轉發的 Web 幫助</value>
+  </data>
+  <data name="No_Subject" xml:space="preserve">
+    <value>沒有主題！</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>點擊加載此內容</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>邊框大小（默認=25.0）</value>
+  </data>
+  <data name="No_Avatars" xml:space="preserve">
+    <value>沒有頭像</value>
+  </data>
+  <data name="Comment_or_Notes_Word" xml:space="preserve">
+    <value>評論或註釋</value>
+  </data>
+  <data name="Fatal_word" xml:space="preserve">
+    <value>致命的</value>
+  </data>
+  <data name="Deleted_word" xml:space="preserve">
+    <value>已刪除</value>
+  </data>
+  <data name="Nonphysical_Prim" xml:space="preserve">
+    <value>非物理 Prim 尺寸</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>加載本地 OAR</value>
+  </data>
+  <data name="Automatic_restart_word" xml:space="preserve">
+    <value>自動重啟</value>
+  </data>
+  <data name="Check_for_Updates_word" xml:space="preserve">
+    <value>檢查更新</value>
+  </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>MySQL</value>
+  </data>
+  <data name="Physical_Prim" xml:space="preserve">
+    <value>物理 Prim 最大尺寸</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>單擊以設置地圖、清除地圖或選擇地圖類型</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>棕櫚 1</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>冬松 2</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>Web 服務器啟動失敗</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>區域名稱不能使用特殊字符</value>
+  </data>
+  <data name="Default_Not_SS" xml:space="preserve">
+    <value>默認區域無法啟用為 Smart Start。</value>
+  </data>
+  <data name="FSassets_Server_word" xml:space="preserve">
+    <value>Fie 系統資產服務器</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>錯誤：UUID 什麼都不是！</value>
+  </data>
+  <data name="User_Name_word" xml:space="preserve">
+    <value>用戶名</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>編輯區域</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>安裝 C++ 運行時</value>
+  </data>
+  <data name="How_Many_Avatars" xml:space="preserve">
+    <value>在區域顯示為已滿之前，該區域中可以有多少個 Avatars + NPC。實際值在查看器的 Estate Settings 中設置。</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>噪音</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>波斯語（伊朗）</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>UPnP 設置程序</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>現在更新</value>
+  </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>點擊設置</value>
+  </data>
+  <data name="Backup_Regions" xml:space="preserve">
+    <value>備份區域文件夾</value>
+  </data>
+  <data name="Debug_word" xml:space="preserve">
+    <value>調試</value>
+  </data>
+  <data name="Make_Speech" xml:space="preserve">
+    <value>演講 (Wav + Mp3)</value>
+  </data>
+  <data name="Chat_Channel_word" xml:space="preserve">
+    <value>聊天頻道</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>芬蘭</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>幫助植物編輯器</value>
+  </data>
+  <data name="Backup_word" xml:space="preserve">
+    <value>備份</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>選擇放置 OAR 的位置：</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>點擊查看頭像</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>點擊設置潮汐</value>
+  </data>
+  <data name="Enable_Search_word" xml:space="preserve">
+    <value>啟用搜索</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>網頁下載鏈接</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>不是有效的最大 Prim 值。必須大於 0。</value>
+  </data>
+  <data name="Default_8004_word" xml:space="preserve">
+    <value>默認 8004</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>不是有效的 UUID。你想要一個新的隨機 UUID 嗎？</value>
+  </data>
+  <data name="Highest_Used_word" xml:space="preserve">
+    <value>最高使用：</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>Ubit ODE/子彈混合</value>
+  </data>
+  <data name="Privacy_policy" xml:space="preserve">
+    <value>隱私政策</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>環回幫助</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>安裝 Joomla</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>IAR 的 Wiki 頁面</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>您只能在 Opensim 運行時更改密碼</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>鳥類聽哪個頻道來獲取世界命令。負數不能被人類使用</value>
+  </data>
+  <data name="Save_changes_word" xml:space="preserve">
+    <value>保存更改？</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>世界地圖南北位置</value>
+  </data>
+  <data name="MySqlPort_word" xml:space="preserve">
+    <value>MySQL 端口</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>在 DOS 框中設置 Estate 名稱。</value>
+  </data>
+  <data name="Timeout_in_hours_word" xml:space="preserve">
+    <value>以小時為單位的超時</value>
+  </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>重啟掛起</value>
+  </data>
+  <data name="Check_and_Repair_Database_word" xml:space="preserve">
+    <value>檢查和修復數據庫</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>主題設置為黑色</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>網絡端口</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>點擊設置您的服務條款</value>
+  </data>
+  <data name="Each_Line" xml:space="preserve">
+    <value>每行文本都保存到一個波形和 mp3 文件中。</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>日誌級別</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>運行網絡診斷</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Settings-&gt;Smart Start 中的 Smart Start (Alpha) 代碼已啟用。</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>想對線上的大家說什麼？</value>
+  </data>
+  <data name="Backup_IARs" xml:space="preserve">
+    <value>備份 IAR</value>
+  </data>
+  <data name="Step3_word" xml:space="preserve">
+    <value>第 3 步：</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>成群的鳥的數量</value>
+  </data>
+  <data name="Database_word" xml:space="preserve">
+    <value>數據庫</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>啟動緩慢但廣泛的數據庫備份</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>包裹中的最大 Prims 數</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>批量加載區域</value>
+  </data>
+  <data name="Saved_Word" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>刪除所有</value>
+  </data>
+  <data name="DreamGrid_word" xml:space="preserve">
+    <value>夢幻網格</value>
+  </data>
+  <data name="AccountConfirm" xml:space="preserve">
+    <value>新用戶需要 Diva Manager 確認嗎？</value>
+  </data>
+  <data name="No_Email" xml:space="preserve">
+    <value>電子郵件服務器尚未設置</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>你確定嗎？您的數據庫將從備份中加載並替換所有現有內容。頭像，模擬人生，庫存，所有東西都將被覆蓋。</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>Opensimulator 控制台將在 Opensim 運行時顯示。</value>
+  </data>
+  <data name="Restart_Settings_word" xml:space="preserve">
+    <value>重啟設置</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>回收起來</value>
+  </data>
+  <data name="Window" xml:space="preserve">
+    <value>窗戶</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>Icecast 可讓您將音樂流式傳輸到您的 SIM 卡中。音樂網址：</value>
+  </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>坐標不好</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>點擊設置貨幣</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>魯棒正在運行</value>
+  </data>
+  <data name="ODE_text" xml:space="preserve">
+    <value>打開動態引擎</value>
+  </data>
+  <data name="tt_Backup_Settings" xml:space="preserve">
+    <value>將 Settings.ini 和 XYSettings.ini 文件備份到 zip 文件。這些包含您曾經更改過的所有設置</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>區域 UUID 無效</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>單擊以設置您的端口</value>
+  </data>
+  <data name="Http_Port_word" xml:space="preserve">
+    <value>Http 端口</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>這定義了幾個模擬事件的速率。可以減少它以改善對運動物體的模擬，可能會增加cpu和網絡負載。</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>增加自動重啟時間，讓備份在重啟間隔後 30 分鐘完成</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>查看所有地圖</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>單擊以啟用 Hypergrid 或更改 DNS 名稱</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>字母數字加減號和空格字符</value>
+  </data>
+  <data name="Ignore_Terrain_word" xml:space="preserve">
+    <value>忽略地形</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>錯誤：無法理解區域文件的內容：</value>
+  </data>
+  <data name="Custom_word" xml:space="preserve">
+    <value>風俗</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>輸入用戶的名字和姓氏</value>
+  </data>
+  <data name="White_word" xml:space="preserve">
+    <value>白色的</value>
+  </data>
+  <data name="View_Log_word" xml:space="preserve">
+    <value>查看日誌</value>
+  </data>
+  <data name="Bullet_Threaded_word" xml:space="preserve">
+    <value>子彈頭螺紋</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>合併 OAR 而不清除任何對象</value>
+  </data>
+  <data name="Add_word" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="is_already_running_word" xml:space="preserve">
+    <value>已經開始</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>最多 4096</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>將所有啟用的區域保存為 OAR</value>
+  </data>
+  <data name="INI_Filter" xml:space="preserve">
+    <value>ini 文件 (*.ini)|*.ini|所有文件 (*.*)|*.*</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>加載地形</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>數據庫沒有啟動。您想查看日誌文件嗎？</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>以圖標形式查看</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>輸入新的 Dos Box 名稱</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>必須與 Y 相同</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>開機時間</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>查看 Icecast 網頁</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>等待腳本</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>查看文件夾</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>回收</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>總面積</value>
+  </data>
+  <data name="The_default_voice" xml:space="preserve">
+    <value>默認語音選擇將說出此文本。</value>
+  </data>
+  <data name="Cache_Directory_word" xml:space="preserve">
+    <value>緩存目錄</value>
+  </data>
+  <data name="Type_word" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>覆蓋現有區域的宗地數據。</value>
+  </data>
+  <data name="Icelandic" xml:space="preserve">
+    <value>冰島的</value>
+  </data>
+  <data name="Settings_word" xml:space="preserve">
+    <value>設置</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>不再顯示</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>清除資產緩存。這可能需要很長時間。</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>網絡端口（80 或 8000）</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="Male_Voice" xml:space="preserve">
+    <value>M：任何以字母 M 開頭和冒號的行都是男聲。</value>
+  </data>
+  <data name="Cancel_word" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Ban_List_word" xml:space="preserve">
+    <value>禁止名單</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>UPnP 已禁用</value>
+  </data>
+  <data name="Smart_Start_Enable_word" xml:space="preserve">
+    <value>智能啟動啟用</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>創建一個新的空白數據庫</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>樹線低</value>
+  </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="Region_Specific_Settings_word" xml:space="preserve">
+    <value>區域特定設置</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>區域製造商</value>
+  </data>
+  <data name="Info_word" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>地區名稱</value>
+  </data>
+  <data name="Stop_All_word" xml:space="preserve">
+    <value>停止所有</value>
+  </data>
+  <data name="Content_Manager_Word" xml:space="preserve">
+    <value>內容管理者</value>
+  </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>區域已被刪除</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>默認值：啟用。如果某些 prims 或地形部分無法重新定位，用戶可能需要減少查看器帶寬。如果您需要使用不支持此功能的舊查看器，請更改為 false</value>
+  </data>
+  <data name="Image_Cache_word" xml:space="preserve">
+    <value>圖像緩存</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>警告！這會將 150 多個 OARS 和區域加載到您的系統中。這將需要很長時間。</value>
+  </data>
+  <data name="Allow_Items_to_leave_word" xml:space="preserve">
+    <value>允許物品離開</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>單擊以獲取有關設置 Icecast 的幫助</value>
+  </data>
+  <data name="Basque_word" xml:space="preserve">
+    <value>巴斯克</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache 已作為服務被刪除</value>
+  </data>
+  <data name="Quit_Message1" xml:space="preserve">
+    <value>應用程序意外退出。</value>
+  </data>
+  <data name="Details_word" xml:space="preserve">
+    <value>細節</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>從哪兒開始？ （區域向右和向上增長）</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>加載 IAR 已取消 - 必須使用完整的用戶名和密碼。</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>容差（默認=25.0）</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>棕櫚 1</value>
+  </data>
+  <data name="Consoles_word" xml:space="preserve">
+    <value>控制台</value>
+  </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>清除所有方塊中的所有對象並加載 OAR</value>
+  </data>
+  <data name="Theme_word" xml:space="preserve">
+    <value>主題：</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>必須有庫存項目的名稱</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>放棄所有更改並退出？</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>下一個名字</value>
+  </data>
+  <data name="SMTPPassword_word" xml:space="preserve">
+    <value>SMTP 密碼</value>
+  </data>
+  <data name="Public_IP_Setup_Word" xml:space="preserve">
+    <value>公共 IP 設置</value>
+  </data>
+  <data name="AutomaticBackupIsRunning" xml:space="preserve">
+    <value>自動備份正在運行</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>進入區域時顯示 Gloebits 歡迎消息？</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>警告！</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>所有地圖圖塊已被刪除。設置地圖設置並重新啟動以製作新地圖</value>
+  </data>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>如果在 Settings-&gt;Permissions 中選中此框，那麼任何在 Web 面板中級別 &gt;= 100 的用戶都可以在任何地方成為上帝。如果權限中的默認設置未選中，則可以為各個區域設置此項，並且您在區域面板中使用 **Allow Gods In This Region** 覆蓋它。此設置與其他兩個設置無關。</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>無法保存設置：</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>最大力（默認=0.2）</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>頭像在世界上！你真的想辭職嗎？</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>磁盤上的當前大小</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>最大速度（默認=1.0）</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>恢復</value>
+  </data>
+  <data name="Send_report" xml:space="preserve">
+    <value>發送報告</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>對象路徑和名稱</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>對象</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>區域填充大小</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>單擊以選擇一個 DOS 框來保存該區域</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>啟用 Apache Web 服務器</value>
+  </data>
+  <data name="Cache_Control_word" xml:space="preserve">
+    <value>緩存控制</value>
+  </data>
+  <data name="Change_Password_word" xml:space="preserve">
+    <value>更改密碼</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>冬松 2</value>
+  </data>
+  <data name="Enabled_word" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="Loading_Settings" xml:space="preserve">
+    <value>加載 Settings.ini</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>令人耳目一新的免費內容 (IAR)</value>
+  </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>選擇文件夾</value>
+  </data>
+  <data name="MakeNewMap" xml:space="preserve">
+    <value>顯示全球地圖</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>Shoutcast 未啟用。</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>等待所有區域退出</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>作為服務運行</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
+    <value>潮汐高/低通道</value>
+  </data>
+  <data name="PDF_Manual_word" xml:space="preserve">
+    <value>PDF手冊</value>
+  </data>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>自動站點地圖</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>西班牙語（西班牙）</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>當我醒來時，我會再次見到你，煥然一新！</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>裡面有一個頭像</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>端口轉發幫助</value>
+  </data>
+  <data name="Teleport_word" xml:space="preserve">
+    <value>傳送</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>查看網頁界面</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>加載免費頭像庫存 (www)</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>超網格應該可以工作。</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>覆蓋這一區域的全局地圖設置</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>物理崩潰將強制模擬器重啟</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="Backup_Settings_word" xml:space="preserve">
+    <value>備份設置</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>語</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>更新可用。你想更新嗎？</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>沒有重疊區域</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>通常使用“AutoBackup”設置為 OutworldzFiles/AutoBackup 文件夾。單擊以更改文件夾。</value>
+  </data>
+  <data name="Global_Map" xml:space="preserve">
+    <value>全球地圖</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>阿帕奇網絡服務器</value>
+  </data>
+  <data name="Do_you_still_want_to_Stop_word" xml:space="preserve">
+    <value>你還想停下來嗎？</value>
+  </data>
+  <data name="Clear_Selected_Caches_word" xml:space="preserve">
+    <value>清除選定的緩存</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>瑞典</value>
+  </data>
+  <data name="Public_Photo_Word" xml:space="preserve">
+    <value>公共照片</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>鄰居距離（默認=25.0）</value>
+  </data>
+  <data name="Users_word" xml:space="preserve">
+    <value>用戶</value>
+  </data>
+  <data name="Add_Region_word" xml:space="preserve">
+    <value>添加區域</value>
+  </data>
+  <data name="Mesh_Cache_word" xml:space="preserve">
+    <value>網格緩存</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>已經停止。</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>松 2</value>
+  </data>
+  <data name="Troubleshooting_word" xml:space="preserve">
+    <value>故障排除</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>區域服務器的外部主機名</value>
+  </data>
+  <data name="Connect2Console" xml:space="preserve">
+    <value>連接到控制台</value>
+  </data>
+  <data name="Finished_with_backup_word" xml:space="preserve">
+    <value>完成備份：</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>查看區域詳情</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>單擊以獲取免費的 Gloebits 帳戶，以便您可以買賣</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>設置-&gt;智能啟動中的智能啟動（字母代碼）被禁用。</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>鰻草</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>更改 UUID 將丟失舊 sim 中的所有數據並創建一個新的空 sim。您確定要更改 UUID 嗎？</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>渲染最大高度</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>錯誤：無法啟動 DreamGridUpdater.exe。也許您可以手動啟動它？</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>在系統中找不到默認的“歡迎”區域。繼續？</value>
+  </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>健壯沒有在這台機器上運行</value>
+  </data>
+  <data name="Backup_OARs" xml:space="preserve">
+    <value>備份 OAR</value>
+  </data>
+  <data name="Send_Alert_Message_word" xml:space="preserve">
+    <value>發送警報消息</value>
+  </data>
+  <data name="Status_word" xml:space="preserve">
+    <value>地位</value>
+  </data>
+  <data name="Information_word" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Robust_word" xml:space="preserve">
+    <value>強大的</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>地圖坐標的中心</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>清除腳本緩存。這可能需要很長時間。</value>
+  </data>
+  <data name="Best_Prims" xml:space="preserve">
+    <value>最佳（Prims + Mesh，非常慢）</value>
+  </data>
+  <data name="IPV4_Address_word" xml:space="preserve">
+    <value>IPV4 地址</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>查看訪客地圖</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>加載免費頭像庫存</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>默認 1/11 秒。默認值為 0.0909，即 55 FPS 的 1/5</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>技術信息</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>物理引擎</value>
+  </data>
+  <data name="MAC_Address_word" xml:space="preserve">
+    <value>MAC地址</value>
+  </data>
+  <data name="Simple_but_Fast_word" xml:space="preserve">
+    <value>簡單但快速</value>
+  </data>
+  <data name="CoordX" xml:space="preserve">
+    <value>世界地圖上東西方的位置</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>以米為單位的高水位線</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>請求創建應用程序</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>您確定要刪除此區域嗎？</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>開機時間</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>我們想離其他鳥類多遠？</value>
+  </data>
+  <data name="tt_Backup_Fsassets" xml:space="preserve">
+    <value>備份 FSassets 文件夾。 Thjsi 是一個非常大的備份。它將進行增量備份，僅包含更改。</value>
+  </data>
+  <data name="Cannot_save_region_word" xml:space="preserve">
+    <value>無法保存區域：</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast 沒有啟動</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>始終保持</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>樹線高</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>俄語</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>點擊更改文件夾</value>
+  </data>
+  <data name="Announce_visitors" xml:space="preserve">
+    <value>在區域聊天中宣布訪客</value>
+  </data>
+  <data name="ODE_word_NT" xml:space="preserve">
+    <value>頌</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL 退出。您想查看錯誤日誌文件嗎？</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>拋光</value>
+  </data>
+  <data name="Export_Permission_word" xml:space="preserve">
+    <value>出口許可</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>Opensimulator 控制台將不會顯示。你仍然可以通過 Help-&gt;Opensim Console 與之交互</value>
+  </data>
+  <data name="Choose_Region_word" xml:space="preserve">
+    <value>選擇地區</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>小地鐵圖</value>
+  </data>
+  <data name="Apache_word" xml:space="preserve">
+    <value>阿帕奇</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>標準化區域</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>導入區域 INI 文件</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>不發布此區域</value>
+  </data>
+  <data name="FSasset_word" xml:space="preserve">
+    <value>FS 資產數據庫</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>安裝</value>
+  </data>
+  <data name="PublishToOutworldz" xml:space="preserve">
+    <value>發佈到 Outworldz</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>荷蘭語</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>檢查</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>SQL 數據庫備份/恢復</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>按年齡刪除</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>類別</value>
+  </data>
+  <data name="Icecast_word" xml:space="preserve">
+    <value>冰播</value>
+  </data>
+  <data name="Chinese_Traditional" xml:space="preserve">
+    <value>中國傳統的</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>發生應用程序異常。您想嘗試繼續，還是中止/退出？</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>德語</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>加載。</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>本地網格</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>選擇要清空的緩存</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>周邊地區業主</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>柏樹 2</value>
+  </data>
+  <data name="Help_word" xml:space="preserve">
+    <value>幫助</value>
+  </data>
+  <data name="Contact_Email_word" xml:space="preserve">
+    <value>聯繫電子郵件</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>松 2</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>備份保留多長時間。最舊的在幾天后被刪除，</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>除腳本和 Avatar 烘焙之外的所有服務器緩存均已清除。必須停止 Opensim 以清除腳本和烘焙緩存。</value>
+  </data>
+  <data name="Backup_Data_Files_word" xml:space="preserve">
+    <value>備份數據文件</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>沒有莊園</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>裝載包裹</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>家停止</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>在控制台上顯示統計信息</value>
+  </data>
+  <data name="Starting_DiagPort_Webserver" xml:space="preserve">
+    <value>啟動診斷端口網絡服務器</value>
+  </data>
+  <data name="Start_Regions_word" xml:space="preserve">
+    <value>開始區域</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>選中所有復選框或不選中任何復選框</value>
+  </data>
+  <data name="Cancelled_word" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>運行安裝診斷</value>
+  </data>
+  <data name="Bullet_word_NT" xml:space="preserve">
+    <value>子彈</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>啟動控制面板</value>
+  </data>
+  <data name="Disable_Foreigners_word" xml:space="preserve">
+    <value>禁止外國訪客</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>磁盤空間嚴重不足，還剩不到50M！所有區域都被凍結。請釋放磁盤空間，區域將解凍。</value>
+  </data>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>重啟排隊</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>停車模擬</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>查看頭像列表</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>診斷失敗。你想看日誌嗎？</value>
+  </data>
+  <data name="Script_Engine_word" xml:space="preserve">
+    <value>腳本引擎</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>註冊動態 DNS 地址</value>
+  </data>
+  <data name="Enable_Birds_word" xml:space="preserve">
+    <value>啟用鳥模塊</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>獲取免費的 DYN DNS 名稱</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Apache 或 Jopensim 使用的替代名稱</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>鳥類當前速度允許的最大加速度</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>啟動所有選中的區域</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>Opensim 沒有運行。</value>
+  </data>
+  <data name="Skip_Autobackup_word" xml:space="preserve">
+    <value>跳過自動 OAR 備份</value>
+  </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>從附近的頭像開始</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>沒有任何</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>這是標準的 Wifi Map 頁面</value>
+  </data>
+  <data name="did_not_start_word" xml:space="preserve">
+    <value>沒有開始</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>在 --merge 上強制加載地形。通常， --merge 不會覆蓋現有區域的地形。</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSGrid 區域服務器</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>讓潮水進出？</value>
+  </data>
+  <data name="Backup_MySQL_Phrase" xml:space="preserve">
+    <value>備份 MySql\Data 文件夾。請稍等。屏幕將出現凍結。</value>
+  </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>設置</value>
+  </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>全球潮汐設置</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>SMTP 發送電子郵件帳戶</value>
+  </data>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>必須是數字</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>嗓音</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>一個區域仍在運行</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>單擊以將文件的左下角加載到此位置。區域長大並向右</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>您的系統 Hypergrid 名稱已被重置。您可以在 Setup-Settings-&gt;DNS 菜單中更改名稱</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>低水位</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>現在安裝</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>無法標準化地圖，因為區域將位於小於 0 的位置</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>按順序啟動區域</value>
+  </data>
+  <data name="Suspending_word" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>網絡服務器 + 搜索和地圖</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>區域坐標 Y 不能小於 32</value>
+  </data>
+  <data name="Show_Status_word" xml:space="preserve">
+    <value>顯示狀態</value>
+  </data>
+  <data name="Open_word" xml:space="preserve">
+    <value>打開</value>
+  </data>
+  <data name="IceCast_Server_word" xml:space="preserve">
+    <value>冰播服務器</value>
+  </data>
+  <data name="Deregister_word" xml:space="preserve">
+    <value>註銷</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>冬松 1</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>啟動 MySql 數據庫</value>
+  </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>單擊一行以控制區域。選中該框以啟用/禁用。</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>分析日誌</value>
+  </data>
+  <data name="Contact_Name_word" xml:space="preserve">
+    <value>聯繫人姓名</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>查看正在使用的端口</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>端口 1</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>禁用所有居民</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>CPU 密集備份開始</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>到達關閉的模擬人生被重定向到</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - （調試）緩存活動，需要重新啟動</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>向該地區聊天潮汐信息，以便腳本可以隨波逐流？</value>
+  </data>
+  <data name="tt_Apache_Port" xml:space="preserve">
+    <value>通常是端口 80，即 WWW 端口。如果您的 ISP 阻止了端口 80，則 8000 是一個不錯的選擇。</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>頭像還在</value>
+  </data>
+  <data name="Bird_Module_word" xml:space="preserve">
+    <value>鳥模塊</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>備份 MySQL 數據文件夾</value>
+  </data>
+  <data name="Good_Warp3D_word" xml:space="preserve">
+    <value>好（Warp3D）</value>
+  </data>
+  <data name="Checking_Loopback_word" xml:space="preserve">
+    <value>檢查環回</value>
+  </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>語音設置</value>
+  </data>
+  <data name="Stop_word" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Skip_word" xml:space="preserve">
+    <value>跳過</value>
+  </data>
+  <data name="Delete_word" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>基準</value>
+  </data>
+  <data name="Default_Checked_word" xml:space="preserve">
+    <value>默認值：選中</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>是的</value>
+  </data>
+  <data name="Save_Region_OAR_word" xml:space="preserve">
+    <value>保存區域 OAR</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>阿拉伯語（沙特）</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>Y引擎</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="User_ID_word" xml:space="preserve">
+    <value>用戶身份</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>Web UI 允許您添加或查看任何頭像的設置。</value>
+  </data>
+  <data name="Terrain_word" xml:space="preserve">
+    <value>地形</value>
+  </data>
+  <data name="Scripts_Start_word" xml:space="preserve">
+    <value>腳本開始</value>
+  </data>
+  <data name="Cannot_locate" xml:space="preserve">
+    <value>找不到默認歡迎區域</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>第一次啟動幫助</value>
+  </data>
+  <data name="Restart_one_instance_word" xml:space="preserve">
+    <value>重啟一個實例</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>備用名稱，例如 www.outworldz.com 與 outworldz.com。可以是您希望繼續使用的舊網格名稱。</value>
+  </data>
+  <data name="Window_Word" xml:space="preserve">
+    <value>窗戶</value>
+  </data>
+  <data name="Aborted_word" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>端口環回測試通過</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>單擊以選擇服務器類型。默認 = Grid，但您可以連接為區域服務器、OsGrid 或 Metro Region 服務器</value>
+  </data>
+  <data name="Restore_Database_word" xml:space="preserve">
+    <value>恢復數據庫</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>控制台命令幫助</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>區域經理是上帝？</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>錯誤：無法啟動 NtSuspendProcess64.exe。</value>
+  </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>西班牙語（墨西哥）</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>更新可用。是否要退出 DreamGrid 並安裝更新？</value>
+  </data>
+  <data name="Script_cache_word" xml:space="preserve">
+    <value>腳本緩存</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>渲染最小高度</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>服務安裝失敗</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>全局潮汐設置將應用於該區域</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>如果選中，全球 saetting Gloebits 將不適用於該地區。</value>
+  </data>
+  <data name="Clearing_Map_tiles_word" xml:space="preserve">
+    <value>清除地圖圖塊</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>無盡的陸地和海洋</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>刪除所有地圖</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>可以通過 Hypergrid 從網格中獲取對象</value>
+  </data>
+  <data name="Default_8001_word" xml:space="preserve">
+    <value>默認 8001</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>備份區域 INI 文件</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>萸</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>區域仍在運行</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>地圖 X：</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
+  </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API 密鑰</value>
+  </data>
+  <data name="Import_word" xml:space="preserve">
+    <value>導入 INI</value>
+  </data>
+  <data name="Version_word" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Irish" xml:space="preserve">
+    <value>愛爾蘭語</value>
+  </data>
+  <data name="Cannot_find_region_word" xml:space="preserve">
+    <value>找不到地區</value>
+  </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>最大頭像 + NPC 數量</value>
+  </data>
+  <data name="Setup_Graphs_word" xml:space="preserve">
+    <value>設置圖</value>
+  </data>
+  <data name="No_Emails_Selected" xml:space="preserve">
+    <value>未選擇任何電子郵件</value>
+  </data>
+  <data name="Someone_is_in_word" xml:space="preserve">
+    <value>有人在</value>
+  </data>
+  <data name="Desired_Separation_word" xml:space="preserve">
+    <value>所需的分離（默認=5.0）</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>查看顯示每個區域統計信息的網頁</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>已刪除的地區</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>已進行更改。節省？</value>
+  </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>已安裝</value>
+  </data>
+  <data name="Save_word" xml:space="preserve">
+    <value>節省</value>
+  </data>
+  <data name="Checking_MySql_word" xml:space="preserve">
+    <value>檢查 MySql</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>或者：</value>
+  </data>
+  <data name="Tides_word" xml:space="preserve">
+    <value>潮汐</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>回收羽絨</value>
+  </data>
+  <data name="JobEngine_word" xml:space="preserve">
+    <value>工作引擎</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>配置所有區域</value>
+  </data>
+  <data name="EstateManagerIsGod_word" xml:space="preserve">
+    <value>物業經理是上帝</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>單擊以設置您的備份計劃</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>離開</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>起始位置？</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>所有者名稱</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>仍在啟動</value>
+  </data>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>動態 DNS</value>
+  </data>
+  <data name="CPU_word" xml:space="preserve">
+    <value>中央處理器 ％</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>檢測到端口衝突。所有端口均已重置為默認值</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>您好，歡迎來到文本轉語音應用程序的此測試。隨意環顧四周並探索您的網格。</value>
+  </data>
+  <data name="Default_8003_word" xml:space="preserve">
+    <value>默認 8003</value>
+  </data>
+  <data name="Bird_Settings_word" xml:space="preserve">
+    <value>鳥類設置</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>起始尺寸 XYZ</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - （信息）命中率統計，需要重新啟動</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>準備發射！</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>顯示網格地址</value>
+  </data>
+  <data name="Icons_word" xml:space="preserve">
+    <value>圖標</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>查看器啟動畫面 URL：</value>
+  </data>
+  <data name="Select_word" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>沒有區域準備好，因此無法加載 IAR"</value>
+  </data>
+  <data name="Disabled_word" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>幀率 (0.0909)</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>以秒為單位的周期時間</value>
+  </data>
+  <data name="System_Backup_word" xml:space="preserve">
+    <value>系統備份</value>
+  </data>
+  <data name="tt_Apache_Enable" xml:space="preserve">
+    <value>使 Apache Web 服務器能夠作為服務運行。</value>
+  </data>
+  <data name="All_Caches_Cleared_word" xml:space="preserve">
+    <value>清除所有緩存</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>我們可以聚集多高？</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>大地鐵圖</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>網絡服務器面板</value>
+  </data>
+  <data name="Stopping_word" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Set_Debug_Level_word" xml:space="preserve">
+    <value>設置調試級別</value>
+  </data>
+  <data name="Creating_INI_Files_word" xml:space="preserve">
+    <value>創建 INI 文件</value>
+  </data>
+  <data name="tt_Backup_Custom" xml:space="preserve">
+    <value>將 Diva Web 服務器中的自定義網頁文件夾備份到 zip 文件</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>默認 = 3306</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>雞蛋花</value>
+  </data>
+  <data name="Avatar_Bakes_Cache_word" xml:space="preserve">
+    <value>阿凡達烘烤緩存</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>無法連接到網站。</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL 在命令停止時沒有停止</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>基本限制</value>
+  </data>
+  <data name="Refresh_word" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>要連接的服務器。 “本地主機”是默認值。</value>
+  </data>
+  <data name="Backing_up_Settings_word" xml:space="preserve">
+    <value>備份設置</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>第一次啟動</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>單擊“開始”開始。</value>
+  </data>
+  <data name="Set_Owner_word" xml:space="preserve">
+    <value>設置所有者</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>關於槳的幫助</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>輸入備份名稱</value>
+  </data>
+  <data name="Edit_word" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Teleport_Tooltip" xml:space="preserve">
+    <value>將此區域狀態發送到 Outworldz 傳送標誌</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>發生網絡變化。可能需要重新啟動。</value>
+  </data>
+  <data name="Setup_Firewall_word" xml:space="preserve">
+    <value>設置防火牆</value>
+  </data>
+  <data name="All_Users_All_Sims_word" xml:space="preserve">
+    <value>所有用戶，所有模擬人生</value>
+  </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>必須先設置 Sim Surrounds 的所有者！</value>
+  </data>
+  <data name="Help_On_IARS_word" xml:space="preserve">
+    <value>關於 IARS 的幫助</value>
+  </data>
+  <data name="Setup_Wordpress" xml:space="preserve">
+    <value>設置 WordPress 數據庫</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>不是有效的物理 Prim 最大值。必須大於 0。</value>
+  </data>
+  <data name="Not_Found" xml:space="preserve">
+    <value>未找到</value>
+  </data>
+  <data name="Title_word" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="AreYouSureSSL" xml:space="preserve">
+    <value>您確定需要重新安裝 SSL 嗎？它會自動更新，並且似乎已經安裝了。</value>
+  </data>
+  <data name="Apache must be Running80" xml:space="preserve">
+    <value>Apache 必須使用端口 80</value>
+  </data>
+  <data name="ApacheMustBeRunning" xml:space="preserve">
+    <value>Apache 必須正在運行</value>
+  </data>
+  <data name="MustUseDNS" xml:space="preserve">
+    <value>必須使用 DNS 名稱 - 中止</value>
+  </data>
+  <data name="BootupInterval" xml:space="preserve">
+    <value>引導間隔</value>
+  </data>
+  <data name="Concurrent_text" xml:space="preserve">
+    <value>當 CPU &gt; 90% 或 RAM &gt; 90%（默認）時，區域並行啟動並暫停加載</value>
+  </data>
+  <data name="noDelay" xml:space="preserve">
+    <value>並行，無限制</value>
+  </data>
+  <data name="NoDelay_text" xml:space="preserve">
+    <value>區域並行啟動，沒有強制執行 CPU 或 RAM 限制</value>
+  </data>
+  <data name="ParallelBooting" xml:space="preserve">
+    <value>平行，有限制</value>
+  </data>
+  <data name="SequentialOrder" xml:space="preserve">
+    <value>順序</value>
+  </data>
+  <data name="Apache_Stopped" xml:space="preserve">
+    <value>阿帕奇停止</value>
+  </data>
+  <data name="Concierge_word" xml:space="preserve">
+    <value>門房</value>
+  </data>
+  <data name="Say_distance" xml:space="preserve">
+    <value>說距離</value>
+  </data>
+  <data name="Shout_distance" xml:space="preserve">
+    <value>喊距離</value>
+  </data>
+  <data name="Whisper_distance" xml:space="preserve">
+    <value>耳語距離</value>
+  </data>
+  <data name="Frozen" xml:space="preserve">
+    <value>冷凍</value>
+  </data>
+  <data name="maphasbeendeleted" xml:space="preserve">
+    <value>地圖已刪除</value>
+  </data>
+  <data name="Click_Avatar_to_Teleport" xml:space="preserve">
+    <value>點擊頭像傳送</value>
+  </data>
+  <data name="EmailEnabled" xml:space="preserve">
+    <value>電子郵件啟用</value>
+  </data>
+  <data name="EmailMaxMailSize" xml:space="preserve">
+    <value>最大電子郵件大小</value>
+  </data>
+  <data name="Emailpausetime" xml:space="preserve">
+    <value>電子郵件暫停時間（以秒為單位）</value>
+  </data>
+  <data name="EmailsFromOwnerPerHour" xml:space="preserve">
+    <value>每小時來自所有者的電子郵件</value>
+  </data>
+  <data name="EmailsPerDay" xml:space="preserve">
+    <value>每天的電子郵件</value>
+  </data>
+  <data name="EmailsToPrimAddressPerHour" xml:space="preserve">
+    <value>每小時發送到 Prim 地址的電子郵件</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerDay" xml:space="preserve">
+    <value>每天發送到 SMTP 地址的電子郵件</value>
+  </data>
+  <data name="EmailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>每小時發送到 SMTP 地址的電子郵件</value>
+  </data>
+  <data name="EmailToObjectsEnabled" xml:space="preserve">
+    <value>已啟用電子郵件至對象</value>
+  </data>
+  <data name="SSLTLS" xml:space="preserve">
+    <value>啟用 SSL/TLS</value>
+  </data>
+  <data name="enableEmailToSMTP" xml:space="preserve">
+    <value>啟用電子郵件到 SMTP</value>
+  </data>
+  <data name="VerifyCertificate" xml:space="preserve">
+    <value>驗證證書</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>自動的</value>
+  </data>
+  <data name="SslOnConnect" xml:space="preserve">
+    <value>SSL 連接</value>
+  </data>
+  <data name="StartTls" xml:space="preserve">
+    <value>啟動 TLS</value>
+  </data>
+  <data name="StartTlsWhenAvailable" xml:space="preserve">
+    <value>可用時啟動 TLS</value>
+  </data>
+  <data name="tt_AutoMaticSecurity" xml:space="preserve">
+    <value>根據指定的端口自動決定使用哪種類型的 SSL 模式。注意：這僅在端口是標准定義的端口（例如 SMTP 的 25、587 或 465）時才可靠。</value>
+  </data>
+  <data name="tt_Click_to_reveal_password" xml:space="preserve">
+    <value>單擊以顯示密碼。</value>
+  </data>
+  <data name="tt_EmailEnabled" xml:space="preserve">
+    <value>默認值：關閉。關閉時禁用所有電子郵件。</value>
+  </data>
+  <data name="tt_EmailPauseTime" xml:space="preserve">
+    <value>電子郵件之間的電子郵件暫停時間</value>
+  </data>
+  <data name="tt_EmailPort" xml:space="preserve">
+    <value>端口 25、465 或 587。端口 25 和 587 是純文本連接端口，但如果通過 STARTTLS 請求這樣做，則會切換到 SSL/TLS。</value>
+  </data>
+  <data name="tt_EmailUserName" xml:space="preserve">
+    <value>可以登錄郵件服務器的郵件用戶名。</value>
+  </data>
+  <data name="tt_Email_Disabled" xml:space="preserve">
+    <value>電子郵件已禁用。</value>
+  </data>
+  <data name="tt_enableEmailToExternalObjects" xml:space="preserve">
+    <value>默認值：關閉。啟用向不在當前 opensimulator 實例上的區域發送帶有 LSL 的電子郵件。目前不工作。</value>
+  </data>
+  <data name="tt_enableEmailToSMTPCheckBox" xml:space="preserve">
+    <value>默認值：關閉。啟用使用 LSL 向世界發送電子郵件。</value>
+  </data>
+  <data name="tt_MailsFromOwnerPerHour" xml:space="preserve">
+    <value>Opensim 可以在一小時內發送的最大電子郵件數量。</value>
+  </data>
+  <data name="tt_MailsPerDay" xml:space="preserve">
+    <value>每天通過 LSL 的最大電子郵件數量</value>
+  </data>
+  <data name="tt_MailsToPrimAddressPerHour" xml:space="preserve">
+    <value>每小時發送至 Prim 地址的最大電子郵件數</value>
+  </data>
+  <data name="tt_MailsToSMTPAddressPerHour" xml:space="preserve">
+    <value>每小時發送到 SMTP 地址的郵件</value>
+  </data>
+  <data name="tt_MaxMailSize" xml:space="preserve">
+    <value>最大電子郵件大小（以字節為單位）。 Unicode 可以是每個字符 1、2 或 3 個字節</value>
+  </data>
+  <data name="tt_NoSecurity" xml:space="preserve">
+    <value>無：不要使用任何形式的 SSL（或 TLS）。</value>
+  </data>
+  <data name="tt_RadioButtonStartTls" xml:space="preserve">
+    <value>使用 STARTTLS 方法進行 SSL/TLS 加密。如果服務器不支持 STARTTLS 命令，則中止連接。</value>
+  </data>
+  <data name="tt_SMTP_Host_name" xml:space="preserve">
+    <value>輸入 SMTP 服務器主機名。</value>
+  </data>
+  <data name="tt_SslOnConnect" xml:space="preserve">
+    <value>這指定 Mail 應通過 SSL 包裝的連接進行連接。</value>
+  </data>
+  <data name="tt_StartTlsWhenAvailable" xml:space="preserve">
+    <value>如果服務器支持，則使用 STARTTLS 方法進行 SSL/TLS 加密，否則繼續使用未加密的通道。</value>
+  </data>
+  <data name="tt_VerifyCertificate" xml:space="preserve">
+    <value>默認值：開。如果使用未簽名的 SMTP 服務器證書，則需要取消選中此項。</value>
+  </data>
+  <data name="On_word" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="Search_Help" xml:space="preserve">
+    <value>尋找幫助（求助</value>
+  </data>
+  <data name="ViewGoogleMap" xml:space="preserve">
+    <value>查看谷歌地圖</value>
+  </data>
+  <data name="rezzableParcels" xml:space="preserve">
+    <value>包裹設置</value>
+  </data>
+  <data name="DefaultLandingSpot" xml:space="preserve">
+    <value>默認著陸點</value>
+  </data>
+  <data name="LandingSpotTooltip" xml:space="preserve">
+    <value>設置默認著陸位置（默認為 &lt;128,128,30&gt;）</value>
+  </data>
+  <data name="NotValidVector" xml:space="preserve">
+    <value>不是一個有效的向量！ &lt;X, Y, Z&gt;，其中值 &gt; 0</value>
+  </data>
+  <data name="DeletingTempRegion" xml:space="preserve">
+    <value>刪除臨時區域</value>
+  </data>
+  <data name="_20" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="CautionMoving" xml:space="preserve">
+    <value>警告！這會將所有區域移動到方形塊中。</value>
+  </data>
+  <data name="BackingUp" xml:space="preserve">
+    <value>將所有區域備份到自動備份文件夾</value>
+  </data>
+  <data name="OpensimNeedstoStop" xml:space="preserve">
+    <value>必須停止 Opensimulator</value>
+  </data>
+  <data name="Packing" xml:space="preserve">
+    <value>打包所有區域</value>
+  </data>
+  <data name="Packregions" xml:space="preserve">
+    <value>打包所有地區</value>
+  </data>
+  <data name="PackRegionTT" xml:space="preserve">
+    <value>從左下角到右上角按字母順序打包所有區域</value>
+  </data>
+  <data name="RearrangeRegions" xml:space="preserve">
+    <value>重新排列區域</value>
+  </data>
+  <data name="RowSizeTT" xml:space="preserve">
+    <value>橫穿多少行？ 1 = 1 個標準 256X256 區域。</value>
+  </data>
+  <data name="Spacing" xml:space="preserve">
+    <value>間距</value>
+  </data>
+  <data name="SpacingTT" xml:space="preserve">
+    <value>區域之間有多少空間。 0 = 觸摸。默認 = 4，因此您看不到下一個區域。</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>寬度</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>中止</value>
+  </data>
+  <data name="BulkLoadRegions" xml:space="preserve">
+    <value>批量加載區域</value>
+  </data>
+  <data name="OwnerofNewRegions" xml:space="preserve">
+    <value>新區域的所有者</value>
+  </data>
+  <data name="Pack_Word" xml:space="preserve">
+    <value>盒</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>設置所有者並重試</value>
+  </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>高水位</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>低水位</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>潮汐資訊頻道</value>
+  </data>
 </root>

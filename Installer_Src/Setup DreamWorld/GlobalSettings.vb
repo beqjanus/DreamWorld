@@ -13,7 +13,7 @@ Module GlobalSettings
     Public Const _httpsDomain As String = "https://www.outworldz.com"
     Public Const _MyVersion As String = "5.11"
     Public Const _SimVersion As String = "Opensim Core d6760ec0ef (a few changes For mantis 9006 attachment moveToTarget()"
-    Public Const FreeDiskSpaceWarn As Long = 100000000
+    Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"

@@ -4274,4 +4274,37 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Set the Owner and try again</value>
   </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Clean Satyr Farm</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Endless Land And Sea</value>
+  </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Globa lTide Settings</value>
+  </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>High Water Level</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Log Benchmarks</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Low Water Level</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Notepad</value>
+  </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Show On Startup</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Speech</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Tide Info Channel</value>
+  </data>
 </root>

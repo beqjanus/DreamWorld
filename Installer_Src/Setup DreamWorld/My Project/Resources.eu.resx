@@ -3699,4 +3699,13 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Ezarri Jabea eta saiatu berriro</value>
   </data>
+  <data name="HighwaterLevel" xml:space="preserve">
+    <value>Ur-maila altua</value>
+  </data>
+  <data name="LowWaterLevel" xml:space="preserve">
+    <value>Ur-maila baxua</value>
+  </data>
+  <data name="TideInfoChannel" xml:space="preserve">
+    <value>Marea informazio kanala</value>
+  </data>
 </root>
