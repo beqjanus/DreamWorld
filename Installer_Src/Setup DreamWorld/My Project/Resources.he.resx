@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>ערוץ מידע על גאות</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>הגדרות גאות עולמיות</value>
+  </data>
 </root>

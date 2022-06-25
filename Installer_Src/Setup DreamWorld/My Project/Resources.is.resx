@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Fjöru Info Channel</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Global Tide stillingar</value>
+  </data>
 </root>

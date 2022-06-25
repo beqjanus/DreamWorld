@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Kanał informacji o pływach</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Globalne ustawienia pływów</value>
+  </data>
 </root>

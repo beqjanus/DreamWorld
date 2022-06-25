@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>潮汐資訊頻道</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>全球潮汐設置</value>
+  </data>
 </root>

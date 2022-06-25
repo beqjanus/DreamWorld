@@ -4763,7 +4763,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Globa lTide Settings.
+        '''  Looks up a localized string similar to Global Tide Settings.
         '''</summary>
         Friend ReadOnly Property GlobalTideSettings() As String
             Get

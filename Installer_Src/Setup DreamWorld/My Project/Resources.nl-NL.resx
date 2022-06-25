@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Getijdeninformatiekanaal</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Globale getijdeninstellingen</value>
+  </data>
 </root>

@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Cainéal Faisnéise Tide</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Socruithe Taoide Domhanda</value>
+  </data>
 </root>

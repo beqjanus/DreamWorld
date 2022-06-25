@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Vuorovesien tietokanava</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Globaalit vuorovesiasetukset</value>
+  </data>
 </root>

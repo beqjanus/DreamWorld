@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Kênh thông tin về thủy triều</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Cài đặt thủy triều toàn cầu</value>
+  </data>
 </root>

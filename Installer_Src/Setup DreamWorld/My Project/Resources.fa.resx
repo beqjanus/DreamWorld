@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>کانال اطلاعات جزر و مد</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>تنظیمات جزر و مد جهانی</value>
+  </data>
 </root>

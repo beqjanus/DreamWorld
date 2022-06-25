@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Marea informazio kanala</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Marearen ezarpen globalak</value>
+  </data>
 </root>

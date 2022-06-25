@@ -3708,4 +3708,7 @@
   <data name="TideInfoChannel" xml:space="preserve">
     <value>Canal de información de mareas</value>
   </data>
+  <data name="GlobalTideSettings" xml:space="preserve">
+    <value>Configuración global de mareas</value>
+  </data>
 </root>
