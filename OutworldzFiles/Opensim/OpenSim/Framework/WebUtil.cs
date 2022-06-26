@@ -1015,7 +1015,7 @@ namespace OpenSim.Framework
                 }
                 catch (Exception e)
                 {
-                    m_log.InfoFormat("[FORMS]: Error sending {0} request to: {1}. {2}", verb,requestUrl, e.Message);
+                    m_log.DebugFormat("[FORMS]: Error sending {0} request to: {1}. {2}", verb,requestUrl, e.Message);
                     throw e;
                 }
             }
@@ -1036,7 +1036,7 @@ namespace OpenSim.Framework
             }
             catch (Exception e)
             {
-                m_log.InfoFormat("[FORMS]: Error receiving response from {0}: {1}.", requestUrl, e.Message);
+                m_log.DebugFormat("[FORMS]: Error receiving response from {0}: {1}.", requestUrl, e.Message);
                 throw e;
             }
 
@@ -1129,7 +1129,7 @@ namespace OpenSim.Framework
             }
             catch (Exception e)
             {
-                m_log.InfoFormat("[FORMS]: Error receiving response from {0}: {1}", requestUrl, e.Message);
+                m_log.DebugFormat("[FORMS]: Error receiving response from {0}: {1}", requestUrl, e.Message);
                 throw e;
             }
 
