@@ -382,7 +382,6 @@ Public Class FormSetup
                 For Each RegionUUID In RegionUuids()
                     If ProcessID(RegionUUID) = PID Then
                         ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                        ConsoleCommand(RegionUUID, "q")
                         Application.DoEvents()
                     End If
                 Next
