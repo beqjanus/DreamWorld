@@ -4,7 +4,6 @@
 
     Public Sub Print(Name As String)
 
-        Return
 
         If _stopWatch Is Nothing Then
             _stopWatch = New Stopwatch()
