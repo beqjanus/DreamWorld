@@ -55,65 +55,61 @@ Module OAR
 
         HelpOnce("Load OAR")
 
-        If PropOpensimIsRunning() Then
-            If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(False)
-                If RegionName.Length = 0 Then Return
+        If RegionName.Length = 0 Then
+            RegionName = ChooseRegion(False)
+            If RegionName.Length = 0 Then Return
+        End If
+
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+
+        ' Create an instance of the open file dialog box. Set filter options and filter index.
+        Using openFileDialog1 = New OpenFileDialog With {
+            .InitialDirectory = BackupPath(),
+            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+            }
+
+            ' Call the ShowDialog method to show the dialog box.
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+
+                Dim offset = VarChooser(RegionName)
+
+                Dim thing = openFileDialog1.FileName
+                If thing.Length > 0 Then
+                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
+
+                    If CheckRegionFit(RegionUUID, thing) Then Return
+
+                    Dim Group = Group_Name(RegionUUID)
+
+                    Dim ForceParcel As String = ""
+                    If PropForceParcel() Then ForceParcel = " --force-parcels "
+                    Dim ForceTerrain As String = ""
+                    If PropForceTerrain Then ForceTerrain = " --force-terrain "
+                    Dim ForceMerge As String = ""
+                    If PropForceMerge Then ForceMerge = " --merge "
+                    Dim UserName As String = ""
+                    If Not PropForceMerge Then
+                        Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
+                        If m = vbNo Or m = vbCancel Then Return
+                    End If
+
+                    If PropUserName.Length > 0 Then UserName = $" --default-user ""{PropUserName}"" "
+                    Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
+
+                    Dim obj As New TaskObject With {
+                        .TaskName = FormSetup.TaskName.LoadOneOarTask,
+                        .Command = v
+                    }
+                    FormSetup.RebootAndRunTask(RegionUUID, obj)
+                End If
             End If
 
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-
-            ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Using openFileDialog1 = New OpenFileDialog With {
-                .InitialDirectory = BackupPath(),
-                .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
-                .FilterIndex = 1,
-                .Multiselect = False
-                }
-
-                ' Call the ShowDialog method to show the dialog box.
-                Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-                ' Process input if the user clicked OK.
-                If UserClickedOK = DialogResult.OK Then
-
-                    Dim offset = VarChooser(RegionName)
-
-                    Dim thing = openFileDialog1.FileName
-                    If thing.Length > 0 Then
-                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
-
-                        If CheckRegionFit(RegionUUID, thing) Then Return
-
-                        Dim Group = Group_Name(RegionUUID)
-
-                        Dim ForceParcel As String = ""
-                        If PropForceParcel() Then ForceParcel = " --force-parcels "
-                        Dim ForceTerrain As String = ""
-                        If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                        Dim ForceMerge As String = ""
-                        If PropForceMerge Then ForceMerge = " --merge "
-                        Dim UserName As String = ""
-                        If Not PropForceMerge Then
-                            Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
-                            If m = vbNo Or m = vbCancel Then Return
-                        End If
-
-                        If PropUserName.Length > 0 Then UserName = $" --default-user ""{PropUserName}"" "
-                        Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
-
-                        Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.LoadOneOarTask,
-                            .Command = v
-                        }
-                        FormSetup.RebootAndRunTask(RegionUUID, obj)
-                    End If
-                End If
-
-            End Using
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
+        End Using
 
     End Sub
 
