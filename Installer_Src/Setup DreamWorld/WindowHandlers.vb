@@ -6,9 +6,17 @@
 #End Region
 
 Imports System.Threading
-Imports System.Runtime.InteropServices
+Imports System.Collections.Concurrent
 
 Module WindowHandlers
+
+    Private _exitList As New ConcurrentDictionary(Of String, String)
+
+    Public ReadOnly Property ExitList As ConcurrentDictionary(Of String, String)
+        Get
+            Return _exitList
+        End Get
+    End Property
 
 #Region "Enum"
 
@@ -57,9 +65,7 @@ Module WindowHandlers
             command = ToLowercaseKeys(command)
             Dim PID As Integer
             If RegionUUID <> RobustName() Then
-
                 PID = ProcessID(RegionUUID)
-
                 If PID > 0 Then
                     FreezeThaw.FreezeThaw(RegionUUID, False)
                     Try
@@ -146,12 +152,6 @@ Module WindowHandlers
 
     End Sub
 
-    ''' <summary>
-    ''' Returns a handle to the window, by process list, or by reading the PID file.
-    ''' </summary>
-    ''' <param name="Groupname">Name of the DOS box</param>
-    ''' <returns>Handle to a window to Intptr.zero</returns>
-
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname <> RobustName() Then
@@ -176,6 +176,11 @@ Module WindowHandlers
 
     End Function
 
+    ''' <summary>
+    ''' Returns a handle to the window, by process list, or by reading the PID file.
+    ''' </summary>
+    ''' <param name="Groupname">Name of the DOS box</param>
+    ''' <returns>Handle to a window to Intptr.zero</returns>
     Public Function GetPIDofRobust() As Integer
 
         For Each pList As Process In Process.GetProcessesByName("Robust")
@@ -234,6 +239,20 @@ Module WindowHandlers
         Return w
 
     End Function
+
+    Public Sub OpensimExited(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        Dim S As System.Diagnostics.Process = CType(sender, Process)
+        Dim RegionUUID = FindRegionUUIDByPID(S.Id)
+        Dim GroupName = Group_Name(RegionUUID)
+        Debug.Print($"{GroupName} Exited")
+        If RegionUUID.Length = 0 Then
+            Return
+        End If
+
+        ExitList.TryAdd(GroupName, "Exit")
+
+    End Sub
 
     Public Sub SendMsg(msg As String)
 

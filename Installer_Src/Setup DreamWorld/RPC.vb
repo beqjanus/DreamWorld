@@ -227,9 +227,7 @@ Module RPC
     Private Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
 
         Dim RegionPort = GroupPort(FromRegionUUID)
-
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
-
         Dim parameters = New List(Of Hashtable) From {ht}
         Try
 

@@ -398,7 +398,7 @@ Module RegionMaker
                         Continue For
                     End If
 
-                    Debug.Print($"Looking in {Region_Name(DestUUID)}")
+                    ' Debug.Print($"Looking in {Region_Name(DestUUID)}")
 
                     ' skip any offline regions, no one is in there
                     If RegionStatus(DestUUID) = SIMSTATUSENUM.Stopped _

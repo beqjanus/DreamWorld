@@ -489,7 +489,7 @@ Module SmartStart
                     Return True
                 Else    ' needs to be captured into the event handler
 
-                    ' TextPrint(BootName & " " & My.Resources.Running_word)
+                    TextPrint(BootName & " " & My.Resources.Running_word)
                     Dim PID As Integer = GetPIDofWindow(GroupName)
                     Try
                         Dim P = Process.GetProcessById(PID)
@@ -511,7 +511,6 @@ Module SmartStart
                             SendToOpensimWorld(RegionUUID, 0)
                         End If
                         ProcessID(UUID) = PID
-
                     Next
                     'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
@@ -639,8 +638,11 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
-                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+            FreezeThaw.FreezeThaw(RegionUUID, False)
+        End If
+
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Then
 
@@ -652,20 +654,6 @@ Module SmartStart
             PropUpdateView = True ' make form refresh
 
         End If
-
-    End Sub
-
-    Private Sub OpensimExited(ByVal sender As Object, ByVal e As System.EventArgs)
-
-        Dim S As System.Diagnostics.Process = CType(sender, Process)
-        Dim RegionUUID = FindRegionUUIDByPID(S.Id)
-        Dim GroupName = Group_Name(RegionUUID)
-        Debug.Print($"{GroupName} Exited")
-        If RegionUUID.Length = 0 Then
-            Return
-        End If
-
-        ExitList.exitList.TryAdd(GroupName, "Exit")
 
     End Sub
 

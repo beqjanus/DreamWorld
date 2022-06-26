@@ -350,7 +350,6 @@
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Disk.vb" />
     <Compile Include="Events.vb" />
-    <Compile Include="ExitList.vb" />
     <Compile Include="FormBlockify.Designer.vb">
       <DependentUpon>FormBlockify.vb</DependentUpon>
     </Compile>

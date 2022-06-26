@@ -330,9 +330,7 @@ Public Class FormSetup
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" Then
-                    ResumeRegion(RegionUUID)
-                End If
+
                 If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                     TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                     ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
@@ -400,6 +398,8 @@ Public Class FormSetup
         Zap("cports")
 
         TimerMain.Stop()
+
+        ProcessIdDict.Clear()
 
         PropInstanceHandles.Clear()
         PropOpensimIsRunning() = False
@@ -1061,10 +1061,10 @@ Public Class FormSetup
     Public Sub ProcessQuit()
 
         ' now look at the exit stack
-        While Not ExitList.exitList.IsEmpty
+        While Not ExitList.IsEmpty
 
-            Dim GroupName = ExitList.exitList.Keys.First
-            Dim Reason = ExitList.exitList.Item(GroupName) ' NoLogin or Exit
+            Dim GroupName = ExitList.Keys.First
+            Dim Reason = ExitList.Item(GroupName) ' NoLogin or Exit
 
             Application.DoEvents()
 
@@ -1081,6 +1081,9 @@ Public Class FormSetup
 
                 PID = ProcessID(RegionUUID)
                 ProcessID(RegionUUID) = 0
+                If ProcessIdDict.ContainsKey(PID) Then
+                    ProcessIdDict.Remove(PID)
+                End If
                 DelPidFile(RegionUUID) 'kill the disk PID
 
                 If PropInstanceHandles.ContainsKey(PID) Then
@@ -1104,7 +1107,7 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                ExitList.exitList.TryRemove(RegionUUID, out)
+                ExitList.TryRemove(RegionUUID, out)
                 Continue While
             End If
 
@@ -1114,12 +1117,12 @@ Public Class FormSetup
             BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
-                ExitList.exitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, out)
                 Continue While
             End If
 
             If Status = SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In RegionUuidListByName(GroupName)
+                For Each UUID As String In RegionUuidListByName(GroupName)
                     RegionStatus(UUID) = SIMSTATUSENUM.Stopped
                 Next
 
@@ -1128,7 +1131,7 @@ Public Class FormSetup
                 End If
 
                 PropUpdateView = True ' make form refresh
-                ExitList.exitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
@@ -1139,7 +1142,7 @@ Public Class FormSetup
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
                 PropUpdateView = True
-                ExitList.exitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
@@ -1164,7 +1167,7 @@ Public Class FormSetup
                         If (yesno = vbYes) Then
                             Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                         End If
-                        ExitList.exitList.TryRemove(GroupName, out)
+                        ExitList.TryRemove(GroupName, out)
                         Continue While
                     End If
 
@@ -1178,11 +1181,11 @@ Public Class FormSetup
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
 
-                    ExitList.exitList.TryRemove(GroupName, out)
+                    ExitList.TryRemove(GroupName, out)
                     Continue While
                 Else
                     If PropAborting Then
-                        ExitList.exitList.TryRemove(GroupName, out)
+                        ExitList.TryRemove(GroupName, out)
                         Continue While
                     End If
 
@@ -1198,7 +1201,7 @@ Public Class FormSetup
                 StopGroup(GroupName)
             End If
 
-            ExitList.exitList.TryRemove(GroupName, out)
+            ExitList.TryRemove(GroupName, out)
 
         End While
 
@@ -1533,16 +1536,10 @@ Public Class FormSetup
             If (Status = SIMSTATUSENUM.Booting Or
                 Status = SIMSTATUSENUM.Booted Or
                 Status = SIMSTATUSENUM.Suspended) Then
-                ResumeRegion(RegionUUID)
 
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
                 ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
-            Else
-                ' Smart Start Enabled and stopped
-                'RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                'Application.DoEvents()
-                'ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             End If
             Application.DoEvents()
         Next
@@ -1909,7 +1906,7 @@ Public Class FormSetup
         Next
 
         Try
-            ExitList.exitList.Clear()
+            ExitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
