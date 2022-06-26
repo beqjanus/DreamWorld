@@ -83,7 +83,7 @@ Module SmartStart
         '''
         If Settings.SequentialMode = 0 Then
             Return
-        ElseIf Settings.SequentialMode = 1 Then
+        ElseIf Settings.SequentialMode = 2 Then
             Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
@@ -94,7 +94,7 @@ Module SmartStart
                     'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
                     Dim status = RegionStatus(RegionUUID)
-                    BreakPoint.Print(GetStateString(status))
+                    BreakPoint.Print($"{Region_Name(RegionUUID)} is {GetStateString(status)}")
                     If CBool((status = SIMSTATUSENUM.Booting) Or
                         (status = SIMSTATUSENUM.RecyclingDown) Or
                         (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
@@ -117,7 +117,7 @@ Module SmartStart
                 Sleep(1000)
             End While
 
-        ElseIf Settings.SequentialMode = 2 Then ' Concurrent mode
+        ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
 
             If Not Settings.BootOrSuspend Then
                 Return
