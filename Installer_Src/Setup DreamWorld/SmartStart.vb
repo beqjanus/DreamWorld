@@ -294,6 +294,11 @@ Module SmartStart
 
     End Function
 
+    ''' <summary>
+    ''' Parses web server input
+    ''' </summary>
+    ''' <param name="post"></param>
+    ''' <returns></returns>
     Public Function SmartStartParse(post As String) As String
 
         ' Smart Start AutoStart Region mode
@@ -424,11 +429,12 @@ Module SmartStart
 
     ReadOnly BootupLock As New Object
 
+    ''' <summary>Starts Opensim for a given name</summary>
+    ''' <param name="BootName">Name of region to start</param>
+    ''' <returns>success = true</returns>
+    '''
     Public Function Boot(BootName As String) As Boolean
-        ''' <summary>Starts Opensim for a given name</summary>
-        ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>
-        '''
+
         SyncLock BootupLock
 
             PropOpensimIsRunning() = True
