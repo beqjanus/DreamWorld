@@ -39,7 +39,7 @@ Module IAR
                 If thing.Length > 0 Then
                     thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
                     If LoadIARContent(thing) Then
-                        TextPrint(My.Resources.isLoading & " " & thing)
+                        TextPrint($"{My.Resources.isLoading} {thing}")
                     End If
                 End If
             End If
@@ -93,7 +93,7 @@ Module IAR
                 If u.Length > 0 Then
                     ConsoleCommand(UUID, $"load iar --merge {u} ""{p}"" ""{thing}""")
                     SendMessage(UUID, "IAR content is loading")
-                    TextPrint(My.Resources.isLoading & vbCrLf & p)
+                    TextPrint($"{My.Resources.isLoading} {vbCrLf}{p}")
                 Else
                     TextPrint(My.Resources.Canceled_IAR)
                 End If
