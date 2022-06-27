@@ -83,8 +83,8 @@ Module SmartStart
         '''
         If Settings.SequentialMode = 0 Then
             Return
-        ElseIf Settings.SequentialMode = 1 Then
-            Dim ctr = 60 ' 1 minute max to start a region
+        ElseIf Settings.SequentialMode = 2 Then
+            Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
@@ -112,7 +112,7 @@ Module SmartStart
                 Sleep(1000)
             End While
 
-        ElseIf Settings.SequentialMode = 2 Then ' Concurrent mode
+        ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
 
             If Not Settings.BootOrSuspend Then
                 Return
