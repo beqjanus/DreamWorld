@@ -16,7 +16,6 @@ Public Class FormSetup
 
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
-    Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
 
     Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
@@ -42,13 +41,9 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-
     Private _WasRunning As String = ""
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
-#Enable Warning CA2000 ' Dispose objects before losing scope
-
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ClassScreenpos
     Private searcher As ManagementObjectSearcher
     Private speed As Double
@@ -56,32 +51,11 @@ Public Class FormSetup
     Private speed2 As Double
     Private speed3 As Double
     Private TimerisBusy As Boolean
+    Private wql As New ObjectQuery("Select TotalVirtualMemorySize, FreeVirtualMemory ,TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
+#Enable Warning CA2000 ' Dispose objects before losing scope
+
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ws As NetServer
-
-    ''' <summary>
-    ''' The list of commands
-    ''' </summary>
-    Public Enum TaskName As Integer
-
-        None = 0
-        LaunchBackupper = 1        ' run backups via XMLRPC
-        TeleportClicked = 2     ' click the teleport button in the region pop up
-        LoadOar = 3             ' for Loading a series of OARS
-        LoadOneOarTask = 4      ' loading One Oar
-        LoadOARContent = 5      ' From the map click
-        SaveOneOAR = 6          ' Save this one OAR click
-        RebuildTerrain = 7      ' Smart Terrain
-        SaveTerrain = 8        ' Dump one region to disk
-        ApplyTerrainEffect = 9 ' Change the terrain
-        TerrainLoad = 10      ' Change one of them
-        ApplyPlant = 11        ' Plant trees
-        BakeTerrain = 12       ' save it permanently
-        LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
-        DeleteTree = 14        ' kill off all trees
-        Revert = 15             ' revert terrain
-        SaveAllIARS = 16        ' save all IARS
-
-    End Enum
 
 #End Region
 
@@ -836,7 +810,6 @@ Public Class FormSetup
         Application.DoEvents()
 
         ' Boot RAM Query
-        Dim wql = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
 
@@ -1478,32 +1451,6 @@ Public Class FormSetup
 
 #Region "Booting"
 
-    ''' <summary>
-    ''' Queue a task to occur after a region is booted.
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <param name="Taskname">A Task Name</param>
-    Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
-
-        BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
-
-        ReBoot(RegionUUID)
-        Application.DoEvents()
-        ' TODO add task queue
-        ' so we can have more than one command
-        'TaskQue.Add(TObj)
-        If ToDoList.ContainsKey(RegionUUID) Then
-            ToDoList(RegionUUID) = TObj
-        Else
-            ToDoList.Add(RegionUUID, TObj)
-        End If
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            ResumeRegion(RegionUUID)
-            RunTaskList(RegionUUID)
-        End If
-
-    End Sub
-
     Public Sub RestartAllRegions()
 
         PropOpensimIsRunning() = True
@@ -1542,61 +1489,6 @@ Public Class FormSetup
             End If
             Application.DoEvents()
         Next
-
-    End Sub
-
-    ''' <summary>
-    ''' Run a task after region boots
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    Public Sub RunTaskList(RegionUUID As String)
-
-        If ToDoList.ContainsKey(RegionUUID) Then
-            BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
-            Dim Task = ToDoList.Item(RegionUUID)
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-                BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
-                ToDoList.Remove(RegionUUID)
-                Dim T = Task.TaskName
-                Select Case T
-                    Case TaskName.LaunchBackupper      '1
-                        Backupper(RegionUUID, Task.Command)
-                    Case TaskName.TeleportClicked   '2
-                        TeleportClicked(RegionUUID)
-                    Case TaskName.LoadOar   '2
-                        LoadOar(RegionUUID)
-                    Case TaskName.LoadOneOarTask    '4
-                        LoadOneOarTask(RegionUUID, Task)
-                    Case TaskName.LoadOARContent    '5
-                        LoadOARContent2(RegionUUID, Task)
-                    Case TaskName.SaveOneOAR    '6
-                        SaveOneOar(RegionUUID, Task)
-                    Case TaskName.RebuildTerrain    '7
-                        RebuildTerrain(RegionUUID)
-                    Case TaskName.SaveTerrain  '8
-                        Save_Terrain(RegionUUID)
-                    Case TaskName.ApplyTerrainEffect    '9
-                        ApplyTerrainEffect(RegionUUID)
-                    Case TaskName.TerrainLoad       '10
-                        Load_Save(RegionUUID)
-                    Case TaskName.ApplyPlant       '11
-                        Apply_Plant(RegionUUID)
-                    Case TaskName.BakeTerrain      '12
-                        Bake_Terrain(RegionUUID)
-                    Case TaskName.LoadAllFreeOARs  '13
-                        Load_AllFreeOARs(RegionUUID, Task)
-                    Case TaskName.DeleteTree       '14
-                        Delete_Tree(RegionUUID)
-                    Case TaskName.Revert             '15
-                        Revert(RegionUUID)
-                    Case TaskName.SaveAllIARS        '16
-                        SaveThreadIARS()
-                    Case Else
-                        BreakPoint.Print("Impossible task")
-                End Select
-            End If
-
-        End If
 
     End Sub
 
@@ -1868,7 +1760,7 @@ Public Class FormSetup
 
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
-            PercentCPU.Text = $"CPU {CPUAverageSpeed / 100:P1}"
+            PercentCPU.Text = $"CPU {speed / 100:P1}"
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -1877,12 +1769,27 @@ Public Class FormSetup
         Try
             Dim results As ManagementObjectCollection = Searcher1.Get()
             For Each result In results
-                Dim value As Double = (Convert.ToDouble(result("TotalVisibleMemorySize").ToString, CultureInfo.InvariantCulture) - Convert.ToDouble(result("FreePhysicalMemory").ToString, CultureInfo.InvariantCulture)) / Convert.ToDouble(result("TotalVisibleMemorySize").ToString, Globalization.CultureInfo.InvariantCulture) * 100
-                MyRAMCollection.Add(value)
+                Dim d As Double
+                Dim f As Double
+                Dim r As Double
+                Dim v As Double
+                Try
+                    d = Convert.ToDouble(result("TotalVisibleMemorySize"))
+                    f = Convert.ToDouble(result("FreePhysicalMemory"))
+                    r = (d - f) / d * 100
+                    d = Convert.ToDouble(result("TotalVirtualMemorySize"))
+                    f = Convert.ToDouble(result("FreeVirtualMemory"))
+                    v = (d - f) / 1024 / 1024
+                Catch
+                End Try
+
+                MyRAMCollection.Add(r)
                 If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
-                value = Math.Round(value)
-                Settings.Ramused = value
-                PercentRAM.Text = $"RAM {value / 100:p1}"
+                r = Math.Round(r)
+                v = Math.Round(v)
+                Settings.Ramused = r
+                PercentRAM.Text = $"{r / 100:p1} RAM Used"
+                Virtual.Text = $"{v} MB Virtual RAM"
             Next
             results.Dispose()
         Catch ex As Exception

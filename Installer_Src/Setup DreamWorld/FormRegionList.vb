@@ -1497,7 +1497,7 @@ SetWindowOnTop_Err:
                         Dim component1 As Process = CachedProcess(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                         TotalRam += Memory
-                        item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))
+                        item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " MB")
                     Catch ex As Exception
                         item1.SubItems.Add("0")
                     End Try
@@ -1744,7 +1744,7 @@ SetWindowOnTop_Err:
             End If
             TotalRegionCount += 1
         Next
-        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word} RAM: {TotalRam.ToString("0.0", Globalization.CultureInfo.CurrentCulture)}"
+        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word}.  Total RAM Used: {TotalRam.ToString("0.0", Globalization.CultureInfo.CurrentCulture)} MB"
 
     End Sub
 

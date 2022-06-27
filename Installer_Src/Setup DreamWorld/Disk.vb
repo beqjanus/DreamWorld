@@ -4,11 +4,11 @@ Imports System.Threading
 Module Disk
 
 #Region "Disk"
+
     Private ReadOnly Sleeping As New List(Of String)
 
-
-
 #Region "Freeze"
+
     Public Sub FreezeAll()
 
         Dim running As Boolean
@@ -76,6 +76,7 @@ Module Disk
     End Sub
 
 #End Region
+
     Public Function CalcDiskFree() As Long
 
         Dim d = DriveInfo.GetDrives()
@@ -103,7 +104,7 @@ Module Disk
                     Dim tt = My.Resources.Available
                     Dim Text = $"{Percent:P1} {tt}"
 
-                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
+                    FormSetup.DiskSize.Text = $"{x}: {Text} "
                     Exit For
                 End If
 
@@ -114,6 +115,7 @@ Module Disk
         Return Free
 
     End Function
+
 #End Region
 
 End Module

@@ -160,6 +160,7 @@ Partial Class FormSetup
         Me.ConnectToIceCastToolStripMenuItemIcecast = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.Virtual = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -179,7 +180,7 @@ Partial Class FormSetup
         '
         Me.PercentCPU.AutoSize = True
         Me.PercentCPU.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentCPU.Location = New System.Drawing.Point(183, 0)
+        Me.PercentCPU.Location = New System.Drawing.Point(64, 0)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(49, 15)
         Me.PercentCPU.TabIndex = 2
@@ -190,7 +191,7 @@ Partial Class FormSetup
         '
         Me.PercentRAM.AutoSize = True
         Me.PercentRAM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentRAM.Location = New System.Drawing.Point(93, 0)
+        Me.PercentRAM.Location = New System.Drawing.Point(119, 0)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(55, 15)
         Me.PercentRAM.TabIndex = 1
@@ -229,28 +230,32 @@ Partial Class FormSetup
         '
         Me.DiskSize.AutoSize = True
         Me.DiskSize.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DiskSize.Location = New System.Drawing.Point(273, 0)
+        Me.DiskSize.Location = New System.Drawing.Point(275, 0)
         Me.DiskSize.Name = "DiskSize"
-        Me.DiskSize.Size = New System.Drawing.Size(0, 15)
+        Me.DiskSize.Size = New System.Drawing.Size(48, 15)
         Me.DiskSize.TabIndex = 3
+        Me.DiskSize.Text = "0% Disk"
         Me.DiskSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 3, 0)
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.ColumnCount = 5
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarLabel, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 4, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Virtual, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 2, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(174, 31)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(360, 23)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 23)
         Me.TableLayoutPanel1.TabIndex = 18611
         '
         'TextBox1
@@ -308,7 +313,7 @@ Partial Class FormSetup
         Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         '
         'ConsoleToolStripMenuItem1
@@ -316,7 +321,7 @@ Partial Class FormSetup
         Me.ConsoleToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHide, Me.mnuShow, Me.mnuHideAllways})
         Me.ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ConsoleToolStripMenuItem1.Name = "ConsoleToolStripMenuItem1"
-        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(157, 22)
         Me.ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
         Me.ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
         '
@@ -347,7 +352,7 @@ Partial Class FormSetup
         '
         Me.LanguageToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.users1
         Me.LanguageToolStripMenuItem1.Name = "LanguageToolStripMenuItem1"
-        Me.LanguageToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.LanguageToolStripMenuItem1.Size = New System.Drawing.Size(157, 22)
         Me.LanguageToolStripMenuItem1.Text = "Language"
         '
         'KeepOnTopToolStripMenuItem
@@ -355,7 +360,7 @@ Partial Class FormSetup
         Me.KeepOnTopToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
         Me.KeepOnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.KeepOnTopToolStripMenuItem.Name = "KeepOnTopToolStripMenuItem"
-        Me.KeepOnTopToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.KeepOnTopToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.KeepOnTopToolStripMenuItem.Text = "Window"
         '
         'OnTopToolStripMenuItem
@@ -377,7 +382,7 @@ Partial Class FormSetup
         Me.AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.AdvancedSettingsToolStripMenuItem.Name = "AdvancedSettingsToolStripMenuItem"
         Me.AdvancedSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
         '
@@ -1137,6 +1142,17 @@ Partial Class FormSetup
         Me.MenuStrip1.Size = New System.Drawing.Size(665, 26)
         Me.MenuStrip1.TabIndex = 0
         '
+        'Virtual
+        '
+        Me.Virtual.AutoSize = True
+        Me.Virtual.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Virtual.Location = New System.Drawing.Point(180, 0)
+        Me.Virtual.Name = "Virtual"
+        Me.Virtual.Size = New System.Drawing.Size(89, 15)
+        Me.Virtual.TabIndex = 4
+        Me.Virtual.Text = "0% Virtual RAM"
+        Me.Virtual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'FormSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1304,4 +1320,5 @@ Partial Class FormSetup
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents SearchHelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Virtual As Label
 End Class
