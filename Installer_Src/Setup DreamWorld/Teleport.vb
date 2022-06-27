@@ -42,7 +42,7 @@ Module Teleport
 
                             ' min 1000 sleep on suspend minimum
                             If Settings.TeleportSleepTime = 0 And Not Settings.BootOrSuspend Then
-                                Sleep(500)
+                                'Sleep(500)
                             ElseIf Settings.TeleportSleepTime > 0 And Not Settings.BootOrSuspend Then
                                 RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                                 Sleep(Settings.TeleportSleepTime * 1000)

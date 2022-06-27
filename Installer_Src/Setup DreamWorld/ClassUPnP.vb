@@ -167,8 +167,7 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public Function Exists(ByVal port As Integer, ByVal prot As MyProtocol) As Boolean
         Try
-            'Dim x = staticMapping.Count
-
+            If Not staticEnabled Then Return False
             ' Begin checking
             For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
                 ' Compare

@@ -50,6 +50,10 @@ Public Class FormCaches
 
     Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        If GridCacheCheckbox.Checked Then
+            DeleteOnlineUsers()
+        End If
+
         If ScriptCheckBox1.Checked Then
             WipeScripts(False)
         End If
@@ -112,7 +116,7 @@ Public Class FormCaches
         AssetCheckBox3.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         ImageCheckBox4.Text = Global.Outworldz.My.Resources.Image_Cache_word
         MeshCheckBox5.Text = Global.Outworldz.My.Resources.Mesh_Cache_word
-        GroupBox1.Text = Global.Outworldz.My.Resources.Choose_Cache ' "Choose which cache to empty"
+        GridUsers.Text = Global.Outworldz.My.Resources.Choose_Cache ' "Choose which cache to empty"
         GroupBox2.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         GroupBox3.Text = Global.Outworldz.My.Resources.Viewer_Cache_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -209,7 +213,6 @@ Public Class FormCaches
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
-
 
 #End Region
 

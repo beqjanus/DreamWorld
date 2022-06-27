@@ -161,7 +161,7 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' Diva Wifi User Name (Admin)
+    ''' Diva Wifi User Name (Wifi)
     ''' </summary>
     ''' <returns>Admin</returns>
     Public Property AdminLast() As String
@@ -184,6 +184,7 @@ Public Class MySettings
         Set
             SetMySetting("Allow_grid_gods", CStr(Value))
         End Set
+
     End Property
 
     ''' <summary>
@@ -655,6 +656,19 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BroadcastTideInfo", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' BulkLoadOwner User Name
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property BulkLoadOwner() As String
+        Get
+            Return GetMySetting("BulkLoadOwner", "")
+        End Get
+        Set
+            SetMySetting("BulkLoadOwner", Value)
         End Set
     End Property
 
@@ -2053,6 +2067,19 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' ShowRegionListOnBoot brings up the Region list if enabled
+    ''' </summary>
+    ''' <returns>T/F</returns>
+    Public Property ShowRegionListOnBoot() As Boolean
+        Get
+            Return CBool(GetMySetting("ShowRegionListOnBoot", "True"))
+        End Get
+        Set
+            SetMySetting("ShowRegionListOnBoot", CStr(Value))
+        End Set
+    End Property
+
     Public Property ShowToForeignUsers() As Boolean
         Get
             Return CType(GetMySetting("ShowToForeignUsers", "False"), Boolean)
@@ -2399,11 +2426,11 @@ Public Class MySettings
     Public Property Total_InnoDB_GBytes() As Double
         Get
             Dim amount = Convert.ToDouble("0" & GetMySetting("Total_InnoDB_GBytes", "1"), Globalization.CultureInfo.InvariantCulture)
-            If amount > 4 Then amount = 4
+            If amount > 2 Then amount = 2
             Return amount
         End Get
         Set
-            If Value > 4 Then Value = 4
+            If Value > 2 Then Value = 2
             SetMySetting("Total_InnoDB_GBytes", CType(Value, String))
         End Set
     End Property
@@ -2630,9 +2657,6 @@ Public Class MySettings
                 Apacheout.Add(Item)
             End If
         Next
-        If Not found Then
-            BreakPoint.Print("Error: Did not find " & Name & " to set value of " & value)
-        End If
         Apachein.Clear()
         For Each item In Apacheout
             Apachein.Add(item)

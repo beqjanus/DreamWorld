@@ -1,9 +1,72 @@
 ﻿Imports System.Threading
+Imports Ionic.Zip
 
 Module Backup
 
 #Region "Backups"
 
+    ''' <summary>
+    ''' Zip up Regions
+    ''' </summary>
+    Public Sub BackupINI()
+
+        Dim Name = "Region"
+        RunningBackupName = Name
+        Dim zipused As Boolean
+        'used to zip it, zip it good
+        Dim _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Region_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+        FileIO.FileSystem.CreateDirectory(_folder)
+
+        Dim Foldername = "Region_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+
+        Using Z = New ZipFile(Bak) With {
+                .UseZip64WhenSaving = Zip64Option.AsNecessary,
+                .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+            }
+
+            Try
+                Dim sourcePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions")
+                Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
+                For Each fileSystemInfo In sourceDirectoryInfo.GetDirectories
+                    Try
+                        Dim folder = fileSystemInfo.FullName
+                        Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
+                        Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
+                        For Each RegionName In RegionDirectoryInfo.GetFileSystemInfos
+                            If RegionName.Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
+                                Dim shortname = RegionName.Name.Replace(".ini", "")
+                                Z.AddFile(IO.Path.Combine(Regionpath, RegionName.Name), $"\Regions\{shortname}\Region\")
+                                zipused = True
+                            End If
+                        Next
+                    Catch ex As Exception
+                        BreakPoint.Print(ex.Message)
+                    End Try
+                Next
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+
+            Try
+                If zipused = True Then
+                    Z.Save()
+                    Sleep(500)
+                    MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                End If
+
+                DeleteFolder(_folder)
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+
+        End Using
+    End Sub
+
+    ''' <summary>
+    ''' Get the path to the Autobackup folder. Make it if necessary
+    ''' </summary>
+    ''' <returns>file path</returns>
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
@@ -25,6 +88,9 @@ Module Backup
 
 #Region "Tasks"
 
+    ''' <summary>
+    ''' Background backup all OARS as a thread
+    ''' </summary>
     Public Sub BackupAllRegions()
 
 #Disable Warning BC42016 ' Implicit conversion
@@ -36,6 +102,10 @@ Module Backup
         SaveIARThread.Start()
 
     End Sub
+
+    ''' <summary>
+    ''' Background Thread to save all OARS
+    ''' </summary>
 
     Public Sub BackupAllRegionsTask()
 
@@ -50,7 +120,7 @@ Module Backup
          DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.RPCBackupper,
+                .TaskName = FormSetup.TaskName.LaunchBackupper,
                 .Command = file
             }
             FormSetup.RebootAndRunTask(RegionUUID, Obj)
@@ -61,6 +131,7 @@ Module Backup
         Next
     End Sub
 
+    '' must use console as otherwise Smart Start will shutdown
     Public Sub Backupper(RegionUUID As String, file As String)
 
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""")

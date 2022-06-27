@@ -273,10 +273,9 @@ Module Robust
                 Continue For
             End If
 
-            ' ban MAC Addresses with and without caps and :
+            ' ban MAC Addresses
             Dim result As Guid
             If Guid.TryParse(s, result) Then
-                s = s.ToUpperInvariant
                 MACString += s & " " ' delimiter is a " " and  not a pipe
                 Continue For
             End If
@@ -397,7 +396,8 @@ Module Robust
         DoBanList(INI)
 
         ' Smart Start cannot boot a HG region so send them to welcome.
-        INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(Settings.Smart_Start))
+        'INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(Settings.Smart_Start))
+        INI.SetIni("GatekeeperService", "AllowTeleportsToAnyRegion", CStr(True))
 
         INI.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
         INI.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
@@ -522,7 +522,7 @@ Module Robust
                 .Timeout = 2000
             }
             Dim url As String
-            If Settings.ServerType = "Robust" Then
+            If Settings.ServerType = RobustServerName Then
                 url = "http://" & Settings.LANIP & ":" & Settings.HttpPort & "/index.php?version"
             Else
                 url = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version"

@@ -1,7 +1,52 @@
 REVISIONS FOR DREAMGRID
-This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld. Click to open the file whose history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, click until you have found the changes you are interested in viewing.
 
-V4.999
+V5.11 Release 
+Oops. I left some debug in, so restart regions did not work. 
+
+V5.01 Post-release fixes
+Diva (in Robust) exposed a Denial of Service attack vector that was fixed by Diva just this week. We've always had the fix since I first spotted and reported it a year ago. But the 4.999's didn't have it due to the new Opensim.
+Banlist did not accept Mac addresses due to Upper Case bug
+Gridusers table was deleted at startup which led to side effects. Gridusers delete deleted.
+Region List now has a checkbox in Windows->Show On Boot.  If checked, the region list will appear on boot. if not, not. Default: Not.
+Smart Boot screen changed a bit. Added another tab to make clear that the endless land and sea is not always  part of Smart Start.
+If you are in a Smart Boot region, and set the pulldown to 1, then the regions next to you will boot so you can walk there.  The larger the number the firther away a region will boot so you canm walk or see it. 
+Added a "Blockify Regions" function to Settings->Regions. This lets you reorganize the entire list of regions into an alphabetical order grid, with a preferred spacing and a preferred width.
+Moved and rebuilt the Bulk Region Loader to be much faster and more reliable. It is now in Regions.  It creates all 175 regions in a few seconds, then boots them and load them, with OARS. Itys restartable, too, so I you run it later, any newly published regions will appear.
+
+
+V5.0
+Push notification Release
+
+V4.99993
+Fixed the surround Sim features in Smart Boot. It would not always surround a region.
+The surrounding regions will be powered on if you have Smart Start on and a region next to you is smart start enabled.  The number of regions is controlled by the size of the region surround setting on the same page.
+Temp Regions are in the Estate SimSurround. 
+Temp regions are deleted if you stop the grid or start it.
+Flushes OARs to disk after they load with 'backup' command
+Ban list is lower case MAC addresses, UPPER CASE does not work.
+V4.99992
+Ai Austin spotted that the default landing spot in Regions->Maps was blank which caused a error in Opensim to be printed. Default is set back to 128,128,30 which is core default setting.
+David Monday reported that the Visitors list had him listed twice.  Old data in the table is now cleared if opensim is started from the beginning.
+New regions will have parcels with Scripts, Terrain editing, and Build off to help stop griefers. Scripts may go back on by default based on a survey this week. This has no effect on existing regions.
+Viewing the region console with the region popup "View Console"" sets the shutdown timer to 5 minutes to give you more time.
+MySQL now enables "innodb_doublewrite" buffer for better crash recovery. If Mysql is running as a service on a UPS/Generator, it is disabled for performance. 
+MySQL RAM use is also limited to 1 or 2 GB based on many calculated factors. 
+
+V4.99991
+Manuals:  Added more help to the troubleshooting guide.
+Windows:  SetWindowText(myhandle, windowName) is horrifically unreliable. Added a better retry loop with longer waits. 		  
+Bans: Read ban list at boot instead of waiting until you start, otherwise you might think it was gone.
+Region Editor: Added a editable default per region where people land. <128,1128,35> is the usual default
+Opensim: PhysicalPrimMax was getting the PhysicalPrimMin, then getting overwritten. Filed a Mantis and it was fixed.
+		AllowTeleportsToAnyRegion is broken in Opensim. This was what broke Hypergrid. Disabled it and HG works again. Its supposed to send all traffic to the Welcome region. Instead you get a protocol error.
+		Deregister regions and people when booting when no Opensims are running and in Grid mode.
+Region List: Exporting the region list left out the parcel permissions column.
+		     Region list shifted left a column at boot if Mysql was off.
+			 The HG visitors show up again.
+Security: Updated SSH.net due to a required security patch, spotted by CIM/Github.
+Sequential Pause: Retry loop fixes when starting regions one at a time.
+
+V4.9999
 Back to Opensim 0.9.2.2  eee11f5d5 ("Opensim Core d6760ec0ef ("a few changes for mantis 9006 attachment moveToTarget()"", 2022-05-29)
 The only thing not working is Smart Start.  This is because of changes inside Opensim 0.9.2.2
 Changing the Opensimworld Key immediately updates their web site.

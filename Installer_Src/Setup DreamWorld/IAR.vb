@@ -39,7 +39,7 @@ Module IAR
                 If thing.Length > 0 Then
                     thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
                     If LoadIARContent(thing) Then
-                        TextPrint(My.Resources.isLoading & " " & thing)
+                        TextPrint($"{My.Resources.isLoading} {thing}")
                     End If
                 End If
             End If
@@ -93,7 +93,7 @@ Module IAR
                 If u.Length > 0 Then
                     ConsoleCommand(UUID, $"load iar --merge {u} ""{p}"" ""{thing}""")
                     SendMessage(UUID, "IAR content is loading")
-                    TextPrint(My.Resources.isLoading & vbCrLf & p)
+                    TextPrint($"{My.Resources.isLoading} {vbCrLf}{p}")
                 Else
                     TextPrint(My.Resources.Canceled_IAR)
                 End If
@@ -138,10 +138,8 @@ Module IAR
 
                     Dim Name = SaveIAR.GAvatarName
 
-                    Dim opt As String = " --creators  "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & " "
-                    End If
+                    Dim opt As String = "  "
+
 
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
@@ -194,10 +192,6 @@ Module IAR
                         Return
                     End If
 
-                    Dim opt As String = " --creators  "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & ":" & Settings.HttpPort & " "
-                    End If
 
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
@@ -211,6 +205,8 @@ Module IAR
                     If Not SaveIAR.GModify Then
                         Perm += "M"
                     End If
+
+                    Dim opt As String = " "
 
                     If Perm.Length > 0 Then
                         opt += " --perm=" & Perm & " "
@@ -238,7 +234,7 @@ Module IAR
 
     Public Sub SaveThreadIARS()
 
-        Dim opt As String = " --creators  "
+        Dim opt As String = "   "
         If Settings.DNSName.Length > 0 Then
             opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
         End If
@@ -271,7 +267,7 @@ Module IAR
         Dim same As Integer = 0
         Dim fi = New System.IO.FileInfo(FolderAndFileName)
         While same < 15 And ctr > 0 And PropOpensimIsRunning
-            PokeGroupTimer(Group_Name(RegionUUID))
+            PokeRegionTimer(RegionUUID)
             Try
                 s = fi.Length
             Catch ex As Exception

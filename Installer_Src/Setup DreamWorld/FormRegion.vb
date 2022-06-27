@@ -843,6 +843,7 @@ Public Class FormRegion
 
     Private Sub EnabledCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnabledCheckBox.CheckedChanged
         If Initted1 Then Changed1 = True
+        If Not EnabledCheckBox.Checked Then DeregisterRegionUUID(RegionUUID)
     End Sub
 
     Private Sub EnableMaxPrims_text(sender As Object, e As EventArgs) Handles MaxPrims.TextChanged

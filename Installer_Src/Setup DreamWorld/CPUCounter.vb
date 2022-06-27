@@ -1,23 +1,22 @@
+Imports System.Collections.Concurrent
 Imports System.Threading
 
 Module CPUCounter
 
-    Public O As New CPUStuff With {
+    Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
+
+    Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
+
+    Private ReadOnly _regionHandles As New ConcurrentDictionary(Of Integer, String)
+
+    Private ReadOnly O As New CPUStuff With {
             .CounterList = CounterList,
             .CPUValues = CPUValues,
             .PropInstanceHandles = PropInstanceHandles
         }
 
-    Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
-    Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
-    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private _PCList As Dictionary(Of Integer, PerformanceCounter)
-
-    Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
-        Get
-            Return _counterList
-        End Get
-    End Property
+    Private CalcCPUIsBusy As Boolean
 
     Public ReadOnly Property CPUValues As Dictionary(Of String, Double)
         Get
@@ -25,16 +24,22 @@ Module CPUCounter
         End Get
     End Property
 
-    Public ReadOnly Property PCList As Dictionary(Of Integer, PerformanceCounter)
+    Public ReadOnly Property PropInstanceHandles As ConcurrentDictionary(Of Integer, String)
         Get
-            If _PCList Is Nothing Then _PCList = New Dictionary(Of Integer, PerformanceCounter)
-            Return _PCList
+            Return _regionHandles
         End Get
     End Property
 
-    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
+    Private ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
         Get
-            Return _regionHandles
+            Return _counterList
+        End Get
+    End Property
+
+    Private ReadOnly Property PCList As Dictionary(Of Integer, PerformanceCounter)
+        Get
+            If _PCList Is Nothing Then _PCList = New Dictionary(Of Integer, PerformanceCounter)
+            Return _PCList
         End Get
     End Property
 
@@ -56,63 +61,63 @@ Module CPUCounter
 
     Public Sub CalcCPU()
 
-        While PropOpensimIsRunning
+        If CalcCPUIsBusy Then
+            Return
+        End If
+        CalcCPUIsBusy = True
 
-            Dim OpensimProcesses() = Process.GetProcessesByName("Opensim")
-            Try
-                For Each p As Process In OpensimProcesses
-                    If PropInstanceHandles.ContainsKey(p.Id) Then
-                        Dim Gname As String = PropInstanceHandles.Item(p.Id)
-                        Dim c As PerformanceCounter = Nothing
-                        If Not CounterList.ContainsKey(Gname) Then
-                            Try
-                                Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                                    If counter IsNot Nothing Then
-                                        CounterList.Add(Gname, counter)
-                                        counter.NextValue() ' start the counter
-                                    End If
-                                End Using
-                            Catch ex As Exception
-                                CounterList.Item(Gname).Close()
-                                CounterList.Remove(Gname)
-                                CPUValues.Remove(Gname)
-                                Continue For
-                            End Try
-                        End If
+        If PropOpensimIsRunning Then
 
-                        If Not CPUValues.ContainsKey(Gname) Then
-                            CPUValues.Add(Gname, 0)
-                        Else
-                            Dim a As Double
-                            Try
-                                a = Convert.ToDouble(CounterList.Item(Gname).NextValue(), Globalization.CultureInfo.InvariantCulture)
-                            Catch ex As Exception
-                                CounterList.Item(Gname).Close()
-                            End Try
+            For Each RegionUUID In RegionUuids()
+                Application.DoEvents()
+                Dim RegionName = Region_Name(RegionUUID)
+                Dim PID = ProcessID(RegionUUID)
+                If PID = 0 Then
+                    Continue For
+                End If
 
-                            Dim b = (a / Environment.ProcessorCount)
-                            CPUValues.Item(Gname) = Math.Round(b, 3)
+                Dim c As PerformanceCounter = Nothing
 
-                        End If
-                    Else
-                        PropInstanceHandles.Add(p.Id, p.MainWindowTitle)
-                    End If
-                    Thread.Sleep(100)
-                Next
-            Catch
-                Try
-                    O.CounterList.Clear()
-                    O.CPUValues.Clear()
-                Catch
-                End Try
-            End Try
-            Thread.Sleep(5000)
+                If Not CounterList.ContainsKey(RegionName) Then
+                    Try
+                        Using counter As PerformanceCounter = GetPerfCounterForProcessId(PID)
+                            If counter IsNot Nothing Then
+                                Debug.Print($"> Creating new CPU counter for {RegionName}")
+                                CounterList.Add(RegionName, counter)
+                                counter.NextValue() ' start the counter
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        CounterList.Item(RegionName).Close()
+                        CounterList.Remove(RegionName)
+                        CPUValues.Remove(RegionName)
+                        Continue For
+                    End Try
+                End If
 
-        End While
+                If Not CPUValues.ContainsKey(RegionName) Then
+                    CPUValues.Add(RegionName, 0)
+                Else
+                    Dim a As Double
+                    Try
+                        a = Convert.ToDouble(CounterList.Item(RegionName).NextValue(), Globalization.CultureInfo.InvariantCulture)
+                    Catch ex As Exception
+                        ' CounterList.Item(RegionName).Close()
+                    End Try
+
+                    Dim b = (a / Environment.ProcessorCount)
+                    CPUValues.Item(RegionName) = Math.Round(b, 3)
+                    ' Debug.Print($"> CPU {RegionName} = {CStr(Math.Round(b, 3))}")
+                End If
+            Next
+
+        End If
+
+        CalcCPUIsBusy = False
 
     End Sub
 
-    Public Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
+    Private Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
 
         Try
             Dim process = CachedProcess(processId)
@@ -135,8 +140,9 @@ Module CPUCounter
         Return Nothing
     End Function
 
-    Public Function GetPerfCounterForProcessId(ByVal processId As Integer, ByVal Optional processCounterName As String = "% Processor Time") As PerformanceCounter
+    Private Function GetPerfCounterForProcessId(ByVal processId As Integer) As PerformanceCounter
 
+        Dim processCounterName As String = "% Processor Time"
         If PCList.ContainsKey(processId) Then
             Return PCList.Item(processId)
         End If
@@ -153,7 +159,7 @@ Module CPUCounter
     Public Class CPUStuff
         Public CounterList As Dictionary(Of String, PerformanceCounter)
         Public CPUValues As Dictionary(Of String, Double)
-        Public PropInstanceHandles As Dictionary(Of Integer, String)
+        Public PropInstanceHandles As ConcurrentDictionary(Of Integer, String)
     End Class
 
 End Module

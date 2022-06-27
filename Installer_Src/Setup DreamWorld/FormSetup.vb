@@ -4,7 +4,6 @@
 
 #End Region
 
-Imports System.Collections.Concurrent
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -15,14 +14,9 @@ Public Class FormSetup
 
 #Region "Vars"
 
-    Public exitList As New ConcurrentDictionary(Of String, String)
-
     Public MyCPUCollection As New List(Of Double)
-
     Public MyRAMCollection As New List(Of Double)
-
     Public ToDoList As New Dictionary(Of String, TaskObject)
-
     Public Visitor As New Dictionary(Of String, String)
 
     Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
@@ -33,13 +27,9 @@ Public Class FormSetup
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     ReadOnly BackupThread As New Backups
-#Enable Warning CA2213 ' Disposable fields should be disposed
-
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly TaskQue As New List(Of TaskObject) ' TODO we can stack up multiple commands to send to regions when they boot
-    Private ReadOnly TimerLock As New Object
-
+    Private ReadOnly TaskQue As New List(Of TaskObject)
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -52,20 +42,20 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-    Private _ThreadsArerunning As Boolean
-    Private _timerBusy1 As Boolean
+
     Private _WasRunning As String = ""
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
-#Enable Warning CA2213 ' Disposable fields should be disposed
+#Enable Warning CA2000 ' Dispose objects before losing scope
 
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ClassScreenpos
     Private searcher As ManagementObjectSearcher
     Private speed As Double
     Private speed1 As Double
     Private speed2 As Double
     Private speed3 As Double
+    Private TimerisBusy As Boolean
     Private ws As NetServer
 
     ''' <summary>
@@ -74,7 +64,7 @@ Public Class FormSetup
     Public Enum TaskName As Integer
 
         None = 0
-        RPCBackupper = 1        ' run backups via XMLRPC
+        LaunchBackupper = 1        ' run backups via XMLRPC
         TeleportClicked = 2     ' click the teleport button in the region pop up
         LoadOar = 3             ' for Loading a series of OARS
         LoadOneOarTask = 4      ' loading One Oar
@@ -205,8 +195,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropUseIcons As Boolean
-
     Public Property PropWebserver As NetServer
         Get
             Return ws
@@ -227,15 +215,6 @@ Public Class FormSetup
 
     Public Property Searcher1 As ManagementObjectSearcher
         Get
-            Return Searcher2
-        End Get
-        Set(value As ManagementObjectSearcher)
-            Searcher2 = value
-        End Set
-    End Property
-
-    Public Property Searcher2 As ManagementObjectSearcher
-        Get
             Return searcher
         End Get
         Set(value As ManagementObjectSearcher)
@@ -249,15 +228,6 @@ Public Class FormSetup
         End Get
         Set(ByVal Value As Integer)
             _DNSSTimer = Value
-        End Set
-    End Property
-
-    Public Property TimerBusy As Boolean
-        Get
-            Return _timerBusy1
-        End Get
-        Set(value As Boolean)
-            _timerBusy1 = value
         End Set
     End Property
 
@@ -342,15 +312,6 @@ Public Class FormSetup
 
         Dim n As Integer = RegionCount()
 
-        Dim TotalRunningRegions As Integer
-
-        For Each RegionUUID As String In RegionUuids()
-            If IsBooted(RegionUUID) Then
-                TotalRunningRegions += 1
-            End If
-        Next
-        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
-
         ' alphabetical shutdown
         Dim r As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
@@ -358,66 +319,78 @@ Public Class FormSetup
         Next
         r.Sort()
 
+        ' only wait if the port 8001 is working
+
+        If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
+
         For Each RegionUUID As String In r
             If RegionEnabled(RegionUUID) And
-                (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
+            (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
-                If Settings.Smart_Start And Smart_Start(RegionUUID) = "True" And Settings.BootOrSuspend = False Then
-                    ResumeRegion(RegionUUID)
+
+                If CBool(GetHwnd(Group_Name(RegionUUID))) Then
+                    TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                    ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                    ConsoleCommand(RegionUUID, "q")
+                    Application.DoEvents()
+                Else
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
                 End If
-
-                'ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                ConsoleCommand(RegionUUID, "q")
-
-                TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                Application.DoEvents()
             End If
+            Application.DoEvents()
         Next
 
         Dim LastCount As Integer = 0
-        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
+        Dim counter As Integer = 6000 ' 1 minutes to quit all regions
 
-        ' only wait if the port 8001 is working
-        If PropUseIcons Then
-            If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
+        If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
-            While (counter > 0 AndAlso PropOpensimIsRunning())
-                Application.DoEvents()
-                counter -= 1
+        While (counter > 0 AndAlso PropOpensimIsRunning())
+            Application.DoEvents()
+            counter -= 1
 
-                Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
-                Dim ListofPIDs = RegionPIDs()
-                Dim CountisRunning As New List(Of Integer)
-                For Each P In RunningTasks
-                    If ListofPIDs.Contains(P.Id) Then
-                        CountisRunning.Add(P.Id)
+            Dim ListofPIDs = RegionPIDs()
+            Dim CountisRunning As New List(Of Integer)
+            Dim AllProcesses() = Process.GetProcessesByName("Opensim") ' cache of processes
+            For Each P In AllProcesses
+                If ListofPIDs.Contains(P.Id) Then
+                    CountisRunning.Add(P.Id)
+                End If
+            Next
+
+            If CountisRunning.Count <> LastCount Then
+                If CountisRunning.Count = 1 Then
+                    TextPrint(My.Resources.One_region)
+                Else
+                    TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
+                End If
+            End If
+
+            LastCount = CountisRunning.Count
+
+            If CountisRunning.Count = 0 Then
+                counter = 0
+            End If
+
+            ProcessQuit()   '  check if any processes exited
+            CheckForBootedRegions()
+
+            For Each PID In CountisRunning
+                For Each RegionUUID In RegionUuids()
+                    If ProcessID(RegionUUID) = PID Then
+                        ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                        ConsoleCommand(RegionUUID, "q")
+                        Application.DoEvents()
                     End If
                 Next
+            Next
 
-                If CountisRunning.Count <> LastCount Then
-                    If CountisRunning.Count = 1 Then
-                        TextPrint(My.Resources.One_region)
-                    Else
-                        TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
-                    End If
-                End If
-
-                LastCount = CountisRunning.Count
-
-                If CountisRunning.Count = 0 Then
-                    counter = 0
-                End If
-
-                ProcessQuit()   '  check if any processes exited
-                CheckForBootedRegions()
-
-                Sleep(1000)
-            End While
-            PropUpdateView = True ' make form refresh
-        End If
+            Sleep(100)
+        End While
+        PropUpdateView = True ' make form refresh
 
         ClearAllRegions()
         StopRobust()
@@ -425,10 +398,11 @@ Public Class FormSetup
         Zap("cports")
 
         TimerMain.Stop()
-        TimerBusy = False
 
+        ProcessIdDict.Clear()
+
+        PropInstanceHandles.Clear()
         PropOpensimIsRunning() = False
-        PropUpdateView = True ' make form refresh
 
         Settings.SaveSettings()
 
@@ -472,6 +446,7 @@ Public Class FormSetup
             DeregisterRegions(True)
             Settings.DeregisteredOnce = True
         End If
+
         If Not PropOpensimIsRunning Then Return False
         PropAborting = False
         Buttons(BusyButton)
@@ -479,8 +454,6 @@ Public Class FormSetup
         DoEstates() ' has to be done after MySQL starts up.
 
         CheckOverLap()
-
-        StartThreads()
 
         If Settings.ServerType = RobustServerName Then
             StartRobust()
@@ -502,10 +475,6 @@ Public Class FormSetup
             G()
         End If
 
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
-
         Dim ListOfNames As New List(Of String)
 
         ' Boot them up sorted in Alphabetical Order
@@ -516,11 +485,11 @@ Public Class FormSetup
         ListOfNames.Sort()
 
         For Each RegionName As String In ListOfNames
-
             Dim RegionUUID = FindRegionByName(RegionName)
-            BreakPoint.Print($"Starting {RegionName}")
-
             If RegionEnabled(RegionUUID) Then
+
+                If Settings.WelcomeRegion = RegionName Then Continue For
+
                 Dim BootNeeded As Boolean = False
                 Select Case Settings.Smart_Start
                     Case True
@@ -528,17 +497,20 @@ Public Class FormSetup
                         ' Suspend mode needs to always run regions, even smart start
                         If Smart_Start(RegionUUID) = "True" And Not Settings.BootOrSuspend Then
                             BootNeeded = True
+                            Diagnostics.Debug.Print($"Boot Needed for {RegionName}")
                         End If
 
                         ' Really Smart Start, not in Region table
                         If Smart_Start(RegionUUID) = "True" Then
                             If Not RegionIsRegistered(RegionUUID) Then
                                 BootNeeded = True
+                                BreakPoint.Print($"{RegionName} is not registered, boot needed")
                             End If
 
-                            ' If running, make them boot so we can hook on and shut them doen
+                            ' If running, make them boot so we can hook on and shut them down
                             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                                 BootNeeded = True
+                                'BreakPoint.Print($"{RegionName} boot needed to capture events")
                             End If
                         End If
 
@@ -852,8 +824,6 @@ Public Class FormSetup
         SetupPerlModules() ' Perl Language interpreter
         Settings.DotnetUpgraded() = True
 
-        FixPresence() ' Fixes stuck avatars
-
         TextPrint(My.Resources.Getting_regions_word)
 
         PropChangedRegionSettings = True
@@ -955,6 +925,19 @@ Public Class FormSetup
         ' Run Diagnostics
         CheckDiagPort()
 
+        Dim DB = IsMySqlRunning()
+
+        If DB Then
+            ' clear any temp regions on boot.
+            For Each RegionUUID As String In RegionUuids()
+                If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                    TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
+                    DeleteAllRegionData(RegionUUID)
+                    PropChangedRegionSettings = True
+                End If
+            Next
+        End If
+
         With Cpu1
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -965,6 +948,10 @@ Public Class FormSetup
 
         LoadHelp()      ' Help loads once
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
+
+        If Settings.ShowRegionListOnBoot Then
+            ShowRegionform()
+        End If
 
         If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
             Dim Password = New PassGen
@@ -999,7 +986,7 @@ Public Class FormSetup
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
         If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
-        IsMySqlRunning()
+        ' also turn on the lights for the other services.
         IsRobustRunning()
         IsApacheRunning()
         IsIceCastRunning()
@@ -1074,13 +1061,15 @@ Public Class FormSetup
     Public Sub ProcessQuit()
 
         ' now look at the exit stack
-        While Not exitList.IsEmpty
+        While Not ExitList.IsEmpty
 
-            Dim GroupName = exitList.Keys.First
-            Dim Reason = exitList.Item(GroupName) ' NoLogin or Exit
-            Dim out As String = ""
-            exitList.TryRemove(GroupName, out)
+            Dim GroupName = ExitList.Keys.First
+            Dim Reason = ExitList.Item(GroupName) ' NoLogin or Exit
+
+            Application.DoEvents()
+
             TextPrint(GroupName & " " & Reason)
+            Dim out As String = ""
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
@@ -1089,16 +1078,25 @@ Public Class FormSetup
             Dim RegionUUID As String = ""
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
+
+                PID = ProcessID(RegionUUID)
+                ProcessID(RegionUUID) = 0
+                If ProcessIdDict.ContainsKey(PID) Then
+                    ProcessIdDict.Remove(PID)
+                End If
                 DelPidFile(RegionUUID) 'kill the disk PID
 
-                ' Already done, just being safe here
-                PID = ProcessID(RegionUUID)
                 If PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Remove(PID)
+                    Dim S As String = PropInstanceHandles.Item(PID)
+                    PropInstanceHandles.TryRemove(PID, S)
                 End If
             Else
                 BreakPoint.Print("No UUID!")
-                Application.DoEvents()
+
+                If PID > 0 Then
+                    PropInstanceHandles.TryRemove(PID, PropInstanceHandles.Item(PID))
+                End If
+
                 Continue While
             End If
 
@@ -1109,7 +1107,7 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                Application.DoEvents()
+                ExitList.TryRemove(RegionUUID, out)
                 Continue While
             End If
 
@@ -1119,12 +1117,12 @@ Public Class FormSetup
             BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
-                Application.DoEvents()
+                ExitList.TryRemove(GroupName, out)
                 Continue While
             End If
 
             If Status = SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In RegionUuidListByName(GroupName)
+                For Each UUID As String In RegionUuidListByName(GroupName)
                     RegionStatus(UUID) = SIMSTATUSENUM.Stopped
                 Next
 
@@ -1133,7 +1131,7 @@ Public Class FormSetup
                 End If
 
                 PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+                ExitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
@@ -1144,13 +1142,14 @@ Public Class FormSetup
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
                 PropUpdateView = True
-                Application.DoEvents()
+                ExitList.TryRemove(GroupName, out)
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
-            Status = SIMSTATUSENUM.Booting Or
-            Status = SIMSTATUSENUM.Booted) And
-            Not PropAborting Then
+                Status = SIMSTATUSENUM.Booting Or
+                Status = SIMSTATUSENUM.Booted Or
+                Status = SIMSTATUSENUM.Suspended) And
+                Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
                 Status = SIMSTATUSENUM.Error
@@ -1168,7 +1167,7 @@ Public Class FormSetup
                         If (yesno = vbYes) Then
                             Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                         End If
-                        Application.DoEvents()
+                        ExitList.TryRemove(GroupName, out)
                         Continue While
                     End If
 
@@ -1182,13 +1181,14 @@ Public Class FormSetup
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
 
+                    ExitList.TryRemove(GroupName, out)
                     Continue While
-                    Application.DoEvents()
                 Else
                     If PropAborting Then
-                        Application.DoEvents()
+                        ExitList.TryRemove(GroupName, out)
                         Continue While
                     End If
+
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     ErrorGroup(GroupName)
 
@@ -1196,13 +1196,13 @@ Public Class FormSetup
                     If (yesno = vbYes) Then
                         Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                     End If
-                    Application.DoEvents()
                 End If
             Else
                 StopGroup(GroupName)
             End If
 
-            Application.DoEvents()
+            ExitList.TryRemove(GroupName, out)
+
         End While
 
     End Sub
@@ -1252,6 +1252,9 @@ Public Class FormSetup
 
 #Region "Scanner"
 
+    ''' <summary>
+    ''' Scan if any booted up, if so runs the futures task list
+    ''' </summary>
     Public Sub CheckForBootedRegions()
 
         ' booted regions from web server
@@ -1270,26 +1273,25 @@ Public Class FormSetup
                 If Not RegionEnabled(RegionUUID) Then Continue While
 
                 Dim RegionName = Region_Name(RegionUUID)
+                GroupName = Group_Name(RegionUUID)
 
                 ' see how long it has been since we booted
                 Dim seconds = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), DateTime.Now)
+                If seconds < 0 Then seconds = 0
+
                 TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
                 PokeRegionTimer(RegionUUID)
 
                 SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
 
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
 
                 If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
                     BootTime(RegionUUID) = CInt(seconds)
                 Else
                     MapTime(RegionUUID) = CInt(seconds)
                 End If
-
-                'If Smart_Start(RegionUUID) = "True" Then
-                'MysqlSetRegionFlagOnline(RegionUUID)
-                'End If
 
                 TeleportAgents()
 
@@ -1328,17 +1330,18 @@ Public Class FormSetup
 
                 ' if anyone is in home stay alive
                 If AvatarsIsInGroup(GroupName) Then
-                    PokeGroupTimer(GroupName)
+                    PokeRegionTimer(RegionUUID)
                 End If
 
                 RunTaskList(RegionUUID)
 
                 If Settings.Smart_Start Then
 
-                    ' If a region i stopped or suspended, boot it if someone is nearby
+                    Dim Nearby = AvatarIsNearby(RegionUUID)
+                    ' If a region is stopped or suspended, boot it if someone is nearby
                     If status = SIMSTATUSENUM.Stopped _
                         Or status = SIMSTATUSENUM.Suspended Then
-                        If AvatarIsNearby(RegionUUID) Then
+                        If Nearby Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
                             Continue For
@@ -1346,16 +1349,16 @@ Public Class FormSetup
                     End If
 
                     ' keep smart start regions alive if someone is near
-                    If AvatarIsNearby(RegionUUID) Then
-                        PokeGroupTimer(GroupName)
+                    If Nearby Then
+                        PokeRegionTimer(RegionUUID)
                     End If
 
                     ' Smart Start Timer
                     If Smart_Start(RegionUUID) = "True" AndAlso status = SIMSTATUSENUM.Booted Then
                         Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
+                        If diff < 0 Then diff = 0
 
                         If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
-                            'Continue For
                             BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
                             If Settings.BootOrSuspend Then
                                 ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
@@ -1367,6 +1370,7 @@ Public Class FormSetup
                             End If
 
                             PropUpdateView = True ' make form refresh
+                            Application.DoEvents()
                             Continue For
                         End If
                     End If
@@ -1377,6 +1381,7 @@ Public Class FormSetup
 
                 Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
                 Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+                If Expired < 0 Then Expired = 0
 
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
                     AndAlso Expired > 0 _
@@ -1386,7 +1391,7 @@ Public Class FormSetup
                     If AvatarsIsInGroup(GroupName) Then
                         ' keep smart start regions alive if someone is near
                         If AvatarIsNearby(RegionUUID) Then
-                            PokeGroupTimer(GroupName)
+                            PokeRegionTimer(RegionUUID)
                         End If
                         Continue For
                     Else
@@ -1472,47 +1477,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub DidItDie()
-
-        While PropOpensimIsRunning
-
-            Dim l As New List(Of String)
-            ' check to see if a handle to all regions exists. If not, then it died.
-            For Each RegionUUID As String In RegionUuids()
-                l.Add(RegionUUID)
-            Next
-            l.Sort()
-            Application.DoEvents()
-
-            For Each RegionUUID As String In l
-
-                If Not PropOpensimIsRunning() Then Return
-                If Not RegionEnabled(RegionUUID) Then Continue For
-
-                Dim status = RegionStatus(RegionUUID)
-                If CBool((status = SIMSTATUSENUM.Booted) Or
-                        (status = SIMSTATUSENUM.Booting) Or
-                        (status = SIMSTATUSENUM.RecyclingDown) Or
-                        (status = SIMSTATUSENUM.NoError) Or
-                        (status = SIMSTATUSENUM.ShuttingDownForGood) Or
-                        (status = SIMSTATUSENUM.Suspended)) Then
-
-                    Dim Groupname = Group_Name(RegionUUID)
-                    If GetHwnd(Groupname) = IntPtr.Zero Then
-                        If Not CheckPort(Settings.PublicIP, GroupPort(RegionUUID)) Then
-                            If Not exitList.ContainsKey(Groupname) Then
-                                exitList.TryAdd(Groupname, "Exit")
-                                Application.DoEvents()
-                            End If
-                        End If
-                    End If
-                End If
-            Next
-            Thread.Sleep(1000)
-        End While
-
-    End Sub
-
 #Region "Booting"
 
     ''' <summary>
@@ -1525,7 +1489,7 @@ Public Class FormSetup
         BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
         ReBoot(RegionUUID)
-        Sleep(1000)
+        Application.DoEvents()
         ' TODO add task queue
         ' so we can have more than one command
         'TaskQue.Add(TObj)
@@ -1535,6 +1499,7 @@ Public Class FormSetup
             ToDoList.Add(RegionUUID, TObj)
         End If
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            ResumeRegion(RegionUUID)
             RunTaskList(RegionUUID)
         End If
 
@@ -1568,13 +1533,13 @@ Public Class FormSetup
                 Continue For
             End If
 
-            If (Status = SIMSTATUSENUM.Booting Or Status = SIMSTATUSENUM.Booted) Then
+            If (Status = SIMSTATUSENUM.Booting Or
+                Status = SIMSTATUSENUM.Booted Or
+                Status = SIMSTATUSENUM.Suspended) Then
+
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
                 ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
-            Else
-                ' Smart Start Enabled and stopped
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
             End If
             Application.DoEvents()
         Next
@@ -1588,14 +1553,14 @@ Public Class FormSetup
     Public Sub RunTaskList(RegionUUID As String)
 
         If ToDoList.ContainsKey(RegionUUID) Then
-
-            BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
+            BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
                 Dim T = Task.TaskName
                 Select Case T
-                    Case TaskName.RPCBackupper      '1
+                    Case TaskName.LaunchBackupper      '1
                         Backupper(RegionUUID, Task.Command)
                     Case TaskName.TeleportClicked   '2
                         TeleportClicked(RegionUUID)
@@ -1703,12 +1668,19 @@ Public Class FormSetup
             Return
         End If
 
+        ' clear any temp regions on boot.
+        For Each Region As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(Region) = "SimSurround" Then
+                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(Region)}")
+                DeleteAllRegionData(Region)
+                PropChangedRegionSettings = True
+            End If
+        Next
+
         ' create tables in case we need them
         SetupWordPress()    ' in case they want to use WordPress
-
         SetupSimStats()     ' Perl code
         SetupLocalSearch()  ' local search database
-
         StartApache()
         StartIcecast()
         UploadPhoto()
@@ -1776,8 +1748,6 @@ Public Class FormSetup
         End Try
 
         If PropWebserver IsNot Nothing Then PropWebserver.StopWebserver()
-
-        DeleteOnlineUsers()
 
         PropAborting = True
         StopMysql()
@@ -1925,13 +1895,18 @@ Public Class FormSetup
     Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             ProcessID(RegionUUID) = 0
             DelPidFile(RegionUUID)
         Next
 
         Try
-            exitList.Clear()
+            ExitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
@@ -1945,9 +1920,11 @@ Public Class FormSetup
 
         Graphs.Close()
         Graphs.Dispose()
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Graphs = New FormGraphs With {
             .Visible = True
         }
+#Enable Warning CA2000 ' Dispose objects before losing scope
         Graphs.Activate()
         Graphs.Select()
         Graphs.BringToFront()
@@ -2128,10 +2105,10 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
-            Dim combined = GetAllAgents()
+            CachedAvatars = GetAllAgents()
 
-            If combined IsNot Nothing AndAlso combined.Count > 0 Then
-                BuildLand(combined)
+            If CachedAvatars IsNot Nothing AndAlso CachedAvatars.Count > 0 Then
+                BuildLand(CachedAvatars)
             End If
 
             ' start with zero avatars
@@ -2139,7 +2116,7 @@ Public Class FormSetup
                 AvatarCount(RegionUUID) = 0
             Next
 
-            For Each NameValue In combined
+            For Each NameValue In CachedAvatars
                 Dim Avatar = NameValue.Key
                 Dim RegionUUID = NameValue.Value
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
@@ -2183,7 +2160,7 @@ Public Class FormSetup
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
 
-                If Not combined.ContainsKey(Avatar) Then
+                If Not CachedAvatars.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
@@ -2198,7 +2175,7 @@ Public Class FormSetup
                 End If
             Next
 
-            total = combined.Count
+            total = CachedAvatars.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Dump(ex)
@@ -2356,32 +2333,6 @@ Public Class FormSetup
 
     End Sub
 
-    ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
-    ''' </summary>
-    Private Sub StartThreads()
-
-        If _ThreadsArerunning Then Return
-        _ThreadsArerunning = True
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
-#Enable Warning BC42016 ' Implicit conversion
-        Dim Thread1 = New Thread(start1)
-        Thread1.SetApartmentState(ApartmentState.STA)
-        Thread1.Priority = ThreadPriority.Normal
-
-        Thread1.Start()
-        Sleep(100)
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start2 As ParameterizedThreadStart = AddressOf DidItDie
-#Enable Warning BC42016 ' Implicit conversion
-        Dim Thread2 = New Thread(start2)
-        Thread2.SetApartmentState(ApartmentState.STA)
-        Thread2.Priority = ThreadPriority.Lowest ' UI gets priority
-        Thread2.Start()
-
-    End Sub
-
 #End Region
 
 #Region "Scrolling text box"
@@ -2398,7 +2349,6 @@ Public Class FormSetup
 
     Public Sub StartTimer()
 
-        TimerBusy = False
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
 
@@ -2415,106 +2365,90 @@ Public Class FormSetup
             Return
         End If
 
-        If TimerBusy Then
+        TimerMain.Stop()    ' prevent recursion
 
-            Return
+        ' Reload regions from disk
+        If PropChangedRegionSettings Then
+            GetAllRegions(False)
         End If
-        TimerBusy = True
 
-        SyncLock TimerLock ' stop other threads from firing this
-            ' Reload regions from disk
-            If PropChangedRegionSettings Then
-                GetAllRegions(False)
+        CheckPost()                 ' see if anything arrived in the web server
+        CheckForBootedRegions()     ' and also see if any booted up
+        TeleportAgents()            ' send them onward
+        ProcessQuit()               ' check if any processes exited
+
+        If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("5 second worker")
+            ScanAgents()                ' update agent count
+            RestartDOSboxes()           ' Icons for failed Services
+            Chart()                     ' do charts collection each 5 seconds
+            PrintBackups()              ' print if backups are running
+            CalcDiskFree()              ' check for free disk space
+            Chat2Speech()               ' speak of the devil
+            Bench.Print("5 second worker ends")
+        End If
+
+        If SecondsTicker = 60 Then
+            Bench.Print("Initial 60 second worker")
+            DeleteDirectoryTmp()      ' clean up old tmp folder
+            MakeMaps()                 ' Make all the large maps
+            Bench.Print("Initial 60 second worker ends")
+        End If
+
+        If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("60 second worker")
+            DeleteOldWave()         ' clean up TTS cache
+            ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
+            RegionListHTML("Name") ' create HTML for old teleport boards
+            VisitorCount()         ' For the large maps
+            Bench.Print("60 second work done")
+        End If
+
+        ' Run Search and events once at 5 minute mark
+        If SecondsTicker = 300 Then
+            Bench.Print("300 second worker")
+            BackupThread.RunAllBackups(False) ' run background based on time of day = false
+            RunParser()     ' PHP parse for Publicity
+            GetEvents()     ' fetch events from Outworldz
+            ScanOpenSimWorld(True)
+            Bench.Print("300 second worker ends")
+        End If
+
+        If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
+            If TestPrivateLoopback(False) Then
+                ErrorLog("Diagnostic Listener port failed")
+                TextPrint("Diagnostic Listener port failed")
             End If
+        End If
 
-            CheckPost()                 ' see if anything arrived in the web server
-            CheckForBootedRegions()     ' and also see if any booted up
-            TeleportAgents()            ' send them onward
+        ' half hour
+        If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Print("half hour worker")
+            ScanOpenSimWorld(True)
+            GetEvents()             ' fetch events from Outworldz
+            RunParser()             ' PHP parse for Publicity
+            MakeMaps()              ' Make all the large maps
+            Bench.Print("half hour worker ends")
+        End If
 
-            If SecondsTicker Mod 2 = 0 AndAlso SecondsTicker > 0 Then
-                Chart()                     ' do charts collection each 2 second or s
-            End If
+        ' print hourly marks on console
+        If SecondsTicker Mod 3600 = 0 Then
+            Bench.Print("hour worker")
+            TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
+            SetPublicIP()           ' Adjust to any IP changes
+            ExpireLogsByAge()       ' clean up old logs
+            DeleteOldVisitors()     ' can be pretty old
 
-            If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("5 second worker")
-                PrintBackups()
-                CalcDiskFree()              ' check for free disk space
-                ScanAgents()                ' update agent count
-                Chat2Speech()               ' speak of the devil
-                RestartDOSboxes()
-                Bench.Print("5 second worker ends")
-            End If
+            ' Dynamically adjust Mysql for size of DB
+            ' set mysql for amount of buffer to use now that it running.
+            ' Will take effect next time Mysql is started.
+            Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
 
-            If SecondsTicker Mod 10 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("10 second worker")
-                DidItDie()
-                ProcessQuit()               ' check if any processes exited
-                Bench.Print("10 second worker ends")
-            End If
+            Bench.Print("hour worker ends")
+        End If
+        SecondsTicker += 1
 
-            If SecondsTicker = 60 Then
-                Bench.Print("Initial 60 second worker")
-                Delete_all_visitor_maps()
-                MakeMaps()
-                Bench.Print("Initial 60 second worker ends")
-            End If
-
-            If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("60 second worker")
-                DeleteOldWave()
-                ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
-                BackupThread.RunAllBackups(False) ' run background based on time of day = false
-                RegionListHTML("Name") ' create HTML for old teleport boards
-                VisitorCount()
-                Bench.Print("60 second work done")
-            End If
-
-            ' Run Search and events once at 5 minute mark
-            If SecondsTicker = 300 Then
-                Bench.Print("300 second worker")
-                RunParser()
-                GetEvents()
-                ScanOpenSimWorld(True)
-                Bench.Print("300 second worker ends")
-            End If
-
-            If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
-                If TestPrivateLoopback(False) Then
-                    ErrorLog("Diagnostic Listener port failed")
-                    TextPrint("Diagnostic Listener port failed")
-                End If
-            End If
-
-            ' half hour
-            If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
-                Bench.Print("half hour worker")
-                ScanOpenSimWorld(True)
-                GetEvents()
-                RunParser()
-                MakeMaps()
-                Bench.Print("half hour worker ends")
-            End If
-
-            ' print hourly marks on console
-            If SecondsTicker Mod 3600 = 0 Then
-                Bench.Print("hour worker")
-                TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
-                ' Dynamically adjust Mysql for size of DB
-
-                SetPublicIP() ' Adjust to any IP changes
-                ExpireLogsByAge()
-                DeleteDirectoryTmp()
-                DeleteOldVisitors()
-                ' set mysql for amount of buffer to use now that it running.
-                ' Will take effect next time Mysql is started.
-                Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
-
-                Bench.Print("hour worker ends")
-            End If
-            SecondsTicker += 1
-
-        End SyncLock
-        TimerBusy = False
+        TimerMain.Start()
 
     End Sub
 
@@ -2639,7 +2573,6 @@ Public Class FormSetup
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         PropAborting = True
-        ClearAllRegions()
 
         PropUpdateView = True ' make form refresh
 
@@ -2688,12 +2621,10 @@ Public Class FormSetup
 
     Private Sub CheckDiagPort()
 
-        PropUseIcons = True
         TextPrint(My.Resources.Check_Diag)
         Dim wsstarted = IsRegionReady(CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
-            PropUseIcons = False
         End If
 
     End Sub

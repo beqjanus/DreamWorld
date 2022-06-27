@@ -92,6 +92,9 @@ Module RegionMaker
 
 #Region "CheckPost"
 
+    ''' <summary>
+    ''' see if anything arrived in the web server on port 8001
+    ''' </summary>
     Public Sub CheckPost()
 
         For Each TKey In WebserverList
@@ -162,10 +165,6 @@ Module RegionMaker
     Private WriteRegionLock As Boolean
 
     Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
-
-        While CreateRegionLock
-            Sleep(100)
-        End While
 
         CreateRegionLock = True
 
@@ -356,14 +355,14 @@ Module RegionMaker
         Dim Yloc = Coord_Y(RegionUUID)
         Dim Name = Region_Name(RegionUUID)
 
-        ' draw a box at this size plus the pull down size.
-        For Each UUID In RegionUuidListByName(Name)
-            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
-            For Xstep = 0 To SimSize - 1
-                For Ystep = 0 To SimSize - 1
-                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
-                    If Not Map.ContainsKey(gr) Then Map.Add(gr, UUID)
-                Next
+        ' draw a box at this size to the right and up plus the pull down size.
+        Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
+        For Xstep = 0 To SimSize - 1
+            For Ystep = 0 To SimSize - 1
+                Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                If Not Map.ContainsKey(gr) Then
+                    Map.Add(gr, RegionUUID)
+                End If
             Next
         Next
 
@@ -375,6 +374,7 @@ Module RegionMaker
         If Settings.Skirtsize = 0 Then Return False
 
         Dim NameRegion = Region_Name(RegionUUID)
+        'Debug.Print($"Looking for nearby to {NameRegion}")
         Dim Xloc = Coord_X(RegionUUID)
         Dim Yloc = Coord_Y(RegionUUID)
 
@@ -391,19 +391,23 @@ Module RegionMaker
                 Dim gr As String = $"{XPos},{Ypos}"
 
                 If Map.ContainsKey(gr) Then
-
+                    Dim DestUUID = Map(gr)
+                    Dim DestName = Region_Name(DestUUID)
                     ' do not look inside myself
-                    If Region_Name(Map(gr)) = NameRegion Then Continue For
+                    If DestName = NameRegion Then
+                        Continue For
+                    End If
+
+                    ' Debug.Print($"Looking in {Region_Name(DestUUID)}")
 
                     ' skip any offline regions, no one is in there
-                    If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped _
-                        Or RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended _
-                        Or Not RegionEnabled(RegionUUID) Then Continue For
+                    If RegionStatus(DestUUID) = SIMSTATUSENUM.Stopped _
+                       Or RegionStatus(DestUUID) = SIMSTATUSENUM.Suspended _
+                        Or Not RegionEnabled(DestUUID) Then Continue For
 
-                    ' no see if anyone is in the surrounding sim
-                    If IsAgentInRegion(Map.Item(gr)) Then
-                        'Dim Name = Region_Name(RegionUUID)
-                        'Breakpoint.Print("Avatar is detected near region " & NameRegion)
+                    ' now see if anyone is in the surrounding sim
+                    If IsAgentInRegion(DestUUID) Then
+                        Debug.Print($"Avatar is detected near region {NameRegion} in {DestName}")
                         Return True
                     End If
                 End If
@@ -496,6 +500,11 @@ Module RegionMaker
 
     End Function
 
+    ''' <summary>
+    ''' Fetches all regions from Disk Into RAM
+    ''' </summary>
+    ''' <param name="Verbose"></param>
+    ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
         If Not PropChangedRegionSettings Then Return RegionList.Count
@@ -671,13 +680,14 @@ Module RegionMaker
                             End If
 
                             INI.SaveINI()
+                            Debug.Print($"Adding {Region_Name(uuid)} to map")
                             AddToRegionMap(uuid)
 
                         Next
                     Catch ex As Exception
                         BreakPoint.Dump(ex)
-                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-                        ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        MsgBox(My.Resources.Error_Region + fName + "  " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+                        ErrorLog("ErrParse file " + fName + ": " + ex.Message)
                         PropUpdateView = True ' make form refresh
                         GetRegionsIsBusy = False
                         Return 0
@@ -732,12 +742,10 @@ Module RegionMaker
 
     Public Sub StopRegion(RegionUUID As String)
 
+        FreezeThaw.FreezeThaw(RegionUUID, False)
         Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-
             SequentialPause()
-
-            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
             ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         Else
             ' shut down all regions in the DOS box
@@ -1283,7 +1291,12 @@ Module RegionMaker
 
     Public Property LandingSpot(uuid As String) As String
         Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._RegionLandingSpot
+            If RegionList.ContainsKey(uuid) Then
+                If RegionList(uuid)._RegionLandingSpot.Length = 0 Then
+                    RegionList(uuid)._RegionLandingSpot = "<128,128,30>"
+                End If
+                Return RegionList(uuid)._RegionLandingSpot
+            End If
             BadUUID(uuid)
             Return ""
         End Get
@@ -1465,6 +1478,18 @@ Module RegionMaker
 
     End Function
 
+    Public Function FindRegionUUIDByPID(PID As Integer) As String
+
+        Dim pair As KeyValuePair(Of String, Region_data)
+        For Each pair In RegionList
+            If PID = pair.Value._ProcessID Then               '
+                Return pair.Value._UUID
+            End If
+        Next
+        Return ""
+
+    End Function
+
     Public Function IsBooted(uuid As String) As Boolean
 
         If uuid Is Nothing Then Return False
@@ -1575,8 +1600,8 @@ Module RegionMaker
         'Content-Length:  118
         'Connection: Keep-Alive
         '
-        '"{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
-        '"{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
+        '"{""alert""""region_ready"",""login"":""disabled"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
+        '"{"alert""region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
         '"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
         ' we want region name, UUID and server_startup could also be a probe from the outworldz to check if ports are open.
 
@@ -1634,9 +1659,9 @@ Module RegionMaker
                 ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                 Dim result As Integer = 1
 
-                Dim myConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                Dim myConnection = New MySqlConnection(Settings.RegionMySqlConnection)
 
-                Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
+                Dim Query1 = "update griduser set TOS = 1 where UserID = @p1; "
                 Dim myCommand1 = New MySqlCommand(Query1) With {
                     .Connection = myConnection
                 }

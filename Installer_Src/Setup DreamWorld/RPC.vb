@@ -134,7 +134,6 @@ Module RPC
            {"command", Message}
         }
         Debug.Print($"admin_console_command {Message}")
-        Application.DoEvents()
         Return SendRPC(RegionUUID, "admin_console_command", ht)
 
     End Function
@@ -194,10 +193,10 @@ Module RPC
 
     Public Sub ShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
-        ConsoleCommand(RegionUUID, "q", True)
+        FreezeThaw.FreezeThaw(RegionUUID, False)
+        RPC_Region_Command(RegionUUID, "quit")
 
         Dim Group = Group_Name(RegionUUID)
-        Logger("RecyclingDown", Group, "Status")
 
         For Each RegionUUID In RegionUuidListByName(Group)
             RegionStatus(RegionUUID) = nextstate
@@ -228,9 +227,7 @@ Module RPC
     Private Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
 
         Dim RegionPort = GroupPort(FromRegionUUID)
-
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
-
         Dim parameters = New List(Of Hashtable) From {ht}
         Try
 
@@ -254,7 +251,7 @@ Module RPC
 
     End Function
 
-    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 2000) As Boolean
+    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable, Optional Timeout As Integer = 1000) As Boolean
 
         If RegionUUID.Length = 0 Then Return False
 
@@ -288,6 +285,7 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
+            Return False
         End Try
         Return True
 

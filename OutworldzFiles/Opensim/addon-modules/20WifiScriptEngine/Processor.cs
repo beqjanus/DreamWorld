@@ -140,6 +140,8 @@ namespace Diva.Wifi.WifiScript
 
         private string Include(string argStr)
         {
+            if (m_Index > 500)
+                return string.Empty;
 
             Match match = args.Match(argStr);
             //m_log.DebugFormat("Match {0} args? {1} {2}", args.ToString(), match.Success, match.Groups.Count);

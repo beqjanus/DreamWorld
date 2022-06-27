@@ -264,7 +264,7 @@ SetWindowOnTop_Err:
             PropOpensimIsRunning() = True
 
         ElseIf chosen = "Stop" Then
-            ResumeRegion(RegionUUID)
+
             ' if any avatars in any region, give them a choice.
             Dim StopIt As Boolean = True
             For Each num In RegionUuidListByName(Group_Name(RegionUUID))
@@ -289,6 +289,7 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Console" Then
 
             ResumeRegion(RegionUUID)
+
             Dim hwnd = GetHwnd(Group_Name(RegionUUID))
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
@@ -309,7 +310,7 @@ SetWindowOnTop_Err:
                     DelPidFile(RegionUUID)
                     Return
                 End If
-
+                Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
                 SetWindowOnTop(hwnd.ToInt32)
                 Settings.ConsoleShow = tmp
             End If
@@ -326,7 +327,7 @@ SetWindowOnTop_Err:
             RegionForm.Select()
 
         ElseIf chosen = "Restart" Then
-            ResumeRegion(RegionUUID)
+
             FormSetup.Buttons(FormSetup.BusyButton)
 
             ' shut down all regions in the DOS box
@@ -356,6 +357,7 @@ SetWindowOnTop_Err:
             SaveOar(RegionName)
 
         End If
+        Choices.Close()
 
     End Sub
 
@@ -408,6 +410,10 @@ SetWindowOnTop_Err:
                 Dim name = X.Text
                 If name.Length > 0 Then
                     RegionUUID = FindRegionByName(name)
+
+                    If Not X.Checked Then
+                        DeregisterRegionUUID(RegionUUID)
+                    End If
 
                     If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
@@ -586,6 +592,8 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub ExportButton_Click(sender As Object, e As EventArgs) Handles ExportButton.Click
+
+        If TheView1 <> ViewType.Details Then Return
 
         Dim BaseFolder As String
         Dim f = Settings.BackupFolder.Replace("/", "\")
@@ -902,6 +910,9 @@ SetWindowOnTop_Err:
 
             If (e.NewValue = CheckState.Unchecked) Then
                 RegionEnabled(RegionUUID) = False
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                ConsoleCommand(RegionUUID, "q")
+                DeregisterRegionUUID(RegionUUID)
             Else
                 RegionEnabled(RegionUUID) = True
             End If
@@ -951,6 +962,8 @@ SetWindowOnTop_Err:
             SmartButton.Text = Global.Outworldz.My.Resources.Smart_Start_word
             Users.Text = Global.Outworldz.My.Resources.Users_word
             Emails.Text = Global.Outworldz.My.Resources.Email_word
+
+            ShowUponBootToolStripMenuItem.Text = My.Resources.ShowUponStart
 
             IconView.SmallImageList = ImageListSmall
             ImageListSmall.ImageSize = New Drawing.Size(16, 16)
@@ -1206,9 +1219,13 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icemelted", Globalization.CultureInfo.InvariantCulture))  '  19 - icecube
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-                Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
+                CalcCPU()
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
+
+            ShowUponBootToolStripMenuItem.Checked = Settings.ShowRegionListOnBoot
+            Settings.SaveSettings()
 
             Timer1.Start()
             LoadMyListView()
@@ -1275,7 +1292,6 @@ SetWindowOnTop_Err:
         SearchBusy = False
 
     End Sub
-
 
     Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
 
@@ -1742,7 +1758,7 @@ SetWindowOnTop_Err:
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-
+        CalcCPU()
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1823,6 +1839,10 @@ SetWindowOnTop_Err:
             Return
         End If
 
+        If TheView1 = ViewType.Details Then
+            CalcCPU()
+        End If
+
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()
             Timer1.Interval = 5000
@@ -1858,6 +1878,14 @@ SetWindowOnTop_Err:
             EmailForm.Activate()
         Catch
         End Try
+
+    End Sub
+
+    Private Sub ShowUponBootToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUponBootToolStripMenuItem.Click
+
+        ShowUponBootToolStripMenuItem.Checked = Not ShowUponBootToolStripMenuItem.Checked
+        Settings.ShowRegionListOnBoot = ShowUponBootToolStripMenuItem.Checked
+        Settings.SaveSettings()
 
     End Sub
 

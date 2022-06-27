@@ -64,8 +64,6 @@ Module Ports
                             Else
                                 RegionPortList.TryAdd(RegionPort, RegionUUID) ' add
                             End If
-                        Else
-
                         End If
                     Next
                 Catch ex As Exception

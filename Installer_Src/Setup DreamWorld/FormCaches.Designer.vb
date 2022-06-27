@@ -29,7 +29,7 @@ Partial Class FormCaches
         Me.AssetCheckBox3 = New System.Windows.Forms.CheckBox()
         Me.ImageCheckBox4 = New System.Windows.Forms.CheckBox()
         Me.MeshCheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GridUsers = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,7 +46,8 @@ Partial Class FormCaches
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ViewerCacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.GroupBox1.SuspendLayout()
+        Me.GridCacheCheckbox = New System.Windows.Forms.CheckBox()
+        Me.GridUsers.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -103,24 +104,25 @@ Partial Class FormCaches
         Me.MeshCheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
         Me.MeshCheckBox5.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'GridUsers
         '
-        Me.GroupBox1.Controls.Add(Me.Button1)
-        Me.GroupBox1.Controls.Add(Me.AvatarCheckBox2)
-        Me.GroupBox1.Controls.Add(Me.MeshCheckBox5)
-        Me.GroupBox1.Controls.Add(Me.ScriptCheckBox1)
-        Me.GroupBox1.Controls.Add(Me.ImageCheckBox4)
-        Me.GroupBox1.Controls.Add(Me.AssetCheckBox3)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 33)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(217, 204)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Choose which cache to empty"
+        Me.GridUsers.Controls.Add(Me.GridCacheCheckbox)
+        Me.GridUsers.Controls.Add(Me.Button1)
+        Me.GridUsers.Controls.Add(Me.AvatarCheckBox2)
+        Me.GridUsers.Controls.Add(Me.MeshCheckBox5)
+        Me.GridUsers.Controls.Add(Me.ScriptCheckBox1)
+        Me.GridUsers.Controls.Add(Me.ImageCheckBox4)
+        Me.GridUsers.Controls.Add(Me.AssetCheckBox3)
+        Me.GridUsers.Location = New System.Drawing.Point(16, 33)
+        Me.GridUsers.Name = "GridUsers"
+        Me.GridUsers.Size = New System.Drawing.Size(217, 204)
+        Me.GridUsers.TabIndex = 1
+        Me.GridUsers.TabStop = False
+        Me.GridUsers.Text = "Choose which cache to empty"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(24, 156)
+        Me.Button1.Location = New System.Drawing.Point(26, 170)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(129, 23)
         Me.Button1.TabIndex = 5
@@ -262,6 +264,16 @@ Partial Class FormCaches
         Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, Global.Outworldz.My.Resources.Resources.Viewer_Cache_text)
         Me.ViewerCacheCheckbox.UseVisualStyleBackColor = True
         '
+        'GridCacheCheckbox
+        '
+        Me.GridCacheCheckbox.AutoSize = True
+        Me.GridCacheCheckbox.Location = New System.Drawing.Point(31, 148)
+        Me.GridCacheCheckbox.Name = "GridCacheCheckbox"
+        Me.GridCacheCheckbox.Size = New System.Drawing.Size(53, 17)
+        Me.GridCacheCheckbox.TabIndex = 6
+        Me.GridCacheCheckbox.Text = "Users"
+        Me.GridCacheCheckbox.UseVisualStyleBackColor = True
+        '
         'FormCaches
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -271,13 +283,13 @@ Partial Class FormCaches
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.GridUsers)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
         Me.Text = "Cache Control"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GridUsers.ResumeLayout(False)
+        Me.GridUsers.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -295,7 +307,7 @@ Partial Class FormCaches
     Friend WithEvents AssetCheckBox3 As CheckBox
     Friend WithEvents ImageCheckBox4 As CheckBox
     Friend WithEvents MeshCheckBox5 As CheckBox
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GridUsers As GroupBox
     Friend WithEvents Button1 As Button
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
@@ -312,4 +324,5 @@ Partial Class FormCaches
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents ViewerCacheCheckbox As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents GridCacheCheckbox As CheckBox
 End Class

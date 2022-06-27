@@ -64,24 +64,25 @@ Public Class FormLogging
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
+        Date_Time_Checkbox.Checked = Settings.ShowDateandTimeinLogs
+        Date_Time_Checkbox.Text = Global.Outworldz.My.Resources.ShowDateTime
+        DeleteOnBoot.Checked = Settings.DeleteByDate
+        DeleteOnBoot.Text = Global.Outworldz.My.Resources.DeletebyAge
         GroupBox1.Text = Global.Outworldz.My.Resources.Log_Level
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        KeepLog.Checked = Not Settings.DeleteByDate
+        KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
+        LogBenchmarks.Text = Global.Outworldz.My.Resources.LogBenchmarks
+        NotePadButton.Text = My.Resources.NotePadButton
         RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
         RadioError.Text = Global.Outworldz.My.Resources.Error_word
         RadioFatal.Text = Global.Outworldz.My.Resources.Fatal_word
         RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
         RadioOff.Text = Global.Outworldz.My.Resources.Off
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
-        DeleteOnBoot.Text = Global.Outworldz.My.Resources.DeletebyAge
-        KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
         ViewLogButton.Text = Global.Outworldz.My.Resources.View_Logs
-        AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
-        Date_Time_Checkbox.Text = Global.Outworldz.My.Resources.ShowDateTime
-
-        Date_Time_Checkbox.Checked = Settings.ShowDateandTimeinLogs
-        DeleteOnBoot.Checked = Settings.DeleteByDate
-        KeepLog.Checked = Not Settings.DeleteByDate
 
         LogBenchmarks.Checked = Settings.LogBenchmarks
 
@@ -107,7 +108,7 @@ Public Class FormLogging
         If Settings.Logger = "Baretail" Then
             BaretailButton.Checked = True
         Else
-            OutputViewerButton.Checked = True
+            NotePadButton.Checked = True
         End If
 
         HelpOnce("Logging")
@@ -368,9 +369,9 @@ Public Class FormLogging
 
     End Function
 
-    Private Sub OutputViewerButton_CheckedChanged(sender As Object, e As EventArgs) Handles OutputViewerButton.CheckedChanged
+    Private Sub OutputViewerButton_CheckedChanged(sender As Object, e As EventArgs) Handles NotePadButton.CheckedChanged
 
-        Settings.Logger = "Outputviewer"
+        Settings.Logger = "NotePad"
         Settings.SaveSettings()
 
     End Sub
@@ -386,7 +387,7 @@ Public Class FormLogging
 
     End Sub
 
-    Private Sub BaretailPictureBox_Click(sender As Object, e As EventArgs) Handles BaretailPictureBox.Click
+    Private Sub BaretailPictureBox_Click(sender As Object, e As EventArgs)
         Dim webAddress As String = "https://www.baremetalsoft.com/baretail/"
         Try
             Process.Start(webAddress)
@@ -405,7 +406,7 @@ Public Class FormLogging
 
     End Sub
 
-    Private Sub QuickmanagerPictureBox_Click(sender As Object, e As EventArgs) Handles QuickmanagerPictureBox.Click
+    Private Sub QuickmanagerPictureBox_Click(sender As Object, e As EventArgs)
         Dim webAddress As String = "https://github.com/itlezy/ITLezyTools#outputviewer"
         Try
             Process.Start(webAddress)

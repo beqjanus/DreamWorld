@@ -48,28 +48,28 @@ Module SmartStart
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
         ' Scan all the regions
-        'Dim FakeAgents = GetAgentList()
-        'Dim AllAgents As Dictionary(Of String, String)
+        Dim Agents = New Dictionary(Of String, String)
+
         Dim Presence = GetPresence()
+        Dim HGUsers = GetGridUsers()
 
-        'For Each item In AllAgents
-        'If AllAgents.ContainsKey(item.Key) Then
-        'AllAgents.Item(item.Key) = item.Value
-        'Else
-        'AllAgents.Add(item.Key, item.Value)
-        'End If
-        'Next
+        For Each item In Presence
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
 
-        'For Each item In Presence
-        'If AllAgents.ContainsKey(item.Key) Then
-        'AllAgents.Item(item.Key) = item.Value
-        'Else
-        'AllAgents.Add(item.Key, item.Value)
-        'End If
+        For Each item In HGUsers
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
 
-        'Next
-
-        Return Presence
+        Return Agents
 
     End Function
 
@@ -90,14 +90,9 @@ Module SmartStart
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
 
-                    ' see if there is a window still open. If so, its running
-                    'If Not PropAborting And CBool(GetHwnd(Group_Name(RegionUUID))) Then
-
                     Dim status = RegionStatus(RegionUUID)
-                    BreakPoint.Print($"{Region_Name(RegionUUID)} is {GetStateString(status)}")
-                    If CBool((status = SIMSTATUSENUM.Booting) Or
-                        (status = SIMSTATUSENUM.RecyclingDown) Or
-                        (status = SIMSTATUSENUM.ShuttingDownForGood)) Then
+
+                    If status = SIMSTATUSENUM.Booting Then
                         BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                     Else
@@ -175,8 +170,7 @@ Module SmartStart
         ' wait 2 minute for the region to quit
         Dim ctr = 120
 
-        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And
-             RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
+        While PropOpensimIsRunning AndAlso RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
             If ctr = 0 Then Exit While
@@ -300,6 +294,11 @@ Module SmartStart
 
     End Function
 
+    ''' <summary>
+    ''' Parses web server input
+    ''' </summary>
+    ''' <param name="post"></param>
+    ''' <returns></returns>
     Public Function SmartStartParse(post As String) As String
 
         ' Smart Start AutoStart Region mode
@@ -333,6 +332,9 @@ Module SmartStart
                 RegionUUID = Name ' Its a UUID
             Else
                 Name = Region_Name(RegionUUID)
+                If Name.Length = 0 Then
+                    Return RegionUUID
+                End If
             End If
             'Debug.Print("Teleport to " & Name)
 
@@ -345,37 +347,37 @@ Module SmartStart
                     ' smart, and up
                     If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                         If TeleportType.ToUpperInvariant = "UUID" Then
-                            Logger("Already Booted UUID Teleport", Name & ":" & AgentID, "Teleport")
+                            'Logger("Already Booted UUID Teleport", Name & ":" & AgentID, "Teleport")
                             Return RegionUUID
                         ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
-                            Logger("Already Booted Named Teleport", Name & ":" & AgentID, "Teleport")
+                            'Logger("Already Booted Named Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name
                         Else ' Its a sign!
-                            Logger("Already Booted TP Sign Teleport", Name & ":" & AgentID, "Teleport")
+                            'Logger("Already Booted TP Sign Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name & "|0"
                         End If
                     Else  ' requires booting
                         If TeleportType.ToUpperInvariant = "UUID" Then
                             If Settings.BootOrSuspend Then
                                 AddEm(RegionUUID, AgentID, True)
-                                Logger("Boot Type UUID Teleport", Name & ":" & AgentID, "Teleport")
+                                'Logger("Boot Type UUID Teleport", Name & ":" & AgentID, "Teleport")
                                 RPC_admin_dialog(AgentID, $"Booting your region {Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
                                 Dim uuid = FindRegionByName(Settings.ParkingLot)
                                 Return uuid
                             Else
                                 AddEm(RegionUUID, AgentID, True)
-                                Logger("Suspend type UUID Teleport", Name & ":" & AgentID, "Teleport")
+                                'Logger("Suspend type UUID Teleport", Name & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             End If
 
                         ElseIf TeleportType.ToUpperInvariant = "REGIONNAME" Then
                             If Settings.BootOrSuspend Then
                                 AddEm(RegionUUID, AgentID, True)
-                                Logger("Boot Type Named Teleport", Name & ":" & AgentID, "Teleport")
+                                'Logger("Boot Type Named Teleport", Name & ":" & AgentID, "Teleport")
                                 RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
                                 Return Settings.ParkingLot
                             Else
-                                Logger("Suspend Type Named Teleport", Name & ":" & AgentID, "Teleport")
+                                'Logger("Suspend Type Named Teleport", Name & ":" & AgentID, "Teleport")
                                 AddEm(RegionUUID, AgentID, True)
                                 Return Name
                             End If
@@ -388,10 +390,10 @@ Module SmartStart
                             End If
                             If Settings.BootOrSuspend Then
                                 RPC_admin_dialog(AgentID, $"Booting your region { Region_Name(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(time)} seconds.")
-                                Logger("Sign Boot, Agent ", Name & ":" & AgentID, "Teleport")
+                                'Logger("Sign Boot, Agent ", Name & ":" & AgentID, "Teleport")
                                 Return Settings.ParkingLot
                             Else
-                                Logger("Sign Suspend,Agent ", Name & ":" & AgentID, "Teleport")
+                                'Logger("Sign Suspend,Agent ", Name & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             End If
 
@@ -400,6 +402,7 @@ Module SmartStart
                 Else
                     ' not enabled
                     RPC_admin_dialog(AgentID, $"Destination {Region_Name(RegionUUID)} is disabled.")
+                    Debug.Print($"Destination {Region_Name(RegionUUID)} is disabled.")
                 End If
             Else ' Non Smart Start
                 If TeleportType.ToUpperInvariant = "UUID" Then
@@ -426,15 +429,23 @@ Module SmartStart
 
     ReadOnly BootupLock As New Object
 
+    ''' <summary>Starts Opensim for a given name</summary>
+    ''' <param name="BootName">Name of region to start</param>
+    ''' <returns>success = true</returns>
+    '''
     Public Function Boot(BootName As String) As Boolean
-        ''' <summary>Starts Opensim for a given name</summary>
-        ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>
-        '''
+
         SyncLock BootupLock
 
             PropOpensimIsRunning() = True
             If PropAborting Then Return True
+
+            Dim processes = Process.GetProcessesByName("Opensim")
+            For Each p In processes
+                If Not PropInstanceHandles.ContainsKey(p.Id) Then
+                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
+                End If
+            Next
 
             Dim RegionUUID As String = FindRegionByName(BootName)
             If Not RegionEnabled(RegionUUID) Then Return True
@@ -454,36 +465,48 @@ Module SmartStart
                     Logger("Suspended, Resuming it", BootName, "Teleport")
 
                     Dim PID As Integer = GetPIDofWindow(GroupName)
+                    Try
+                        Dim P = Process.GetProcessById(PID)
+                        P.EnableRaisingEvents = True
+                        AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
+                    Catch
+                    End Try
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     If Settings.BootOrSuspend Then
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             RegionStatus(UUID) = SIMSTATUSENUM.Resume
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     Else
                         For Each UUID As String In RegionUuidListByName(GroupName)
                             ResumeRegion(UUID)
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                            ProcessID(UUID) = PID
                             SendToOpensimWorld(UUID, 0)
                         Next
                     End If
 
-                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                    '   ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
                     Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                     PropUpdateView = True ' make form refresh
                     Return True
                 Else    ' needs to be captured into the event handler
 
-                    ' TextPrint(BootName & " " & My.Resources.Running_word)
+                    TextPrint(BootName & " " & My.Resources.Running_word)
                     Dim PID As Integer = GetPIDofWindow(GroupName)
+                    Try
+                        Dim P = Process.GetProcessById(PID)
+                        P.EnableRaisingEvents = True
+                        AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
+                    Catch ex As Exception
+                        BreakPoint.Print(ex.Message)
+                    End Try
+
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     For Each UUID As String In RegionUuidListByName(GroupName)
@@ -493,11 +516,9 @@ Module SmartStart
                             RegionStatus(UUID) = SIMSTATUSENUM.Booted
                             SendToOpensimWorld(RegionUUID, 0)
                         End If
-
                         ProcessID(UUID) = PID
-                        Application.DoEvents()
                     Next
-                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                    'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
                     PropUpdateView = True ' make form refresh
                     Return True
@@ -516,6 +537,7 @@ Module SmartStart
                 .EnableRaisingEvents = True
             }
 #Enable Warning CA2000 ' Dispose objects before losing scope
+            AddHandler BootProcess.Exited, AddressOf OpensimExited ' Registering event handler
 
             BootProcess.StartInfo.UseShellExecute = True
             BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
@@ -548,13 +570,13 @@ Module SmartStart
             If ok Then
                 Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
 
-                If ProcessIdDict.ContainsKey(PID) Then
-                    ProcessIdDict.Item(PID) = Process.GetProcessById(PID)
-                Else
-                    ProcessIdDict.Add(PID, BootProcess)
-                End If
-
                 If PID > 0 Then
+
+                    If ProcessIdDict.ContainsKey(PID) Then
+                        ProcessIdDict.Item(PID) = CachedProcess(PID)
+                    Else
+                        ProcessIdDict.Add(PID, BootProcess)
+                    End If
                     ' 0 is all cores
                     Try
                         If Cores(RegionUUID) > 0 Then
@@ -588,12 +610,10 @@ Module SmartStart
                         BreakPoint.Dump(ex)
                     End Try
 
-                    If Not SetWindowTextCall(BootProcess, GroupName) Then
-                        ShutDown(RegionUUID, SIMSTATUSENUM.Error)
-                    End If
+                    SetWindowTextCall(BootProcess, GroupName)
 
                     If Not PropInstanceHandles.ContainsKey(PID) Then
-                        PropInstanceHandles.Add(PID, GroupName)
+                        PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
 
                     ' Mark them before we boot as a crash will immediately trigger the event that it exited
@@ -622,14 +642,13 @@ Module SmartStart
 
     End Function
 
-    ''' <summary>
-    ''' Sets status to Resume if stopped or paused
-    ''' </summary>
-
     Public Sub ReBoot(RegionUUID As String)
 
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
-                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+            FreezeThaw.FreezeThaw(RegionUUID, False)
+        End If
+
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Then
 
@@ -643,6 +662,10 @@ Module SmartStart
         End If
 
     End Sub
+
+    ''' <summary>
+    ''' Sets status to Resume if stopped or paused
+    ''' </summary>
 
 #End Region
 
@@ -703,9 +726,8 @@ Module SmartStart
         Dim File = obj.Command
 
         RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
-        TextPrint($"{Region_Name(RegionUUID)} load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""", True)
-        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+        TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood

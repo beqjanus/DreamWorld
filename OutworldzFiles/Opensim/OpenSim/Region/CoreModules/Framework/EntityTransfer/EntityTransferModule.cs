@@ -741,14 +741,13 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 return;
             }
 
-            
-            // Smartstart
-            //This is still a test.
-            // this possible should only be called if query fails with a limites set of errors like connection refused.
-            if (reg.RegionLocY != 0) // not on HG
+
+            // Smartstart            
+            //fkb 
+            if (true)
             {
-                //if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
-                //{
+                //if (reg.RegionLocY != 0) // NZ = on HG, not sure why this is here??
+                {
                     UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); // fkb
                     if (regID != UUID.Zero && regID != finalDestination.RegionID)
                     {
@@ -767,8 +766,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                         reg = finalDestination;
                     }
-                //
-        	}
+                }
+
+            }
 
             IPEndPoint endPoint = finalDestination.ExternalEndPoint;
             if (endPoint == null || endPoint.Address == null)

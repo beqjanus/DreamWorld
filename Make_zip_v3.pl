@@ -69,13 +69,6 @@ foreach my $f (@a) {
 
 DelZips();
 
-PrintDate("Clean up fsassets");
-
-my $todo = qq!DEL /F/Q/S "$dir/OutworldzFiles/opensim/bin/fsassets""!;
-`$todo`;
-$todo = qq!RMDIR /Q/S  "$dir/OutworldzFiles/opensim/bin/fsassets"!;
-`$todo`;
-
 PrintDate("Clean up opensim");
 
 
@@ -724,6 +717,7 @@ sub GetVersion
     if ( !$ver ) {
         PrintDate('no version!');
         exit;
+        
     }
     return $ver   ;
 }

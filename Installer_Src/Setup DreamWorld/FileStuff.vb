@@ -20,7 +20,7 @@ Module FileStuff
         If Settings.Logger = "Baretail" Then
             fname = IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe")
         Else
-            fname = IO.Path.Combine(Settings.CurrentDirectory, "QuickManager\Quickmanager.exe")
+            fname = "notepad.exe"
         End If
 
         Try

@@ -4348,7 +4348,8 @@ namespace OpenSim.Framework
                 }
             }
 
-            m_log.ErrorFormat("{0} Failed XML ({1} bytes) = {2}", message, length, xml);
+           
+             m_log.ErrorFormat("{0} Failed XML ({1} bytes) = {2}", message, length, xml);
         }
 
         /// <summary>
