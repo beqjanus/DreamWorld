@@ -146,9 +146,9 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.ApplyTerrainEffect
+                            .TaskName = TaskName.ApplyTerrainEffect
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -159,9 +159,9 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.ApplyPlant
+                            .TaskName = TaskName.ApplyPlant
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -202,9 +202,9 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.BakeTerrain
+                            .TaskName = TaskName.BakeTerrain
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -226,9 +226,9 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.DeleteTree
+                            .TaskName = TaskName.DeleteTree
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -818,10 +818,10 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
         Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.TerrainLoad,
+                .TaskName = TaskName.TerrainLoad,
                 .Command = ""
             }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
+        RebootAndRunTask(RegionUUID, Obj)
 
     End Sub
 
@@ -1202,9 +1202,9 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
         Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.RebuildTerrain
+                        .TaskName = TaskName.RebuildTerrain
                     }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1237,9 +1237,9 @@ Public Class FormSmartStart
         If RegionUUID.Length = 0 Then Return
 
         Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.Revert
+                .TaskName = TaskName.Revert
             }
-        FormSetup.RebootAndRunTask(RegionUUID, Obj)
+        RebootAndRunTask(RegionUUID, Obj)
     End Sub
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
@@ -1248,9 +1248,9 @@ Public Class FormSmartStart
             If Not RegionEnabled(RegionUUID) Then Continue For
 
             Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.SaveTerrain
+                        .TaskName = TaskName.SaveTerrain
                     }
-            FormSetup.RebootAndRunTask(RegionUUID, obj)
+            RebootAndRunTask(RegionUUID, obj)
         Next
 
     End Sub
@@ -1395,10 +1395,10 @@ Public Class FormSmartStart
         Dim TerrainName = _TerrainName.Item(_Index)
         TerrainName = TerrainName.Replace(".jpg", ".r32")
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.TerrainLoad,
+                            .TaskName = TaskName.TerrainLoad,
                             .Command = TerrainName
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -1427,9 +1427,9 @@ Public Class FormSmartStart
         Dim RegionUUID As String = FindRegionByName(RegionName)
 
         Dim obj As New TaskObject With {
-                            .TaskName = FormSetup.TaskName.SaveTerrain
+                            .TaskName = TaskName.SaveTerrain
                         }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 

@@ -534,10 +534,10 @@ Public Class FormRegions
                 If Not PropOpensimIsRunning Then Return
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
                 Dim obj As New TaskObject With {
-                    .TaskName = FormSetup.TaskName.LoadAllFreeOARs,
+                    .TaskName = TaskName.LoadAllFreeOARs,
                     .Command = File
                 }
-                FormSetup.RebootAndRunTask(RegionUUID, obj)
+                RebootAndRunTask(RegionUUID, obj)
                 AddToRegionMap(RegionUUID)
 
                 If StopLoading = "StopRequested" Then

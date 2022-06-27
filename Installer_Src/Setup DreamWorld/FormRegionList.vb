@@ -343,10 +343,10 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Teleport" Then
             ResumeRegion(RegionUUID)
             Dim Obj = New TaskObject With {
-                        .TaskName = FormSetup.TaskName.TeleportClicked,
+                        .TaskName = TaskName.TeleportClicked,
                         .Command = ""
                     }
-            FormSetup.RebootAndRunTask(RegionUUID, Obj)
+            RebootAndRunTask(RegionUUID, Obj)
 
         ElseIf chosen = "Load" Then
             ResumeRegion(RegionUUID)

@@ -10,6 +10,32 @@ Imports System.Text.RegularExpressions
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
+    Public ToDoList As New Dictionary(Of String, TaskObject)
+
+    ''' <summary>
+    ''' The list of commands
+    ''' </summary>
+    Public Enum TaskName As Integer
+
+        None = 0
+        LaunchBackupper = 1        ' run backups via XMLRPC
+        TeleportClicked = 2     ' click the teleport button in the region pop up
+        LoadOar = 3             ' for Loading a series of OARS
+        LoadOneOarTask = 4      ' loading One Oar
+        LoadOARContent = 5      ' From the map click
+        SaveOneOAR = 6          ' Save this one OAR click
+        RebuildTerrain = 7      ' Smart Terrain
+        SaveTerrain = 8        ' Dump one region to disk
+        ApplyTerrainEffect = 9 ' Change the terrain
+        TerrainLoad = 10      ' Change one of them
+        ApplyPlant = 11        ' Plant trees
+        BakeTerrain = 12       ' save it permanently
+        LoadAllFreeOARs = 13   ' the big Kaunas of all oars at once
+        DeleteTree = 14        ' kill off all trees
+        Revert = 15             ' revert terrain
+        SaveAllIARS = 16        ' save all IARS
+
+    End Enum
 
     Public Sub BuildLand(Avatars As Dictionary(Of String, String))
 
@@ -72,6 +98,87 @@ Module SmartStart
         Return Agents
 
     End Function
+
+    ''' <summary>
+    ''' Queue a task to occur after a region is booted.
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <param name="Taskname">A Task Name</param>
+    Public Sub RebootAndRunTask(RegionUUID As String, TObj As TaskObject)
+
+        BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
+
+        ReBoot(RegionUUID)
+        Application.DoEvents()
+        ' TODO add task queue
+        ' so we can have more than one command
+        'TaskQue.Add(TObj)
+        If ToDoList.ContainsKey(RegionUUID) Then
+            ToDoList(RegionUUID) = TObj
+        Else
+            ToDoList.Add(RegionUUID, TObj)
+        End If
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+            ResumeRegion(RegionUUID)
+            RunTaskList(RegionUUID)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Run a task after region boots
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub RunTaskList(RegionUUID As String)
+
+        If ToDoList.ContainsKey(RegionUUID) Then
+            BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
+            Dim Task = ToDoList.Item(RegionUUID)
+            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
+                ToDoList.Remove(RegionUUID)
+                Dim T = Task.TaskName
+                Select Case T
+                    Case TaskName.LaunchBackupper      '1
+                        Backupper(RegionUUID, Task.Command)
+                    Case TaskName.TeleportClicked   '2
+                        TeleportClicked(RegionUUID)
+                    Case TaskName.LoadOar   '2
+                        LoadOar(RegionUUID)
+                    Case TaskName.LoadOneOarTask    '4
+                        LoadOneOarTask(RegionUUID, Task)
+                    Case TaskName.LoadOARContent    '5
+                        LoadOARContent2(RegionUUID, Task)
+                    Case TaskName.SaveOneOAR    '6
+                        SaveOneOar(RegionUUID, Task)
+                    Case TaskName.RebuildTerrain    '7
+                        RebuildTerrain(RegionUUID)
+                    Case TaskName.SaveTerrain  '8
+                        Save_Terrain(RegionUUID)
+                    Case TaskName.ApplyTerrainEffect    '9
+                        ApplyTerrainEffect(RegionUUID)
+                    Case TaskName.TerrainLoad       '10
+                        Load_Save(RegionUUID)
+                    Case TaskName.ApplyPlant       '11
+                        Apply_Plant(RegionUUID)
+                    Case TaskName.BakeTerrain      '12
+                        Bake_Terrain(RegionUUID)
+                    Case TaskName.LoadAllFreeOARs  '13
+                        Load_AllFreeOARs(RegionUUID, Task)
+                    Case TaskName.DeleteTree       '14
+                        Delete_Tree(RegionUUID)
+                    Case TaskName.Revert             '15
+                        Revert(RegionUUID)
+                    Case TaskName.SaveAllIARS        '16
+                        SaveThreadIARS()
+                    Case Else
+                        BreakPoint.Print("Impossible task")
+                End Select
+            End If
+
+        End If
+
+    End Sub
 
     Public Sub SequentialPause()
 
@@ -154,6 +261,15 @@ Module SmartStart
         End Try
 
     End Sub
+
+    Public Class TaskObject
+
+        Public backMeUp As String
+        Public Command As String    ' text to send in sequence to the task
+        Public Str As String
+        Public TaskName As TaskName
+
+    End Class
 
 #Region "StartStart"
 
@@ -646,6 +762,7 @@ Module SmartStart
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
             FreezeThaw.FreezeThaw(RegionUUID, False)
+            RunTaskList(RegionUUID)
         End If
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or

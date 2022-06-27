@@ -405,9 +405,9 @@ Public Class Backups
                 End If
 
                 Dim obj As New TaskObject With {
-                    .TaskName = FormSetup.TaskName.SaveAllIARS
+                    .TaskName = TaskName.SaveAllIARS
                 }
-                FormSetup.RebootAndRunTask(RegionUUID, obj)
+                RebootAndRunTask(RegionUUID, obj)
             End SyncLock
             RunningBackupName = ""
         End If

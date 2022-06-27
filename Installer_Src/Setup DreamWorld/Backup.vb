@@ -120,10 +120,10 @@ Module Backup
          DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             Dim Obj = New TaskObject With {
-                .TaskName = FormSetup.TaskName.LaunchBackupper,
+                .TaskName = TaskName.LaunchBackupper,
                 .Command = file
             }
-            FormSetup.RebootAndRunTask(RegionUUID, Obj)
+            RebootAndRunTask(RegionUUID, Obj)
 
             Application.DoEvents()
             WaitforComplete(RegionUUID, file)

@@ -102,10 +102,10 @@ Module OAR
                     Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
 
                     Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.LoadOneOarTask,
+                        .TaskName = TaskName.LoadOneOarTask,
                         .Command = v
                     }
-                    FormSetup.RebootAndRunTask(RegionUUID, obj)
+                    RebootAndRunTask(RegionUUID, obj)
                 End If
             End If
 
@@ -167,12 +167,12 @@ Module OAR
         Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
 
         Dim obj As New TaskObject With {
-            .TaskName = FormSetup.TaskName.LoadOARContent,
+            .TaskName = TaskName.LoadOARContent,
             .backMeUp = BackUpString,
             .Command = LoadOarCmd
         }
 
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
@@ -249,10 +249,10 @@ Module OAR
         End If
 
         Dim obj As New TaskObject With {
-                        .TaskName = FormSetup.TaskName.SaveOneOAR,
+                        .TaskName = TaskName.SaveOneOAR,
                         .Command = myValue
                     }
-        FormSetup.RebootAndRunTask(RegionUUID, obj)
+        RebootAndRunTask(RegionUUID, obj)
 
     End Sub
 
