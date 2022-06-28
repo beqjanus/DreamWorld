@@ -1467,6 +1467,7 @@
     <Content Include="Resources\exit.png" />
     <None Include="Resources\gear_time.png" />
     <None Include="Resources\icecube.png" />
+    <None Include="Resources\ezgif.com-gif-maker.gif" />
     <Content Include="Resources\jar.ico" />
     <None Include="Resources\loudspeaker.png" />
     <None Include="Resources\line-chart.png" />

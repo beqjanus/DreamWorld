@@ -998,7 +998,7 @@ Partial Class FormSetup
         '
         'ConnectToConsoleToolStripMenuItemMySQL
         '
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data_copy1
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data
         Me.ConnectToConsoleToolStripMenuItemMySQL.Name = "ConnectToConsoleToolStripMenuItemMySQL"
         Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(179, 22)
         Me.ConnectToConsoleToolStripMenuItemMySQL.Text = "Connect to Console"

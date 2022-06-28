@@ -48,11 +48,13 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.AvatarsButton = New System.Windows.Forms.Button()
         Me.ImportButton = New System.Windows.Forms.Button()
-        Me.IconsButton = New System.Windows.Forms.Button()
         Me.Users = New System.Windows.Forms.Button()
         Me.Emails = New System.Windows.Forms.Button()
+        Me.IconsButton = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer1
@@ -72,7 +74,7 @@ Partial Class FormRegionlist
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(1465, 154)
+        Me.ListView1.Size = New System.Drawing.Size(1371, 154)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -96,7 +98,7 @@ Partial Class FormRegionlist
         Me.IconView.MultiSelect = False
         Me.IconView.Name = "IconView"
         Me.IconView.ShowItemToolTips = True
-        Me.IconView.Size = New System.Drawing.Size(1464, 154)
+        Me.IconView.Size = New System.Drawing.Size(1370, 154)
         Me.IconView.TabIndex = 18609
         Me.ToolTip1.SetToolTip(Me.IconView, "Icons")
         Me.IconView.UseCompatibleStateImageBehavior = False
@@ -136,7 +138,7 @@ Partial Class FormRegionlist
         '
         Me.AllNone.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.AllNone.AutoSize = True
-        Me.AllNone.Location = New System.Drawing.Point(3, 91)
+        Me.AllNone.Location = New System.Drawing.Point(3, 94)
         Me.AllNone.Name = "AllNone"
         Me.AllNone.Size = New System.Drawing.Size(68, 17)
         Me.AllNone.TabIndex = 4
@@ -156,7 +158,7 @@ Partial Class FormRegionlist
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(1464, 154)
+        Me.AvatarView.Size = New System.Drawing.Size(1370, 154)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -184,7 +186,7 @@ Partial Class FormRegionlist
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(1464, 154)
+        Me.UserView.Size = New System.Drawing.Size(1370, 154)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
@@ -244,7 +246,7 @@ Partial Class FormRegionlist
         '
         Me.SearchBox.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.TableLayoutPanel1.SetColumnSpan(Me.SearchBox, 2)
-        Me.SearchBox.Location = New System.Drawing.Point(77, 90)
+        Me.SearchBox.Location = New System.Drawing.Point(77, 93)
         Me.SearchBox.Name = "SearchBox"
         Me.SearchBox.Size = New System.Drawing.Size(117, 20)
         Me.SearchBox.TabIndex = 18615
@@ -278,7 +280,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1498, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1404, 30)
         Me.MenuStrip1.TabIndex = 18618
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -391,7 +393,8 @@ Partial Class FormRegionlist
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.ColumnCount = 10
+        Me.TableLayoutPanel1.ColumnCount = 11
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -403,6 +406,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 5, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.PictureBox1, 10, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DetailsButton, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AllButton, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Bootedbutton, 2, 0)
@@ -428,7 +432,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(873, 120)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(913, 126)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'AvatarsButton
@@ -459,20 +463,6 @@ Partial Class FormRegionlist
         Me.ImportButton.Text = "Import INI"
         Me.ImportButton.UseVisualStyleBackColor = True
         '
-        'IconsButton
-        '
-        Me.IconsButton.AutoSize = True
-        Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
-        Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.IconsButton.Location = New System.Drawing.Point(500, 3)
-        Me.IconsButton.MinimumSize = New System.Drawing.Size(83, 26)
-        Me.IconsButton.Name = "IconsButton"
-        Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.IconsButton.Size = New System.Drawing.Size(144, 34)
-        Me.IconsButton.TabIndex = 2
-        Me.IconsButton.Text = "Icons"
-        Me.IconsButton.UseVisualStyleBackColor = True
-        '
         'Users
         '
         Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
@@ -497,11 +487,37 @@ Partial Class FormRegionlist
         Me.Emails.Text = "Email"
         Me.Emails.UseVisualStyleBackColor = True
         '
+        'IconsButton
+        '
+        Me.IconsButton.AutoSize = True
+        Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
+        Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.IconsButton.Location = New System.Drawing.Point(500, 3)
+        Me.IconsButton.MinimumSize = New System.Drawing.Size(83, 26)
+        Me.IconsButton.Name = "IconsButton"
+        Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
+        Me.IconsButton.Size = New System.Drawing.Size(144, 34)
+        Me.IconsButton.TabIndex = 2
+        Me.IconsButton.Text = "Icons"
+        Me.IconsButton.UseVisualStyleBackColor = True
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.ezgif_com_gif_maker
+        Me.PictureBox1.Location = New System.Drawing.Point(805, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(34, 34)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 18619
+        Me.PictureBox1.TabStop = False
+        '
         'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1498, 338)
+        Me.ClientSize = New System.Drawing.Size(1404, 338)
         Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.IconView)
@@ -518,6 +534,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -558,4 +575,5 @@ Partial Class FormRegionlist
     Friend WithEvents IconsButton As Button
     Friend WithEvents Users As Button
     Friend WithEvents Emails As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

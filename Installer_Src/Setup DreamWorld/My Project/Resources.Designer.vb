@@ -2711,16 +2711,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property data_copy1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("data_copy1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Data Folder.
         '''</summary>
         Friend ReadOnly Property Data_Folder_word() As String
@@ -4020,6 +4010,16 @@ Namespace My.Resources
         Friend ReadOnly Property External_text() As String
             Get
                 Return ResourceManager.GetString("External_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ezgif_com_gif_maker() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ezgif.com-gif-maker", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

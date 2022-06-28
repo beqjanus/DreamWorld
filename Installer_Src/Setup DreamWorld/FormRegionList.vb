@@ -827,7 +827,7 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub IconClick(sender As Object, e As EventArgs) Handles UserView.Click
+    Private Sub UserClick(sender As Object, e As EventArgs) Handles UserView.Click
         If Not initted Then Return
         Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
         Dim item As ListViewItem
@@ -878,6 +878,7 @@ SetWindowOnTop_Err:
 
     Private Sub ListView1_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles ListView1.ColumnWidthChanged
 
+
         Dim w = ListView1.Columns(e.ColumnIndex).Width
         Dim name = ListView1.Columns(e.ColumnIndex).Name
         If name.Length = 0 Or w = 0 Then Return
@@ -901,22 +902,11 @@ SetWindowOnTop_Err:
         If Item.Text.Length = 0 Then Return
         If Item.Text = "New Region" Then Return
 
-        Dim UUID As String = FindRegionByName(Item.Text)
-        Dim out As New Guid
-        If Not Guid.TryParse(UUID, out) Then Return
-        Dim GroupName = Group_Name(UUID)
+        Dim RegionUUID As String = FindRegionByName(Item.Text)
+        Dim GroupName = Group_Name(RegionUUID)
 
-        For Each RegionUUID In RegionUuidListByName(GroupName)
-
-            If (e.NewValue = CheckState.Unchecked) Then
-                RegionEnabled(RegionUUID) = False
-                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                ConsoleCommand(RegionUUID, "q")
-                DeregisterRegionUUID(RegionUUID)
-            Else
-                RegionEnabled(RegionUUID) = True
-            End If
-
+        If RegionEnabled(RegionUUID) <> Item.Checked Then
+            RegionEnabled(RegionUUID) = Item.Checked
             If RegionIniFilePath(RegionUUID).Length > 0 Then
                 Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
@@ -924,8 +914,7 @@ SetWindowOnTop_Err:
             Else
                 BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
-
-        Next
+        End If
 
     End Sub
 
@@ -935,7 +924,7 @@ SetWindowOnTop_Err:
         TheView1 = Settings.RegionListView()
 
         SetScreen(TheView1)
-
+        PictureBox1.Visible = True
         Try
             AllButton.Text = Global.Outworldz.My.Resources.All_word
             AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
@@ -1227,6 +1216,7 @@ SetWindowOnTop_Err:
             ShowUponBootToolStripMenuItem.Checked = Settings.ShowRegionListOnBoot
             Settings.SaveSettings()
 
+            PictureBox1.Visible = False
             Timer1.Start()
             LoadMyListView()
 
@@ -1434,246 +1424,252 @@ SetWindowOnTop_Err:
             BreakPoint.Dump(ex)
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         Finally
-            PropUpdateView() = False
 
+            PropUpdateView() = False
         End Try
 
     End Sub
 
+    Dim regionLock As New Object
     Private Sub ShowDetails()
 
-        ShowTitle()
+        SyncLock regionLock
+            ShowTitle()
 
-        AllNone.Visible = True
-        detailsinitted = False
-        ListView1.Show()
-        ListView1.Visible = True
-        IconView.Hide()
-        AvatarView.Hide()
-        UserView.Hide()
+            AllNone.Visible = True
+            detailsinitted = False
+            PictureBox1.Visible = True
+            ListView1.Show()
+            ListView1.Visible = True
+            IconView.Hide()
+            AvatarView.Hide()
+            UserView.Hide()
 
-        ListView1.TabIndex = 0
+            ListView1.TabIndex = 0
 
-        ListView1.BeginUpdate()
-        ListView1.Items.Clear()
+            ListView1.BeginUpdate()
+            ListView1.Items.Clear()
 
-        Dim p As PerformanceCounter = Nothing
+            Dim p As PerformanceCounter = Nothing
 
-        Try
-            For Each RegionUUID As String In SearchArray
+            Try
+                For Each RegionUUID As String In SearchArray
 
-                If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
-                If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-                If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
-                If Bootedbutton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted Then Continue For
-                If StoppedButton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped Then Continue For
+                    If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
+                    If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
+                    If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
+                    If Bootedbutton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted Then Continue For
+                    If StoppedButton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped Then Continue For
 
-                Dim Num As Integer = 0
-                Dim Letter As String = ""
-                Dim status = GetStatus(RegionUUID, Num, Letter)
+                    Dim Num As Integer = 0
+                    Dim Letter As String = ""
+                    Dim status = GetStatus(RegionUUID, Num, Letter)
 
-                ' Create items and sub items for each item. Place a check mark next to the item.
-                Dim item1 As New ListViewItem(Region_Name(RegionUUID), Num) With
-                    {
-                        .Checked = RegionEnabled(RegionUUID)
-                    }
-                item1.SubItems.Add(Group_Name(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
-                item1.SubItems.Add(AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                    ' Create items and sub items for each item. Place a check mark next to the item.
+                    Dim item1 As New ListViewItem(Region_Name(RegionUUID), Num) With
+                        {
+                            .Checked = RegionEnabled(RegionUUID)
+                        }
+                    item1.SubItems.Add(Group_Name(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
 
-                item1.SubItems.Add(Letter)
-                Dim fmtXY = "00000" ' 65536
-                Dim fmtRam = "0.0" ' 9999 MB
-                ' RAM
+                    item1.SubItems.Add(Letter)
+                    Dim fmtXY = "00000" ' 65536
+                    Dim fmtRam = "0.0" ' 9999 MB
+                    ' RAM
 
-                If status = SIMSTATUSENUM.Booting _
-                        Or (status = SIMSTATUSENUM.Suspended And Settings.Smart_Start And Smart_Start(RegionUUID) = "True") _
-                        Or status = SIMSTATUSENUM.Booted _
-                        Or status = SIMSTATUSENUM.RecyclingUp _
-                        Or status = SIMSTATUSENUM.RecyclingDown _
-                        Then
+                    If status = SIMSTATUSENUM.Booting _
+                            Or (status = SIMSTATUSENUM.Suspended And Settings.Smart_Start And Smart_Start(RegionUUID) = "True") _
+                            Or status = SIMSTATUSENUM.Booted _
+                            Or status = SIMSTATUSENUM.RecyclingUp _
+                            Or status = SIMSTATUSENUM.RecyclingDown _
+                            Then
 
-                    Try
-                        Dim PID = ProcessID(RegionUUID)
-                        Dim component1 As Process = CachedProcess(PID)
-                        Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        TotalRam += Memory
-                        item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " MB")
-                    Catch ex As Exception
+                        Try
+                            Dim PID = ProcessID(RegionUUID)
+                            Dim component1 As Process = CachedProcess(PID)
+                            Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
+                            TotalRam += Memory
+                            item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " MB")
+                        Catch ex As Exception
+                            item1.SubItems.Add("0")
+                        End Try
+                    Else
                         item1.SubItems.Add("0")
-                    End Try
-                Else
-                    item1.SubItems.Add("0")
-                End If
+                    End If
 
-                Dim cpupercent As Double = 0
-                If Not status = SIMSTATUSENUM.Stopped And Not status = SIMSTATUSENUM.Error Then
-                    Dim Groupname As String = Group_Name(RegionUUID)
-                    CPUValues.TryGetValue(Groupname, cpupercent)
-                End If
+                    Dim cpupercent As Double = 0
+                    If Not status = SIMSTATUSENUM.Stopped And Not status = SIMSTATUSENUM.Error Then
+                        Dim Groupname As String = Group_Name(RegionUUID)
+                        CPUValues.TryGetValue(Groupname, cpupercent)
+                    End If
 
-                item1.SubItems.Add(CStr(cpupercent))
-                Dim c As Color = SystemColors.ControlText
-                If cpupercent > 1 Then
-                    c = Color.Red
-                End If
+                    item1.SubItems.Add(CStr(cpupercent))
+                    Dim c As Color = SystemColors.ControlText
+                    If cpupercent > 1 Then
+                        c = Color.Red
+                    End If
 
-                item1.SubItems.Add(Coord_X(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
-                item1.SubItems.Add(Coord_Y(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(Coord_X(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(Coord_Y(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
 
-                ' Size of region
-                Dim s As Double = SizeX(RegionUUID) / 256
-                Dim size As String = CStr(s) & "X" & CStr(s)
-                item1.SubItems.Add(size)
-                item1.SubItems.Add(Estate(RegionUUID))
+                    ' Size of region
+                    Dim s As Double = SizeX(RegionUUID) / 256
+                    Dim size As String = CStr(s) & "X" & CStr(s)
+                    item1.SubItems.Add(size)
+                    item1.SubItems.Add(Estate(RegionUUID))
 
-                ' Parcel settings
-                If UseMysql Then
-                    item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
-                Else
-                    item1.SubItems.Add("")
-                End If
+                    ' Parcel settings
+                    If UseMysql Then
+                        item1.SubItems.Add(ParcelPermissionsCheck(RegionUUID))
+                    Else
+                        item1.SubItems.Add("")
+                    End If
 
-                If UseMysql Then
-                    item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
-                Else
-                    item1.SubItems.Add("N/A")
-                End If
+                    If UseMysql Then
+                        item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
+                    Else
+                        item1.SubItems.Add("N/A")
+                    End If
 
-                item1.SubItems.Add(Region_Port(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
-                item1.SubItems.Add(GroupPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(Region_Port(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(GroupPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
 
-                'Scripts XEngine or YEngine
-                Select Case ScriptEngine(RegionUUID)
-                    Case "YEngine"
-                        item1.SubItems.Add(My.Resources.YEngine_word)
-                    Case "XEngine"
-                        item1.SubItems.Add(My.Resources.XEngine_word)
-                    Case "Off"
-                        item1.SubItems.Add("Off".ToUpperInvariant)
-                    Case Else
+                    'Scripts XEngine or YEngine
+                    Select Case ScriptEngine(RegionUUID)
+                        Case "YEngine"
+                            item1.SubItems.Add(My.Resources.YEngine_word)
+                        Case "XEngine"
+                            item1.SubItems.Add(My.Resources.XEngine_word)
+                        Case "Off"
+                            item1.SubItems.Add("Off".ToUpperInvariant)
+                        Case Else
+                            item1.SubItems.Add("-".ToUpperInvariant)
+                    End Select
+
+                    'Map
+                    If MapType(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(MapType(RegionUUID))
+                    Else
                         item1.SubItems.Add("-".ToUpperInvariant)
-                End Select
+                    End If
 
-                'Map
-                If MapType(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(MapType(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    ' physics
+                    Select Case RegionPhysics(RegionUUID)
+                        Case ""
+                            item1.SubItems.Add("-".ToUpperInvariant)
+                        Case "0"
+                            item1.SubItems.Add(My.Resources.None)
+                        Case "1"
+                            item1.SubItems.Add(My.Resources.ODE_word_NT)
+                        Case "2"
+                            item1.SubItems.Add(My.Resources.Bullet_word_NT)
+                        Case "3"
+                            item1.SubItems.Add(My.Resources.Bullet_Threaded_word)
+                        Case "4"
+                            item1.SubItems.Add(My.Resources.ubODE_word)
+                        Case "5"
+                            item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
+                        Case Else
+                            item1.SubItems.Add("-".ToUpperInvariant)
+                    End Select
 
-                ' physics
-                Select Case RegionPhysics(RegionUUID)
-                    Case ""
+                    'birds
+
+                    If Birds(RegionUUID) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
                         item1.SubItems.Add("-".ToUpperInvariant)
-                    Case "0"
-                        item1.SubItems.Add(My.Resources.None)
-                    Case "1"
-                        item1.SubItems.Add(My.Resources.ODE_word_NT)
-                    Case "2"
-                        item1.SubItems.Add(My.Resources.Bullet_word_NT)
-                    Case "3"
-                        item1.SubItems.Add(My.Resources.Bullet_Threaded_word)
-                    Case "4"
-                        item1.SubItems.Add(My.Resources.ubODE_word)
-                    Case "5"
-                        item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
-                    Case Else
+                    End If
+
+                    'Tides
+                    If Tides(RegionUUID) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
                         item1.SubItems.Add("-".ToUpperInvariant)
-                End Select
+                    End If
 
-                'birds
+                    'teleport
+                    If Teleport_Sign(RegionUUID) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If Birds(RegionUUID) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If Smart_Start(RegionUUID) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                'Tides
-                If Tides(RegionUUID) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If AllowGods(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(AllowGods(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                'teleport
-                If Teleport_Sign(RegionUUID) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If RegionGod(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(RegionGod(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If Smart_Start(RegionUUID) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If ManagerGod(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(ManagerGod(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If AllowGods(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(AllowGods(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If SkipAutobackup(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(SkipAutobackup(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If RegionGod(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(RegionGod(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If RegionSnapShot(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(RegionSnapShot(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If ManagerGod(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(ManagerGod(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If MinTimerInterval(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(MinTimerInterval(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If SkipAutobackup(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(SkipAutobackup(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    If FrameTime(RegionUUID).Length > 0 Then
+                        item1.SubItems.Add(FrameTime(RegionUUID))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
-                If RegionSnapShot(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(RegionSnapShot(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    item1.SubItems.Add(BootTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
+                    item1.SubItems.Add(MapTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
 
-                If MinTimerInterval(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(MinTimerInterval(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
+                    item1.ForeColor = c
+                    ListView1.Items.AddRange(New ListViewItem() {item1})
+                    Application.DoEvents()
+                Next
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+                Log(My.Resources.Error_word, " RegionList " & ex.Message)
+            End Try
 
-                If FrameTime(RegionUUID).Length > 0 Then
-                    item1.SubItems.Add(FrameTime(RegionUUID))
-                Else
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                End If
-
-                item1.SubItems.Add(BootTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
-                item1.SubItems.Add(MapTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
-
-                item1.ForeColor = c
-                ListView1.Items.AddRange(New ListViewItem() {item1})
-
+            For Each col In ListView1.Columns
+                Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
+                    Dim w = csize.ColumnWidth(CStr(col.name))
+                    If w > 0 Then col.Width = w
+                End Using
             Next
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-            Log(My.Resources.Error_word, " RegionList " & ex.Message)
-        End Try
 
-        For Each col In ListView1.Columns
-            Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
-                Dim w = csize.ColumnWidth(CStr(col.name))
-                If w > 0 Then col.Width = w
-            End Using
-        Next
+            PictureBox1.Visible = False
+            ListView1.EndUpdate()
+            detailsinitted = True
 
-        ListView1.EndUpdate()
-        detailsinitted = True
+            PropUpdateView() = False
 
-        PropUpdateView() = False
+        End SyncLock
 
     End Sub
 
