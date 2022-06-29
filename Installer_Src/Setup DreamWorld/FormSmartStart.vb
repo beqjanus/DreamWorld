@@ -1313,8 +1313,9 @@ Public Class FormSmartStart
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         If Not _initialized Then Return
 
-        If Not SmartStartEnabled.Checked Then Return
-        If SuspendButton.Checked Then DelayRegionReady.Text = My.Resources._0
+        If SmartStartEnabled.Checked Then
+            If SuspendButton.Checked Then DelayRegionReady.Text = My.Resources._0
+        End If
 
         Settings.Smart_Start = SmartStartEnabled.Checked
         TextPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
