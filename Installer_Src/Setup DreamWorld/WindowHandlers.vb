@@ -364,7 +364,7 @@ Module WindowHandlers
             Return True
         End If
 
-        Dim ctr = 50    ' 5 seconds
+        Dim ctr = 20    ' 2 seconds
         If handle <> IntPtr.Zero Then
             Dim HandleValid As Boolean = False
 
