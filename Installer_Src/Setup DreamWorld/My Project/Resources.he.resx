@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>הגדרות גאות עולמיות</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>הצג בהפעלה!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>חוות סאטיר הנקייה!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>מבחני ביצועים</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>פנקס רשימות</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>ערוץ גאות ושפל!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>אדמה וים אינסופיים!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>דיבור</value>
+  </data>
 </root>

@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Configurações de maré global</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Mostrar na inicialização!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Fazenda Sátiro Limpo!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>MARCOS DE REFERÊNCIA</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Bloco de notas</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Canal Maré Alta/Baixa!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Terras e Mares Sem Fim!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Linguagem</value>
+  </data>
 </root>

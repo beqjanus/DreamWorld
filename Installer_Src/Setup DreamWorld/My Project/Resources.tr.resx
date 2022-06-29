@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Küresel Gelgit Ayarları</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Başlangıçta Göster!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Satir Çiftliğini temizleyin!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Bloknot</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Gelgit Yüksek/Düşük Kanal!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Sonsuz Kara ve Deniz!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Konuşma!</value>
+  </data>
 </root>

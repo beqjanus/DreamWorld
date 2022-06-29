@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Globaalit vuorovesiasetukset</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Näytä käynnistettäessä</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Puhdista Satyr Farmi!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Vertailukohdat</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Muistio</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Vuoroveden ylä- ja alamäki!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Loputon maa ja meri!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Puhe</value>
+  </data>
 </root>

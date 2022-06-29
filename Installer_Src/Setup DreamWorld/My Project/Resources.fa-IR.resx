@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>تنظیمات جزر و مد جهانی</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>نمایش در راه اندازی!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>مزرعه پاک ساتر!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>بنچمارک ها</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>دفترچه یادداشت</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>کانال جزر و مد بالا/پایین!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>سرزمین و دریای بی پایان!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>گفتار</value>
+  </data>
 </root>

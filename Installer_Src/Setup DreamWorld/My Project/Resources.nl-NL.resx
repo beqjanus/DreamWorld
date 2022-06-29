@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Globale getijdeninstellingen</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Bij het opstarten</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Schone Satyr Farm!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Logbenchmarks!</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Kladblok.</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Eindeloos land en zee!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Toespraak!</value>
+  </data>
 </root>

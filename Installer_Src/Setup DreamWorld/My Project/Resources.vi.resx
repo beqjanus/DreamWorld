@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Cài đặt thủy triều toàn cầu</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Hiển thị khi khởi động!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Nông trại Satyr sạch sẽ!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Điểm chuẩn</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Như một Notepad</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Kênh Thủy triều Cao/Thấp!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Vùng Đất Và Biển Vô Tận!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Phát âm</value>
+  </data>
 </root>

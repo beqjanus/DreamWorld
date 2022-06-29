@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>全球潮汐设置</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>启动时显示！</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>干净的撒蒂尔农场！</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>基准</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Notepad++</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>潮汐高/低通道！</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>无尽陆海！</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>演讲&amp;#x0D;</value>
+  </data>
 </root>

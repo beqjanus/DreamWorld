@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Marearen ezarpen globalak</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Erakutsi abiaraztean!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Garbitu Satiro baserria!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Erregistratu Erreferentziak!</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Ohar bloka</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Marea Goi/Beheko kanala!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Lurra Eta Itsaso Amaigabea!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Mintzo</value>
+  </data>
 </root>

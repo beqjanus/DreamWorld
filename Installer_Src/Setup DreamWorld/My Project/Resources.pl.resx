@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Globalne ustawienia pływów</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Pokaż przy starcie!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Czysta farma Satyra!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>wskaźników referencyjnych.</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Notatnik</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Niekończąca się ziemia i morze!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>mowy</value>
+  </data>
 </root>

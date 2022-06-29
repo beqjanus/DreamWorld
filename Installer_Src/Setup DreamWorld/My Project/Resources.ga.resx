@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Socruithe Taoide Domhanda</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Taispeáin Ag Tosú!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Glan Satyr Feirme!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Tagarmharcanna Logála!</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Ceap Nótaí</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Talamh gan Deireadh Agus Farraige!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Urlabhra</value>
+  </data>
 </root>

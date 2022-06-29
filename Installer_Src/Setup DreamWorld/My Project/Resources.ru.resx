@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Глобальные настройки прилива</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Показывать при запуске</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Чистая ферма Сатир!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Критериев</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Блокнот</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Бесконечная земля и море!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Речь!</value>
+  </data>
 </root>

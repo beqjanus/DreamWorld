@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Globala tidvatteninställningar</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Visa tips vid start</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Rena Satyrgården!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>benchmarking-riktmärken</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Anteckningsbok</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Oändligt land och hav!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Talinställningar</value>
+  </data>
 </root>

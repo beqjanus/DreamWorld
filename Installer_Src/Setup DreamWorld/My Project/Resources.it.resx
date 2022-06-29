@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Impostazioni globali della marea</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>all'avvio</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Pulisci la Fattoria dei Satiri!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Log Benchmarks!</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>block notes</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Terra e mare infiniti!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Discorso!</value>
+  </data>
 </root>

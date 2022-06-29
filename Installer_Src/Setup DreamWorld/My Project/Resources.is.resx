@@ -3711,4 +3711,25 @@
   <data name="GlobalTideSettings" xml:space="preserve">
     <value>Global Tide stillingar</value>
   </data>
+  <data name="ShowUponStart" xml:space="preserve">
+    <value>Show On Startup!</value>
+  </data>
+  <data name="CleanSatyrFarm" xml:space="preserve">
+    <value>Hreinn Satýr Bóndi!</value>
+  </data>
+  <data name="LogBenchmarks" xml:space="preserve">
+    <value>Annáll Benchmarks!</value>
+  </data>
+  <data name="NotePadButton" xml:space="preserve">
+    <value>Athugsemd</value>
+  </data>
+  <data name="TideHiLoChannelLabel" xml:space="preserve">
+    <value>Tide High/Low Channel!</value>
+  </data>
+  <data name="EndlessLandAndSea" xml:space="preserve">
+    <value>Endalaust Land Og Sjór!</value>
+  </data>
+  <data name="Speech" xml:space="preserve">
+    <value>Tal</value>
+  </data>
 </root>
