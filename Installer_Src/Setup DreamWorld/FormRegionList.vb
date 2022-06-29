@@ -387,8 +387,6 @@ SetWindowOnTop_Err:
 
         If Not initted Then Return
 
-        detailsinitted = False ' don't toggle the codes
-
         If TheView1 = ViewType.Users Then
 
             For Each X As ListViewItem In UserView.Items
@@ -411,10 +409,6 @@ SetWindowOnTop_Err:
                 If name.Length > 0 Then
                     RegionUUID = FindRegionByName(name)
 
-                    If Not X.Checked Then
-                        DeregisterRegionUUID(RegionUUID)
-                    End If
-
                     If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
                     If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
@@ -430,7 +424,6 @@ SetWindowOnTop_Err:
         End If
 
         PropUpdateView = True ' make form refresh
-        detailsinitted = True
 
     End Sub
 
@@ -827,27 +820,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub UserClick(sender As Object, e As EventArgs) Handles UserView.Click
-        If Not initted Then Return
-        Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
-        Dim item As ListViewItem
-        For Each item In User
-            Dim Username = item.SubItems(0).Text.Trim
-            Dim UUID = item.SubItems(7).Text.Trim
-            If Username.Length > 0 Then
-#Disable Warning CA2000
-                Dim UserData As New FormEditUser
-#Enable Warning CA2000
-                UserData.init(UUID)
-                UserData.BringToFront()
-                UserData.Activate()
-                UserData.Visible = True
-                UserData.Select()
-            End If
-        Next
-
-    End Sub
-
     Private Sub IconViewClick(sender As Object, e As EventArgs) Handles IconView.Click
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
@@ -878,7 +850,6 @@ SetWindowOnTop_Err:
 
     Private Sub ListView1_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles ListView1.ColumnWidthChanged
 
-
         Dim w = ListView1.Columns(e.ColumnIndex).Width
         Dim name = ListView1.Columns(e.ColumnIndex).Name
         If name.Length = 0 Or w = 0 Then Return
@@ -890,27 +861,33 @@ SetWindowOnTop_Err:
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
-        If Not detailsinitted Then Return
+        If Not detailsinitted Then
+            Return
+        End If
 
         Dim Item As ListViewItem = Nothing
 
         Try
             Item = ListView1.Items.Item(e.Index)
         Catch ex As Exception
-            BreakPoint.Dump(ex)
+            Return
         End Try
         If Item.Text.Length = 0 Then Return
         If Item.Text = "New Region" Then Return
 
+        Dim c = Not e.CurrentValue
+
         Dim RegionUUID As String = FindRegionByName(Item.Text)
         Dim GroupName = Group_Name(RegionUUID)
 
-        If RegionEnabled(RegionUUID) <> Item.Checked Then
-            RegionEnabled(RegionUUID) = Item.Checked
+        If RegionEnabled(RegionUUID) <> CBool(c) Then
+            RegionEnabled(RegionUUID) = CBool(c)
             If RegionIniFilePath(RegionUUID).Length > 0 Then
                 Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
+                INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(c))
                 INI.SaveINI()
+                PropUpdateView = True
+                Application.DoEvents()
             Else
                 BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
@@ -1358,9 +1335,32 @@ SetWindowOnTop_Err:
 
     End Sub
 
+    Private Sub UserClick(sender As Object, e As EventArgs) Handles UserView.Click
+        If Not initted Then Return
+        Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
+        Dim item As ListViewItem
+        For Each item In User
+            Dim Username = item.SubItems(0).Text.Trim
+            Dim UUID = item.SubItems(7).Text.Trim
+            If Username.Length > 0 Then
+#Disable Warning CA2000
+                Dim UserData As New FormEditUser
+#Enable Warning CA2000
+                UserData.init(UUID)
+                UserData.BringToFront()
+                UserData.Activate()
+                UserData.Visible = True
+                UserData.Select()
+            End If
+        Next
+
+    End Sub
+
 #End Region
 
 #Region "Layout"
+
+    Dim regionLock As New Object
 
     Private Sub ShowAvatars()
         Try
@@ -1430,14 +1430,13 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Dim regionLock As New Object
     Private Sub ShowDetails()
 
         SyncLock regionLock
             ShowTitle()
 
             AllNone.Visible = True
-            detailsinitted = False
+
             PictureBox1.Visible = True
             ListView1.Show()
             ListView1.Visible = True
@@ -1465,11 +1464,15 @@ SetWindowOnTop_Err:
                     Dim Letter As String = ""
                     Dim status = GetStatus(RegionUUID, Num, Letter)
 
+                    detailsinitted = False
                     ' Create items and sub items for each item. Place a check mark next to the item.
                     Dim item1 As New ListViewItem(Region_Name(RegionUUID), Num) With
                         {
                             .Checked = RegionEnabled(RegionUUID)
                         }
+                    Application.DoEvents() ' fires an event for this checkbox changing we need to suppress the saving
+                    detailsinitted = True
+
                     item1.SubItems.Add(Group_Name(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
                     item1.SubItems.Add(AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
 
@@ -1665,7 +1668,6 @@ SetWindowOnTop_Err:
 
             PictureBox1.Visible = False
             ListView1.EndUpdate()
-            detailsinitted = True
 
             PropUpdateView() = False
 
