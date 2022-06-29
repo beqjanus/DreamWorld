@@ -1,15 +1,23 @@
 REVISIONS FOR DREAMGRID
 
+V5.13
+Speedier handling of checkbox events in Region list.  Speeds up Detailed view refresh a lot which can take a long time when there are hundreds of regions.
+PH.ini was being corrupted on some machines. Old code in there that shared a variable. This could stop Jopensim/Joomla from running. Refactored it to a class to eliminate the common var.
+Shutting down would cause regions to get a XML quit in a loop until they quit. 
+
+V5.12
+Region List switching from Details to Icon and back to Detailed would shut down all regions. Oops. New code to power off a disabled region had an unexpected side effect. Cat Tax paid on Mewe.
+
 V5.11 Release 
 Oops. I left some debug in, so restart regions did not work. 
 
 V5.01 Post-release fixes
 Diva (in Robust) exposed a Denial of Service attack vector that was fixed by Diva just this week. We've always had the fix since I first spotted and reported it a year ago. But the 4.999's didn't have it due to the new Opensim.
-Banlist did not accept Mac addresses due to Upper Case bug
-Gridusers table was deleted at startup which led to side effects. Gridusers delete deleted.
+Ban list did not accept Mac addresses due to Upper Case bug
+Grid users table was deleted at startup which led to side effects. Grid users delete deleted.
 Region List now has a checkbox in Windows->Show On Boot.  If checked, the region list will appear on boot. if not, not. Default: Not.
 Smart Boot screen changed a bit. Added another tab to make clear that the endless land and sea is not always  part of Smart Start.
-If you are in a Smart Boot region, and set the pulldown to 1, then the regions next to you will boot so you can walk there.  The larger the number the firther away a region will boot so you canm walk or see it. 
+If you are in a Smart Boot region, and set the pull down to 1, then the regions next to you will boot so you can walk there.  The larger the number the firther away a region will boot so you canm walk or see it. 
 Added a "Blockify Regions" function to Settings->Regions. This lets you reorganize the entire list of regions into an alphabetical order grid, with a preferred spacing and a preferred width.
 Moved and rebuilt the Bulk Region Loader to be much faster and more reliable. It is now in Regions.  It creates all 175 regions in a few seconds, then boots them and load them, with OARS. Itys restartable, too, so I you run it later, any newly published regions will appear.
 

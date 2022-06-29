@@ -346,6 +346,7 @@
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassChatToSpeech.vb" />
     <Compile Include="ClassIni.vb" />
+    <Compile Include="ClassINIWriter.vb" />
     <Compile Include="ClassLoopback.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Disk.vb" />
