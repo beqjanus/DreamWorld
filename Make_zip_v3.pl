@@ -180,7 +180,7 @@ my @files = `cmd /c dir /b `;
 foreach my $file (@files) {
     chomp $file;
     next if -d "$dir/$file";
-
+ 
     next if $file =~ /^\./;
     ProcessFile("\"$dir\\$file\"");
 }
