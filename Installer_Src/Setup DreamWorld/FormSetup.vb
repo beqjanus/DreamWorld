@@ -318,7 +318,7 @@ Public Class FormSetup
         Next
 
         Dim LastCount As Integer = 0
-        Dim counter As Integer = 6000 ' 1 minutes to quit all regions
+        Dim counter As Integer = 3000 ' 5 minutes to quit all regions
 
         If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
@@ -355,13 +355,13 @@ Public Class FormSetup
             For Each PID In CountisRunning
                 For Each RegionUUID In RegionUuids()
                     If ProcessID(RegionUUID) = PID Then
-                        ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                        ConsoleCommand(RegionUUID, "q")
                         Application.DoEvents()
                     End If
                 Next
             Next
 
-            Sleep(100)
+            Sleep(1000)
         End While
         PropUpdateView = True ' make form refresh
 
@@ -1774,11 +1774,11 @@ Public Class FormSetup
                 Dim r As Double
                 Dim v As Double
                 Try
-                    d = Convert.ToDouble(result("TotalVisibleMemorySize"))
-                    f = Convert.ToDouble(result("FreePhysicalMemory"))
+                    d = Convert.ToDouble(result("TotalVisibleMemorySize"), CultureInfo.InvariantCulture)
+                    f = Convert.ToDouble(result("FreePhysicalMemory"), CultureInfo.InvariantCulture)
                     r = (d - f) / d * 100
-                    d = Convert.ToDouble(result("TotalVirtualMemorySize"))
-                    f = Convert.ToDouble(result("FreeVirtualMemory"))
+                    d = Convert.ToDouble(result("TotalVirtualMemorySize"), CultureInfo.InvariantCulture)
+                    f = Convert.ToDouble(result("FreeVirtualMemory"), CultureInfo.InvariantCulture)
                     v = (d - f) / 1024 / 1024
                 Catch
                 End Try
