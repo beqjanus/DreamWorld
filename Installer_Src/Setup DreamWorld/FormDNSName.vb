@@ -8,7 +8,7 @@
 Imports System.Net
 Imports System.Text.RegularExpressions
 
-Public Class FormDNSName
+Public Class FormDnsName
 
 #Region "Private Fields"
 
@@ -80,8 +80,8 @@ Public Class FormDNSName
             UniqueId.ReadOnly = False
         End If
 
-        DNSNameBox.Text = Settings.DNSName
-        UniqueId.Text = Settings.MachineID()
+        DNSNameBox.Text = Settings.DnsName
+        UniqueId.Text = Settings.MachineId()
         EnableHypergrid.Checked = Settings.EnableHypergrid
         SuitcaseCheckbox.Checked = Settings.Suitcase
         NextNameButton.Enabled = True
@@ -227,7 +227,7 @@ Public Class FormDNSName
             DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
 
         End If
-        Settings.DNSName = DNSNameBox.Text
+        Settings.DnsName = DNSNameBox.Text
 
     End Sub
 
@@ -249,7 +249,7 @@ Public Class FormDNSName
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
-        Settings.MachineID() = UniqueId.Text
+        Settings.MachineId() = UniqueId.Text
 
     End Sub
 

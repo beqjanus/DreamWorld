@@ -237,7 +237,6 @@ Module Global_Properties
     ''' <returns>True if running</returns>
     Public Property PropOpensimIsRunning() As Boolean
         Get
-            If Not _IsRunning Then ThreadsArerunning = False
             Return _IsRunning
         End Get
         Set(ByVal Value As Boolean)
@@ -285,19 +284,6 @@ Module Global_Properties
         End Get
         Set(ByVal Value As Boolean)
             _SkipSetup = Value
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' Property set if The background tasks are running
-    ''' </summary>
-    ''' <returns>True if running</returns>
-    Public Property ThreadsArerunning() As Boolean
-        Get
-            Return _ThreadsArerunning
-        End Get
-        Set(ByVal Value As Boolean)
-            _ThreadsArerunning = Value
         End Set
     End Property
 

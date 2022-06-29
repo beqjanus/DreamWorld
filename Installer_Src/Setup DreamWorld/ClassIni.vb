@@ -111,7 +111,7 @@ Public Class LoadIni
 
     End Function
 
-    Public Sub SaveINI()
+    Public Sub SaveIni()
 
         Dim Retry As Integer = 100 ' 1 sec
         While Retry > 0

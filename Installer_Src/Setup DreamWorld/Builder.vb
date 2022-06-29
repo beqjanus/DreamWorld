@@ -385,7 +385,7 @@ Module Build
 
         SetCores(RegionUUID)
 
-        GDPR(RegionUUID) = CStr(Settings.GDPR)
+        GDPR(RegionUUID) = CStr(Settings.Gdpr)
 
         Dim port = LargestPort() + 1
         GroupPort(RegionUUID) = port

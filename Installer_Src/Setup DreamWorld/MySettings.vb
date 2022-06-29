@@ -105,7 +105,7 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        Settings.SaveINI()
+        Settings.SaveIni()
 
     End Sub
 
@@ -386,7 +386,7 @@ Public Class MySettings
     ''' Backup IARS?
     ''' </summary>
     ''' <returns>Boolean</returns>
-    Public Property BackupIARs() As Boolean
+    Public Property BackupIars() As Boolean
         Get
             Return CType(GetMySetting("BackupIARs", "False"), Boolean)
         End Get
@@ -472,7 +472,7 @@ Public Class MySettings
 
     Public Property BaseHostName() As String
         Get
-            Return GetMySetting("BaseHostName", DNSName)
+            Return GetMySetting("BaseHostName", DnsName)
         End Get
         Set
             SetMySetting("BaseHostName", Value)
@@ -786,7 +786,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CPUMAX As Single
+    Public Property CpuMax As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
         End Get
@@ -795,7 +795,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CPUPatched() As Boolean
+    Public Property CpuPatched() As Boolean
         Get
             Return CType(GetMySetting("CPUPatched", "False"), Boolean)
         End Get
@@ -912,7 +912,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property DNSName() As String
+    Public Property DnsName() As String
         Get
             Return GetMySetting("DnsName")
         End Get
@@ -1064,7 +1064,7 @@ Public Class MySettings
     End Property
 
     ' fsassets
-    Public Property FsAssetsEnabled() As Boolean
+    Public Property FSAssetsEnabled() As Boolean
         Get
             Return CType(GetMySetting("FsAssetsEnabled", "True"), Boolean)
         End Get
@@ -1073,13 +1073,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public ReadOnly Property GCG() As Boolean
-        Get
-            Return CType(GetMySetting("GCG", "False"), Boolean)
-        End Get
-    End Property
-
-    Public Property GDPR() As Boolean
+    Public Property Gdpr() As Boolean
         Get
             Return CType(GetMySetting("GDPR", "False"), Boolean)
         End Get
@@ -1088,7 +1082,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property GLBOwnerEmail() As String
+    Public Property GlbOwnerEmail() As String
         Get
             Return GetMySetting("GLBOwnerEmail")
         End Get
@@ -1097,7 +1091,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property GLBOwnerName() As String
+    Public Property GlbOwnerName() As String
         Get
             Return GetMySetting("GLBOwnerName")
         End Get
@@ -1108,7 +1102,7 @@ Public Class MySettings
 
     ''' <summary>Show authorization Instant Message to user at session start?</summary>
     ''' <returns>False</returns>
-    Public Property GLBShowNewSessionAuthIM() As Boolean
+    Public Property GlbShowNewSessionAuthIM() As Boolean
         Get
             Return CType(GetMySetting("GLBShowNewSessionAuthIM", "False"), Boolean)
         End Get
@@ -1119,7 +1113,7 @@ Public Class MySettings
 
     ''' <summary>Show purchase Gloebit Instant Message to user at session start?</summary>
     ''' <returns>False</returns>
-    Public Property GLBShowNewSessionPurchaseIM() As Boolean
+    Public Property GlbShowNewSessionPurchaseIM() As Boolean
         Get
             Return CType(GetMySetting("GLBShowNewSessionPurchaseIM", "False"), Boolean)
         End Get
@@ -1130,7 +1124,7 @@ Public Class MySettings
 
     ''' <summary>Show welcome message when entering a region?</summary>
     ''' <returns>True</returns>
-    Public Property GLBShowWelcomeMessage() As Boolean
+    Public Property GlbShowWelcomeMessage() As Boolean
         Get
             Return CType(GetMySetting("GLBShowWelcomeMessage", "True"), Boolean)
         End Get
@@ -1409,7 +1403,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property MachineID() As String
+    Public Property MachineId() As String
         Get
             Return GetMySetting("MachineID")
         End Get
@@ -2058,7 +2052,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property ShowFsAssetBackup() As Boolean
+    Public Property ShowFSAssetBackup() As Boolean
         Get
             Return CType(GetMySetting("ShowFsAssetBackup", "True"), Boolean)
         End Get

@@ -31,9 +31,9 @@ Module RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
-
     Private GetRegionsIsBusy As Boolean
     Dim json As New JSONresult
+    Private WriteRegionlock As New Object
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -160,68 +160,66 @@ Module RegionMaker
 
 #Region "Create Region"
 
-    Private CreateRegionLock As Boolean
-
-    Private WriteRegionLock As Boolean
+    Private CreateRegionLock As New Object
 
     Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
 
-        CreateRegionLock = True
+        SyncLock CreateRegionLock
 
-        If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
+            If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
 
-        Debug.Print("Create Region " + name)
-        Dim r As New Region_data With {
-                ._AllowGods = "",
-                ._AvatarCount = 0,
-                ._AvatarsInRegion = 0,
-                ._Birds = "",
-                ._BootTime = 0,
-                ._ClampPrimSize = False,
-                ._Concierge = "",
-                ._CoordX = LargestX() + 8,
-                ._CoordY = LargestY() + 0,
-                ._Cores = 0,
-                ._CrashCounter = 0,
-                ._DisableGloebits = "",
-                ._FrameTime = "",
-                ._GodDefault = "",
-                ._Group = name,
-                ._GroupPort = 0,
-                ._ManagerGod = "",
-                ._MapType = "",
-                ._MaxAgents = "100",
-                ._MaxPrims = "15000",
-                ._MinTimerInterval = "",
-                ._NonPhysicalPrimMax = "1024",
-                ._PhysicalPrimMax = "64",
-                ._Priority = "",
-                ._ProcessID = 0,
-                ._RegionEnabled = True,
-                ._RegionGod = "",
-                ._RegionLandingSpot = "",
-                ._RegionName = name,
-                ._RegionPort = 0,
-                ._RegionSmartStart = "",
-                ._RegionSnapShot = "",
-                ._ScriptEngine = "",
-                ._SizeX = 256,
-                ._SizeY = 256,
-                ._SkipAutobackup = "",
-                ._Status = SIMSTATUSENUM.Stopped,
-                ._Teleport = "",
-                ._Tides = "",
-                ._Timer = Date.Now,
-                ._UUID = UUID
-            }
+            Debug.Print("Create Region " + name)
+            Dim r As New Region_data With {
+                    ._AllowGods = "",
+                    ._AvatarCount = 0,
+                    ._AvatarsInRegion = 0,
+                    ._Birds = "",
+                    ._BootTime = 0,
+                    ._ClampPrimSize = False,
+                    ._Concierge = "",
+                    ._CoordX = LargestX() + 8,
+                    ._CoordY = LargestY() + 0,
+                    ._Cores = 0,
+                    ._CrashCounter = 0,
+                    ._DisableGloebits = "",
+                    ._FrameTime = "",
+                    ._GodDefault = "",
+                    ._Group = name,
+                    ._GroupPort = 0,
+                    ._ManagerGod = "",
+                    ._MapType = "",
+                    ._MaxAgents = "100",
+                    ._MaxPrims = "15000",
+                    ._MinTimerInterval = "",
+                    ._NonPhysicalPrimMax = "1024",
+                    ._PhysicalPrimMax = "64",
+                    ._Priority = "",
+                    ._ProcessID = 0,
+                    ._RegionEnabled = True,
+                    ._RegionGod = "",
+                    ._RegionLandingSpot = "",
+                    ._RegionName = name,
+                    ._RegionPort = 0,
+                    ._RegionSmartStart = "",
+                    ._RegionSnapShot = "",
+                    ._ScriptEngine = "",
+                    ._SizeX = 256,
+                    ._SizeY = 256,
+                    ._SkipAutobackup = "",
+                    ._Status = SIMSTATUSENUM.Stopped,
+                    ._Teleport = "",
+                    ._Tides = "",
+                    ._Timer = Date.Now,
+                    ._UUID = UUID
+                }
 
-        If Not RegionList.ContainsKey(r._UUID) Then
-            RegionList.TryAdd(r._UUID, r)
-        End If
+            If Not RegionList.ContainsKey(r._UUID) Then
+                RegionList.TryAdd(r._UUID, r)
+            End If
 
-        Debug.Print("Region count is " & CStr(RegionList.Count))
+            Debug.Print("Region count is " & CStr(RegionList.Count))
 
-        CreateRegionLock = False
+        End SyncLock
         Return UUID
 
     End Function
@@ -247,13 +245,14 @@ Module RegionMaker
     ''' <param name="Verbose">Be chatty on the console</param>
     Public Sub WriteRegionObject(Group As String, RegionName As String)
 
-        Dim Retry As Integer = 15
-        While Retry > 0 AndAlso WriteRegionLock
-            Sleep(1000)
-            Retry -= 1
-        End While
-        If Retry = 0 Then BreakPoint.Print("Retry WriteRegionLock exceeded")
-        WriteRegionLock = True
+        SyncLock WriteRegionlock
+            Dim Retry As Integer = 15
+            While Retry > 0
+                Sleep(1000)
+                Retry -= 1
+            End While
+            If Retry = 0 Then BreakPoint.Print("Retry WriteRegionLock exceeded")
+        End SyncLock
 
         Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
         Dim RegionUUID As String = FindRegionByName(RegionName)
@@ -338,15 +337,13 @@ Module RegionMaker
 
         AddToRegionMap(RegionUUID)
 
-        WriteRegionLock = False
+        WriteRegionlock = False
 
     End Sub
 
 #End Region
 
 #Region "Functions"
-
-    Private ReadOnly PortLock As Boolean
 
     Public Sub AddToRegionMap(RegionUUID As String)
 
@@ -679,7 +676,7 @@ Module RegionMaker
                                 End If
                             End If
 
-                            INI.SaveINI()
+                            INI.SaveIni()
                             Debug.Print($"Adding {Region_Name(uuid)} to map")
                             AddToRegionMap(uuid)
 
@@ -1689,7 +1686,7 @@ Module RegionMaker
     Public Function SetPartner(post As String) As String
 
         Debug.Print("set Partner")
-        Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))
+        Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineId()))
         If Not PWok Then Return ""
 
         Dim pattern1 = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
@@ -1743,7 +1740,7 @@ Module RegionMaker
     Private Function GetPartner(post As String) As String
 
         Debug.Print("Get Partner")
-        Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
+        Dim PWok As Boolean = CheckPassword(post, Settings.MachineId())
         If Not PWok Then Return ""
 
         Dim pattern1 = New Regex("User=(.*)", RegexOptions.IgnoreCase)
@@ -1783,7 +1780,7 @@ Module RegionMaker
             Dim INI = New LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";", System.Text.Encoding.UTF8)
             If INI Is Nothing Then Return True
 
-            If INI.SetIni("Const", "MachineID", Settings.MachineID) Then Return True
+            If INI.SetIni("Const", "MachineID", Settings.MachineId) Then Return True
 
             If Settings.StatusInterval > 0 Then
                 If INI.SetIni("Startup", "timer_Script", "debug.txt") Then Return True
@@ -1794,7 +1791,7 @@ Module RegionMaker
             End If
 
             If INI.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid))) Then Return True
-            If INI.SetIni("RemoteAdmin", "access_password", Settings.MachineID) Then Return True
+            If INI.SetIni("RemoteAdmin", "access_password", Settings.MachineId) Then Return True
             If INI.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) Then Return True
             If INI.SetIni("Const", "RegionFolderName", Group_Name(uuid)) Then Return True
             If INI.SetIni("Const", "BaseHostname", Settings.BaseHostName) Then Return True
@@ -2123,16 +2120,16 @@ Module RegionMaker
 
             ' Gloebit
             If INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable)) Then Return True
-            If INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM)) Then Return True
-            If INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM)) Then Return True
-            If INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage)) Then Return True
+            If INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GlbShowNewSessionAuthIM)) Then Return True
+            If INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GlbShowNewSessionPurchaseIM)) Then Return True
+            If INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GlbShowWelcomeMessage)) Then Return True
 
             If INI.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
             If INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
             If INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
 
-            If INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName) Then Return True
-            If INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail) Then Return True
+            If INI.SetIni("Gloebit", "GLBOwnerName", Settings.GlbOwnerName) Then Return True
+            If INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GlbOwnerEmail) Then Return True
 
             If Settings.ServerType = RobustServerName Then
                 If INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection) Then Return True
@@ -2205,7 +2202,7 @@ Module RegionMaker
             If Settings.Smart_Start Then
                 INI.SetIni("SmartStart", "Enabled", "True")
                 INI.SetIni("SmartStart", "URL", $"http://{Settings.LANIP}:{Settings.DiagnosticPort}")
-                INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
+                INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineId))
             Else
                 INI.SetIni("SmartStart", "Enabled", "False")
                 'nope
@@ -2215,7 +2212,7 @@ Module RegionMaker
 
             If INI.SetIni("Estates", "DefaultEstateName", gEstateName) Then Return True
             If INI.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
-            INI.SaveINI()
+            INI.SaveIni()
 
             '============== Region.ini =====================
             ' Region.ini in Region Folder specific to this region
@@ -2326,7 +2323,7 @@ Module RegionMaker
                 If regionINI.SetIni(Name, "Physics", RegionPhysics(uuid)) Then Return True
                 If regionINI.SetIni(Name, "FrameTime", FrameTime(uuid)) Then Return True
 
-                regionINI.SaveINI()
+                regionINI.SaveIni()
 
             Next
 

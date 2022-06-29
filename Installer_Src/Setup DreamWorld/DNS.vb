@@ -27,11 +27,11 @@ Module DNS
 
     Public Sub NewDNSName()
 
-        If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
+        If Settings.DnsName.Length = 0 And Settings.EnableHypergrid Then
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
                 If RegisterName(newname) Then
-                    Settings.DNSName = newname
+                    Settings.DnsName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()
                     MsgBox(My.Resources.NameAlreadySet, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Information_word)
@@ -87,7 +87,7 @@ Module DNS
 
         Settings.WANIP = WANIP()
         Settings.LANIP = PropMyUPnpMap.LocalIP
-        Settings.MacAddress = GetMacByIp(Settings.LANIP)
+        Settings.MacAddress = GetMacByIP(Settings.LANIP)
 
         ' Region Name override
         If Settings.OverrideName.Length > 0 Then
@@ -103,10 +103,10 @@ Module DNS
         Next
 
         ' WAN USE
-        If Settings.DNSName.Length = 0 Then
+        If Settings.DnsName.Length = 0 Then
             Settings.PublicIP = Settings.LANIP
-        ElseIf Settings.DNSName.Length > 0 Then
-            Settings.PublicIP = Settings.DNSName()
+        ElseIf Settings.DnsName.Length > 0 Then
+            Settings.PublicIP = Settings.DnsName()
         ElseIf IsPrivateIP(Settings.PublicIP) Then
             ' NAT'd ROUTER
             Settings.PublicIP = Settings.LANIP

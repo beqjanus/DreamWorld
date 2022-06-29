@@ -34,7 +34,7 @@ Module Teleport
 
                     If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
                         Dim DestinationName = Region_Name(RegionToUUID)
-                        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
+                        Dim FromRegionUUID As String = GetRegionFromAgentId(AgentID)
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName Is Nothing Then Fin.Add(AgentID)
                         If fromName.Length > 0 Then

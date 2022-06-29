@@ -101,7 +101,7 @@ Public Module MysqlInterface
         INI.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         INI.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
 
-        INI.SaveINI()
+        INI.SaveIni()
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\StartManually.bat")
@@ -442,7 +442,7 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Function EstateID(UUID As String) As Integer
+    Public Function EstateId(UUID As String) As Integer
 
         Dim Val = 0
         Using EstateConnection As New MySqlConnection(Settings.RegionMySqlConnection)
@@ -862,7 +862,7 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function GetRegionFromAgentID(AgentID As String) As String
+    Public Function GetRegionFromAgentId(AgentID As String) As String
 
         Dim Val As String = ""
         If Settings.ServerType <> RobustServerName Then Return Val

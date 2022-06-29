@@ -106,7 +106,7 @@ Public Class FormBackupBoxes
 
         HelpOnce("Backup Manually")
 
-        If Settings.FsAssetsEnabled Then
+        If Settings.FSAssetsEnabled Then
             FSAssetsCheckBox.Enabled = True
             FSAssetsCheckBox.Checked = True
         Else
@@ -120,7 +120,7 @@ Public Class FormBackupBoxes
         FSAssetsCheckBox.Checked = Settings.BackupFSAssets
         CustomCheckBox.Checked = Settings.BackupWifi
         BackupOarsCheckBox.Checked = Settings.BackupOARs
-        BackupIARsCheckBox.Checked = Settings.BackupIARs
+        BackupIARsCheckBox.Checked = Settings.BackupIars
         BackupSQlCheckBox.Checked = Settings.BackupSQL
 
         initted = True
@@ -150,7 +150,7 @@ Public Class FormBackupBoxes
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles BackupIARsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Settings.BackupIARs = BackupIARsCheckBox.Checked
+        Settings.BackupIars = BackupIARsCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub
@@ -190,7 +190,7 @@ Public Class FormBackupBoxes
     Private Sub ShowFsassets_CheckedChanged(sender As Object, e As EventArgs) Handles ShowFsassets.CheckedChanged
 
         If Not initted Then Return
-        Settings.ShowFsAssetBackup = ShowFsassets.Checked
+        Settings.ShowFSAssetBackup = ShowFsassets.Checked
         Settings.SaveSettings()
 
     End Sub

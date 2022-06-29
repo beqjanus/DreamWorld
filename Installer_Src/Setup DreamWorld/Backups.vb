@@ -348,7 +348,7 @@ Public Class Backups
                     }
                         ProcessRobocopy.StartInfo = pi
 
-                        If Settings.ShowFsAssetBackup Then
+                        If Settings.ShowFSAssetBackup Then
                             ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
                             ProcessRobocopy.StartInfo.CreateNoWindow = False
                         Else
@@ -387,7 +387,7 @@ Public Class Backups
     ''' </summary>
     Private Sub RunBackupIARThread()
 
-        If Settings.BackupIARs Then
+        If Settings.BackupIars Then
             Dim Name = "IAR"
             RunningBackupName = Name
             SyncLock IARLock

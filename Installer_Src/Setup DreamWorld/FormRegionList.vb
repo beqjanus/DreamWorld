@@ -39,11 +39,11 @@ Public Class FormRegionlist
     Private TheView As Integer = ViewType.Details
 
     ' icons image list layout
-    Enum DGICON
+    Enum Dgicon
         bootingup = 0
         shuttingdown = 1
         up = 2
-        disabled = 3
+        Disabled = 3
         stopped = 4
         recyclingdown = 5
         recyclingup = 6
@@ -59,8 +59,8 @@ Public Class FormRegionlist
         NoLogOn = 16
         NoError = 17
         NoEstate = 18
-        icecube = 19
-        icemelted = 20
+        Icecube = 19
+        IceMelted = 20
 
     End Enum
 
@@ -417,7 +417,7 @@ SetWindowOnTop_Err:
 
                     Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                     INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
-                    INI.SaveINI()
+                    INI.SaveIni()
                     Application.DoEvents()
                 End If
             Next
@@ -437,7 +437,7 @@ SetWindowOnTop_Err:
             Dim RegionUUID As String = FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 ' TODO: Needs to be HGV3?
-                Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
+                Dim webAddress As String = "hop://" & Settings.DnsName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
                 Catch ex As Exception
@@ -735,79 +735,79 @@ SetWindowOnTop_Err:
         If Not RegionEnabled(RegionUUID) Then
             Letter = "Disabled"
             If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
-                Num = DGICON.HomeOffline
+                Num = Dgicon.HomeOffline
             Else
-                Num = DGICON.disabled
+                Num = Dgicon.Disabled
             End If
             '   ElseIf Estate.Length = 0 Then
             '      Letter = My.Resources.No_Estate_Word
             '     Num = DGICON.NoEstate
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Settings.BootOrSuspend Then
             Letter = My.Resources.Waiting
-            Num = DGICON.SmartStartStopped
+            Num = Dgicon.SmartStartStopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
-            Num = DGICON.icemelted
+            Num = Dgicon.IceMelted
         ElseIf Status = SIMSTATUSENUM.Suspended And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
-            Num = DGICON.icecube
+            Num = Dgicon.Icecube
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Not Settings.Smart_Start Then
             Letter = My.Resources.Stopped_word
-            Num = DGICON.stopped
+            Num = Dgicon.stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) <> "True" Then
             Letter = My.Resources.Stopped_word
-            Num = DGICON.stopped
+            Num = Dgicon.stopped
         ElseIf Status = SIMSTATUSENUM.Error Then
             Letter = My.Resources.Error_word
-            Num = DGICON.ErrorIcon
+            Num = Dgicon.ErrorIcon
         ElseIf Status = SIMSTATUSENUM.Suspended Then
             Letter = My.Resources.Suspended_word
-            Num = DGICON.Suspended
+            Num = Dgicon.Suspended
         ElseIf Status = SIMSTATUSENUM.RecyclingDown Then
             Letter = My.Resources.Recycling_Down_word
-            Num = DGICON.recyclingdown
+            Num = Dgicon.recyclingdown
         ElseIf Status = SIMSTATUSENUM.RecyclingUp Then
             Letter = My.Resources.Recycling_Up_word
-            Num = DGICON.recyclingup
+            Num = Dgicon.recyclingup
         ElseIf Status = SIMSTATUSENUM.RestartPending Then
             Letter = My.Resources.Restart_Pending_word
-            Num = DGICON.recyclingup
+            Num = Dgicon.recyclingup
         ElseIf Status = SIMSTATUSENUM.RetartingNow Then
             Letter = My.Resources.Restarting_Now_word
-            Num = DGICON.recyclingup
+            Num = Dgicon.recyclingup
         ElseIf Status = SIMSTATUSENUM.Resume Then
             Letter = "Restarting Now"
-            Num = DGICON.recyclingup
+            Num = Dgicon.recyclingup
         ElseIf Status = SIMSTATUSENUM.Booting Then
             Letter = My.Resources.Booting_word
-            Num = DGICON.bootingup
+            Num = Dgicon.bootingup
         ElseIf Status = SIMSTATUSENUM.NoLogin Then
             Letter = My.Resources.NoLogin_word
-            Num = DGICON.NoLogOn
+            Num = Dgicon.NoLogOn
         ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
-            Num = DGICON.shuttingdown
+            Num = Dgicon.shuttingdown
         ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
         ElseIf Status = SIMSTATUSENUM.NoError Then
             Letter = My.Resources.Stopped_word
-            Num = DGICON.NoError
+            Num = Dgicon.NoError
         ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) = 1 Then
             Letter = My.Resources.Running_word
-            Num = DGICON.user1
+            Num = Dgicon.user1
         ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) > 1 Then
             Letter = CStr(AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
-            Num = DGICON.user2
+            Num = Dgicon.user2
         ElseIf Status = SIMSTATUSENUM.Booted Then
             If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
-                Num = DGICON.Home
+                Num = Dgicon.Home
                 Letter = My.Resources.Home_word
             Else
                 Letter = My.Resources.Running_word
-                Num = DGICON.up
+                Num = Dgicon.up
             End If
         Else
-            Num = DGICON.warning ' warning
+            Num = Dgicon.warning ' warning
         End If
 
         Return Status
@@ -885,7 +885,7 @@ SetWindowOnTop_Err:
             If RegionIniFilePath(RegionUUID).Length > 0 Then
                 Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(c))
-                INI.SaveINI()
+                INI.SaveIni()
                 PropUpdateView = True
                 Application.DoEvents()
             Else
@@ -1346,7 +1346,7 @@ SetWindowOnTop_Err:
 #Disable Warning CA2000
                 Dim UserData As New FormEditUser
 #Enable Warning CA2000
-                UserData.init(UUID)
+                UserData.Init(UUID)
                 UserData.BringToFront()
                 UserData.Activate()
                 UserData.Visible = True

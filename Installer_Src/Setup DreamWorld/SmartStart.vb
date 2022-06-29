@@ -230,7 +230,7 @@ Module SmartStart
 
                 If Not PropOpensimIsRunning Then Return
 
-                If (FormSetup.CPUAverageSpeed < Settings.CPUMAX AndAlso Settings.Ramused < 90) _
+                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) _
                     Or Settings.BootOrSuspend = False Then
 
                     Exit While
@@ -437,7 +437,7 @@ Module SmartStart
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
             'Logger("Teleport", $"Password={Password}", "Teleport")
 
-            If Password <> Settings.MachineID Then
+            If Password <> Settings.MachineId Then
                 Logger("ERROR", $"Bad Password {Password} for Teleport system. Should be the Dyn DNS password.", "Outworldz")
                 Return ""
             End If

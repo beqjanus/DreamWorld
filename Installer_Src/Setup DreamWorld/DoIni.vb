@@ -19,7 +19,7 @@ Module DoIni
 
         ' lean rightward paths for Apache
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\httpd.conf")
-        Dim Apache = New INIWriter(ini)
+        Dim Apache = New IniWriter(ini)
         Apache.Write("Listen", $"Listen {Settings.ApachePort}")
         Apache.Write("Define SRVROOT", $"Define SRVROOT ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache""")
         Apache.Write("DocumentRoot", $"DocumentRoot ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache/htdocs""")
@@ -45,7 +45,7 @@ Module DoIni
 
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\extra\httpd-ssl.conf")
-        Dim SSL = New INIWriter(ini)
+        Dim SSL = New IniWriter(ini)
         SSL.Write("Listen", $"Listen {Settings.LANIP()}:443")
         SSL.Write("ServerName", "ServerName " & Settings.PublicIP)
         SSL.Write("Define SRVROOT", $"Define SRVROOT ""{Settings.CurrentSlashDir}/OutworldzFiles/Apache""")
@@ -55,9 +55,9 @@ Module DoIni
         SSL.Write("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
 
         ' Install Certificates
-        SSL.Write("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-chain.pem""")
-        SSL.Write("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-key.pem""")
-        SSL.Write("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DNSName}-crt.pem""")
+        SSL.Write("SSLCertificateFile", $"SSLCertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DnsName}-chain.pem""")
+        SSL.Write("SSLCertificateKeyFile", $"SSLCertificateKeyFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DnsName}-key.pem""")
+        SSL.Write("SSLCertificateChainFile", $"SSLCertificateChainFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/{Settings.DnsName}-crt.pem""")
         SSL.Write("SSLCACertificateFile", $"SSLCACertificateFile ""{Settings.CurrentSlashDir}/Outworldzfiles/Apache/Certs/lets-encrypt-r3.pem""")
 
         SSL.Save("httpd-ssl.conf")
@@ -137,11 +137,11 @@ Module DoIni
             Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
             Dim AvatarUUID As String = GetAviUUUD(Settings.SurroundOwner)
             INI.SetIni("SimSurround", "Owner", AvatarUUID)
-            INI.SaveINI()
+            INI.SaveIni()
         Else
             Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
             INI.SetIni("SimSurround", "Owner", "")
-            INI.SaveINI()
+            INI.SaveIni()
         End If
         Return False
 
@@ -177,16 +177,16 @@ Module DoIni
         If Not Settings.GloebitsEnable Then Return False
 
         INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
-        INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
-        INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
-        INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
+        INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GlbShowNewSessionAuthIM))
+        INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GlbShowNewSessionPurchaseIM))
+        INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GlbShowWelcomeMessage))
 
         INI.SetIni("Gloebit", "GLBEnvironment", "production")
         INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
         INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
 
-        INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
-        INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
+        INI.SetIni("Gloebit", "GLBOwnerName", Settings.GlbOwnerName)
+        INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GlbOwnerEmail)
 
         If Settings.ServerType = RobustServerName Then
             INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
@@ -194,7 +194,7 @@ Module DoIni
             INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
-        INI.SaveINI()
+        INI.SaveIni()
 
         Return False
 
@@ -203,10 +203,7 @@ Module DoIni
     Private Sub SelectMoneySymbol(INI As LoadIni)
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
-        If Settings.GCG Then
-            INI.SetIni("LoginService", "Currency", "MC$")
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        ElseIf Settings.GloebitsEnable Then
+        If Settings.GloebitsEnable Then
             INI.SetIni("LoginService", "Currency", "G$")
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
@@ -327,7 +324,7 @@ Module DoIni
                 INI.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "False")
             End If
 
-            INI.SaveINI()
+            INI.SaveIni()
             Return False
         Catch
             Return True
@@ -523,8 +520,8 @@ Module DoIni
 
         Try
             Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";", System.Text.Encoding.UTF8)
-            INI.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
-            INI.SaveINI()
+            INI.SetIni("WhoGotWhat", "MachineID", Settings.MachineId)
+            INI.SaveIni()
             Return False
         Catch
             Return True
@@ -539,7 +536,7 @@ Module DoIni
             Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";", System.Text.Encoding.UTF8)
             TextPrint("->Set Diva Wifi page")
             INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-            INI.SaveINI()
+            INI.SaveIni()
 
             INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";", System.Text.Encoding.UTF8)
 
@@ -581,7 +578,7 @@ Module DoIni
                 INI.SetIni("WifiService", "AccountConfirmationRequired", "False")
             End If
 
-            INI.SaveINI()
+            INI.SaveIni()
             Return False
         Catch
             Return True
@@ -646,7 +643,7 @@ Module DoIni
             INI.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
             INI.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
             INI.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
-            INI.SaveINI()
+            INI.SaveIni()
             Return False
         Catch
             Return True
@@ -659,7 +656,7 @@ Module DoIni
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\php.ini")
 
         Try
-            Dim PHP = New INIWriter(ini)
+            Dim PHP = New IniWriter(ini)
             PHP.Write("extension_dir", "extension_dir = " & """" & Settings.CurrentSlashDir & "/OutworldzFiles/PHP7/ext/""")
             PHP.Write("doc_root", "doc_root = """ & Settings.CurrentSlashDir & "/OutworldzFiles/Apache/htdocs/""")
             PHP.Save("php.ini")

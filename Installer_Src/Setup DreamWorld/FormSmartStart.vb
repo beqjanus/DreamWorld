@@ -186,7 +186,7 @@ Public Class FormSmartStart
                 If AvatarUUID.Length > 0 Then
                     Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
                     INI.SetIni("SimSurround", "Owner", AvatarUUID)
-                    INI.SaveINI()
+                    INI.SaveIni()
 
                     AviName.BackColor = Color.White
                 End If

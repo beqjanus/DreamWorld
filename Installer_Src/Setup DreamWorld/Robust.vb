@@ -380,7 +380,7 @@ Module Robust
             End If
 
             'For GetTexture Service
-            If Settings.FsAssetsEnabled Then
+            If Settings.FSAssetsEnabled Then
                 INI.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.FSAssetService.dll:FSAssetConnector" & """")
             Else
                 INI.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.AssetService.dll:AssetService" & """")
@@ -406,7 +406,7 @@ Module Robust
             INI.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
             INI.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
             INI.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
-            INI.SetIni("Const", "MachineID", CStr(Settings.MachineID))
+            INI.SetIni("Const", "MachineID", CStr(Settings.MachineId))
 
             If Settings.Suitcase() Then
                 INI.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
@@ -453,7 +453,7 @@ Module Robust
             INI.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
             'FSASSETS
-            If Settings.FsAssetsEnabled Then
+            If Settings.FSAssetsEnabled Then
                 INI.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
                 INI.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
             Else
@@ -492,14 +492,14 @@ Module Robust
             If Settings.Smart_Start Then
                 INI.SetIni("SmartStart", "Enabled", "True")
                 INI.SetIni("SmartStart", "URL", "http://" & Settings.LANIP() + ":" & CStr(Settings.DiagnosticPort))
-                INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
+                INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineId))
             Else
                 INI.SetIni("SmartStart", "Enabled", "False")
                 INI.SetIni("SmartStart", "URL", "")
                 INI.SetIni("SmartStart", "MachineID", "")
             End If
 
-            INI.SaveINI()
+            INI.SaveIni()
 
             Dim src = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.exe.config.proto")
             Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.exe.config")
@@ -602,10 +602,7 @@ Module Robust
     Private Sub SetupMoney(INI As LoadIni)
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
-        If Settings.GCG Then
-            INI.SetIni("LoginService", "Currency", "MC$")
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-        ElseIf Settings.GloebitsEnable Then
+        If Settings.GloebitsEnable Then
             INI.SetIni("LoginService", "Currency", "G$")
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then

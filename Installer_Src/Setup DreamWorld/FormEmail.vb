@@ -1,5 +1,4 @@
 ﻿Imports EmailValidation
-Imports MailKit.Net.Smtp
 Imports MimeKit
 
 Public Class FormEmail

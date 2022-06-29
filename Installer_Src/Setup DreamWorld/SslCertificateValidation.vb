@@ -1,11 +1,8 @@
-﻿Imports System
-Imports System.Net.Security
-Imports System.Collections.Generic
+﻿Imports System.Net.Security
 Imports System.Security.Cryptography.X509Certificates
-Imports MimeKit
-Imports MailKit
-Imports MailKit.Security
 Imports MailKit.Net.Smtp
+Imports MailKit.Security
+Imports MimeKit
 
 Namespace MailKit.SSL
     Module SslCertificateValidation

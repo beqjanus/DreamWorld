@@ -222,7 +222,7 @@ Public Class FormDebug
             If AviName.Length > 0 Then
                 AviUUID = Uri.EscapeDataString(MysqlInterface.GetAviUUUD(AviName))
                 If AviUUID.Length > 0 Then
-                    Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=AviName&AgentID={AviUUID}&password={Settings.MachineID}"
+                    Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=AviName&AgentID={AviUUID}&password={Settings.MachineId}"
                     ProgressPrint(url)
                     Using client As New WebClient ' download client for web pages
                         Dim r As String = ""

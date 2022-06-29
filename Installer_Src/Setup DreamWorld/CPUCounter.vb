@@ -1,5 +1,4 @@
 Imports System.Collections.Concurrent
-Imports System.Threading
 
 Module CPUCounter
 
@@ -8,12 +7,6 @@ Module CPUCounter
     Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
 
     Private ReadOnly _regionHandles As New ConcurrentDictionary(Of Integer, String)
-
-    Private ReadOnly O As New CPUStuff With {
-            .CounterList = CounterList,
-            .CPUValues = CPUValues,
-            .PropInstanceHandles = PropInstanceHandles
-        }
 
     Private _PCList As Dictionary(Of Integer, PerformanceCounter)
     Private CalcCPUIsBusy As Boolean
@@ -155,11 +148,5 @@ Module CPUCounter
         Return PC
 
     End Function
-
-    Public Class CPUStuff
-        Public CounterList As Dictionary(Of String, PerformanceCounter)
-        Public CPUValues As Dictionary(Of String, Double)
-        Public PropInstanceHandles As ConcurrentDictionary(Of Integer, String)
-    End Class
 
 End Module

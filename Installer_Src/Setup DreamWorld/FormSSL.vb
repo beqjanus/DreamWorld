@@ -41,7 +41,7 @@
             End If
         End If
 
-        If Settings.DNSName.Length = 0 Then
+        If Settings.DnsName.Length = 0 Then
             MsgBox(My.Resources.MustUseDNS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, "SSL Setup")
             Return
         End If
@@ -187,7 +187,7 @@
             SSLProcess.StartInfo.CreateNoWindow = True
             SSLProcess.StartInfo.UseShellExecute = False
             SSLProcess.StartInfo.RedirectStandardOutput = True
-            SSLProcess.StartInfo.Arguments = $"--accepttos --source manual --host {Settings.DNSName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}""  "
+            SSLProcess.StartInfo.Arguments = $"--accepttos --source manual --host {Settings.DnsName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}""  "
             If Settings.SSLEmail.Length > 0 Then
                 SSLProcess.StartInfo.Arguments &= $" --emailaddress {Settings.SSLEmail} "
             End If

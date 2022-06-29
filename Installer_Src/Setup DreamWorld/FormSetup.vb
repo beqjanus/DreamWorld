@@ -70,7 +70,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property ContentIAR As FormOAR
+    Public Property ContentIar As FormOAR
         Get
             Return _ContentIAR
         End Get
@@ -355,7 +355,7 @@ Public Class FormSetup
             For Each PID In CountisRunning
                 For Each RegionUUID In RegionUuids()
                     If ProcessID(RegionUUID) = PID Then
-                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q", True)
                         Application.DoEvents()
                     End If
                 Next
@@ -934,8 +934,8 @@ Public Class FormSetup
         ContentOAR = New FormOAR
         ContentOAR.Init("OAR")
         TextPrint(My.Resources.RefreshingIAR)
-        ContentIAR = New FormOAR
-        ContentIAR.Init("IAR")
+        ContentIar = New FormOAR
+        ContentIar.Init("IAR")
 
         Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
@@ -955,7 +955,7 @@ Public Class FormSetup
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
-        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
+        If Settings.MachineId().Length = 0 Then Settings.MachineId() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
         If Settings.APIKey().Length = 0 Then Settings.APIKey() = RandomNumber.Random  ' a random API Key may be generated.  Happens only once
 
         ' also turn on the lights for the other services.
@@ -965,7 +965,7 @@ Public Class FormSetup
 
         Settings.SaveSettings()
 
-        Dim n = Settings.DNSName
+        Dim n = Settings.DnsName
         If n.Length = 0 Then n = "(none)"
         TextPrint("--> WAN IP = " & Settings.WANIP)
         TextPrint("--> DNS = " & n)
@@ -1739,7 +1739,7 @@ Public Class FormSetup
                 speed = Me.Cpu1.NextValue()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
-                If Not Settings.CPUPatched Then
+                If Not Settings.CpuPatched Then
                     Dim pUpdate = New Process()
                     Dim pi = New ProcessStartInfo With {
                         .Arguments = "/ R",
@@ -1749,7 +1749,7 @@ Public Class FormSetup
                     pUpdate.Start()
                     pUpdate.WaitForExit()
                     pUpdate.Dispose()
-                    Settings.CPUPatched = True
+                    Settings.CpuPatched = True
                 End If
 
             End Try
@@ -2543,10 +2543,10 @@ Public Class FormSetup
 
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
 
-        ContentIAR.Activate()
-        ContentIAR.ShowForm()
-        ContentIAR.Select()
-        ContentIAR.BringToFront()
+        ContentIar.Activate()
+        ContentIar.ShowForm()
+        ContentIar.Select()
+        ContentIar.BringToFront()
 
     End Sub
 

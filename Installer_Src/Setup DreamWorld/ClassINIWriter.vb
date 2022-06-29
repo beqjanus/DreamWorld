@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 
-Public Class INIWriter
+Public Class IniWriter
 
     Private _Filename As String
     Dim _In As New List(Of String)
@@ -63,7 +63,6 @@ Public Class INIWriter
                 _Out.Add(Item)
             End If
         Next
-
 
         _In.Clear()
         For Each item In _Out

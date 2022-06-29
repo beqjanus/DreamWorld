@@ -181,7 +181,6 @@ Public Class FormRegion
 
         LandingSpotLabel.Text = Global.Outworldz.My.Resources.DefaultLandingSpot
 
-
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapGroupBox.Text = Global.Outworldz.My.Resources.Maps_word

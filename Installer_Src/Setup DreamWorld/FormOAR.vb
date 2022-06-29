@@ -17,7 +17,7 @@ Public Class FormOAR
 
 #Region "JSON"
 
-    Public Class JSONresult
+    Public Class JSONResult
         Private _cache As Image
         Private _date As String
         Private _license As String
@@ -120,14 +120,14 @@ Public Class FormOAR
 
 #Region "Public Fields"
 
-    Private json() As JSONresult
-    Private SearchArray() As JSONresult
+    Private json() As JSONResult
+    Private SearchArray() As JSONResult
 
 #End Region
 
 #Region "Draw"
 
-    Public Sub Redraw(jsonresult As JSONresult())
+    Public Sub Redraw(jsonresult As JSONResult())
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
@@ -269,7 +269,7 @@ Public Class FormOAR
 
     End Function
 
-    Private Sub Save(item As JSONresult, row As Integer, col As Integer)
+    Private Sub Save(item As JSONResult, row As Integer, col As Integer)
         Try
             If item Is Nothing Then Return
             If item.Cache.Width > 0 Then
@@ -310,7 +310,7 @@ Public Class FormOAR
         End Set
     End Property
 
-    Public Function GetJson() As JSONresult()
+    Public Function GetJson() As JSONResult()
         Return json
     End Function
 
@@ -370,7 +370,7 @@ Public Class FormOAR
         If _type = "IAR" Then HelpOnce("Load IAR")
     End Sub
 
-    Private Function DoWork() As JSONresult
+    Private Function DoWork() As JSONResult
 
         json = GetData()
         json = ImageToJson(json)
@@ -418,7 +418,7 @@ Public Class FormOAR
 
 #Region "Data"
 
-    Private Function GetData() As JSONresult()
+    Private Function GetData() As JSONResult()
 
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
@@ -432,7 +432,7 @@ Public Class FormOAR
             End Try
         End Using
         Try
-            json = JsonConvert.DeserializeObject(Of JSONresult())(result)
+            json = JsonConvert.DeserializeObject(Of JSONResult())(result)
         Catch ex As Exception
             BreakPoint.Dump(ex)
             Return Nothing
@@ -467,7 +467,7 @@ Public Class FormOAR
 
     End Function
 
-    Private Shared Function NoImage(item As JSONresult) As Image
+    Private Shared Function NoImage(item As JSONResult) As Image
 
         Dim bmp = Global.Outworldz.My.Resources.Blank256
         Using drawFont = New Font("Arial", 12)
@@ -485,7 +485,7 @@ Public Class FormOAR
 
     End Function
 
-    Private Function ImageToJson(ByVal jsonarray() As JSONresult) As JSONresult()
+    Private Function ImageToJson(ByVal jsonarray() As JSONResult) As JSONResult()
 
         If jsonarray IsNot Nothing Then
 

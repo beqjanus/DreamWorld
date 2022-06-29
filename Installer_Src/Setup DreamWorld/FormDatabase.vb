@@ -28,7 +28,7 @@ Public Class FormDatabase
         End Set
     End Property
 
-    Public Property DNSName1 As String
+    Public Property DnsName1 As String
         Get
             Return DNSName
         End Get

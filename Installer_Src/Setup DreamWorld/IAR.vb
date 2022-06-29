@@ -79,7 +79,7 @@ Module IAR
             Return False
         End If
 
-        Using LoadIAR As New FormIARLoad
+        Using LoadIAR As New FormIarLoad
             LoadIAR.ShowDialog()
             Dim chosen = LoadIAR.DialogResult()
             If chosen = DialogResult.OK Then
@@ -140,7 +140,6 @@ Module IAR
 
                     Dim opt As String = "  "
 
-
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
                         Perm += "C"
@@ -192,7 +191,6 @@ Module IAR
                         Return
                     End If
 
-
                     Dim Perm As String = ""
                     If Not SaveIAR.GCopy Then
                         Perm += "C"
@@ -235,8 +233,8 @@ Module IAR
     Public Sub SaveThreadIARS()
 
         Dim opt As String = "   "
-        If Settings.DNSName.Length > 0 Then
-            opt += $" -h {Settings.DNSName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
+        If Settings.DnsName.Length > 0 Then
+            opt += $" -h {Settings.DnsName}:{Settings.HttpPort} "    ' needs leading and trailing spaces
         End If
 
         Dim p As New Params With {

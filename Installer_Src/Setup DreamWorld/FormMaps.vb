@@ -17,7 +17,6 @@ Public Class FormMaps
 
 #End Region
 
-
 #Region "Public Properties"
 
     Public Property ScreenPosition As ClassScreenpos
@@ -79,6 +78,18 @@ Public Class FormMaps
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+    End Sub
+
+    Private Sub DeleteAMapButton_Click(sender As Object, e As EventArgs) Handles DeleteAMapButton.Click
+
+        Dim regionname = ChooseRegion()
+        ' check it
+        Dim RegionUUID As String = FindRegionByName(regionname)
+        If RegionUUID.Length = 0 Then Return
+
+        DeleteMapTile(RegionUUID)
+        TextPrint($"{regionname} {My.Resources.maphasbeendeleted}")
+
     End Sub
 
     Private Sub ExportAllMaps_Click(sender As Object, e As EventArgs) Handles ExportAllMaps.Click
@@ -356,18 +367,6 @@ Public Class FormMaps
             VarChooser(Region_Name(RegionUUID), False, False)
             Application.DoEvents()
         Next
-
-    End Sub
-
-    Private Sub DeleteAMapButton_Click(sender As Object, e As EventArgs) Handles DeleteAMapButton.Click
-
-        Dim regionname = ChooseRegion()
-        ' check it
-        Dim RegionUUID As String = FindRegionByName(regionname)
-        If RegionUUID.Length = 0 Then Return
-
-        DeleteMapTile(RegionUUID)
-        TextPrint($"{regionname} {My.Resources.maphasbeendeleted}")
 
     End Sub
 

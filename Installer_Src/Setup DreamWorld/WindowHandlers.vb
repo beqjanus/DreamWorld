@@ -5,8 +5,8 @@
 
 #End Region
 
-Imports System.Threading
 Imports System.Collections.Concurrent
+Imports System.Threading
 
 Module WindowHandlers
 

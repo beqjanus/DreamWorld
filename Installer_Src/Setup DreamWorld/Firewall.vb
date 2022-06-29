@@ -107,9 +107,9 @@ Public Module Firewall
 
     End Function
 
-    Public Sub ReleaseIp(Ip As String)
+    Public Sub ReleaseIp(IP As String)
 
-        Dim Command As String = $"netsh advfirewall firewall delete rule name=""Opensim Deny {Ip}""" & vbCrLf
+        Dim Command As String = $"netsh advfirewall firewall delete rule name=""Opensim Deny {IP}""" & vbCrLf
         RunFirewall(Command)
 
     End Sub

@@ -15,7 +15,7 @@ Module Diags
 
     Public Sub DoDiag()
 
-        If IPCheck.IsPrivateIP(Settings.DNSName) Then
+        If IPCheck.IsPrivateIP(Settings.DnsName) Then
             Logger("INFO", Global.Outworldz.My.Resources.LAN_IP, "Diagnostics")
             TextPrint(My.Resources.LAN_IP)
             Return
@@ -58,11 +58,11 @@ Module Diags
         Dim fs = CreateObject("Scripting.FileSystemObject")
         Dim d As Object = fs.GetDrive(fs.GetDriveName(fs.GetAbsolutePathName("C:")))
 
-        Dim data As String = "?MachineID=" & Settings.MachineID() _
+        Dim data As String = "?MachineID=" & Settings.MachineId() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
         & "&V=" & WebUtility.UrlEncode(PropMyVersion) _
         & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
-        & "&isPublic=" & CStr(Settings.GDPR()) _
+        & "&isPublic=" & CStr(Settings.Gdpr()) _
         & "&GridName=" & Name _
         & "&Port=" & CStr(Settings.HttpPort()) _
         & "&Category=" & Settings.Categories _

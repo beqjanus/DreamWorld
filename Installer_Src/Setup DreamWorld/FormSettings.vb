@@ -19,7 +19,7 @@ Public Class FormSettings
     Dim FormCache As New FormCaches
     Dim FormDatabase As New FormDatabase
     Dim FormDiva As New FormDiva
-    Dim FormDNSName As New FormDNSName
+    Dim FormDNSName As New FormDnsName
     Dim FormJoomla As New FormJoomla
     Dim FormPermissions As New FormPermissions
     Dim FormPhysics As New FormPhysics
@@ -381,7 +381,7 @@ Public Class FormSettings
 
         FormDNSName.Close()
         FormDNSName.Dispose()
-        FormDNSName = New FormDNSName
+        FormDNSName = New FormDnsName
         FormDNSName.Activate()
         FormDNSName.Visible = True
         FormDNSName.Select()
