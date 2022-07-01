@@ -246,39 +246,33 @@ Module RegionMaker
     Public Sub WriteRegionObject(Group As String, RegionName As String)
 
         SyncLock WriteRegionlock
-            Dim Retry As Integer = 15
-            While Retry > 0
-                Sleep(1000)
-                Retry -= 1
-            End While
-            If Retry = 0 Then BreakPoint.Print("Retry WriteRegionLock exceeded")
-        End SyncLock
 
-        Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-        ' file paths
-        RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{RegionName}.ini")
-        RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region")
-        OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}")
 
-        CopyFileFast(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), IO.Path.Combine(pathtoRegion, $"{RegionName}.bak"))
-        DeleteFile(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"))
-        If Not Directory.Exists(pathtoRegion) Then
-            MakeFolder(pathtoRegion)
-        End If
+            Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
+            Dim RegionUUID As String = FindRegionByName(RegionName)
+            ' file paths
+            RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{RegionName}.ini")
+            RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region")
+            OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}")
 
-        ' Change estate for Endless Land, assuming its on
-        Dim out As Integer
-        If Integer.TryParse(Estate(RegionUUID), out) Then
-            ErrorLog("No Region UUID for Estate")
-        End If
+            CopyFileFast(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), IO.Path.Combine(pathtoRegion, $"{RegionName}.bak"))
+            DeleteFile(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"))
+            If Not Directory.Exists(pathtoRegion) Then
+                MakeFolder(pathtoRegion)
+            End If
 
-        If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
-            Estate(RegionUUID) = "SimSurround"
-            SetEstate(RegionUUID, 1999)
-        End If
+            ' Change estate for Endless Land, assuming its on
+            Dim out As Integer
+            If Integer.TryParse(Estate(RegionUUID), out) Then
+                ErrorLog("No Region UUID for Estate")
+            End If
 
-        Dim proto = "; * Regions configuration file; " & vbCrLf _
+            If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
+                Estate(RegionUUID) = "SimSurround"
+                SetEstate(RegionUUID, 1999)
+            End If
+
+            Dim proto = "; * Regions configuration file; " & vbCrLf _
         & "; Automatically changed and read by Dreamworld. Edits here are allowed and take effect on restart" & vbCrLf _
         & "; Rule1: The File name must match the RegionName in brackets exactly." & vbCrLf _
         & "; Rule2: Only one region per INI file." & vbCrLf _
@@ -326,18 +320,18 @@ Module RegionMaker
         & "OpenSimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf _
         & "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf
 
-        Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), False)
-                outputFile.WriteLine(proto)
-                outputFile.Flush()
-            End Using
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
+            Try
+                Using outputFile As New StreamWriter(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), False)
+                    outputFile.WriteLine(proto)
+                    outputFile.Flush()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
 
-        AddToRegionMap(RegionUUID)
+            AddToRegionMap(RegionUUID)
+        End SyncLock
 
-        WriteRegionlock = False
 
     End Sub
 
