@@ -39,6 +39,11 @@ Public Class FormBlockify
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GoButton.Click
 
+        If PropOpensimIsRunning() Then
+            MsgBox(My.Resources.OpensimNeedstoStop, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Cancelled_word)
+            Return
+        End If
+
         MakeBlock()
 
     End Sub
@@ -66,11 +71,6 @@ Public Class FormBlockify
     End Sub
 
     Private Sub MakeBlock()
-
-        If PropOpensimIsRunning() Then
-            MsgBox(My.Resources.OpensimNeedstoStop, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Cancelled_word)
-            Return
-        End If
 
         TextPrint(My.Resources.BackingUp)
         BackupINI()
@@ -132,6 +132,7 @@ Public Class FormBlockify
 
                 SizeRegion = CInt(SizeX(RegionUUID) / 256)
 
+                TextPrint(Region_Name(RegionUUID))
                 WriteRegionObject(Group_Name(RegionUUID), Region_Name(RegionUUID))
 
                 If MaxSizeThisRow <= SizeRegion Then
@@ -143,6 +144,7 @@ Public Class FormBlockify
                 If X >= StartX + Sizer Then   ' if past right border,
                     X = StartX              ' go back to left border
                     Y += MaxSizeThisRow + Spacer ' Add the largest size +1 and move up
+                    MaxSizeThisRow = 1
                 End If
 
                 Delete_Region_Map(RegionUUID)
