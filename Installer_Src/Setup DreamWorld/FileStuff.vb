@@ -43,6 +43,8 @@ Module FileStuff
     Public Sub Cleanup() ' old files
 
         Dim ToDrop = New List(Of String) From {
+            "OutworldzFiles\Mysql\bin\Create_Mutelist.bat",
+            "OutworldzFiles\Mysql\bin\Create_Mutelist.sql",
             "fw.bat",
             "Downloader.exe",
             "DreamGridSetup.exe",
@@ -71,8 +73,7 @@ Module FileStuff
         Next
 
         Dim files As New List(Of String) From {
-         "ReadMe",
-        "OutworldzFiles\Opensim\eZombie", ' never worked
+        "ReadMe",
         "OutworldzFiles\eZombie", ' never worked
         "Shoutcast", ' deprecated
         "Icecast",   ' moved to OutworldzFiles
@@ -81,8 +82,7 @@ Module FileStuff
         "Outworldzfiles\Mysql\Dieter Mueller - Fred",
         "OutworldzFiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
         "OutworldzFiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "OutworldzFiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
-        "OutworldzFiles\Opensim\eZombie" ' Non working library
+        "OutworldzFiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
         }
 
         If FormSetup.PropKillSource Then
