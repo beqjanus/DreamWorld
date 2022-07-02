@@ -423,7 +423,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}.json?r={CStr(Random())}"
+                Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}2.json?r={CStr(Random())}"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
@@ -453,14 +453,17 @@ Public Class FormOAR
             Dim rect = New Rectangle(0, 0, 256, 30)
             Dim bmp = photo
             Dim newImage As New Bitmap(256, 256)
-            Using drawFont = New Font("Arial", 7)
-                Using gr As Graphics = Graphics.FromImage(newImage)
-                    gr.DrawImageUnscaled(bmp, 0, 0)
-                    gr.FillRectangle(blueBrush, rect)
-                    gr.DrawString(item, drawFont, Brushes.White, 10, 15)
-                End Using
-            End Using
+            Try
 
+                Using drawFont = New Font("Arial", 7)
+                    Using gr As Graphics = Graphics.FromImage(newImage)
+                        gr.DrawImageUnscaled(bmp, 0, 0)
+                        gr.FillRectangle(blueBrush, rect)
+                        gr.DrawString(item, drawFont, Brushes.White, 10, 15)
+                    End Using
+                End Using
+            Catch
+            End Try
             Return newImage
 
         End Using
@@ -496,7 +499,12 @@ Public Class FormOAR
                 Dim bmp = New Bitmap(imgSize, imgSize)
                 If item.Cache IsNot Nothing Then
                     Using g As Graphics = Graphics.FromImage(bmp)
-                        g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
+
+                        Try
+                            g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
+                        Catch
+                        End Try
+
                     End Using
                 Else
                     Dim img As Image = Nothing
@@ -521,14 +529,15 @@ Public Class FormOAR
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
                     Catch ex As Exception
-                        BreakPoint.Dump(ex)
                     End Try
                     img.Dispose()
 
                 End If
                 item.Cache = bmp
-
-                item.Size = Format(CInt(item.Size) / (1024 * 1024), "###0.00")
+                Try
+                    item.Size = Format(CDbl(item.Size) / (1024 * 1024), "###0.00")
+                Catch
+                End Try
                 item.Str = item.Name & vbCrLf & item.Size & "MB" & vbCrLf & item.License
             Next
         End If
