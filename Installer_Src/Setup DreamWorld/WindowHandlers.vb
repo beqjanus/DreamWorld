@@ -392,21 +392,17 @@ Module WindowHandlers
         End If
 
         Dim TooMany As Integer = 0
-        Dim p As Process = Nothing
+
         ' 2 minutes for old hardware and it to build DB
-        Do While TooMany < 60
+        Do While TooMany < 600
             Try
-                p = CachedProcess(myProcess.Id)
+                If myProcess.Id > 0 Then
+                    Return myProcess.Id
+                End If
             Catch ex As Exception
             End Try
 
-            If p IsNot Nothing Then
-                If p.ProcessName.Length > 0 Then
-                    Return myProcess.Id
-                End If
-            End If
-
-            Sleep(1000)
+            Sleep(100)
             TooMany += 1
         Loop
         BreakPoint.Print("No Pid")

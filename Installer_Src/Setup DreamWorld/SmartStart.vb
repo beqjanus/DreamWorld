@@ -684,10 +684,10 @@ Module SmartStart
             End Try
 
             If ok Then
-                Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
+
+                Dim PID = WaitForPID(BootProcess)      ' check if it gave us a PID, if not, it failed.
 
                 If PID > 0 Then
-
                     If ProcessIdDict.ContainsKey(PID) Then
                         ProcessIdDict.Item(PID) = CachedProcess(PID)
                     Else
