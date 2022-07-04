@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>דיבור</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>בסדר עולה</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>סדר יורד</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>לשימוש בלעדי בתוכנת DreamGrid!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>מורשה כמו!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>סדר לפי תאריך</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>מיין לפי</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>האם אתה מסכים לתנאים אלה?!</value>
+  </data>
 </root>

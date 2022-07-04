@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Puhe</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Nouseva</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Laskeva</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>yksinomaiseen käyttöön DreamGrid-ohjelmistossa!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>on lisensoitu nimellä!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Järjestä päiväyksen mukaan</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Lajittele nimen mukaan</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Hyväksytkö nämä ehdot?!</value>
+  </data>
 </root>

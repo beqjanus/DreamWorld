@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Tal</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Hækkandi</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Lækkandi</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>til einkanota í DreamGrid hugbúnaði!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>er með leyfi eins og!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Raða eftir dagssetningu</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Raða eftir nafni</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Samþykkir þú þessa skilmála ?!</value>
+  </data>
 </root>

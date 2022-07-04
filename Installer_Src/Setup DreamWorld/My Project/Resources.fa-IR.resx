@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>گفتار</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>صعودی</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>نزولی</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>برای استفاده منحصر به فرد در نرم افزار DreamGrid!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>مجوز به عنوان!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>مرتب سازی بر اساس تاریخ</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>به ترتیب نام</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>آیا با این شرایط موافقید؟!</value>
+  </data>
 </root>

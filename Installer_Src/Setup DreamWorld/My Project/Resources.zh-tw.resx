@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>話</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>升序</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>遞減</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>在博客或者頁面裡.</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>( https://cloudsgo.org 正體中文化)本產品授權給</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>依日期排序</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>依姓名排序</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>同意條款</value>
+  </data>
 </root>

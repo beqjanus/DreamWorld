@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Tale!</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>stigende</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>synkende</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>FOR BRUK I:</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>Først av alt er kasinoet lisensiert av både MGA og UKGC.</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Sorter etter dato</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Sorter etter navn</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Godta vilkår</value>
+  </data>
 </root>

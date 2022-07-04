@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Phát âm</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Tăng dần</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Giảm Dần</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>để sử dụng độc quyền trong phần mềm DreamGrid!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>được cấp phép như!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Sắp xếp theo ngày</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Sắp xếp theo tên</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Bạn có đồng ý với các điều khoản này không ?!</value>
+  </data>
 </root>

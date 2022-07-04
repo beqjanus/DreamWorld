@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Mintzo</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Gorantz</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Beherantz</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>Bilaketa azkarrean erabili</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Ordenatu arabera</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Ordenatu izenaren arabera</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Onartzen dituzu honako baldintzok?</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>gisa lizentziatua dago</value>
+  </data>
 </root>
