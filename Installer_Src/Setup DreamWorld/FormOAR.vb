@@ -42,6 +42,7 @@ Public Class FormOAR
 
         Public Property [Date] As String
             Get
+                If _date Is Nothing Then Return ""
                 Return _date
             End Get
             Set(value As String)
@@ -51,6 +52,7 @@ Public Class FormOAR
 
         Public Property Author As String
             Get
+                If _author Is Nothing Then Return ""
                 Return _author
             End Get
             Set(value As String)
@@ -69,6 +71,7 @@ Public Class FormOAR
 
         Public Property CCBY As String
             Get
+                If _copyright Is Nothing Then Return ""
                 Return _copyright
             End Get
             Set(value As String)
@@ -78,6 +81,7 @@ Public Class FormOAR
 
         Public Property Exclusive As String
             Get
+                If _exclusive Is Nothing Then Return "no"
                 Return _exclusive
             End Get
             Set(value As String)
@@ -88,6 +92,7 @@ Public Class FormOAR
         Public Property License As String
             Get
                 'Return _license
+                If _license Is Nothing Then Return ""
                 _license = Mid(_license, 1, 1024)
                 Dim i As List(Of String) = Word_Wrap.WrapText(_license, 70)
                 Dim str As String = ""
@@ -106,6 +111,7 @@ Public Class FormOAR
 
         Public Property Name As String
             Get
+                If _name Is Nothing Then Return ""
                 Return _name
             End Get
             Set(value As String)
@@ -115,6 +121,7 @@ Public Class FormOAR
 
         Public Property Photo As String
             Get
+                If _photo Is Nothing Then Return ""
                 Return _photo
             End Get
             Set(value As String)
@@ -124,6 +131,7 @@ Public Class FormOAR
 
         Public Property Size As String
             Get
+                If _license Is Nothing Then Return "0"
                 Return _size
             End Get
             Set(value As String)
@@ -133,6 +141,7 @@ Public Class FormOAR
 
         Public Property Str As String
             Get
+                If _str Is Nothing Then Return ""
                 Return _str
             End Get
             Set(value As String)
