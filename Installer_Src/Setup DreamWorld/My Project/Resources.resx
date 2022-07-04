@@ -4307,4 +4307,25 @@
   <data name="ezgif.com-gif-maker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ezgif.com-gif-maker.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>for exclusive use in DreamGrid software</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>is licensed as</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Sort by Date</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Sort by Name</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Do you agree to these terms?</value>
+  </data>
 </root>

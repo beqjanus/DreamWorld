@@ -653,6 +653,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Ascending.
+        '''</summary>
+        Friend ReadOnly Property Ascending() As String
+            Get
+                Return ResourceManager.GetString("Ascending", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Asset Cache.
         '''</summary>
         Friend ReadOnly Property Asset_Cache_word() As String
@@ -2982,6 +2991,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Descending.
+        '''</summary>
+        Friend ReadOnly Property Descending() As String
+            Get
+                Return ResourceManager.GetString("Descending", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Description.
         '''</summary>
         Friend ReadOnly Property Description_word() As String
@@ -3919,6 +3937,15 @@ Namespace My.Resources
         Friend ReadOnly Property Eucalyptus() As String
             Get
                 Return ResourceManager.GetString("Eucalyptus", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to for exclusive use in DreamGrid software.
+        '''</summary>
+        Friend ReadOnly Property exclusive() As String
+            Get
+                Return ResourceManager.GetString("exclusive", resourceCulture)
             End Get
         End Property
         
@@ -5765,6 +5792,15 @@ Namespace My.Resources
         Friend ReadOnly Property isBooting() As String
             Get
                 Return ResourceManager.GetString("isBooting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to is licensed as.
+        '''</summary>
+        Friend ReadOnly Property islicensedas() As String
+            Get
+                Return ResourceManager.GetString("islicensedas", resourceCulture)
             End Get
         End Property
         
@@ -10539,6 +10575,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Sort by Date.
+        '''</summary>
+        Friend ReadOnly Property SortbyDate() As String
+            Get
+                Return ResourceManager.GetString("SortbyDate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Sort by Name.
+        '''</summary>
+        Friend ReadOnly Property SortbyName() As String
+            Get
+                Return ResourceManager.GetString("SortbyName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Source Code.
         '''</summary>
         Friend ReadOnly Property Source_Code_word() As String
@@ -11135,6 +11189,15 @@ Namespace My.Resources
         Friend ReadOnly Property Temporary_Regions() As String
             Get
                 Return ResourceManager.GetString("Temporary_Regions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do you agree to these terms?.
+        '''</summary>
+        Friend ReadOnly Property Terms() As String
+            Get
+                Return ResourceManager.GetString("Terms", resourceCulture)
             End Get
         End Property
         

@@ -37,6 +37,7 @@ Partial Class FormSetup
         Me.StartButton = New System.Windows.Forms.Button()
         Me.DiskSize = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Virtual = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.TimerMain = New System.Windows.Forms.Timer(Me.components)
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -160,7 +161,6 @@ Partial Class FormSetup
         Me.ConnectToIceCastToolStripMenuItemIcecast = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.Virtual = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -257,6 +257,17 @@ Partial Class FormSetup
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 23)
         Me.TableLayoutPanel1.TabIndex = 18611
+        '
+        'Virtual
+        '
+        Me.Virtual.AutoSize = True
+        Me.Virtual.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Virtual.Location = New System.Drawing.Point(180, 0)
+        Me.Virtual.Name = "Virtual"
+        Me.Virtual.Size = New System.Drawing.Size(89, 15)
+        Me.Virtual.TabIndex = 4
+        Me.Virtual.Text = "0% Virtual RAM"
+        Me.Virtual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TextBox1
         '
@@ -1141,17 +1152,6 @@ Partial Class FormSetup
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(665, 26)
         Me.MenuStrip1.TabIndex = 0
-        '
-        'Virtual
-        '
-        Me.Virtual.AutoSize = True
-        Me.Virtual.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Virtual.Location = New System.Drawing.Point(180, 0)
-        Me.Virtual.Name = "Virtual"
-        Me.Virtual.Size = New System.Drawing.Size(89, 15)
-        Me.Virtual.TabIndex = 4
-        Me.Virtual.Text = "0% Virtual RAM"
-        Me.Virtual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'FormSetup
         '
