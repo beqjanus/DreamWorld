@@ -73,6 +73,7 @@ PrintDate("Clean up opensim");
 
 
 my @deletions = (
+    "$dir/Licenses_to_Content",             
     "$dir/OutworldzFiles/AutoBackup",
     "$dir/OutworldzFiles/Opensim/WifiPages-Custom",
     "$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
@@ -647,7 +648,7 @@ sub doUnlink {
     }
     
     if (-e $file) {
-        die ;
+        die $file;
     }
 }
 
@@ -730,6 +731,7 @@ sub delPDB
 
     foreach my $file (@pdb)
     {
+        next if $file->name =~ /fsassets/i;
         say ($file->name);
         if (-d $file->name )
         {
