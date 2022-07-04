@@ -705,6 +705,12 @@ Public Class FormSmartStart
             n += 1
         Next
 
+        With AviName
+            .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
+
         SuspendButton.Visible = True
 
         HelpOnce("SmartStart")
@@ -1309,6 +1315,10 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Plants"
+
+    Private Sub AviName_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+
+    End Sub
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         If Not _initialized Then Return
