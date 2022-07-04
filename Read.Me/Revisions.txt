@@ -1,5 +1,21 @@
 REVISIONS FOR DREAMGRID
 
+V5.15
+Added a clickable hyperlink in the Log Analyser web page direct to any script with Yengine errors 
+Added Sort buttons for OAR and IAR list, Sort by Name or Date, and search the Name, Author and the Text.
+185 free regions! Older versions of DreamGrid cannot see two large "free house"" regions as they would crash.
+PID was not stored in cache for Robust so it did not shut down when GUI is set to Auto close windows
+
+V5.14
+Fixed a bug where large OARS and IARS > 2 GB is size would crash the system. Older versions will no longer crash if a big one sneaks in due to a fix in the web site maker scripts.
+Stop saving MAP-* images in Opensim\bin. They are just for debug.  Core leaves them on. I don't.
+Long Delay in writing or saving regions is gone.
+INI writer made into a class. In some error cases the old module could overwrite PHP.ini with Apache, breaking Joomla.
+Rebuilt 36,500 unique translations in 30 languages.
+Smart Start Enable would not un-check.
+Robust would non minimize automatically.
+Y axis when moving sims around in blockify function would accumulate the largest Y. Reset to be per Row.
+
 V5.13
 Speedier handling of checkbox events in Region list.  Speeds up Detailed view refresh a lot which can take a long time when there are hundreds of regions.
 PH.ini was being corrupted on some machines. Old code in there that shared a variable. This could stop Jopensim/Joomla from running. Refactored it to a class to eliminate the common var.
