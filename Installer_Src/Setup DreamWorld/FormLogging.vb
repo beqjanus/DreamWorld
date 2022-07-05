@@ -222,7 +222,7 @@ Public Class FormLogging
                 For Each UUID As String In RegionUuids()
                     Application.DoEvents()
                     Dim GroupName = Group_Name(UUID)
-                    ExamineOpensim(outputFile, GroupName)
+                    ExamineOpensim(outputFile, GroupName, Region_Name(UUID))
                 Next
                 outputFile.WriteLine("</table>")
             End Using
@@ -274,7 +274,7 @@ Public Class FormLogging
 
     End Sub
 
-    Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
+    Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String, RegionName As String)
 
         Try
             Dim Region = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Opensim.log")
@@ -285,8 +285,8 @@ Public Class FormLogging
                         While S.Peek <> -1
                             _LineCounter += 1
                             Dim line = S.ReadLine()
-                            LookatOpensim(line, outputfile, GroupName)
-                            LookatYengine(line, outputfile, GroupName)
+                            LookatOpensim(line, outputfile, GroupName, RegionName)
+                            LookatYengine(line, outputfile, GroupName, RegionName)
                             Application.DoEvents()
                         End While
                     End Using
@@ -325,7 +325,7 @@ Public Class FormLogging
 
     End Sub
 
-    Private Function LookatOpensim(line As String, outputfile As StreamWriter, GroupName As String) As Integer
+    Private Function LookatOpensim(line As String, outputfile As StreamWriter, GroupName As String, RegionName As String)
 
         Dim pattern = New Regex("^(.*?),.*?ERROR(.*?)(<.*?,.*?,.*?>)(.*)")
         Dim match As Match = pattern.Match(line)
@@ -334,7 +334,12 @@ Public Class FormLogging
             Dim Preamble = match.Groups(2).Value
             Dim Vector = match.Groups(3).Value
             Dim Last = match.Groups(4).Value
-            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{GroupName}</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort} {GroupName}""> {Vector} </a> {Last} {GroupName}</td></tr>")
+            Dim v = Vector
+            v = v.Replace(",", "/")
+            v = v.Replace(" ", "")
+            v = v.Replace("<", "")
+            v = v.Replace(">", "")
+            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{RegionName}</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort}/{RegionName}/{v}""> {RegionName}/{v}</a> {Last}</td></tr>")
             _Err += 1
             Return 1
         End If
@@ -342,7 +347,7 @@ Public Class FormLogging
 
     End Function
 
-    Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
+    Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String, RegionName As String) As Integer
 
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
         Dim match As Match = pattern.Match(line)

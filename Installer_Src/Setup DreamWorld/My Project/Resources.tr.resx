@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Konuşma!</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Artan</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Azalan</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>DreamGrid yazılımında özel kullanım için!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>ruhsatlandırılmıştır.</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Tarihe Göre Sırala</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>İsme göre sırala</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Bu şartları kabul ediyor musunuz?!</value>
+  </data>
 </root>

@@ -20,6 +20,9 @@
 @font-face
 	{font-family:"Segoe UI Symbol";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -358,7 +361,8 @@ span.IntenseQuoteChar
 	font-family:"Times New Roman",serif;
 	color:#4472C4;}
 .MsoChpDefault
-	{font-size:10.0pt;}
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
 .MsoPapDefault
 	{margin-top:5.0pt;
 	margin-right:0in;
@@ -403,6 +407,110 @@ line, click until you have found the changes you are interested in viewing.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V5.14</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Fixed a bug where
+large OARS and IARS &gt; 2 GB is size would crash the system. Older versions
+will no longer crash if a big one sneaks in due to a fix in the web site maker
+scripts.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Stop saving MAP-*
+images in Opensim\bin. They are just for debug.  Core leaves them on. I don't.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Long Delay in writing
+or saving regions is gone.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>INI writer made into a
+class. In some error cases the old module could overwrite PHP.ini with Apache,
+breaking Joomla.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Rebuilt 36,500 unique
+translations in 30 languages.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Smart Start Enable
+would not un-check.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Y axis when moving
+sims around in blockify function would accumulate the largest Y. Reset to be
+per Row.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V5.13</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Speedier handling of
+checkbox events in Region list.  Speeds up Detailed view refresh a lot which
+can take a long time when there are hundreds of regions.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>PH.ini was being
+corrupted on some machines. Old code in there that shared a variable. This
+could stop Jopensim/Joomla from running. Refactored it to a class to eliminate
+the common var.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Shutting down would
+cause regions to get a XML quit in a loop until they quit. </span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V5.12</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>Region List switching
+from Details to Icon and back to Detailed would shut down all regions. Oops.
+New code to power off a disabled region had an unexpected side effect. Cat Tax
+paid on Mewe.</span></p>
+
+<p class=MsoNormal style='margin:0in;margin-bottom:.0001pt'><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V5.11
+Release </span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'><span style='font-size:9.5pt;
+font-family:Consolas;color:black'>Oops. I left some debug in, so restart
+regions did not work.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:0in;margin-right:.5in'>
 
@@ -415,10 +523,10 @@ Post-release fixes</span></h2>
 <p class=MsoNormal style='margin-left:0in'>Ban list did not accept Mac
 addresses due to Upper Case bug</p>
 
-<p class=MsoNormal style='margin-left:0in'>Diva (in Robust) exposed a Denial-of-Service
-attack vector that was fixed by Diva, just this week. We've always had the fix
-since I first spotted and reported it a year ago. But the 4.999's didn't have
-it.  </p>
+<p class=MsoNormal style='margin-left:0in'>Diva (in Robust) exposed a
+Denial-of-Service attack vector that was fixed by Diva, just this week. We've
+always had the fix since I first spotted and reported it a year ago. But the
+4.999's didn't have it.  </p>
 
 <p class=MsoNormal style='margin-left:0in'>Grid users table was deleted at
 startup which led to side effects. Grid users delete deleted.</p>
@@ -651,8 +759,8 @@ multiple times- pops up an alert only once now.</p>
 <p class=MsoNormal style='margin-left:0in'>Hyperlinks in Screen text are
 clickable.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Grid settings and IPs print at end of
-boot to make them more visible.</p>
+<p class=MsoNormal style='margin-left:0in'>Grid settings and IPs print at end
+of boot to make them more visible.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Now refreshes Region list as people
 move around.  And it detects Hypergrid visitors again.</p>
@@ -758,8 +866,8 @@ and TLS/SSL to a new Button in Settings.</p>
 <p class=MsoNormal style='margin-left:0in'>Drop clouds as they no longer work
 in EEP.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Fixed Diva Web Panel as the dlls were
-excluded in an earlier build.</p>
+<p class=MsoNormal style='margin-left:0in'>Fixed Diva Web Panel as the dlls
+were excluded in an earlier build.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1031,8 +1139,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Uses the Welcome region for saving
-IARS instead of TEMP region</p>
+<p class=MsoNormal style='margin-left:0in'>Uses the Welcome region for saving IARS
+instead of TEMP region</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1070,8 +1178,8 @@ Regions folder is missing. </p>
 <p class=MsoNormal style='margin-left:0in'>MetroMap (map.php) was missing the
 first cell.  It moved around based on the screen view.  $xx was not defined. An
 undefined variable is null, so if you use array($xx), instead of the 0th index,
-you gets the 'null'th place. which should be to 0th, but noooooo.  Thanks for the
-tip and the fix, awss!</p>
+you gets the 'null'th place. which should be to 0th, but noooooo.  Thanks for
+the tip and the fix, awss!</p>
 
 <p class=MsoNormal style='margin-left:0in'>Firewall is now open for port 443
 for SSL. You need to port forward 443 in your router to use SSL!</p>
@@ -1172,8 +1280,8 @@ files to detect or prevent potential crashes.</p>
 <p class=MsoNormal style='margin-left:0in'>Remove useless Apache Icons.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Speedups for slow PC’s by not
-scanning as fast. You will likely notice the graphs update only every 5 seconds.
-</p>
+scanning as fast. You will likely notice the graphs update only every 5
+seconds. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Clicking Apache or Icecast start
 buttons enables them, then boots.</p>
@@ -1216,8 +1324,8 @@ it up if it exists.</p>
 <p class=MsoNormal style='margin-left:0in'>The baretail logger program did not
 gracefully handle paths with spaces in them.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Prettify the Nav bars in the Web
-site.  </p>
+<p class=MsoNormal style='margin-left:0in'>Prettify the Nav bars in the Web site. 
+</p>
 
 <p class=MsoNormal style='margin-left:0in'>Region screen checkbox for all or
 none was flipped. </p>
@@ -1439,8 +1547,8 @@ and plants modules.</p>
 to some de-duplication. All of them have been renamed by dropping Authors name.
 The credits are both in DreamGrid and in the menu system.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Fixed up the JavaScript maps to be centered. 
-These are in Setting-&gt;Maps.</p>
+<p class=MsoNormal style='margin-left:0in'>Fixed up the JavaScript maps to be
+centered.  These are in Setting-&gt;Maps.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Visitor maps are accurate for placement
 of the avatars with larger symbols and better color choices.</p>
@@ -1514,9 +1622,9 @@ Default = private, http://127.0.0.1/Stats only</p>
 <p class=MsoNormal style='margin-left:0in'>Visitor Maps have a search box. I
 have nearly 200 maps, and it took forever to scroll.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Added a blank map for missing
-Visitor maps.   You need a set of tiled maps, as the visitor map is made from
-the small tiles.</p>
+<p class=MsoNormal style='margin-left:0in'>Added a blank map for missing Visitor
+maps.   You need a set of tiled maps, as the visitor map is made from the small
+tiles.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1539,9 +1647,9 @@ margin-left:0in;margin-right:.5in'>
 </div>
 
 <p class=MsoNormal style='margin-left:0in'>Added “To Do List.pdf” to help. It’s
-a PDF of things To do. It is currently not going to make much sense to you as
-it was intended for my eyes only. I’ll add more detail to it as I go.  This
-goes back 62 pages in time.        </p>
+a PDF of things To do. It is currently not going to make much sense to you as it
+was intended for my eyes only. I’ll add more detail to it as I go.  This goes
+back 62 pages in time.        </p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1608,8 +1716,8 @@ margin-left:0in;margin-right:.5in'>
 </div>
 
 <p class=MsoNormal style='margin-left:0in'>Logs will be saved with a Date/time
-stamp.  Disable this in Settings-&gt;logs if you prefer the original no
-timestamp method.</p>
+stamp.  Disable this in Settings-&gt;logs if you prefer the original no timestamp
+method.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added a link to Google Map in Help.
 This map has nice images, but doesn't cover much area. It centers on your
@@ -1827,9 +1935,9 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Adding a visitor map to
-Setup-&gt;Map. This requires you to install Strawberry Perl which it will
-prompt on first boot.</p>
+<p class=MsoNormal style='margin-left:0in'>Adding a visitor map to Setup-&gt;Map.
+This requires you to install Strawberry Perl which it will prompt on first
+boot.</p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:0in;margin-right:.5in'>
@@ -1979,8 +2087,8 @@ in-world in chat.</p>
 margin-left:0in;margin-right:.5in'>
 
 <h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V4.6
-General release</span></h2>
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V4.6 General
+release</span></h2>
 
 </div>
 
@@ -1998,8 +2106,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Lots of small tweaks to UI to
 improve performance.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Link set: Max number of prims increased
-to 1024.</p>
+<p class=MsoNormal style='margin-left:0in'>Link set: Max number of prims
+increased to 1024.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Chat to Speech: Added a Speech class
 for the future Chat to Speech system. Will also be adding a translator. </p>
@@ -2363,8 +2471,8 @@ Opensim is running.</p>
 
 <p class=MsoNormal style='margin-left:0in'>RegionList Search box.</p>
 
-<p class=MsoNormal style='margin-left:0in'>RegionList check boxes for All,
-Smart On, and Disabled</p>
+<p class=MsoNormal style='margin-left:0in'>RegionList check boxes for All, Smart
+On, and Disabled</p>
 
 <p class=MsoNormal style='margin-left:0in'>Save Size of the graphs</p>
 
@@ -2396,8 +2504,8 @@ where a URL could (and did) crash robust.</p>
 margin-left:0in;margin-right:.5in'>
 
 <h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V4.04
-Performance Tweaks to Mysql and Smart Start</span></h2>
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V4.04 Performance
+Tweaks to Mysql and Smart Start</span></h2>
 
 </div>
 
@@ -2556,7 +2664,7 @@ IP)(8001)</p>
 <p class=MsoNormal style='margin-left:0in'>          LANIP.DiagnosticPort           http://(PC
 LAN IP):(8001)</p>
 
-<p class=MsoNormal style='margin-left:0in'>          LANIP:HttpPort                                      http://(PC
+<p class=MsoNormal style='margin-left:0in'>          LANIP:HttpPort                                      http://(PC
 LAN IP):(80)</p>
 
 <p class=MsoNormal style='margin-left:0in'>          PublicIP:HttpPort                          http://(PC
@@ -2636,8 +2744,8 @@ to some numbers. </p>
 <p class=MsoNormal style='margin-left:0in'>X translated as Y, doh!</p>
 
 <p class=MsoNormal style='margin-left:0in'>Enable script function
-lsSetWindlightScene so scripted EEP should work. This script function is
-restricted to the region owner only.</p>
+lsSetWindlightScene so scripted EEP should work. This script function is restricted
+to the region owner only.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added a Force Update to Help Menu so
 you can get updates on demand instead of waiting for a release.</p>
@@ -2824,8 +2932,8 @@ True. Dogwood default is now off, and we also know that Dogwood is both a tree
 and a flower and is the state flower of Virginia. </p>
 
 <p class=MsoNormal style='margin-left:0in'>The land filler would incorrectly
-fill in non-1X1 region. If a pre-existing 4X4 was located, it would only see
-the lower left, and the 15 remaining slots would collide.</p>
+fill in non-1X1 region. If a pre-existing 4X4 was located, it would only see the
+lower left, and the 15 remaining slots would collide.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -2880,7 +2988,8 @@ up to 3 region-wide sim surround</p>
 <p class=MsoNormal style='margin-left:0in'>About 1,000 names randomly chosen
 for new regions. You can make your own list in Outworldzfiles.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Added photos of all Trees and Bushes.</p>
+<p class=MsoNormal style='margin-left:0in'>Added photos of all Trees and
+Bushes.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Autofill regions are placed in
 Estate 1999 &quot;SimSurround&quot;</p>
@@ -2989,9 +3098,9 @@ running regions. Mysql and robust are left running to flush to disk. When disk
 space is available, thaw the regions.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Now 29,950 Translation. in the
-spreadsheet. Edits should me emailed to fred@outworldz.com so they can be compiled
-in, thank you very much! This uses a new mechanism thats much easier to merge
-and make them</p>
+spreadsheet. Edits should me emailed to fred@outworldz.com so they can be
+compiled in, thank you very much! This uses a new mechanism thats much easier
+to merge and make them</p>
 
 <p class=MsoNormal style='margin-left:0in'>Now Showing prim counts! in Region
 Details.</p>
@@ -3044,8 +3153,7 @@ internal stuff on and off</p>
 <p class=MsoNormal style='margin-left:0in'>Added a disk space calculator and
 warning is disk space is low.</p>
 
-<p class=MsoNormal style='margin-left:0in'>View all maps did not tile as
-expected.</p>
+<p class=MsoNormal style='margin-left:0in'>View all maps did not tile as expected.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -3227,9 +3335,8 @@ margin-left:0in;margin-right:.5in'>
 region while running.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added Concierge module which
-announces people coming and going in each region. Enable it globally in
-Setup-Settings-&gt;Regions and restart the region. Selectable on/off per
-region. </p>
+announces people coming and going in each region. Enable it globally in Setup-Settings-&gt;Regions
+and restart the region. Selectable on/off per region. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Latest FSassets file backup would
 not work if paths had spaces in them.</p>
@@ -3410,8 +3517,8 @@ Opensim.</p>
 <p class=MsoNormal style='margin-left:0in'>Don't bitch about Welcome region on
 region servers.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Backup folder if missing, would
-cause a complaint loop and possible crash. </p>
+<p class=MsoNormal style='margin-left:0in'>Backup folder if missing, would cause
+a complaint loop and possible crash. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Handle NAT and non-NAT routers
 situations gracefully. </p>
@@ -3842,8 +3949,8 @@ how to edit after an install. </p>
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
 <p class=MsoNormal style='margin-left:0in'>MySqlRev = &quot;5.6.5&quot; to prep
-for Joomla V4, which requires at least 5.6, 5.65 is the next release.5.7
-requires major changes, we may never see that.</p>
+for Joomla V4, which requires at least 5.6, 5.65 is the next release.5.7 requires
+major changes, we may never see that.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -4129,9 +4236,9 @@ to collisions in updater and older Dreamgrids. Now its really, really dead.
 Replaced by System.Compression.DotNetZip.</p>
 
 <p class=MsoNormal style='margin-left:0in'>DreamGridUpdater case in URL
-(Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable redirect
-at Outworldz.com was supposed to send this URL to a Cloud Storage service. It
-did not always do so.</p>
+(Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable
+redirect at Outworldz.com was supposed to send this URL to a Cloud Storage
+service. It did not always do so.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Add CAA record to Outworldz and
 Hyperica DNS for security - prevents forgery of certificates.</p>
@@ -4235,9 +4342,9 @@ margin-left:0in;margin-right:.5in'>
 updated to be more random when clicking Next.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added Alias field to HG DNS Name
-Setting so you can run more than one URL to your grid. For example, both
-www.outworldz.com and outworldz.com. Or an old grid name. The alias field
-accepts a comma delimited list of names.</p>
+Setting so you can run more than one URL to your grid. For example, both www.outworldz.com
+and outworldz.com. Or an old grid name. The alias field accepts a comma
+delimited list of names.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Gloebits is fixed again.</p>
 
@@ -4429,8 +4536,8 @@ osReplaceRegionEnvironment()</p>
 <p class=MsoNormal style='margin-left:0in'>Fixed birds module.dll after
 mistakenly deleting the .bak and .ini files. doh</p>
 
-<p class=MsoNormal style='margin-left:0in'>Updated
-DreamGrid_Test_Region-1X1.oar to include birds test</p>
+<p class=MsoNormal style='margin-left:0in'>Updated DreamGrid_Test_Region-1X1.oar
+to include birds test</p>
 
 <p class=MsoNormal style='margin-left:0in'>Updated DreamGrid_Test_Region-1X1 to
 include the Outworldz Radio system. This is an always up-to-date radio system.</p>
@@ -4455,9 +4562,9 @@ Post Fixes (Bleeding edge Opensim)</span></h2>
 <p class=MsoNormal style='margin-left:0in'>Opensim updated to #ac8271e391bee1b
 0.9.2.dev 2020-09-12 19:10:45       try reduce number of this webrequest</p>
 
-<p class=MsoNormal style='margin-left:0in'>This mainly adds back in EEP
-defaults. See http://opensimulator.org/viewgit/?a=shortlog&amp;p=opensim. Also
-fixes some HTTP-In</p>
+<p class=MsoNormal style='margin-left:0in'>This mainly adds back in EEP defaults.
+See http://opensimulator.org/viewgit/?a=shortlog&amp;p=opensim. Also fixes some
+HTTP-In</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -4521,8 +4628,8 @@ Post Fixes</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Opensim updated to #e9b4bca0899f13eab
-0.9.2.dev 2020-08-25. </p>
+<p class=MsoNormal style='margin-left:0in'>Opensim updated to
+#e9b4bca0899f13eab 0.9.2.dev 2020-08-25. </p>
 
 <p class=MsoNormal style='margin-left:0in'>UPNP for new grids is on by default.
 And it works. This should make it a lot easier for nooblets.</p>
@@ -4601,8 +4708,8 @@ margin-left:0in;margin-right:.5in'>
 margin-left:0in;margin-right:.5in'>
 
 <h2 style='margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:
-0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V3.592
-Release Candidate for V3.6</span></h2>
+0in;margin-bottom:.0001pt;background:#D9E2F3'><span style='color:black'>V3.592 Release
+Candidate for V3.6</span></h2>
 
 </div>
 
@@ -4694,7 +4801,8 @@ PC do not shut off wrong Robust.</p>
 <p class=MsoNormal style='margin-left:0in'>Region Form remembers the column
 widths in Details mode.</p>
 
-<p class=MsoNormal style='margin-left:0in'>OsGrid complained about 2 economy modules.</p>
+<p class=MsoNormal style='margin-left:0in'>OsGrid complained about 2 economy
+modules.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Viewers complained that items are
 not available even when suitcase is off. This is a visual reminder to local
@@ -4773,9 +4881,8 @@ Post Fixes 6/18/2020</span></h2>
 <p class=MsoNormal style='margin-left:0in'>New Feature: Updates could destroy
 added on services such as WordPress or Joomla. Added a switch to </p>
 
-<p class=MsoNormal style='margin-left:0in'>Apache to select &quot;DreamGrid
-Diva&quot;, WordPress, or Joomla/JOpensim or &quot;Other&quot; folder as the
-home page, </p>
+<p class=MsoNormal style='margin-left:0in'>Apache to select &quot;DreamGrid Diva&quot;,
+WordPress, or Joomla/JOpensim or &quot;Other&quot; folder as the home page, </p>
 
 <p class=MsoNormal style='margin-left:0in'>such as http://(your grid):80, aka
 http://(your grid). Documentation on this is not in this update. </p>
@@ -4868,8 +4975,8 @@ Joomla.</p>
 <p class=MsoNormal style='margin-left:0in'>Include conf/extra/httpd-mpm.conf
 whioch has been tweaked to use a 4 core machine without too much RAM in use. </p>
 
-<p class=MsoNormal style='margin-left:0in'>Added MIMEMagicFile module and
-conf/magic for peeking in file contents to determine the MIME type.</p>
+<p class=MsoNormal style='margin-left:0in'>Added MIMEMagicFile module and conf/magic
+for peeking in file contents to determine the MIME type.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Just in case of user error, prevent
 .user.ini PHP settings files from being viewed by Web clients.</p>
@@ -4908,8 +5015,8 @@ Post fixes. 5/28/2020</span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Tweaks at turn off DEBUG in
-opensim.exe.config, make a longer default password for Wifi Admin.</p>
+<p class=MsoNormal style='margin-left:0in'>Tweaks at turn off DEBUG in opensim.exe.config,
+make a longer default password for Wifi Admin.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -5038,8 +5145,8 @@ Now you can.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Upnp Manager crash fix.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Enabling Apache will remove and
-re-install the service on startup to make it easier to move to a new folder.</p>
+<p class=MsoNormal style='margin-left:0in'>Enabling Apache will remove and re-install
+the service on startup to make it easier to move to a new folder.</p>
 
 <p class=MsoNormal style='margin-left:0in'>PHP.ini got duplicated - now it's
 just one. Also changed some PHP settings for Search.</p>
@@ -5376,8 +5483,8 @@ Beta</span></h2>
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
 <p class=MsoNormal style='margin-left:0in'>A major change in internal structure
-should speed up the region list and boot to be significantly faster. This also
-improves responsiveness due to fewer blocking loops.</p>
+should speed up the region list and boot to be significantly faster. This also improves
+responsiveness due to fewer blocking loops.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -5529,9 +5636,9 @@ avatar capsules.</p>
 <p class=MsoNormal style='margin-left:0in'>* Handles complex terrain,
 multi-prim objects and seated avatars.</p>
 
-<p class=MsoNormal style='margin-left:0in'>* Implements throttling and the status
-codes RCERR_UNKNOWN and RCERR_CAST_TIME_EXCEEDED, so LSL scripts need to handle
-these responses and RCERR_SIM_PERF_LOW.</p>
+<p class=MsoNormal style='margin-left:0in'>* Implements throttling and the
+status codes RCERR_UNKNOWN and RCERR_CAST_TIME_EXCEEDED, so LSL scripts need to
+handle these responses and RCERR_SIM_PERF_LOW.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -5602,9 +5709,9 @@ each region. This fixes the CPU usage = 0 and other glitches in the Region
 list. These occurred when DreamGrid was restarted with regions already running
 and it could not find the Process ID.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Global and Local Search uses V3HG links
-which work inside Singularity and Firestorm viewer, Media On A Prim, and in Web
-Links. Many thanks to AI Austin and </p>
+<p class=MsoNormal style='margin-left:0in'>Global and Local Search uses V3HG
+links which work inside Singularity and Firestorm viewer, Media On A Prim, and
+in Web Links. Many thanks to AI Austin and </p>
 
 <p class=MsoNormal style='margin-left:0in'>Robust logging set back to INFO from
 DEBUG.</p>
@@ -5733,8 +5840,8 @@ click one or more sections to appear in the new Destination Guide.</p>
 Events and Search.</p>
 
 <p class=MsoNormal style='margin-left:0in'>If a region responds when it is
-popped up onscreen after a click, make certain it also has a
-&quot;running&quot; icon.</p>
+popped up onscreen after a click, make certain it also has a &quot;running&quot;
+icon.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Using Dot Net 4.6.1 (disabled
 legacy) features in Opensim since it is stable and the recommended setting. </p>
@@ -6011,16 +6118,16 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Teleport to a region from within
-DreamGrid in the Region Start/Stop popup panel. </p>
+<p class=MsoNormal style='margin-left:0in'>Teleport to a region from within DreamGrid
+in the Region Start/Stop popup panel. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Robust, Apache, Icecast and MySQL
 can be set to auto restart if they crash.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Update Mysq.Data.dll</p>
 
-<p class=MsoNormal style='margin-left:0in'>Update Visual Studio 2017 to latest FXcops
-and reduce footprint on unused extension in Github</p>
+<p class=MsoNormal style='margin-left:0in'>Update Visual Studio 2017 to latest
+FXcops and reduce footprint on unused extension in Github</p>
 
 <p class=MsoNormal style='margin-left:0in'>Removed embedded zip compressors for
 smaller footprint.</p>
@@ -6115,8 +6222,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Add Visual C++ 2015 installers for
 PHP7</p>
 
-<p class=MsoNormal style='margin-left:0in'>Local search was broken by PHP7 -
-missing explicit ossearch directive</p>
+<p class=MsoNormal style='margin-left:0in'>Local search was broken by PHP7 - missing
+explicit ossearch directive</p>
 
 <p class=MsoNormal style='margin-left:0in'>Fix up local search PHP to use
 &quot;Metromap/includes/config.php&quot; database include</p>
@@ -6400,8 +6507,8 @@ in grids. These are only shown if the region owner chooses to enable search and
 the Prim Owner, region owner, or parcel owner has cheeked the &quot;Show in
 Search button&quot;.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Added a new variable to Opensim
-Datasnapshot module to allow all grids to be searched.</p>
+<p class=MsoNormal style='margin-left:0in'>Added a new variable to Opensim Datasnapshot
+module to allow all grids to be searched.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Disable Search button added to
 Viewer Search. If on, you can set it so your residents see local only, or
@@ -6758,7 +6865,8 @@ textures uploaded with a model</p>
 
 <p class=MsoNormal style='margin-left:0in'>MySQL could use up too many handles</p>
 
-<p class=MsoNormal style='margin-left:0in'>Fixed %CPU to 2 digits on main screen</p>
+<p class=MsoNormal style='margin-left:0in'>Fixed %CPU to 2 digits on main
+screen</p>
 
 <p class=MsoNormal style='margin-left:0in'>Databaseinfo.php and config.php are
 set automatically to match possible database user/password changes – used in
@@ -7000,9 +7108,8 @@ margin-left:0in;margin-right:.5in'>
 enabled by a new switch in Web Control panel. You can run HTML and JavaScript
 with it or host your own Port 80 Web pages, assuming your ISP allows port 80.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Hypergrid.org‘s “MetroMap” (large
-and small) added to the url http:://(grid):80/Metromap and to the Wifi Home
-Screen.</p>
+<p class=MsoNormal style='margin-left:0in'>Hypergrid.org‘s “MetroMap” (large and
+small) added to the url http:://(grid):80/Metromap and to the Wifi Home Screen.</p>
 
 <p class=MsoNormal style='margin-left:0in'>You can run 3rd party programs such
 as PhpMyAdmin, Strawberry Perl and other CGI programs by adding the
@@ -7020,7 +7127,8 @@ Regions, and Hosts.</p>
 in Search’ are Searchable in the Viewer (Ctrl-F in Firestorm). Requires Apache
 and PHP Switch to be enabled in Web Pages. Classifieds do not work yet.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Load OAR defaults to all options off.</p>
+<p class=MsoNormal style='margin-left:0in'>Load OAR defaults to all options
+off.</p>
 
 <p class=MsoNormal style='margin-left:0in'>New Auto-Restart on Crash switch
 enabled by default.</p>
@@ -7146,8 +7254,8 @@ a name will start a teleport sequence to that avatar in your viewer.</p>
 set, and will reappear after a restart if it was open. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Many changes to Recycling and Auto
-restart. More icons for recycling regions. Recycle up and recycle down are
-single blue arrows, Bootup and Shutdown are double Blue arrows.</p>
+restart. More icons for recycling regions. Recycle up and recycle down are single
+blue arrows, Bootup and Shutdown are double Blue arrows.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -7305,8 +7413,8 @@ http://localhost:8002/wifi/map.html</p>
 create accounts on the web page will land at this spot on your Welcome region
 with their home set here so they can hypergrid back home.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Simplified INI constants updated
-from Jeff Kelly, thanks!</p>
+<p class=MsoNormal style='margin-left:0in'>Simplified INI constants updated from
+Jeff Kelly, thanks!</p>
 
 <p class=MsoNormal style='margin-left:0in'>Suppress crash if Outworldz
 webserver is offline and you have Publicity checked - threaded apartment
@@ -7325,8 +7433,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Improvements to
 Start/Stop/Edit/Restart popup - no more double clicking effect</p>
 
-<p class=MsoNormal style='margin-left:0in'>Try catch in case any ports were
-blanked out</p>
+<p class=MsoNormal style='margin-left:0in'>Try catch in case any ports were blanked
+out</p>
 
 <p class=MsoNormal style='margin-left:0in'>MySQL Region port set to same as
 MySQL robust port on initial startup.</p>
@@ -7637,8 +7745,7 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Faster exit of app when regions are
 combined</p>
 
-<p class=MsoNormal style='margin-left:0in'>Print count of things cleared from
-caches</p>
+<p class=MsoNormal style='margin-left:0in'>Print count of things cleared from caches</p>
 
 <p class=MsoNormal style='margin-left:0in'>Do not stop MySQL if already running</p>
 
@@ -7706,8 +7813,8 @@ margin-left:0in;margin-right:.5in'>
 brings the regions panel to the front unless it is minimized.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Auto restart can be set to low
-values if Autobackup is off. Otherwise it is set to Auto Backup interval + 0.5 hour
-to allow time for backup</p>
+values if Autobackup is off. Otherwise it is set to Auto Backup interval + 0.5
+hour to allow time for backup</p>
 
 <p class=MsoNormal style='margin-left:0in'>Fixed issue where Auto restart did
 not always restart a region by running webserver and exit handlers on a timer</p>

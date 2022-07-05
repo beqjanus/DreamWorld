@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.Net
+Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Newtonsoft.Json
 
@@ -17,9 +18,18 @@ Public Class FormOAR
 
 #Region "JSON"
 
+    Public Class FileData
+        Public Name As String = ""
+        Public Result As MsgBoxResult = MsgBoxResult.No
+        Public Text As String = ""
+    End Class
+
     Public Class JSONResult
+        Private _author As String
         Private _cache As Image
+        Private _copyright As String
         Private _date As String
+        Private _exclusive As String
         Private _license As String
         Private _name As String
         Private _photo As String
@@ -32,10 +42,21 @@ Public Class FormOAR
 
         Public Property [Date] As String
             Get
+                If _date Is Nothing Then Return ""
                 Return _date
             End Get
             Set(value As String)
                 _date = value
+            End Set
+        End Property
+
+        Public Property Author As String
+            Get
+                If _author Is Nothing Then Return ""
+                Return _author
+            End Get
+            Set(value As String)
+                _author = value
             End Set
         End Property
 
@@ -48,9 +69,30 @@ Public Class FormOAR
             End Set
         End Property
 
+        Public Property CCBY As String
+            Get
+                If _copyright Is Nothing Then Return ""
+                Return _copyright
+            End Get
+            Set(value As String)
+                _copyright = value
+            End Set
+        End Property
+
+        Public Property Exclusive As String
+            Get
+                If _exclusive Is Nothing Then Return "no"
+                Return _exclusive
+            End Get
+            Set(value As String)
+                _exclusive = value
+            End Set
+        End Property
+
         Public Property License As String
             Get
                 'Return _license
+                If _license Is Nothing Then Return ""
                 _license = Mid(_license, 1, 1024)
                 Dim i As List(Of String) = Word_Wrap.WrapText(_license, 70)
                 Dim str As String = ""
@@ -69,6 +111,7 @@ Public Class FormOAR
 
         Public Property Name As String
             Get
+                If _name Is Nothing Then Return ""
                 Return _name
             End Get
             Set(value As String)
@@ -78,6 +121,7 @@ Public Class FormOAR
 
         Public Property Photo As String
             Get
+                If _photo Is Nothing Then Return ""
                 Return _photo
             End Get
             Set(value As String)
@@ -87,6 +131,7 @@ Public Class FormOAR
 
         Public Property Size As String
             Get
+                If _license Is Nothing Then Return "0"
                 Return _size
             End Get
             Set(value As String)
@@ -96,6 +141,7 @@ Public Class FormOAR
 
         Public Property Str As String
             Get
+                If _str Is Nothing Then Return ""
                 Return _str
             End Get
             Set(value As String)
@@ -222,6 +268,12 @@ Public Class FormOAR
             If File.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.OrdinalIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.OrdinalIgnoreCase) Then
+
+                Dim O = CCBY(File)
+                If O.Result = MsgBoxResult.No Then Return
+
+                SaveLicenseFile(O)
+
                 Me.Hide()
                 LoadOARContent(File)
             ElseIf File.EndsWith(".iar", StringComparison.OrdinalIgnoreCase) Then
@@ -230,6 +282,20 @@ Public Class FormOAR
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+
+    End Sub
+
+    Private Sub SaveLicenseFile(O As FileData)
+
+        'FileData.Result = Result
+        'FileData.Name = Name
+        'FileData.Text = item.License
+
+        Dim Path = IO.Path.Combine(Settings.CurrentDirectory, "Licenses_to_Content")
+
+        Using file As New System.IO.StreamWriter(Path & $"\{O.Name}.txt", False)
+            file.Write(O.Text)
+        End Using
 
     End Sub
 
@@ -359,6 +425,10 @@ Public Class FormOAR
         _type = type
         Thread.Sleep(15)
         InitiateThread()
+
+        NameRadioButton.Checked = True
+        AscendRadioButton.Checked = True
+
     End Sub
 
     Public Sub ShowForm()
@@ -370,13 +440,46 @@ Public Class FormOAR
         If _type = "IAR" Then HelpOnce("Load IAR")
     End Sub
 
+    Private Function CCBY(file As String) As FileData
+
+        Dim Out As New FileData
+
+        If SearchArray IsNot Nothing Then
+            Dim Str As String = ""
+            Dim pattern = New Regex(".*/(.*?)$", RegexOptions.IgnoreCase)
+            Dim match As Match = pattern.Match(file)
+            If match.Success Then
+                Dim name = match.Groups(1).Value
+                For Each item In SearchArray
+
+                    If item.Name = name Then
+                        Dim terms As String = ""
+                        Try
+                            If item.Exclusive = "yes" Then terms = " " & My.Resources.exclusive
+                        Catch
+                        End Try
+
+                        Dim R = MsgBox($"{item.Author}:{name} {My.Resources.islicensedas} {item.CCBY}{terms}. {My.Resources.Terms}", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Info_word)
+                        Out.Result = R
+                        Out.Name = name
+                        Out.Text = item.License
+                        Return Out
+                    End If
+                Next
+            End If
+        End If
+
+        Return Out
+
+    End Function
+
     Private Function DoWork() As JSONResult
 
         json = GetData()
         json = ImageToJson(json)
         SearchArray = json
         _initted = True
-
+        SearchBusy = False
         Return Nothing
 
     End Function
@@ -389,6 +492,12 @@ Public Class FormOAR
         RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Refresh_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+
+        NameRadioButton.Text = My.Resources.SortbyName
+        DateRadioButton.Text = My.Resources.SortbyDate
+        AscendRadioButton.Text = My.Resources.Ascending
+        DecendRadioButton.Text = My.Resources.Descending
+
         SetScreen()
 
     End Sub
@@ -402,6 +511,7 @@ Public Class FormOAR
 
     Private Sub InitiateThread()
 
+        SearchBusy = True
         WebThread = New Thread(DirectCast(Function() DoWork(), ThreadStart))
 
         Try
@@ -455,7 +565,7 @@ Public Class FormOAR
             Dim newImage As New Bitmap(256, 256)
             Try
 
-                Using drawFont = New Font("Arial", 7)
+                Using drawFont = New Font("Arial", 8)
                     Using gr As Graphics = Graphics.FromImage(newImage)
                         gr.DrawImageUnscaled(bmp, 0, 0)
                         gr.FillRectangle(blueBrush, rect)
@@ -556,6 +666,22 @@ Public Class FormOAR
 
     End Sub
 
+    Private Sub RadioDateRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DateRadioButton.CheckedChanged
+        If DateRadioButton.Checked Then Search()
+    End Sub
+
+    Private Sub RadioDecendRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DecendRadioButton.CheckedChanged
+        If DecendRadioButton.Checked Then Search()
+    End Sub
+
+    Private Sub RadioNameRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NameRadioButton.CheckedChanged
+        If NameRadioButton.Checked Then Search()
+    End Sub
+
+    Private Sub RadioOldestRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AscendRadioButton.CheckedChanged
+        If AscendRadioButton.Checked Then Search()
+    End Sub
+
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
         Timer1.Interval = 1000
@@ -569,24 +695,44 @@ Public Class FormOAR
         SearchBusy = True
         Dim searchterm = TextBox1.Text
         Try
-            If searchterm.Length > 0 Then
-                Erase SearchArray
-                ' search
-                For Each item In json
-                    If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                        Dim l As Integer
-                        If SearchArray Is Nothing Then
-                            l = 0
-                        Else l = SearchArray.Length
-                        End If
-                        Array.Resize(SearchArray, l + 1)
-                        SearchArray(SearchArray.Length - 1) = item
+            'If searchterm.Length > 0 Then
+            Erase SearchArray
+            ' search
+            For Each item In json
+                If searchterm.Length = 0 Or
+                    item.License.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                    item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                    item.Author.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                    Dim l As Integer
+                    If SearchArray Is Nothing Then
+                        l = 0
+                    Else
+                        l = SearchArray.Length
                     End If
-                Next
-                Redraw(SearchArray)
-            Else
-                Redraw(json)
+                    Array.Resize(SearchArray, l + 1)
+                    SearchArray(SearchArray.Length - 1) = item
+                End If
+            Next
+
+            If DateRadioButton.Checked And AscendRadioButton.Checked Then
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Date Descending
+                SearchArray = NewArray.ToArray()
+            ElseIf DateRadioButton.Checked And Not AscendRadioButton.Checked Then
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Date Ascending
+                SearchArray = NewArray.ToArray()
+            ElseIf NameRadioButton.Checked And Not AscendRadioButton.Checked Then
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Name Descending
+                SearchArray = NewArray.ToArray()
+            ElseIf NameRadioButton.Checked And Not AscendRadioButton.Checked Then
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Name Ascending
+                SearchArray = NewArray.ToArray()
             End If
+
+            Redraw(SearchArray)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try

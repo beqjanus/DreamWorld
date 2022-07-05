@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>mowy</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Rosnąco</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Malejąco</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>do wyłącznego użytku w oprogramowaniu DreamGrid!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>jest licencjonowany jako!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Sortowanie według daty</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Sortuj według nazwy</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Czy zgadzasz się na te warunki?!</value>
+  </data>
 </root>

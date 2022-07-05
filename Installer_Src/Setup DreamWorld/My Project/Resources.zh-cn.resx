@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>演讲&amp;#x0D;</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>升序</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>降序</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>专属配套</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>该知识产权已被许可</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>按标题排序</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>按名称排序</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>您同意这些条款吗?</value>
+  </data>
 </root>

@@ -3732,4 +3732,25 @@
   <data name="Speech" xml:space="preserve">
     <value>Urlabhra</value>
   </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ardaitheach</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Íslitheach</value>
+  </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>le húsáid go heisiach i mbograí DreamGrid!</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>atá ceadúnaithe mar!</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Sórtáil de réir Dáta!</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Sórtáil de réir Ainm!</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>An aontaíonn tú leis na téarmaí seo?!</value>
+  </data>
 </root>

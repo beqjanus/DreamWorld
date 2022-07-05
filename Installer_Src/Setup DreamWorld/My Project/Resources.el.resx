@@ -3732,4 +3732,25 @@
   <data name="ShowUponStart" xml:space="preserve">
     <value>Εμφάνιση κατά την εκκίνηση</value>
   </data>
+  <data name="exclusive" xml:space="preserve">
+    <value>για αποκλειστική χρήση στο λογισμικό DreamGrid</value>
+  </data>
+  <data name="islicensedas" xml:space="preserve">
+    <value>έχει άδεια ως</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Συμφωνείτε με αυτούς τους όρους;</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Αύξουσα</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Φθίνων</value>
+  </data>
+  <data name="SortbyDate" xml:space="preserve">
+    <value>Ταξινόμηση κατά ημερομηνία</value>
+  </data>
+  <data name="SortbyName" xml:space="preserve">
+    <value>Ταξινόμηση κατά όνομα</value>
+  </data>
 </root>

@@ -221,7 +221,7 @@ Module SmartStart
 
         ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
 
-            If Not Settings.BootOrSuspend Then
+            If Not Settings.BootOrSuspend And Settings.Smart_Start Then
                 Return
             End If
 
