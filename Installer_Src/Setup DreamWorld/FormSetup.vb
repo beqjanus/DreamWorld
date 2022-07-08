@@ -2349,9 +2349,15 @@ Public Class FormSetup
             ' set mysql for amount of buffer to use now that it running.
             ' Will take effect next time Mysql is started.
             Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
-
             Bench.Print("hour worker ends")
         End If
+
+        If SecondsTicker = 3600 Then
+
+            ExportFsAssets()
+
+        End If
+
         SecondsTicker += 1
 
         TimerMain.Start()

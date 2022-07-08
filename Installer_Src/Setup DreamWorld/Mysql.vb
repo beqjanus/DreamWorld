@@ -504,6 +504,38 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub ExportFsAssets()
+
+        Dim count = 0
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) FROM fsassets "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Try
+                                count = reader.GetInt32(0)
+                            Catch
+                                BreakPoint.Print("Cannot read MySQL!")
+                            End Try
+                        End If
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Dump(ex)
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        If count > 1000 Then Return
+        Dim export = $"import ""Data Source=localhost;Port={Settings.MySqlRobustDBPort};Database={Settings.RobustDatabaseName};User ID={Settings.RobustUserName};Password={Settings.RobustPassword};Old Guids=true;Command Timeout=300;"" assets"
+        ConsoleCommand(RobustName, export)
+
+    End Sub
+
     Public Sub FixPresence()
 
         'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
@@ -575,7 +607,7 @@ Public Module MysqlInterface
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
+                Dim stm As String = "Select count(*) FROM (presence INNER JOIN useraccounts On presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -650,7 +682,7 @@ Public Module MysqlInterface
 
         If avatarname.Length = 0 Then Return ""
         Dim Val As String = ""
-        Dim stm = "Select PrincipalID  from useraccounts where FirstName like CONCAT('%', @Fname, '%')"
+        Dim stm = "Select PrincipalID  from useraccounts where FirstName Like CONCAT('%', @Fname, '%')"
         Dim parts As String() = avatarname.Split(" ".ToCharArray())
         Dim Fname = parts(0).Trim
         Dim LName As String = ""
