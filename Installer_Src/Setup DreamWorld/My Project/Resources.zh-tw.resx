@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>同意條款</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>最小化所有地區！</value>
+  </data>
 </root>

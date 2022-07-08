@@ -3753,4 +3753,7 @@
   <data name="SortbyName" xml:space="preserve">
     <value>Ταξινόμηση κατά όνομα</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Ελαχιστοποίηση όλων των περιοχών</value>
+  </data>
 </root>

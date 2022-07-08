@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>Вы согласны с этими условиями?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Свернуть все регионы!</value>
+  </data>
 </root>

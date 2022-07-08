@@ -3753,4 +3753,7 @@
   <data name="SortbyName" xml:space="preserve">
     <value>الترتيب حسب الاسم</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>تصغير جميع المناطق</value>
+  </data>
 </root>

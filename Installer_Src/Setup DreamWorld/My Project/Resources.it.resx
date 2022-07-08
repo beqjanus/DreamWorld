@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>Accetti queste condizioni?[[[",]]]</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Riduci al minimo tutte le regioni!</value>
+  </data>
 </root>

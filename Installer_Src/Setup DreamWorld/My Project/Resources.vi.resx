@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>Bạn có đồng ý với các điều khoản này không ?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Giảm thiểu tất cả các khu vực!</value>
+  </data>
 </root>

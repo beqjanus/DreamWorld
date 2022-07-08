@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>האם אתה מסכים לתנאים אלה?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>מזער את כל האזורים!</value>
+  </data>
 </root>

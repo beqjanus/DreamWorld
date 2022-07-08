@@ -3753,4 +3753,7 @@
   <data name="islicensedas" xml:space="preserve">
     <value>gisa lizentziatua dago</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Minimizatu Eskualde guztiak!</value>
+  </data>
 </root>

@@ -3753,4 +3753,7 @@
   <data name="Terms" xml:space="preserve">
     <value>An aontaíonn tú leis na téarmaí seo?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Íoslaghdaigh Gach Réigiúin!</value>
+  </data>
 </root>

@@ -3753,4 +3753,7 @@
   <data name="SortbyName" xml:space="preserve">
     <value>Seřaď dle jména</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Minimalizovat všechny oblasti</value>
+  </data>
 </root>
