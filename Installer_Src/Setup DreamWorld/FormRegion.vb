@@ -824,7 +824,7 @@ Public Class FormRegion
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
-            Dim loopctr = 120 ' wait 2 minutes
+            Dim loopctr = 30 ' wait 30 seconds
             While IsRegionReady(GroupPort(RegionUUID)) And loopctr > 0
                 Sleep(1000)
                 loopctr -= 1
