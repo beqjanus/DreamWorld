@@ -510,7 +510,7 @@ Public Module MysqlInterface
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) FROM fsassets "
+                Dim stm As String = "SELECT count(*) FROM assets "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -530,7 +530,7 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        If count > 1000 Then Return
+        If count < 1000 Then Return
         Dim export = $"import ""Data Source=localhost;Port={Settings.MySqlRobustDBPort};Database={Settings.RobustDatabaseName};User ID={Settings.RobustUserName};Password={Settings.RobustPassword};Old Guids=true;Command Timeout=300;"" assets"
         ConsoleCommand(RobustName, export)
 

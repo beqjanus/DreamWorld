@@ -660,6 +660,7 @@ Public Class FormSetup
         LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_On_LoopBack_word
         LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_Loopback_Text
+        MinimizeAllToolStripMenuItem.Text = Global.Outworldz.My.Resources.Minimize_all
         MnuContent.Text = Global.Outworldz.My.Resources.Content_word
         MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Free_Islands_and_Parts_word
@@ -2911,6 +2912,13 @@ Public Class FormSetup
 
         HelpManual("Loopback Fixes")
 
+    End Sub
+
+    Private Sub MinimizeAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MinimizeAllToolStripMenuItem.Click
+
+        For Each RegionUuid In RegionUuids()
+            ShowDOSWindow(GetHwnd(Group_Name(RegionUuid)), SHOWWINDOWENUM.SWMINIMIZE)
+        Next
     End Sub
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
