@@ -151,6 +151,7 @@ Public Class FormEmailSetup
         RadioButtonStartTlsWhenAvailable.Text = Global.Outworldz.My.Resources.StartTlsWhenAvailable
         ToolTip1.SetToolTip(RadioButtonStartTlsWhenAvailable, Global.Outworldz.My.Resources.tt_StartTlsWhenAvailable)
 
+        Button1.Text = My.Resources.Test_word
         HelpOnce("Email")
 
         SetScreen()
@@ -161,6 +162,27 @@ Public Class FormEmailSetup
 #End Region
 
 #Region "TextBoxes"
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If Not Settings.EmailEnabled Then
+            MsgBox(My.Resources.EmailDisabled, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+            Return
+        End If
+
+        If Not Settings.EnableEmailToSMTPCheckBox Then
+            MsgBox(My.Resources.SMTPDisabled, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+            Return
+        End If
+
+        Dim result = SendEmail(Settings.SmtPropUserName, Settings.SmtPropUserName, "Test Message from Dreamgrid", "Test Message from Dreamgrid")
+        If result = My.Resources.Ok Then
+            Button1.Text = My.Resources.Ok
+            Sleep(3000)
+            Button1.Text = My.Resources.Send_word
+        End If
+
+    End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VerifyCertificateCheckBox.CheckedChanged
 
