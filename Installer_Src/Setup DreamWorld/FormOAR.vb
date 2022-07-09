@@ -695,21 +695,43 @@ Public Class FormOAR
             'If searchterm.Length > 0 Then
             Erase SearchArray
             ' search
-            For Each item In json
-                If searchterm.Length = 0 Or
-                    item.License.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
-                    item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
-                    item.Author.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                    Dim l As Integer
-                    If SearchArray Is Nothing Then
-                        l = 0
-                    Else
-                        l = SearchArray.Length
+            If ExclusiveCheckbox.Checked Then
+                For Each item In json
+                    If searchterm.Length = 0 Or
+                        item.License.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                        item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                        item.Author.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                        If item.Exclusive <> "yes" Then
+                            Continue For
+                        End If
+                        Dim l As Integer
+                        If SearchArray Is Nothing Then
+                            l = 0
+                        Else
+                            l = SearchArray.Length
+                        End If
+                        Array.Resize(SearchArray, l + 1)
+                        SearchArray(SearchArray.Length - 1) = item
                     End If
-                    Array.Resize(SearchArray, l + 1)
-                    SearchArray(SearchArray.Length - 1) = item
-                End If
-            Next
+                Next
+            Else
+
+                For Each item In json
+                    If searchterm.Length = 0 Or
+                        item.License.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                        item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
+                        item.Author.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                        Dim l As Integer
+                        If SearchArray Is Nothing Then
+                            l = 0
+                        Else
+                            l = SearchArray.Length
+                        End If
+                        Array.Resize(SearchArray, l + 1)
+                        SearchArray(SearchArray.Length - 1) = item
+                    End If
+                Next
+            End If
 
             If DateRadioButton.Checked And AscendRadioButton.Checked Then
                 Dim NewArray = From thing In SearchArray
