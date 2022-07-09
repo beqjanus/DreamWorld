@@ -8042,21 +8042,20 @@
             The operation was canceled via the cancellation token.
             </exception>
         </member>
-        <member name="M:MimeKit.Cryptography.DefaultSecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
+        <member name="M:MimeKit.Cryptography.DefaultSecureMimeContext.Import(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Threading.CancellationToken)">
             <summary>
-            Asynchronously import a certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Asynchronously imports the specified certificate into the database.
+            Imports a certificate.
             </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
             <paramref name="certificate"/> is <c>null</c>.
             </exception>
             <exception cref="T:System.OperationCanceledException">
-            The operation was canceled via the cancellation token.
+            The operation was cancelled via the cancellation token.
             </exception>
         </member>
         <member name="M:MimeKit.Cryptography.DefaultSecureMimeContext.Import(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
@@ -8066,23 +8065,6 @@
             <remarks>
             Imports the specified certificate revocation list.
             </remarks>
-            <param name="crl">The certificate revocation list.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="crl"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was canceled via the cancellation token.
-            </exception>
-        </member>
-        <member name="M:MimeKit.Cryptography.DefaultSecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously imports a certificate revocation list.
-            </summary>
-            <remarks>
-            Asynchronously imports the specified certificate revocation list.
-            </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="crl">The certificate revocation list.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -16189,10 +16171,10 @@
         </member>
         <member name="M:MimeKit.Cryptography.SecureMimeContext.Import(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Imports the specified certificate.
+            Imports a certificate.
             </remarks>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
@@ -16205,10 +16187,43 @@
         </member>
         <member name="M:MimeKit.Cryptography.SecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
             <summary>
-            Asynchronously import the specified certificate.
+            Asynchronously import a certificate.
             </summary>
             <remarks>
-            Asynchronously imports the specified certificate.
+            Asynchronously imports a certificate.
+            </remarks>
+            <returns>An asynchronous task context.</returns>
+            <param name="certificate">The certificate.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="certificate"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was cancelled via the cancellation token.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Cryptography.SecureMimeContext.Import(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Threading.CancellationToken)">
+            <summary>
+            Import a certificate.
+            </summary>
+            <remarks>
+            Imports a certificate.
+            </remarks>
+            <param name="certificate">The certificate.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="certificate"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was cancelled via the cancellation token.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Cryptography.SecureMimeContext.ImportAsync(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously import a certificate.
+            </summary>
+            <remarks>
+            Asynchronously imports a certificate.
             </remarks>
             <returns>An asynchronous task context.</returns>
             <param name="certificate">The certificate.</param>
@@ -16222,10 +16237,10 @@
         </member>
         <member name="M:MimeKit.Cryptography.SecureMimeContext.Import(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate revocation list.
+            Import a certificate revocation list.
             </summary>
             <remarks>
-            Imports the specified certificate revocation list.
+            Imports a certificate revocation list.
             </remarks>
             <param name="crl">The certificate revocation list.</param>
             <param name="cancellationToken">The cancellation token.</param>
@@ -16238,10 +16253,10 @@
         </member>
         <member name="M:MimeKit.Cryptography.SecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
             <summary>
-            Asynchronously import the specified certificate revocation list.
+            Asynchronously import a certificate revocation list.
             </summary>
             <remarks>
-            Asynchronously imports the specified certificate revocation list.
+            Asynchronously imports a certificate revocation list.
             </remarks>
             <returns>An asynchronous task context.</returns>
             <param name="crl">The certificate revocation list.</param>
@@ -17308,12 +17323,12 @@
             The operation was cancelled via the cancellation token.
             </exception>
         </member>
-        <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.Import(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
+        <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.Import(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Imports the specified certificate.
+            Imports a certificate.
             </remarks>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
@@ -17324,14 +17339,13 @@
             The operation was cancelled via the cancellation token.
             </exception>
         </member>
-        <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
+        <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.Import(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
             <summary>
-            Asynchronously import the specified certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Asynchronously imports the specified certificate.
+            Imports a certificate.
             </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -17343,28 +17357,11 @@
         </member>
         <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.Import(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate revocation list.
+            Import a certificate revocation list.
             </summary>
             <remarks>
-            Imports the specified certificate revocation list.
+            Imports a certificate revocation list.
             </remarks>
-            <param name="crl">The certificate revocation list.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="crl"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was cancelled via the cancellation token.
-            </exception>
-        </member>
-        <member name="M:MimeKit.Cryptography.TemporarySecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously import the specified certificate revocation list.
-            </summary>
-            <remarks>
-            Asynchronously import the specified certificate revocation list.
-            </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="crl">The certificate revocation list.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -18100,10 +18097,10 @@
         </member>
         <member name="M:MimeKit.Cryptography.WindowsSecureMimeContext.Import(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Imports the specified certificate into the <see cref="F:System.Security.Cryptography.X509Certificates.StoreName.AddressBook"/> store.
+            Imports a certificate into the <see cref="F:System.Security.Cryptography.X509Certificates.StoreName.AddressBook"/> store.
             </remarks>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
@@ -18133,28 +18130,11 @@
         </member>
         <member name="M:MimeKit.Cryptography.WindowsSecureMimeContext.Import(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate.
+            Import a certificate.
             </summary>
             <remarks>
-            Imports the specified certificate into the <see cref="F:System.Security.Cryptography.X509Certificates.StoreName.AddressBook"/> store.
+            Imports a certificate into the <see cref="F:System.Security.Cryptography.X509Certificates.StoreName.AddressBook"/> store.
             </remarks>
-            <param name="certificate">The certificate.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="certificate"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was cancelled via the cancellation token.
-            </exception>
-        </member>
-        <member name="M:MimeKit.Cryptography.WindowsSecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Certificate,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously import the specified certificate.
-            </summary>
-            <remarks>
-            Asynchronously imports the specified certificate into the <see cref="F:System.Security.Cryptography.X509Certificates.StoreName.AddressBook"/> store.
-            </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="certificate">The certificate.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -18166,28 +18146,11 @@
         </member>
         <member name="M:MimeKit.Cryptography.WindowsSecureMimeContext.Import(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
             <summary>
-            Import the specified certificate revocation list.
+            Import a certificate revocation list.
             </summary>
             <remarks>
-            Import the specified certificate revocation list.
+            Imports a certificate revocation list.
             </remarks>
-            <param name="crl">The certificate revocation list.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="crl"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was cancelled via the cancellation token.
-            </exception>
-        </member>
-        <member name="M:MimeKit.Cryptography.WindowsSecureMimeContext.ImportAsync(Org.BouncyCastle.X509.X509Crl,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously import the specified certificate revocation list.
-            </summary>
-            <remarks>
-            Asynchronously import the specified certificate revocation list.
-            </remarks>
-            <returns>An asynchronous task context.</returns>
             <param name="crl">The certificate revocation list.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -18560,6 +18523,19 @@
             algorithm is returned.</para>
             </remarks>
             <returns>The encryption algorithms.</returns>
+            <param name="certificate">The X.509 certificate.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="certificate"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Cryptography.X509Certificate2Extensions.GetPrivateKeyAsAsymmetricKeyParameter(System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Get the PrivateKey property as a BouncyCastle AsymmetricKeyParameter.
+            </summary>
+            <remarks>
+            Gets the PrivateKey property as a BouncyCastle AsymmetricKeyParameter.
+            </remarks>
+            <returns>The asymmetric key parameter.</returns>
             <param name="certificate">The X.509 certificate.</param>
             <exception cref="T:System.ArgumentNullException">
             <paramref name="certificate"/> is <c>null</c>.
@@ -52156,6 +52132,101 @@
             <exception cref="T:System.ArgumentNullException">
             <paramref name="text"/> is <c>null</c>.
             </exception>
+        </member>
+        <member name="M:MimeKit.Utils.ReadOnlySpanExtensions.Tokenize``1(System.ReadOnlySpan{``0},``0)">
+             <summary>
+             Tokenize the values in the input <see cref="T:System.ReadOnlySpan`1"/> instance using a specified separator.
+             </summary>
+             <remarks>
+             <para>Tokenizes the values in the input <see cref="T:System.ReadOnlySpan`1"/> instance using a specified separator.</para>
+             <para>This extension should be used directly within a <see langword="foreach"/> loop:</para>
+             <code>
+             ReadOnlySpan&lt;char&gt; text = "Hello, world!";
+            
+             foreach (var token in text.Tokenize(','))
+             {
+                 // Access the tokens here...
+             }
+             </code>
+             <para>The compiler will take care of properly setting up the <see langword="foreach"/> loop with the type returned from this method.</para>
+             <note type="note">The returned <see cref="T:MimeKit.Utils.ReadOnlySpanTokenizer`1"/> value shouldn't be used directly: use this extension in a <see langword="foreach"/> loop.</note>
+             </remarks>
+             <typeparam name="T">The type of items in the <see cref="T:System.ReadOnlySpan`1"/> to tokenize.</typeparam>
+             <returns>A tokenizer for <paramref name="span"/>.</returns>
+             <param name="span">The source <see cref="T:System.ReadOnlySpan`1"/> to tokenize.</param>
+             <param name="separator">The separator <typeparamref name="T"/> item to use.</param>
+        </member>
+        <member name="M:MimeKit.Utils.ReadOnlySpanExtensions.Tokenize(System.String,System.Char)">
+             <summary>
+             Tokenize the values in the input <see cref="T:System.String"/> instance using a specified separator.
+             </summary>
+             <remarks>
+             <para>Tokenizes the values in the input <see cref="T:System.String"/> instance using a specified separator.</para>
+             <para>This extension should be used directly within a <see langword="foreach"/> loop:</para>
+             <code>
+             string text = "Hello, world!";
+            
+             foreach (var token in text.Tokenize(','))
+             {
+                 // Access the tokens here...
+             }
+             </code>
+             <para>The compiler will take care of properly setting up the <see langword="foreach"/> loop with the type returned from this method.</para>
+             <note type="note">The returned <see cref="T:MimeKit.Utils.ReadOnlySpanTokenizer`1"/> value shouldn't be used directly: use this extension in a <see langword="foreach"/> loop.</note>
+             </remarks>
+             <returns>A tokenizer for <paramref name="text"/>.</returns>
+             <param name="text">The source <see cref="T:System.String"/> to tokenize.</param>
+             <param name="separator">The separator character to use.</param>
+        </member>
+        <member name="T:MimeKit.Utils.ReadOnlySpanTokenizer`1">
+            <summary>
+            A <see langword="ref"/> <see langword="struct"/> that tokenizes a given <see cref="T:System.ReadOnlySpan`1"/> instance.
+            </summary>
+            <typeparam name="T">The type of items to enumerate.</typeparam>
+        </member>
+        <member name="F:MimeKit.Utils.ReadOnlySpanTokenizer`1.span">
+            <summary>
+            The source <see cref="T:System.ReadOnlySpan`1"/> instance.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Utils.ReadOnlySpanTokenizer`1.separator">
+            <summary>
+            The separator item to use.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Utils.ReadOnlySpanTokenizer`1.start">
+            <summary>
+            The current initial offset.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Utils.ReadOnlySpanTokenizer`1.end">
+            <summary>
+            The current final offset.
+            </summary>
+        </member>
+        <member name="M:MimeKit.Utils.ReadOnlySpanTokenizer`1.#ctor(System.ReadOnlySpan{`0},`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MimeKit.Utils.ReadOnlySpanTokenizer`1"/> struct.
+            </summary>
+            <param name="span">The source <see cref="T:System.ReadOnlySpan`1"/> instance.</param>
+            <param name="separator">The separator item to use.</param>
+        </member>
+        <member name="M:MimeKit.Utils.ReadOnlySpanTokenizer`1.GetEnumerator">
+            <summary>
+            Implements the duck-typed <see cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/> method.
+            </summary>
+            <returns>A <see cref="T:MimeKit.Utils.ReadOnlySpanTokenizer`1"/> instance targeting the current <see cref="T:System.ReadOnlySpan`1"/> value.</returns>
+        </member>
+        <member name="M:MimeKit.Utils.ReadOnlySpanTokenizer`1.MoveNext">
+            <summary>
+            Implements the duck-typed <see cref="M:System.Collections.IEnumerator.MoveNext"/> method.
+            </summary>
+            <returns><see langword="true"/> when a new element is available, <see langword="false"/> otherwise</returns>
+        </member>
+        <member name="P:MimeKit.Utils.ReadOnlySpanTokenizer`1.Current">
+            <summary>
+            Gets the duck-typed <see cref="P:System.Collections.Generic.IEnumerator`1.Current"/> property.
+            </summary>
         </member>
         <member name="T:MimeKit.Utils.Rfc2047">
             <summary>
