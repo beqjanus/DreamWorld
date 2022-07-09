@@ -966,6 +966,8 @@ Public Class FormSetup
 
         Settings.SaveSettings()
 
+        OfflineIMEmailThread()  ' check for any offline emails.
+
         Dim n = Settings.DnsName
         If n.Length = 0 Then n = "(none)"
         TextPrint("--> WAN IP = " & Settings.WANIP)
@@ -2308,6 +2310,7 @@ Public Class FormSetup
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
+
             Bench.Print("60 second work done")
         End If
 
