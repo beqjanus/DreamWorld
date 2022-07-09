@@ -155,7 +155,6 @@ Public Class FormOAR
 
 #Region "Private Fields"
 
-    Private ReadOnly imgSize As Integer = 256
     Private ReadOnly initSize As Integer = 512
     Private ReadOnly k As Integer = 50
     Private _initted As Boolean
@@ -178,13 +177,13 @@ Public Class FormOAR
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
         DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-
-        DataGridView.ScrollBars = ScrollBars.Both
+        DataGridView.ScrollBars = ScrollBars.Vertical
         DataGridView.AutoSize = False
 
-        'add 10 px padding to bottom
-        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(5, 5, 5, 5)
-
+        'add 0 px padding to bottom
+        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(10, 0, 10, 0)
+        DataGridView.GridColor = Color.White
+        DataGridView.BackgroundColor = Color.White
         DataGridView.RowHeadersVisible = False
         DataGridView.Width = initSize
         DataGridView.ShowCellToolTips = True
@@ -193,18 +192,18 @@ Public Class FormOAR
         DataGridView.ScrollBars = ScrollBars.Both
         DataGridView.Enabled = True
 
-        NumColumns = CInt(Math.Ceiling(Me.Width / imgSize) - 1.0)
+        NumColumns = CInt(Math.Ceiling(Me.Width / 256) - 1.0)
         If NumColumns = 0 Then
             NumColumns = 1
         End If
 
-        DataGridView.Height = Me.Height - 100
-        DataGridView.RowTemplate.Height = 256 ' Math.Ceiling((Me.Width - k) / NumColumns)
+        DataGridView.Height = Me.Height - 50
+        'DataGridView.RowTemplate.Height = 256  ' Math.Ceiling((Me.Width - k) / NumColumns)
         DataGridView.RowTemplate.MinimumHeight = CInt(Math.Ceiling((Me.Width - k) / NumColumns))
 
         DataGridView.Width = Me.Width - 50
         DataGridView.Columns(0).Width = Me.Width - k
-        DataGridView.ColumnHeadersHeight = CInt(Math.Ceiling((Me.Width - k) / NumColumns))
+        'DataGridView.ColumnHeadersHeight = CInt(Math.Ceiling((Me.Width - k) / NumColumns))
         DataGridView.Columns.Clear()
         DataGridView.Rows.Clear()
         DataGridView.ClearSelection()
@@ -254,7 +253,7 @@ Public Class FormOAR
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-
+        DataGridView.AutoResizeRows()
         DataGridView.PerformLayout()
         DataGridView.Show()
 
@@ -318,20 +317,6 @@ Public Class FormOAR
         End Try
 
         Return Nothing
-
-    End Function
-
-    Private Shared Function GetTextFromURL(ByVal url As Uri) As String
-
-        Try
-            Using client = New WebClient()
-                Return client.DownloadString(url)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-            Log("Warn", ex.Message)
-        End Try
-        Return ""
 
     End Function
 
@@ -423,7 +408,7 @@ Public Class FormOAR
     Public Sub Init(type As String)
 
         _type = type
-        Thread.Sleep(15)
+
         InitiateThread()
 
         NameRadioButton.Checked = True
@@ -459,7 +444,7 @@ Public Class FormOAR
                         Catch
                         End Try
 
-                        Dim R = MsgBox($"{item.Author}:{name} {My.Resources.islicensedas} {item.CCBY}{terms}. {My.Resources.Terms}", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Info_word)
+                        Dim R = MsgBox($"{item.Author}'s {name} {My.Resources.islicensedas} {item.CCBY} {terms}. {My.Resources.Terms}", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Info_word)
                         Out.Result = R
                         Out.Name = name
                         Out.Text = item.License
@@ -475,6 +460,7 @@ Public Class FormOAR
 
     Private Function DoWork() As JSONResult
 
+        SearchBusy = True
         json = GetData()
         json = ImageToJson(json)
         SearchArray = json
@@ -555,12 +541,12 @@ Public Class FormOAR
 
 #Region "Imagery"
 
-    Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
+    Private Shared Function DrawTextOnImage(item As String, photo As Image, color As Color) As Image
 
         ' Create solid brush.
-        Using blueBrush = New SolidBrush(Color.DarkCyan)
+        Using blueBrush = New SolidBrush(color)
             ' Create rectangle.
-            Dim rect = New Rectangle(0, 0, 256, 30)
+            Dim rect = New Rectangle(0, 0, 256, 20)
             Dim bmp = photo
             Dim newImage As New Bitmap(256, 256)
             Try
@@ -569,7 +555,7 @@ Public Class FormOAR
                     Using gr As Graphics = Graphics.FromImage(newImage)
                         gr.DrawImageUnscaled(bmp, 0, 0)
                         gr.FillRectangle(blueBrush, rect)
-                        gr.DrawString(item, drawFont, Brushes.White, 10, 15)
+                        gr.DrawString(item, drawFont, Brushes.White, 10, 5)
                     End Using
                 End Using
             Catch
@@ -606,7 +592,7 @@ Public Class FormOAR
                 Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
-                Dim bmp = New Bitmap(imgSize, imgSize)
+                Dim bmp = New Bitmap(256, 276)
                 If item.Cache IsNot Nothing Then
                     Using g As Graphics = Graphics.FromImage(bmp)
 
@@ -632,7 +618,12 @@ Public Class FormOAR
 #Enable Warning CA2000
                     End If
 
-                    img = DrawTextOnImage(item.Name, img)
+                    Dim colorcode As Color = Color.FromArgb(84, 115, 159)
+                    Dim txt = item.Name
+                    If item.Exclusive = "yes" Then
+                        txt += " ** EXCLUSIVE **"
+                    End If
+                    img = DrawTextOnImage(txt, img, colorcode)
 
                     Try
                         Using g As Graphics = Graphics.FromImage(bmp)
@@ -659,6 +650,12 @@ Public Class FormOAR
 #End Region
 
 #Region "Search"
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles ExclusiveCheckbox.CheckedChanged
+
+        Search()
+
+    End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
@@ -730,6 +727,13 @@ Public Class FormOAR
                 Dim NewArray = From thing In SearchArray
                                Order By thing.Name Ascending
                 SearchArray = NewArray.ToArray()
+
+            End If
+
+            If ExclusiveCheckbox.Checked Then
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Exclusive
+                SearchArray = NewArray.ToArray()
             End If
 
             Redraw(SearchArray)
@@ -748,7 +752,6 @@ Public Class FormOAR
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If Not TimerBusy Then InitiateThread()
         TimerBusy = True
         If WebThread.IsAlive Then Return
         Timer1.Stop()
