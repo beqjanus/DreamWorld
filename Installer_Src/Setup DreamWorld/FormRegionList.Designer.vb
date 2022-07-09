@@ -47,11 +47,11 @@ Partial Class FormRegionlist
         Me.AddRegionButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.AvatarsButton = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ImportButton = New System.Windows.Forms.Button()
         Me.Users = New System.Windows.Forms.Button()
         Me.Emails = New System.Windows.Forms.Button()
         Me.IconsButton = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,7 +124,7 @@ Partial Class FormRegionlist
         Me.ExportButton.AutoSize = True
         Me.ExportButton.Image = Global.Outworldz.My.Resources.Resources.xls_icon_3398
         Me.ExportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ExportButton.Location = New System.Drawing.Point(653, 43)
+        Me.ExportButton.Location = New System.Drawing.Point(500, 83)
         Me.ExportButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.ExportButton.Name = "ExportButton"
         Me.ExportButton.Padding = New System.Windows.Forms.Padding(2)
@@ -404,12 +404,10 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 5, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.DetailsButton, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AllButton, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Bootedbutton, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.OnButton, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.ImportButton, 9, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.RefreshButton, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.SmartButton, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.SearchBox, 1, 2)
@@ -417,14 +415,16 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Controls.Add(Me.StoppedButton, 2, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.AddRegionButton, 3, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.RunAllButton, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExportButton, 9, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.StopAllButton, 4, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Users, 5, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.RestartButton, 3, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Emails, 9, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 5, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AllNone, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.PictureBox1, 10, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 9, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 5, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.ExportButton, 5, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Emails, 9, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Users, 9, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.ImportButton, 5, 1)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(22, 34)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
@@ -439,7 +439,7 @@ Partial Class FormRegionlist
         Me.AvatarsButton.AutoSize = True
         Me.AvatarsButton.Image = Global.Outworldz.My.Resources.Resources.users2
         Me.AvatarsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AvatarsButton.Location = New System.Drawing.Point(500, 43)
+        Me.AvatarsButton.Location = New System.Drawing.Point(653, 3)
         Me.AvatarsButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.AvatarsButton.Name = "AvatarsButton"
         Me.AvatarsButton.Padding = New System.Windows.Forms.Padding(2)
@@ -448,24 +448,12 @@ Partial Class FormRegionlist
         Me.AvatarsButton.Text = "Avatars"
         Me.AvatarsButton.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.ezgif_com_gif_maker
-        Me.PictureBox1.Location = New System.Drawing.Point(803, 43)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(38, 34)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 18619
-        Me.PictureBox1.TabStop = False
-        '
         'ImportButton
         '
         Me.ImportButton.AutoSize = True
         Me.ImportButton.Image = Global.Outworldz.My.Resources.Resources.package
         Me.ImportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ImportButton.Location = New System.Drawing.Point(653, 3)
+        Me.ImportButton.Location = New System.Drawing.Point(500, 43)
         Me.ImportButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Padding = New System.Windows.Forms.Padding(2)
@@ -478,7 +466,7 @@ Partial Class FormRegionlist
         '
         Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Users.Location = New System.Drawing.Point(499, 82)
+        Me.Users.Location = New System.Drawing.Point(652, 42)
         Me.Users.Margin = New System.Windows.Forms.Padding(2)
         Me.Users.Name = "Users"
         Me.Users.Size = New System.Drawing.Size(148, 34)
@@ -511,6 +499,18 @@ Partial Class FormRegionlist
         Me.IconsButton.TabIndex = 2
         Me.IconsButton.Text = "Icons"
         Me.IconsButton.UseVisualStyleBackColor = True
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.ezgif_com_gif_maker
+        Me.PictureBox1.Location = New System.Drawing.Point(806, 43)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(38, 34)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 18619
+        Me.PictureBox1.TabStop = False
         '
         'FormRegionlist
         '
