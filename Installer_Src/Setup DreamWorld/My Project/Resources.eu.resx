@@ -3756,4 +3756,22 @@
   <data name="Minimize_all" xml:space="preserve">
     <value>Minimizatu Eskualde guztiak!</value>
   </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>XDMCP ez dago gaituta</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Ez dago emaileko egoerarik</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>SELECT instrukzioak ez dauka FROM zatia</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>erantzun posta bidez</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>XDMCP ez dago gaituta</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>

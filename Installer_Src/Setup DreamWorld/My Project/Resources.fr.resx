@@ -3756,4 +3756,22 @@
   <data name="Minimize_all" xml:space="preserve">
     <value>Minimisez toutes les régions !</value>
   </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>E-mail non activé.</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Aucun Email</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>From email</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>À l'adresse e-mail</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>L’e-mail vers SMTP n’est pas activé !</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Faites des essais !</value>
+  </data>
 </root>

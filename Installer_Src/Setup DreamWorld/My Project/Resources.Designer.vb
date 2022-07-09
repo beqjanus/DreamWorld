@@ -3526,6 +3526,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Email is not enabled.
+        '''</summary>
+        Friend ReadOnly Property EmailDisabled() As String
+            Get
+                Return ResourceManager.GetString("EmailDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Email Enable.
         '''</summary>
         Friend ReadOnly Property EmailEnabled() As String
@@ -7510,6 +7519,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to No Email Text.
+        '''</summary>
+        Friend ReadOnly Property NoBody() As String
+            Get
+                Return ResourceManager.GetString("NoBody", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No person is online.
         '''</summary>
         Friend ReadOnly Property Nobody_Online() As String
@@ -7533,6 +7551,15 @@ Namespace My.Resources
         Friend ReadOnly Property NoDelay_text() As String
             Get
                 Return ResourceManager.GetString("NoDelay_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No From Email.
+        '''</summary>
+        Friend ReadOnly Property NoFromEmail() As String
+            Get
+                Return ResourceManager.GetString("NoFromEmail", resourceCulture)
             End Get
         End Property
         
@@ -7687,6 +7714,15 @@ Namespace My.Resources
         Friend ReadOnly Property Notify_Email() As String
             Get
                 Return ResourceManager.GetString("Notify_Email", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No To Email.
+        '''</summary>
+        Friend ReadOnly Property NoToEmail() As String
+            Get
+                Return ResourceManager.GetString("NoToEmail", resourceCulture)
             End Get
         End Property
         
@@ -10539,6 +10575,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Email to SMTP is not enabled.
+        '''</summary>
+        Friend ReadOnly Property SMTPDisabled() As String
+            Get
+                Return ResourceManager.GetString("SMTPDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to SMTP Host.
         '''</summary>
         Friend ReadOnly Property SMTPHost_word() As String
@@ -11234,6 +11279,15 @@ Namespace My.Resources
         Friend ReadOnly Property Test_DNS_word() As String
             Get
                 Return ResourceManager.GetString("Test_DNS_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Test.
+        '''</summary>
+        Friend ReadOnly Property Test_word() As String
+            Get
+                Return ResourceManager.GetString("Test_word", resourceCulture)
             End Get
         End Property
         
