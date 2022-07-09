@@ -696,6 +696,7 @@
     <Compile Include="My Project\Resources.nl-NL.Designer.vb" />
     <Compile Include="NativeMethods.vb" />
     <Compile Include="OAR.vb" />
+    <Compile Include="OfflineIM.vb" />
     <Compile Include="OpensimWorld.vb" />
     <Compile Include="Ports.vb" />
     <Compile Include="ProcessExtension.vb" />
