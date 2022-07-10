@@ -2260,6 +2260,7 @@ Public Class FormSetup
 
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
+        PropOpensimIsRunning() = True
 
     End Sub
 
