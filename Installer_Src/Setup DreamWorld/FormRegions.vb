@@ -329,6 +329,7 @@ Public Class FormRegions
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
+
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
 
         If gEstateName.Length = 0 Then
@@ -353,6 +354,7 @@ Public Class FormRegions
             MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Return
         End If
+
 
         Dim X As Integer = 0
         Dim Y As Integer = 0
@@ -380,7 +382,7 @@ Public Class FormRegions
             Return
         End If
 
-        FormSetup.StartTimer()
+
 
         ' setup parameters for the load
         Dim StartX = X ' loop begin
@@ -525,13 +527,16 @@ Public Class FormRegions
                     ResetRun()
                     Return
                 End If
+
+                FormSetup.StartTimer()
+
                 SequentialPause()
 
                 Dim Region_Name = line.Key
                 Dim RegionUUID = line.Value
 
                 TextPrint($"{My.Resources.Start_word} {Region_Name}")
-                If Not PropOpensimIsRunning Then Return
+
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
                 Dim obj As New TaskObject With {
                     .TaskName = TaskName.LoadAllFreeOARs,
