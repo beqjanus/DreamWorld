@@ -3753,4 +3753,25 @@
   <data name="SortbyName" xml:space="preserve">
     <value>Ordena per Nom</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Minimitzar totes les regions</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>El correu electrònic no està habilitat</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Sense text de correu electrònic</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>No del correu electrònic</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>No al correu electrònic</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>El correu electrònic a SMTP no està habilitat</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Prova</value>
+  </data>
 </root>

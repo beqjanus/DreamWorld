@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>آیا با این شرایط موافقید؟!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>همه مناطق را به حداقل برسانید!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>ورود به سیستم ایمیل فعال نمی شود</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>متن ایمیل</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>از پست الکترونیکی</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>به ایمیل</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>ایمیل به SMTP فعال نیست!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>آزمون</value>
+  </data>
 </root>

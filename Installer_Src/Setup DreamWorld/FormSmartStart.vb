@@ -165,36 +165,6 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs)
-
-        If Not _initialized Then Return
-        AviName.BackColor = Color.Red
-        If Not IsMySqlRunning() Then
-            StartMySQL()
-        End If
-
-        If AviName.Text.Length > 0 Then
-            Settings.SurroundOwner = AviName.Text
-            Settings.SaveSettings()
-
-            If IsMySqlRunning() Then
-                Dim AvatarUUID As String = ""
-                Try
-                    AvatarUUID = GetAviUUUD(AviName.Text)
-                Catch
-                End Try
-                If AvatarUUID.Length > 0 Then
-                    Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
-                    INI.SetIni("SimSurround", "Owner", AvatarUUID)
-                    INI.SaveIni()
-
-                    AviName.BackColor = Color.White
-                End If
-            End If
-        End If
-
-    End Sub
-
     Private Sub BakeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
 
         Dim name = ChooseRegion(False)
@@ -252,12 +222,6 @@ Public Class FormSmartStart
         End If
 
         TextPrint($"{ctr} {My.Resources.Regions_Deleted}")
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-
-        Settings.AutoFill = AutoFillEnable.Checked
 
     End Sub
 
@@ -1316,7 +1280,37 @@ Public Class FormSmartStart
 
 #Region "Plants"
 
+    Private Sub AutoFillEnable_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
+        Settings.AutoFill = AutoFillEnable.Checked
+    End Sub
+
     Private Sub AviName_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+
+        If Not _initialized Then Return
+        AviName.BackColor = Color.Red
+        If Not IsMySqlRunning() Then
+            StartMySQL()
+        End If
+
+        If AviName.Text.Length > 0 Then
+            Settings.SurroundOwner = AviName.Text
+            Settings.SaveSettings()
+
+            If IsMySqlRunning() Then
+                Dim AvatarUUID As String = ""
+                Try
+                    AvatarUUID = GetAviUUUD(AviName.Text)
+                Catch
+                End Try
+                If AvatarUUID.Length > 0 Then
+                    Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
+                    INI.SetIni("SimSurround", "Owner", AvatarUUID)
+                    INI.SaveIni()
+
+                    AviName.BackColor = Color.White
+                End If
+            End If
+        End If
 
     End Sub
 
@@ -1389,12 +1383,10 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs)
-
+    Private Sub TempCheckBox_CheckedChanged_1(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
         If Not _initialized Then Return
         Settings.TempRegion = TempCheckBox.Checked
         Settings.SaveSettings()
-
     End Sub
 
     Private Sub TerrainApply_Click(sender As Object, e As EventArgs) Handles TerrainApply.Click
@@ -1512,30 +1504,6 @@ Public Class FormSmartStart
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
-
-#End Region
-
-#Region "Start/Stop"
-
-#End Region
-
-#Region "Terrain"
-
-#End Region
-
-#Region "Help"
-
-#End Region
-
-#Region "Misc"
-
-#End Region
-
-#Region "MakeXML"
-
-#End Region
-
-#Region "4Choices"
 
 #End Region
 

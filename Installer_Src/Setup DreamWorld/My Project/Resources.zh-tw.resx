@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>同意條款</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>最小化所有地區！</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>未啟用IPAM。</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>郵箱文字</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>寄件人信箱</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>收件者 Email</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>未啟用IPAM。</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>提早</value>
+  </data>
 </root>

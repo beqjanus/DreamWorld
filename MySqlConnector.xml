@@ -316,6 +316,11 @@
             Gets or sets the attribute value.
             </summary>
         </member>
+        <member name="M:MySqlConnector.MySqlAttribute.Clone">
+            <summary>
+            Returns a new <see cref="T:MySqlConnector.MySqlAttribute"/> with the same property values as this instance.
+            </summary>
+        </member>
         <member name="T:MySqlConnector.MySqlAttributeCollection">
             <summary>
             <see cref="T:MySqlConnector.MySqlAttributeCollection"/> represents a collection of query attributes that can be added to a <see cref="T:MySqlConnector.MySqlCommand"/>.
@@ -487,6 +492,11 @@
             </summary>
             <param name="connection">The <see cref="T:MySqlConnector.MySqlConnection"/> to use.</param>
             <param name="transaction">(Optional) The <see cref="T:MySqlConnector.MySqlTransaction"/> to use.</param>
+        </member>
+        <member name="P:MySqlConnector.MySqlBulkCopy.ConflictOption">
+            <summary>
+            A <see cref="T:MySqlConnector.MySqlBulkLoaderConflictOption"/> value that specifies how conflicts are resolved (default <see cref="F:MySqlConnector.MySqlBulkLoaderConflictOption.None"/>).
+            </summary>
         </member>
         <member name="P:MySqlConnector.MySqlBulkCopy.BulkCopyTimeout">
             <summary>
@@ -5459,6 +5469,11 @@
         <member name="F:MySqlConnector.MySqlSslMode.None">
             <summary>
             Do not use SSL.
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlSslMode.Disabled">
+            <summary>
+            Do not use SSL. This is the same as <see cref="F:MySqlConnector.MySqlSslMode.None"/>.
             </summary>
         </member>
         <member name="F:MySqlConnector.MySqlSslMode.Preferred">

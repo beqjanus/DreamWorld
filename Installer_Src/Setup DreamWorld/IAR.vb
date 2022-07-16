@@ -254,17 +254,20 @@ Module IAR
     End Sub
 
     ''' <summary>
-    ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped
+    ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped.
+    ''' Waits for 5 minutes or the file stops growing for 30 seconds
     ''' </summary>
     ''' <param name="BackupName">Name of region to watch</param>
     Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
+
+        Const Seconds As Integer = 30
 
         Dim ctr As Integer = 300
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
         Dim fi = New System.IO.FileInfo(FolderAndFileName)
-        While same < 15 And ctr > 0 And PropOpensimIsRunning
+        While same < Seconds And ctr > 0 And PropOpensimIsRunning
             PokeRegionTimer(RegionUUID)
             Try
                 s = fi.Length
@@ -278,6 +281,7 @@ Module IAR
             End If
             ctr -= 1
             Thread.Sleep(1000)
+            CheckForBootedRegions()     ' and also see if any booted up
             oldsize = s
         End While
 

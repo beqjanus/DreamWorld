@@ -8,9 +8,14 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 
 Module SmartStart
+
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
+    Public MyCPUCollection As New List(Of Double)
+    Public MyRAMCollection As New List(Of Double)
+    Public TimerBusy As Boolean = False
     Public ToDoList As New Dictionary(Of String, TaskObject)
+    Public Visitor As New Dictionary(Of String, String)
 
     ''' <summary>
     ''' The list of commands
@@ -68,6 +73,231 @@ Module SmartStart
             End If
 
         Next
+
+    End Sub
+
+    ''' <summary>
+    ''' Scan if any booted up, if so runs the futures task list
+    ''' </summary>
+    Public Sub CheckForBootedRegions()
+
+        ' booted regions from web server
+        Bench.Print("Booted list Start")
+        Try
+            Dim GroupName As String = ""
+
+            While BootedList.Count > 0
+
+                Dim RegionUUID As String = ""
+                RegionUUID = BootedList(0)
+                BootedList.RemoveAt(0)
+
+                If PropAborting Then Return
+                If Not PropOpensimIsRunning() Then Return
+                If Not RegionEnabled(RegionUUID) Then Continue While
+
+                Dim RegionName = Region_Name(RegionUUID)
+                GroupName = Group_Name(RegionUUID)
+
+                ' see how long it has been since we booted
+                Dim seconds = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), DateTime.Now)
+                If seconds < 0 Then seconds = 0
+
+                TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
+                PokeRegionTimer(RegionUUID)
+
+                SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
+
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
+
+                If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
+                    BootTime(RegionUUID) = CInt(seconds)
+                Else
+                    MapTime(RegionUUID) = CInt(seconds)
+                End If
+
+                TeleportAgents()
+
+                If Estate(RegionUUID) = "SimSurround" Then
+                    Landscape(RegionUUID, RegionName)
+                End If
+
+                RunTaskList(RegionUUID)
+
+                PropUpdateView = True
+
+            End While
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+        Bench.Print("Booted list End")
+
+        Bench.Print("Scan Region State")
+        Try
+            Dim L = RegionUuids()
+            L.Sort()
+            For Each RegionUUID As String In L
+
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+
+                Try
+                    If Not RegionEnabled(RegionUUID) Then Continue For
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+
+                Dim RegionName = Region_Name(RegionUUID)
+                Dim GroupName = Group_Name(RegionUUID)
+                Dim status = RegionStatus(RegionUUID)
+
+                ' if anyone is in home stay alive
+                If AvatarsIsInGroup(GroupName) Then
+                    PokeRegionTimer(RegionUUID)
+                End If
+
+                RunTaskList(RegionUUID)
+
+                If Settings.Smart_Start Then
+
+                    Dim Nearby = AvatarIsNearby(RegionUUID)
+                    ' If a region is stopped or suspended, boot it if someone is nearby
+                    If status = SIMSTATUSENUM.Stopped _
+                        Or status = SIMSTATUSENUM.Suspended Then
+                        If Nearby Then
+                            TextPrint($"{GroupName} {My.Resources.StartingNearby}")
+                            ReBoot(RegionUUID)
+                            Continue For
+                        End If
+                    End If
+
+                    ' keep smart start regions alive if someone is near
+                    If Nearby Then
+                        PokeRegionTimer(RegionUUID)
+                    End If
+
+                    ' Smart Start Timer
+                    If Smart_Start(RegionUUID) = "True" AndAlso status = SIMSTATUSENUM.Booted Then
+                        Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
+                        If diff < 0 Then diff = 0
+
+                        If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
+                            BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
+                            If Settings.BootOrSuspend Then
+                                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                            Else
+                                PauseRegion(RegionUUID)
+                                For Each UUID In RegionUuidListByName(GroupName)
+                                    RegionStatus(UUID) = SIMSTATUSENUM.Suspended
+                                Next
+                            End If
+
+                            PropUpdateView = True ' make form refresh
+                            Application.DoEvents()
+                            Continue For
+                        End If
+                    End If
+
+                End If
+
+                ' auto restart timer
+
+                Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
+                Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+                If Expired < 0 Then Expired = 0
+
+                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
+                    AndAlso Expired > 0 _
+                    AndAlso Settings.AutoRestartInterval() > 0 _
+                    AndAlso Settings.AutoRestartEnabled Then
+
+                    If AvatarsIsInGroup(GroupName) Then
+                        ' keep smart start regions alive if someone is near
+                        If AvatarIsNearby(RegionUUID) Then
+                            PokeRegionTimer(RegionUUID)
+                        End If
+                        Continue For
+                    Else
+
+                        ' shut down the group when AutoRestartInterval has gone by.
+                        BreakPoint.Print("State Is Time Exceeded, shutdown")
+
+                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+                        SequentialPause()
+                        ' shut down all regions in the DOS box
+                        ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
+
+                        BreakPoint.Print("State changed to ShuttingDownForGood")
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
+                        PropUpdateView = True
+                        Continue For
+                    End If
+                End If
+
+                ' if a RestartPending is signaled, boot it up
+                If status = SIMSTATUSENUM.RestartPending Then
+
+                    'RestartPending = 6
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
+
+                    BreakPoint.Print("State Is RestartPending")
+                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
+                    For Each R As String In GroupList
+                        PokeRegionTimer(RegionUUID)
+                        Boot(RegionName)
+                    Next
+
+                    BreakPoint.Print("State Is now Booted")
+                    PropUpdateView = True
+                    Continue For
+                End If
+
+                If status = SIMSTATUSENUM.Resume Then
+                    '[Resume] = 8
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
+
+                    BreakPoint.Print($"{GroupName} Is Resuming")
+                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
+                    For Each R As String In GroupList
+                        ' if boot, just do it, else try to resume it, else boot it
+                        If Settings.BootOrSuspend Then
+                            Boot(RegionName)
+                        Else
+                            If ResumeRegion(RegionUUID) Then
+                                Boot(RegionName)
+                            End If
+                        End If
+                        RunTaskList(RegionUUID)
+                    Next
+                    PropUpdateView = True
+                    Continue For
+                End If
+
+                If status = SIMSTATUSENUM.RestartStage2 Then
+                    'RestartStage2 = 11
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
+
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
+                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
+                    For Each R In GroupList
+                        RegionStatus(R) = SIMSTATUSENUM.RestartPending
+                        PokeRegionTimer(RegionUUID)
+                        BreakPoint.Print($"State changed to RestartPending {Region_Name(R)}")
+                    Next
+                    PropUpdateView = True ' make form refresh
+                    Continue For
+                End If
+
+                Application.DoEvents()
+            Next
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+        Bench.Print("Scan Region State End")
 
     End Sub
 
@@ -196,16 +426,12 @@ Module SmartStart
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
-
                     Dim status = RegionStatus(RegionUUID)
-
                     If status = SIMSTATUSENUM.Booting Then
                         BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
-                    Else
-                        'Breakpoint.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
+                        Exit For
                     End If
-
                 Next
 
                 If wait Then
@@ -217,6 +443,8 @@ Module SmartStart
                     Exit While
                 End If
                 Sleep(1000)
+                TimerBusy = False
+
             End While
 
         ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
@@ -236,6 +464,7 @@ Module SmartStart
                     Exit While
                 End If
                 Sleep(1000)
+                CheckForBootedRegions()
                 Application.DoEvents()
                 ctr -= 1
                 If ctr <= 0 Then
@@ -683,7 +912,10 @@ Module SmartStart
                 ok = BootProcess.Start
                 Application.DoEvents()
             Catch ex As Exception
-                ErrorLog(ex.Message)
+                PropUpdateView = True ' make form refresh
+                Logger("Failed to boot ", BootName, "Outworldz")
+                TextPrint("Failed to boot region " & BootName)
+                Return False
             End Try
 
             If ok Then
@@ -702,7 +934,10 @@ Module SmartStart
                             BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
                         End If
                     Catch ex As Exception
-                        BreakPoint.Dump(ex)
+                        PropUpdateView = True ' make form refresh
+                        Logger("Failed to boot ", BootName, "Outworldz")
+                        TextPrint("Failed to boot region " & BootName)
+                        Return False
                     End Try
 
                     Try
@@ -726,7 +961,10 @@ Module SmartStart
 
                         BootProcess.PriorityClass = P
                     Catch ex As Exception
-                        BreakPoint.Dump(ex)
+                        PropUpdateView = True ' make form refresh
+                        Logger("Failed to boot ", BootName, "Outworldz")
+                        TextPrint("Failed to boot region " & BootName)
+                        Return False
                     End Try
 
                     SetWindowTextCall(BootProcess, GroupName)
@@ -746,7 +984,10 @@ Module SmartStart
                         ProcessID(UUID) = PID
                     Next
                 Else
-                    BreakPoint.Print("No PID for " & GroupName)
+                    PropUpdateView = True ' make form refresh
+                    Logger("Failed to boot ", BootName, "Outworldz")
+                    TextPrint("Failed to boot region " & BootName)
+                    Return False
                 End If
 
                 PropUpdateView = True ' make form refresh
@@ -763,10 +1004,8 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
-            FreezeThaw.FreezeThaw(RegionUUID, False)
-            RunTaskList(RegionUUID)
-        End If
+        FreezeThaw.FreezeThaw(RegionUUID, False)
+        RunTaskList(RegionUUID)
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
@@ -845,14 +1084,16 @@ Module SmartStart
 
         Dim File = obj.Command
 
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
+        SequentialPause()
+        'RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
             ConsoleCommand(RegionUUID, "q", True)
         End If
+        Waitfor(RegionUUID)
 
     End Sub
 
@@ -936,6 +1177,23 @@ Module SmartStart
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.jpg""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.png""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.ter""")
+
+    End Sub
+
+    ''' <summary>
+    ''' Waits for a region to exit or 5 minutes
+    ''' </summary>
+    ''' <param name="regionUUID"></param>
+    Public Sub Waitfor(regionUUID As String)
+
+        Dim ctr = 3600
+        Dim GroupName = Group_Name(regionUUID)
+        If Not WaitList.Contains(GroupName) Then WaitList.Add(GroupName)
+        While (WaitList.Contains(GroupName) And ctr > 0)
+            Sleep(1000)
+            Debug.Print($"Waiting for {GroupName}")
+            ctr -= 1
+        End While
 
     End Sub
 

@@ -58,6 +58,7 @@ Partial Class FormEmailSetup
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SMTPSendEmailAccountBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -225,6 +226,7 @@ Partial Class FormEmailSetup
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.RadioButtonStartTlsWhenAvailable)
         Me.GroupBox2.Controls.Add(Me.RadioButtonNone)
         Me.GroupBox2.Controls.Add(Me.RadioButtonStartTls)
@@ -394,6 +396,15 @@ Partial Class FormEmailSetup
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(163, 93)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(101, 23)
+        Me.Button1.TabIndex = 16
+        Me.Button1.Text = "Test"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FormEmailSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -452,4 +463,5 @@ Partial Class FormEmailSetup
     Friend WithEvents RadioButtonAuto As RadioButton
     Friend WithEvents RadioButtonSslOnConnect As RadioButton
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Button1 As Button
 End Class

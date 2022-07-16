@@ -1,7 +1,13 @@
 REVISIONS FOR DREAMGRID
 
+V5.16
+Added Offline Email support.  Requires a working SMTP server in Setup-Email, and you must both enable it and enable Outside SMPT in the control panel.
+Added a SMTP test button to SMTP Setup.
+Minimize All DOS boxes Button in Settings->Consoles
+FSassets are exported from assets table to bin\fsassets folder on disk at the 1 hour runtime mark. This improves Robust speed and will send compressed, de-duplicated assets directly to the viewer.
+
 V5.15
-Added a clickable hyperlink in the Log Analyser web page direct to any script with Yengine errors 
+Added a link in the Log Analyzer web page direct to any script with YEngine errors 
 Added Sort buttons for OAR and IAR list, Sort by Name or Date, and search the Name, Author and the Text.
 185 free regions! Older versions of DreamGrid cannot see two large "free house"" regions as they would crash.
 PID was not stored in cache for Robust so it did not shut down when GUI is set to Auto close windows

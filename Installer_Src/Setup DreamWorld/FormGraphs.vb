@@ -79,11 +79,11 @@
         ChartWrapper2.MarkerFreq = 60
 
         ChartWrapper1.ClearChart()
-        Dim CPU1() As Double = FormSetup.MyCPUCollection.ToArray()
+        Dim CPU1() As Double = MyCPUCollection.ToArray()
         ChartWrapper1.AddLinePlot("CPU", CPU1)
 
         ChartWrapper2.ClearChart()
-        Dim RAM() As Double = FormSetup.MyRAMCollection.ToArray()
+        Dim RAM() As Double = MyRAMCollection.ToArray()
         ChartWrapper2.AddLinePlot("RAM", RAM)
 
         Settings.GraphVisible = True
@@ -100,10 +100,10 @@
 
     Private Sub Timer() Handles TimerGraph.Tick
         ChartWrapper1.ClearChart()
-        Dim CPU1() As Double = FormSetup.MyCPUCollection.ToArray()
+        Dim CPU1() As Double = MyCPUCollection.ToArray()
         ChartWrapper1.AddLinePlot("CPU", CPU1)
         ChartWrapper2.ClearChart()
-        Dim RAM() As Double = FormSetup.MyRAMCollection.ToArray()
+        Dim RAM() As Double = MyRAMCollection.ToArray()
         ChartWrapper2.AddLinePlot("RAM", RAM)
     End Sub
 

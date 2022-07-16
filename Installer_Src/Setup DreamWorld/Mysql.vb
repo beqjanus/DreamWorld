@@ -320,6 +320,48 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function AvatarEmail(UUID As String) As String
+
+        Dim AviEmail As String = ""
+
+        Return AviEmail
+
+    End Function
+
+    Public Function AvatarEmailData(UUID As String) As Person
+
+        Dim Avi As New Person
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select firstname, lastname, email from useraccounts where principalid = @UUID"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Avi.FirstName = reader.GetString(0)
+                            Avi.LastName = reader.GetString(1)
+                            Avi.Email = reader.GetString(2)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+        Return Avi
+
+    End Function
+
+    Public Sub DeleteIM(id As Integer)
+
+        Dim stm = $"delete from im_offline where id = {id}"
+        QueryString(stm)
+
+    End Sub
+
     ''' <summary>
     ''' Delete old visitors and regions that no longer exist from the stats table
     ''' </summary>
@@ -1109,10 +1151,39 @@ Public Module MysqlInterface
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
-
         End Using
 
     End Sub
+
+    Public Function OfflineEmails() As List(Of EmailData)
+
+        Dim emails = New List(Of EmailData)
+        Dim result = New EmailData
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select id, principalId, fromid, message from im_offline"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            result.id = reader.GetInt32(0)
+                            result.principalid = reader.GetString(1)
+                            result.fromid = reader.GetString(2)
+                            result.message = reader.GetString(3)
+                            emails.Add(result)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return emails
+
+    End Function
 
     ''' <summary>
     ''' Gets any parcels names that have rez rights on for everyone
@@ -1162,11 +1233,6 @@ Public Module MysqlInterface
 
     End Function
 
-    ''' <summary>
-    ''' Disable on-line flag for suspended regions
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
 
@@ -1196,6 +1262,10 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Disable on-line flag for suspended regions
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
     ''' <summary>
     ''' Returns boolean if a region exists in the regions table
     ''' </summary>
@@ -1256,8 +1326,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1614,6 +1682,25 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Class EmailData
+
+        Public fromid As String = ""
+        Public id As Integer             ' table im_offline id
+
+        ' from
+        Public message As String = ""
+
+        Public principalid As String = "" ' To
+        ' message
+
+    End Class
+
+    Public Class Person
+        Public Email As String = ""
+        Public FirstName As String = ""
+        Public LastName As String = ""
+    End Class
+
 #End Region
 
 #Region "Visitors"
@@ -1627,12 +1714,12 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        If FormSetup.Visitor.Count > 0 Then
+        If Visitor.Count > 0 Then
             Using MysqlConn1 As New MySqlConnection(Settings.RobustMysqlConnection)
                 Try
                     Dim stm1 = "insert into visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
                     MysqlConn1.Open()
-                    For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
+                    For Each Visit As KeyValuePair(Of String, String) In Visitor
                         Application.DoEvents()
                         Dim RegionName = Visit.Value
                         Dim RegionUUID = FindRegionByName(RegionName)

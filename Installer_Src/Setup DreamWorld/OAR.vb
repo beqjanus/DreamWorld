@@ -99,13 +99,14 @@ Module OAR
                     End If
 
                     If PropUserName.Length > 0 Then UserName = $" --default-user ""{PropUserName}"" "
-                    Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
+                    Dim v As String = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup{vbCrLf}"
 
                     Dim obj As New TaskObject With {
                         .TaskName = TaskName.LoadOneOarTask,
                         .Command = v
                     }
                     RebootAndRunTask(RegionUUID, obj)
+                    Waitfor(RegionUUID)
                 End If
             End If
 
@@ -114,11 +115,6 @@ Module OAR
     End Sub
 
     Public Sub LoadOARContent(thing As String)
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
 
         thing = thing.Replace("https:", "http:")
         Dim RegionName = ChooseRegion(False)
@@ -164,7 +160,7 @@ Module OAR
             If m = vbNo Or m = vbCancel Then Return
         End If
 
-        Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup"
+        Dim LoadOarCmd = $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar {UserName} {ForceMerge} {ForceTerrain} {ForceParcel} {offset} ""{thing}""{vbCrLf}backup{vbCrLf}"
 
         Dim obj As New TaskObject With {
             .TaskName = TaskName.LoadOARContent,
@@ -180,6 +176,7 @@ Module OAR
 
         Dim backMeUp = T.backMeUp
         Dim LoadOarStr = T.Command
+        ReBoot(RegionUUID)
 
         Try
             If backMeUp = "Yes" Then
@@ -187,6 +184,7 @@ Module OAR
                 ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
+            ReBoot(RegionUUID)
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             ConsoleCommand(RegionUUID, LoadOarStr)
         Catch ex As Exception
@@ -203,6 +201,8 @@ Module OAR
             ConsoleCommand(RegionUUID, "land clear", True)
         End If
         ConsoleCommand(RegionUUID, T.Command)
+
+        Waitfor(RegionUUID)
 
     End Sub
 

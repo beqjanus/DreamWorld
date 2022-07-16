@@ -247,7 +247,6 @@ Module RegionMaker
 
         SyncLock WriteRegionlock
 
-
             Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
             Dim RegionUUID As String = FindRegionByName(RegionName)
             ' file paths
@@ -331,7 +330,6 @@ Module RegionMaker
 
             AddToRegionMap(RegionUUID)
         End SyncLock
-
 
     End Sub
 

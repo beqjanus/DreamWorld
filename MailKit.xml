@@ -239,10 +239,11 @@
             Asynchronously authenticate using the supplied credentials.
             </summary>
             <remarks>
+            <para>Asynchronously authenticates using the supplied credentials.</para>
             <para>If the IMAP server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            then the SASL mechanisms that both the client and server support (not including
+            any OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then LOGIN command is used as a fallback.</para>
@@ -1408,10 +1409,11 @@
             Authenticate using the supplied credentials.
             </summary>
             <remarks>
+            <para>Authenticates using the supplied credentials.</para>
             <para>If the IMAP server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            then the SASL mechanisms that both the client and server support (not including
+            any OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then LOGIN command is used as a fallback.</para>
@@ -4102,7 +4104,7 @@
             </remarks>
             <value>The length.</value>
         </member>
-        <member name="M:MailKit.Net.Imap.ImapLiteral.WriteToAsync(MailKit.Net.Imap.ImapStream,System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:MailKit.Net.Imap.ImapLiteral.WriteTo(MailKit.Net.Imap.ImapStream,System.Threading.CancellationToken)">
             <summary>
             Write the literal to the specified stream.
             </summary>
@@ -4110,7 +4112,16 @@
             Writes the literal to the specified stream.
             </remarks>
             <param name="stream">The stream.</param>
-            <param name="doAsync">Whether the literal should be written asynchronously or not.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapLiteral.WriteToAsync(MailKit.Net.Imap.ImapStream,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously write the literal to the specified stream.
+            </summary>
+            <remarks>
+            Asynchronously writes the literal to the specified stream.
+            </remarks>
+            <param name="stream">The stream.</param>
             <param name="cancellationToken">The cancellation token.</param>
         </member>
         <member name="T:MailKit.Net.Imap.ImapCommandPart">
@@ -4174,6 +4185,7 @@
             <summary>
             Sends the next part of the command to the server.
             </summary>
+            <returns><c>true</c> if there are more command parts to send; otherwise, <c>false</c>.</returns>
             <exception cref="T:System.OperationCanceledException">
             The operation was canceled via the cancellation token.
             </exception>
@@ -4666,6 +4678,44 @@
             Disconnects the <see cref="T:MailKit.Net.Imap.ImapEngine"/>.
             </remarks>
         </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.ReadLine(System.Threading.CancellationToken)">
+            <summary>
+            Reads a single line from the <see cref="T:MailKit.Net.Imap.ImapStream"/>.
+            </summary>
+            <returns>The line.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.ReadLineAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads a single line from the <see cref="T:MailKit.Net.Imap.ImapStream"/>.
+            </summary>
+            <returns>The line.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
         <member name="M:MailKit.Net.Imap.ImapEngine.ReadToken(System.Threading.CancellationToken)">
             <summary>
             Reads the next token.
@@ -4683,6 +4733,135 @@
             </exception>
             <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
             An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.ReadTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads the next token.
+            </summary>
+            <returns>The token.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.PeekToken(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Peeks at the next token.
+            </summary>
+            <returns>The next token.</returns>
+            <param name="specials">A list of characters that are not legal in bare string tokens.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.PeekTokenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously peeks at the next token.
+            </summary>
+            <returns>The next token.</returns>
+            <param name="specials">A list of characters that are not legal in bare string tokens.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.PeekToken(System.Threading.CancellationToken)">
+            <summary>
+            Peeks at the next token.
+            </summary>
+            <returns>The next token.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.PeekTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously peeks at the next token.
+            </summary>
+            <returns>The next token.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
+            An IMAP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.ReadLiteral(System.Threading.CancellationToken)">
+            <summary>
+            Reads the literal as a string.
+            </summary>
+            <returns>The literal.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The <see cref="P:MailKit.Net.Imap.ImapEngine.Stream"/> is not in literal mode.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Imap.ImapEngine.ReadLiteralAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads the literal as a string.
+            </summary>
+            <returns>The literal.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The <see cref="P:MailKit.Net.Imap.ImapEngine.Stream"/> is not in literal mode.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
             </exception>
         </member>
         <member name="M:MailKit.Net.Imap.ImapEngine.ParseResponseCodeAsync(System.Boolean,System.Boolean,System.Threading.CancellationToken)">
@@ -13520,14 +13699,15 @@
             Asynchronously authenticates using the supplied credentials.
             </summary>
             <remarks>
+            <para>Asynchronously authenticates using the supplied credentials.</para>
             <para>If the POP3 server supports the APOP authentication mechanism,
             then APOP is used.</para>
             <para>If the APOP authentication mechanism is not supported and the
             server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
-            the credentials are used to authenticate.</para>
+            the SASL mechanisms that both the client and server support (not including
+            any OAUTH mechanisms) are tried in order of greatest security to weakest
+            security. Once a SASL authentication mechanism is found that both client
+            and server support, the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the <c>USER</c> and <c>PASS</c> commands are used as a
             fallback.</para>
@@ -15007,14 +15187,15 @@
             Authenticate using the supplied credentials.
             </summary>
             <remarks>
+            <para>Authenticates using the supplied credentials.</para>
             <para>If the POP3 server supports the APOP authentication mechanism,
             then APOP is used.</para>
             <para>If the APOP authentication mechanism is not supported and the
             server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
-            the credentials are used to authenticate.</para>
+            the SASL mechanisms that both the client and server support (not including
+            any OAUTH mechanisms) are tried in order of greatest security to weakest
+            security. Once a SASL authentication mechanism is found that both client
+            and server support, the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the <c>USER</c> and <c>PASS</c> commands are used as a
             fallback.</para>
@@ -18690,11 +18871,12 @@
             Asynchronously authenticate using the supplied credentials.
             </summary>
             <remarks>
+            <para>Asynchronously authenticates using the supplied credentials.</para>
             <para>If the SMTP server supports authentication, then the SASL mechanisms
-            that both the client and server support are tried in order of greatest
-            security to weakest security. Once a SASL authentication mechanism is
-            found that both client and server support, the credentials are used to
-            authenticate.</para>
+            that both the client and server support (not including any OAUTH mechanisms)
+            are tried in order of greatest security to weakest security. Once a SASL
+            authentication mechanism is found that both client and server support, the
+            credentials are used to authenticate.</para>
             <para>If, on the other hand, authentication is not supported by the SMTP
             server, then this method will throw <see cref="T:System.NotSupportedException"/>.
             The <see cref="P:MailKit.Net.Smtp.SmtpClient.Capabilities"/> property can be checked for the
@@ -19554,11 +19736,12 @@
             Authenticate using the supplied credentials.
             </summary>
             <remarks>
+            <para>Authenticates using the supplied credentials.</para>
             <para>If the SMTP server supports authentication, then the SASL mechanisms
-            that both the client and server support are tried in order of greatest
-            security to weakest security. Once a SASL authentication mechanism is
-            found that both client and server support, the credentials are used to
-            authenticate.</para>
+            that both the client and server support (not including any OAUTH mechanisms)
+            are tried in order of greatest security to weakest security. Once a SASL
+            authentication mechanism is found that both client and server support, the
+            credentials are used to authenticate.</para>
             <para>If, on the other hand, authentication is not supported by the SMTP
             server, then this method will throw <see cref="T:System.NotSupportedException"/>.
             The <see cref="P:MailKit.Net.Smtp.SmtpClient.Capabilities"/> property can be checked for the
@@ -24046,10 +24229,6 @@
             <remarks>
             <para>Used by the various clients when authenticating via SASL to determine
             which order the SASL mechanisms supported by the server should be tried.</para>
-            <note type="note">Even though NTLM is more secure than PLAIN or LOGIN (and
-            probably others), it is tried last only because it is less reliable due to
-            missing functionality to make it 100% compatible with all NTLM server
-            implementations.</note>
             </remarks>
         </member>
         <member name="M:MailKit.Security.SaslMechanism.Rank(System.Collections.Generic.HashSet{System.String})">
@@ -24057,7 +24236,7 @@
             Rank authentication mechanisms in order of security.
             </summary>
             <remarks>
-            <para>Ranks authentication machisms in order of security.</para>
+            <para>Ranks authentication mechanisms in order of security.</para>
             </remarks>
             <param name="authenticationMechanisms">The authentication mechanisms supported by the server.</param>
             <returns>The supported authentication mechanisms in ranked order.</returns>
@@ -42097,9 +42276,9 @@
             <remarks>
             <para>Authenticates using the supplied credentials.</para>
             <para>If the server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42141,9 +42320,9 @@
             <remarks>
             <para>Asynchronously authenticates using the supplied credentials.</para>
             <para>If the server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42186,9 +42365,9 @@
             <remarks>
             <para>Authenticates using the supplied credentials.</para>
             <para>If the server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42233,9 +42412,9 @@
             <remarks>
             <para>Asynchronously authenticates using the supplied credentials.</para>
             <para>If the server supports one or more SASL authentication mechanisms, then
-            the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42279,10 +42458,11 @@
             Authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42328,10 +42508,11 @@
             Asynchronously authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42378,10 +42559,11 @@
             Authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -42427,10 +42609,11 @@
             Asynchronously authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54155,10 +54338,11 @@
             Authenticate using the supplied credentials.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54201,10 +54385,11 @@
             Asynchronously authenticate using the supplied credentials.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54248,10 +54433,11 @@
             Authenticate using the supplied credentials.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54291,10 +54477,11 @@
             Asynchronously authenticate using the supplied credentials.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54335,10 +54522,11 @@
             Authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54384,10 +54572,11 @@
             Asynchronously authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>
@@ -54430,63 +54619,65 @@
             </exception>
         </member>
         <member name="M:MailKit.MailService.Authenticate(System.String,System.String,System.Threading.CancellationToken)">
-            <summary>
-            Authenticate using the specified user name and password.
-            </summary>
-            <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
-            the credentials are used to authenticate.</para>
-            <para>If the server does not support SASL or if no common SASL mechanisms
-            can be found, then the default login command is used as a fallback.</para>
-            <note type="tip">To prevent the usage of certain authentication mechanisms,
-            simply remove them from the <see cref="P:MailKit.MailService.AuthenticationMechanisms"/> hash set
-            before calling this method.</note>
-            </remarks>
-            <example>
-            <code language="c#" source="Examples\SmtpExamples.cs" region="SendMessage"/>
-            </example>
-            <param name="userName">The user name.</param>
-            <param name="password">The password.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <para><paramref name="userName"/> is <c>null</c>.</para>
-            <para>-or-</para>
-            <para><paramref name="password"/> is <c>null</c>.</para>
-            </exception>
-            <exception cref="T:System.ObjectDisposedException">
-            The <see cref="T:MailKit.MailService"/> has been disposed.
-            </exception>
-            <exception cref="T:System.InvalidOperationException">
-            The <see cref="T:MailKit.MailService"/> is not connected or is already authenticated.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was canceled via the cancellation token.
-            </exception>
-            <exception cref="T:MailKit.Security.AuthenticationException">
-            Authentication using the supplied credentials has failed.
-            </exception>
-            <exception cref="T:MailKit.Security.SaslException">
-            A SASL authentication error occurred.
-            </exception>
-            <exception cref="T:System.IO.IOException">
-            An I/O error occurred.
-            </exception>
-            <exception cref="T:MailKit.ProtocolException">
-            A protocol error occurred.
-            </exception>
+             <summary>
+             Authenticate using the specified user name and password.
+             </summary>
+             <remarks>
+             <para>Authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+             the SASL mechanisms that both the client and server support (not including any
+             OAUTH mechanisms) are tried in order of greatest security to weakest security.
+             Once a SASL authentication mechanism is found that both client and server support,
+             the credentials are used to authenticate.</para>
+             <para>If the server does not support SASL or if no common SASL mechanisms
+             can be found, then the default login command is used as a fallback.</para>
+             <note type="tip">To prevent the usage of certain authentication mechanisms,
+             simply remove them from the <see cref="P:MailKit.MailService.AuthenticationMechanisms"/> hash set
+             before calling this method.</note>
+             </remarks>
+             <example>
+             <code language="c#" source="Examples\SmtpExamples.cs" region="SendMessage"/>
+             </example>
+             <param name="userName">The user name.</param>
+             <param name="password">The password.</param>
+             <param name="cancellationToken">The cancellation token.</param>
+             <exception cref="T:System.ArgumentNullException">
+             <para><paramref name="userName"/> is <c>null</c>.</para>
+             <para>-or-</para>
+             <para><paramref name="password"/> is <c>null</c>.</para>
+             </exception>
+             <exception cref="T:System.ObjectDisposedException">
+             The <see cref="T:MailKit.MailService"/> has been disposed.
+             </exception>
+             <exception cref="T:System.InvalidOperationException">
+             The <see cref="T:MailKit.MailService"/> is not connected or is already authenticated.
+             </exception>
+             <exception cref="T:System.OperationCanceledException">
+             The operation was canceled via the cancellation token.
+             </exception>
+             <exception cref="T:MailKit.Security.AuthenticationException">
+             Authentication using the supplied credentials has failed.
+             </exception>
+             <exception cref="T:MailKit.Security.SaslException">
+             A SASL authentication error occurred.
+             </exception>
+             <exception cref="T:System.IO.IOException">
+             An I/O error occurred.
+             </exception>
+             <exception cref="T:MailKit.ProtocolException">
+             A protocol error occurred.
+             </exception>
         </member>
         <member name="M:MailKit.MailService.AuthenticateAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Asynchronously authenticate using the specified user name and password.
             </summary>
             <remarks>
-            <para>If the server supports one or more SASL authentication mechanisms,
-            then the SASL mechanisms that both the client and server support are tried
-            in order of greatest security to weakest security. Once a SASL
-            authentication mechanism is found that both client and server support,
+            <para>Asynchronously authenticates using the supplied credentials.</para>
+            <para>If the server supports one or more SASL authentication mechanisms, then
+            the SASL mechanisms that both the client and server support (not including any
+            OAUTH mechanisms) are tried in order of greatest security to weakest security.
+            Once a SASL authentication mechanism is found that both client and server support,
             the credentials are used to authenticate.</para>
             <para>If the server does not support SASL or if no common SASL mechanisms
             can be found, then the default login command is used as a fallback.</para>

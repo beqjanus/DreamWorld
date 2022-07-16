@@ -14,10 +14,6 @@ Public Class FormSetup
 
 #Region "Vars"
 
-    Public MyCPUCollection As New List(Of Double)
-    Public MyRAMCollection As New List(Of Double)
-    Public Visitor As New Dictionary(Of String, String)
-
     Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
 
 #End Region
@@ -966,6 +962,8 @@ Public Class FormSetup
 
         Settings.SaveSettings()
 
+        OfflineIMEmailThread()  ' check for any offline emails.
+
         Dim n = Settings.DnsName
         If n.Length = 0 Then n = "(none)"
         TextPrint("--> WAN IP = " & Settings.WANIP)
@@ -1037,6 +1035,7 @@ Public Class FormSetup
         While Not ExitList.IsEmpty
 
             Dim GroupName = ExitList.Keys.First
+
             Dim Reason = ExitList.Item(GroupName) ' NoLogin or Exit
 
             Application.DoEvents()
@@ -1224,231 +1223,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Scanner"
-
-    ''' <summary>
-    ''' Scan if any booted up, if so runs the futures task list
-    ''' </summary>
-    Public Sub CheckForBootedRegions()
-
-        ' booted regions from web server
-        Bench.Print("Booted list Start")
-        Try
-            Dim GroupName As String = ""
-
-            While BootedList.Count > 0
-
-                Dim RegionUUID As String = ""
-                RegionUUID = BootedList(0)
-                BootedList.RemoveAt(0)
-
-                If PropAborting Then Return
-                If Not PropOpensimIsRunning() Then Return
-                If Not RegionEnabled(RegionUUID) Then Continue While
-
-                Dim RegionName = Region_Name(RegionUUID)
-                GroupName = Group_Name(RegionUUID)
-
-                ' see how long it has been since we booted
-                Dim seconds = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), DateTime.Now)
-                If seconds < 0 Then seconds = 0
-
-                TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
-                PokeRegionTimer(RegionUUID)
-
-                SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
-
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
-
-                If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
-                    BootTime(RegionUUID) = CInt(seconds)
-                Else
-                    MapTime(RegionUUID) = CInt(seconds)
-                End If
-
-                TeleportAgents()
-
-                If Estate(RegionUUID) = "SimSurround" Then
-                    Landscape(RegionUUID, RegionName)
-                End If
-
-                RunTaskList(RegionUUID)
-
-                PropUpdateView = True
-
-            End While
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-        Bench.Print("Booted list End")
-
-        Bench.Print("Scan Region State")
-        Try
-            Dim L = RegionUuids()
-            L.Sort()
-            For Each RegionUUID As String In L
-
-                If PropAborting Then Continue For
-                If Not PropOpensimIsRunning() Then Continue For
-
-                Try
-                    If Not RegionEnabled(RegionUUID) Then Continue For
-                Catch ex As Exception
-                    BreakPoint.Dump(ex)
-                End Try
-
-                Dim RegionName = Region_Name(RegionUUID)
-                Dim GroupName = Group_Name(RegionUUID)
-                Dim status = RegionStatus(RegionUUID)
-
-                ' if anyone is in home stay alive
-                If AvatarsIsInGroup(GroupName) Then
-                    PokeRegionTimer(RegionUUID)
-                End If
-
-                RunTaskList(RegionUUID)
-
-                If Settings.Smart_Start Then
-
-                    Dim Nearby = AvatarIsNearby(RegionUUID)
-                    ' If a region is stopped or suspended, boot it if someone is nearby
-                    If status = SIMSTATUSENUM.Stopped _
-                        Or status = SIMSTATUSENUM.Suspended Then
-                        If Nearby Then
-                            TextPrint($"{GroupName} {My.Resources.StartingNearby}")
-                            ReBoot(RegionUUID)
-                            Continue For
-                        End If
-                    End If
-
-                    ' keep smart start regions alive if someone is near
-                    If Nearby Then
-                        PokeRegionTimer(RegionUUID)
-                    End If
-
-                    ' Smart Start Timer
-                    If Smart_Start(RegionUUID) = "True" AndAlso status = SIMSTATUSENUM.Booted Then
-                        Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
-                        If diff < 0 Then diff = 0
-
-                        If diff > Settings.SmartStartTimeout AndAlso RegionName <> Settings.WelcomeRegion Then
-                            BreakPoint.Print($"State Changed to ShuttingDown {GroupName} ")
-                            If Settings.BootOrSuspend Then
-                                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                            Else
-                                PauseRegion(RegionUUID)
-                                For Each UUID In RegionUuidListByName(GroupName)
-                                    RegionStatus(UUID) = SIMSTATUSENUM.Suspended
-                                Next
-                            End If
-
-                            PropUpdateView = True ' make form refresh
-                            Application.DoEvents()
-                            Continue For
-                        End If
-                    End If
-
-                End If
-
-                ' auto restart timer
-
-                Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
-                Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
-                If Expired < 0 Then Expired = 0
-
-                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted _
-                    AndAlso Expired > 0 _
-                    AndAlso Settings.AutoRestartInterval() > 0 _
-                    AndAlso Settings.AutoRestartEnabled Then
-
-                    If AvatarsIsInGroup(GroupName) Then
-                        ' keep smart start regions alive if someone is near
-                        If AvatarIsNearby(RegionUUID) Then
-                            PokeRegionTimer(RegionUUID)
-                        End If
-                        Continue For
-                    Else
-
-                        ' shut down the group when AutoRestartInterval has gone by.
-                        BreakPoint.Print("State Is Time Exceeded, shutdown")
-
-                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
-                        SequentialPause()
-                        ' shut down all regions in the DOS box
-                        ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
-
-                        BreakPoint.Print("State changed to ShuttingDownForGood")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Exit__word)
-                        PropUpdateView = True
-                        Continue For
-                    End If
-                End If
-
-                ' if a RestartPending is signaled, boot it up
-                If status = SIMSTATUSENUM.RestartPending Then
-
-                    'RestartPending = 6
-                    If PropAborting Then Continue For
-                    If Not PropOpensimIsRunning() Then Continue For
-
-                    BreakPoint.Print("State Is RestartPending")
-                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-                    For Each R As String In GroupList
-                        PokeRegionTimer(RegionUUID)
-                        Boot(RegionName)
-                    Next
-
-                    BreakPoint.Print("State Is now Booted")
-                    PropUpdateView = True
-                    Continue For
-                End If
-
-                If status = SIMSTATUSENUM.Resume Then
-                    '[Resume] = 8
-                    If PropAborting Then Continue For
-                    If Not PropOpensimIsRunning() Then Continue For
-
-                    BreakPoint.Print($"{GroupName} Is Resuming")
-                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-                    For Each R As String In GroupList
-                        ' if boot, just do it, else try to resume it, else boot it
-                        If Settings.BootOrSuspend Then
-                            Boot(RegionName)
-                        Else
-                            If ResumeRegion(RegionUUID) Then
-                                Boot(RegionName)
-                            End If
-                        End If
-                        RunTaskList(RegionUUID)
-                    Next
-                    PropUpdateView = True
-                    Continue For
-                End If
-
-                If status = SIMSTATUSENUM.RestartStage2 Then
-                    'RestartStage2 = 11
-                    If PropAborting Then Continue For
-                    If Not PropOpensimIsRunning() Then Continue For
-
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
-                    Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
-                    For Each R In GroupList
-                        RegionStatus(R) = SIMSTATUSENUM.RestartPending
-                        PokeRegionTimer(RegionUUID)
-                        BreakPoint.Print($"State changed to RestartPending {Region_Name(R)}")
-                    Next
-                    PropUpdateView = True ' make form refresh
-                    Continue For
-                End If
-
-                Application.DoEvents()
-            Next
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-        Bench.Print("Scan Region State End")
-
-    End Sub
 
 #Region "Booting"
 
@@ -1814,6 +1588,7 @@ Public Class FormSetup
 
         Try
             ExitList.Clear()
+            WaitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
@@ -2258,6 +2033,7 @@ Public Class FormSetup
 
         TimerMain.Interval = 1000
         TimerMain.Start() 'Timer starts functioning
+        PropOpensimIsRunning() = True
 
     End Sub
 
@@ -2272,7 +2048,10 @@ Public Class FormSetup
             Return
         End If
 
-        TimerMain.Stop()    ' prevent recursion
+        'If TimerBusy Then
+        '  Return
+        'End If
+        'TimerBusy = True
 
         ' Reload regions from disk
         If PropChangedRegionSettings Then
@@ -2308,6 +2087,7 @@ Public Class FormSetup
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
+
             Bench.Print("60 second work done")
         End If
 
@@ -2353,15 +2133,14 @@ Public Class FormSetup
             Bench.Print("hour worker ends")
         End If
 
+        ' TODO fix this to run once
         If SecondsTicker = 3600 Then
-
             ExportFsAssets()
-
         End If
 
         SecondsTicker += 1
 
-        TimerMain.Start()
+        'TimerBusy = False
 
     End Sub
 
@@ -2919,6 +2698,7 @@ Public Class FormSetup
         For Each RegionUuid In RegionUuids()
             ShowDOSWindow(GetHwnd(Group_Name(RegionUuid)), SHOWWINDOWENUM.SWMINIMIZE)
         Next
+        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
     End Sub
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click

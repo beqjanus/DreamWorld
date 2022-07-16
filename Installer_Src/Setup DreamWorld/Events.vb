@@ -25,7 +25,6 @@ Module Events
 
         If Settings.SearchOptions <> "Local" Then Return
 
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
         Dim start As ParameterizedThreadStart = AddressOf Events
         Dim T = New Thread(start)
         T.SetApartmentState(ApartmentState.STA)

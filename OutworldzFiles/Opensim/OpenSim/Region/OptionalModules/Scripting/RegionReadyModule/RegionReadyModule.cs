@@ -149,7 +149,7 @@ namespace OpenSim.Region.OptionalModules.Scripting.RegionReady
 
         #endregion
 
-        void OnEmptyScriptCompileQueue(int numScriptsFailed, string message)
+        public void OnEmptyScriptCompileQueue(int numScriptsFailed, string message)
         {
             m_log.DebugFormat("[RegionReady]: Script compile queue empty!");
 

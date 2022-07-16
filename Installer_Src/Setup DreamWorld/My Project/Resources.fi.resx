@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>Hyväksytkö nämä ehdot?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Pienennä kaikki alueet!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>Sähköpostin käyttöoikeutta ei ole otettu käyttöön.</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Sähköpostin teksti</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>Lähettäjän sähköposti</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>Saaja e-post</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>Sähköposti SMTP:lle ei ole käytössä!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Testi</value>
+  </data>
 </root>

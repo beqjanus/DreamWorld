@@ -63,8 +63,11 @@ namespace OpenSim.Framework
         private uint _flags = (uint)ParcelFlags.AllowFly | (uint)ParcelFlags.AllowLandmark |
                                 (uint)ParcelFlags.AllowAPrimitiveEntry |
                                 (uint)ParcelFlags.AllowDeedToGroup |
-                                // FKB DreamGrid (uint)ParcelFlags.CreateObjects | (uint)ParcelFlags.AllowOtherScripts |
                                 (uint)ParcelFlags.AllowVoiceChat;
+        
+                                // FKB DreamGrid stop Rez
+                                // (uint)ParcelFlags.CreateObjects | (uint)ParcelFlags.AllowOtherScripts
+
 
         private byte _landingType = (byte)OpenMetaverse.LandingType.Direct;
         private string _name = "Your Parcel";

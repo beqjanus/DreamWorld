@@ -7,7 +7,7 @@ Imports MimeKit
 Namespace MailKit.SSL
     Module SslCertificateValidation
 
-        Sub SendMessage(ByVal message As MimeMessage)
+        Public Function SendMessage(ByVal message As MimeMessage) As String
             Try
                 Using client = New SmtpClient()
                     client.ServerCertificateValidationCallback = AddressOf MySslCertificateValidationCallback
@@ -32,10 +32,12 @@ Namespace MailKit.SSL
                     client.Disconnect(True)
                 End Using
             Catch ex As Exception
-                TextPrint(ex.Message)
+                Return (ex.Message)
             End Try
 
-        End Sub
+            Return My.Resources.Ok
+
+        End Function
 
         Private Function MySslCertificateValidationCallback(ByVal sender As Object, ByVal certificate As X509Certificate, ByVal chain As X509Chain, ByVal sslPolicyErrors As SslPolicyErrors) As Boolean
             If sslPolicyErrors = SslPolicyErrors.None Then Return True

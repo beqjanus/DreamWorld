@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>Bu şartları kabul ediyor musunuz?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Tüm Bölgeleri Küçült!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>E-posta etkin değil!</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Email Yazısı</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>E-postadan</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>E-posta göndermek için</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>SMTP'ye e-posta etkin değil!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>

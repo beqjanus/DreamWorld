@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>An aontaíonn tú leis na téarmaí seo?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Íoslaghdaigh Gach Réigiúin!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>Níl r-phost cumasaithe!</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Gan Téacs Ríomhphoist!</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>Níl Ó Ríomhphost!</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>Níl le ríomhphost!</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>Níl ríomhphost chuig SMTP cumasaithe!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Tástáil</value>
+  </data>
 </root>

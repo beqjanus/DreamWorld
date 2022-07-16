@@ -38,10 +38,8 @@ chomp $Version;
 $Version > io('GitVersion');
 PrintDate("GitVersion $Version");
 
-my $type = '-V' . $v;
 
-
-PrintDate("Building DreamGrid$type.zip");
+PrintDate("Building DreamGrid.zip");
 
 PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
@@ -111,31 +109,10 @@ doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt");
 doUnlink ("$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db");
 doUnlink ("$dir/OutworldzFiles/BanList.txt");
 
-#Setting
-doUnlink ("$dir/Outworldzfiles/Settings.ini");
-
-#logs
-doUnlink ("$dir/Outworldzfiles/Icecast/PrintDate/error.PrintDate");
-doUnlink ("$dir/Outworldzfiles/Icecast/PrintDate/access.PrintDate");
-
-doUnlink ("$dir/UpdateGrid.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Apache/htdocs/Search/flog.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/Robust.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustStats.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Opensim/bin/Opensimstats.PrintDate");
-###
-
-doUnlink ("$dir/OutworldzFiles/Logs/Restart.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/Diagnostics.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/Outworldz.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/upnp.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/http.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/Error.PrintDate");
-doUnlink ("$dir/OutworldzFiles/Logs/Teleport.PrintDate");
 
 #zips
-doUnlink ("../Zips/DreamGrid$type.zip");
-doUnlink ("../Zips/Outworldz-Update$type.zip");
+doUnlink ("../Zips/DreamGrid.zip");
+doUnlink ("../Zips/Outworldz-Update.zip");
 doUnlink ("$dir/DreamGrid.zip");
 
 say "DLL List Build";
@@ -158,8 +135,6 @@ close OUT;
 doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
 doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
-
-
 PrintDate("Signing Release");
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
 #sign($exes);
@@ -172,8 +147,6 @@ use IO::All;
 sign($dir);
 
 say "Processing Main Zip\n";
-
-
 
 my @files = `cmd /c dir /b `;
 
@@ -193,7 +166,6 @@ ProcessDir('Read.Me');
 ProcessDir('Licenses_to_Content');
 ProcessDir('OutworldzFiles');
 
-
 foreach my $lang (@languages) {
     ProcessDir($lang);
 }
@@ -208,6 +180,7 @@ DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
 PrintDate("Drop JOpensim Folder");
 
 DeleteandKeep("$zip/Outworldzfiles/Apache/htdocs/jOpensim");
+DeleteandKeep("$zip/Outworldzfiles/tmp");
 
 if (
     !copy(
@@ -259,15 +232,18 @@ JustDelete("$zip/Outworldzfiles/Opensim/TESTING.txt");
 JustDelete("$zip/OutworldzFiles/Opensim/bin/.git");
 JustDelete("$zip/OutworldzFiles/Opensim/Ezombie");
 
+#Setting
+JustDelete ("$zip/Outworldzfiles/Settings.ini");
+
 JustDelete("$zip/Make_zip_v3.pl");
 JustDelete("$zip/Start.vshost.exe.manifest");
 JustDelete("$zip/Start.vshost.exe.config");
 JustDelete("$zip/Start.vshost.exe");
 
 say "Make zip\n";
-doUnlink ("/Opensim/Zips/DreamGrid$type.zip");
+doUnlink ("/Opensim/Zips/DreamGrid.zip");
 
-my $dest = "/Opensim/Zips/DreamGrid$type.zip";
+my $dest = "/Opensim/Zips/DreamGrid.zip";
 
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
@@ -287,53 +263,21 @@ if ( $publish =~ /p/ ) {
     CheckDistro();
     CopyManuals();
         
-        
-    ################################################
-        
-    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
-    doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip");
     
-    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
-    doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip");
-    
-    #PrintDate("Copy Other Versions/DreamGrid$type.zip");
-    #if (!copy("../Zips/DreamGrid$type.zip",
-    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
-    #    die $!;
-    #}
-    if (!copy("../Zips/DreamGrid$type.zip",
-              "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
+    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
+    doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
+        
+    if (!copy("../Zips/DreamGrid.zip",
+              "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid.zip")){
         die $!;
     }
-    
-    
-    ################################################
-
-    PrintDate("Copy Other Versions/DreamGrid-Update$type.zip");
-    #if (!copy("../Zips/DreamGrid$type.zip",
-    #          "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
-    #    die $!;
-    #}
-    
-    if (!copy("../Zips/DreamGrid$type.zip",
-              "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip")){
-        die $!;
-    }
-    
-    
-    
-    ################################################
     
     
     #doUnlink ("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     doUnlink ("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
-    
-    #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");
-    doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip");    
+ 
 
-    say("Copy /Read.me/Revisions.txt");
-            
-    
+    say("Copy /Read.me/Revisions.txt");   
     if (!copy("$dir/Read.me/Revisions.txt", 
               "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt"))
     {
@@ -353,31 +297,14 @@ if ( $publish =~ /p/ ) {
     
     #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     
-    #if (!copy("../Zips/DreamGrid$type.zip",
+    #if (!copy("../Zips/DreamGrid.zip",
     #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
     #{
     #    die $!;
     #}
     
-    if (!copy("../Zips/DreamGrid$type.zip",
+    if (!copy("../Zips/DreamGrid.zip",
             "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
-    {
-        die $!;
-    }
-    
-    ################################################
-    
-    #
-    #say("Copy DreamGridUpdate.zip"); 
-    #
-    #if (!copy("../Zips/DreamGrid$type.zip",
-    #        "$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
-    #{
-    #    die $!;
-    #}
-    
-    if (!copy("../Zips/DreamGrid$type.zip",
-            "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))
     {
         die $!;
     }
@@ -389,7 +316,7 @@ if ( $publish =~ /p/ ) {
     
     if (
         !copy(
-            "../Zips/DreamGrid$type.zip",
+            "../Zips/DreamGrid.zip",
             $Dest
         )
      )

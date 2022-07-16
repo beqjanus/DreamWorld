@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>Czy zgadzasz się na te warunki?!</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Minimalizuj wszystkie regiony!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>Funkcja wysyłki poczty elektronicznej nie jest włączona ("Email Feature").</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Tekst e-maila</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>Adres email</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>Na E-mail</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>E-mail do SMTP nie jest włączony!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Test</value>
+  </data>
 </root>

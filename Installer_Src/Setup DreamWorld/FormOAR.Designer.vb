@@ -38,6 +38,7 @@ Partial Class FormOAR
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.DecendRadioButton = New System.Windows.Forms.RadioButton()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ExclusiveCheckbox = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,7 +51,8 @@ Partial Class FormOAR
         Me.DataGridView.AllowUserToDeleteRows = False
         Me.DataGridView.AllowUserToResizeColumns = False
         Me.DataGridView.AllowUserToResizeRows = False
-        Me.DataGridView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.DataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView.BackgroundColor = System.Drawing.SystemColors.Control
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -187,11 +189,22 @@ Partial Class FormOAR
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(243, 28)
         Me.TableLayoutPanel2.TabIndex = 1897
         '
+        'ExclusiveCheckbox
+        '
+        Me.ExclusiveCheckbox.AutoSize = True
+        Me.ExclusiveCheckbox.Location = New System.Drawing.Point(198, 40)
+        Me.ExclusiveCheckbox.Name = "ExclusiveCheckbox"
+        Me.ExclusiveCheckbox.Size = New System.Drawing.Size(102, 17)
+        Me.ExclusiveCheckbox.TabIndex = 1898
+        Me.ExclusiveCheckbox.Text = "Exclusive OARs"
+        Me.ExclusiveCheckbox.UseVisualStyleBackColor = True
+        '
         'FormOAR
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(686, 433)
+        Me.Controls.Add(Me.ExclusiveCheckbox)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.PictureBox1)
@@ -228,4 +241,5 @@ Partial Class FormOAR
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents DecendRadioButton As RadioButton
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents ExclusiveCheckbox As CheckBox
 End Class

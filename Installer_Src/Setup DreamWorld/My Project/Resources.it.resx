@@ -3753,4 +3753,25 @@
   <data name="Terms" xml:space="preserve">
     <value>Accetti queste condizioni?[[[",]]]</value>
   </data>
+  <data name="Minimize_all" xml:space="preserve">
+    <value>Riduci al minimo tutte le regioni!</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>Email non abilitata.</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>Testo Email</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>Email mittente</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>inviare per mail</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>L'e-mail a SMTP non è abilitata!</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>(esame immunocromatografico)</value>
+  </data>
 </root>

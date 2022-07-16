@@ -2447,8 +2447,8 @@
   <data name="YEngine_word" xml:space="preserve">
     <value>Y Engine</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Caution! This will load 150+ OARS and regions into your system. This will take a long time.</value>
+  <data name="CautionOARs" xml:space="preserve">
+    <value>Caution! This will create 200 regions and load their OARs into your system. This will take a long time. Smart Start Shutdown Mode will be enabled!</value>
   </data>
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
@@ -4330,5 +4330,23 @@
   </data>
   <data name="Minimize_all" xml:space="preserve">
     <value>Minimize All Regions</value>
+  </data>
+  <data name="EmailDisabled" xml:space="preserve">
+    <value>Email is not enabled</value>
+  </data>
+  <data name="NoBody" xml:space="preserve">
+    <value>No Email Text</value>
+  </data>
+  <data name="NoFromEmail" xml:space="preserve">
+    <value>No From Email</value>
+  </data>
+  <data name="NoToEmail" xml:space="preserve">
+    <value>No To Email</value>
+  </data>
+  <data name="SMTPDisabled" xml:space="preserve">
+    <value>Email to SMTP is not enabled</value>
+  </data>
+  <data name="Test_word" xml:space="preserve">
+    <value>Test</value>
   </data>
 </root>

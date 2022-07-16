@@ -257,6 +257,11 @@ Public Class FormRegions
         If AviName.Text.Length = 0 Then
             AviName.BackColor = Color.Red
         End If
+        With AviName
+            .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
 
         HelpOnce("Regions")
         SetScreen()
@@ -326,7 +331,7 @@ Public Class FormRegions
 
         StopLoading = "Stopped"
 
-        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
+        Dim Caution = MsgBox(My.Resources.CautionOARs, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
@@ -374,13 +379,12 @@ Public Class FormRegions
         FormSetup.Buttons(FormSetup.BusyButton)
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
+        FormSetup.StartTimer()
 
         If StopLoading = "StopRequested" Then
             ResetRun()
             Return
         End If
-
-        FormSetup.StartTimer()
 
         ' setup parameters for the load
         Dim StartX = X ' loop begin
@@ -397,7 +401,6 @@ Public Class FormRegions
                 End If
 
                 Application.DoEvents()
-                If Not PropOpensimIsRunning Then Return
 
                 ' Get name from web site JSON
                 Dim Name = J.Name
@@ -425,6 +428,7 @@ Public Class FormRegions
                             TextPrint($"{J.Name} {My.Resources.Ok} ")
                             Continue For
                         Else
+                            TextPrint($"{J.Name} needs content")     ' TODO
                             regionList.Add(J.Name, RegionUUID)
                         End If
                     Else
@@ -499,6 +503,7 @@ Public Class FormRegions
                 End If
             Next
         Catch ex As Exception
+            ResetRun()
             BreakPoint.Print(ex.Message)
         End Try
 
@@ -515,6 +520,7 @@ Public Class FormRegions
 
         Try
             For Each line In regionList
+                Application.DoEvents()
 
                 If StopLoading = "StopRequested" Then
                     ResetRun()
@@ -525,13 +531,12 @@ Public Class FormRegions
                     ResetRun()
                     Return
                 End If
-                SequentialPause()
 
                 Dim Region_Name = line.Key
                 Dim RegionUUID = line.Value
 
                 TextPrint($"{My.Resources.Start_word} {Region_Name}")
-                If Not PropOpensimIsRunning Then Return
+
                 Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
                 Dim obj As New TaskObject With {
                     .TaskName = TaskName.LoadAllFreeOARs,
@@ -548,6 +553,7 @@ Public Class FormRegions
             Next
         Catch ex As Exception
             BreakPoint.Print(ex.Message)
+
         End Try
 
         ResetRun()
@@ -558,6 +564,7 @@ Public Class FormRegions
 
         Settings().SequentialMode = _OldMode
         gEstateName = ""
+        FormSetup.Buttons(FormSetup.StopButton)
 
     End Sub
 
