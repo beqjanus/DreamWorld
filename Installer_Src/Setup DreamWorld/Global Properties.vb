@@ -53,7 +53,7 @@ Module Global_Properties
         ' value is in milliseconds, but we do it in 10 passes a second so we can doevents() to free up console
         Dim slices As Integer = 10
 
-        While value > 0
+        While value > 0 And PropOpensimIsRunning()
             Application.DoEvents()
             Dim t = CInt(1000 / slices)
             Thread.Sleep(t)
