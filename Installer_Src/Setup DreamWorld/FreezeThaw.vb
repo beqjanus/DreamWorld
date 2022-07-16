@@ -68,6 +68,7 @@
     ''' <returns>0 if success</returns>
     Public Function ResumeRegion(RegionUUID As String) As Boolean
 
+        FreezeThaw(RegionUUID, False)
         If ProcessID(RegionUUID) = 0 Then
             ProcessID(RegionUUID) = GetPIDofWindow(Group_Name(RegionUUID))
             If ProcessID(RegionUUID) = 0 Then
@@ -75,7 +76,6 @@
             End If
         End If
 
-        FreezeThaw(RegionUUID, False)
         ReBoot(RegionUUID)
         TeleportAgents()
         Return True
