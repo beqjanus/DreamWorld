@@ -14,10 +14,6 @@ Public Class FormSetup
 
 #Region "Vars"
 
-    Public MyCPUCollection As New List(Of Double)
-    Public MyRAMCollection As New List(Of Double)
-    Public Visitor As New Dictionary(Of String, String)
-
     Public Event LinkClicked As System.Windows.Forms.LinkClickedEventHandler
 
 #End Region
@@ -1039,6 +1035,7 @@ Public Class FormSetup
         While Not ExitList.IsEmpty
 
             Dim GroupName = ExitList.Keys.First
+
             Dim Reason = ExitList.Item(GroupName) ' NoLogin or Exit
 
             Application.DoEvents()
@@ -1226,8 +1223,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Scanner"
-
-
 
 #Region "Booting"
 
@@ -1593,6 +1588,7 @@ Public Class FormSetup
 
         Try
             ExitList.Clear()
+            WaitList.Clear()
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()
@@ -2052,7 +2048,10 @@ Public Class FormSetup
             Return
         End If
 
-        TimerMain.Stop()    ' prevent recursion
+        'If TimerBusy Then
+        '  Return
+        'End If
+        'TimerBusy = True
 
         ' Reload regions from disk
         If PropChangedRegionSettings Then
@@ -2134,15 +2133,14 @@ Public Class FormSetup
             Bench.Print("hour worker ends")
         End If
 
+        ' TODO fix this to run once
         If SecondsTicker = 3600 Then
-
             ExportFsAssets()
-
         End If
 
         SecondsTicker += 1
 
-        TimerMain.Start()
+        'TimerBusy = False
 
     End Sub
 
@@ -2700,6 +2698,7 @@ Public Class FormSetup
         For Each RegionUuid In RegionUuids()
             ShowDOSWindow(GetHwnd(Group_Name(RegionUuid)), SHOWWINDOWENUM.SWMINIMIZE)
         Next
+        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
     End Sub
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
