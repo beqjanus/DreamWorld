@@ -752,12 +752,6 @@ Public Class FormOAR
 
             End If
 
-            If ExclusiveCheckbox.Checked Then
-                Dim NewArray = From thing In SearchArray
-                               Order By thing.Exclusive
-                SearchArray = NewArray.ToArray()
-            End If
-
             Redraw(SearchArray)
         Catch ex As Exception
             ErrorLog(ex.Message)
