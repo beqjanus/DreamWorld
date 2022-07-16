@@ -18,6 +18,14 @@ Module WindowHandlers
         End Get
     End Property
 
+    Private _WaitList As New List(Of String)
+
+    Public ReadOnly Property WaitList As List(Of String)
+        Get
+            Return _WaitList
+        End Get
+    End Property
+
 #Region "Enum"
 
     Public Enum SHOWWINDOWENUM As Integer
@@ -251,6 +259,7 @@ Module WindowHandlers
         End If
 
         ExitList.TryAdd(GroupName, "Exit")
+        If WaitList.Contains(GroupName) Then WaitList.Remove(GroupName) ' tell the OAR loader its safe to move on
 
     End Sub
 
