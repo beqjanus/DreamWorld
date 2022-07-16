@@ -326,9 +326,8 @@ Public Class FormRegions
 
         StopLoading = "Stopped"
 
-        Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
+        Dim Caution = MsgBox(My.Resources.CautionOARs, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
-
 
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
 
@@ -355,7 +354,6 @@ Public Class FormRegions
             Return
         End If
 
-
         Dim X As Integer = 0
         Dim Y As Integer = 0
         Try
@@ -376,13 +374,12 @@ Public Class FormRegions
         FormSetup.Buttons(FormSetup.BusyButton)
         If Not StartMySQL() Then Return
         If Not StartRobust() Then Return
+        FormSetup.StartTimer()
 
         If StopLoading = "StopRequested" Then
             ResetRun()
             Return
         End If
-
-
 
         ' setup parameters for the load
         Dim StartX = X ' loop begin
@@ -399,7 +396,6 @@ Public Class FormRegions
                 End If
 
                 Application.DoEvents()
-                If Not PropOpensimIsRunning Then Return
 
                 ' Get name from web site JSON
                 Dim Name = J.Name
@@ -502,6 +498,7 @@ Public Class FormRegions
                 End If
             Next
         Catch ex As Exception
+            ResetRun()
             BreakPoint.Print(ex.Message)
         End Try
 
@@ -518,6 +515,7 @@ Public Class FormRegions
 
         Try
             For Each line In regionList
+                Application.DoEvents()
 
                 If StopLoading = "StopRequested" Then
                     ResetRun()
@@ -528,10 +526,6 @@ Public Class FormRegions
                     ResetRun()
                     Return
                 End If
-
-                FormSetup.StartTimer()
-
-                SequentialPause()
 
                 Dim Region_Name = line.Key
                 Dim RegionUUID = line.Value
@@ -554,6 +548,7 @@ Public Class FormRegions
             Next
         Catch ex As Exception
             BreakPoint.Print(ex.Message)
+
         End Try
 
         ResetRun()
@@ -564,6 +559,7 @@ Public Class FormRegions
 
         Settings().SequentialMode = _OldMode
         gEstateName = ""
+        FormSetup.Buttons(FormSetup.StopButton)
 
     End Sub
 
