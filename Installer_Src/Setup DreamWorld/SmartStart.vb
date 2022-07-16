@@ -8,9 +8,14 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 
 Module SmartStart
+
     Public ReadOnly BootedList As New List(Of String)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
+    Public MyCPUCollection As New List(Of Double)
+    Public MyRAMCollection As New List(Of Double)
+    Public TimerBusy As Boolean = False
     Public ToDoList As New Dictionary(Of String, TaskObject)
+    Public Visitor As New Dictionary(Of String, String)
 
     ''' <summary>
     ''' The list of commands
@@ -71,33 +76,6 @@ Module SmartStart
 
     End Sub
 
-    Public Function GetAllAgents() As Dictionary(Of String, String)
-
-        ' Scan all the regions
-        Dim Agents = New Dictionary(Of String, String)
-
-        Dim Presence = GetPresence()
-        Dim HGUsers = GetGridUsers()
-
-        For Each item In Presence
-            If Agents.ContainsKey(item.Key) Then
-                Agents.Item(item.Key) = item.Value
-            Else
-                Agents.Add(item.Key, item.Value)
-            End If
-        Next
-
-        For Each item In HGUsers
-            If Agents.ContainsKey(item.Key) Then
-                Agents.Item(item.Key) = item.Value
-            Else
-                Agents.Add(item.Key, item.Value)
-            End If
-        Next
-
-        Return Agents
-
-    End Function
     ''' <summary>
     ''' Scan if any booted up, if so runs the futures task list
     ''' </summary>
@@ -322,6 +300,35 @@ Module SmartStart
         Bench.Print("Scan Region State End")
 
     End Sub
+
+    Public Function GetAllAgents() As Dictionary(Of String, String)
+
+        ' Scan all the regions
+        Dim Agents = New Dictionary(Of String, String)
+
+        Dim Presence = GetPresence()
+        Dim HGUsers = GetGridUsers()
+
+        For Each item In Presence
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
+
+        For Each item In HGUsers
+            If Agents.ContainsKey(item.Key) Then
+                Agents.Item(item.Key) = item.Value
+            Else
+                Agents.Add(item.Key, item.Value)
+            End If
+        Next
+
+        Return Agents
+
+    End Function
+
     ''' <summary>
     ''' Queue a task to occur after a region is booted.
     ''' </summary>
@@ -419,16 +426,12 @@ Module SmartStart
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In RegionUuids()
-
                     Dim status = RegionStatus(RegionUUID)
-
                     If status = SIMSTATUSENUM.Booting Then
                         BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
-                    Else
-                        'Breakpoint.Print($"{GetStateString(RegionStatus(RegionUUID))} {Region_Name(RegionUUID)}")
+                        Exit For
                     End If
-
                 Next
 
                 If wait Then
@@ -440,6 +443,8 @@ Module SmartStart
                     Exit While
                 End If
                 Sleep(1000)
+                TimerBusy = False
+
             End While
 
         ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
@@ -459,6 +464,7 @@ Module SmartStart
                     Exit While
                 End If
                 Sleep(1000)
+                CheckForBootedRegions()
                 Application.DoEvents()
                 ctr -= 1
                 If ctr <= 0 Then
@@ -906,7 +912,10 @@ Module SmartStart
                 ok = BootProcess.Start
                 Application.DoEvents()
             Catch ex As Exception
-                ErrorLog(ex.Message)
+                PropUpdateView = True ' make form refresh
+                Logger("Failed to boot ", BootName, "Outworldz")
+                TextPrint("Failed to boot region " & BootName)
+                Return False
             End Try
 
             If ok Then
@@ -925,7 +934,10 @@ Module SmartStart
                             BootProcess.ProcessorAffinity = CType(Cores(RegionUUID), IntPtr)
                         End If
                     Catch ex As Exception
-                        BreakPoint.Dump(ex)
+                        PropUpdateView = True ' make form refresh
+                        Logger("Failed to boot ", BootName, "Outworldz")
+                        TextPrint("Failed to boot region " & BootName)
+                        Return False
                     End Try
 
                     Try
@@ -949,7 +961,10 @@ Module SmartStart
 
                         BootProcess.PriorityClass = P
                     Catch ex As Exception
-                        BreakPoint.Dump(ex)
+                        PropUpdateView = True ' make form refresh
+                        Logger("Failed to boot ", BootName, "Outworldz")
+                        TextPrint("Failed to boot region " & BootName)
+                        Return False
                     End Try
 
                     SetWindowTextCall(BootProcess, GroupName)
@@ -969,7 +984,10 @@ Module SmartStart
                         ProcessID(UUID) = PID
                     Next
                 Else
-                    BreakPoint.Print("No PID for " & GroupName)
+                    PropUpdateView = True ' make form refresh
+                    Logger("Failed to boot ", BootName, "Outworldz")
+                    TextPrint("Failed to boot region " & BootName)
+                    Return False
                 End If
 
                 PropUpdateView = True ' make form refresh
@@ -986,10 +1004,8 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
-            FreezeThaw.FreezeThaw(RegionUUID, False)
-            RunTaskList(RegionUUID)
-        End If
+        FreezeThaw.FreezeThaw(RegionUUID, False)
+        RunTaskList(RegionUUID)
 
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
@@ -1069,15 +1085,15 @@ Module SmartStart
         Dim File = obj.Command
 
         SequentialPause()
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
+        'RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup ")
-
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
             ConsoleCommand(RegionUUID, "q", True)
         End If
+        Waitfor(RegionUUID)
 
     End Sub
 
@@ -1161,6 +1177,23 @@ Module SmartStart
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.jpg""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.png""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{Region_Name(RegionUUID)}.ter""")
+
+    End Sub
+
+    ''' <summary>
+    ''' Waits for a region to exit or 5 minutes
+    ''' </summary>
+    ''' <param name="regionUUID"></param>
+    Public Sub Waitfor(regionUUID As String)
+
+        Dim ctr = 3600
+        Dim GroupName = Group_Name(regionUUID)
+        If Not WaitList.Contains(GroupName) Then WaitList.Add(GroupName)
+        While (WaitList.Contains(GroupName) And ctr > 0)
+            Sleep(1000)
+            Debug.Print($"Waiting for {GroupName}")
+            ctr -= 1
+        End While
 
     End Sub
 
