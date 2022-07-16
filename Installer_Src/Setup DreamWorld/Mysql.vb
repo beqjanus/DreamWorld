@@ -328,12 +328,6 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Sub DeleteIM(id As Integer)
-
-        Dim stm = $"delete from im_offline where id = {id}"
-        QueryString(stm)
-
-    End Sub
     Public Function AvatarEmailData(UUID As String) As Person
 
         Dim Avi As New Person
@@ -360,6 +354,13 @@ Public Module MysqlInterface
         Return Avi
 
     End Function
+
+    Public Sub DeleteIM(id As Integer)
+
+        Dim stm = $"delete from im_offline where id = {id}"
+        QueryString(stm)
+
+    End Sub
 
     ''' <summary>
     ''' Delete old visitors and regions that no longer exist from the stats table
@@ -1713,12 +1714,12 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        If FormSetup.Visitor.Count > 0 Then
+        If Visitor.Count > 0 Then
             Using MysqlConn1 As New MySqlConnection(Settings.RobustMysqlConnection)
                 Try
                     Dim stm1 = "insert into visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
                     MysqlConn1.Open()
-                    For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
+                    For Each Visit As KeyValuePair(Of String, String) In Visitor
                         Application.DoEvents()
                         Dim RegionName = Visit.Value
                         Dim RegionUUID = FindRegionByName(RegionName)
