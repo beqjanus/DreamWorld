@@ -257,6 +257,11 @@ Public Class FormRegions
         If AviName.Text.Length = 0 Then
             AviName.BackColor = Color.Red
         End If
+        With AviName
+            .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
 
         HelpOnce("Regions")
         SetScreen()
