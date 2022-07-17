@@ -1600,11 +1600,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Caution! This will create 200 regions and load their OARs into your system. This will take a long time. Smart Start Shutdown Mode will be enabled!.
+        '''  Looks up a localized string similar to Caution! This will create many regions and load their OARs into your system. This will take a long time. Smart Start Shutdown Mode will be enabled.   Count: .
         '''</summary>
-        Friend ReadOnly Property CautionOARs() As String
+        Friend ReadOnly Property CautionOARs2() As String
             Get
-                Return ResourceManager.GetString("CautionOARs", resourceCulture)
+                Return ResourceManager.GetString("CautionOARs2", resourceCulture)
             End Get
         End Property
         

@@ -13,7 +13,7 @@ Module SmartStart
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
-    Public TimerBusy As Boolean = False
+
     Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
 
@@ -420,7 +420,37 @@ Module SmartStart
         '''
         If Settings.SequentialMode = 0 Then
             Return
-        ElseIf Settings.SequentialMode = 2 Then
+        End If
+
+        If Settings.SequentialMode = 1 Then ' Concurrent mode
+
+            If Not Settings.BootOrSuspend And Settings.Smart_Start Then
+                Return
+            End If
+
+            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
+            While True
+
+                If Not PropOpensimIsRunning Then Return
+
+                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) _
+                    Or Settings.BootOrSuspend = False Then
+
+                    Exit While
+                End If
+                Sleep(1000)
+                CheckPost()                 ' see if anything arrived in the web server
+                CheckForBootedRegions()
+                Application.DoEvents()
+                ctr -= 1
+                If ctr <= 0 Then
+                    Exit While
+                End If
+            End While
+
+        End If
+
+        If Settings.SequentialMode = 2 Then
             Dim ctr = 5 * 60  ' 5 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
@@ -443,33 +473,7 @@ Module SmartStart
                     Exit While
                 End If
                 Sleep(1000)
-                TimerBusy = False
 
-            End While
-
-        ElseIf Settings.SequentialMode = 1 Then ' Concurrent mode
-
-            If Not Settings.BootOrSuspend And Settings.Smart_Start Then
-                Return
-            End If
-
-            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
-            While True
-
-                If Not PropOpensimIsRunning Then Return
-
-                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) _
-                    Or Settings.BootOrSuspend = False Then
-
-                    Exit While
-                End If
-                Sleep(1000)
-                CheckForBootedRegions()
-                Application.DoEvents()
-                ctr -= 1
-                If ctr <= 0 Then
-                    Exit While
-                End If
             End While
 
         End If
@@ -1093,7 +1097,7 @@ Module SmartStart
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
             ConsoleCommand(RegionUUID, "q", True)
         End If
-        Waitfor(RegionUUID)
+        ' Waitfor(RegionUUID)
 
     End Sub
 
@@ -1191,6 +1195,7 @@ Module SmartStart
         If Not WaitList.Contains(GroupName) Then WaitList.Add(GroupName)
         While (WaitList.Contains(GroupName) And ctr > 0)
             Sleep(1000)
+            PokeGroupTimer(GroupName)
             Debug.Print($"Waiting for {GroupName}")
             ctr -= 1
         End While
