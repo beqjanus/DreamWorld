@@ -13,7 +13,6 @@ Public Class FormRegions
 
     Private _BulkLoadOwner As String = ""
     Private _initialized As Boolean
-    Private _OldMode As Integer
     Private _StopLoading As String = "Stopped"
 
 #Region "Forms"
@@ -331,7 +330,9 @@ Public Class FormRegions
 
         StopLoading = "Stopped"
 
-        Dim Caution = MsgBox(My.Resources.CautionOARs, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
+        If Settings.OarCount = 0 Then Return ' sanity check  as web server may be gone
+
+        Dim Caution = MsgBox($"{My.Resources.CautionOARs2} {CStr(Settings.OarCount)}", vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
         gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
@@ -509,9 +510,6 @@ Public Class FormRegions
 
         PropUpdateView = True ' make form refresh
         PropChangedRegionSettings = True
-        ' remember the ala mode!
-        _OldMode = Settings.SequentialMode
-        Settings.SequentialMode = 2
         Settings.Smart_Start = True
         Settings.BootOrSuspend = True
 
@@ -562,7 +560,6 @@ Public Class FormRegions
 
     Private Sub ResetRun()
 
-        Settings().SequentialMode = _OldMode
         gEstateName = ""
         FormSetup.Buttons(FormSetup.StopButton)
 
