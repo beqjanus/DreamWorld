@@ -462,6 +462,9 @@ Public Class FormOAR
 
         SearchBusy = True
         json = GetData()
+        If _type = "OAR" Then
+            Settings.OarCount = json.Length
+        End If
         json = ImageToJson(json)
         SearchArray = json
         _initted = True
