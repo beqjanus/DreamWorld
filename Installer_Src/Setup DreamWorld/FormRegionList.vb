@@ -859,39 +859,31 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
+    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckedEventArgs) Handles ListView1.ItemChecked
 
-        If Not detailsinitted Then
-            Return
-        End If
+        If SearchBusy = True Then Return
+        If Not detailsinitted Then Return
 
-        Dim Item As ListViewItem = Nothing
+        If e.Item.Text.Length = 0 Then Return
+        If e.Item.Text = "New Region" Then Return
 
-        Try
-            Item = ListView1.Items.Item(e.Index)
-        Catch ex As Exception
-            Return
-        End Try
-        If Item.Text.Length = 0 Then Return
-        If Item.Text = "New Region" Then Return
+        Dim c = CBool(e.Item.Checked)
 
-        Dim c = Not e.CurrentValue
-
-        Dim RegionUUID As String = FindRegionByName(Item.Text)
+        Dim RegionUUID As String = FindRegionByName(e.Item.Text)
         Dim GroupName = Group_Name(RegionUUID)
 
-        If RegionEnabled(RegionUUID) <> CBool(c) Then
-            RegionEnabled(RegionUUID) = CBool(c)
+        ' Set all regions in Group on or off if one changed to on or off
+        Dim L = RegionUuidListByName(GroupName)
+        For Each RegionUUID In L
+            RegionEnabled(RegionUUID) = c
             If RegionIniFilePath(RegionUUID).Length > 0 Then
                 Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                 INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(c))
                 INI.SaveIni()
                 PropUpdateView = True
-                Application.DoEvents()
-            Else
-                BreakPoint.Print("Cannot locate region in group " & GroupName)
             End If
-        End If
+        Next
+        LoadMyListView()
 
     End Sub
 
