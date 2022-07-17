@@ -426,7 +426,7 @@ Public Class FormRegions
                     If Guid.TryParse(RegionUUID, o) Then
                         Dim Prims = GetPrimCount(RegionUUID)
                         If Prims > 0 Then
-                            TextPrint($"{J.Name} {My.Resources.Ok} ")
+                            'TextPrint($"{J.Name} {My.Resources.Ok} ")
                             Continue For
                         Else
                             TextPrint($"{J.Name} needs content")     ' TODO
@@ -508,6 +508,17 @@ Public Class FormRegions
             BreakPoint.Print(ex.Message)
         End Try
 
+        Dim keys As List(Of String) = regionList.Keys.ToList
+
+        ' Sort the keys.
+        keys.Sort()
+
+        Dim regionList2 As New Dictionary(Of String, String)
+        ' Loop over the sorted keys.
+        For Each str As String In keys
+            regionList2.Add(str, regionList.Item(str))
+        Next
+
         PropUpdateView = True ' make form refresh
         PropChangedRegionSettings = True
         Settings.Smart_Start = True
@@ -517,7 +528,7 @@ Public Class FormRegions
         Firewall.SetFirewall()
 
         Try
-            For Each line In regionList
+            For Each line In regionList2
                 Application.DoEvents()
 
                 If StopLoading = "StopRequested" Then
