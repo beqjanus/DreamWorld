@@ -13,9 +13,9 @@ Module SmartStart
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
-
     Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
+    Private ToDoCount As New Dictionary(Of String, Integer)
 
     ''' <summary>
     ''' The list of commands
@@ -364,6 +364,19 @@ Module SmartStart
         If ToDoList.ContainsKey(RegionUUID) Then
             BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
+
+            Try
+                ' stop trying after a period of time
+                ToDoCount(RegionUUID) = ToDoCount.Item(RegionUUID) + 1
+                If ToDoCount.Item(RegionUUID) > 120 Then
+                    ToDoList.Remove(RegionUUID)
+                    ToDoCount(RegionUUID) = 0
+                    Return
+                End If
+            Catch
+                ToDoCount(RegionUUID) = 1
+            End Try
+
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
@@ -1089,15 +1102,14 @@ Module SmartStart
         Dim File = obj.Command
 
         SequentialPause()
-        'RegionStatus(RegionUUID) = SIMSTATUSENUM.NoError
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
+            Sleep(5000)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
             ConsoleCommand(RegionUUID, "q", True)
         End If
-        ' Waitfor(RegionUUID)
 
     End Sub
 
