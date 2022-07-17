@@ -684,8 +684,16 @@ Public Class FormOAR
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Timer1.Interval = 1000
-        Timer1.Start()
+        SearchBusy = True
+        json = GetData()
+        If _type = "OAR" Then
+            Settings.OarCount = json.Length
+        End If
+        json = ImageToJson(json)
+        SearchArray = json
+        _initted = True
+        SearchBusy = False
+        Search()
 
     End Sub
 
