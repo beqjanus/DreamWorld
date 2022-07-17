@@ -202,29 +202,6 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs)
-
-        Dim ctr = 0
-        If PropOpensimIsRunning Then
-            Dim msg = MsgBox(My.Resources.Regions_Are_Running, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-            Return
-        End If
-        Dim result = MsgBox(My.Resources.DeleteSims, vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
-        If result = vbOK Then
-            For Each RegionUUID In RegionUuids()
-                If Estate(RegionUUID) = "SimSurround" Then
-                    DeleteAllRegionData(RegionUUID)
-                    ctr += 1
-                End If
-            Next
-        Else
-            TextPrint(My.Resources.Cancelled_word)
-        End If
-
-        TextPrint($"{ctr} {My.Resources.Regions_Deleted}")
-
-    End Sub
-
     Private Sub Cypress1_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
@@ -1311,6 +1288,29 @@ Public Class FormSmartStart
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Sub DeleteAllRegions_Click(sender As Object, e As EventArgs) Handles DeleteAllRegions.Click
+
+        Dim ctr = 0
+        If PropOpensimIsRunning Then
+            Dim msg = MsgBox(My.Resources.Regions_Are_Running, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            Return
+        End If
+        Dim result = MsgBox(My.Resources.DeleteSims, vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
+        If result = vbOK Then
+            For Each RegionUUID In RegionUuids()
+                If Estate(RegionUUID) = "SimSurround" Then
+                    DeleteAllRegionData(RegionUUID)
+                    ctr += 1
+                End If
+            Next
+        Else
+            TextPrint(My.Resources.Cancelled_word)
+        End If
+
+        TextPrint($"{ctr} {My.Resources.Regions_Deleted}")
 
     End Sub
 

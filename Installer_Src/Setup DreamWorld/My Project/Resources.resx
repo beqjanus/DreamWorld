@@ -2447,8 +2447,8 @@
   <data name="YEngine_word" xml:space="preserve">
     <value>Y Engine</value>
   </data>
-  <data name="CautionOARs" xml:space="preserve">
-    <value>Caution! This will create 200 regions and load their OARs into your system. This will take a long time. Smart Start Shutdown Mode will be enabled!</value>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>Caution! This will create many regions and load their OARs into your system. This will take a long time. Smart Start Shutdown Mode will be enabled.   Count: </value>
   </data>
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>

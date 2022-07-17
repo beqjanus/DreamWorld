@@ -20,6 +20,7 @@ Public Class MySettings
     Private _ExternalHostName As String
     Private _LANIP As String
     Private _MacAddress As String
+    Private _OarCount As Integer
     Private _RamUsed As Double
     Private _Settings As LoadIni
 
@@ -1594,6 +1595,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("NoPlants", CStr(Value))
+        End Set
+    End Property
+
+    Public Property OarCount() As Integer
+        Get
+            Return _OarCount
+        End Get
+        Set
+            _OarCount = Value
         End Set
     End Property
 

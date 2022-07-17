@@ -108,7 +108,7 @@ Module IAR
 
         If PropOpensimIsRunning() Then
 
-            Using SaveIAR As New FormIARSave
+            Using SaveIAR As New FormIarSave
                 SaveIAR.ShowDialog()
                 Dim chosen = SaveIAR.DialogResult()
                 If chosen = DialogResult.OK Then
@@ -281,6 +281,7 @@ Module IAR
             End If
             ctr -= 1
             Thread.Sleep(1000)
+            CheckPost()                 ' see if anything arrived in the web server
             CheckForBootedRegions()     ' and also see if any booted up
             oldsize = s
         End While

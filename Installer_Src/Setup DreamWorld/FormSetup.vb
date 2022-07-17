@@ -46,7 +46,7 @@ Public Class FormSetup
     Private speed1 As Double
     Private speed2 As Double
     Private speed3 As Double
-    Private TimerisBusy As Boolean
+    Private TimerisBusy As Integer
     Private wql As New ObjectQuery("Select TotalVirtualMemorySize, FreeVirtualMemory ,TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
@@ -346,6 +346,7 @@ Public Class FormSetup
             End If
 
             ProcessQuit()   '  check if any processes exited
+            CheckPost()                 ' see if anything arrived in the web server
             CheckForBootedRegions()
 
             For Each PID In CountisRunning
@@ -2022,7 +2023,11 @@ Public Class FormSetup
     Private Sub TextBox1_TextChanged(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
-        TextBox1.ScrollToCaret()
+        Try
+            TextBox1.ScrollToCaret()
+        Catch
+        End Try
+
     End Sub
 
 #End Region
@@ -2048,10 +2053,14 @@ Public Class FormSetup
             Return
         End If
 
-        'If TimerBusy Then
-        '  Return
-        'End If
-        'TimerBusy = True
+        If TimerisBusy > 0 And TimerisBusy < 10 Then
+            TimerisBusy += 1
+            Return
+        Else
+            TimerisBusy = 0
+        End If
+
+        TimerisBusy += 1
 
         ' Reload regions from disk
         If PropChangedRegionSettings Then
@@ -2140,7 +2149,7 @@ Public Class FormSetup
 
         SecondsTicker += 1
 
-        'TimerBusy = False
+        TimerisBusy = 0
 
     End Sub
 

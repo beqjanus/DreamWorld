@@ -925,7 +925,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

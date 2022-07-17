@@ -1655,8 +1655,7 @@ SetWindowOnTop_Err:
                     Application.DoEvents()
                 Next
             Catch ex As Exception
-                BreakPoint.Dump(ex)
-                Log(My.Resources.Error_word, " RegionList " & ex.Message)
+
             End Try
 
             For Each col In ListView1.Columns
