@@ -1202,6 +1202,7 @@ Module SmartStart
     ''' <param name="regionUUID"></param>
     Public Sub Waitfor(regionUUID As String)
 
+        ' unused
         Dim ctr = 3600
         Dim GroupName = Group_Name(regionUUID)
         If Not WaitList.Contains(GroupName) Then WaitList.Add(GroupName)

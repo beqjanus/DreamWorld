@@ -106,7 +106,7 @@ Module OAR
                         .Command = v
                     }
                     RebootAndRunTask(RegionUUID, obj)
-                    Waitfor(RegionUUID)
+                    'Waitfor(RegionUUID)
                 End If
             End If
 
@@ -202,7 +202,7 @@ Module OAR
         End If
         ConsoleCommand(RegionUUID, T.Command)
 
-        Waitfor(RegionUUID)
+        'Waitfor(RegionUUID)
 
     End Sub
 
