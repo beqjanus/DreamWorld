@@ -1,5 +1,17 @@
 REVISIONS FOR DREAMGRID
 
+V5.17
+Clicking a region in the Region List toggles them all off/on if in a DOS box with other regions. The On/OFF is per DOS box, not per region.
+Load OAR (web) refresh button refreshes all OAR/IAR data from Outworldz.com - there are 197 free OARS totaling 27.4 GB of OARS online.
+Added an exclusive button in  Region List to show OARS and IARS that are exclusive to DreamGrid.  I've paid over $10K this year alone for OARs so I reserve the right to decide who gets to use them.
+Region Ready in Opensim  had a bug where it would not always report a region is ready. This causes the checkbox icons to not show ready, on rare occasions which is bad for many functions. 
+Fixed, and filed Mantis 9017 http://opensimulator.org/mantis/view.php?id=9016.
+DeleteAll Temp regions was not attached to its event along with other buttons on the form, so they were not 'sticky'.
+All AvatarName text boxes now autofill from database in various places.
+Web OAR listings are prettier. You must agree to the Authors TOS to use them.
+Added Test Button and detailed Error messages in Email setup.
+Diva home page was not showing Smart Boot regions.
+
 V5.16
 Added Offline Email support.  Requires a working SMTP server in Setup-Email, and you must both enable it and enable Outside SMPT in the control panel.
 Added a SMTP test button to SMTP Setup.
