@@ -14,12 +14,12 @@
         Dim PID = ProcessID(RegionUUID)
         Dim ft As String
         If Arg Then
-            'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
             ft = $"-pid {CStr(PID)}"
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
             SetRegionOffline(RegionUUID)
         Else
-            'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
             SetRegionOnline(RegionUUID)
             ft = $"-rpid {CStr(PID)}"
