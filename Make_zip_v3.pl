@@ -192,7 +192,7 @@ if (
     die $!;
 }
 
-PrintDate("Drop bin Folders");
+PrintDate("Drop Regions and Fsasset Folders");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/Regions");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/fsassets");
 
