@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>Δοκιμή</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>Προσοχή! Αυτό θα δημιουργήσει πολλές περιοχές και θα φορτώσει τα OAR τους στο σύστημά σας. Αυτό θα πάρει πολύ χρόνο. Θα ενεργοποιηθεί η λειτουργία τερματισμού λειτουργίας Smart Start. Μετρώ:</value>
+  </data>
 </root>

@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>اختبار</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>حذر! سيؤدي ذلك إلى إنشاء العديد من المناطق وتحميل المجاذيف المجاذفة الخاصة بها في نظامك. هذا وسوف يستغرق وقتا طويلا. سيتم تمكين وضع إيقاف التشغيل الذكي. عدد:</value>
+  </data>
 </root>

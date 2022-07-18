@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>提早</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>警告！這將創建許多區域並將它們的 OAR 加載到您的系統中。這將需要很長時間。將啟用智能啟動關機模式。數數：</value>
+  </data>
 </root>

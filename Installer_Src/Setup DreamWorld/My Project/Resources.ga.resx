@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>Tástáil</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>Rabhadh! Cruthóidh sé seo go leor réigiún agus lódálfaidh sé a OARanna isteach i do chóras. Tógfaidh sé seo tamall fada. Cumasófar Mód Múchadh Tosaigh Cliste. Comhair:</value>
+  </data>
 </root>

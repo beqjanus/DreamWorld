@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>آزمون</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>احتیاط! این باعث ایجاد مناطق زیادی می شود و OAR های آنها را در سیستم شما بارگذاری می کند. این کار زمان زیادی می برد. حالت خاموش کردن شروع هوشمند فعال خواهد شد. شمردن:</value>
+  </data>
 </root>

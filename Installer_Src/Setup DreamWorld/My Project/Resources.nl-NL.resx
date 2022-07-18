@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>Test</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>Voorzichtigheid! Dit zal veel regio's creëren en hun OAR's in uw systeem laden. Dit zal lang duren. Smart Start Shutdown Mode wordt ingeschakeld. Graaf:</value>
+  </data>
 </root>

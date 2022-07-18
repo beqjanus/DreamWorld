@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>测试</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>警告！这将创建许多区域并将它们的 OAR 加载到您的系统中。这将需要很长时间。将启用智能启动关机模式。数数：</value>
+  </data>
 </root>

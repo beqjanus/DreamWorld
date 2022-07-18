@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>¡Haga pruebas!</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>¡Precaución! Esto creará muchas regiones y cargará sus OAR en su sistema. Esto tomará mucho tiempo. Se habilitará el modo de apagado de inicio inteligente. Contar:</value>
+  </data>
 </root>

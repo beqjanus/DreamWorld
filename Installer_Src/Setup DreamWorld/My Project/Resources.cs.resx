@@ -3774,4 +3774,7 @@
   <data name="Test_word" xml:space="preserve">
     <value>Test</value>
   </data>
+  <data name="CautionOARs2" xml:space="preserve">
+    <value>Pozor! Tím vytvoříte mnoho regionů a načtete jejich OAR do vašeho systému. To bude trvat dlouho. Režim Smart Start Shutdown bude povolen. Počet:</value>
+  </data>
 </root>
