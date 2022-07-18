@@ -471,7 +471,7 @@ Module SmartStart
                 For Each RegionUUID As String In RegionUuids()
                     Dim status = RegionStatus(RegionUUID)
                     If status = SIMSTATUSENUM.Booting Then
-                        BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
+                        ' BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                         wait = True
                         Exit For
                     End If
