@@ -47,6 +47,7 @@ Module Global_Properties
 
     End Sub
 
+
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
@@ -61,8 +62,18 @@ Module Global_Properties
         End While
 
     End Sub
-
+    Private Function Truncate(value As String, length As Integer) As String
+        ' If argument is too big, return the original string.
+        ' ... Otherwise take a substring from the string's start index.
+        If length > value.Length Then
+            Return value
+        Else
+            Return value.Substring(0, length)
+        End If
+    End Function
     Public Sub TextPrint(Value As String)
+
+        FormSetup.TextBox1.Text = Truncate(FormSetup.TextBox1.Text, 3000)
 
         Log(My.Resources.Info_word, Value)
         Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
@@ -74,9 +85,7 @@ Module Global_Properties
             Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
         End If
 
-        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
-            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
-        End If
+
 
     End Sub
 
