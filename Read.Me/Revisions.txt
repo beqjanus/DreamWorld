@@ -1,5 +1,9 @@
 REVISIONS FOR DREAMGRID
 
+V5.18
+Print Backup progress. Add an Abort button to stop them. Backups are not reentrant, as  only one can run at a time.  
+If you press backup while one is running, you can choose to abort it, then start a new one.
+
 V5.17
 Clicking a region in the Region List toggles them all off/on if in a DOS box with other regions. The On/OFF is per DOS box, not per region.
 Load OAR (web) refresh button refreshes all OAR/IAR data from Outworldz.com - there are 197 free OARS totaling 27.4 GB of OARS online.
