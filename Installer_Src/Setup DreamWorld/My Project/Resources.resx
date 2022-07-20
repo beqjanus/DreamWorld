@@ -4349,4 +4349,28 @@
   <data name="Test_word" xml:space="preserve">
     <value>Test</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Busy with</value>
+  </data>
+  <data name="hourglass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hourglass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Backup IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Backup Region INI</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Backup Wifi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Saving Zip</value>
+  </data>
 </root>

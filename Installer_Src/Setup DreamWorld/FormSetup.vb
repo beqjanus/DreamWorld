@@ -37,7 +37,6 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-    Private _WasRunning As String = ""
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
     Private ScreenPosition As ClassScreenpos
@@ -516,8 +515,8 @@ Public Class FormSetup
             Return
         End If
 
-        If RunningBackupName.Length > 0 Then
-            Dim response = MsgBox($"{RunningBackupName} {My.Resources.backup_running} .  {My.Resources.Quit_Now_Word}?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
+        If Not RunningBackupName.IsEmpty Then
+            Dim response = MsgBox($"{My.Resources.backup_running} .  {My.Resources.Quit_Now_Word}?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
             If response = vbNo Then Return
         End If
 
@@ -779,7 +778,7 @@ Public Class FormSetup
 
         Me.Show()
 
-        RunningBackupName = ""
+        RunningBackupName.Clear()
 
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
@@ -1983,16 +1982,11 @@ Public Class FormSetup
 
     Private Sub PrintBackups()
 
-        If _WasRunning.Length > 0 AndAlso RunningBackupName.Length = 0 Then
-            TextPrint($"{My.Resources.No} {My.Resources.backup_running}")
-            _WasRunning = ""
-        End If
-        If RunningBackupName.Length > 0 Then
-            If RunningBackupName <> _WasRunning Then
-                TextPrint($"{RunningBackupName} {My.Resources.backup_running}")
-                _WasRunning = RunningBackupName
-            End If
-        End If
+        For Each k In RunningBackupName
+            TextPrint(k.Key)
+            RunningBackupName.TryRemove(k.Key, "")
+        Next
+
     End Sub
 
     Private Sub ShowRegionform()
@@ -2011,20 +2005,6 @@ Public Class FormSetup
             PropRegionForm.Activate()
             PropRegionForm.Select()
             PropRegionForm.BringToFront()
-        Catch
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region "Scrolling text box"
-
-    Private Sub TextBox1_TextChanged(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
-        Dim ln As Integer = TextBox1.Text.Length
-        TextBox1.SelectionStart = ln
-        Try
-            TextBox1.ScrollToCaret()
         Catch
         End Try
 
@@ -2071,15 +2051,15 @@ Public Class FormSetup
         CheckForBootedRegions()     ' and also see if any booted up
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
+        PrintBackups()              ' print if backups are running
+        Chat2Speech()               ' speak of the devil
+        RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Print("5 second worker")
             ScanAgents()                ' update agent count
-            RestartDOSboxes()           ' Icons for failed Services
             Chart()                     ' do charts collection each 5 seconds
-            PrintBackups()              ' print if backups are running
             CalcDiskFree()              ' check for free disk space
-            Chat2Speech()               ' speak of the devil
             Bench.Print("5 second worker ends")
         End If
 
@@ -2096,7 +2076,6 @@ Public Class FormSetup
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
-
             Bench.Print("60 second work done")
         End If
 

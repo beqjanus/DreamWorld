@@ -932,6 +932,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup IAR.
+        '''</summary>
+        Friend ReadOnly Property Backup_IAR() As String
+            Get
+                Return ResourceManager.GetString("Backup_IAR", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup IARs.
         '''</summary>
         Friend ReadOnly Property Backup_IARs() As String
@@ -986,6 +995,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup Region INI.
+        '''</summary>
+        Friend ReadOnly Property Backup_Region_INI() As String
+            Get
+                Return ResourceManager.GetString("Backup_Region_INI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backing up Regions Folder.
         '''</summary>
         Friend ReadOnly Property Backup_Regions() As String
@@ -1015,9 +1033,27 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Backup Settings.
         '''</summary>
+        Friend ReadOnly Property Backup_Settings() As String
+            Get
+                Return ResourceManager.GetString("Backup_Settings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Settings.
+        '''</summary>
         Friend ReadOnly Property Backup_Settings_word() As String
             Get
                 Return ResourceManager.GetString("Backup_Settings_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Wifi.
+        '''</summary>
+        Friend ReadOnly Property Backup_Wifi() As String
+            Get
+                Return ResourceManager.GetString("Backup_Wifi", resourceCulture)
             End Get
         End Property
         
@@ -1415,6 +1451,15 @@ Namespace My.Resources
         Friend ReadOnly Property Busy_word() As String
             Get
                 Return ResourceManager.GetString("Busy_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Busy with.
+        '''</summary>
+        Friend ReadOnly Property BusyWith() As String
+            Get
+                Return ResourceManager.GetString("BusyWith", resourceCulture)
             End Get
         End Property
         
@@ -5261,6 +5306,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property hourglass() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("hourglass", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Hours.
         '''</summary>
         Friend ReadOnly Property Hours() As String
@@ -6210,6 +6265,16 @@ Namespace My.Resources
         Friend ReadOnly Property Loaded_word() As String
             Get
                 Return ResourceManager.GetString("Loaded_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property loader() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("loader", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -9823,6 +9888,15 @@ Namespace My.Resources
         Friend ReadOnly Property Saving_word() As String
             Get
                 Return ResourceManager.GetString("Saving_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Saving Zip.
+        '''</summary>
+        Friend ReadOnly Property Saving_Zip() As String
+            Get
+                Return ResourceManager.GetString("Saving_Zip", resourceCulture)
             End Get
         End Property
         

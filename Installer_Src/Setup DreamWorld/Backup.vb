@@ -10,8 +10,9 @@ Module Backup
     ''' </summary>
     Public Sub BackupINI()
 
-        Dim Name = "Region"
-        RunningBackupName = Name
+        Dim Name = "Region INI"
+        RunningBackupName.TryAdd($"{Name} {My.Resources.Starting_word}", "")
+        Sleep(2000)
         Dim zipused As Boolean
         'used to zip it, zip it good
         Dim _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Region_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
@@ -61,6 +62,10 @@ Module Backup
             End Try
 
         End Using
+
+        RunningBackupName.TryAdd($"{Name} {My.Resources.Ok}", "")
+        Sleep(2000)
+
     End Sub
 
     ''' <summary>
@@ -113,9 +118,12 @@ Module Backup
         L.Sort()
 
         For Each RegionUUID As String In L
+            If BackupAbort Then Return
             If Not RegionEnabled(RegionUUID) Then Continue For
             If SkipAutobackup(RegionUUID) = "True" Then Continue For
 
+            RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.Starting_word}", "")
+            Sleep(2000)
             Dim file = BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
          DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
@@ -128,7 +136,10 @@ Module Backup
             Application.DoEvents()
             WaitforComplete(RegionUUID, file)
 
+            RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.Ok}", "")
+            Sleep(2000)
         Next
+
     End Sub
 
     '' must use console as otherwise Smart Start will shutdown

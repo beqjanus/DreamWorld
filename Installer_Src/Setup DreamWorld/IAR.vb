@@ -260,12 +260,15 @@ Module IAR
     ''' <param name="BackupName">Name of region to watch</param>
     Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
 
+        If Not System.IO.File.Exists(FolderAndFileName) Then Return
+
         Const Seconds As Integer = 30
 
         Dim ctr As Integer = 300
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
+
         Dim fi = New System.IO.FileInfo(FolderAndFileName)
         While same < Seconds And ctr > 0 And PropOpensimIsRunning
             PokeRegionTimer(RegionUUID)
@@ -288,7 +291,7 @@ Module IAR
 
     End Sub
 
-    Private Function DoIARBackground(o As Params) As Boolean
+    Private Sub DoIARBackground(o As Params)
 
         Dim RegionName As String = o.RegionName
         Dim opt As String = o.opt
@@ -298,8 +301,11 @@ Module IAR
         Dim UserList = GetAvatarList()
 
         Dim RegionUUID = FindRegionByName(RegionName)
-        If Not IsBooted(RegionUUID) Then Return False
+        If Not IsBooted(RegionUUID) Then Return
         For Each k As String In UserList
+            If BackupAbort Then Return
+            RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Starting_word}", "")
+            Sleep(2000)
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
             If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
@@ -309,11 +315,11 @@ Module IAR
             ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(RegionUUID, ToBackup)
+            RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
+            Sleep(2000)
         Next
 
-        Return True
-
-    End Function
+    End Sub
 
 #End Region
 

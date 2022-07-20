@@ -51,6 +51,7 @@ Module RegionMaker
         ShuttingDownForGood = 10
         NoLogin = 11
         NoError = 12
+        NoShutdown = 13
 
     End Enum
 

@@ -1470,9 +1470,11 @@
     <None Include="Resources\gear_time.png" />
     <None Include="Resources\icecube.png" />
     <None Include="Resources\ezgif.com-gif-maker.gif" />
+    <None Include="Resources\hourglass.png" />
     <Content Include="Resources\jar.ico" />
     <None Include="Resources\loudspeaker.png" />
     <None Include="Resources\line-chart.png" />
+    <None Include="Resources\loader.gif" />
     <Content Include="Resources\lock_error.png" />
     <Content Include="Resources\lock_ok.png" />
     <Content Include="Resources\lock_open.png" />

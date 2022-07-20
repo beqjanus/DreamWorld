@@ -61,6 +61,7 @@ Public Class FormRegionlist
         NoEstate = 18
         Icecube = 19
         IceMelted = 20
+        Busy = 21
 
     End Enum
 
@@ -798,6 +799,9 @@ SetWindowOnTop_Err:
         ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) > 1 Then
             Letter = CStr(AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
             Num = Dgicon.user2
+        ElseIf Status = SIMSTATUSENUM.NoShutdown Then
+            Letter = My.Resources.Busy_word
+            Num = Dgicon.Busy
         ElseIf Status = SIMSTATUSENUM.Booted Then
             If Region_Name(RegionUUID) = Settings.WelcomeRegion Then
                 Num = Dgicon.Home
@@ -1175,6 +1179,7 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icecastpic", Globalization.CultureInfo.InvariantCulture))  '  18 - icecube
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("Icemelted", Globalization.CultureInfo.InvariantCulture))  '  19 - icecube
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("hourglass", Globalization.CultureInfo.InvariantCulture))  '  209 - Busy - do not shutdown
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
                 CalcCPU()

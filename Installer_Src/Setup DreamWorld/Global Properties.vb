@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Collections.Concurrent
+Imports System.IO
 Imports System.Threading
 Imports IniParser.Model
 
@@ -7,13 +8,14 @@ Module Global_Properties
 #Region "Globals"
 
     Public _Data As IniParser.Model.IniData
+    Public BackupAbort As Boolean
     Public Bench As New Benchmark()
     Public DebugLandMaker As Boolean
     Public gEstateName As String = ""
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
     Public MapY As Integer = 100
-    Public RunningBackupName As String = ""
+    Public RunningBackupName As New ConcurrentDictionary(Of String, String)
 
 #End Region
 
@@ -47,7 +49,6 @@ Module Global_Properties
 
     End Sub
 
-
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
@@ -62,18 +63,8 @@ Module Global_Properties
         End While
 
     End Sub
-    Private Function Truncate(value As String, length As Integer) As String
-        ' If argument is too big, return the original string.
-        ' ... Otherwise take a substring from the string's start index.
-        If length > value.Length Then
-            Return value
-        Else
-            Return value.Substring(0, length)
-        End If
-    End Function
-    Public Sub TextPrint(Value As String)
 
-        FormSetup.TextBox1.Text = Truncate(FormSetup.TextBox1.Text, 3000)
+    Public Sub TextPrint(Value As String)
 
         Log(My.Resources.Info_word, Value)
         Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
@@ -85,9 +76,26 @@ Module Global_Properties
             Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
         End If
 
-
+        Dim ln As Integer = FormSetup.TextBox1.Text.Length
+        FormSetup.TextBox1.SelectionStart = ln
+        FormSetup.TextBox1.ScrollToCaret()
+        Dim Le As Integer = 3000
+        Dim L = FormSetup.TextBox1.Text.Length - Le
+        If L > 0 Then
+            FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
+        End If
 
     End Sub
+
+    Private Function Truncate(value As String, length As Integer) As String
+        ' If argument is too big, return the original string.
+        ' ... Otherwise take a substring from the string's start index.
+        If length > value.Length Then
+            Return value
+        Else
+            Return value.Substring(0, length)
+        End If
+    End Function
 
 #End Region
 

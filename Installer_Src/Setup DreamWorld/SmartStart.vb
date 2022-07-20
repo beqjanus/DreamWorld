@@ -1104,7 +1104,7 @@ Module SmartStart
         SequentialPause()
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
-
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.NoShutdown
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             Sleep(5000)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
