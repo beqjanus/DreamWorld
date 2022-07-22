@@ -1,3 +1,6 @@
+
+
+
 # build Zipfile
 # AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
 
@@ -110,10 +113,12 @@ doUnlink ("$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db");
 doUnlink ("$dir/OutworldzFiles/BanList.txt");
 
 
+
 #zips
 doUnlink ("../Zips/DreamGrid.zip");
 doUnlink ("../Zips/Outworldz-Update.zip");
 doUnlink ("$dir/DreamGrid.zip");
+
 
 say "DLL List Build";
 use File::Find;
@@ -171,11 +176,6 @@ foreach my $lang (@languages) {
 }
 
 PrintDate("Drop mysql files from update");
-
-# now delete the mysql from the UPDATE
-
-
-PrintDate("Drop Mysql from update");
 DeleteandKeep("$zip/Outworldzfiles/mysql/Data");
 PrintDate("Drop JOpensim Folder");
 
@@ -197,6 +197,11 @@ DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/Regions");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/fsassets");
 
 PrintDate("Drop Opensim Source code from update");
+
+JustDelete("$zip/Make_zip_v3.pl");
+JustDelete("$zip/Start.vshost.exe.manifest");
+JustDelete("$zip/Start.vshost.exe.config");
+JustDelete("$zip/Start.vshost.exe");
 JustDelete("$zip/Outworldzfiles/Opensim/Opensim");
 JustDelete("$zip/Outworldzfiles/Opensim/packages");
 JustDelete("$zip/Outworldzfiles/Opensim/runprebuild19.sh");
@@ -228,17 +233,29 @@ JustDelete("$zip/Outworldzfiles/Opensim/Opensim.build");
 JustDelete("$zip/Outworldzfiles/Opensim/prebuild.xml");
 JustDelete("$zip/Outworldzfiles/Opensim/runprebuild.bat");
 JustDelete("$zip/Outworldzfiles/Opensim/runprebuild.sh");
+JustDelete("$zip/Outworldzfiles/opensim/runprebuild48.bat");
+JustDelete("$zip/Outworldzfiles/opensim/runprebuild48.sh");
 JustDelete("$zip/Outworldzfiles/Opensim/TESTING.txt");
 JustDelete("$zip/OutworldzFiles/Opensim/bin/.git");
 JustDelete("$zip/OutworldzFiles/Opensim/Ezombie");
+JustDelete("$zip/Start.exe.lastcodeanalysissucceeded");
+JustDelete("$zip/Start.pdb");
+JustDelete("$zip/Start.exe.CodeAnalysisLog.xml");
+
+JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.exe.config.bak");
+JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.ini.example");
+JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.Services.FSAssetService.pdb");
+JustDelete("$zip/Outworldzfiles/opensim/bin/opensim.sh");
+JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim32.exe.config");
+JustDelete("$zip/Outworldzfiles/opensim/bin/Prebuild.exe");
+JustDelete("$zip/Outworldzfiles/opensim/bin/Robust32.exe");
+JustDelete("$zip/Outworldzfiles/opensim/bin/Robust32.exe.config");
+JustDelete("$zip/Outworldzfiles/opensim/bin/Robust32.vshost.exe");
+JustDelete("$zip/Outworldzfiles/opensim/bin/Robust32.vshost.exe.config");
 
 #Setting
 JustDelete ("$zip/Outworldzfiles/Settings.ini");
 
-JustDelete("$zip/Make_zip_v3.pl");
-JustDelete("$zip/Start.vshost.exe.manifest");
-JustDelete("$zip/Start.vshost.exe.config");
-JustDelete("$zip/Start.vshost.exe");
 
 say "Make zip\n";
 doUnlink ("/Opensim/Zips/DreamGrid.zip");
