@@ -11,7 +11,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "5.17"
+    Public Const _MyVersion As String = "5.18"
     Public Const _SimVersion As String = "Opensim Core d6760ec0ef (a few changes For mantis 9006 attachment moveToTarget()"
     Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const Hyperica As String = "Hyperica"

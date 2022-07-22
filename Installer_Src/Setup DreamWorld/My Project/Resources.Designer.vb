@@ -4123,6 +4123,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Failed to Save New Password.
+        '''</summary>
+        Friend ReadOnly Property Failpassword() As String
+            Get
+                Return ResourceManager.GetString("Failpassword", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to False.
         '''</summary>
         Friend ReadOnly Property False_word() As String

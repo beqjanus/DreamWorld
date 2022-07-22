@@ -4376,4 +4376,7 @@
   <data name="rezrights" xml:space="preserve">
     <value>This will remove rez rights for griefers on all regions. Proceed?</value>
   </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Failed to Save New Password</value>
+  </data>
 </root>

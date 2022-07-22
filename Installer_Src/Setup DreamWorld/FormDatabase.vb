@@ -117,6 +117,7 @@ Public Class FormDatabase
         RobustDbPort.Text = Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
         RobustDBUsername.Text = Settings.RobustUserName
         RobustServer.Text = Settings.RobustServerIP
+        RootPassword.Text = Settings.RootMysqlPassword
         RunasaServiceCheckBox.Text = My.Resources.RunasaService_word
         StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
         Text = Global.Outworldz.My.Resources.Database_word
@@ -160,6 +161,14 @@ Public Class FormDatabase
     Private Sub DatabaseNameUser_TextChanged(sender As Object, e As EventArgs) Handles RegionDbName.TextChanged
 
         If Not Initted1 Then Return
+        If Settings.RobustDatabaseName <> RegionDbName.Text Then
+            Dim result1 = MsgBox("Renaming a database will connect to this new name when DreamGrid starts. Are you sure? ", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            If result1 = vbNo Then
+                RegionDbName.Text = Settings.RegionDBName
+                Return
+            End If
+        End If
+
         Settings.RegionDBName = RegionDbName.Text
         Settings.SaveSettings()
 
@@ -171,11 +180,20 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
+    Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.LostFocus
 
         If Not Initted1 Then Return
-        Settings.RegionDbPassword = RegionMySqlPassword.Text
-        Settings.SaveSettings()
+
+        If Settings.RegionDbPassword <> RegionMySqlPassword.Text Then
+            Dim Q = UpdateMysqlPassword(RegionMySqlPassword.Text, Settings.RegionDBUserName)
+            If Q.Length = 0 Then
+                Settings.RegionDbPassword = RegionMySqlPassword.Text
+                Settings.SaveSettings()
+            Else
+                MsgBox($"{My.Resources.Failpassword} : {Q} ", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            End If
+
+        End If
 
     End Sub
 
@@ -202,17 +220,26 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
+    Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.LostFocus
 
         If Not Initted1 Then Return
-        Settings.RobustPassword = RobustDBPassword.Text
-        Settings.SaveSettings()
+
+        If Settings.RobustPassword <> RobustDBPassword.Text Then
+            Dim Q = UpdateMysqlPassword(RobustDBPassword.Text, Settings.RobustUserName)
+            If Q.Length = 0 Then
+                Settings.RobustPassword = RobustDBPassword.Text
+                Settings.SaveSettings()
+            Else
+                MsgBox($"{My.Resources.Failpassword} : Q", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            End If
+        End If
 
     End Sub
 
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not Initted1 Then Return
+
         Settings.RobustServerIP = RobustServer.Text
         Settings.SaveSettings()
 
@@ -236,6 +263,14 @@ Public Class FormDatabase
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
         If Not Initted1 Then Return
+        If Settings.RobustDatabaseName <> RobustDbName.Text Then
+            Dim result1 = MsgBox("Renaming a database connect to this new name when DreamGrid starts. Are you sure? ", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            If result1 = vbNo Then
+                RobustDbName.Text = Settings.RobustDatabaseName
+                Return
+            End If
+        End If
+
         Settings.RobustDatabaseName = RobustDbName.Text
         Settings.SaveSettings()
 
@@ -264,6 +299,28 @@ Public Class FormDatabase
 
     Private Sub HelpMenu_Click(sender As Object, e As EventArgs) Handles HelpMenu.Click
         HelpManual("Database")
+    End Sub
+
+    Private Sub RootPassword_click(sender As Object, e As EventArgs) Handles RootPassword.Click
+
+        RootPassword.UseSystemPasswordChar = False
+
+    End Sub
+
+    Private Sub RootPassword_TextChanged_3(sender As Object, e As EventArgs) Handles RootPassword.LostFocus
+
+        If Not Initted1 Then Return
+
+        If Settings.RootMysqlPassword <> RootPassword.Text Then
+            Dim Q = UpdateMysqlPassword(RootPassword.Text, "root")
+            If Q.Length = 0 Then
+                Settings.RootMysqlPassword = RootPassword.Text
+                Settings.SaveSettings()
+            Else
+                MsgBox($"{My.Resources.Failpassword} : {Q}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            End If
+        End If
+
     End Sub
 
     Private Sub RunasaServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RunasaServiceCheckBox.CheckedChanged

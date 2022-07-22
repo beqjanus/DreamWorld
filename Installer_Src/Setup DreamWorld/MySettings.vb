@@ -1019,6 +1019,19 @@ Public Class MySettings
 
     End Property
 
+    ''' <summary>
+    ''' Exports all asserts to fsassets, once
+    ''' </summary>
+    ''' <returns>True is exported as boolean</returns>
+    Public Property ExportAssetsOnce() As Boolean
+        Get
+            Return CType(GetMySetting("ExportAssetsOnce", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("ExportAssetsOnce", CStr(Value))
+        End Set
+    End Property
+
     Public Property ExternalHostName() As String
         Get
             Return _ExternalHostName
@@ -1903,6 +1916,18 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Holds the mysql root user password
+    ''' </summary>
+    Public Property RootMysqlPassword() As String
+        Get
+            Return GetMySetting("RootMysqlPassword", "")
+        End Get
+        Set
+            SetMySetting("RootMysqlPassword", Value)
+        End Set
+    End Property
+
     Public Property RunOnce() As Boolean
         Get
             Return CType(GetMySetting("RunOnce", "False"), Boolean)
@@ -2647,6 +2672,18 @@ Public Class MySettings
             & ";port=" & CStr(MySqlRobustDBPort) _
             & ";user=" & RobustUserName _
             & ";password=" & RobustPassword _
+            & ";Old Guids=true;Allow Zero Datetime=true" _
+            & ";Connect Timeout=28800;Command Timeout=28800;"
+
+    End Function
+
+    Public Function RootMysqlConnection() As String
+
+        Return "server=" & RobustServerIP _
+            & ";database=mysql" _
+            & ";port=" & CStr(MySqlRobustDBPort) _
+            & ";user=root" _
+            & ";password=" & RootMysqlPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
             & ";Connect Timeout=28800;Command Timeout=28800;"
 
