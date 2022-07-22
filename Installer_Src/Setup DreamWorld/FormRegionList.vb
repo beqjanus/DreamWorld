@@ -1183,7 +1183,7 @@ SetWindowOnTop_Err:
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
                 CalcCPU()
-                Timer1.Interval = 10000 ' check for Form1.PropUpdateView immediately
+                Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
 
@@ -1193,7 +1193,6 @@ SetWindowOnTop_Err:
             PictureBox1.Visible = False
             Timer1.Start()
             LoadMyListView()
-
             initted = True
         Catch
         End Try
@@ -1843,7 +1842,7 @@ SetWindowOnTop_Err:
 
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()
-            Timer1.Interval = 10000
+            Timer1.Interval = 1000
         End If
 
     End Sub
