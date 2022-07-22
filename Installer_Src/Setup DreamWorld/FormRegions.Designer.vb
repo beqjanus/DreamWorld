@@ -56,6 +56,7 @@ Partial Class FormRegions
         Me.ClearFarmButton = New System.Windows.Forms.Button()
         Me.AviName = New System.Windows.Forms.TextBox()
         Me.OwnerLabel = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBoxRegion.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -65,6 +66,7 @@ Partial Class FormRegions
         '
         'GroupBoxRegion
         '
+        Me.GroupBoxRegion.Controls.Add(Me.Button1)
         Me.GroupBoxRegion.Controls.Add(Me.BlockButton)
         Me.GroupBoxRegion.Controls.Add(Me.PictureBox2)
         Me.GroupBoxRegion.Controls.Add(Me.Button_Clear)
@@ -172,7 +174,7 @@ Partial Class FormRegions
         'LabelEditRegion
         '
         Me.LabelEditRegion.AutoSize = True
-        Me.LabelEditRegion.Location = New System.Drawing.Point(16, 328)
+        Me.LabelEditRegion.Location = New System.Drawing.Point(19, 338)
         Me.LabelEditRegion.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LabelEditRegion.Name = "LabelEditRegion"
         Me.LabelEditRegion.Size = New System.Drawing.Size(62, 13)
@@ -196,7 +198,7 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
-        Me.RegionBox.Location = New System.Drawing.Point(16, 351)
+        Me.RegionBox.Location = New System.Drawing.Point(19, 361)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
@@ -396,6 +398,18 @@ Partial Class FormRegions
         Me.OwnerLabel.TabIndex = 1897
         Me.OwnerLabel.Text = "Owner of New Regions"
         '
+        'Button1
+        '
+        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.package
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(19, 293)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(1)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(185, 35)
+        Me.Button1.TabIndex = 1890
+        Me.Button1.Text = "Make Regions No Rez"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FormRegions
         '
         Me.AllowDrop = True
@@ -463,4 +477,5 @@ Partial Class FormRegions
     Friend WithEvents BulkLoadButton As Button
     Friend WithEvents AviName As TextBox
     Friend WithEvents OwnerLabel As Label
+    Friend WithEvents Button1 As Button
 End Class

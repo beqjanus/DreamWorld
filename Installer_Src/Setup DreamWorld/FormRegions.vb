@@ -654,6 +654,18 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub Button1_Click_4(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If (MsgBox(My.Resources.rezrights, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "Information") = Windows.Forms.DialogResult.Yes) Then
+            Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez 
+            QueryString(stm)
+
+            stm = "update land set landflags = (landflags & ! 16);" ' Land editing
+            QueryString(stm)
+        End If
+
+    End Sub
+
     Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         If StopLoading = "Running" Then

@@ -4373,4 +4373,7 @@
   <data name="Saving_Zip" xml:space="preserve">
     <value>Saving Zip</value>
   </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>This will remove rez rights for griefers on all regions. Proceed?</value>
+  </data>
 </root>
