@@ -264,9 +264,16 @@ Public Module MysqlInterface
 
 #End Region
 
+    ''' <summary>
+    ''' Delete all regions data in various tables when a region is deleted bu GUI
+    ''' ''' </summary>
+    ''' <param name="primUuid">UUID</param>
+    ''' <param name="tablename"></param>
+    ''' <param name="uuidname"></param>
+
 #Region "DeletePrims"
 
-    Public Sub DeleteContent(primUuid As String, tablename As String, uuidname As String)
+    Public Sub DeleteContent(RegionUuid As String, tablename As String, uuidname As String)
 
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
@@ -274,12 +281,10 @@ Public Module MysqlInterface
                 Dim stm = $"delete from {tablename} WHERE {uuidname} = @UUID"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", primUuid)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUuid)
                     cmd.ExecuteNonQuery()
                 End Using
 #Enable Warning CA2100
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -291,8 +296,13 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+    ''' <summary>
+    ''' Counts inventory assets per user
+    ''' </summary>
+    ''' <param name="UUID">Avatar UUID</param>
+    ''' <returns>int</returns>
     Public Function AssetCount(UUID As String) As Integer
-
+        ' Todo https://wiki.secondlife.com/wiki/AssetType
         Dim Val = 0
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -309,8 +319,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -320,14 +328,11 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function AvatarEmail(UUID As String) As String
-
-        Dim AviEmail As String = ""
-
-        Return AviEmail
-
-    End Function
-
+    ''' <summary>
+    ''' Gets first name, last name, email from user account
+    ''' </summary>
+    ''' <param name="UUID">avatar UUID</param>
+    ''' <returns>Person class</returns>
     Public Function AvatarEmailData(UUID As String) As Person
 
         Dim Avi As New Person
@@ -355,9 +360,14 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Deletes all IMS from a user
+    ''' </summary>
+    ''' <param name="id">Avatar uuid</param>
+    '''
     Public Sub DeleteIM(id As Integer)
 
-        Dim stm = $"delete from im_offline where id = {id}"
+        Dim stm = $"delete from im_offline where id = {id}"     ' todo fix sql
         QueryString(stm)
 
     End Sub
@@ -368,7 +378,8 @@ Public Module MysqlInterface
     Public Sub DeleteOldVisitors()
 
         Dim stm = $"delete from visitor WHERE dateupdated < NOW() - INTERVAL {Settings.KeepVisits} DAY "
-        QueryString(stm)
+
+        QueryString(stm) ' todo fix sql
 
         ' make a list of  'uuid1', 'uuid2' etc
         Dim list2 As New List(Of String)
@@ -390,13 +401,13 @@ Public Module MysqlInterface
         arr = list2.ToArray
         clause = Join(arr, ",")
 
-        stm = $"delete from visitor where regionname not in ({clause})"
+        stm = $"delete from visitor where regionname not in ({clause})" ' todo fix sql
         QueryString(stm)
 
     End Sub
 
     '''
-    ''' logs out any users when we kill the grid
+    ''' logs out any users when we clear caches
     '''
     Public Sub DeleteOnlineUsers()
 
@@ -409,25 +420,35 @@ Public Module MysqlInterface
         If IsMySqlRunning() And OpensimRunning.Length = 0 And Settings.ServerType = RobustServerName Then
             MysqlInterface.DeregisterRegions(False)
             FixPresence()
-            QueryString("delete from griduser;")
+            QueryString("update griduser set online = 'false';")
         End If
 
     End Sub
 
+    ''' <summary>
+    ''' Delete useless fsasset data
+    ''' </summary>
     Public Sub DelRobustMaps()
 
-        Dim q = "delete from fsassets WHERE name LIKE ""terrainImage_%"";"
+        Dim q = "delete from fsassets WHERE name LIKE 'terrainImage_%';"
+        QueryString(q)
+        q = "delete from assets WHERE name LIKE 'terrainImage_%';"
         QueryString(q)
 
     End Sub
 
+    ''' <summary>
+    ''' DeregisterPosition removes a region registration at a given X, Y for temp region creation
+    ''' </summary>
+    ''' <param name="X"></param>
+    ''' <param name="Y"></param>
     Public Sub DeregisterPosition(X As Integer, Y As Integer)
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
 
-                Dim stm = "delete from regions where LocX=@X and LocY=@Y"
+                Dim stm = "delete from regions where LocX=@X And LocY=@Y"
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@X", X * 256)
                     cmd.Parameters.AddWithValue("@Y", Y * 256)
@@ -444,11 +465,11 @@ Public Module MysqlInterface
     ''' <summary>
     ''' deletes all regions from robust regions
     ''' </summary>
-    ''' <param name="force"></param>
+    ''' <param name="force">if true, deletes even if running, used as part of update process</param>
     Public Sub DeregisterRegions(force As Boolean)
 
         If PropOpensimIsRunning And Not force Then
-            MsgBox("Opensim is running. Cannot clear the list of registered regions", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+            MsgBox("Opensim Is running. Cannot clear the list Of registered regions", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If
 
@@ -474,8 +495,6 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
-                ' BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -484,13 +503,18 @@ Public Module MysqlInterface
 
     End Sub
 
+    ''' <summary>
+    ''' Gets Estate ID number 101, 102, etc
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>int</returns>
     Public Function EstateId(UUID As String) As Integer
 
         Dim Val = 0
         Using EstateConnection As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 EstateConnection.Open()
-                Dim stm = "select EstateID from estate_map where RegionID=@UUID"
+                Dim stm = "Select EstateID from estate_map where RegionID=@UUID"
                 Using cmd = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
 
@@ -500,8 +524,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -523,7 +545,7 @@ Public Module MysqlInterface
             Try
                 EstateConnection.Open()
 
-                Dim stm = "SELECT estate_settings.EstateName FROM estate_settings estate_settings INNER JOIN estate_map estate_map ON (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
+                Dim stm = "Select estate_settings.EstateName FROM estate_settings estate_settings INNER JOIN estate_map estate_map On (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
 
                 Using cmd = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -539,104 +561,33 @@ Public Module MysqlInterface
             Catch ex As Exception
                 BreakPoint.Print(ex.Message)
             End Try
-
         End Using
-
         Return Val
 
     End Function
 
+    ''' <summary>
+    ''' Runs once at the hour tick mark to move assets to file system
+    ''' </summary>
     Public Sub ExportFsAssets()
 
-        Dim count = 0
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) FROM assets "
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            Try
-                                count = reader.GetInt32(0)
-                            Catch
-                                BreakPoint.Print("Cannot read MySQL!")
-                            End Try
-                        End If
-                    End Using
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        If count < 1000 Then Return
-        Dim export = $"import ""Data Source=localhost;Port={Settings.MySqlRobustDBPort};Database={Settings.RobustDatabaseName};User ID={Settings.RobustUserName};Password={Settings.RobustPassword};Old Guids=true;Command Timeout=300;"" assets"
+        If Settings.ExportAssetsOnce Then Return
+        Dim export = $"import ""Data Source=localhost;Port={Settings.MySqlRobustDBPort};Database={Settings.RobustDatabaseName};User ID={Settings.RobustUserName};Password={Settings.RobustPassword};Old Guids=True;Command Timeout=300;"" assets"
         ConsoleCommand(RobustName, export)
-
-    End Sub
-
-    Public Sub FixPresence()
-
-        'This deletes Presence rows where the corresponding GridUser row does Not exist and is online
-        Dim q = "Delete From Presence Where Not exists (select * from GridUser  where Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
-        QueryString(q)
+        Settings.ExportAssetsOnce = True
+        Settings.SaveSettings()
 
     End Sub
 
     ''' <summary>
-    ''' Gets fakes in debug made
+    ''' This deletes Presence rows where the corresponding GridUser row does Not exist and is online
     ''' </summary>
-    ''' <returns>dictionary of First name + Last name, Region UUID</returns>
-    Public Function GetAgentList() As Dictionary(Of String, String)
+    Public Sub FixPresence()
 
-        If DebugLandMaker Then
+        Dim q = "Delete From Presence Where Not exists (Select * from GridUser  where Presence.UserID = GridUser.UserID  And GridUser.Online = 'True');"
+        QueryString(q)
 
-            Dim HowManyAvatars As Integer = 2
-            Dim Odds As Double = 20
-            ' sprinkle avatars around the system
-            If Debugger.IsAttached Then
-                If Dict.Count = HowManyAvatars Then
-                    Dim a = Between(1, 4000)
-                    If a <= Odds Then
-                        Dim b = Between(1, Dict.Count)
-                        For Each name In Dict
-                            b -= 1
-                            If b = 0 Then
-                                TextPrint($"Deleting {name.Key}")
-                                Dict.Remove(name.Key)
-                                Exit For
-                            End If
-                        Next
-                    End If
-                End If
-
-                If Dict.Count < HowManyAvatars Then
-                    Dim a = Between(1, 1000)
-                    If a <= Odds Then
-                        Dim RegionList = RegionUuids()
-                        Dim r = Between(0, RegionList.Count - 1)
-                        Dim RegionUUID = RegionList.Item(r)
-                        Dim RegionName = Region_Name(RegionUUID)
-                        Dim index = RandomNumber.Between(1, NameList.Count)
-                        Dim UserName = NameList.Item(index)
-
-                        If Not Dict.ContainsKey(UserName) Then
-                            TextPrint($"Adding {UserName} to {RegionName}")
-                            Dict.Add(UserName, RegionUUID)
-                        Else
-                            TextPrint($"Moving {UserName} to {RegionName}")
-                            Dict.Item(UserName) = RegionUUID
-                        End If
-                    End If
-                End If
-            End If
-        End If
-        Return Dict
-
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Gets user count from user accounts
@@ -662,8 +613,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -700,7 +649,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -809,8 +757,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -862,18 +808,14 @@ Public Module MysqlInterface
                 BreakPoint.Dump(ex)
             End Try
         End Using
-
-        ' Debug leaving and entering
-        'If Not Dict.ContainsKey("test user") Then
-        'Dict.Add("test user", FindRegionByName(Settings.WelcomeRegion))
-        'End If
-
-        'Dict.Remove("test user")
-
         Return HGDict
 
     End Function
 
+    ''' <summary>
+    ''' Returns User name and region they are in, if any
+    ''' </summary>
+    ''' <returns>First name, Last Name, RegionUUID</returns>
     Public Function GetPresence() As Dictionary(Of String, String)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -891,8 +833,6 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -906,7 +846,7 @@ Public Module MysqlInterface
     ''' Number of prims in this region
     ''' </summary>
     ''' <param name="UUID">Region UUID</param>
-    ''' <returns>integer primcount</returns>
+    ''' <returns>integer</returns>
     Public Function GetPrimCount(UUID As String) As Integer
 
         Dim count As Integer
@@ -935,6 +875,11 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Finds where an avatar is
+    ''' </summary>
+    ''' <param name="AgentID"></param>
+    ''' <returns>RegionID</returns>
     Public Function GetRegionFromAgentId(AgentID As String) As String
 
         Dim Val As String = ""
@@ -943,9 +888,6 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
-                Return Val
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 Return Val
@@ -961,14 +903,10 @@ Public Module MysqlInterface
                                 Val = reader.GetString(0)
                             End While
                         End Using
-                    Catch ex As MySqlException
-                        BreakPoint.Dump(ex)
                     Catch ex As Exception
                         BreakPoint.Dump(ex)
                     End Try
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -979,6 +917,11 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Locates if an Agent is in a region
+    ''' </summary>
+    ''' <param name="regionuuid"></param>
+    ''' <returns>boolean</returns>
     Public Function IsAgentInRegion(regionuuid As String) As Boolean
 
         If Settings.ServerType <> RobustServerName Then Return False
@@ -987,6 +930,10 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Queries Mysql to see if its up
+    ''' </summary>
+    ''' <returns>True if up</returns>
     Public Function IsMySqlRunning() As Boolean
 
         Dim version = QueryString("Select VERSION()")
@@ -1006,9 +953,16 @@ Public Module MysqlInterface
 
         StartMySQL()
 
+        Dim QS As String
+        If Settings.RootMysqlPassword.Length > 0 Then
+            QS = $" -u root --port={Settings.MySqlRegionDBPort} -p{Settings.RootMysqlPassword}"
+        Else
+            QS = $" -u root --port={Settings.MySqlRegionDBPort}"
+        End If
+
         Using p = New Process()
             Dim pi = New ProcessStartInfo With {
-                .Arguments = $" -u root --port={Settings.MySqlRegionDBPort}",
+                .Arguments = QS,
                 .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
                 .UseShellExecute = True, ' so we can redirect streams and minimize
                 .WindowStyle = ProcessWindowStyle.Normal
@@ -1044,8 +998,6 @@ Public Module MysqlInterface
                         answer = "00000000-0000-0000-0000-000000000000"
                     End If
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1078,8 +1030,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Print(ex.Message)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1117,8 +1067,6 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@utitle", ud.UserTitle)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Print(ex.Message)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1145,8 +1093,6 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@UUID", RegionUUID)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1290,8 +1236,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1354,8 +1298,6 @@ Public Module MysqlInterface
                     End Using
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1377,8 +1319,6 @@ Public Module MysqlInterface
                     Catch ex As Exception
                         BreakPoint.Dump(ex)
                     End Try
-                Catch ex As MySqlException
-                    BreakPoint.Dump(ex)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
@@ -1531,6 +1471,34 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Updates a Mysql Password
+    ''' </summary>
+    ''' <param name="NewPassword">New Password</param>
+    ''' <param name="Username">User Name</param>
+    Public Function UpdateMysqlPassword(NewPassword As String, Username As String) As String
+
+        StartMySQL()
+
+        Using MysqlConn As New MySqlConnection(Settings.RootMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = $"Update mysql.user Set Password=PASSWORD(@NewPassword) WHERE User=@User;FLUSH PRIVILEGES;"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@user", Username)
+                    cmd.Parameters.AddWithValue("@NewPassword", NewPassword)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+                Return ex.Message
+            End Try
+        End Using
+        Return ""
+
+    End Function
+
     '' Deprecated
     Public Function WhereisAgent(agentName As String) As String
 
@@ -1588,7 +1556,6 @@ Public Module MysqlInterface
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1610,8 +1577,6 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1734,8 +1699,6 @@ Public Module MysqlInterface
                             End Using
                         Next
                     Next
-                Catch ex As MySqlException
-                    BreakPoint.Dump(ex)
                 Catch ex As Exception
                     BreakPoint.Dump(ex)
                 End Try
@@ -1781,8 +1744,6 @@ Public Module MysqlInterface
                         cmd.ExecuteNonQuery()
                     End Using
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try
@@ -1804,8 +1765,6 @@ Public Module MysqlInterface
                     Make_Region_Map(UUID)
 
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Dump(ex)
             Catch ex As Exception
                 BreakPoint.Dump(ex)
             End Try

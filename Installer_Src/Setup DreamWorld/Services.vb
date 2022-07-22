@@ -92,7 +92,7 @@
             End Try
         End Using
 
-        Dim ctr = 5
+        Dim ctr = 15
 
         While MysqlInterface.IsMySqlRunning() And ctr >= 0
             Sleep(1000)

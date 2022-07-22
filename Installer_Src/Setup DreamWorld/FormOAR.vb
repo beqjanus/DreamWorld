@@ -312,7 +312,6 @@ Public Class FormOAR
                 End Using
             End Using
         Catch ex As Exception
-            BreakPoint.Dump(ex)
             Log("Warn", ex.Message)
         End Try
 
