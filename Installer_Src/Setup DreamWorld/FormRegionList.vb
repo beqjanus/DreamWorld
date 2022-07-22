@@ -1183,7 +1183,7 @@ SetWindowOnTop_Err:
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
                 CalcCPU()
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
+                Timer1.Interval = 10000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
 
@@ -1428,6 +1428,10 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub ShowDetails()
+
+        If MysqlInterface.IsMySqlRunning() Then
+            UseMysql = True
+        End If
 
         SyncLock regionLock
             ShowTitle()
@@ -1839,7 +1843,7 @@ SetWindowOnTop_Err:
 
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()
-            Timer1.Interval = 5000
+            Timer1.Interval = 10000
         End If
 
     End Sub
