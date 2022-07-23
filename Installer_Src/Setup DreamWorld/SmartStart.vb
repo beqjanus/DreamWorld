@@ -263,7 +263,7 @@ Module SmartStart
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         ' if boot, just do it, else try to resume it, else boot it
-                        If Settings.BootOrSuspend Then
+                        If Settings.BootOrSuspend And RegionEnabled(RegionUUID) Then
                             Boot(RegionName)
                         Else
                             If ResumeRegion(RegionUUID) Then
@@ -464,7 +464,7 @@ Module SmartStart
         End If
 
         If Settings.SequentialMode = 2 Then
-            Dim ctr = 5 * 60  ' 5 minute max to start a region
+            Dim ctr = 2 * 60  ' 2 minute max to start a region
             While True
                 If Not PropOpensimIsRunning Then Return
                 Dim wait As Boolean = False
@@ -813,7 +813,11 @@ Module SmartStart
             Next
 
             Dim RegionUUID As String = FindRegionByName(BootName)
-            If Not RegionEnabled(RegionUUID) Then Return True
+            If Not RegionEnabled(RegionUUID) Then
+                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                Return True
+            End If
+
             Dim GroupName = Group_Name(RegionUUID)
 
             If String.IsNullOrEmpty(RegionUUID) Then
@@ -922,7 +926,7 @@ Module SmartStart
 
             Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
 
-            SequentialPause()   ' wait for previous region to give us some CPU
+
 
             Dim ok As Boolean = False
             Try
@@ -1009,6 +1013,7 @@ Module SmartStart
 
                 PropUpdateView = True ' make form refresh
                 FormSetup.Buttons(FormSetup.StopButton)
+                SequentialPause()   ' wait for previous region to give us some CPU
                 Return True
             End If
             PropUpdateView = True ' make form refresh
