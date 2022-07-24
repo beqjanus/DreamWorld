@@ -15,6 +15,7 @@ Module SmartStart
     Public MyRAMCollection As New List(Of Double)
     Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
+
     Private ToDoCount As New Dictionary(Of String, Integer)
 
     ''' <summary>
@@ -82,7 +83,7 @@ Module SmartStart
     Public Sub CheckForBootedRegions()
 
         ' booted regions from web server
-        Bench.Print("Booted list Start")
+        Bench.Start("Booted list")
         Try
             Dim GroupName As String = ""
 
@@ -131,9 +132,9 @@ Module SmartStart
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-        Bench.Print("Booted list End")
+        Bench.Print("Booted list")
 
-        Bench.Print("Scan Region State")
+        Bench.Start("Scan Region State")
         Try
             Dim L = RegionUuids()
             L.Sort()
@@ -297,12 +298,14 @@ Module SmartStart
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
-        Bench.Print("Scan Region State End")
+
+        Bench.Print("Scan Region State")
 
     End Sub
 
     Public Function GetAllAgents() As Dictionary(Of String, String)
 
+        Bench.Start("GetAllAgents")
         ' Scan all the regions
         Dim Agents = New Dictionary(Of String, String)
 
@@ -324,7 +327,7 @@ Module SmartStart
                 Agents.Add(item.Key, item.Value)
             End If
         Next
-
+        Bench.Print("GetAllAgents")
         Return Agents
 
     End Function
@@ -569,12 +572,10 @@ Module SmartStart
                 TeleportAvatarDict.Remove(AgentID)
             End If
             TeleportAvatarDict.Add(AgentID, RegionUUID)
-            Bench.Print("Teleport Added")
         End If
 
         ReBoot(RegionUUID) ' Wait for it to start booting
 
-        Bench.Print("Reboot Signaled")
         Application.DoEvents()
         Return False
 
@@ -925,8 +926,6 @@ Module SmartStart
             BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
             Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
-
-
 
             Dim ok As Boolean = False
             Try
