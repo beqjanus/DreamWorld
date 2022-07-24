@@ -43,7 +43,7 @@ Module RPC
 
     Public Sub ForceShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
-        RPC_Region_Command(RegionUUID, "quit")
+        ConsoleCommand(RegionUUID, "quit")
 
         Dim Group = Group_Name(RegionUUID)
         Logger("RecyclingDown", Group, "Status")

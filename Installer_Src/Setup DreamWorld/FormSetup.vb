@@ -597,7 +597,6 @@ Public Class FormSetup
         FreezAllToolStripMenuItem.Text = My.Resources.FreezeAllRegions
         ThawAllToolStripMenuItem.Text = My.Resources.ThawAllRegions
 
-
         CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_and_Repair_Database_word
         ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.user1_into
@@ -2032,9 +2031,9 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
-        If Not PropOpensimIsRunning() Then
-            Return
-        End If
+        '      If Not PropOpensimIsRunning() Then
+        '     Return
+        '    End If
 
         If TimerisBusy > 0 And TimerisBusy < 10 Then
             TimerisBusy += 1
@@ -2504,6 +2503,14 @@ Public Class FormSetup
         KeepOnTopToolStripMenuItem.Image = My.Resources.table
         OnTopToolStripMenuItem.Checked = False
         FloatToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub FreezAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FreezAllToolStripMenuItem.Click
+
+        For Each RegionUUID In RegionUuids()
+            FreezeThaw.FreezeThaw(RegionUUID, True)
+        Next
 
     End Sub
 
@@ -3137,6 +3144,14 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub ThawAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThawAllToolStripMenuItem.Click
+
+        For Each RegionUUID In RegionUuids()
+            FreezeThaw.FreezeThaw(RegionUUID, False)
+        Next
+
+    End Sub
+
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
 
         For Each RegionUUID As String In RegionUuidListByName("*")
@@ -3232,22 +3247,6 @@ Public Class FormSetup
 
         For Each RegionUUID As String In RegionUuidListByName("*")
             If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
-        Next
-
-    End Sub
-
-    Private Sub FreezAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FreezAllToolStripMenuItem.Click
-
-        For Each RegionUUID In RegionUuids()
-            FreezeThaw.FreezeThaw(RegionUUID, True)
-        Next
-
-    End Sub
-
-    Private Sub ThawAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThawAllToolStripMenuItem.Click
-
-        For Each RegionUUID In RegionUuids()
-            FreezeThaw.FreezeThaw(RegionUUID, False)
         Next
 
     End Sub
