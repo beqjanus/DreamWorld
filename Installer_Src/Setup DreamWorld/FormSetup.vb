@@ -2911,12 +2911,15 @@ Public Class FormSetup
 
                     DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))
 
+                    Dim opt As String = ""
+                    If Settings.RootMysqlPassword.Length > 0 Then
+                        opt = $"-p{Settings.RootMysqlPassword}"
+                    End If
+
                     Try
                         Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         Using outputFile As New StreamWriter(filename, False)
-                            outputFile.WriteLine("@REM A program to restore MySQL from a backup" & vbCrLf _
-                            & "mysql -u root " & db & " < " & """" & thing & """" _
-                            & vbCrLf & " @pause" & vbCrLf)
+                            outputFile.WriteLine($"@REM A program to restore MySQL from a backup{vbCrLf}mysql -u root {db} {opt} < ""{thing}""{vbCrLf} @pause{vbCrLf}")
                         End Using
                     Catch ex As Exception
                         ErrorLog(" Failed to create restore file:" & ex.Message)
