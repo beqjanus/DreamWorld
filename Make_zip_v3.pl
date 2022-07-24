@@ -195,6 +195,7 @@ if (
 PrintDate("Drop Regions and Fsasset Folders");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/Regions");
 DeleteandKeep("$zip/OutworldzFiles/Opensim/bin/fsassets");
+DeleteandKeep("$zip/Licenses_to_Content");
 
 PrintDate("Drop Opensim Source code from update");
 
