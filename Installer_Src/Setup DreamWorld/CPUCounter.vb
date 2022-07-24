@@ -95,7 +95,9 @@ Module CPUCounter
                     Try
                         a = Convert.ToDouble(CounterList.Item(RegionName).NextValue(), Globalization.CultureInfo.InvariantCulture)
                     Catch ex As Exception
-                        ' CounterList.Item(RegionName).Close()
+                        If CounterList.ContainsKey(RegionName) Then
+                            CounterList.Remove(RegionName)
+                        End If
                     End Try
 
                     Dim b = (a / Environment.ProcessorCount)
