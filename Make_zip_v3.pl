@@ -31,8 +31,7 @@ CheckDistro();
 # import the PK and the
 my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
 
-my $zip = '/Opensim/Zip/';
-JustDelete($zip);
+my $zip = '\\Opensim\\Zip\\';
 
 my $v = GetVersion($src);
 
@@ -49,21 +48,28 @@ my $publish = <stdin>;
 chomp $publish;
 
 
+
+PrintDate("Delete Destination Zip");
+JustDelete($zip);
+
+
 $v > io("$dir/Version.txt");
 
 
 my $start = GetDate() . " " . GetTime() . "\n";
+
+PrintDate("Delete Languages");
 my @languages =
   qw (ar ar-SA es ja ko es-ES fa ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK  zh-Hans zh-Hant  );
 foreach my $lang (@languages) {
     JustDelete($lang);
 }
 
-my @a = io->dir('.')->all;
+PrintDate("Delete pdb");
+my @a = io->dir('.')->all(0);
 
 foreach my $f (@a) {
-    if ( $f->name =~ /tmp.*\.html/ ) {
-        PrintDate("Delete " . $f->name);
+    if ( $f->name =~ /tmp.*\.html$|\.pdb$/ ) {        
         $f->unlink;
     }
 }
@@ -93,16 +99,14 @@ my @deletions = (
     "$dir/OutworldzFiles/Apache/htdocs/TTS",
 );
 
-foreach my $path (@deletions) {
-    PrintDate($path);
+foreach my $path (@deletions) {    
     DeleteandKeep($path);
 }
 
 JustDelete('/Opensim/Zip');
 DelMaps();
 
-delPDB("$dir/OutworldzFiles/");
-
+PrintDate("Delete Misc files");
 doUnlink ("$dir/BareTail.udm" );
 doUnlink ("$dir/SET_externalIP-PrintDate.txt");
 doUnlink ("$dir/OutworldzFiles/Photo.png");
@@ -112,17 +116,19 @@ doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt");
 doUnlink ("$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db");
 doUnlink ("$dir/OutworldzFiles/BanList.txt");
 
+PrintDate("Delete Fsassets files");
+DeleteandKeep("$dir/OutworldzFiles/Opensim/bin/fsassets");
 
 
 #zips
 doUnlink ("../Zips/DreamGrid.zip");
 doUnlink ("../Zips/Outworldz-Update.zip");
 doUnlink ("$dir/DreamGrid.zip");
+doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
+doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
 
-
-say "DLL List Build";
+PrintDate("DLL List Build");
 use File::Find;
-
 open( OUT, ">", 'dlls.txt' );
 
 find(
@@ -137,19 +143,14 @@ print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Modules.dll\n";
 
 close OUT;
 
-doUnlink ("$dir/Start.exe.lastcodeanalysissucceeded");
-doUnlink ("$dir/Start.exe.CodeAnalysisLog.xml");
+test:
 
-PrintDate("Signing Release");
-my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
-#sign($exes);
+PrintDate("Copy Release");
+my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release/";
+
 
 use File::Copy::Recursive qw(dircopy);
 dircopy( $exes, $dir ) or die("$!\n");
-
-PrintDate("Signing copies");
-use IO::All;
-sign($dir);
 
 say "Processing Main Zip\n";
 
@@ -240,12 +241,10 @@ JustDelete("$zip/Outworldzfiles/Opensim/TESTING.txt");
 JustDelete("$zip/OutworldzFiles/Opensim/bin/.git");
 JustDelete("$zip/OutworldzFiles/Opensim/Ezombie");
 JustDelete("$zip/Start.exe.lastcodeanalysissucceeded");
-JustDelete("$zip/Start.pdb");
 JustDelete("$zip/Start.exe.CodeAnalysisLog.xml");
 
 JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.exe.config.bak");
 JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.ini.example");
-JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim.Services.FSAssetService.pdb");
 JustDelete("$zip/Outworldzfiles/opensim/bin/opensim.sh");
 JustDelete("$zip/Outworldzfiles/opensim/bin/OpenSim32.exe.config");
 JustDelete("$zip/Outworldzfiles/opensim/bin/Prebuild.exe");
@@ -257,6 +256,9 @@ JustDelete("$zip/Outworldzfiles/opensim/bin/Robust32.vshost.exe.config");
 #Setting
 JustDelete ("$zip/Outworldzfiles/Settings.ini");
 
+PrintDate("Signing copies");
+use IO::All;
+sign($zip);
 
 say "Make zip\n";
 doUnlink ("/Opensim/Zips/DreamGrid.zip");
@@ -295,7 +297,7 @@ if ( $publish =~ /p/ ) {
     doUnlink ("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
  
 
-    say("Copy /Read.me/Revisions.txt");   
+    PrintDate("Copy /Read.me/Revisions.txt");   
     if (!copy("$dir/Read.me/Revisions.txt", 
               "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt"))
     {
@@ -311,7 +313,7 @@ if ( $publish =~ /p/ ) {
     
     ################################################
     
-    say("Copy DreamGrid.zip");     
+    PrintDate("Copy DreamGrid.zip");     
     
     #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip");
     
@@ -330,7 +332,7 @@ if ( $publish =~ /p/ ) {
     
     ################################################
     
-    say("Copy DropBox"); 
+    PrintDate("Copy DropBox"); 
     
     if (
         !copy(
@@ -372,12 +374,17 @@ foreach my $lang (@languages) {
 
 say $start . "\n";
 print GetDate() . " " . GetTime() . "\n";
-say "Done!";
+say "**Published!";
 
+PrintDate("Delete Destination Zip");
+JustDelete($zip);
+say "Done!";
 
 sub PrintDate {
     my $msg = shift;
-    say (dt() . $msg);
+    if ($msg) {
+        say (dt() . $msg);
+    }
 }
 
 sub dt {
@@ -394,10 +401,13 @@ sub Write {
 
 sub ProcessFile {
     my $file = shift;
-
-    my $x = `xcopy $file ..\\Zip\\`;
+    if (! $file) {return};
+    $file =~ s/\//\\/g;
+    
+    my $cmd = "copy $file $zip";
+    my $x = `$cmd`;
     $x =~ s/\n//g;
-    if ( $x =~ /File\(s\) copied/ ) {
+    if ( $x =~ /File\(s\) copied/i ) {
         say "$file ok\n";
     }
     else {
@@ -411,20 +421,8 @@ sub ProcessDir {
     my $file = shift;
     return if $file =~ /\.rtf$/;
 
-    my $x =`xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
-    my $y = $x;
-    $x =~ s/\n//g;
-    if ( $x =~ /(\d+) File\(s\) copied/ ) {
-        say "$y\n";
-        if ( $1 == 0 ) {
-            PrintDate( $file . " failed to copy\n $y" );
-            die;
-        }
-    }
-    else {
-        say "$file Fail: $y\n";
-        exit;
-    }
+    my $x =`robocopy \\Opensim\\Outworldz_Dreamgrid\\$file\  \\Opensim\\zip\\$file /E /XD fsassets`;
+    
 
 }
 
@@ -448,7 +446,7 @@ sub JustDelete {
         doUnlink ($path);
         return;
     }
-    sleep(1);
+    
     use File::Path;
     rmtree $path;
 }
@@ -459,9 +457,7 @@ sub DeleteandKeep {
     use File::Path;
     rmtree $path || die;;
     while ( -e $path ) {
-        rmtree $path;
-        say "Directory '$path' still exists\n";
-        sleep(1);
+        rmtree $path;        
     }
 
     mkdir $path;
@@ -588,7 +584,7 @@ sub GetTime {
 sub doUnlink {
     
     my $file = shift;
-    if (-e $file) {
+    if (-e $file) {        
         unlink $file || die "Cannot unlink $file";
     }
     
@@ -622,7 +618,7 @@ sub CopyManuals
         
         if ($src !~ /\.htm$/) {next};
         
-        say($src);
+        PrintDate($src);
         my @data = io->file($src)->slurp;
         my $output;
         my $ctr = 0 ;
@@ -669,23 +665,3 @@ sub GetVersion
 }
 
 
-
-sub delPDB
-{
-    my @pdb = io(shift)->all;
-
-    foreach my $file (@pdb)
-    {
-        next if $file->name =~ /fsassets/i;
-        say ($file->name);
-        if (-d $file->name )
-        {
-            delPDB($file->name);            
-        }
-        
-        if ($file->name =~ /\.pdb$/i)
-        {
-            unlink $file->name;
-        }
-    }
-}
