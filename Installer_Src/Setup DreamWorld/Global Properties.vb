@@ -38,7 +38,9 @@ Module Global_Properties
     Public Sub PokeGroupTimer(GroupName As String)
 
         For Each RegionUUID In RegionUuidListByName(GroupName)
-            Timer(RegionUUID) = Date.Now()
+            If Timer(RegionUUID) < Date.Now() Then
+                Timer(RegionUUID) = Date.Now()
+            End If
         Next
 
     End Sub

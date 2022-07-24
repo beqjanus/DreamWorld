@@ -882,10 +882,10 @@ Module SmartStart
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         'Must be listening, not just in a window
                         ResumeRegion(UUID)
-                        If IsRegionReady(GroupPort(RegionUUID)) Then
-                            RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                            SendToOpensimWorld(RegionUUID, 0)
-                        End If
+                        'If IsRegionReady(GroupPort(RegionUUID)) Then
+                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
+                        SendToOpensimWorld(RegionUUID, 0)
+                        'End If
                         ProcessID(UUID) = PID
                     Next
                     'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
