@@ -1,12 +1,16 @@
 REVISIONS FOR DREAMGRID
 
 V5.18
+Stop Griefing:Added a button to Setup->Settings Regions to clear land flags for Rez and terrain = on. 
+	If you have sandboxes, either set them back on or set up a group to control land and rez rights
+No changes to Opensimulator.
 Backups: Print Backup progress. Add an Abort button to stop them. Backups are not reentrant, as  only one can run at a time.  
-If you press backup while one is running, you can choose to abort it, then start a new one.
-Security: Add root password to Mysql and allow database passwords to be changed
-FsAssets: Export FAssets runs once only. This moves asset blobs from mysql to file system for speed and deduplication.
-Mysql error:  Wait longer for mysql to quit
-Stop Griefing:Added a button to regions to clear land flags for Rez and terrain = on. 
+	If you press backup while one is running, you can choose to abort it to start a new one. Only one backup will ever run at the same time.
+Security: Allow adding a root password to Mysql and allow database passwords to be changed from the GUI. It used localhost for security before.
+FsAssets: Export FsAssets runs one time at the hour mark. This moves asset blobs from mysql to file system for speed and de-duplication.
+Mysql error on quit:  Wait longer for mysql to quit. 
+View Console button sets the region timer to keep the region alive for 5 minutes.
+Added Freeze All Regions and Thaw All Region menus items to Setup->Console Menu
 
 V5.17
 Clicking a region in the Region List toggles them all off/on if in a DOS box with other regions. The On/OFF is per DOS box, not per region.
