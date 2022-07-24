@@ -401,7 +401,7 @@ Public Class FormSetup
 
     Public Function StartOpensimulator() As Boolean
 
-        Bench.Print("StartOpensim")
+        Bench.Start("StartOpensim")
         StartTimer()
 
         PropOpensimIsRunning = True
@@ -503,7 +503,7 @@ Public Class FormSetup
 
         Buttons(StopButton)
         TextPrint(My.Resources.Ready)
-
+        Bench.Print("StartOpensim")
         Return True
 
     End Function
@@ -2056,59 +2056,61 @@ Public Class FormSetup
         RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
-            Bench.Print("5 second worker")
+            Bench.Start("5 second + worker")
             ScanAgents()                ' update agent count
             Chart()                     ' do charts collection each 5 seconds
             CalcDiskFree()              ' check for free disk space
-            Bench.Print("5 second worker ends")
+            Bench.Print("5 second + worker")
         End If
 
         If SecondsTicker = 60 Then
-            Bench.Print("Initial 60 second worker")
+            Bench.Start("60 second worker")
             DeleteDirectoryTmp()      ' clean up old tmp folder
             MakeMaps()                 ' Make all the large maps
-            Bench.Print("Initial 60 second worker ends")
+            Bench.Print("60 second worker")
         End If
 
         If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
-            Bench.Print("60 second worker")
+            Bench.Start("60 second + worker")
             DeleteOldWave()         ' clean up TTS cache
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
-            Bench.Print("60 second work done")
+            Bench.Print("60 second + worker")
         End If
 
         ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
-            Bench.Print("300 second worker")
+            Bench.Start("300 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RunParser()     ' PHP parse for Publicity
             GetEvents()     ' fetch events from Outworldz
             ScanOpenSimWorld(True)
-            Bench.Print("300 second worker ends")
+            Bench.Print("300 second worker")
         End If
 
         If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
+            Bench.Start("300 second + worker")
             If TestPrivateLoopback(False) Then
                 ErrorLog("Diagnostic Listener port failed")
                 TextPrint("Diagnostic Listener port failed")
             End If
+            Bench.Print("300 second + worker")
         End If
 
         ' half hour
         If SecondsTicker Mod 1800 = 0 AndAlso SecondsTicker > 0 Then
-            Bench.Print("half hour worker")
+            Bench.Start("Half hour worker")
             ScanOpenSimWorld(True)
             GetEvents()             ' fetch events from Outworldz
             RunParser()             ' PHP parse for Publicity
             MakeMaps()              ' Make all the large maps
-            Bench.Print("half hour worker ends")
+            Bench.Print("Half hour worker")
         End If
 
         ' print hourly marks on console
         If SecondsTicker Mod 3600 = 0 Then
-            Bench.Print("hour worker")
+            Bench.Start("Hour worker")
             TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()           ' Adjust to any IP changes
             ExpireLogsByAge()       ' clean up old logs
@@ -2118,7 +2120,7 @@ Public Class FormSetup
             ' set mysql for amount of buffer to use now that it running.
             ' Will take effect next time Mysql is started.
             Settings.Total_InnoDB_GBytes = Total_InnoDB_Bytes()
-            Bench.Print("hour worker ends")
+            Bench.Print("Hour worker")
         End If
 
         ' TODO fix this to run once
@@ -2282,6 +2284,9 @@ Public Class FormSetup
         ChDir(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"))
         pi.WindowStyle = ProcessWindowStyle.Normal
         pi.Arguments = CStr(Settings.MySqlRobustDBPort)
+        If Settings.RootMysqlPassword.Length > 0 Then
+            pi.Arguments += $" {Settings.RootMysqlPassword}"
+        End If
 
         pi.FileName = "CheckAndRepair.bat"
         Using pMySqlDiag1 = New Process With {
