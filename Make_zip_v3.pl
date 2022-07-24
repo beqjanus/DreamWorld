@@ -51,7 +51,7 @@ chomp $publish;
 
 PrintDate("Delete Destination Zip");
 JustDelete($zip);
-
+mkdir $zip;
 
 $v > io("$dir/Version.txt");
 
@@ -404,15 +404,16 @@ sub ProcessFile {
     if (! $file) {return};
     $file =~ s/\//\\/g;
     
-    my $cmd = "copy $file $zip";
+    my $cmd = "xcopy $file $zip";
     my $x = `$cmd`;
     $x =~ s/\n//g;
-    if ( $x =~ /File\(s\) copied/i ) {
-        say "$file ok\n";
-    }
-    else {
+    if ( $x =~ / 0 File\(s\) copied/i ) {        
         say "$file Fail: $x\n";
         exit;
+    }
+    else {
+        say "$file ok\n";
+        
     }
 
 }
