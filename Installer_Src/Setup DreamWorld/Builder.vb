@@ -114,7 +114,9 @@ Module Build
             Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
             For Xstep = 0 To SimSize - 1
                 For Ystep = 0 To SimSize - 1
-                    RegionXY.Add($"{Coord_X(UUID) + Xstep}:{Coord_Y(UUID) + Ystep}", UUID)
+                    If Not RegionXY.ContainsKey($"{Coord_X(UUID) + Xstep}:{Coord_Y(UUID) + Ystep}") Then
+                        RegionXY.Add($"{Coord_X(UUID) + Xstep}:{Coord_Y(UUID) + Ystep}", UUID)
+                    End If
                 Next
             Next
         Next
@@ -132,7 +134,9 @@ Module Build
 
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
-                xy.Add($"{XPos}:{Ypos}")
+                If Not xy.Contains($"{XPos}:{Ypos}") Then
+                    xy.Add($"{XPos}:{Ypos}")
+                End If
             Next
         Next
 
@@ -154,7 +158,9 @@ Module Build
                 End If
 
                 Dim NewName = MakeTempRegion(GroupName, nX, nY)
-                Bootable.Add(NewName)
+                If Not Bootable.Contains(NewName) Then
+                    Bootable.Add(NewName)
+                End If
             End If
 
         Next
