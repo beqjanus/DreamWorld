@@ -4651,6 +4651,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Freeze All Regions.
+        '''</summary>
+        Friend ReadOnly Property FreezeAllRegions() As String
+            Get
+                Return ResourceManager.GetString("FreezeAllRegions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to French.
         '''</summary>
         Friend ReadOnly Property French() As String
@@ -11419,6 +11428,15 @@ Namespace My.Resources
         Friend ReadOnly Property Text2Speech() As String
             Get
                 Return ResourceManager.GetString("Text2Speech", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Thaw All Regions.
+        '''</summary>
+        Friend ReadOnly Property ThawAllRegions() As String
+            Get
+                Return ResourceManager.GetString("ThawAllRegions", resourceCulture)
             End Get
         End Property
         

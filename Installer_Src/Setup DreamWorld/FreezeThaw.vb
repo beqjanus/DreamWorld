@@ -11,39 +11,43 @@
     ''' <returns></returns>
     Public Sub FreezeThaw(RegionUUID As String, Arg As Boolean)
 
-        Dim PID = ProcessID(RegionUUID)
-        Dim ft As String
-        If Arg Then
-            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
-            ft = $"-pid {CStr(PID)}"
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-            SetRegionOffline(RegionUUID)
+        If Smart_Start(RegionUUID) = "True" And RegionEnabled(RegionUUID) = True Then
+            Dim PID = ProcessID(RegionUUID)
+            Dim ft As String
+            If Arg Then
+                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ft = $"-pid {CStr(PID)}"
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
+                SetRegionOffline(RegionUUID)
+            Else
+                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+                SetRegionOnline(RegionUUID)
+                ft = $"-rpid {CStr(PID)}"
+            End If
+
+            Using SuspendProcess As New Process()
+                Dim pi = New ProcessStartInfo With {
+                        .Arguments = ft,
+                        .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
+                    }
+
+                pi.CreateNoWindow = True
+                pi.WindowStyle = ProcessWindowStyle.Hidden
+
+                SuspendProcess.StartInfo = pi
+
+                Try
+                    SuspendProcess.Start()
+                Catch ex As Exception
+                End Try
+            End Using
+
+            Timer(RegionUUID) = Date.Now
+            PropUpdateView = True ' make form refresh
         Else
-            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-            SetRegionOnline(RegionUUID)
-            ft = $"-rpid {CStr(PID)}"
+            Debug.Print("Trying to freeze or thaw a non-SS region")
         End If
-
-        Using SuspendProcess As New Process()
-            Dim pi = New ProcessStartInfo With {
-                    .Arguments = ft,
-                    .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-                }
-
-            pi.CreateNoWindow = True
-            pi.WindowStyle = ProcessWindowStyle.Hidden
-
-            SuspendProcess.StartInfo = pi
-
-            Try
-                SuspendProcess.Start()
-            Catch ex As Exception
-            End Try
-        End Using
-
-        PokeRegionTimer(RegionUUID)
-        PropUpdateView = True ' make form refresh
 
     End Sub
 

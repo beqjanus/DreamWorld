@@ -1508,7 +1508,7 @@ Module RegionMaker
             Dim L As New List(Of String)
             Dim pair As KeyValuePair(Of String, Region_data)
             For Each pair In RegionList
-                If pair.Value._Group = Gname Then
+                If pair.Value._Group = Gname Or Gname = "*" Then
                     L.Add(pair.Value._UUID)
                 End If
             Next

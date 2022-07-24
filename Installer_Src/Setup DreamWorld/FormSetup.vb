@@ -594,6 +594,9 @@ Public Class FormSetup
         CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_for_Updates_word
         ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Change_Password_word
+        FreezAllToolStripMenuItem.Text = My.Resources.FreezeAllRegions
+        ThawAllToolStripMenuItem.Text = My.Resources.ThawAllRegions
+
 
         CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_and_Repair_Database_word
@@ -3229,6 +3232,22 @@ Public Class FormSetup
 
         For Each RegionUUID As String In RegionUuidListByName("*")
             If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
+        Next
+
+    End Sub
+
+    Private Sub FreezAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FreezAllToolStripMenuItem.Click
+
+        For Each RegionUUID In RegionUuids()
+            FreezeThaw.FreezeThaw(RegionUUID, True)
+        Next
+
+    End Sub
+
+    Private Sub ThawAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThawAllToolStripMenuItem.Click
+
+        For Each RegionUUID In RegionUuids()
+            FreezeThaw.FreezeThaw(RegionUUID, False)
         Next
 
     End Sub

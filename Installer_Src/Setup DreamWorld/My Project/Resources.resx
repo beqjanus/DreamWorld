@@ -4379,4 +4379,10 @@
   <data name="Failpassword" xml:space="preserve">
     <value>Failed to Save New Password</value>
   </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Freeze All Regions</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Thaw All Regions</value>
+  </data>
 </root>

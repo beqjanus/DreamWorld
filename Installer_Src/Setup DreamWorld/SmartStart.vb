@@ -859,7 +859,7 @@ Module SmartStart
                         Next
                     End If
 
-                    '   ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
                     Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                     PropUpdateView = True ' make form refresh
                     Return True
@@ -888,7 +888,7 @@ Module SmartStart
                         'End If
                         ProcessID(UUID) = PID
                     Next
-                    'ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                    ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
 
                     PropUpdateView = True ' make form refresh
                     Return True
