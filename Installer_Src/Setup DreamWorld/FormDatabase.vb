@@ -198,6 +198,7 @@ Public Class FormDatabase
     End Sub
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
+
         If Not Initted1 Then Return
         Settings.RegionDBUserName = RegionDBUsername.Text
         Settings.SaveSettings()
@@ -239,7 +240,6 @@ Public Class FormDatabase
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not Initted1 Then Return
-
         Settings.RobustServerIP = RobustServer.Text
         Settings.SaveSettings()
 
