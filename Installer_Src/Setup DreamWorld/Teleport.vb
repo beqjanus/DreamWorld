@@ -20,6 +20,7 @@ Module Teleport
 
     Public Sub TeleportAgents()
 
+        Bench.Start("TeleportAgents")
         Try
             For Each Keypair In TeleportAvatarDict
                 Dim AgentID = Keypair.Key
@@ -38,8 +39,6 @@ Module Teleport
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName Is Nothing Then Fin.Add(AgentID)
                         If fromName.Length > 0 Then
-                            Bench.Print("Teleport Initiated")
-
                             ' min 1000 sleep on suspend minimum
                             If Settings.TeleportSleepTime = 0 And Not Settings.BootOrSuspend Then
                                 'Sleep(500)
@@ -69,9 +68,9 @@ Module Teleport
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             TeleportAvatarDict.Remove(str)
-            Bench.Print("Teleport Finished")
         Next
         Fin.Clear()
+        Bench.Print("TeleportAgents")
 
     End Sub
 
