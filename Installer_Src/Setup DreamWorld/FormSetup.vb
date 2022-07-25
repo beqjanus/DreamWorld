@@ -302,9 +302,7 @@ Public Class FormSetup
 
                 If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                     TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                    ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
-                    ConsoleCommand(RegionUUID, "q")
-                    Application.DoEvents()
+                    ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 Else
                     RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
                 End If
@@ -351,7 +349,7 @@ Public Class FormSetup
             For Each PID In CountisRunning
                 For Each RegionUUID In RegionUuids()
                     If ProcessID(RegionUUID) = PID Then
-                        ConsoleCommand(RegionUUID, "q", True)
+                        ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                         Application.DoEvents()
                     End If
                 Next
