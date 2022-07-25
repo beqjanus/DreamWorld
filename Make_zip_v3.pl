@@ -23,6 +23,10 @@ my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
 #my $Contabo = '\\\\contabo2.outworldz.com/c';
 my $Fleta = '\\\\fleta/c';
 my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
+my $zip = '/Opensim/Zip';
+my $repo ='/Opensim/Zips'; 
+my $v = GetVersion($src);
+my $type = "-V$v";
 
 CheckDistro();
 
@@ -31,9 +35,6 @@ CheckDistro();
 # import the PK and the
 my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
 
-my $zip = '\\Opensim\\Zip\\';
-
-my $v = GetVersion($src);
 
 my $Version = `git rev-parse --short HEAD `;
 chomp $Version;
@@ -47,7 +48,7 @@ PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>'
 my $publish = <stdin>;
 chomp $publish;
 
-
+goto end;
 
 PrintDate("Delete Destination Zip");
 JustDelete($zip);
@@ -260,10 +261,14 @@ PrintDate("Signing copies");
 use IO::All;
 sign($zip);
 
-say "Make zip\n";
-doUnlink ("/Opensim/Zips/DreamGrid.zip");
+end:
 
-my $dest = "/Opensim/Zips/DreamGrid.zip";
+say "Make zip\n";
+
+
+
+my $dest = "$repo/DreamGrid$type.zip";
+doUnlink ($dest);
 
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
