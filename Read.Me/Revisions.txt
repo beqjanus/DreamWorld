@@ -1,5 +1,9 @@
 REVISIONS FOR DREAMGRID
 
+V5.19 
+Tweaks to Mass loader so you have choices on Suspend modes and Sequential start modes. I strongly suggest Smart Boot mode (Not suspend) and Sequential on low RAM machines. 
+If you have lots of RAM (32GB), SSDs and a fast CPU, you can go for parallel modes
+
 V5.18
 Stop Griefing:Added a button to Setup->Settings Regions to clear land flags for Rez and terrain = on. 
 	If you have sandboxes, either set them back on or set up a group to control land and rez rights
