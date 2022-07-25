@@ -341,8 +341,6 @@ Module SmartStart
 
         BreakPoint.Print($"{Region_Name(RegionUUID)} task {TObj.TaskName}")
 
-        ReBoot(RegionUUID)
-        Application.DoEvents()
         ' TODO add task queue
         ' so we can have more than one command
         'TaskQue.Add(TObj)
@@ -351,8 +349,11 @@ Module SmartStart
         Else
             ToDoList.Add(RegionUUID, TObj)
         End If
+
+        ReBoot(RegionUUID)
+        Application.DoEvents()
+        Sleep(1000)
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-            ResumeRegion(RegionUUID)
             RunTaskList(RegionUUID)
         End If
 
@@ -379,7 +380,7 @@ Module SmartStart
             Catch
                 ToDoCount(RegionUUID) = 1
             End Try
-
+            PokeGroupTimer(Group_Name(RegionUUID))
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
@@ -438,61 +439,48 @@ Module SmartStart
             Return
         End If
 
-        If Settings.SequentialMode = 1 Then ' Concurrent mode
+        Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
+        While True
 
-            If Not Settings.BootOrSuspend And Settings.Smart_Start Then
-                Return
+            Dim wait As Boolean = False
+            For Each RegionUUID As String In RegionUuids()
+                Dim status = RegionStatus(RegionUUID)
+
+                ' if we are a shutdown type region, we must wait
+
+                If status = SIMSTATUSENUM.Booting And
+                    Settings.Smart_Start And
+                    Settings.BootOrSuspend And
+                    Smart_Start(RegionUUID) = "True" Then
+                    BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
+                    wait = True
+                    Exit For
+
+                    ' could be a regular region so we wait
+                ElseIf status = SIMSTATUSENUM.Booting And
+                    Smart_Start(RegionUUID) = "False" Then
+                    BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
+                    wait = True
+                    Exit For
+                End If
+            Next
+            If Not wait Then Return
+
+            If Settings.SequentialMode = 1 Then
+                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) Then
+                    Exit While
+                End If
             End If
-
-            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
-            While True
-
-                If Not PropOpensimIsRunning Then Return
-
-                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) _
-                    Or Settings.BootOrSuspend = False Then
-
-                    Exit While
-                End If
-                Sleep(1000)
-                CheckPost()                 ' see if anything arrived in the web server
-                CheckForBootedRegions()
-                Application.DoEvents()
-                ctr -= 1
-                If ctr <= 0 Then
-                    Exit While
-                End If
-            End While
-
-        End If
-
-        If Settings.SequentialMode = 2 Then
-            Dim ctr = 2 * 60  ' 2 minute max to start a region
-            While True
-                If Not PropOpensimIsRunning Then Return
-                Dim wait As Boolean = False
-                For Each RegionUUID As String In RegionUuids()
-                    Dim status = RegionStatus(RegionUUID)
-                    If status = SIMSTATUSENUM.Booting Then
-                        BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
-                        wait = True
-                        Exit For
-                    End If
-                Next
-
-                If wait Then
-                    ctr -= 1
-                Else
-                    Exit While
-                End If
-                If ctr <= 0 Then
-                    Exit While
-                End If
-                Sleep(1000)
-
-            End While
-
-        End If
+            Application.DoEvents()
+            CheckPost()                 ' see if anything arrived in the web server
+            CheckForBootedRegions()
+            Application.DoEvents()
+            ctr -= 1
+            If ctr <= 0 Then
+                Exit While
+            End If
+            Sleep(1000)
+        End While
 
     End Sub
 
@@ -815,7 +803,7 @@ Module SmartStart
 
             Dim RegionUUID As String = FindRegionByName(BootName)
             If Not RegionEnabled(RegionUUID) Then
-                ForceShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 Return True
             End If
 
@@ -1104,15 +1092,14 @@ Module SmartStart
     Public Sub Load_AllFreeOARs(RegionUUID As String, obj As TaskObject)
 
         Dim File = obj.Command
-
-        SequentialPause()
+        PokeGroupTimer(Group_Name(RegionUUID))
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.NoShutdown
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
-            Sleep(5000)
+            Sleep(1000)
+            PokeGroupTimer(Group_Name(RegionUUID))
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-            ConsoleCommand(RegionUUID, "q", True)
+            ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         End If
 
     End Sub
