@@ -81,7 +81,7 @@ Module Global_Properties
         Dim ln As Integer = FormSetup.TextBox1.Text.Length
         FormSetup.TextBox1.SelectionStart = ln
         FormSetup.TextBox1.ScrollToCaret()
-        Dim Le As Integer = 3000
+        Dim Le As Integer = 29000
         Dim L = FormSetup.TextBox1.Text.Length - Le
         If L > 0 Then
             FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
