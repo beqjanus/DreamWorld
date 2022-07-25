@@ -41,19 +41,6 @@ Module RPC
 
     End Function
 
-    Public Sub ForceShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
-
-        ConsoleCommand(RegionUUID, "quit")
-
-        Dim Group = Group_Name(RegionUUID)
-        Logger("RecyclingDown", Group, "Status")
-
-        For Each RegionUUID In RegionUuidListByName(Group)
-            RegionStatus(RegionUUID) = nextstate
-        Next
-
-    End Sub
-
     Public Function GetRPCAsObject(FromRegionUUID As String, cmd As String, ht As Hashtable) As Object
 
         If Not RegionStatus(FromRegionUUID) = SIMSTATUSENUM.Booted Then
