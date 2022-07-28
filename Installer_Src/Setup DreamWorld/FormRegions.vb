@@ -544,15 +544,16 @@ Public Class FormRegions
                 Dim Region_Name = line.Key
                 Dim RegionUUID = line.Value
 
-                TextPrint($"{My.Resources.Start_word} {Region_Name}")
-
-                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
-                Dim obj As New TaskObject With {
-                    .TaskName = TaskName.LoadAllFreeOARs,
-                    .Command = File
-                }
-                RebootAndRunTask(RegionUUID, obj)
-                AddToRegionMap(RegionUUID)
+                If RegionEnabled(RegionUUID) Then
+                    TextPrint($"{My.Resources.Start_word} {Region_Name}")
+                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{Region_Name}"
+                    Dim obj As New TaskObject With {
+                        .TaskName = TaskName.LoadAllFreeOARs,
+                        .Command = File
+                    }
+                    RebootAndRunTask(RegionUUID, obj)
+                    AddToRegionMap(RegionUUID)
+                End If
 
                 If StopLoading = "StopRequested" Then
                     ResetRun()
@@ -657,7 +658,7 @@ Public Class FormRegions
     Private Sub Button1_Click_4(sender As Object, e As EventArgs) Handles Button1.Click
 
         If (MsgBox(My.Resources.rezrights, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "Information") = Windows.Forms.DialogResult.Yes) Then
-            Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez 
+            Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez
             QueryString(stm)
 
             stm = "update land set landflags = (landflags & ! 16);" ' Land editing
