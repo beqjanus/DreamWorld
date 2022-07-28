@@ -70,7 +70,7 @@ Public Class Backups
 
         StartMySQL()
         If BackupAbort Then Return
-        RunningBackupName.TryAdd($"{Name} {My.Resources.Starting_word}", "")
+        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Starting_word}", "")
         Sleep(2000)
 
         Try
@@ -150,11 +150,11 @@ Public Class Backups
                 End Try
                 ProcessSqlDump.WaitForExit()
             End Using
-            RunningBackupName.TryAdd($"{Name} {My.Resources.Ok}", "")
+            RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Ok}", "")
             Sleep(2000)
             Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
             DeleteFile(Bak)
-            RunningBackupName.TryAdd($"{Name} {My.Resources.Saving_Zip}", "")
+            RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Saving_Zip}", "")
             Sleep(2000)
             Using Zip = New ZipFile(Bak)
                 Zip.UseZip64WhenSaving = Zip64Option.AsNecessary
@@ -175,7 +175,7 @@ Public Class Backups
         Catch ex As Exception
             Break(ex.Message)
         End Try
-        RunningBackupName.TryAdd($"{Name} {My.Resources.Ok}", "")
+        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Ok}", "")
         Sleep(2000)
     End Sub
 

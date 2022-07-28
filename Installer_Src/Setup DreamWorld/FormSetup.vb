@@ -584,10 +584,9 @@ Public Class FormSetup
         AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.All_Users_All_Sims_word
         BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.System_Backup_word
-        BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
-        BackupDatabaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Databases
-        BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
-        BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.SQL_Database_Backup_Restore
+        BackupToolStripMenuItem1.Image = Global.Outworldz.My.Resources.disk_blue
+        BackupToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Backup_Databases
+
         BusyButton.Text = Global.Outworldz.My.Resources.Busy_word
         CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_for_Updates_word
@@ -684,8 +683,8 @@ Public Class FormSetup
         RestartTheInstanceToolStripMenuItem.Text = Global.Outworldz.My.Resources.Restart_one_instance_word
         RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.recycle
         RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Restart_word
-        RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.cube_green
-        RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Restore_Database_word
+        RestoreToolStripMenuItem1.Image = Global.Outworldz.My.Resources.disk_blue
+        RestoreToolStripMenuItem1.Text = Global.Outworldz.My.Resources.SQL_Database_Backup_Restore
         RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
         RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear
@@ -2242,7 +2241,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
+    Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem1.Click
 
         Dim Log = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\Mysqldump.log")
         DeleteFile(Log)
@@ -2270,7 +2269,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub CheckAndRepairDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
+    Private Sub CheckAndRepairDatbaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
 
         If Not StartMySQL() Then
             ToolBar(False)
@@ -2876,10 +2875,10 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub RestoreDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestoreDatabaseToolStripMenuItem1.Click
+    Private Sub RestoreDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem1.Click
 
         If PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Aborted_word)
+            TextPrint($"{My.Resources.OpensimNeedstoStop}, {My.Resources.Aborted_word}")
             Return
         End If
 

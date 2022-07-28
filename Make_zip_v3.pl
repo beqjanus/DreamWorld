@@ -279,7 +279,7 @@ unless ( $finalzip->writeToFileNamed($dest) == AZ_OK ) {
     die 'write error';
 }
 
-Copyall:
+
 
 if ( $publish =~ /p/ ) {
 
@@ -292,7 +292,7 @@ if ( $publish =~ /p/ ) {
     #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
     doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
         
-    if (!copy("../Zips/DreamGrid.zip",
+    if (!copy("../Zips/DreamGrid$type.zip",
               "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid.zip")){
         die $!;
     }
@@ -328,7 +328,7 @@ if ( $publish =~ /p/ ) {
     #    die $!;
     #}
     
-    if (!copy("../Zips/DreamGrid.zip",
+    if (!copy("../Zips/DreamGrid$type.zip",
             "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))
     {
         die $!;
@@ -341,7 +341,7 @@ if ( $publish =~ /p/ ) {
     
     if (
         !copy(
-            "../Zips/DreamGrid.zip",
+            "../Zips/DreamGrid$type.zip",
             $Dest
         )
      )
