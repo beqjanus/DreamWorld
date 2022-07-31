@@ -472,8 +472,8 @@ Public Class FormRegions
                     Coord_X(RegionUUID) = X
                     Coord_Y(RegionUUID) = Y
 
-                    Smart_Start(RegionUUID) = "True"
-                    Teleport_Sign(RegionUUID) = "True"
+                    Smart_Start(RegionUUID) = True
+                    Teleport_Sign(RegionUUID) = True
 
                     SizeX(RegionUUID) = SizeRegion * 256
                     SizeY(RegionUUID) = SizeRegion * 256
