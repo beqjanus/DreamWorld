@@ -344,7 +344,6 @@ Public Class FormSetup
 
             ProcessQuit()   '  check if any processes exited
             CheckPost()                 ' see if anything arrived in the web server
-            CheckForBootedRegions()
 
             For Each PID In CountisRunning
                 For Each RegionUUID In RegionUuids()
@@ -462,16 +461,16 @@ Public Class FormSetup
                     Case True
 
                         ' Suspend mode needs to always run regions, even smart start
-                        If Smart_Start(RegionUUID) = "True" And Not Settings.BootOrSuspend Then
+                        If Smart_Start(RegionUUID) And Not Settings.BootOrSuspend Then
                             BootNeeded = True
                             Diagnostics.Debug.Print($"Boot Needed for {RegionName}")
                         End If
 
-                        ' Really Smart Start, not in Region table
-                        If Smart_Start(RegionUUID) = "True" Then
+                        '  Smart Start, not in Region table
+                        If Smart_Start(RegionUUID) Then
                             If Not RegionIsRegistered(RegionUUID) Then
                                 BootNeeded = True
-                                BreakPoint.Print($"{RegionName} is not registered, boot needed")
+                                'BreakPoint.Print($"{RegionName} is not registered, boot needed")
                             End If
 
                             ' If running, make them boot so we can hook on and shut them down
@@ -482,8 +481,7 @@ Public Class FormSetup
                         End If
 
                         ' if set to default, which is true
-                        If Smart_Start(RegionUUID).Length = 0 Or
-                             Smart_Start(RegionUUID) = "False" Then
+                        If Not Smart_Start(RegionUUID) Then
                             BootNeeded = True
                         End If
                     Case False
@@ -907,8 +905,8 @@ Public Class FormSetup
         End If
 
         With Cpu1
-            .CategoryName = "Processor"
-            .CounterName = "% Processor Time"
+            .CategoryName = "Processor Information"
+            .CounterName = "% Processor Utility"
             .InstanceName = "_Total"
         End With
 
@@ -1034,10 +1032,7 @@ Public Class FormSetup
         While Not ExitList.IsEmpty
 
             Dim GroupName = ExitList.Keys.First
-
             Dim Reason = ExitList.Item(GroupName) ' NoLogin or Exit
-
-            Application.DoEvents()
 
             TextPrint(GroupName & " " & Reason)
             Dim out As String = ""
@@ -1511,6 +1506,7 @@ Public Class FormSetup
             speed1 = speed
             Try
                 speed = Me.Cpu1.NextValue()
+                If speed > 100 Then speed = 100
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 If Not Settings.CpuPatched Then
@@ -1529,8 +1525,10 @@ Public Class FormSetup
             End Try
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
-
-            MyCPUCollection.Add(CPUAverageSpeed)
+            If CPUAverageSpeed > 100 Then
+                CPUAverageSpeed = 100
+            End If
+            MyCPUCollection.Add(speed)
 
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
@@ -2028,9 +2026,11 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
-        '      If Not PropOpensimIsRunning() Then
-        '     Return
-        '    End If
+        Chart()                     ' do charts collection
+
+        If Not PropOpensimIsRunning() Then
+            Return
+        End If
 
         If TimerisBusy > 0 And TimerisBusy < 10 Then
             TimerisBusy += 1
@@ -2046,8 +2046,8 @@ Public Class FormSetup
             GetAllRegions(False)
         End If
 
+        CheckForBootedRegions()
         CheckPost()                 ' see if anything arrived in the web server
-        CheckForBootedRegions()     ' and also see if any booted up
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
@@ -2057,7 +2057,7 @@ Public Class FormSetup
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
             ScanAgents()                ' update agent count
-            Chart()                     ' do charts collection each 5 seconds
+
             CalcDiskFree()              ' check for free disk space
             Bench.Print("5 second + worker")
         End If
@@ -2506,7 +2506,7 @@ Public Class FormSetup
     Private Sub FreezAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FreezAllToolStripMenuItem.Click
 
         For Each RegionUUID In RegionUuids()
-            FreezeThaw.FreezeThaw(RegionUUID, True)
+            FreezeThaw.Freeze(RegionUUID)
         Next
 
     End Sub
@@ -3144,7 +3144,7 @@ Public Class FormSetup
     Private Sub ThawAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThawAllToolStripMenuItem.Click
 
         For Each RegionUUID In RegionUuids()
-            FreezeThaw.FreezeThaw(RegionUUID, False)
+            UnPauseRegion(RegionUUID)
         Next
 
     End Sub
