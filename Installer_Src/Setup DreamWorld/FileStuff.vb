@@ -43,6 +43,7 @@ Module FileStuff
     Public Sub Cleanup() ' old files
 
         Dim ToDrop = New List(Of String) From {
+            "NtSuspendProcess64.exe",
             "OutworldzFiles\Mysql\bin\Create_Mutelist.bat",
             "OutworldzFiles\Mysql\bin\Create_Mutelist.sql",
             "fw.bat",

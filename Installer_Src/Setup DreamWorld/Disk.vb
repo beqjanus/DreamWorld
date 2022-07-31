@@ -58,20 +58,14 @@ Module Disk
         End While
 
         For Each RegionUUID In Sleeping
-            Dim RegionName = Region_Name(RegionUUID)
-
-            If ProcessID(RegionUUID) > 0 Then
-                ResumeRegion(RegionUUID)
-            End If
-
+            ResumeRegion(RegionUUID)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
         Next
 
         Sleeping.Clear()
         Busy = False
 
-        PropUpdateView = True ' make form refresh
-        'Application.ExitThread()
+        PropUpdateView = True ' make form refresh        
 
     End Sub
 
