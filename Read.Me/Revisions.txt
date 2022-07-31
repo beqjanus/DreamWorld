@@ -1,5 +1,11 @@
 REVISIONS FOR DREAMGRID
 
+V5.191
+Fixed CheckAndRepair.bat to work with or without password.
+Moved the Mysql check and backup SQL buttons to the Mysql Icon.
+Change the CPU chart to show all CPUs time to match what Task Manager shows.
+Backup all OARS fixes 
+
 V5.19 
 Tweaks to Mass loader so you have choices on Suspend modes and Sequential start modes. I strongly suggest Smart Boot mode (Not suspend) and Sequential on low RAM machines. 
 If you have lots of RAM (32GB), SSDs and a fast CPU, you can go for parallel modes
