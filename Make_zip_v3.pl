@@ -23,8 +23,8 @@ my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
 #my $Contabo = '\\\\contabo2.outworldz.com/c';
 my $Fleta = '\\\\fleta/c';
 my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
-my $zip = '/Opensim/Zip';
-my $repo ='/Opensim/Zips'; 
+my $zip = 'C:/Opensim/Zip/';
+my $repo ='C:/Opensim/Zips'; 
 my $v = GetVersion($src);
 my $type = "-V$v";
 
@@ -41,7 +41,6 @@ chomp $Version;
 $Version > io('GitVersion');
 PrintDate("GitVersion $Version");
 
-
 PrintDate("Building DreamGrid.zip");
 
 PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
@@ -50,6 +49,7 @@ chomp $publish;
 
 PrintDate("Delete Destination Zip");
 JustDelete($zip);
+
 mkdir $zip;
 
 $v > io("$dir/Version.txt");
@@ -102,7 +102,6 @@ foreach my $path (@deletions) {
     DeleteandKeep($path);
 }
 
-JustDelete('/Opensim/Zip');
 DelMaps();
 
 PrintDate("Delete Misc files");
@@ -142,7 +141,7 @@ print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Modules.dll\n";
 
 close OUT;
 
-test:
+
 
 PrintDate("Copy Release");
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release/";
@@ -158,11 +157,12 @@ my @files = `cmd /c dir /b `;
 # Just do files, dirs are explicitly copied over
 foreach my $file (@files) {
     chomp $file;
-    next if -d "$dir/$file";
- 
+    next if -d "$dir/$file"; 
     next if $file =~ /^\./;
-    ProcessFile("\"$dir\\$file\"");
+    say ("copy $dir/$file to $zip$file");
+    copy("$dir/$file", "$zip$file") || die;
 }
+
 PrintDate("Adding folders");
 
 # just dirs
@@ -402,25 +402,6 @@ sub Write {
     close OUT;
 }
 
-sub ProcessFile {
-    my $file = shift;
-    if (! $file) {return};
-    $file =~ s/\//\\/g;
-    
-    my $cmd = "xcopy $file $zip";
-    my $x = `$cmd`;
-    $x =~ s/\n//g;
-    if ( $x =~ / 0 File\(s\) copied/i ) {        
-        say "$file Fail: $x\n";
-        exit;
-    }
-    else {
-        say "$file ok\n";
-        
-    }
-
-}
-
 sub ProcessDir {
     my $file = shift;
     return if $file =~ /\.rtf$/;
@@ -621,6 +602,9 @@ sub CopyManuals
     foreach my $src (@manuals) {
         
         if ($src !~ /\.htm$/) {next};
+        use File::Basename;
+        my $fname = basename($src->name);
+        $fname =~ s/\.htm//;
         
         PrintDate($src);
         my @data = io->file($src)->slurp;
@@ -633,11 +617,11 @@ sub CopyManuals
             
                 if ($l =~ /<\/head>/i)
                 {
-                    $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" --></head><!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->';
+                    $l = qq|<!--#include virtual="/cgi/scripts.plx?ID=liquidscript" --><title>DreamGrid $fname manual</title></head><!--#include virtual="/cgi/scripts.plx?ID=liquidmenu" -->|;
                 }
                 if ($l =~ /<\/body>/i)
                 {
-                    $l = '<!--#include virtual="/cgi/scripts.plx?ID=liquidfooter" --></body>';
+                    $l = qq|<!--#include virtual="/cgi/scripts.plx?ID=liquidfooter" --></body>|;
                 }
             } else
             {
