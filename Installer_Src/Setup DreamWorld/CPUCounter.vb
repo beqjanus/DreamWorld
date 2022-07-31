@@ -63,14 +63,14 @@ Module CPUCounter
 
             For Each RegionUUID In RegionUuids()
                 Application.DoEvents()
-                Dim RegionName = Region_Name(RegionUUID)
+
                 Dim PID = ProcessID(RegionUUID)
                 If PID = 0 Then
                     Continue For
                 End If
 
-                Dim c As PerformanceCounter = Nothing
-
+                'Dim c As PerformanceCounter = Nothing
+                Dim RegionName = Region_Name(RegionUUID)
                 If Not CounterList.ContainsKey(RegionName) Then
                     Try
                         Using counter As PerformanceCounter = GetPerfCounterForProcessId(PID)
