@@ -475,7 +475,7 @@ Public Class FormRegion
         If SkipAutobackup(RegionUUID) = "True" Then
             SkipAutoCheckBox.Checked = True
         End If
-        If Smart_Start(RegionUUID) = "True" Then
+        If Smart_Start(RegionUUID) Then
             SmartStartCheckBox.Checked = True
         End If
 
@@ -608,14 +608,7 @@ Public Class FormRegion
                 TidesCheckbox.Checked = True
         End Select
 
-        Select Case Teleport_Sign(RegionUUID)
-            Case ""
-                TPCheckBox1.Checked = False
-            Case "False"
-                TPCheckBox1.Checked = False
-            Case "True"
-                TPCheckBox1.Checked = True
-        End Select
+        TPCheckBox1.Checked = Teleport_Sign(RegionUUID)
 
         Select Case Disallow_Foreigners(RegionUUID)
             Case ""
@@ -1314,9 +1307,9 @@ Public Class FormRegion
             End If
 
             If TPCheckBox1.Checked Then
-                Teleport_Sign(RegionUUID) = "True"
+                Teleport_Sign(RegionUUID) = True
             Else
-                Teleport_Sign(RegionUUID) = ""
+                Teleport_Sign(RegionUUID) = False
             End If
 
             If DisableGBCheckBox.Checked Then
@@ -1338,9 +1331,9 @@ Public Class FormRegion
             End If
 
             If SmartStartCheckBox.Checked Then
-                Smart_Start(RegionUUID) = "True"
+                Smart_Start(RegionUUID) = True
             Else
-                Smart_Start(RegionUUID) = ""
+                Smart_Start(RegionUUID) = False
             End If
 
             ScriptEngine(RegionUUID) = "" ' default is blank
@@ -1391,7 +1384,7 @@ Public Class FormRegion
                                 "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf &
                                 "Birds=" & Birds(RegionUUID) & vbCrLf &
                                 "Tides=" & Tides(RegionUUID) & vbCrLf &
-                                "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf &
+                                "Teleport=" & CStr(Teleport_Sign(RegionUUID)) & vbCrLf &
                                 "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf &
                                 "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf &
                                 "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf &
@@ -1401,7 +1394,7 @@ Public Class FormRegion
                                 "OpensimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf &
                                 "Priority=" & Priority(RegionUUID) & vbCrLf &
                                 "Cores=" & CStr(Cores(RegionUUID)) & vbCrLf &
-                                "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf
+                                "SmartStart=" & CStr(Smart_Start(RegionUUID)) & vbCrLf
 
                     Try
                         Using outputFile As New StreamWriter(RegionIniFilePath(RegionUUID), False)

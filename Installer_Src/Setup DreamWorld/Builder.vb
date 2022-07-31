@@ -170,7 +170,7 @@ Module Build
             GetAllRegions(False)
             For Each Name In Bootable
                 If Name.Length > 0 Then
-                    ReBoot(FindRegionByName(Name))
+                    ResumeRegion(FindRegionByName(Name))
                 End If
             Next
         End If
@@ -383,8 +383,8 @@ Module Build
         CrashCounter(RegionUUID) = 0
         Coord_X(RegionUUID) = X
         Coord_Y(RegionUUID) = Y
-        Smart_Start(RegionUUID) = "True"
-        Teleport_Sign(RegionUUID) = "True"
+        Smart_Start(RegionUUID) = True
+        Teleport_Sign(RegionUUID) = True
         SizeX(RegionUUID) = 256
         SizeY(RegionUUID) = 256
         Group_Name(RegionUUID) = Group
