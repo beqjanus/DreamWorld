@@ -266,10 +266,6 @@ Module SmartStart
 
                         If RegionEnabled(RegionUUID) Then
                             Boot(RegionName)
-                            'Else
-                            '   If ResumeRegion(RegionUUID) And RegionEnabled(RegionUUID) Then
-                            '  Boot(RegionName)
-                            'End If
                         End If
                         RunTaskList(RegionUUID)
                     Next
@@ -850,6 +846,7 @@ Module SmartStart
                              Smart_Start(UUID) And
                              Settings.Smart_Start Then
                         FreezeThaw.Thaw(UUID)
+                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     End If
 
                     If Not Settings.Smart_Start Then
