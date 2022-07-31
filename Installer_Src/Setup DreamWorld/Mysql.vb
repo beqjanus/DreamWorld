@@ -15,7 +15,7 @@ Imports MySqlConnector
 Public Module MysqlInterface
     Public WithEvents ProcessMySql As Process = New Process()
     Public CachedAvatars As New Dictionary(Of String, String)
-    Private Const Rezzable As Integer = 64 '     Region flag for rez
+
     Private ReadOnly Dict As New Dictionary(Of String, String)
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
@@ -725,33 +725,33 @@ Public Module MysqlInterface
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim Output As New MailList With {
-                            .firstname = reader.GetString(0),
+                            .Firstname = reader.GetString(0),
                             .LastName = reader.GetString(1),
                             .Email = reader.GetString(2),
                             .Title = reader.GetString(3),
-                            .principalid = reader.GetString(4)
+                            .Principalid = reader.GetString(4)
                             }
 
                             Dim Level = reader.GetInt32(5)
 
                             If Level < 0 Then
-                                Output.userlevel = "Disabled"
+                                Output.Userlevel = "Disabled"
                             ElseIf Level >= 0 And Level < 100 Then
-                                Output.userlevel = "Enabled"
+                                Output.Userlevel = "Enabled"
                             ElseIf Level >= 100 And Level < 200 Then
-                                Output.userlevel = "Wifi"
+                                Output.Userlevel = "Wifi"
                             ElseIf Level >= 200 Then
-                                Output.userlevel = "God"
+                                Output.Userlevel = "God"
                             End If
 
                             Dim created = reader.GetInt32(6)
                             Dim datecreated = UnixTimestampToDateTime(created)
                             Output.Datestring = datecreated.ToString(CultureInfo.CurrentCulture)
                             Output.DiffDays = DateDiff(DateInterval.Day, datecreated, DateTime.Now).ToString("000000", Globalization.CultureInfo.CurrentCulture)
-                            Output.Assets = MysqlInterface.AssetCount(Output.principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
+                            Output.Assets = MysqlInterface.AssetCount(Output.Principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
 
-                            If Output.firstname <> "GRID" And Output.LastName <> "SERVICES" Then
-                                result.Add(Output.principalid, Output)
+                            If Output.Firstname <> "GRID" And Output.LastName <> "SERVICES" Then
+                                result.Add(Output.Principalid, Output)
                             End If
                         End While
                     End Using
@@ -1113,10 +1113,10 @@ Public Module MysqlInterface
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            result.id = reader.GetInt32(0)
-                            result.principalid = reader.GetString(1)
-                            result.fromid = reader.GetString(2)
-                            result.message = reader.GetString(3)
+                            result.Id = reader.GetInt32(0)
+                            result.Principalid = reader.GetString(1)
+                            result.Fromid = reader.GetString(2)
+                            result.Message = reader.GetString(3)
                             emails.Add(result)
                         End If
                     End Using
@@ -1648,21 +1648,81 @@ Public Module MysqlInterface
 
     Public Class EmailData
 
-        Public fromid As String = ""
-        Public id As Integer             ' table im_offline id
+        Private _fromid As String = ""
+        Private _id As Integer
+        Private _message As String = ""
+        Private _principalid As String = ""
 
-        ' from
-        Public message As String = ""
+        Public Property Fromid As String
+            Get
+                Return _fromid
+            End Get
+            Set(value As String)
+                _fromid = value
+            End Set
+        End Property
 
-        Public principalid As String = "" ' To
-        ' message
+        Public Property Id As Integer
+            Get
+                Return _id
+            End Get
+            Set(value As Integer)
+                _id = value
+            End Set
+        End Property
+
+        Public Property Message As String
+            Get
+                Return _message
+            End Get
+            Set(value As String)
+                _message = value
+            End Set
+        End Property
+
+        Public Property Principalid As String
+            Get
+                Return _principalid
+            End Get
+            Set(value As String)
+                _principalid = value
+            End Set
+        End Property
 
     End Class
 
     Public Class Person
-        Public Email As String = ""
-        Public FirstName As String = ""
-        Public LastName As String = ""
+        Private _email As String = ""
+        Private _firstName As String = ""
+        Private _lastName As String = ""
+
+        Public Property Email As String
+            Get
+                Return _email
+            End Get
+            Set(value As String)
+                _email = value
+            End Set
+        End Property
+
+        Public Property FirstName As String
+            Get
+                Return _firstName
+            End Get
+            Set(value As String)
+                _firstName = value
+            End Set
+        End Property
+
+        Public Property LastName As String
+            Get
+                Return _lastName
+            End Get
+            Set(value As String)
+                _lastName = value
+            End Set
+        End Property
+
     End Class
 
 #End Region
@@ -1813,23 +1873,170 @@ End Module
 
 Public Class MailList
 
-    Public Assets As String = ""
-    Public Datestring As String = ""
-    Public DiffDays As String = ""
-    Public Email As String = ""
-    Public firstname As String = ""
-    Public LastName As String = ""
-    Public principalid As String = ""
-    Public Title As String = ""
-    Public userlevel As String = ""
+    Private _assets As String = ""
+    Private _datestring As String = ""
+    Private _diffDays As String = ""
+    Private _email As String = ""
+    Private _firstname As String = ""
+    Private _lastName As String = ""
+    Private _principalid As String = ""
+    Private _title As String = ""
+    Private _userlevel As String = ""
+
+    Public Property Assets As String
+        Get
+            Return _assets
+        End Get
+        Set(value As String)
+            _assets = value
+        End Set
+    End Property
+
+    Public Property Datestring As String
+        Get
+            Return _datestring
+        End Get
+        Set(value As String)
+            _datestring = value
+        End Set
+    End Property
+
+    Public Property DiffDays As String
+        Get
+            Return _diffDays
+        End Get
+        Set(value As String)
+            _diffDays = value
+        End Set
+    End Property
+
+    Public Property Email As String
+        Get
+            Return _email
+        End Get
+        Set(value As String)
+            _email = value
+        End Set
+    End Property
+
+    Public Property Firstname As String
+        Get
+            Return _firstname
+        End Get
+        Set(value As String)
+            _firstname = value
+        End Set
+    End Property
+
+    Public Property LastName As String
+        Get
+            Return _lastName
+        End Get
+        Set(value As String)
+            _lastName = value
+        End Set
+    End Property
+
+    Public Property Principalid As String
+        Get
+            Return _principalid
+        End Get
+        Set(value As String)
+            _principalid = value
+        End Set
+    End Property
+
+    Public Property Title As String
+        Get
+            Return _title
+        End Get
+        Set(value As String)
+            _title = value
+        End Set
+    End Property
+
+    Public Property Userlevel As String
+        Get
+            Return _userlevel
+        End Get
+        Set(value As String)
+            _userlevel = value
+        End Set
+    End Property
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+        Dim list = TryCast(obj, MailList)
+        Return list IsNot Nothing AndAlso
+               Assets = list.Assets
+    End Function
+
+    Public Overrides Function GetHashCode() As Integer
+        Return HashCode.Combine(Assets)
+    End Function
+
 End Class
 
 Public Class UserData
 
-    Public Email As String = ""
-    Public FirstName As String = ""
-    Public LastName As String = ""
-    Public Level As Integer = -1
-    Public PrincipalID As String = ""
-    Public UserTitle As String = ""
+    Private _email As String = ""
+    Private _firstName As String = ""
+    Private _lastName As String = ""
+    Private _level As Integer = -1
+    Private _principalID As String = ""
+    Private _userTitle As String = ""
+
+    Public Property Email As String
+        Get
+            Return _email
+        End Get
+        Set(value As String)
+            _email = value
+        End Set
+    End Property
+
+    Public Property FirstName As String
+        Get
+            Return _firstName
+        End Get
+        Set(value As String)
+            _firstName = value
+        End Set
+    End Property
+
+    Public Property LastName As String
+        Get
+            Return _lastName
+        End Get
+        Set(value As String)
+            _lastName = value
+        End Set
+    End Property
+
+    Public Property Level As Integer
+        Get
+            Return _level
+        End Get
+        Set(value As Integer)
+            _level = value
+        End Set
+    End Property
+
+    Public Property PrincipalID As String
+        Get
+            Return _principalID
+        End Get
+        Set(value As String)
+            _principalID = value
+        End Set
+    End Property
+
+    Public Property UserTitle As String
+        Get
+            Return _userTitle
+        End Get
+        Set(value As String)
+            _userTitle = value
+        End Set
+    End Property
+
 End Class
