@@ -40,7 +40,7 @@ Public Class FormBlockify
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GoButton.Click
 
         If PropOpensimIsRunning() Then
-            MsgBox(My.Resources.OpensimNeedstoStop, vbYesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Cancelled_word)
+            MsgBox(My.Resources.OpensimNeedstoStop, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Cancelled_word)
             Return
         End If
 
