@@ -174,6 +174,7 @@ Partial Class FormRegion
         Me.Label9 = New System.Windows.Forms.Label()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Physics_Hybrid = New System.Windows.Forms.RadioButton()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -1347,6 +1348,7 @@ Partial Class FormRegion
         '
         'PhysicsGroupbox
         '
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Hybrid)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Bullet)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Default)
         Me.PhysicsGroupbox.Controls.Add(Me.Physics_Separate)
@@ -1361,7 +1363,7 @@ Partial Class FormRegion
         'Physics_Bullet
         '
         Me.Physics_Bullet.AutoSize = True
-        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 69)
+        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 93)
         Me.Physics_Bullet.Name = "Physics_Bullet"
         Me.Physics_Bullet.Size = New System.Drawing.Size(92, 17)
         Me.Physics_Bullet.TabIndex = 3
@@ -1383,7 +1385,7 @@ Partial Class FormRegion
         'Physics_Separate
         '
         Me.Physics_Separate.AutoSize = True
-        Me.Physics_Separate.Location = New System.Drawing.Point(15, 92)
+        Me.Physics_Separate.Location = New System.Drawing.Point(15, 116)
         Me.Physics_Separate.Name = "Physics_Separate"
         Me.Physics_Separate.Size = New System.Drawing.Size(177, 17)
         Me.Physics_Separate.TabIndex = 4
@@ -1759,6 +1761,17 @@ Partial Class FormRegion
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
+        'Physics_Hybrid
+        '
+        Me.Physics_Hybrid.AutoSize = True
+        Me.Physics_Hybrid.Location = New System.Drawing.Point(15, 70)
+        Me.Physics_Hybrid.Name = "Physics_Hybrid"
+        Me.Physics_Hybrid.Size = New System.Drawing.Size(55, 17)
+        Me.Physics_Hybrid.TabIndex = 5
+        Me.Physics_Hybrid.TabStop = True
+        Me.Physics_Hybrid.Text = "Hybrid"
+        Me.Physics_Hybrid.UseVisualStyleBackColor = True
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1958,4 +1971,5 @@ Partial Class FormRegion
     Friend WithEvents LandingSpotLabel As Label
     Friend WithEvents LandingSpotTextBox As TextBox
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents Physics_Hybrid As RadioButton
 End Class

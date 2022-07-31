@@ -60,7 +60,7 @@
             Dim PID = ProcessID(RegionUUID)
             ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-            'SetRegionOnline(RegionUUID)
+            'SetRegionOnline(RegionUUID)    
             NtResumeProcess(CachedProcess(PID).Handle)
         End If
 

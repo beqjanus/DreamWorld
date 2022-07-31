@@ -199,6 +199,7 @@ Public Class FormRegion
         Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         Physics_Separate.Text = Global.Outworldz.My.Resources.BP
         Physics_ubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        Physics_Hybrid.Text = Global.Outworldz.My.Resources.UbitHybrid
         PhysPrimLabel.Text = Global.Outworldz.My.Resources.Physical_Prim
 
         Publish.Text = Global.Outworldz.My.Resources.Publish_Items
@@ -521,9 +522,11 @@ Public Class FormRegion
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
+            Case "1" : Physics_Default.Checked = True   ' ODE is gone
             Case "2" : Physics_Bullet.Checked = True
             Case "3" : Physics_Separate.Checked = True
             Case "4" : Physics_ubODE.Checked = True
+            Case "5" : Physics_Hybrid.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 
@@ -1258,6 +1261,8 @@ Public Class FormRegion
                 Phys = "3"
             ElseIf Physics_ubODE.Checked Then
                 Phys = "4"
+            ElseIf Physics_Hybrid.Checked Then
+                Phys = "5"
             Else
                 Phys = "2"
             End If
@@ -1543,6 +1548,10 @@ Public Class FormRegion
     End Sub
 
     Private Sub High_CheckedChanged(sender As Object, e As EventArgs) Handles High.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub HybridRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 

@@ -2020,7 +2020,10 @@ Module RegionMaker
                     If INI.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
                     If INI.SetIni("Startup", "physics", "basicphysics") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-
+                Case "1"
+                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                 Case "2"
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
@@ -2033,7 +2036,10 @@ Module RegionMaker
                     If INI.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-
+                Case "5"
+                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If INI.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                 Case Else
                     ' do nothing
             End Select
