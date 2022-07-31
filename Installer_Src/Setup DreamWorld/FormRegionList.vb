@@ -40,16 +40,16 @@ Public Class FormRegionlist
 
     ' icons image list layout
     Enum Dgicon
-        bootingup = 0
-        shuttingdown = 1
-        up = 2
+        Bootingup = 0
+        Shuttingdown = 1
+        Up = 2
         Disabled = 3
-        stopped = 4
-        recyclingdown = 5
-        recyclingup = 6
-        warning = 7
-        user1 = 8
-        user2 = 9
+        Stopped = 4
+        Recyclingdown = 5
+        Recyclingup = 6
+        Warning = 7
+        User1 = 8
+        User2 = 9
         SmartStartStopped = 10
         Home = 11
         HomeOffline = 12
@@ -313,6 +313,7 @@ SetWindowOnTop_Err:
                 End If
                 Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
                 SetWindowOnTop(hwnd.ToInt32)
+                Sleep(2000)
                 Settings.ConsoleShow = tmp
             End If
 
@@ -412,7 +413,7 @@ SetWindowOnTop_Err:
 
                     If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-                    If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
+                    If SmartButton.Checked And Not Smart_Start(RegionUUID) Then Continue For
 
                     RegionEnabled(RegionUUID) = AllNone.Checked
 
@@ -470,7 +471,7 @@ SetWindowOnTop_Err:
 
         PropChangedRegionSettings = True
         GetAllRegions(False)
-
+        CalcCPU()
         LoadMyListView()
 
     End Sub
@@ -740,24 +741,21 @@ SetWindowOnTop_Err:
             Else
                 Num = Dgicon.Disabled
             End If
-            '   ElseIf Estate.Length = 0 Then
-            '      Letter = My.Resources.No_Estate_Word
-            '     Num = DGICON.NoEstate
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Settings.BootOrSuspend Then
+        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend Then
             Letter = My.Resources.Waiting
             Num = Dgicon.SmartStartStopped
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Not Settings.BootOrSuspend Then
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
             Num = Dgicon.IceMelted
-        ElseIf Status = SIMSTATUSENUM.Suspended And Smart_Start(RegionUUID) = "True" And Settings.Smart_Start And Not Settings.BootOrSuspend Then
+        ElseIf Status = SIMSTATUSENUM.Suspended And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
             Num = Dgicon.Icecube
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) = "True" And Not Settings.Smart_Start Then
+        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Not Settings.Smart_Start Then
             Letter = My.Resources.Stopped_word
-            Num = Dgicon.stopped
-        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) <> "True" Then
+            Num = Dgicon.Stopped
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) Then
             Letter = My.Resources.Stopped_word
-            Num = Dgicon.stopped
+            Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Error Then
             Letter = My.Resources.Error_word
             Num = Dgicon.ErrorIcon
@@ -766,28 +764,28 @@ SetWindowOnTop_Err:
             Num = Dgicon.Suspended
         ElseIf Status = SIMSTATUSENUM.RecyclingDown Then
             Letter = My.Resources.Recycling_Down_word
-            Num = Dgicon.recyclingdown
+            Num = Dgicon.Recyclingdown
         ElseIf Status = SIMSTATUSENUM.RecyclingUp Then
             Letter = My.Resources.Recycling_Up_word
-            Num = Dgicon.recyclingup
+            Num = Dgicon.Recyclingup
         ElseIf Status = SIMSTATUSENUM.RestartPending Then
             Letter = My.Resources.Restart_Pending_word
-            Num = Dgicon.recyclingup
+            Num = Dgicon.Recyclingup
         ElseIf Status = SIMSTATUSENUM.RetartingNow Then
             Letter = My.Resources.Restarting_Now_word
-            Num = Dgicon.recyclingup
+            Num = Dgicon.Recyclingup
         ElseIf Status = SIMSTATUSENUM.Resume Then
             Letter = "Restarting Now"
-            Num = Dgicon.recyclingup
+            Num = Dgicon.Recyclingup
         ElseIf Status = SIMSTATUSENUM.Booting Then
             Letter = My.Resources.Booting_word
-            Num = Dgicon.bootingup
+            Num = Dgicon.Bootingup
         ElseIf Status = SIMSTATUSENUM.NoLogin Then
             Letter = My.Resources.NoLogin_word
             Num = Dgicon.NoLogOn
         ElseIf Status = SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
-            Num = Dgicon.shuttingdown
+            Num = Dgicon.Shuttingdown
         ElseIf Status = SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
         ElseIf Status = SIMSTATUSENUM.NoError Then
@@ -795,10 +793,10 @@ SetWindowOnTop_Err:
             Num = Dgicon.NoError
         ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) = 1 Then
             Letter = My.Resources.Running_word
-            Num = Dgicon.user1
+            Num = Dgicon.User1
         ElseIf Status = SIMSTATUSENUM.Booted And AvatarCount(RegionUUID) > 1 Then
             Letter = CStr(AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
-            Num = Dgicon.user2
+            Num = Dgicon.User2
         ElseIf Status = SIMSTATUSENUM.NoShutdown Then
             Letter = My.Resources.Busy_word
             Num = Dgicon.Busy
@@ -808,10 +806,10 @@ SetWindowOnTop_Err:
                 Letter = My.Resources.Home_word
             Else
                 Letter = My.Resources.Running_word
-                Num = Dgicon.up
+                Num = Dgicon.Up
             End If
         Else
-            Num = Dgicon.warning ' warning
+            Num = Dgicon.Warning ' warning
         End If
 
         Return Status
@@ -1456,7 +1454,7 @@ SetWindowOnTop_Err:
 
                     If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
                     If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-                    If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
+                    If SmartButton.Checked And Not Smart_Start(RegionUUID) Then Continue For
                     If Bootedbutton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted Then Continue For
                     If StoppedButton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped Then Continue For
 
@@ -1482,7 +1480,7 @@ SetWindowOnTop_Err:
                     ' RAM
 
                     If status = SIMSTATUSENUM.Booting _
-                            Or (status = SIMSTATUSENUM.Suspended And Settings.Smart_Start And Smart_Start(RegionUUID) = "True") _
+                            Or (status = SIMSTATUSENUM.Suspended And Settings.Smart_Start And Smart_Start(RegionUUID)) _
                             Or status = SIMSTATUSENUM.Booted _
                             Or status = SIMSTATUSENUM.RecyclingUp _
                             Or status = SIMSTATUSENUM.RecyclingDown _
@@ -1593,13 +1591,13 @@ SetWindowOnTop_Err:
                     End If
 
                     'teleport
-                    If Teleport_Sign(RegionUUID) = "True" Then
+                    If Teleport_Sign(RegionUUID) Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
                         item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
-                    If Smart_Start(RegionUUID) = "True" Then
+                    If Smart_Start(RegionUUID) Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
                         item1.SubItems.Add("-".ToUpperInvariant)
@@ -1693,7 +1691,7 @@ SetWindowOnTop_Err:
 
             If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
             If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-            If SmartButton.Checked And Not Smart_Start(RegionUUID) = "True" Then Continue For
+            If SmartButton.Checked And Not Smart_Start(RegionUUID) Then Continue For
             If Bootedbutton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted Then Continue For
             If StoppedButton.Checked And RegionStatus(RegionUUID) <> SIMSTATUSENUM.Stopped Then Continue For
 
@@ -1736,7 +1734,7 @@ SetWindowOnTop_Err:
             If RegionEnabled(RegionUUID) Then
                 RegionCount += 1
             End If
-            If RegionEnabled(RegionUUID) And Smart_Start(RegionUUID) = "True" Then
+            If RegionEnabled(RegionUUID) And Smart_Start(RegionUUID) Then
                 SSRegionCount += 1
             End If
             TotalRegionCount += 1
@@ -1755,7 +1753,7 @@ SetWindowOnTop_Err:
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-        CalcCPU()
+        ' CalcCPU()
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1773,9 +1771,9 @@ SetWindowOnTop_Err:
                 Dim k = Agent.Key
                 Dim O = Agent.Value
 
-                If O.firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
+                If O.Firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
 
-                    Dim item1 As New ListViewItem(O.firstname & " " & O.LastName, Index)
+                    Dim item1 As New ListViewItem(O.Firstname & " " & O.LastName, Index)
 
                     If O.Email.Length = 0 Then
                         item1.BackColor = Color.DarkGray
@@ -1790,10 +1788,10 @@ SetWindowOnTop_Err:
                     item1.SubItems.Add(O.Email)
                     item1.SubItems.Add(O.Title)
                     item1.SubItems.Add(O.DiffDays)
-                    item1.SubItems.Add(O.userlevel)
+                    item1.SubItems.Add(O.Userlevel)
                     item1.SubItems.Add(O.Datestring)
                     item1.SubItems.Add(O.Assets)
-                    item1.SubItems.Add(O.principalid)
+                    item1.SubItems.Add(O.Principalid)
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
                     Index += 1
@@ -1836,14 +1834,16 @@ SetWindowOnTop_Err:
             Return
         End If
 
-        If TheView1 = ViewType.Details Then
-            CalcCPU()
-        End If
+        'If TheView1 = ViewType.Details Then
+        ' CalcCPU()
+        'End If
 
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()
             Timer1.Interval = 1000
         End If
+
+        Application.DoEvents()
 
     End Sub
 
