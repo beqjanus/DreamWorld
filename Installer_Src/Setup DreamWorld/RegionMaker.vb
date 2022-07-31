@@ -144,6 +144,7 @@ Module RegionMaker
                 End If
 
                 BootedList.Add(uuid)
+                CheckForBootedRegions()
 
             ElseIf json.login = "shutdown" Then
                 Continue For   ' this bit below interferes with restarting multiple regions in a DOS box
@@ -267,7 +268,7 @@ Module RegionMaker
                 ErrorLog("No Region UUID for Estate")
             End If
 
-            If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) = "True" AndAlso out = 0 Then
+            If Settings.AutoFill AndAlso Settings.Smart_Start AndAlso Smart_Start(RegionUUID) AndAlso out = 0 Then
                 Estate(RegionUUID) = "SimSurround"
                 SetEstate(RegionUUID, 1999)
             End If
@@ -304,7 +305,7 @@ Module RegionMaker
         & "ManagerGod=" & ManagerGod(RegionUUID) & vbCrLf _
         & "Birds=" & Birds(RegionUUID) & vbCrLf _
         & "Tides=" & Tides(RegionUUID) & vbCrLf _
-        & "Teleport=" & Teleport_Sign(RegionUUID) & vbCrLf _
+        & "Teleport=" & CStr(Teleport_Sign(RegionUUID)) & vbCrLf _
         & "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf _
         & "DisallowForeigners=" & Disallow_Foreigners(RegionUUID) & vbCrLf _
         & "DisallowResidents=" & Disallow_Residents(RegionUUID) & vbCrLf _
@@ -313,7 +314,7 @@ Module RegionMaker
         & "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf _
         & "Publicity=" & GDPR(RegionUUID) & vbCrLf _
         & "Concierge=" & Concierge(RegionUUID) & vbCrLf _
-        & "SmartStart=" & Smart_Start(RegionUUID) & vbCrLf _
+        & "SmartStart=" & CStr(Smart_Start(RegionUUID)) & vbCrLf _
         & "LandingSpot=" & LandingSpot(RegionUUID) & vbCrLf _
         & "Cores=" & Cores(RegionUUID) & vbCrLf _
         & "Priority=" & Priority(RegionUUID) & vbCrLf _
@@ -604,7 +605,7 @@ Module RegionMaker
                                 ManagerGod(uuid) = CStr(INI.GetIni(fName, "ManagerGod", "", "String"))
                                 Birds(uuid) = CStr(INI.GetIni(fName, "Birds", "", "String"))
                                 Tides(uuid) = CStr(INI.GetIni(fName, "Tides", "", "String"))
-                                Teleport_Sign(uuid) = CStr(INI.GetIni(fName, "Teleport", "", "String"))
+                                Teleport_Sign(uuid) = CBool(INI.GetIni(fName, "Teleport", "", "Boolean"))
                                 DisableGloebits(uuid) = CStr(INI.GetIni(fName, "DisableGloebits", "", "String"))
                                 Disallow_Foreigners(uuid) = CStr(INI.GetIni(fName, "DisallowForeigners", "", "String"))
                                 Disallow_Residents(uuid) = CStr(INI.GetIni(fName, "DisallowResidents", "", "String"))
@@ -613,7 +614,7 @@ Module RegionMaker
                                 ScriptEngine(uuid) = CStr(INI.GetIni(fName, "ScriptEngine", "", "String"))
                                 GDPR(uuid) = CStr(INI.GetIni(fName, "Publicity", "", "String"))
                                 Concierge(uuid) = CStr(INI.GetIni(fName, "Concierge", "", "String"))
-                                Smart_Start(uuid) = CStr(INI.GetIni(fName, "SmartStart", "False", "String"))
+                                Smart_Start(uuid) = CBool(INI.GetIni(fName, "SmartStart", "False", "Boolean"))
                                 LandingSpot(uuid) = CStr(INI.GetIni(fName, "DefaultLanding", "", "String"))
                                 OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
                                 Cores(uuid) = CInt(0 & INI.GetIni(fName, "Cores", "", "String"))
@@ -640,19 +641,19 @@ Module RegionMaker
 
                                     Region_Port(uuid) = GetPort(uuid)
 
-                                    Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  to {fName}", "Port")
-                                    Logger("Port", $"Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
+                                    Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  To {fName}", "Port")
+                                    Logger("Port", $"Assign Group Port {CStr(GroupPort(uuid))} To {fName}", "Port")
                                 Else
                                     Region_Port(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                                     If Region_Port(uuid) = 0 Then Region_Port(uuid) = LargestPort() + 1
-                                    Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} to {fName}", "Port")
+                                    Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))} To {fName}", "Port")
                                     '
                                     GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
-                                    BreakPoint.Print($"Assign Group Port {CStr(GroupPort(uuid))} to {fName}")
+                                    BreakPoint.Print($"Assign Group Port {CStr(GroupPort(uuid))} To {fName}")
                                     '
                                     If GroupPort(uuid) = 0 Then
                                         GroupPort(uuid) = ThisGroup
-                                        Logger("Port", $"Re-Assign Group Port {CStr(GroupPort(uuid))} to {fName}", "Port")
+                                        Logger("Port", $"Re-Assign Group Port {CStr(GroupPort(uuid))} To {fName}", "Port")
                                     End If
 
                                 End If
@@ -670,7 +671,7 @@ Module RegionMaker
                             End If
 
                             INI.SaveIni()
-                            Debug.Print($"Adding {Region_Name(uuid)} to map")
+                            Debug.Print($"Adding {Region_Name(uuid)} To map")
                             AddToRegionMap(uuid)
 
                         Next
@@ -732,7 +733,7 @@ Module RegionMaker
 
     Public Sub StopRegion(RegionUUID As String)
 
-        FreezeThaw.FreezeThaw(RegionUUID, False)
+        UnPauseRegion(RegionUUID)
         Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
             SequentialPause()
@@ -1407,14 +1408,19 @@ Module RegionMaker
         End Set
     End Property
 
-    Public Property Smart_Start(uuid As String) As String
+    ''' <summary>
+    ''' Gets region Smart Start Type
+    ''' </summary>
+    ''' <param name="uuid"></param>
+    ''' <returns>True if Smart Start</returns>
+    Public Property Smart_Start(uuid As String) As Boolean
         Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._RegionSmartStart
+            If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._RegionSmartStart)
             BadUUID(uuid)
-            Return ""
+            Return False
         End Get
-        Set(ByVal Value As String)
-            RegionList(uuid)._RegionSmartStart = Value
+        Set(ByVal Value As Boolean)
+            RegionList(uuid)._RegionSmartStart = CStr(Value)
         End Set
     End Property
 
@@ -1429,14 +1435,14 @@ Module RegionMaker
         End Set
     End Property
 
-    Public Property Teleport_Sign(uuid As String) As String
+    Public Property Teleport_Sign(uuid As String) As Boolean
         Get
-            If RegionList.ContainsKey(uuid) Then Return RegionList(uuid)._Teleport
+            If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._Teleport)
             BadUUID(uuid)
-            Return ""
+            Return False
         End Get
-        Set(ByVal Value As String)
-            RegionList(uuid)._Teleport = Value
+        Set(ByVal Value As Boolean)
+            RegionList(uuid)._Teleport = CStr(Value)
         End Set
     End Property
 
@@ -2309,7 +2315,7 @@ Module RegionMaker
                 If regionINI.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid)) Then Return True
                 If regionINI.SetIni(Name, "Birds", Birds(uuid)) Then Return True
                 If regionINI.SetIni(Name, "Tides", Tides(uuid)) Then Return True
-                If regionINI.SetIni(Name, "Teleport", Teleport_Sign(uuid)) Then Return True
+                If regionINI.SetIni(Name, "Teleport", CStr(Teleport_Sign(uuid))) Then Return True
                 If regionINI.SetIni(Name, "DisallowForeigners", Disallow_Foreigners(uuid)) Then Return True
                 If regionINI.SetIni(Name, "DisallowResidents", Disallow_Residents(uuid)) Then Return True
                 If regionINI.SetIni(Name, "SkipAutoBackup", SkipAutobackup(uuid)) Then Return True

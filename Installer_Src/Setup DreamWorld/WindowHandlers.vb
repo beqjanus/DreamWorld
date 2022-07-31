@@ -11,14 +11,13 @@ Imports System.Threading
 Module WindowHandlers
 
     Private _exitList As New ConcurrentDictionary(Of String, String)
+    Private _WaitList As New List(Of String)
 
     Public ReadOnly Property ExitList As ConcurrentDictionary(Of String, String)
         Get
             Return _exitList
         End Get
     End Property
-
-    Private _WaitList As New List(Of String)
 
     Public ReadOnly Property WaitList As List(Of String)
         Get
@@ -75,7 +74,7 @@ Module WindowHandlers
             If RegionUUID <> RobustName() Then
                 PID = ProcessID(RegionUUID)
                 If PID > 0 Then
-                    FreezeThaw.FreezeThaw(RegionUUID, False)
+                    UnPauseRegion(RegionUUID)
                     Try
                         If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
@@ -101,6 +100,7 @@ Module WindowHandlers
                 DoType("Robust", command)
             End If
         End If
+        AppActivate(Process.GetCurrentProcess.Id)
         Return False
 
     End Function
@@ -129,7 +129,7 @@ Module WindowHandlers
             End If
             Try
                 AppActivate(PID)
-                Sleep(100)
+
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
@@ -148,7 +148,7 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-                Sleep(100)
+
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
@@ -158,6 +158,14 @@ Module WindowHandlers
             End Try
         End If
 
+    End Sub
+
+    Public Sub FocusWindow(ByVal PID As Integer)
+
+        Dim p As System.Diagnostics.Process = CachedProcess(PID)
+        If p IsNot Nothing Then
+            SetForegroundWindow(p.MainWindowHandle)
+        End If
     End Sub
 
     Public Function GetHwnd(Groupname As String) As IntPtr
