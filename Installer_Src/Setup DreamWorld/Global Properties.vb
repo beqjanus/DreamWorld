@@ -89,16 +89,6 @@ Module Global_Properties
 
     End Sub
 
-    Private Function Truncate(value As String, length As Integer) As String
-        ' If argument is too big, return the original string.
-        ' ... Otherwise take a substring from the string's start index.
-        If length > value.Length Then
-            Return value
-        Else
-            Return value.Substring(0, length)
-        End If
-    End Function
-
 #End Region
 
 #Region "Functions"
