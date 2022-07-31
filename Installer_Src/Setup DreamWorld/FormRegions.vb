@@ -658,11 +658,7 @@ Public Class FormRegions
     Private Sub Button1_Click_4(sender As Object, e As EventArgs) Handles Button1.Click
 
         If (MsgBox(My.Resources.rezrights, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "Information") = Windows.Forms.DialogResult.Yes) Then
-            Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez
-            QueryString(stm)
-
-            stm = "update land set landflags = (landflags & ! 16);" ' Land editing
-            QueryString(stm)
+            DoLand()
         End If
 
     End Sub

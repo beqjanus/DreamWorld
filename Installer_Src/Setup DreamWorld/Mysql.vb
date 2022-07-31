@@ -503,6 +503,30 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Sub DoLand()
+
+        Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez
+        DoOpensim(stm)
+        stm = "update land set landflags = (landflags & ! 16);" ' Land editing
+        DoOpensim(stm)
+
+    End Sub
+
+    Public Sub DoOpensim(stm As String)
+
+        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+            Try
+                MysqlConn.Open()
+                Using cmd1 = New MySqlCommand(stm, MysqlConn)
+                    cmd1.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+    End Sub
+
     ''' <summary>
     ''' Gets Estate ID number 101, 102, etc
     ''' </summary>
