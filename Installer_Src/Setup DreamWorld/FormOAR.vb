@@ -19,9 +19,37 @@ Public Class FormOAR
 #Region "JSON"
 
     Public Class FileData
-        Public Name As String = ""
-        Public Result As MsgBoxResult = MsgBoxResult.No
-        Public Text As String = ""
+        Private _name As String = ""
+        Private _result As MsgBoxResult = MsgBoxResult.No
+        Private _text As String = ""
+
+        Public Property Name As String
+            Get
+                Return _name
+            End Get
+            Set(value As String)
+                _name = value
+            End Set
+        End Property
+
+        Public Property Result As MsgBoxResult
+            Get
+                Return _result
+            End Get
+            Set(value As MsgBoxResult)
+                _result = value
+            End Set
+        End Property
+
+        Public Property Text As String
+            Get
+                Return _text
+            End Get
+            Set(value As String)
+                _text = value
+            End Set
+        End Property
+
     End Class
 
     Public Class JSONResult
