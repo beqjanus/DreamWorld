@@ -636,7 +636,7 @@ Public Class FormSmartStart
         Dim n = 0
         Dim s As Boolean
         For Each RegionUUID In RegionUuids()
-            If Smart_Start(RegionUUID) = "True" And Settings.Smart_Start Then Continue For
+            If Smart_Start(RegionUUID) And Settings.Smart_Start Then Continue For
             Dim name = Region_Name(RegionUUID)
             ParkingSpot.Items.Add(name)
             If name = Settings.ParkingLot Then
