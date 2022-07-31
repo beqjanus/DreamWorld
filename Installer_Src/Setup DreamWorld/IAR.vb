@@ -64,7 +64,7 @@ Module IAR
             ' find one that is running
             For Each RegionUUID As String In RegionUuids()
 
-                If IsBooted(RegionUUID) And Not CBool(Smart_Start(RegionUUID)) Then
+                If IsBooted(RegionUUID) And Not Smart_Start(RegionUUID) Then
                     UUID = RegionUUID
                     Exit For
                 End If
@@ -260,22 +260,22 @@ Module IAR
     ''' <param name="BackupName">Name of region to watch</param>
     Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
 
-        If Not System.IO.File.Exists(FolderAndFileName) Then Return
+        Application.DoEvents()
 
         Const Seconds As Integer = 30
 
-        Dim ctr As Integer = 300
+        Dim ctr As Integer = 600
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
 
         Dim fi = New System.IO.FileInfo(FolderAndFileName)
         While same < Seconds And ctr > 0 And PropOpensimIsRunning
+            UnPauseRegion(RegionUUID)
             PokeRegionTimer(RegionUUID)
             Try
                 s = fi.Length
             Catch ex As Exception
-                Debug.Print("oops")
             End Try
             If s = oldsize And s > 0 Then
                 same += 1
@@ -283,9 +283,9 @@ Module IAR
                 same = 0
             End If
             ctr -= 1
-            Thread.Sleep(1000)
+            Thread.Sleep(100)
             CheckPost()                 ' see if anything arrived in the web server
-            CheckForBootedRegions()     ' and also see if any booted up
+
             oldsize = s
         End While
 
@@ -305,7 +305,7 @@ Module IAR
         For Each k As String In UserList
             If BackupAbort Then Return
             RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Starting_word}", "")
-            Sleep(2000)
+
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
             If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
@@ -316,7 +316,7 @@ Module IAR
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(RegionUUID, ToBackup)
             RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
-            Sleep(2000)
+
         Next
 
     End Sub
