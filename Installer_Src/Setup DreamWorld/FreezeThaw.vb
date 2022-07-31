@@ -3,50 +3,18 @@
 #Region "FreezeThaw"
 
     ''' <summary>
-    '''
+    ''' Freeze a region
     ''' </summary>
-    ''' <param name="RegionUUID"></param>
-    ''' <param name="Arg">True to freeze or False rpid to thaw</param>
-    ''' <param name="PID">Process ID </param>
-    ''' <returns></returns>
-    Public Sub FreezeThaw(RegionUUID As String, Arg As Boolean)
+    ''' <param name="RegionUUID">Region UUID</param>
 
-        If Smart_Start(RegionUUID) = "True" And RegionEnabled(RegionUUID) = True Then
+    Public Sub Freeze(RegionUUID As String)
+
+        If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) = True Then
             Dim PID = ProcessID(RegionUUID)
-            Dim ft As String
-            If Arg Then
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
-                ft = $"-pid {CStr(PID)}"
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-                SetRegionOffline(RegionUUID)
-            Else
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
-                RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-                SetRegionOnline(RegionUUID)
-                ft = $"-rpid {CStr(PID)}"
-            End If
-
-            Using SuspendProcess As New Process()
-                Dim pi = New ProcessStartInfo With {
-                        .Arguments = ft,
-                        .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-                    }
-
-                pi.CreateNoWindow = True
-                pi.WindowStyle = ProcessWindowStyle.Hidden
-
-                SuspendProcess.StartInfo = pi
-
-                Try
-                    SuspendProcess.Start()
-                Catch ex As Exception
-                End Try
-            End Using
-
-            Timer(RegionUUID) = Date.Now
-            PropUpdateView = True ' make form refresh
-        Else
-            Debug.Print("Trying to freeze or thaw a non-SS region")
+            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
+            'SetRegionOffline(RegionUUID)
+            NtSuspendProcess(CachedProcess(PID).Handle)
         End If
 
     End Sub
@@ -57,11 +25,10 @@
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub PauseRegion(RegionUUID As String)
 
-        If Settings.Smart_Start Then
+        If Settings.Smart_Start And Smart_Start(RegionUUID) Then
             BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
+            Freeze(RegionUUID)
         End If
-
-        FreezeThaw(RegionUUID, True)
 
     End Sub
 
@@ -72,12 +39,9 @@
     ''' <returns>0 if success</returns>
     Public Function ResumeRegion(RegionUUID As String) As Boolean
 
-        FreezeThaw(RegionUUID, False)
+        PokeRegionTimer(RegionUUID)
         If ProcessID(RegionUUID) = 0 Then
             ProcessID(RegionUUID) = GetPIDofWindow(Group_Name(RegionUUID))
-            If ProcessID(RegionUUID) = 0 Then
-                Return True
-            End If
         End If
 
         ReBoot(RegionUUID)
@@ -85,6 +49,35 @@
         Return True
 
     End Function
+
+    ''' <summary>
+    ''' Thaw a region
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    Public Sub Thaw(RegionUUID As String)
+
+        If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) = True Then
+            Dim PID = ProcessID(RegionUUID)
+            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+            'SetRegionOnline(RegionUUID)
+            NtResumeProcess(CachedProcess(PID).Handle)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Runs region
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    Public Sub UnPauseRegion(RegionUUID As String)
+
+        If Settings.Smart_Start And Smart_Start(RegionUUID) Then
+            BreakPoint.Print($"Thaw {Region_Name(RegionUUID)}")
+            Thaw(RegionUUID)
+        End If
+
+    End Sub
 
 #End Region
 
