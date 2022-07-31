@@ -489,11 +489,14 @@ Public Class FormOAR
 
         SearchBusy = True
         json = GetData()
-        If _type = "OAR" Then
-            Settings.OarCount = json.Length
+        If json IsNot Nothing Then
+            If _type = "OAR" Then
+                Settings.OarCount = json.Length
+            End If
+            json = ImageToJson(json)
+            SearchArray = json
         End If
-        json = ImageToJson(json)
-        SearchArray = json
+
         _initted = True
         SearchBusy = False
         Return Nothing
@@ -560,8 +563,7 @@ Public Class FormOAR
         Try
             json = JsonConvert.DeserializeObject(Of JSONResult())(result)
         Catch ex As Exception
-            BreakPoint.Dump(ex)
-            Return Nothing
+            Return json
         End Try
         Return json
 
@@ -753,22 +755,23 @@ Public Class FormOAR
                     End If
                 Next
             Else
-
-                For Each item In json
-                    If searchterm.Length = 0 Or
+                If json IsNot Nothing Then
+                    For Each item In json
+                        If searchterm.Length = 0 Or
                         item.License.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
                         item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Or
                         item.Author.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                        Dim l As Integer
-                        If SearchArray Is Nothing Then
-                            l = 0
-                        Else
-                            l = SearchArray.Length
+                            Dim l As Integer
+                            If SearchArray Is Nothing Then
+                                l = 0
+                            Else
+                                l = SearchArray.Length
+                            End If
+                            Array.Resize(SearchArray, l + 1)
+                            SearchArray(SearchArray.Length - 1) = item
                         End If
-                        Array.Resize(SearchArray, l + 1)
-                        SearchArray(SearchArray.Length - 1) = item
-                    End If
-                Next
+                    Next
+                End If
             End If
 
             If DateRadioButton.Checked And AscendRadioButton.Checked Then
