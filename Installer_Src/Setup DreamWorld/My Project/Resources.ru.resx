@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Осторожность! Это создаст множество регионов и загрузит их OAR в вашу систему. Это займет много времени. Режим Smart Start Shutdown будет включен. Считать:</value>
   </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Настройки резервного копирования</value>
+  </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Занят</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Резервное копирование IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>INI резервного региона</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Резервный Wi-Fi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Сохранение ZIP</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Это удалит права rez для гриферов во всех регионах. Продолжить?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Не удалось сохранить новый пароль</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Заморозить все регионы</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Разморозить все регионы</value>
+  </data>
 </root>

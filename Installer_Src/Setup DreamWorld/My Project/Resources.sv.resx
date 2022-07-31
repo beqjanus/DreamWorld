@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Varning! Detta kommer att skapa många regioner och ladda deras OARs i ditt system. Detta kommer att ta lång tid. Smart Start Shutdown Mode kommer att aktiveras. Räkna:</value>
   </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Säkerhetskopieringsinställningar</value>
+  </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Upptagen med</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Backup IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Backup Region INI</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Säkerhetskopiera wifi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Sparar Zip</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Detta tar bort rez-rättigheter för sörjande i alla regioner. Fortsätt?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Det gick inte att spara nytt lösenord</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Frys alla regioner</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Tina alla regioner</value>
+  </data>
 </root>

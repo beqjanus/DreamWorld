@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Προσοχή! Αυτό θα δημιουργήσει πολλές περιοχές και θα φορτώσει τα OAR τους στο σύστημά σας. Αυτό θα πάρει πολύ χρόνο. Θα ενεργοποιηθεί η λειτουργία τερματισμού λειτουργίας Smart Start. Μετρώ:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Απασχολημένος με</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Εφεδρικό IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Εφεδρική περιοχή INI</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Ρυθμίσεις δημιουργίας αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Εφεδρικό Wi-Fi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Αποθήκευση Zip</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Αυτό θα καταργήσει τα δικαιώματα rez για όσους θρηνούν σε όλες τις περιοχές. Προχωρώ?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Αποτυχία αποθήκευσης νέου κωδικού πρόσβασης</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Πάγωμα όλων των περιοχών</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Απόψυξη όλων των περιοχών</value>
+  </data>
 </root>

@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Voorzichtigheid! Dit zal veel regio's creëren en hun OAR's in uw systeem laden. Dit zal lang duren. Smart Start Shutdown Mode wordt ingeschakeld. Graaf:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Bezig met</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Back-up regio INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Back-upinstellingen</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Zip opslaan!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Hierdoor worden de rechten voor rouwenden in alle regio's afgeschaft. Doorgaan?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Wachtwoord opslaan mislukt!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Bevries alle regio's!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Alle regio's</value>
+  </data>
 </root>

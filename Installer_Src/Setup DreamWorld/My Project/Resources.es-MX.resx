@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>¡Precaución! Esto creará muchas regiones y cargará sus OAR en su sistema. Esto tomará mucho tiempo. Se habilitará el modo de apagado de inicio inteligente. Contar:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>¡Ocupado con!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Copia de seguridad</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Región de copia de seguridad INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Configuración de copia de seguridad</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>¡Wifi de respaldo!</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>¡Ahorrando Zip!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Esto eliminará los derechos de los dolientes en todas las regiones. ¡¿Proceder?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>¡No se pudo guardar la nueva contraseña!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>¡Congela todas las regiones!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Todas las regiones</value>
+  </data>
 </root>

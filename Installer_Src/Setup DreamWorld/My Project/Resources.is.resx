@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Varúð! Þetta mun búa til mörg svæði og hlaða OARs þeirra inn í kerfið þitt. Þetta mun taka langan tíma. Smart Start Shutdown Mode verður virkjuð. Talning:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Upptekinn af!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Afritun IAR!</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Varasvæði INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Afritun WiFi!</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Vista...</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Með því er horfið frá rez-réttindum syrgjenda á öllum svæðum. Halda áfram?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Mistókst að vista nýtt lykilorð!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Frystu öll svæði!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Öll landsvæði</value>
+  </data>
 </root>

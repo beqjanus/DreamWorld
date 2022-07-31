@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Vorsicht! Dadurch werden viele Regionen erstellt und ihre OARs in Ihr System geladen. Das wird lange dauern. Der Smart Start Shutdown-Modus wird aktiviert. Zählen:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Beschäftigt mit</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Sicherungs-IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>INI der Sicherungsregion</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Backup-Einstellungen</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>WLAN sichern</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Zip speichern</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Dadurch werden die Rez-Rechte für Griefer in allen Regionen entfernt. Fortfahren?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Neues Passwort konnte nicht gespeichert werden</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Alle Regionen einfrieren</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Alle Regionen auftauen</value>
+  </data>
 </root>

@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Rabhadh! Cruthóidh sé seo go leor réigiún agus lódálfaidh sé a OARanna isteach i do chóras. Tógfaidh sé seo tamall fada. Cumasófar Mód Múchadh Tosaigh Cliste. Comhair:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Gnóthach le!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Cúltaca IAR!</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Réigiún Cúltaca INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Socruithe Cúltaca</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Wifi cúltaca!</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Zip a shábháil!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Cuirfidh sé seo deireadh le cearta rez do griefers ar gach réigiún. Lean ar aghaidh?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Theip ar Shábháil Pasfhocal Nua!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Reo Gach Réigiún!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Leá Gach Réigiún!</value>
+  </data>
 </root>

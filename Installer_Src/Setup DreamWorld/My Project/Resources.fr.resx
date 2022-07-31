@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Mise en garde! Cela créera de nombreuses régions et chargera leurs OAR dans votre système. Cela prendra beaucoup de temps. Le mode Smart Start Shutdown sera activé. Compter:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Occupé avec!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Région de sauvegarde INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Paramètres de sauvegarde</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Wifi de sauvegarde!</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Sauver Zip!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Cela supprimera les droits de rez pour les personnes en deuil dans toutes les régions. Procéder?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Impossible d’enregistrer le nouveau mot de passe!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Gelez toutes les régions!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Toutes les régions</value>
+  </data>
 </root>

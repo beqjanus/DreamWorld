@@ -3054,7 +3054,7 @@
     <value>How high are we allowed to flock?</value>
   </data>
   <data name="Finished_with_backup_word" xml:space="preserve">
-    <value>Finished with backup:</value>
+    <value>Finished With Backup</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Web Port (80, or 8000)</value>
@@ -4384,5 +4384,8 @@
   </data>
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Thaw All Regions</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 Minute</value>
   </data>
 </root>

@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Thận trọng! Điều này sẽ tạo ra nhiều vùng và tải OAR của chúng vào hệ thống của bạn. Điều này sẽ mất nhiều thời gian. Chế độ tắt máy khởi động thông minh sẽ được bật. Đếm:</value>
   </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Cài đặt sao lưu</value>
+  </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Bận rộn với</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>IAR dự phòng</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>INI khu vực dự phòng</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Wifi dự phòng</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Tiết kiệm Zip</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Điều này sẽ xóa quyền rez cho những người đau buồn trên tất cả các khu vực. Tiếp tục?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Không lưu được mật khẩu mới</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Cố định tất cả các khu vực</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Làm tan băng tất cả các khu vực</value>
+  </data>
 </root>

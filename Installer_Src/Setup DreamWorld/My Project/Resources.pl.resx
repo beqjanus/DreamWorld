@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Ostrożność! Spowoduje to utworzenie wielu regionów i załadowanie ich OAR do twojego systemu. To zajmie dużo czasu. Zostanie włączony tryb Smart Start Shutdown. Liczyć:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Zajęty!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Kopia bezpieczeństwa</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Region kopii zapasowych INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Ustawienia kopii zapasowej</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Kopie zapasowe</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Zapisywanie Zip!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Spowoduje to usunięcie praw rez dla grieferów we wszystkich regionach. Postąpić?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Nie udało się zapisać nowego hasła!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Zamroź wszystkie regiony!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Wszystkie Regiony</value>
+  </data>
 </root>

@@ -4195,7 +4195,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Finished with backup:.
+        '''  Looks up a localized string similar to Finished With Backup.
         '''</summary>
         Friend ReadOnly Property Finished_with_backup_word() As String
             Get
@@ -8031,6 +8031,15 @@ Namespace My.Resources
         Friend ReadOnly Property OneAvatar() As String
             Get
                 Return ResourceManager.GetString("OneAvatar", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to 1 Minute.
+        '''</summary>
+        Friend ReadOnly Property OneMinute() As String
+            Get
+                Return ResourceManager.GetString("OneMinute", resourceCulture)
             End Get
         End Property
         

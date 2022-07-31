@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>حذر! سيؤدي ذلك إلى إنشاء العديد من المناطق وتحميل المجاذيف المجاذفة الخاصة بها في نظامك. هذا وسوف يستغرق وقتا طويلا. سيتم تمكين وضع إيقاف التشغيل الذكي. عدد:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>مشغول ب</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>IAR النسخ الاحتياطي</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>منطقة النسخ الاحتياطي INI</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>إعدادات النسخ الاحتياطي</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>واي فاي النسخ الاحتياطي</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>حفظ الرمز البريدي</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>سيؤدي هذا إلى إزالة حقوق rez للمتعززين في جميع المناطق. يتابع؟</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>فشل حفظ كلمة المرور الجديدة</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>تجميد جميع المناطق</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>ذوبان الجليد في جميع المناطق</value>
+  </data>
 </root>

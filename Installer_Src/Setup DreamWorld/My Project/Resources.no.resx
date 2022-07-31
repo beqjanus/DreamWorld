@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Forsiktighet! Dette vil opprette mange regioner og laste OAR-ene deres inn i systemet ditt. Dette vil ta lang tid. Smart Start Shutdown Mode vil være aktivert. Telle:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Opptatt med å hente dataene dine</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Sikkerhetskopiering</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Sikkerhetskopieringsinnstillinger</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Sikkerhetskopiering</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Lagrer</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Lagre nytt passord</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Alle regioner</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Alle regioner</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Backup Region INI</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Dette vil fjerne rez-rettigheter for sørgende i alle regioner. Fortsette?</value>
+  </data>
 </root>

@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Attenzione! Questo creerà molte regioni e caricherà i loro OAR nel tuo sistema. Ci vorrà molto tempo. La modalità di spegnimento Smart Start sarà abilitata. Contare:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Occupato con!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Regione di backup INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Impostazioni di backup</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Backup Wifi!</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Salvataggio Zip!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Ciò rimuoverà i diritti rez per i griefers in tutte le regioni. Procedere?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Impossibile salvare la nuova password!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Congela tutte le regioni!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Tutte le regioni</value>
+  </data>
 </root>

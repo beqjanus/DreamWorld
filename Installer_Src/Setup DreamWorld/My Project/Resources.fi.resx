@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Varoitus! Tämä luo monia alueita ja lataa niiden OAR:t järjestelmääsi. Tämä kestää kauan. Smart Start Shutdown Mode otetaan käyttöön. Kreivi:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Kiireinen!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Varmuuskopiointi</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Vara-alue INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Varmuuskopiointiasetukset</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Varmuuskopiointi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Säästö</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Tämä poistaa surevien oikeudet kaikilta alueilta. Jatkaa?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Uuden salasanan tallentaminen epäonnistui!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Jäädytä kaikki alueet!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Kaikki alueet</value>
+  </data>
 </root>

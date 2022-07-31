@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Kontuz! Horrek eskualde asko sortuko ditu eta haien OARak zure sisteman kargatuko ditu. Honek denbora luzea beharko du. Smart Start itzaltzeko modua gaituko da. Zenbaketa:</value>
   </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Giltza Babeskopia</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Babeskopia ezarpenak</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Giltza Babeskopia</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>Aurrezki</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>Huts datuak gordetzeko</value>
+  </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Lanpetuta</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Backup Eskualdea INI</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Horrek rez eskubideak kenduko dizkie eskualde guztietan grieferei. Jarraitu?</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Izoztu Eskualde guztiak</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Desizoztu Eskualde guztiak</value>
+  </data>
 </root>

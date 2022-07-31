@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>Atenció! Això crearà moltes regions i carregarà els seus OAR al vostre sistema. Això trigarà molt de temps. S'habilitarà el mode d'apagat d'inici intel·ligent. Recompte:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>Ocupat amb</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>Còpia de seguretat de l'IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>Regió de còpia de seguretat INI</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Configuració de còpia de seguretat</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>Còpia de seguretat de Wifi</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>S'està desant el zip</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>Això eliminarà els drets de rez per als malalts de totes les regions. Procedir?</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>No s'ha pogut desar la contrasenya nova</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>Congela totes les regions</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>Descongelar totes les regions</value>
+  </data>
 </root>

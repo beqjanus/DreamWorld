@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>זְהִירוּת! זה ייצור אזורים רבים ויטען את ה-OAR שלהם למערכת שלך. זה ייקח הרבה זמן. Smart Start Shutdown Mode יופעל. לספור:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>עסוק עם!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>גיבוי</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>אזור גיבוי INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>הגדרות גיבוי</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>גיבוי</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>שמירה</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>זה יסיר את זכויות ה-rez לאבלים בכל האזורים. להמשיך?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>לא הצליח לשמור סיסמה חדשה!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>הקפיאו את כל האזורים!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>כל האיזורים</value>
+  </data>
 </root>

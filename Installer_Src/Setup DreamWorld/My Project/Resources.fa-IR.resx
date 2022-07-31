@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>احتیاط! این باعث ایجاد مناطق زیادی می شود و OAR های آنها را در سیستم شما بارگذاری می کند. این کار زمان زیادی می برد. حالت خاموش کردن شروع هوشمند فعال خواهد شد. شمردن:</value>
   </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>مشغول با!</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>نسخه پشتیبانی</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>پشتیبان گیری منطقه INI!</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>تنظیمات پشتیبان</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>نسخه پشتیبانی</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>صرفه جویی در زیپ!</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>با این کار حقوق rez برای غم و اندوه در تمام مناطق حذف خواهد شد. ادامه?!</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>موفق به ذخیره رمز عبور جدید نشد!</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>یخ همه مناطق!</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>همه نواحی</value>
+  </data>
 </root>

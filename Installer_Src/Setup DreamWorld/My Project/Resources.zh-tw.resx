@@ -3777,4 +3777,34 @@
   <data name="CautionOARs2" xml:space="preserve">
     <value>警告！這將創建許多區域並將它們的 OAR 加載到您的系統中。這將需要很長時間。將啟用智能啟動關機模式。數數：</value>
   </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>備份設置</value>
+  </data>
+  <data name="BusyWith" xml:space="preserve">
+    <value>忙於</value>
+  </data>
+  <data name="Backup_IAR" xml:space="preserve">
+    <value>備份 IAR</value>
+  </data>
+  <data name="Backup_Region_INI" xml:space="preserve">
+    <value>備份區域 INI</value>
+  </data>
+  <data name="Backup_Wifi" xml:space="preserve">
+    <value>備用無線網絡</value>
+  </data>
+  <data name="Saving_Zip" xml:space="preserve">
+    <value>保存郵編</value>
+  </data>
+  <data name="rezrights" xml:space="preserve">
+    <value>這將刪除所有地區的 griefer 的 rez 權利。繼續？</value>
+  </data>
+  <data name="Failpassword" xml:space="preserve">
+    <value>保存新密碼失敗</value>
+  </data>
+  <data name="FreezeAllRegions" xml:space="preserve">
+    <value>凍結所有區域</value>
+  </data>
+  <data name="ThawAllRegions" xml:space="preserve">
+    <value>解凍所有區域</value>
+  </data>
 </root>
