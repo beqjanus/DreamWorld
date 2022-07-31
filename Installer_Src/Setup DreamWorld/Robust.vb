@@ -109,6 +109,7 @@ Module Robust
                     p.EnableRaisingEvents = True
                     AddHandler p.Exited, AddressOf RobustProcess_Exited
                     PropOpensimIsRunning = True
+                    ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
                     Return True
 
                 End If

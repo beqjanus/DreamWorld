@@ -48,8 +48,6 @@ PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>'
 my $publish = <stdin>;
 chomp $publish;
 
-goto end;
-
 PrintDate("Delete Destination Zip");
 JustDelete($zip);
 mkdir $zip;
