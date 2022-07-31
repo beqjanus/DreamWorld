@@ -47,10 +47,13 @@
 
 #End Region
 
+    Private Sub ChartWrapper1_Load(sender As Object, e As EventArgs) Handles ChartWrapper1.Load
+
+    End Sub
+
     Private Sub CPU() Handles Me.Load
 
         SetScreen()
-        Me.Text = My.Resources.CPU_word & "  " & My.Resources.RAM_Word & "%"
 
         TimerGraph.Interval = 1000
         TimerGraph.Enabled = True
@@ -78,6 +81,9 @@
         ChartWrapper2.AddMarkers = False
         ChartWrapper2.MarkerFreq = 60
 
+        ChartWrapper1.AxisXTitle = My.Resources.OneMinute
+        ChartWrapper2.AxisXTitle = My.Resources.OneMinute
+
         ChartWrapper1.ClearChart()
         Dim CPU1() As Double = MyCPUCollection.ToArray()
         ChartWrapper1.AddLinePlot("CPU", CPU1)
@@ -88,6 +94,7 @@
 
         Settings.GraphVisible = True
         Settings.SaveSettings()
+        FormSetup.StartTimer()
 
     End Sub
 
@@ -105,6 +112,9 @@
         ChartWrapper2.ClearChart()
         Dim RAM() As Double = MyRAMCollection.ToArray()
         ChartWrapper2.AddLinePlot("RAM", RAM)
+
+        Me.Text = $"{My.Resources.CPU_word} {Format(CPU1(UBound(CPU1)) / 100, "0.0%")} {My.Resources.RAM_Word} {Format(RAM(UBound(RAM)) / 100, "0.0%") }%"
+
     End Sub
 
 End Class
