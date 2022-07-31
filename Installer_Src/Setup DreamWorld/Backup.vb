@@ -12,7 +12,7 @@ Module Backup
 
         Dim Name = "Region INI"
         RunningBackupName.TryAdd($"{Name} {My.Resources.Starting_word}", "")
-        Sleep(2000)
+
         Dim zipused As Boolean
         'used to zip it, zip it good
         Dim _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Region_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
@@ -64,7 +64,6 @@ Module Backup
         End Using
 
         RunningBackupName.TryAdd($"{Name} {My.Resources.Ok}", "")
-        Sleep(2000)
 
     End Sub
 
@@ -122,8 +121,8 @@ Module Backup
             If Not RegionEnabled(RegionUUID) Then Continue For
             If SkipAutobackup(RegionUUID) = "True" Then Continue For
 
-            RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.Starting_word}", "")
-            Sleep(2000)
+            RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.backup_running}", "")
+
             Dim file = BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
          DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
@@ -133,18 +132,20 @@ Module Backup
             }
             RebootAndRunTask(RegionUUID, Obj)
 
-            Application.DoEvents()
             WaitforComplete(RegionUUID, file)
 
-            RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.Ok}", "")
-            Sleep(2000)
+            RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
+
         Next
+
+        RunningBackupName.TryAdd(My.Resources.Finished_with_backup_word, "")
 
     End Sub
 
     '' must use console as otherwise Smart Start will shutdown
     Public Sub Backupper(RegionUUID As String, file As String)
 
+        PokeRegionTimer(RegionUUID)
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""")
 
     End Sub
