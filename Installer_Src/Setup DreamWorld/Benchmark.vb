@@ -23,7 +23,6 @@
     Public Sub Start(name As String)
 
         If stash.ContainsKey(name) Then
-
             Return
         End If
         stash.Add(name, New Stopwatch())
