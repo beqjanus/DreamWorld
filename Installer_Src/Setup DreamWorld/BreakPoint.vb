@@ -24,11 +24,11 @@ Module BreakPoint
 
     Public Sub Print(Message As String)
 
-        If Settings.LogLevel = "DEBUG" Then
-            TextPrint($"> {Message}")
-        Else
-            Diagnostics.Debug.Print(Message)
-        End If
+        'If Settings.LogLevel = "DEBUG" Then
+        'TextPrint($"> {Message}")
+        'Else
+        Diagnostics.Debug.Print(Message)
+        'End If
 
     End Sub
 
