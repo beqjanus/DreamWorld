@@ -9,6 +9,14 @@ Imports System.Runtime.InteropServices
 
 Friend Module NativeMethods
 
+    <DllImport("ntdll.dll")>
+    Public Function GetLastError() As Integer
+    End Function
+
+    <DllImport("ntdll.dll", PreserveSig:=False, SetLastError:=True)>
+    Public Sub NtResumeProcess(ByVal ProcessHandle As IntPtr)
+    End Sub
+
     <DllImport("ntdll.dll", SetLastError:=False)>
     Public Function NtSuspendProcess(ByVal ProcessHandle As IntPtr) As IntPtr
     End Function
@@ -23,14 +31,17 @@ Friend Module NativeMethods
 
     <DllImport("iphlpapi.dll", ExactSpelling:=True)>
     Public Function SendARP(ByVal DestIP As UInteger, ByVal SrcIP As UInteger, ByVal pMacAddr As Byte(), ByRef PhyAddrLen As UInteger) As Integer
-
     End Function
 
-    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
+    <DllImport("user32.dll")>
+    Public Function SetForegroundWindow(hWnd As IntPtr) As Boolean
+    End Function
 
     <DllImport("user32.dll", CharSet:=CharSet.Unicode)>
     Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
+
+    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
 
     Public Declare Function SetWindowPos Lib "user32" _
             (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
