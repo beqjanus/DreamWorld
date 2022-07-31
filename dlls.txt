@@ -125,7 +125,6 @@
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Permissions.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Stress.dll
 \OutworldzFiles\Opensim\bin\OpenSimSearch.Modules.dll
-\OutworldzFiles\Opensim\bin\OpenSimTide.Module.dll
 \OutworldzFiles\Opensim\bin\PrimMesher.dll
 \OutworldzFiles\Opensim\bin\RestSharp.dll
 \OutworldzFiles\Opensim\bin\Robust.Tests.dll
