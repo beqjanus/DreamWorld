@@ -1415,8 +1415,11 @@ Module RegionMaker
     ''' <returns>True if Smart Start</returns>
     Public Property Smart_Start(uuid As String) As Boolean
         Get
-            If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._RegionSmartStart)
-            BadUUID(uuid)
+            Try
+                If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._RegionSmartStart)
+                BadUUID(uuid)
+            Catch
+            End Try
             Return False
         End Get
         Set(ByVal Value As Boolean)
@@ -1437,8 +1440,11 @@ Module RegionMaker
 
     Public Property Teleport_Sign(uuid As String) As Boolean
         Get
-            If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._Teleport)
-            BadUUID(uuid)
+            Try
+                If RegionList.ContainsKey(uuid) Then Return CBool(RegionList(uuid)._Teleport)
+                BadUUID(uuid)
+            Catch
+            End Try
             Return False
         End Get
         Set(ByVal Value As Boolean)
