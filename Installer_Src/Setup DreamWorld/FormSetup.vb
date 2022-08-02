@@ -682,7 +682,7 @@ Public Class FormSetup
         RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.recycle
         RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Restart_word
         RestoreToolStripMenuItem1.Image = Global.Outworldz.My.Resources.disk_blue
-        RestoreToolStripMenuItem1.Text = Global.Outworldz.My.Resources.SQL_Database_Backup_Restore
+        RestoreToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Restore_Database_word
         RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
         RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear
