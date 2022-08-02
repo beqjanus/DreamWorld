@@ -1,5 +1,8 @@
 REVISIONS FOR DREAMGRID
 
+V5.192
+Default for Hybrid Physics was not set, could only be overwritten by region overrides.
+
 V5.191
 Fixed CheckAndRepair.bat to work with or without password.
 Moved the Mysql check and backup SQL buttons to the Mysql Icon.

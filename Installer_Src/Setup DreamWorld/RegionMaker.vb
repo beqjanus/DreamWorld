@@ -2013,6 +2013,11 @@ Module RegionMaker
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
+                Case 5
+                    If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If INI.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
                 Case Else
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
