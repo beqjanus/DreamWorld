@@ -100,7 +100,7 @@ Module WindowHandlers
                 DoType("Robust", command)
             End If
         End If
-        AppActivate(Process.GetCurrentProcess.Id)
+
         Return False
 
     End Function
@@ -129,7 +129,7 @@ Module WindowHandlers
             End If
             Try
                 AppActivate(PID)
-
+                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
@@ -148,7 +148,6 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")

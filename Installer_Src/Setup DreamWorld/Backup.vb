@@ -3,6 +3,58 @@ Imports Ionic.Zip
 
 Module Backup
 
+    ''' <summary>
+    ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped.
+    ''' Waits for 5 minutes or the file stops growing for 30 seconds
+    ''' </summary>
+    ''' <param name="BackupName">Name of region to watch</param>
+    Public Function WaitforComplete(RegionUUID As String, FolderAndFileName As String) As Boolean
+
+        Const Seconds As Integer = 30
+
+        Dim Filectr As Integer = 60
+        Dim ctr As Integer = 600
+        Dim s As Long
+        Dim oldsize As Long = 0
+        Dim same As Integer = 0
+
+        While same < Seconds And PropOpensimIsRunning
+
+            Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(same)}")
+            PokeRegionTimer(RegionUUID)
+            Try
+                Dim fi = New System.IO.FileInfo(FolderAndFileName)
+                s = fi.Length
+            Catch ex As Exception
+                Filectr -= 1
+            End Try
+
+            If Filectr = 0 Then
+                Debug.Print($"{Region_Name(RegionUUID)} failed to start saving")
+                Return False
+            End If
+
+            If s = oldsize And s > 0 Then
+                same += 1
+            Else
+                same = 0
+            End If
+            ctr -= 1
+
+            If ctr = 0 Then
+                Debug.Print($"{Region_Name(RegionUUID)}  timeout, took too long to save")
+                Return False
+            End If
+
+            Sleep(1000)
+            oldsize = s
+
+        End While
+
+        Return True
+
+    End Function
+
 #Region "Backups"
 
     ''' <summary>
@@ -97,6 +149,8 @@ Module Backup
     ''' </summary>
     Public Sub BackupAllRegions()
 
+        If Not Settings.BackupOARs Then Return
+
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf BackupAllRegionsTask
 #Enable Warning BC42016 ' Implicit conversion
@@ -132,9 +186,11 @@ Module Backup
             }
             RebootAndRunTask(RegionUUID, Obj)
 
-            WaitforComplete(RegionUUID, file)
-
-            RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
+            If WaitforComplete(RegionUUID, file) Then
+                RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
+            Else
+                BreakPoint.Print("Timeout waiting for region")
+            End If
 
         Next
 

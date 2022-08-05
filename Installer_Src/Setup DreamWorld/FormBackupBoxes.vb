@@ -53,6 +53,8 @@ Public Class FormBackupBoxes
             BackupAbort = False
         End If
 
+        FormSetup.StartTimer()
+
         If Not RunningBackupName.IsEmpty Then
             Dim namelist As String = ""
             For Each N In RunningBackupName
@@ -74,13 +76,8 @@ Public Class FormBackupBoxes
         Dim b As New Backups()
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
-        b.RunAllBackups(True) 'run backup right now instead of on a timer
-
-        If Settings.BackupOARs And PropOpensimIsRunning() Then
-            BackupAllRegions()
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
+        ' Settings.ini, BackupW Wifi and Backup Region ini
+        b.RunFullBackupThread() 'run backup right now instead of on a timer
 
         Me.Close()
 

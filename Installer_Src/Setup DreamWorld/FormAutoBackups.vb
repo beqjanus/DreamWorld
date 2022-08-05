@@ -228,6 +228,7 @@ Public Class FormAutoBackups
         BackupForm.Visible = True
         BackupForm.Select()
         BackupForm.BringToFront()
+        Me.Close()
 
     End Sub
 

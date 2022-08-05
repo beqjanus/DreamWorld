@@ -33,24 +33,6 @@
     End Sub
 
     ''' <summary>
-    ''' Resumes Region from frozen state
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    ''' <returns>0 if success</returns>
-    Public Function ResumeRegion(RegionUUID As String) As Boolean
-
-        PokeRegionTimer(RegionUUID)
-        If ProcessID(RegionUUID) = 0 Then
-            ProcessID(RegionUUID) = GetPIDofWindow(Group_Name(RegionUUID))
-        End If
-
-        ReBoot(RegionUUID)
-        TeleportAgents()
-        Return True
-
-    End Function
-
-    ''' <summary>
     ''' Thaw a region
     ''' </summary>
     ''' <param name="RegionUUID">Region UUID</param>
@@ -60,8 +42,15 @@
             Dim PID = ProcessID(RegionUUID)
             ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-            'SetRegionOnline(RegionUUID)    
-            NtResumeProcess(CachedProcess(PID).Handle)
+            Try
+                'SetRegionOnline(RegionUUID)
+                Try
+                    NtResumeProcess(CachedProcess(PID).Handle)
+                Catch
+                End Try
+            Catch
+            End Try
+
         End If
 
     End Sub

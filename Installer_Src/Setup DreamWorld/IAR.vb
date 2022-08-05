@@ -238,10 +238,10 @@ Module IAR
         End If
 
         Dim p As New Params With {
-                                .RegionName = Settings.WelcomeRegion,
-                                .opt = opt,
-                                .itemName = "/"
-                            }
+                            .RegionName = Settings.WelcomeRegion,
+                            .opt = opt,
+                            .itemName = "/"
+                        }
 
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
@@ -250,44 +250,6 @@ Module IAR
         SaveIARThread.SetApartmentState(ApartmentState.STA)
         SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
         SaveIARThread.Start(p)
-
-    End Sub
-
-    ''' <summary>
-    ''' Waits until a file stops changing length so we can type again. Quits if DreamGrid  is stopped.
-    ''' Waits for 5 minutes or the file stops growing for 30 seconds
-    ''' </summary>
-    ''' <param name="BackupName">Name of region to watch</param>
-    Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
-
-        Application.DoEvents()
-
-        Const Seconds As Integer = 30
-
-        Dim ctr As Integer = 600
-        Dim s As Long
-        Dim oldsize As Long = 0
-        Dim same As Integer = 0
-
-        Dim fi = New System.IO.FileInfo(FolderAndFileName)
-        While same < Seconds And ctr > 0 And PropOpensimIsRunning
-            UnPauseRegion(RegionUUID)
-            PokeRegionTimer(RegionUUID)
-            Try
-                s = fi.Length
-            Catch ex As Exception
-            End Try
-            If s = oldsize And s > 0 Then
-                same += 1
-            Else
-                same = 0
-            End If
-            ctr -= 1
-            Thread.Sleep(100)
-            CheckPost()                 ' see if anything arrived in the web server
-
-            oldsize = s
-        End While
 
     End Sub
 
@@ -314,8 +276,12 @@ Module IAR
 
             ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-            WaitforComplete(RegionUUID, ToBackup)
-            RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
+
+            If WaitforComplete(RegionUUID, ToBackup) Then
+                RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
+            Else
+                BreakPoint.Print("Timeout waiting for region")
+            End If
 
         Next
 

@@ -94,7 +94,6 @@
 
         Settings.GraphVisible = True
         Settings.SaveSettings()
-        FormSetup.StartTimer()
 
     End Sub
 

@@ -106,7 +106,7 @@ Module OAR
                         .Command = v
                     }
                     RebootAndRunTask(RegionUUID, obj)
-                    'Waitfor(RegionUUID)
+
                 End If
             End If
 

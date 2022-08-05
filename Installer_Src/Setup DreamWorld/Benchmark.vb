@@ -5,16 +5,11 @@
     Public Sub Print(Name As String)
 
         If Not stash.ContainsKey(Name) Then
-
             Return
         End If
 
         If Settings.LogBenchmarks Then
             Logger("Benchmark", $"{Name}:{CStr(stash.Item(Name).Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}", "Benchmark")
-        Else
-            If Debugger.IsAttached Then
-                Debug.Print($"Benchmark: {Name}:{CStr(stash.Item(Name).Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}")
-            End If
         End If
         stash.Remove(Name)
 

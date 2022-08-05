@@ -28,6 +28,8 @@ Public Class Backups
 
     Public Sub RunAllSQLBackups()
 
+        If Not Settings.BackupSQL Then Return
+
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles/Mysql/Data/{Settings.RegionDBName}")) Then
             DoBackup(Settings.RegionDBName)
         End If
@@ -191,13 +193,9 @@ Public Class Backups
         GC.SuppressFinalize(Me)
     End Sub
 
-    Public Sub RunAllBackups(run As Boolean)
+    Public Sub RunAllBackups()
 
         Dim currentdatetime As Date = Date.Now
-        If run Then
-            RunFullBackupThread()
-            Return
-        End If
 
         If Not _initted Then
             _initted = True
@@ -207,10 +205,10 @@ Public Class Backups
             Settings.SaveSettings()
         End If
 
-        Dim originalBoottime As Date = Settings.StartDate
-        originalBoottime = originalBoottime.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
-
-        If DateTime.Compare(currentdatetime, originalBoottime) > 0 Then
+        Dim Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
+        Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(1, Globalization.CultureInfo.InvariantCulture))
+        Dim diff = DateTime.Compare(currentdatetime, Tomorrow)
+        If diff > 0 Then
             Settings.StartDate = currentdatetime ' wait another interval
             Settings.SaveSettings()
             If Settings.AutoBackup Then
@@ -220,109 +218,126 @@ Public Class Backups
 
     End Sub
 
-    Public Sub RunMainZip()
+    Public Sub RunFullBackupThread()
 
         If BackupAbort Then Return
 
-        Dim zipused As Boolean
-        'used to zip it, zip it good
-        _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-        FileIO.FileSystem.CreateDirectory(_folder)
+        TextPrint(My.Resources.AutomaticBackupIsRunning)
 
-        Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+        If BackupAbort Then Return
+        _WebThread3 = New Thread(AddressOf FullBackupThread)
+        _WebThread3.SetApartmentState(ApartmentState.STA)
+        _WebThread3.Priority = ThreadPriority.BelowNormal
+        _WebThread3.Start()
 
-        Using Z = New ZipFile(Bak) With {
+    End Sub
+
+    Public Sub RunMainZip()
+
+        If BackupAbort Then Return
+        ' only if checkbox is set
+
+        If Settings.BackupSettings Or Settings.BackupWifi Or Settings.BackupRegion Then
+            Dim zipused As Boolean
+            'used to zip it, zip it good
+            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+            FileIO.FileSystem.CreateDirectory(_folder)
+
+            Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+            Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+
+            Using Z = New ZipFile(Bak) With {
                 .UseZip64WhenSaving = Zip64Option.AsNecessary,
                 .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
             }
 
-            Try
-                If Settings.BackupWifi Then
-                    If BackupAbort Then Return
-                    RunningBackupName.TryAdd($"{My.Resources.Backup_Wifi} {My.Resources.Starting_word}", "")
-
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\"), "jOpensim")
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
-                    zipused = True
-                    RunningBackupName.TryAdd($"{My.Resources.Backup_Wifi} {My.Resources.Ok}", "")
-
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
-
-            If Settings.BackupSettings Then
-                If BackupAbort Then Return
-                RunningBackupName.TryAdd($"{My.Resources.Backup_Settings} {My.Resources.Starting_word}", "")
-
                 Try
-                    Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
-                    Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini"), "Settings")
+                    If Settings.BackupWifi Then
+                        If BackupAbort Then Return
+                        RunningBackupName.TryAdd($"{My.Resources.Backup_Wifi} {My.Resources.Starting_word}", "")
 
-                    Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\LocalUserStatistics.db")
-                    If File.Exists(fs) Then Z.AddFile(fs, "Stats Database in bin")
-                    fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
-                    If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-                    fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
-                    If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-                    fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
-                    If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-                    fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
-                    If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-                    zipused = True
-                    RunningBackupName.TryAdd($"{My.Resources.Backup_Settings} {My.Resources.Ok}", "")
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\"), "jOpensim")
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                        zipused = True
+                        RunningBackupName.TryAdd($"{My.Resources.Backup_Wifi} {My.Resources.Ok}", "")
 
+                    End If
                 Catch ex As Exception
                     Break(ex.Message)
                 End Try
-            End If
 
-            If Settings.BackupRegion Then
-                If BackupAbort Then Return
-                RunningBackupName.TryAdd($"{My.Resources.Backup_Region_INI} {My.Resources.Starting_word}", "")
+                If Settings.BackupSettings Then
+                    If BackupAbort Then Return
+                    RunningBackupName.TryAdd($"{My.Resources.Backup_Settings} {My.Resources.Starting_word}", "")
 
-                Dim sourcePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions")
-                Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
-                For Each fileSystemInfo In sourceDirectoryInfo.GetDirectories
                     Try
-                        Dim folder = fileSystemInfo.FullName
-                        Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
-                        Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
-                        For Each Region In RegionDirectoryInfo.GetFileSystemInfos
-                            If Region.Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
-                                Dim shortname = Region.Name.Replace("ini", "")
-                                Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
-                                zipused = True
-                            End If
-                        Next
+                        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
+                        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini"), "Settings")
+
+                        Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\LocalUserStatistics.db")
+                        If File.Exists(fs) Then Z.AddFile(fs, "Stats Database in bin")
+                        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+                        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+                        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
+                        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+                        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
+                        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+                        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
+                        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+                        zipused = True
+                        RunningBackupName.TryAdd($"{My.Resources.Backup_Settings} {My.Resources.Ok}", "")
                     Catch ex As Exception
                         Break(ex.Message)
                     End Try
-                Next
-                RunningBackupName.TryAdd($"{My.Resources.Backup_Region_INI} {My.Resources.Ok}", "")
-
-            End If
-
-            If BackupAbort Then Return
-            Try
-                If zipused = True Then
-                    RunningBackupName.TryAdd($"{My.Resources.Saving_Zip} {My.Resources.Starting_word}", "")
-
-                    Z.Save()
-                    Thread.Sleep(5000)
-                    MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                    Thread.Sleep(1000)
                 End If
 
-                DeleteFolder(_folder)
-                RunningBackupName.TryAdd($"{My.Resources.Saving_Zip} {My.Resources.Ok}", "")
+                If Settings.BackupRegion Then
+                    If BackupAbort Then Return
+                    RunningBackupName.TryAdd($"{My.Resources.Backup_Region_INI} {My.Resources.Starting_word}", "")
 
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
+                    Dim sourcePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions")
+                    Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
+                    For Each fileSystemInfo In sourceDirectoryInfo.GetDirectories
+                        Try
+                            Dim folder = fileSystemInfo.FullName
+                            Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
+                            Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
+                            For Each Region In RegionDirectoryInfo.GetFileSystemInfos
+                                If Region.Name.EndsWith(".ini", StringComparison.OrdinalIgnoreCase) Then
+                                    Dim shortname = Region.Name.Replace("ini", "")
+                                    Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
+                                    zipused = True
+                                End If
+                            Next
+                        Catch ex As Exception
+                            Break(ex.Message)
+                        End Try
+                    Next
+                    RunningBackupName.TryAdd($"{My.Resources.Backup_Region_INI} {My.Resources.Ok}", "")
 
-        End Using
+                End If
+
+                If BackupAbort Then Return
+                Try
+                    If zipused = True Then
+                        RunningBackupName.TryAdd($"{My.Resources.Saving_Zip} {My.Resources.Starting_word}", "")
+
+                        Z.Save()
+                        Thread.Sleep(5000)
+                        MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                        Thread.Sleep(1000)
+                    End If
+
+                    DeleteFolder(_folder)
+                    RunningBackupName.TryAdd($"{My.Resources.Saving_Zip} {My.Resources.Ok}", "")
+                Catch ex As Exception
+                    Break(ex.Message)
+                End Try
+
+            End Using
+        End If
+
+
 
     End Sub
 
@@ -405,9 +420,14 @@ Public Class Backups
     ''' </summary>
     Private Sub FullBackupThread()
 
-        RunMainZip()
-        RunAllSQLBackups()
-        BackupFsassets()
+        StartMySQL()
+        StartRobust()
+
+        RunMainZip() 'Settings, region.ini, Diva
+        RunAllSQLBackups()  ' Mysql SDL backup
+        RunBackupIARThread() ' IARS
+        BackupAllRegions()   ' OARS
+        BackupFsassets()    ' fsassets folder
 
     End Sub
 
@@ -421,8 +441,7 @@ Public Class Backups
 
             SyncLock IARLock
                 ' Make IAR options
-                Dim RegionName = Settings.WelcomeRegion
-                Dim RegionUUID = FindRegionByName(RegionName)
+                Dim RegionUUID = FindRegionByName(Settings.WelcomeRegion)
                 If RegionUUID.Length = 0 Then
                     Return
                 End If
@@ -431,22 +450,9 @@ Public Class Backups
                     .TaskName = TaskName.SaveAllIARS
                 }
                 RebootAndRunTask(RegionUUID, obj)
+
             End SyncLock
         End If
-
-    End Sub
-
-    Private Sub RunFullBackupThread()
-
-        If BackupAbort Then Return
-
-        TextPrint(My.Resources.AutomaticBackupIsRunning)
-        RunBackupIARThread()
-        If BackupAbort Then Return
-        _WebThread3 = New Thread(AddressOf FullBackupThread)
-        _WebThread3.SetApartmentState(ApartmentState.STA)
-        _WebThread3.Priority = ThreadPriority.BelowNormal
-        _WebThread3.Start()
 
     End Sub
 

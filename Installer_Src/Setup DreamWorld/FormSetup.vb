@@ -2046,8 +2046,9 @@ Public Class FormSetup
             GetAllRegions(False)
         End If
 
-        CheckForBootedRegions()
         CheckPost()                 ' see if anything arrived in the web server
+        CheckForBootedRegions()
+
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
@@ -2081,7 +2082,7 @@ Public Class FormSetup
         ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             Bench.Start("300 second worker")
-            BackupThread.RunAllBackups(False) ' run background based on time of day = false
+            BackupThread.RunAllBackups() ' run background right now
             RunParser()     ' PHP parse for Publicity
             GetEvents()     ' fetch events from Outworldz
             ScanOpenSimWorld(True)
@@ -2090,6 +2091,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("300 second + worker")
+
             If TestPrivateLoopback(False) Then
                 ErrorLog("Diagnostic Listener port failed")
                 TextPrint("Diagnostic Listener port failed")

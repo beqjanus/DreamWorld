@@ -15,7 +15,7 @@ Module SmartStart
     Public MyRAMCollection As New List(Of Double)
     Public ToDoList As New Dictionary(Of String, TaskObject)
     Public Visitor As New Dictionary(Of String, String)
-    Private mut As New Mutex()
+
     Private ToDoCount As New Dictionary(Of String, Integer)
 
     ''' <summary>
@@ -123,8 +123,6 @@ Module SmartStart
                 If Estate(RegionUUID) = "SimSurround" Then
                     Landscape(RegionUUID, RegionName)
                 End If
-
-                RunTaskList(RegionUUID)
 
                 PropUpdateView = True
 
@@ -361,7 +359,6 @@ Module SmartStart
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub RunTaskList(RegionUUID As String)
 
-        mut.WaitOne()
         If ToDoList.ContainsKey(RegionUUID) Then
             BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
             Dim Task = ToDoList.Item(RegionUUID)
@@ -421,8 +418,6 @@ Module SmartStart
             End If
 
         End If
-
-        mut.ReleaseMutex()
 
     End Sub
 
@@ -859,7 +854,6 @@ Module SmartStart
                 Next
 
                 ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
-                AppActivate(Process.GetCurrentProcess.Id)
                 PropUpdateView = True ' make form refresh
                 Return True
 
@@ -958,10 +952,6 @@ Module SmartStart
 
                     SetWindowTextCall(BootProcess, GroupName)
 
-                    If Settings.ConsoleShow <> "None" Then
-                        AppActivate(Process.GetCurrentProcess.Id)
-                    End If
-
                     If Not PropInstanceHandles.ContainsKey(PID) Then
                         PropInstanceHandles.TryAdd(PID, GroupName)
                     End If
@@ -996,22 +986,39 @@ Module SmartStart
 
     End Function
 
-    Public Sub ReBoot(RegionUUID As String)
+    ''' <summary>
+    ''' Resumes Region from stopped, frozen or error  state
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    ''' <returns>0 if success</returns>
+    Public Sub ResumeRegion(RegionUUID As String)
 
-        UnPauseRegion(RegionUUID)
-        RunTaskList(RegionUUID)
+        ' smart boot Freeze/Thaw type
+        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+            UnPauseRegion(RegionUUID)
+            PokeRegionTimer(RegionUUID)
+            If IsRegionReady(GroupPort(RegionUUID)) Then
+                RunTaskList(RegionUUID)
+                For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                Next
+            End If
+            TeleportAgents()
+        End If
 
+        ' not smart boot Freeze/Thaw
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.Error Or
                  RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Then
 
+            PokeRegionTimer(RegionUUID)
             For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
             Next
-            PokeRegionTimer(RegionUUID)
             PropUpdateView = True ' make form refresh
-
         End If
+
+        RunTaskList(RegionUUID)
 
     End Sub
 
