@@ -30,7 +30,7 @@ Module Backup
             End Try
 
             If Filectr = 0 Then
-                Debug.Print($"{Region_Name(RegionUUID)} failed to start saving")
+                Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
                 Return False
             End If
 
@@ -42,7 +42,7 @@ Module Backup
             ctr -= 1
 
             If ctr = 0 Then
-                Debug.Print($"{Region_Name(RegionUUID)}  timeout, took too long to save")
+                Log("Error", $"{Region_Name(RegionUUID)}  timeout, took too long to save")
                 Return False
             End If
 
@@ -189,7 +189,7 @@ Module Backup
             If WaitforComplete(RegionUUID, file) Then
                 RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
             Else
-                BreakPoint.Print("Timeout waiting for region")
+                Log("Error", $"Timeout waiting for region {Region_Name(RegionUUID)}")
             End If
 
         Next
