@@ -471,7 +471,6 @@ SetWindowOnTop_Err:
 
         PropChangedRegionSettings = True
         GetAllRegions(False)
-        CalcCPU()
         LoadMyListView()
 
     End Sub
@@ -741,18 +740,26 @@ SetWindowOnTop_Err:
             Else
                 Num = Dgicon.Disabled
             End If
+
         ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend Then
+            Letter = My.Resources.Stopped_word
+            Num = Dgicon.SmartStartStopped
+        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Waiting
             Num = Dgicon.SmartStartStopped
+
+        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Not Settings.Smart_Start Then
+            Letter = My.Resources.Stopped_word
+            Num = Dgicon.Stopped
+        ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend Then
+            Letter = My.Resources.Stopped_word
+            Num = Dgicon.IceMelted
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
             Num = Dgicon.IceMelted
         ElseIf Status = SIMSTATUSENUM.Suspended And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
             Num = Dgicon.Icecube
-        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Not Settings.Smart_Start Then
-            Letter = My.Resources.Stopped_word
-            Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) Then
             Letter = My.Resources.Stopped_word
             Num = Dgicon.Stopped
@@ -1201,6 +1208,8 @@ SetWindowOnTop_Err:
 
         If SearchBusy = True Then Return
         SearchBusy = True
+        CalcCPU()
+
         BringToFront()
 
         SearchArray.Clear()
