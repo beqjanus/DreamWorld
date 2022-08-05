@@ -681,6 +681,7 @@
     <Compile Include="jOpensim.vb" />
     <Compile Include="Logging.vb" />
     <Compile Include="Builder.vb" />
+    <Compile Include="LogReader.vb" />
     <Compile Include="Maps.vb" />
     <Compile Include="My Project\certes.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">

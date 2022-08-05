@@ -10,6 +10,7 @@ Imports System.Threading
 
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
+    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
@@ -850,8 +851,8 @@ Module SmartStart
                     End If
 
                     SendToOpensimWorld(UUID, 0)
-
                 Next
+                If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID))
 
                 ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
                 PropUpdateView = True ' make form refresh
@@ -890,7 +891,7 @@ Module SmartStart
             BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
             Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
-
+            If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID))
             Dim ok As Boolean = False
             Try
                 ok = BootProcess.Start
@@ -966,6 +967,7 @@ Module SmartStart
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         ProcessID(UUID) = PID
                     Next
+
                 Else
                     PropUpdateView = True ' make form refresh
                     Logger("Failed to boot ", BootName, "Outworldz")

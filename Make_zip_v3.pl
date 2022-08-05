@@ -26,6 +26,7 @@ my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
 my $zip = 'C:/Opensim/Zip/';
 my $repo ='C:/Opensim/Zips'; 
 my $v = GetVersion($src);
+say ( "Version $v");
 my $type = "-V$v";
 
 CheckDistro();
