@@ -453,7 +453,7 @@ Module SmartStart
                     Exit For
 
                     ' could be a regular region so we wait
-                ElseIf status = SIMSTATUSENUM.Booting And Not Smart_Start(RegionUUID) Then
+                ElseIf status = SIMSTATUSENUM.Booting And (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
