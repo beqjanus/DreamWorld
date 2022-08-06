@@ -16,6 +16,7 @@ Module Global_Properties
     Public MapX As Integer = 100
     Public MapY As Integer = 100
     Public RunningBackupName As New ConcurrentDictionary(Of String, String)
+    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
 
 #End Region
 

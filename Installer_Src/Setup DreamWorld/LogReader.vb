@@ -4,20 +4,40 @@ Imports System.Threading
 
 Public Class LogReader
 
-    Public Sub New(RegionUUID As String)
+    Private Errors As New List(Of String) From {
+                "invalid degenerated mesh",
+                "Couldn't start script",
+                "references To missing Or damaged assets",
+                "Database contains an orphan child prim",
+                "references that may Not be assets Or are missing",
+                "invalid degenerated mesh"
+            }
 
-        Return
+    Public Class seeker
+        Public seek As Boolean
+        Public RegionUUID As String
+    End Class
+    Public Sub New(RegionUUID As String, Optional SeektoEnd As Boolean = False)
+
+        Dim o As New seeker With {
+            .seek = SeektoEnd,
+            .RegionUUID = RegionUUID
+        }
+
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf Dowork
 #Enable Warning BC42016 ' Implicit conversion
         Dim T = New Thread(start)
         T.SetApartmentState(ApartmentState.STA)
         T.Priority = ThreadPriority.Lowest ' UI gets priority
-        T.Start(RegionUUID)
+        T.Start(o)
 
     End Sub
 
-    Public Sub Dowork(RegionUUID As String)
+    Public Sub Dowork(o As seeker)
+
+        Dim RegionUUID As String = o.RegionUUID
+        Dim SeektoEnd As Boolean = o.seek
 
         Dim lastMaxOffset As Long = 0
         While True
@@ -26,6 +46,11 @@ Public Class LogReader
                 Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
                 Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     'start at the end of the file
+                    If SeektoEnd Then
+                        reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.End)
+                        lastMaxOffset = reader.BaseStream.Length
+                        SeektoEnd = False
+                    End If
 
                     Sleep(1000)
                     'if the file size has not changed, idle
@@ -33,11 +58,12 @@ Public Class LogReader
 
                     'seek to the last max offset
                     reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
-                    Dim line As String = ""
+                    'Dim line As String = ""
                     While reader.BaseStream.Length <> lastMaxOffset
                         ScanIssues(reader.ReadLine(), RegionUUID)
                         'update the last max offset
                         lastMaxOffset = reader.BaseStream.Position
+                        Application.DoEvents()
                     End While
                 End Using
             Catch
@@ -49,24 +75,17 @@ Public Class LogReader
 
     Private Sub ScanIssues(line As String, RegionUUID As String)
 
-        If line.Length > 0 Then
-            'Debug.Print(line)
-            Dim pattern = New Regex("Error ", RegexOptions.IgnoreCase)
-            Dim match = pattern.Match(line)
-            If match.Success Then
-                Logger(Region_Name(RegionUUID), line, "Opensim")
+        For Each thing In Errors
+            If line.Length > 0 Then
+                'Debug.Print(line)
+                Dim pattern = New Regex(thing, RegexOptions.IgnoreCase)
+                Dim match = pattern.Match(line)
+                If match.Success Then
+                    Logger(Region_Name(RegionUUID), line, "Opensim Error")
+                End If
             End If
+        Next
 
-
-            'invalid degenerated mesh
-
-            'Couldn't start script
-            'references to missing or damaged assets
-            'Database contains an orphan child prim 
-            'references that may not be assets or are missing
-            'invalid degenerated mesh
-
-        End If
     End Sub
 
 End Class

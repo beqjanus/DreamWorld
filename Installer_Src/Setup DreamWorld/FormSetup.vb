@@ -836,6 +836,10 @@ Public Class FormSetup
             End If
         Next
 
+        For Each RegionUUID In RegionUuids()
+            If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID, True))
+        Next
+
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"

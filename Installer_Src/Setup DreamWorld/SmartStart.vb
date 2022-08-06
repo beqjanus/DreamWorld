@@ -10,7 +10,6 @@ Imports System.Threading
 
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
-    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
