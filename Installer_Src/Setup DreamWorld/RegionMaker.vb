@@ -491,6 +491,7 @@ Module RegionMaker
 
     End Function
 
+    Private retry As Integer
     ''' <summary>
     ''' Fetches all regions from Disk Into RAM
     ''' </summary>
@@ -498,18 +499,20 @@ Module RegionMaker
     ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        If Not PropChangedRegionSettings Then Return RegionList.Count
+        If Not PropChangedRegionSettings Then
+            Return RegionList.Count
+        End If
 
-        Dim Retry = 10
-        While Retry > 0 AndAlso GetRegionsIsBusy
-            Sleep(1000)
-            Retry -= 1
-        End While
-        If Retry = 0 Then BreakPoint.Print("Retry GetRegionsIsBusy exceeded")
+        If retry < 10 AndAlso GetRegionsIsBusy Then
+            retry += 1
+            Return 0
+        End If
+        retry = 0
+
         GetRegionsIsBusy = True
 
         Try
-            PropChangedRegionSettings = False
+
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
 
@@ -689,6 +692,7 @@ Module RegionMaker
             BreakPoint.Dump(ex)
         End Try
 
+        PropChangedRegionSettings = False
         PropUpdateView = True ' make form refresh
 
         GetRegionsIsBusy = False

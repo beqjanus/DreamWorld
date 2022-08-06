@@ -451,8 +451,6 @@ Public Class FormRegionlist
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        PropChangedRegionSettings = True
-        GetAllRegions(False)
         LoadMyListView()
 
     End Sub
@@ -946,18 +944,18 @@ Public Class FormRegionlist
             DoubleBuff(IconView, True)
             DoubleBuff(UserView, True)
 
-            Settings.RegionListVisible = True
 
             Me.Name = "Region List"
             Me.Text = Global.Outworldz.My.Resources.Region_List
 
+            AvatarView.Visible = False
             AvatarView.CheckBoxes = False
             AvatarView.TabIndex = 0
             AvatarView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             AvatarView.GridLines = False
             AvatarView.ShowItemToolTips = True
 
-            ListView1.Visible = False
+            ListView1.Visible = True
             ListView1.LabelWrap = True
             ListView1.AutoArrange = True
             ListView1.TabIndex = 0
@@ -972,6 +970,7 @@ Public Class FormRegionlist
             ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             ListView1.ShowItemToolTips = True
 
+            IconView.Visible = False
             IconView.TabIndex = 0
             IconView.View = View.SmallIcon
             IconView.CheckBoxes = False
@@ -982,6 +981,7 @@ Public Class FormRegionlist
             IconView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             IconView.ShowItemToolTips = True
 
+            UserView.Visible = False
             UserView.TabIndex = 0
             UserView.View = View.Details
             UserView.CheckBoxes = True
@@ -1169,7 +1169,6 @@ Public Class FormRegionlist
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("hourglass", Globalization.CultureInfo.InvariantCulture))  '  209 - Busy - do not shutdown
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-                CalcCPU()
                 Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
@@ -1178,19 +1177,24 @@ Public Class FormRegionlist
             Settings.SaveSettings()
 
             PictureBox1.Visible = False
-            Timer1.Start()
-            LoadMyListView()
+
             initted = True
         Catch
         End Try
 
     End Sub
 
+    Public Sub Go()
+
+        Timer1.Start()
+        LoadMyListView()
+
+    End Sub
     Private Sub LoadMyListView()
 
         If SearchBusy = True Then Return
         SearchBusy = True
-        CalcCPU()
+
 
         BringToFront()
 
@@ -1417,7 +1421,7 @@ Public Class FormRegionlist
 
         SyncLock regionLock
             ShowTitle()
-
+            CalcCPU()
             AllNone.Visible = True
 
             PictureBox1.Visible = True
@@ -1738,7 +1742,7 @@ Public Class FormRegionlist
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-        ' CalcCPU()
+
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1786,6 +1790,7 @@ Public Class FormRegionlist
 
             Me.Text = Mail.Count & " " & My.Resources.Users_word
 
+
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
@@ -1818,10 +1823,6 @@ Public Class FormRegionlist
             Timer1.Stop()
             Return
         End If
-
-        'If TheView1 = ViewType.Details Then
-        ' CalcCPU()
-        'End If
 
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()

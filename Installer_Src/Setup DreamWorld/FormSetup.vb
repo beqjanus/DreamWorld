@@ -318,6 +318,7 @@ Public Class FormSetup
                 End If
             Next
 
+
             If CountisRunning.Count <> LastCount Then
                 If CountisRunning.Count = 1 Then
                     TextPrint(My.Resources.One_region)
@@ -478,7 +479,7 @@ Public Class FormSetup
         Next
 
         Settings.SaveSettings()
-
+        CalcCPU()
         Buttons(StopButton)
         TextPrint(My.Resources.Ready)
         Bench.Print("StartOpensim")
@@ -1991,6 +1992,7 @@ Public Class FormSetup
             PropRegionForm.Activate()
             PropRegionForm.Select()
             PropRegionForm.BringToFront()
+            PropRegionForm.Go()
         Catch
         End Try
 
@@ -2021,7 +2023,7 @@ Public Class FormSetup
             Return
         End If
 
-        If TimerisBusy > 0 And TimerisBusy < 10 Then
+        If TimerisBusy > 0 And TimerisBusy < 30 Then
             TimerisBusy += 1
             Return
         Else
@@ -2033,6 +2035,7 @@ Public Class FormSetup
         ' Reload regions from disk
         If PropChangedRegionSettings Then
             GetAllRegions(False)
+            PropChangedRegionSettings = False
         End If
 
         CheckPost()                 ' see if anything arrived in the web server

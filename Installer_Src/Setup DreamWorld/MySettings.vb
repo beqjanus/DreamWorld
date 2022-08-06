@@ -1802,14 +1802,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RegionListVisible() As Boolean
-        Get
-            Return CType(GetMySetting("RegionListVisible", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("RegionListVisible", CStr(Value))
-        End Set
-    End Property
 
     Public Property RegionManagerIsGod() As Boolean
         Get

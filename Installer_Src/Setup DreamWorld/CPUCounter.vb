@@ -115,11 +115,8 @@ Module CPUCounter
     Private Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
 
         Try
-            Dim process = CachedProcess(processId)
-
-            Dim processName As String = IO.Path.GetFileNameWithoutExtension(process.ProcessName)
             Dim cat As New PerformanceCounterCategory("Process")
-            Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.OrdinalIgnoreCase)).ToArray()
+            Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith("opensim", System.StringComparison.OrdinalIgnoreCase)).ToArray()
 
             For Each instance As String In instances
                 Using cnt = New PerformanceCounter("Process", "ID Process", instance, True)
@@ -128,6 +125,7 @@ Module CPUCounter
                         Return instance
                     End If
                 End Using
+                Application.DoEvents()
             Next
         Catch
         End Try

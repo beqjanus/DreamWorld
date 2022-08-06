@@ -812,41 +812,23 @@ Module SmartStart
             ' needs to be captured into the event handler
             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
 
-                '                Thaw(RegionUUID)
-
                 Try
                     Dim P = Process.GetProcessById(PID)
                     P.EnableRaisingEvents = True
                     AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
                 Catch ex As Exception
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
                     Return False
                 End Try
 
                 ' scan over all regions in the DOS box
                 For Each UUID As String In RegionUuidListByName(GroupName)
                     ProcessID(UUID) = PID
-
-                    ' might be SS enabled
-                    If Settings.BootOrSuspend And Settings.Smart_Start Then
-                        SendToOpensimWorld(UUID, 0)
-                    End If
-
-                    ' might be SS enabled and Suspend type
-                    If Not Settings.BootOrSuspend And
-                             Smart_Start(UUID) And
-                             Settings.Smart_Start Then
-                        UnPauseRegion(UUID)
-                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                    End If
-
-                    If Not Settings.Smart_Start Then
-                        UnPauseRegion(UUID)
-                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                    End If
-
+                    UnPauseRegion(UUID)
+                    RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     SendToOpensimWorld(UUID, 0)
+                    TextPrint($"{BootName} {My.Resources.Ready}")
                 Next
-                If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID))
 
                 ShowDOSWindow(RegionUUID, MaybeHideWindow())
                 PropUpdateView = True ' make form refresh

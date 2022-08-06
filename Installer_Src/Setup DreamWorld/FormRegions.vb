@@ -507,10 +507,11 @@ Public Class FormRegions
         Next
 
         PropUpdateView = True ' make form refresh
-        PropChangedRegionSettings = True
+
         Settings.Smart_Start = True
         Settings.BootOrSuspend = True
 
+        PropChangedRegionSettings = True
         GetAllRegions(True)
         Firewall.SetFirewall()
 

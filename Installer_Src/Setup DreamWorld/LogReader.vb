@@ -44,30 +44,32 @@ Public Class LogReader
 
             Try
                 Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
-                Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    'start at the end of the file
-                    If SeektoEnd Then
-                        reader.BaseStream.Seek(0, SeekOrigin.End)
-                        lastMaxOffset = reader.BaseStream.Length
-                        SeektoEnd = False
-                    End If
+                If File.Exists(filename) Then
+                    Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        'start at the end of the file
+                        If SeektoEnd Then
+                            reader.BaseStream.Seek(0, SeekOrigin.End)
+                            lastMaxOffset = reader.BaseStream.Length
+                            SeektoEnd = False
+                        End If
 
-                    Sleep(1000)
-                    'if the file size has not changed, idle
-                    If reader.BaseStream.Length = lastMaxOffset Then Continue While
+                        Sleep(10000)
+                        'if the file size has not changed, idle
+                        If reader.BaseStream.Length = lastMaxOffset Then Continue While
 
-                    'seek to the last max offset
-                    reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
-                    'Dim line As String = ""
-                    While reader.BaseStream.Length <> lastMaxOffset
-                        ScanIssues(reader.ReadLine(), RegionUUID)
-                        'update the last max offset
-                        lastMaxOffset = reader.BaseStream.Position
-                        Application.DoEvents()
-                    End While
-                End Using
+                        'seek to the last max offset
+                        reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
+                        'Dim line As String = ""
+                        While reader.BaseStream.Length <> lastMaxOffset
+                            ScanIssues(reader.ReadLine(), RegionUUID)
+                            'update the last max offset
+                            lastMaxOffset = reader.BaseStream.Position
+                            Application.DoEvents()
+                        End While
+                    End Using
+                End If
             Catch
-                Sleep(1000)
+                Sleep(10000)
             End Try
         End While
 
