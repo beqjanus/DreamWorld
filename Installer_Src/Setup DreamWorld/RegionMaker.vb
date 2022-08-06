@@ -734,8 +734,8 @@ Module RegionMaker
     Public Sub StopRegion(RegionUUID As String)
 
         UnPauseRegion(RegionUUID)
-        Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
-        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+
+        If ShowDOSWindow(RegionUUID, SHOWWINDOWENUM.SWRESTORE) Then
             SequentialPause()
             ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         Else

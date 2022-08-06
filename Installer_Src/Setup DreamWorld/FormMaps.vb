@@ -58,7 +58,14 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewVisitorMapButton.Click
-        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
+
+        Dim webAddress As String
+        If Settings.PublicVisitorMaps Then
+            webAddress = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}/Stats?r={Random()}"
+        Else
+            webAddress = $"http://127.0.0.1:{CStr(Settings.ApachePort)}/Stats"
+        End If
+
         Try
             Process.Start(webAddress)
         Catch ex As Exception

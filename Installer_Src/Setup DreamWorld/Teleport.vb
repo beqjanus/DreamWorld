@@ -32,7 +32,7 @@ Module Teleport
                     Fin.Add(AgentID) ' cancel this, the region went away
 
                 ElseIf status = SIMSTATUSENUM.Booted Then
-                    ShowDOSWindow(GetHwnd(Group_Name(RegionToUUID)), MaybeShowWindow())
+                    ShowDOSWindow(RegionToUUID, MaybeShowWindow())
                     If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
                         Dim DestinationName = Region_Name(RegionToUUID)
                         Dim FromRegionUUID As String = GetRegionFromAgentId(AgentID)
@@ -50,7 +50,7 @@ Module Teleport
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                                 Fin.Add(AgentID)
-                                ShowDOSWindow(GetHwnd(Group_Name(RegionToUUID)), MaybeHideWindow())
+
                             Else
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
                                 BreakPoint.Print($"{DestinationName} failed to receive teleport")
@@ -61,6 +61,8 @@ Module Teleport
                             Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
                     End If
+                    ShowDOSWindow(RegionToUUID, MaybeHideWindow())
+
                 End If
             Next
         Catch

@@ -6,6 +6,7 @@ Public Class LogReader
 
     Public Sub New(RegionUUID As String)
 
+        Return
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf Dowork
 #Enable Warning BC42016 ' Implicit conversion
@@ -20,6 +21,7 @@ Public Class LogReader
 
         Dim lastMaxOffset As Long = 0
         While True
+
             Try
                 Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
                 Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -48,13 +50,22 @@ Public Class LogReader
     Private Sub ScanIssues(line As String, RegionUUID As String)
 
         If line.Length > 0 Then
-            Debug.Print(line)
-            Dim pattern = New Regex("Error:(.*)", RegexOptions.IgnoreCase)
-            Dim match As Match = pattern.Match(line)
+            'Debug.Print(line)
+            Dim pattern = New Regex("Error ", RegexOptions.IgnoreCase)
+            Dim match = pattern.Match(line)
             If match.Success Then
                 Logger(Region_Name(RegionUUID), line, "Opensim")
             End If
-            Sleep(1)
+
+
+            'invalid degenerated mesh
+
+            'Couldn't start script
+            'references to missing or damaged assets
+            'Database contains an orphan child prim 
+            'references that may not be assets or are missing
+            'invalid degenerated mesh
+
         End If
     End Sub
 

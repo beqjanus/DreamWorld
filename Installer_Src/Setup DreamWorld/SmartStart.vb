@@ -111,7 +111,7 @@ Module SmartStart
                 SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
 
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
 
                 If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
                     BootTime(RegionUUID) = CInt(seconds)
@@ -222,7 +222,7 @@ Module SmartStart
                         ' shut down the group when AutoRestartInterval has gone by.
                         BreakPoint.Print("State Is Time Exceeded, shutdown")
 
-                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+                        ShowDOSWindow(RegionUUID, MaybeShowWindow())
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
@@ -261,7 +261,6 @@ Module SmartStart
                     BreakPoint.Print($"{GroupName} Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
-
                         If RegionEnabled(RegionUUID) Then
                             Boot(RegionName)
                         End If
@@ -379,7 +378,7 @@ Module SmartStart
                 BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
 
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+                ShowDOSWindow(RegionUUID, MaybeShowWindow())
 
                 Dim T = Task.TaskName
                 Select Case T
@@ -791,14 +790,6 @@ Module SmartStart
             PropOpensimIsRunning() = True
             If PropAborting Then Return True
 
-            ' collect all process windows
-            Dim processes = Process.GetProcessesByName("Opensim")
-            For Each p In processes
-                If Not PropInstanceHandles.ContainsKey(p.Id) Then
-                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
-                End If
-            Next
-
             ' stop if disabled
             Dim RegionUUID As String = FindRegionByName(BootName)
 
@@ -820,7 +811,8 @@ Module SmartStart
             ' Detect if a region Window is already running
             ' needs to be captured into the event handler
             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                TextPrint($"{BootName} {My.Resources.Running_word}")
+
+                '                Thaw(RegionUUID)
 
                 Try
                     Dim P = Process.GetProcessById(PID)
@@ -843,12 +835,12 @@ Module SmartStart
                     If Not Settings.BootOrSuspend And
                              Smart_Start(UUID) And
                              Settings.Smart_Start Then
-                        FreezeThaw.Thaw(UUID)
+                        UnPauseRegion(UUID)
                         RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     End If
 
                     If Not Settings.Smart_Start Then
-                        ResumeRegion(UUID)
+                        UnPauseRegion(UUID)
                         RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     End If
 
@@ -856,7 +848,7 @@ Module SmartStart
                 Next
                 If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID))
 
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
                 PropUpdateView = True ' make form refresh
                 Return True
 

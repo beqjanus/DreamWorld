@@ -109,7 +109,7 @@ Module Robust
                     p.EnableRaisingEvents = True
                     AddHandler p.Exited, AddressOf RobustProcess_Exited
                     PropOpensimIsRunning = True
-                    ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
+                    ShowDOSWindow(RobustName(), MaybeHideWindow())
                     Return True
 
                 End If
@@ -197,7 +197,7 @@ Module Robust
         End While
         Sleep(2000)
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
-        ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
+        ShowDOSWindow(RobustName(), MaybeHideWindow())
         RobustIcon(True)
         TextPrint(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False

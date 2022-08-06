@@ -11,14 +11,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegionlist
 
-    '// Constants
-    Const HWND_TOP As Integer = 0
 
-    'Const HWND_TOPMOST As Integer = -1
-    'Const HWND_NO_TOPMOST As Integer = -2
-    Const NOMOVE As Long = &H2
-
-    Const NOSIZE As Long = &H1
     Private ReadOnly colsize As New ClassScreenpos("Region List")
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly SearchArray As New List(Of String)
@@ -207,19 +200,6 @@ Public Class FormRegionlist
         Return String.Concat("""", value.Replace("""", """"""), """")
     End Function
 
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
-
-        On Error GoTo SetWindowOnTop_Err
-
-        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
-
-SetWindowOnTop_Exit:
-        Exit Sub
-
-SetWindowOnTop_Err:
-        Resume SetWindowOnTop_Exit
-
-    End Sub
 
     Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
@@ -303,17 +283,19 @@ SetWindowOnTop_Err:
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
                 Settings.ConsoleShow = "True"
-                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+                If Not ShowDOSWindow(RegionUUID, SHOWWINDOWENUM.SWRESTORE) Then
                     ' shut down all regions in the DOS box
                     For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
                         RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                     DelPidFile(RegionUUID)
                     Return
+                Else
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
                 End If
                 Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
-                SetWindowOnTop(hwnd.ToInt32)
-                Sleep(2000)
+                SetWindowOnTop(GetHwnd(Group_Name(RegionUUID)).ToInt32)
+
                 Settings.ConsoleShow = tmp
             End If
 

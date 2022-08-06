@@ -176,7 +176,7 @@ Module Backup
             RebootAndRunTask(RegionUUID, Obj)
             Sleep(5000)
             If WaitforComplete(RegionUUID, file) Then
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
                 RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
             Else
                 Log("Error", $"Timeout waiting for region {Region_Name(RegionUUID)}")

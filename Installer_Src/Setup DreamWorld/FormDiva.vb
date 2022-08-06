@@ -66,7 +66,6 @@ Public Class FormDiva
 
         If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 0 Then
             ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password)
-            ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         End If
 
     End Sub

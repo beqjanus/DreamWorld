@@ -9,6 +9,15 @@ Imports System.Runtime.InteropServices
 
 Friend Module NativeMethods
 
+    '// Constants
+    Const HWND_TOP As Integer = 0
+
+    'Const HWND_TOPMOST As Integer = -1
+    'Const HWND_NO_TOPMOST As Integer = -2
+    Const NOMOVE As Long = &H2
+
+    Const NOSIZE As Long = &H1
+
     <DllImport("ntdll.dll")>
     Public Function GetLastError() As Integer
     End Function
@@ -47,5 +56,19 @@ Friend Module NativeMethods
             (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
             ByVal x As Integer, ByVal y As Integer, ByVal cX As Integer,
             ByVal cY As Integer, ByVal wFlags_ As Integer) As Long
+
+    Public Sub SetWindowOnTop(ByVal lhWnd As Int32)
+
+        On Error GoTo SetWindowOnTop_Err
+
+        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
+
+SetWindowOnTop_Exit:
+        Exit Sub
+
+SetWindowOnTop_Err:
+        Resume SetWindowOnTop_Exit
+
+    End Sub
 
 End Module
