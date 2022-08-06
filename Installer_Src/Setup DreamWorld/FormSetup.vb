@@ -431,10 +431,11 @@ Public Class FormSetup
             G()
         End If
 
-        For Each RegionName In RegionUuids()
-            Dim RegionUUID = FindRegionByName(RegionName)
+        For Each RegionUUID In RegionUuids()
+
             If RegionEnabled(RegionUUID) Then
 
+                Dim RegionName = Region_Name(RegionUUID)
                 If Settings.WelcomeRegion = RegionName Then Continue For
 
                 Dim BootNeeded As Boolean = False
@@ -826,6 +827,14 @@ Public Class FormSetup
         End Using
 
         Application.DoEvents()
+
+        ' collect all process windows
+        Dim processes = Process.GetProcessesByName("Opensim")
+        For Each p In processes
+            If Not PropInstanceHandles.ContainsKey(p.Id) Then
+                PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
+            End If
+        Next
 
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
@@ -1231,8 +1240,7 @@ Public Class FormSetup
                 Status = SIMSTATUSENUM.Booted Or
                 Status = SIMSTATUSENUM.Suspended) Then
 
-                Dim hwnd = GetHwnd(GroupName)
-                ShowDOSWindow(hwnd, MaybeShowWindow())
+                ShowDOSWindow(RegionUUID, MaybeShowWindow())
                 ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
             End If
             Application.DoEvents()
@@ -2556,8 +2564,8 @@ Public Class FormSetup
     End Sub
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "debug jobengine status") Then Return
+        For Each RegionUUID As String In RegionUuids()
+            ConsoleCommand(RegionUUID, "debug jobengine status")
         Next
     End Sub
 
@@ -2675,9 +2683,9 @@ Public Class FormSetup
     Private Sub MinimizeAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MinimizeAllToolStripMenuItem.Click
 
         For Each RegionUuid In RegionUuids()
-            ShowDOSWindow(GetHwnd(Group_Name(RegionUuid)), SHOWWINDOWENUM.SWMINIMIZE)
+            ShowDOSWindow(RegionUuid, SHOWWINDOWENUM.SWMINIMIZE)
         Next
-        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
+
     End Sub
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
@@ -3124,14 +3132,15 @@ Public Class FormSetup
 
         For Each RegionUUID In RegionUuids()
             UnPauseRegion(RegionUUID)
+            Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
         Next
 
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
 
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "show threads") Then Return
+        For Each RegionUUID As String In RegionUuids()
+            ConsoleCommand(RegionUUID, "show threads")
         Next
 
     End Sub
@@ -3203,7 +3212,13 @@ Public Class FormSetup
 
     Private Sub ViewVisitorMapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewVisitorMapsToolStripMenuItem.Click
 
-        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
+        Dim webAddress As String
+        If Settings.PublicVisitorMaps Then
+            webAddress = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}/Stats?r={Random()}"
+        Else
+            webAddress = $"http://127.0.0.1:{CStr(Settings.ApachePort)}/Stats"
+        End If
+
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -3221,8 +3236,8 @@ Public Class FormSetup
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
 
-        For Each RegionUUID As String In RegionUuidListByName("*")
-            If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
+        For Each RegionUUID As String In RegionUuids()
+            ConsoleCommand(RegionUUID, "xengine status")
         Next
 
     End Sub

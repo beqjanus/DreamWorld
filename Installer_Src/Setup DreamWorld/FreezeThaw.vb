@@ -11,9 +11,8 @@
 
         If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) = True Then
             Dim PID = ProcessID(RegionUUID)
-            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+            ShowDOSWindow(RegionUUID, MaybeHideWindow())
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
-            'SetRegionOffline(RegionUUID)
             NtSuspendProcess(CachedProcess(PID).Handle)
         End If
 
@@ -38,20 +37,13 @@
     ''' <param name="RegionUUID">Region UUID</param>
     Public Sub Thaw(RegionUUID As String)
 
-        If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) = True Then
-            Dim PID = ProcessID(RegionUUID)
-            ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
-            Try
-                'SetRegionOnline(RegionUUID)
-                Try
-                    NtResumeProcess(CachedProcess(PID).Handle)
-                Catch
-                End Try
-            Catch
-            End Try
 
-        End If
+        Dim PID = ProcessID(RegionUUID)
+        RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+        Try
+            NtResumeProcess(CachedProcess(PID).Handle)
+        Catch
+        End Try
 
     End Sub
 
