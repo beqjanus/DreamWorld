@@ -273,6 +273,7 @@ Module FileStuff
         Delete_Region_Map(regionUUID)
         DeleteMapTile(regionUUID)
         DeregisterRegionUUID(regionUUID)
+        DeleteVisitorMap(regionUUID)
 
         DeleteFolder(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}"))
         DeleteRegion(regionUUID)

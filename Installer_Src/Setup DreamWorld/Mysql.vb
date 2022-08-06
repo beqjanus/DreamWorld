@@ -406,6 +406,21 @@ Public Module MysqlInterface
 
     End Sub
 
+
+    ''' <summary>
+    ''' Delete old visitors and regions that no longer exist from the stats table
+    ''' </summary>
+    Public Sub DeleteVisitorMap(RegionUUID As String)
+
+        'todo clear up SQL
+        Dim stm = $"delete from stats where UUID = {RegionUUID}"
+        QueryString(stm)
+
+        'todo clear up SQL
+        stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
+        QueryString(stm)
+
+    End Sub
     '''
     ''' logs out any users when we clear caches
     '''
@@ -517,7 +532,9 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
+#Disable Warning CA2100
                 Using cmd1 = New MySqlCommand(stm, MysqlConn)
+#Enable Warning CA2100
                     cmd1.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
