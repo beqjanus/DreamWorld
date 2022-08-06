@@ -59,6 +59,7 @@ Module Backup
             oldsize = s
 
         End While
+        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
 
         Return True
 
@@ -174,10 +175,9 @@ Module Backup
                 .Command = file
             }
             RebootAndRunTask(RegionUUID, Obj)
-            Sleep(5000)
+            Sleep(1000)
             If WaitforComplete(RegionUUID, file) Then
                 ShowDOSWindow(RegionUUID, MaybeHideWindow())
-                RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
             Else
                 Log("Error", $"Timeout waiting for region {Region_Name(RegionUUID)}")
             End If
