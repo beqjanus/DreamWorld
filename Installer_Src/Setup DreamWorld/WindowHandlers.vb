@@ -86,11 +86,13 @@ Module WindowHandlers
                 End If
 
                 DoType(RegionUUID, command)
+                Thread.Sleep(2000)
                 ShowDOSWindow(RegionUUID, MaybeHideWindow())
 
             Else ' Robust
                 ShowDOSWindow(RobustName, MaybeShowWindow())
                 DoType("Robust", command)
+                Thread.Sleep(2000)
                 ShowDOSWindow(RobustName, MaybeHideWindow())
             End If
         End If

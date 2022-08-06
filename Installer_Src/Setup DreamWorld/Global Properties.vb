@@ -67,26 +67,30 @@ Module Global_Properties
 
     End Sub
 
+    Private TextLock As New Object
     Public Sub TextPrint(Value As String)
 
-        Log(My.Resources.Info_word, Value)
-        Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
-        If Settings.ShowDateandTimeinLogs Then
-            FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
-            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
-        Else
-            FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
-            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
-        End If
+        SyncLock TextLock
+            Log(My.Resources.Info_word, Value)
+            Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+            If Settings.ShowDateandTimeinLogs Then
+                FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
+                Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+            Else
+                FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
+                Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
+            End If
 
-        Dim ln As Integer = FormSetup.TextBox1.Text.Length
-        FormSetup.TextBox1.SelectionStart = ln
-        FormSetup.TextBox1.ScrollToCaret()
-        Dim Le As Integer = 29000
-        Dim L = FormSetup.TextBox1.Text.Length - Le
-        If L > 0 Then
-            FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
-        End If
+            Dim ln As Integer = FormSetup.TextBox1.Text.Length
+            FormSetup.TextBox1.SelectionStart = ln
+            FormSetup.TextBox1.ScrollToCaret()
+            Dim Le As Integer = 29000
+            Dim L = FormSetup.TextBox1.Text.Length - Le
+            If L > 0 Then
+                FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
+            End If
+
+        End SyncLock
 
     End Sub
 
