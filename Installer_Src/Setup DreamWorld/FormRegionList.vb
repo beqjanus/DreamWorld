@@ -1225,10 +1225,7 @@ SetWindowOnTop_Err:
 
             Case ViewType.Details
 
-                Dim L = RegionUuids()
-                L.Sort()
-
-                For Each RegionUUID In L
+                For Each RegionUUID In RegionUuids()
                     If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
                         If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                             SearchArray.Add(RegionUUID)
@@ -1242,10 +1239,7 @@ SetWindowOnTop_Err:
 
             Case ViewType.Icons
 
-                Dim L = RegionUuids()
-                L.Sort()
-
-                For Each RegionUUID In L
+                For Each RegionUUID In RegionUuids()
                     If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
                         If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                             SearchArray.Add(RegionUUID)

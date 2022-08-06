@@ -333,7 +333,7 @@ Module Robust
             Dim RegionSetting As String = ""
 
             ' make a long list of the various regions with region_ at the start
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
 
                 Dim RegionName = Region_Name(RegionUUID)
                 RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file

@@ -274,7 +274,7 @@ Module WindowHandlers
 
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
 
                 If Not l.Contains(Group_Name(RegionUUID)) Then
                     l.Add(Group_Name(RegionUUID))

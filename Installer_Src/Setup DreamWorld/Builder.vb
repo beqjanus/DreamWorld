@@ -336,9 +336,7 @@ Module Build
         Try
             Dim Existing As New List(Of String)
             For Each UUID In RegionUuids()
-                If Region_Name(UUID).Length > 0 Then
-                    Existing.Add(Region_Name(UUID))
-                End If
+                Existing.Add(Region_Name(UUID))
             Next
 
             ' if no names, make up a number

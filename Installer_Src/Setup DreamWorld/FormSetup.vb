@@ -47,9 +47,6 @@ Public Class FormSetup
     Private speed3 As Double
     Private TimerisBusy As Integer
     Private wql As New ObjectQuery("Select TotalVirtualMemorySize, FreeVirtualMemory ,TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
-#Enable Warning CA2000 ' Dispose objects before losing scope
-
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ws As NetServer
 
 #End Region
@@ -281,18 +278,11 @@ Public Class FormSetup
 
         Dim n As Integer = RegionCount()
 
-        ' alphabetical shutdown
-        Dim r As New List(Of String)
-        For Each RegionUUID As String In RegionUuids()
-            r.Add(RegionUUID)
-        Next
-        r.Sort()
-
         ' only wait if the port 8001 is working
 
         If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
-        For Each RegionUUID As String In r
+        For Each RegionUUID In RegionUuids()
             If RegionEnabled(RegionUUID) And
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
@@ -441,16 +431,7 @@ Public Class FormSetup
             G()
         End If
 
-        Dim ListOfNames As New List(Of String)
-
-        ' Boot them up sorted in Alphabetical Order
-        For Each RegionUUID As String In RegionUuids()
-            ListOfNames.Add(Region_Name(RegionUUID))
-        Next
-
-        ListOfNames.Sort()
-
-        For Each RegionName As String In ListOfNames
+        For Each RegionName In RegionUuids()
             Dim RegionUUID = FindRegionByName(RegionName)
             If RegionEnabled(RegionUUID) Then
 
@@ -895,7 +876,7 @@ Public Class FormSetup
 
         If DB Then
             ' clear any temp regions on boot.
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
                     TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
                     DeleteAllRegionData(RegionUUID)
@@ -1228,9 +1209,7 @@ Public Class FormSetup
 
         StartTimer()
 
-        Dim L = RegionUuids()
-        L.Sort()
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
 
             If PropAborting Then
                 Return
@@ -1329,10 +1308,10 @@ Public Class FormSetup
         End If
 
         ' clear any temp regions on boot.
-        For Each Region As String In RegionUuids()
-            If Settings.TempRegion AndAlso EstateName(Region) = "SimSurround" Then
-                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(Region)}")
-                DeleteAllRegionData(Region)
+        For Each RegionUUID In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                TextPrint($"{My.Resources.DeletingTempRegion} {Region_Name(RegionUUID)}")
+                DeleteAllRegionData(RegionUUID)
                 PropChangedRegionSettings = True
             End If
         Next
@@ -1572,7 +1551,7 @@ Public Class FormSetup
 
     Private Sub ClearAllRegions()
 
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
                 DeleteAllRegionData(RegionUUID)
                 PropChangedRegionSettings = True
@@ -1642,10 +1621,8 @@ Public Class FormSetup
         AddLog("MySQL")
         AddLog("All Settings")
         AddLog("--- Regions ---")
-        Dim L = RegionUuids()
-        L.Sort()
 
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
             Dim Name = Region_Name(RegionUUID)
             AddLog("Region " & Name)
         Next
@@ -1791,7 +1768,7 @@ Public Class FormSetup
             End If
 
             ' start with zero avatars
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 AvatarCount(RegionUUID) = 0
             Next
 
@@ -2594,7 +2571,7 @@ Public Class FormSetup
         Dim HowManyAreOnline As Integer = 0
         Dim Message = InputBox(My.Resources.What_2_say_To_all)
         If Message.Length > 0 Then
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 If AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
                     SendMessage(RegionUUID, Message)

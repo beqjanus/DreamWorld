@@ -49,9 +49,7 @@ Module Diags
 
         If Name.Length = 0 Then Name = Settings.PublicIP   ' optional Alt DNS name can come in
         Dim TotalSize As Double
-        Dim L = RegionUuids()
-        L.Sort()
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
             TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
         Next
 
@@ -196,10 +194,7 @@ Module Diags
 
             Application.DoEvents()
 
-            Dim L = RegionUuids()
-            L.Sort()
-
-            For Each RegionUUID As String In L
+            For Each RegionUUID In RegionUuids()
                 Dim R As Integer = Region_Port(RegionUUID)
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
@@ -355,9 +350,9 @@ Module Diags
 
         Dim Used As New List(Of String)
         ' Boot them up
-        Dim L = RegionUuids()
-        L.Sort()
-        For Each RegionUUID As String In L
+
+
+        For Each RegionUUID In RegionUuids()
             If IsBooted(RegionUUID) Then
                 Dim RegionName = Region_Name(RegionUUID)
 

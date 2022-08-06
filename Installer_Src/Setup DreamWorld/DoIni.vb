@@ -81,7 +81,7 @@ Module DoIni
         Dim BirdData As String = ""
 
         ' Birds setup per region
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             Application.DoEvents()
             Dim Name = Region_Name(RegionUUID)
 
@@ -276,7 +276,7 @@ Module DoIni
             Try
                 ' make a long list of the various regions with region_ at the start
                 Dim Authorizationlist As String = ""
-                For Each RegionUUID As String In RegionUuids()
+                For Each RegionUUID In RegionUuids()
                     Dim RegionName = Region_Name(RegionUUID)
 
                     RegionName = RegionName.Replace(" ", "_")
@@ -676,7 +676,7 @@ Module DoIni
 
             DeleteFile(TideFile)
 
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 Dim RegionName = Region_Name(RegionUUID)
                 'Tides Setup per region
                 If Settings.TideEnabled And Tides(RegionUUID) = "True" Then

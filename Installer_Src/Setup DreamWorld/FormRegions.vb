@@ -93,7 +93,7 @@ Public Class FormRegions
             Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each UUID As String In RegionUuids()
+            For Each UUID In RegionUuids()
 
                 If X + DeltaX <= 0 Then
                     Err = True
@@ -110,7 +110,7 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each UUID As String In RegionUuids()
+            For Each UUID In RegionUuids()
                 Coord_X(UUID) = Coord_X(UUID) + DeltaX
                 Coord_Y(UUID) = Coord_Y(UUID) + DeltaY
                 WriteRegionObject(Group_Name(UUID), Region_Name(UUID))
@@ -169,10 +169,7 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        Dim L = RegionUuids()
-        L.Sort()
-
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
 
             Dim RegionName = Region_Name(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope
@@ -272,10 +269,7 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        Dim L = RegionUuids()
-        L.Sort()
-
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
             RegionBox.Items.Add(Region_Name(RegionUUID))
         Next
 
@@ -285,15 +279,8 @@ Public Class FormRegions
 
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
-        Dim L As New List(Of String)
-        For Each RegionUUID As String In RegionUuids()
-            L.Add(Region_Name(RegionUUID))
-        Next
-        If L.Count > 0 Then
-            L.Sort()
-        End If
 
-        For Each RegionName As String In L
+        For Each RegionName In RegionUuids()
             WelcomeBox1.Items.Add(RegionName)
         Next
 

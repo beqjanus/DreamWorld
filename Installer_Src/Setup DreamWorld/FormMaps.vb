@@ -106,7 +106,7 @@ Public Class FormMaps
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
-                    For Each RegionUUID As String In RegionUuids()
+                    For Each RegionUUID In RegionUuids()
 
                         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                             thing = IO.Path.Combine(thing, Region_Name(RegionUUID))
@@ -363,7 +363,7 @@ Public Class FormMaps
 
     Private Sub VieweAllMaps_Click(sender As Object, e As EventArgs) Handles VieweAllMaps.Click
 
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             VarChooser(Region_Name(RegionUUID), False, False)
             Application.DoEvents()
         Next

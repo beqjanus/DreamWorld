@@ -1516,34 +1516,42 @@ Module RegionMaker
     ''' <returns>List of Region UUID's</returns>
     Public Function RegionUuidListByName(Gname As String) As List(Of String)
 
+        Dim L As New List(Of String)
         Try
-            Dim L As New List(Of String)
             Dim pair As KeyValuePair(Of String, Region_data)
             For Each pair In RegionList
                 If pair.Value._Group = Gname Or Gname = "*" Then
                     L.Add(pair.Value._UUID)
                 End If
             Next
-            Return L
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+        Return L
 
-        Dim L2 As New List(Of String)
-        Return L2
 
     End Function
-
+    ''' <summary>
+    ''' Returns a list if region UUIDS sorted by name
+    ''' </summary>
+    ''' <returns>Alphabetized List of Region UUIDS</returns>
     Public Function RegionUuids() As List(Of String)
 
-        Dim L As New List(Of String)
+        Dim Tmp As New List(Of String)
+        Dim Out As New List(Of String)
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
-            L.Add(pair.Value._UUID)
+            Tmp.Add(pair.Value._RegionName)
         Next
 
-        Return L
+        Tmp.Sort()
+
+        For Each name In Tmp
+            Out.Add(FindRegionByName(name))
+        Next
+
+        Return Out
 
     End Function
 

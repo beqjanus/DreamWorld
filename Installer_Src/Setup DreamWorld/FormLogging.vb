@@ -219,7 +219,7 @@ Public Class FormLogging
                 outputFile.WriteLine("<table id=""t01"">")
                 outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
 
-                For Each UUID As String In RegionUuids()
+                For Each UUID In RegionUuids()
                     Application.DoEvents()
                     Dim GroupName = Group_Name(UUID)
                     ExamineOpensim(outputFile, GroupName, Region_Name(UUID))

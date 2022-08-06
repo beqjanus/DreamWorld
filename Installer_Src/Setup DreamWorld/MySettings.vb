@@ -2186,7 +2186,7 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' Enable the email module
+    ''' Enable the SmartStart Module
     ''' </summary>
     Public Property Smart_Start() As Boolean
         Get

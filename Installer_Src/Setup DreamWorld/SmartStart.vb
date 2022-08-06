@@ -135,9 +135,8 @@ Module SmartStart
 
         Bench.Start("Scan Region State")
         Try
-            Dim L = RegionUuids()
-            L.Sort()
-            For Each RegionUUID As String In L
+
+            For Each RegionUUID In RegionUuids()
 
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
@@ -379,6 +378,9 @@ Module SmartStart
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
+
+                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeShowWindow())
+
                 Dim T = Task.TaskName
                 Select Case T
                     Case TaskName.LaunchBackupper      '1
@@ -438,7 +440,7 @@ Module SmartStart
         While True
 
             Dim wait As Boolean = False
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 Dim status = RegionStatus(RegionUUID)
 
                 ' if we are a shutdown type region, we must wait
@@ -592,7 +594,7 @@ Module SmartStart
 
         ' whole lotta sorting going on as the RegionUUID list is not sorted.
         Dim ToSort As New List(Of String)
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             ToSort.Add(Region_Name(RegionUUID))
         Next
         ToSort.Sort() ' not it is sorted
