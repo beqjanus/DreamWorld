@@ -458,13 +458,14 @@ Module SmartStart
                     Exit For
                 End If
             Next
-            If Not wait Then Return
 
             If Settings.SequentialMode = 1 Then
-                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) Then
-                    Exit While
+                If (FormSetup.CPUAverageSpeed > Settings.CpuMax Or Settings.Ramused > 90) Then
+                    wait = True
                 End If
             End If
+
+            If Not wait Then Return
             Application.DoEvents()
             CheckPost()                 ' see if anything arrived in the web server
 
