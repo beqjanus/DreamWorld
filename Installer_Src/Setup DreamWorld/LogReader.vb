@@ -47,7 +47,7 @@ Public Class LogReader
                 Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     'start at the end of the file
                     If SeektoEnd Then
-                        reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.End)
+                        reader.BaseStream.Seek(0, SeekOrigin.End)
                         lastMaxOffset = reader.BaseStream.Length
                         SeektoEnd = False
                     End If
