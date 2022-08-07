@@ -49,7 +49,7 @@ Public Class LogReader
 
         If line.Length > 0 Then
             Debug.Print(line)
-            Dim pattern = New Regex("Error:(.*)", RegexOptions.IgnoreCase)
+            Dim pattern = New Regex("Error (.*)", RegexOptions.IgnoreCase)
             Dim match As Match = pattern.Match(line)
             If match.Success Then
                 Logger(Region_Name(RegionUUID), line, "Opensim")

@@ -1,5 +1,9 @@
 REVISIONS FOR DREAMGRID
 
+V5.194
+Added a error collector that makes a Opensim.log file in Outworldzfiles\Logs.  This grabs any error lines in any region in real time.
+Opensim 6 #7a710f09c0 fix llRequestInventoryData lm math
+
 V5.193
 Lots of tweaks to Backups. Background timer works.  
 AppActivate() turns out to have been a mistake so focus is back to the original behavior.
