@@ -446,16 +446,20 @@ Module SmartStart
                 If status = SIMSTATUSENUM.Booting And
                     Settings.Smart_Start And
                     Settings.BootOrSuspend And
-                    Smart_Start(RegionUUID) = True Then
+                    Smart_Start(RegionUUID) Then
+
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
 
                     ' could be a regular region so we wait
-                ElseIf status = SIMSTATUSENUM.Booting And (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
+                ElseIf status = SIMSTATUSENUM.Booting And
+                    (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
+
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
+
                 End If
             Next
 
@@ -465,9 +469,8 @@ Module SmartStart
                 End If
             End If
 
-            If Not wait Then Return
+            If Not wait Then Exit While
             Application.DoEvents()
-            CheckPost()                 ' see if anything arrived in the web server
 
             ctr -= 1
             If ctr <= 0 Then
