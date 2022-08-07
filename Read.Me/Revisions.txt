@@ -3,6 +3,11 @@ REVISIONS FOR DREAMGRID
 V5.194
 Added a error collector that makes a Opensim.log file in Outworldzfiles\Logs.  This grabs any error lines in any region in real time.
 Opensim 6 #7a710f09c0 fix llRequestInventoryData lm math
+Lots of small tweaks to Save OAR and backups.
+OAR Backups run sequentially in Smart Start Mode, but can run in parallel in all others
+Show Window and hide it when tp  triggered
+Alphabetic order when doing all regions
+Delete visitor maps for deleted regions
 
 V5.193
 Lots of tweaks to Backups. Background timer works.  
