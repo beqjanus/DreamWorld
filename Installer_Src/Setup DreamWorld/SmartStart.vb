@@ -10,7 +10,6 @@ Imports System.Threading
 
 Module SmartStart
     Public ReadOnly BootedList As New List(Of String)
-    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
     Public ReadOnly ProcessIdDict As New Dictionary(Of Integer, Process)
     Public MyCPUCollection As New List(Of Double)
     Public MyRAMCollection As New List(Of Double)
@@ -111,7 +110,7 @@ Module SmartStart
                 SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
 
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(GroupName), MaybeHideWindow())
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
 
                 If Settings.MapType = "None" AndAlso MapType(RegionUUID).Length = 0 Then
                     BootTime(RegionUUID) = CInt(seconds)
@@ -135,9 +134,8 @@ Module SmartStart
 
         Bench.Start("Scan Region State")
         Try
-            Dim L = RegionUuids()
-            L.Sort()
-            For Each RegionUUID As String In L
+
+            For Each RegionUUID In RegionUuids()
 
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
@@ -223,7 +221,7 @@ Module SmartStart
                         ' shut down the group when AutoRestartInterval has gone by.
                         BreakPoint.Print("State Is Time Exceeded, shutdown")
 
-                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+                        ShowDOSWindow(RegionUUID, MaybeShowWindow())
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
@@ -262,7 +260,6 @@ Module SmartStart
                     BreakPoint.Print($"{GroupName} Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
-
                         If RegionEnabled(RegionUUID) Then
                             Boot(RegionName)
                         End If
@@ -379,6 +376,9 @@ Module SmartStart
             If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                 BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                 ToDoList.Remove(RegionUUID)
+
+                ShowDOSWindow(RegionUUID, MaybeShowWindow())
+
                 Dim T = Task.TaskName
                 Select Case T
                     Case TaskName.LaunchBackupper      '1
@@ -438,7 +438,7 @@ Module SmartStart
         While True
 
             Dim wait As Boolean = False
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
                 Dim status = RegionStatus(RegionUUID)
 
                 ' if we are a shutdown type region, we must wait
@@ -446,27 +446,31 @@ Module SmartStart
                 If status = SIMSTATUSENUM.Booting And
                     Settings.Smart_Start And
                     Settings.BootOrSuspend And
-                    Smart_Start(RegionUUID) = True Then
+                    Smart_Start(RegionUUID) Then
+
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
 
                     ' could be a regular region so we wait
-                ElseIf status = SIMSTATUSENUM.Booting And Not Smart_Start(RegionUUID) Then
+                ElseIf status = SIMSTATUSENUM.Booting And
+                    (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
+
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
+
                 End If
             Next
-            If Not wait Then Return
 
             If Settings.SequentialMode = 1 Then
-                If (FormSetup.CPUAverageSpeed < Settings.CpuMax AndAlso Settings.Ramused < 90) Then
-                    Exit While
+                If (FormSetup.CPUAverageSpeed > Settings.CpuMax Or Settings.Ramused > 90) Then
+                    wait = True
                 End If
             End If
+
+            If Not wait Then Exit While
             Application.DoEvents()
-            CheckPost()                 ' see if anything arrived in the web server
 
             ctr -= 1
             If ctr <= 0 Then
@@ -491,15 +495,6 @@ Module SmartStart
         End Try
 
     End Sub
-
-    Public Class TaskObject
-
-        Public backMeUp As String
-        Public Command As String    ' text to send in sequence to the task
-        Public Str As String
-        Public TaskName As TaskName
-
-    End Class
 
 #Region "StartStart"
 
@@ -592,7 +587,7 @@ Module SmartStart
 
         ' whole lotta sorting going on as the RegionUUID list is not sorted.
         Dim ToSort As New List(Of String)
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             ToSort.Add(Region_Name(RegionUUID))
         Next
         ToSort.Sort() ' not it is sorted
@@ -789,14 +784,6 @@ Module SmartStart
             PropOpensimIsRunning() = True
             If PropAborting Then Return True
 
-            ' collect all process windows
-            Dim processes = Process.GetProcessesByName("Opensim")
-            For Each p In processes
-                If Not PropInstanceHandles.ContainsKey(p.Id) Then
-                    PropInstanceHandles.TryAdd(p.Id, p.MainWindowTitle)
-                End If
-            Next
-
             ' stop if disabled
             Dim RegionUUID As String = FindRegionByName(BootName)
 
@@ -818,43 +805,26 @@ Module SmartStart
             ' Detect if a region Window is already running
             ' needs to be captured into the event handler
             If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                TextPrint($"{BootName} {My.Resources.Running_word}")
 
                 Try
                     Dim P = Process.GetProcessById(PID)
                     P.EnableRaisingEvents = True
                     AddHandler P.Exited, AddressOf OpensimExited ' Registering event handler
                 Catch ex As Exception
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Error
                     Return False
                 End Try
 
                 ' scan over all regions in the DOS box
                 For Each UUID As String In RegionUuidListByName(GroupName)
                     ProcessID(UUID) = PID
-
-                    ' might be SS enabled
-                    If Settings.BootOrSuspend And Settings.Smart_Start Then
-                        SendToOpensimWorld(UUID, 0)
-                    End If
-
-                    ' might be SS enabled and Suspend type
-                    If Not Settings.BootOrSuspend And
-                             Smart_Start(UUID) And
-                             Settings.Smart_Start Then
-                        FreezeThaw.Thaw(UUID)
-                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                    End If
-
-                    If Not Settings.Smart_Start Then
-                        ResumeRegion(UUID)
-                        RegionStatus(UUID) = SIMSTATUSENUM.Booted
-                    End If
-
+                    UnPauseRegion(UUID)
+                    RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     SendToOpensimWorld(UUID, 0)
+                    TextPrint($"{BootName} {My.Resources.Ready}")
                 Next
-                If Not LogResults.ContainsKey(RegionUUID) Then LogResults.Add(RegionUUID, New LogReader(RegionUUID))
 
-                ShowDOSWindow(GetHwnd(Group_Name(RegionUUID)), MaybeHideWindow())
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
                 PropUpdateView = True ' make form refresh
                 Return True
 
@@ -967,7 +937,6 @@ Module SmartStart
                     For Each UUID As String In RegionUuidListByName(GroupName)
                         ProcessID(UUID) = PID
                     Next
-
                 Else
                     PropUpdateView = True ' make form refresh
                     Logger("Failed to boot ", BootName, "Outworldz")
@@ -1232,5 +1201,14 @@ Module SmartStart
     End Sub
 
 #End Region
+
+    Public Class TaskObject
+
+        Public backMeUp As String
+        Public Command As String    ' text to send in sequence to the task
+        Public Str As String
+        Public TaskName As TaskName
+
+    End Class
 
 End Module

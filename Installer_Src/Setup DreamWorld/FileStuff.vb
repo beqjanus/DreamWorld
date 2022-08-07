@@ -273,6 +273,7 @@ Module FileStuff
         Delete_Region_Map(regionUUID)
         DeleteMapTile(regionUUID)
         DeregisterRegionUUID(regionUUID)
+        DeleteVisitorMap(regionUUID)
 
         DeleteFolder(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}"))
         DeleteRegion(regionUUID)
@@ -404,7 +405,7 @@ Module FileStuff
 
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
 
-        For Each UUID As String In RegionUuids()
+        For Each UUID In RegionUuids()
             Dim GroupName = Group_Name(UUID)
             DeleteThisOldFile($"{Settings.OpensimBinPath()}\Regions\{GroupName}\Opensim.log")
             DeleteThisOldFile($"{Settings.OpensimBinPath()}\regions\{GroupName}\OpensimConsole.log")

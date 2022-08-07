@@ -32,16 +32,16 @@ Module Teleport
                     Fin.Add(AgentID) ' cancel this, the region went away
 
                 ElseIf status = SIMSTATUSENUM.Booted Then
-
+                    ShowDOSWindow(RegionToUUID, MaybeShowWindow())
                     If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
                         Dim DestinationName = Region_Name(RegionToUUID)
                         Dim FromRegionUUID As String = GetRegionFromAgentId(AgentID)
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName Is Nothing Then Fin.Add(AgentID)
                         If fromName.Length > 0 Then
-                            ' min 1000 sleep on suspend minimum
+
                             If Settings.TeleportSleepTime = 0 And Not Settings.BootOrSuspend Then
-                                'Sleep(500)
+                                'nothing
                             ElseIf Settings.TeleportSleepTime > 0 And Not Settings.BootOrSuspend Then
                                 RPC_admin_dialog(AgentID, $"{ Region_Name(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
                                 Sleep(Settings.TeleportSleepTime * 1000)
@@ -50,6 +50,7 @@ Module Teleport
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                                 Fin.Add(AgentID)
+
                             Else
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
                                 BreakPoint.Print($"{DestinationName} failed to receive teleport")
@@ -60,6 +61,8 @@ Module Teleport
                             Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
                     End If
+                    ShowDOSWindow(RegionToUUID, MaybeHideWindow())
+
                 End If
             Next
         Catch

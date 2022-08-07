@@ -62,7 +62,7 @@ Module IAR
         Dim UUID As String = ""
         Try
             ' find one that is running
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
 
                 If IsBooted(RegionUUID) And Not Smart_Start(RegionUUID) Then
                     UUID = RegionUUID

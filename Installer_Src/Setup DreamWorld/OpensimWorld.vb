@@ -5,7 +5,7 @@ Module OpensimWorld
 
     Public Sub ScanOpenSimWorld(Force As Boolean)
 
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
 
             If OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
             If Not RegionEnabled(RegionUUID) Then Continue For

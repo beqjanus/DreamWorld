@@ -89,7 +89,7 @@ Public Module Firewall
             Command = Command & $"netsh advfirewall firewall delete rule name=""Apache HTTP Web Port {CStr(Settings.ApachePort)}""" & vbCrLf
         End If
 
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
 
             Dim R As Integer = CInt("0" & Region_Port(RegionUUID))
             If R > 0 Then

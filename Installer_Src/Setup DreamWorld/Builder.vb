@@ -14,11 +14,6 @@ Module Build
     Public TreeList As New List(Of String)
     Private _ctr As Integer
 
-    Public Class RegionEssentials
-        Public RegionName As String
-        Public RegionUUID As String
-    End Class
-
 #Region "Land"
 
     Public Function GenLand(R As Object) As Boolean
@@ -168,6 +163,7 @@ Module Build
         If Bootable.Count > 0 Then
             PropChangedRegionSettings = True
             GetAllRegions(False)
+
             For Each Name In Bootable
                 If Name.Length > 0 Then
                     ResumeRegion(FindRegionByName(Name))
@@ -336,9 +332,7 @@ Module Build
         Try
             Dim Existing As New List(Of String)
             For Each UUID In RegionUuids()
-                If Region_Name(UUID).Length > 0 Then
-                    Existing.Add(Region_Name(UUID))
-                End If
+                Existing.Add(Region_Name(UUID))
             Next
 
             ' if no names, make up a number
@@ -419,5 +413,10 @@ Module Build
     End Sub
 
 #End Region
+
+    Public Class RegionEssentials
+        Public RegionName As String
+        Public RegionUUID As String
+    End Class
 
 End Module

@@ -10,6 +10,14 @@ Module Backup
     ''' <param name="BackupName">Name of region to watch</param>
     Public Function WaitforComplete(RegionUUID As String, FolderAndFileName As String) As Boolean
 
+        If SkipAutobackup(RegionUUID) = "True" Then Return True
+
+        If Not Settings.Smart_Start Or Not Smart_Start(RegionUUID) Then
+            SequentialPause()
+            Return True
+        End If
+
+
         Const Seconds As Integer = 30
 
         Dim Filectr As Integer = 60
@@ -46,10 +54,12 @@ Module Backup
                 Return False
             End If
 
+
             Sleep(1000)
             oldsize = s
 
         End While
+        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
 
         Return True
 
@@ -150,27 +160,7 @@ Module Backup
     Public Sub BackupAllRegions()
 
         If Not Settings.BackupOARs Then Return
-
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start As ParameterizedThreadStart = AddressOf BackupAllRegionsTask
-#Enable Warning BC42016 ' Implicit conversion
-        Dim SaveIARThread = New Thread(start)
-        SaveIARThread.SetApartmentState(ApartmentState.STA)
-        SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
-        SaveIARThread.Start()
-
-    End Sub
-
-    ''' <summary>
-    ''' Background Thread to save all OARS
-    ''' </summary>
-
-    Public Sub BackupAllRegionsTask()
-
-        Dim L = RegionUuids()
-        L.Sort()
-
-        For Each RegionUUID As String In L
+        For Each RegionUUID In RegionUuids()
             If BackupAbort Then Return
             If Not RegionEnabled(RegionUUID) Then Continue For
             If SkipAutobackup(RegionUUID) = "True" Then Continue For
@@ -185,12 +175,13 @@ Module Backup
                 .Command = file
             }
             RebootAndRunTask(RegionUUID, Obj)
-
+            Sleep(1000)
             If WaitforComplete(RegionUUID, file) Then
-                RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
             Else
                 Log("Error", $"Timeout waiting for region {Region_Name(RegionUUID)}")
             End If
+
 
         Next
 

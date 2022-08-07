@@ -58,7 +58,14 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewVisitorMapButton.Click
-        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
+
+        Dim webAddress As String
+        If Settings.PublicVisitorMaps Then
+            webAddress = $"http://{Settings.LANIP}:{CStr(Settings.ApachePort)}/Stats?r={Random()}"
+        Else
+            webAddress = $"http://127.0.0.1:{CStr(Settings.ApachePort)}/Stats"
+        End If
+
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -106,7 +113,7 @@ Public Class FormMaps
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
-                    For Each RegionUUID As String In RegionUuids()
+                    For Each RegionUUID In RegionUuids()
 
                         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                             thing = IO.Path.Combine(thing, Region_Name(RegionUUID))
@@ -363,7 +370,7 @@ Public Class FormMaps
 
     Private Sub VieweAllMaps_Click(sender As Object, e As EventArgs) Handles VieweAllMaps.Click
 
-        For Each RegionUUID As String In RegionUuids()
+        For Each RegionUUID In RegionUuids()
             VarChooser(Region_Name(RegionUUID), False, False)
             Application.DoEvents()
         Next

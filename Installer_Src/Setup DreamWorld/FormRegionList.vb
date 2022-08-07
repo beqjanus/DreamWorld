@@ -11,14 +11,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegionlist
 
-    '// Constants
-    Const HWND_TOP As Integer = 0
 
-    'Const HWND_TOPMOST As Integer = -1
-    'Const HWND_NO_TOPMOST As Integer = -2
-    Const NOMOVE As Long = &H2
-
-    Const NOSIZE As Long = &H1
     Private ReadOnly colsize As New ClassScreenpos("Region List")
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly SearchArray As New List(Of String)
@@ -207,19 +200,6 @@ Public Class FormRegionlist
         Return String.Concat("""", value.Replace("""", """"""), """")
     End Function
 
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
-
-        On Error GoTo SetWindowOnTop_Err
-
-        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
-
-SetWindowOnTop_Exit:
-        Exit Sub
-
-SetWindowOnTop_Err:
-        Resume SetWindowOnTop_Exit
-
-    End Sub
 
     Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
@@ -303,17 +283,19 @@ SetWindowOnTop_Err:
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
                 Settings.ConsoleShow = "True"
-                If Not ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+                If Not ShowDOSWindow(RegionUUID, SHOWWINDOWENUM.SWRESTORE) Then
                     ' shut down all regions in the DOS box
                     For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
                         RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                     DelPidFile(RegionUUID)
                     Return
+                Else
+                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
                 End If
                 Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
-                SetWindowOnTop(hwnd.ToInt32)
-                Sleep(2000)
+                SetWindowOnTop(GetHwnd(Group_Name(RegionUUID)).ToInt32)
+
                 Settings.ConsoleShow = tmp
             End If
 
@@ -469,8 +451,6 @@ SetWindowOnTop_Err:
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        PropChangedRegionSettings = True
-        GetAllRegions(False)
         LoadMyListView()
 
     End Sub
@@ -964,18 +944,18 @@ SetWindowOnTop_Err:
             DoubleBuff(IconView, True)
             DoubleBuff(UserView, True)
 
-            Settings.RegionListVisible = True
 
             Me.Name = "Region List"
             Me.Text = Global.Outworldz.My.Resources.Region_List
 
+            AvatarView.Visible = False
             AvatarView.CheckBoxes = False
             AvatarView.TabIndex = 0
             AvatarView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             AvatarView.GridLines = False
             AvatarView.ShowItemToolTips = True
 
-            ListView1.Visible = False
+            ListView1.Visible = True
             ListView1.LabelWrap = True
             ListView1.AutoArrange = True
             ListView1.TabIndex = 0
@@ -990,6 +970,7 @@ SetWindowOnTop_Err:
             ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             ListView1.ShowItemToolTips = True
 
+            IconView.Visible = False
             IconView.TabIndex = 0
             IconView.View = View.SmallIcon
             IconView.CheckBoxes = False
@@ -1000,6 +981,7 @@ SetWindowOnTop_Err:
             IconView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
             IconView.ShowItemToolTips = True
 
+            UserView.Visible = False
             UserView.TabIndex = 0
             UserView.View = View.Details
             UserView.CheckBoxes = True
@@ -1187,7 +1169,6 @@ SetWindowOnTop_Err:
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("hourglass", Globalization.CultureInfo.InvariantCulture))  '  209 - Busy - do not shutdown
 
             If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-                CalcCPU()
                 Timer1.Interval = 1000 ' check for Form1.PropUpdateView immediately
                 Timer1.Start() 'Timer starts functioning
             End If
@@ -1196,19 +1177,24 @@ SetWindowOnTop_Err:
             Settings.SaveSettings()
 
             PictureBox1.Visible = False
-            Timer1.Start()
-            LoadMyListView()
+
             initted = True
         Catch
         End Try
 
     End Sub
 
+    Public Sub Go()
+
+        Timer1.Start()
+        LoadMyListView()
+
+    End Sub
     Private Sub LoadMyListView()
 
         If SearchBusy = True Then Return
         SearchBusy = True
-        CalcCPU()
+
 
         BringToFront()
 
@@ -1225,10 +1211,7 @@ SetWindowOnTop_Err:
 
             Case ViewType.Details
 
-                Dim L = RegionUuids()
-                L.Sort()
-
-                For Each RegionUUID In L
+                For Each RegionUUID In RegionUuids()
                     If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
                         If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                             SearchArray.Add(RegionUUID)
@@ -1242,10 +1225,7 @@ SetWindowOnTop_Err:
 
             Case ViewType.Icons
 
-                Dim L = RegionUuids()
-                L.Sort()
-
-                For Each RegionUUID In L
+                For Each RegionUUID In RegionUuids()
                     If SearchBox.Text.Length > 0 And SearchBox.Text <> My.Resources.Search_word Then
                         If Region_Name(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                             SearchArray.Add(RegionUUID)
@@ -1441,7 +1421,7 @@ SetWindowOnTop_Err:
 
         SyncLock regionLock
             ShowTitle()
-
+            CalcCPU()
             AllNone.Visible = True
 
             PictureBox1.Visible = True
@@ -1762,7 +1742,7 @@ SetWindowOnTop_Err:
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
-        ' CalcCPU()
+
         UserView.BeginUpdate()
         UserView.Items.Clear()
         UserView.CheckBoxes = True
@@ -1810,6 +1790,7 @@ SetWindowOnTop_Err:
 
             Me.Text = Mail.Count & " " & My.Resources.Users_word
 
+
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
@@ -1842,10 +1823,6 @@ SetWindowOnTop_Err:
             Timer1.Stop()
             Return
         End If
-
-        'If TheView1 = ViewType.Details Then
-        ' CalcCPU()
-        'End If
 
         If PropUpdateView() Then ' force a refresh
             LoadMyListView()

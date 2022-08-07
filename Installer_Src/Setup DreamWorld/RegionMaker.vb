@@ -491,6 +491,7 @@ Module RegionMaker
 
     End Function
 
+    Private retry As Integer
     ''' <summary>
     ''' Fetches all regions from Disk Into RAM
     ''' </summary>
@@ -498,18 +499,20 @@ Module RegionMaker
     ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        If Not PropChangedRegionSettings Then Return RegionList.Count
+        If Not PropChangedRegionSettings Then
+            Return RegionList.Count
+        End If
 
-        Dim Retry = 10
-        While Retry > 0 AndAlso GetRegionsIsBusy
-            Sleep(1000)
-            Retry -= 1
-        End While
-        If Retry = 0 Then BreakPoint.Print("Retry GetRegionsIsBusy exceeded")
+        If retry < 10 AndAlso GetRegionsIsBusy Then
+            retry += 1
+            Return 0
+        End If
+        retry = 0
+
         GetRegionsIsBusy = True
 
         Try
-            PropChangedRegionSettings = False
+
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
 
@@ -689,6 +692,7 @@ Module RegionMaker
             BreakPoint.Dump(ex)
         End Try
 
+        PropChangedRegionSettings = False
         PropUpdateView = True ' make form refresh
 
         GetRegionsIsBusy = False
@@ -734,8 +738,8 @@ Module RegionMaker
     Public Sub StopRegion(RegionUUID As String)
 
         UnPauseRegion(RegionUUID)
-        Dim hwnd As IntPtr = GetHwnd(Group_Name(RegionUUID))
-        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+
+        If ShowDOSWindow(RegionUUID, SHOWWINDOWENUM.SWRESTORE) Then
             SequentialPause()
             ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         Else
@@ -1162,6 +1166,7 @@ Module RegionMaker
             ErrorLog($"Bad UUID [{uuid}]")
         End If
 
+
     End Sub
 
 #End Region
@@ -1516,34 +1521,42 @@ Module RegionMaker
     ''' <returns>List of Region UUID's</returns>
     Public Function RegionUuidListByName(Gname As String) As List(Of String)
 
+        Dim L As New List(Of String)
         Try
-            Dim L As New List(Of String)
             Dim pair As KeyValuePair(Of String, Region_data)
             For Each pair In RegionList
                 If pair.Value._Group = Gname Or Gname = "*" Then
                     L.Add(pair.Value._UUID)
                 End If
             Next
-            Return L
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
+        Return L
 
-        Dim L2 As New List(Of String)
-        Return L2
 
     End Function
-
+    ''' <summary>
+    ''' Returns a list if region UUIDS sorted by name
+    ''' </summary>
+    ''' <returns>Alphabetized List of Region UUIDS</returns>
     Public Function RegionUuids() As List(Of String)
 
-        Dim L As New List(Of String)
+        Dim Tmp As New List(Of String)
+        Dim Out As New List(Of String)
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
-            L.Add(pair.Value._UUID)
+            Tmp.Add(pair.Value._RegionName)
         Next
 
-        Return L
+        Tmp.Sort()
+
+        For Each name In Tmp
+            Out.Add(FindRegionByName(name))
+        Next
+
+        Return Out
 
     End Function
 

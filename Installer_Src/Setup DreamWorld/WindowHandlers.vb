@@ -72,32 +72,28 @@ Module WindowHandlers
             command = ToLowercaseKeys(command)
             Dim PID As Integer
             If RegionUUID <> RobustName() Then
+                ShowDOSWindow(RegionUUID, MaybeShowWindow())
                 PID = ProcessID(RegionUUID)
                 If PID > 0 Then
                     UnPauseRegion(RegionUUID)
-                    Try
-                        If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeShowWindow())
-                    Catch ex As Exception
-                        ' may not be able to find the window
-                        Return RPC_Region_Command(RegionUUID, command)
-                    End Try
                 Else
-                    Return RPC_Region_Command(RegionUUID, command)
+                    PID = GetPIDofWindow(Group_Name(RegionUUID))
+                    If PID = 0 Then
+                        Return RPC_Region_Command(RegionUUID, command)
+                    Else
+                        ProcessID(RegionUUID) = PID
+                    End If
                 End If
 
                 DoType(RegionUUID, command)
+                Thread.Sleep(2000)
+                ShowDOSWindow(RegionUUID, MaybeHideWindow())
 
-                Try
-                    If Not noChange Then ShowDOSWindow(CachedProcess(PID).MainWindowHandle, MaybeHideWindow())
-                Catch ex As Exception
-                End Try
             Else ' Robust
-                Try
-                    If Not noChange Then ShowDOSWindow(CachedProcess(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
-                Catch ex As Exception
-                    Return True
-                End Try
+                ShowDOSWindow(RobustName, MaybeShowWindow())
                 DoType("Robust", command)
+                Thread.Sleep(2000)
+                ShowDOSWindow(RobustName, MaybeHideWindow())
             End If
         End If
 
@@ -128,7 +124,7 @@ Module WindowHandlers
                 Return
             End If
             Try
-                AppActivate(PID)
+                AppActivate(PID)                
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
@@ -274,7 +270,7 @@ Module WindowHandlers
 
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
-            For Each RegionUUID As String In RegionUuids()
+            For Each RegionUUID In RegionUuids()
 
                 If Not l.Contains(Group_Name(RegionUUID)) Then
                     l.Add(Group_Name(RegionUUID))
@@ -374,10 +370,17 @@ Module WindowHandlers
 
     End Sub
 
-    Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+    Public Function ShowDOSWindow(RegionUUID As String, command As SHOWWINDOWENUM) As Boolean
 
         If Settings.ConsoleShow = "None" AndAlso command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
+        End If
+
+        Dim handle As IntPtr
+        If RegionUUID = RobustName() Then
+            handle = GetHwnd(RegionUUID)
+        Else
+            handle = GetHwnd(Group_Name(RegionUUID))
         End If
 
         Dim ctr = 20    ' 2 seconds
@@ -386,6 +389,7 @@ Module WindowHandlers
 
             While Not HandleValid AndAlso ctr > 0
                 Try
+                    Dim r = SetForegroundWindow(handle)
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
                 Catch ex As Exception

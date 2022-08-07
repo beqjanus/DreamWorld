@@ -102,7 +102,12 @@ Public Class FormDebug
         End Try
 
     End Sub
-
+    Private Sub Poketest()
+        For Each RegionUUID In RegionUuids()
+            UnPauseRegion(RegionUUID)
+            ConsoleCommand(RegionUUID, "show stats")
+        Next
+    End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = "Debug LandMaker" Then
@@ -123,6 +128,10 @@ Public Class FormDebug
         ElseIf Command = My.Resources.TeleportAPI Then
 
             TPAPITest()
+
+        ElseIf Command = "All region stats" Then
+
+            Poketest()
 
         ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
 
@@ -197,6 +206,7 @@ Public Class FormDebug
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
 
+        ComboBox1.Items.Add("All region stats")
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
