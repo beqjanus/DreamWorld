@@ -90,6 +90,10 @@ Module Global_Properties
             If L > 0 Then
                 FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
             End If
+            ln = FormSetup.TextBox1.Text.Length
+            FormSetup.TextBox1.SelectionStart = ln
+            FormSetup.TextBox1.ScrollToCaret()
+
 
         End SyncLock
 
