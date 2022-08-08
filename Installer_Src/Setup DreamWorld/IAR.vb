@@ -276,12 +276,8 @@ Module IAR
 
             ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-
-            If WaitforComplete(RegionUUID, ToBackup) Then
-                RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
-            Else
-                BreakPoint.Print("Timeout waiting for region")
-            End If
+            WaitforComplete(RegionUUID, ToBackup)
+            RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
 
         Next
 

@@ -8,15 +8,41 @@ Module Backup
     ''' Waits for 5 minutes or the file stops growing for 30 seconds
     ''' </summary>
     ''' <param name="BackupName">Name of region to watch</param>
-    Public Function WaitforComplete(RegionUUID As String, FolderAndFileName As String) As Boolean
+    Public Sub WaitforComplete(RegionUUID As String, FolderAndFileName As String)
 
-        If SkipAutobackup(RegionUUID) = "True" Then Return True
+        If SkipAutobackup(RegionUUID) = "True" Then Return
 
         If Not Settings.Smart_Start Or Not Smart_Start(RegionUUID) Then
             SequentialPause()
-            Return True
+            Return
         End If
 
+        ' pass the two parameters it needs as in object
+        Dim Oar = New OarObject With {
+            .RegionUUID = RegionUUID,
+            .FolderAndFileName = FolderAndFileName
+        }
+
+        'if suspended, keep it alive
+        If Not Settings.BootOrSuspend Then
+
+            SequentialPause(True)
+
+            Dim start As ParameterizedThreadStart = AddressOf WaitForOAR
+            Dim WebThread = New Thread(start)
+            WebThread.SetApartmentState(ApartmentState.STA)
+            WebThread.Priority = ThreadPriority.BelowNormal
+            WebThread.Start(Oar)
+        Else
+            WaitForOAR(Oar)
+        End If
+
+    End Sub
+
+    Private Sub WaitForOAR(Oar As OarObject)
+
+        Dim RegionUUID = Oar.RegionUUID
+        Dim FolderAndFileName = Oar.FolderAndFileName
 
         Const Seconds As Integer = 30
 
@@ -39,7 +65,7 @@ Module Backup
 
             If Filectr = 0 Then
                 Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
-                Return False
+                Return
             End If
 
             If s = oldsize And s > 0 Then
@@ -50,10 +76,9 @@ Module Backup
             ctr -= 1
 
             If ctr = 0 Then
-                Log("Error", $"{Region_Name(RegionUUID)}  timeout, took too long to save")
-                Return False
+                Log("Error", $"{Region_Name(RegionUUID)} timeout, took too long to save")
+                Return
             End If
-
 
             Sleep(1000)
             oldsize = s
@@ -61,9 +86,9 @@ Module Backup
         End While
         RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
 
-        Return True
+        Return
 
-    End Function
+    End Sub
 
 #Region "Backups"
 
@@ -175,17 +200,10 @@ Module Backup
                 .Command = file
             }
             RebootAndRunTask(RegionUUID, Obj)
-            Sleep(1000)
-            If WaitforComplete(RegionUUID, file) Then
-                ShowDOSWindow(RegionUUID, MaybeHideWindow())
-            Else
-                Log("Error", $"Timeout waiting for region {Region_Name(RegionUUID)}")
-            End If
-
+            WaitforComplete(RegionUUID, file)
+            ShowDOSWindow(RegionUUID, MaybeHideWindow())
 
         Next
-
-        RunningBackupName.TryAdd(My.Resources.Finished_with_backup_word, "")
 
     End Sub
 
@@ -200,3 +218,10 @@ Module Backup
 #End Region
 
 End Module
+
+Public Class OarObject
+
+    Public FolderAndFileName As String
+    Public RegionUUID As String
+
+End Class

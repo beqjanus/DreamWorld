@@ -358,71 +358,74 @@ Module SmartStart
     Public Sub RunTaskList(RegionUUID As String)
 
         If ToDoList.ContainsKey(RegionUUID) Then
-            BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
-            Dim Task = ToDoList.Item(RegionUUID)
-
             Try
-                ' stop trying after a period of time
-                ToDoCount(RegionUUID) = ToDoCount.Item(RegionUUID) + 1
-                If ToDoCount.Item(RegionUUID) > 120 Then
+
+                Dim Task = ToDoList.Item(RegionUUID)
+                BreakPoint.Print($"Pending tasks for {Region_Name(RegionUUID)}")
+                Try
+                    ' stop trying after a period of time
+                    ToDoCount(RegionUUID) = ToDoCount.Item(RegionUUID) + 1
+                    If ToDoCount.Item(RegionUUID) > 120 Then
+                        ToDoList.Remove(RegionUUID)
+                        ToDoCount(RegionUUID) = 0
+                        Return
+                    End If
+                Catch
+                    ToDoCount(RegionUUID) = 1
+                End Try
+                PokeRegionTimer(RegionUUID)
+                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
+                    BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                     ToDoList.Remove(RegionUUID)
-                    ToDoCount(RegionUUID) = 0
-                    Return
+
+                    ShowDOSWindow(RegionUUID, MaybeShowWindow())
+
+                    Dim T = Task.TaskName
+                    Select Case T
+                        Case TaskName.LaunchBackupper      '1
+                            Backupper(RegionUUID, Task.Command)
+                        Case TaskName.TeleportClicked   '2
+                            TeleportClicked(RegionUUID)
+                        Case TaskName.LoadOar   '2
+                            LoadOar(RegionUUID)
+                        Case TaskName.LoadOneOarTask    '4
+                            LoadOneOarTask(RegionUUID, Task)
+                        Case TaskName.LoadOARContent    '5
+                            LoadOARContent2(RegionUUID, Task)
+                        Case TaskName.SaveOneOAR    '6
+                            SaveOneOar(RegionUUID, Task)
+                        Case TaskName.RebuildTerrain    '7
+                            RebuildTerrain(RegionUUID)
+                        Case TaskName.SaveTerrain  '8
+                            Save_Terrain(RegionUUID)
+                        Case TaskName.ApplyTerrainEffect    '9
+                            ApplyTerrainEffect(RegionUUID)
+                        Case TaskName.TerrainLoad       '10
+                            Load_Save(RegionUUID)
+                        Case TaskName.ApplyPlant       '11
+                            Apply_Plant(RegionUUID)
+                        Case TaskName.BakeTerrain      '12
+                            Bake_Terrain(RegionUUID)
+                        Case TaskName.LoadAllFreeOARs  '13
+                            Load_AllFreeOARs(RegionUUID, Task)
+                        Case TaskName.DeleteTree       '14
+                            Delete_Tree(RegionUUID)
+                        Case TaskName.Revert             '15
+                            Revert(RegionUUID)
+                        Case TaskName.SaveAllIARS        '16
+                            SaveThreadIARS()
+                        Case Else
+                            BreakPoint.Print("Impossible task")
+                    End Select
                 End If
             Catch
-                ToDoCount(RegionUUID) = 1
+                Debug.Print("weird error")
             End Try
-            PokeRegionTimer(RegionUUID)
-            If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
-                BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
-                ToDoList.Remove(RegionUUID)
-
-                ShowDOSWindow(RegionUUID, MaybeShowWindow())
-
-                Dim T = Task.TaskName
-                Select Case T
-                    Case TaskName.LaunchBackupper      '1
-                        Backupper(RegionUUID, Task.Command)
-                    Case TaskName.TeleportClicked   '2
-                        TeleportClicked(RegionUUID)
-                    Case TaskName.LoadOar   '2
-                        LoadOar(RegionUUID)
-                    Case TaskName.LoadOneOarTask    '4
-                        LoadOneOarTask(RegionUUID, Task)
-                    Case TaskName.LoadOARContent    '5
-                        LoadOARContent2(RegionUUID, Task)
-                    Case TaskName.SaveOneOAR    '6
-                        SaveOneOar(RegionUUID, Task)
-                    Case TaskName.RebuildTerrain    '7
-                        RebuildTerrain(RegionUUID)
-                    Case TaskName.SaveTerrain  '8
-                        Save_Terrain(RegionUUID)
-                    Case TaskName.ApplyTerrainEffect    '9
-                        ApplyTerrainEffect(RegionUUID)
-                    Case TaskName.TerrainLoad       '10
-                        Load_Save(RegionUUID)
-                    Case TaskName.ApplyPlant       '11
-                        Apply_Plant(RegionUUID)
-                    Case TaskName.BakeTerrain      '12
-                        Bake_Terrain(RegionUUID)
-                    Case TaskName.LoadAllFreeOARs  '13
-                        Load_AllFreeOARs(RegionUUID, Task)
-                    Case TaskName.DeleteTree       '14
-                        Delete_Tree(RegionUUID)
-                    Case TaskName.Revert             '15
-                        Revert(RegionUUID)
-                    Case TaskName.SaveAllIARS        '16
-                        SaveThreadIARS()
-                    Case Else
-                        BreakPoint.Print("Impossible task")
-                End Select
-            End If
-
         End If
 
     End Sub
 
-    Public Sub SequentialPause()
+    Public Sub SequentialPause(Optional Suspend As Boolean = False)
 
         ''' <summary>
         ''' 0 for no waiting
@@ -464,9 +467,18 @@ Module SmartStart
             Next
 
             If Settings.SequentialMode = 1 Then
-                If (FormSetup.CPUAverageSpeed > Settings.CpuMax Or Settings.Ramused > 90) Then
-                    wait = True
+
+                ' suspend mode can wait on just CPU, not RAM
+                If Not Suspend Then
+                    If (FormSetup.CPUAverageSpeed > Settings.CpuMax Or Settings.Ramused > 90) Then
+                        wait = True
+                    End If
+                Else
+                    If (FormSetup.CPUAverageSpeed > Settings.CpuMax) Then
+                        wait = True
+                    End If
                 End If
+
             End If
 
             If Not wait Then Exit While

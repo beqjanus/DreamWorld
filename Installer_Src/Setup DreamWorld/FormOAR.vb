@@ -10,40 +10,6 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Newtonsoft.Json
 
-Public Class FileData
-    Private _name As String = ""
-    Private _result As MsgBoxResult = MsgBoxResult.No
-    Private _text As String = ""
-
-    Public Property Name As String
-        Get
-            Return _name
-        End Get
-        Set(value As String)
-            _name = value
-        End Set
-    End Property
-
-    Public Property Result As MsgBoxResult
-        Get
-            Return _result
-        End Get
-        Set(value As MsgBoxResult)
-            _result = value
-        End Set
-    End Property
-
-    Public Property Text As String
-        Get
-            Return _text
-        End Get
-        Set(value As String)
-            _text = value
-        End Set
-    End Property
-
-End Class
-
 Public Class FormOAR
 
     Private SearchBusy As Boolean
@@ -51,6 +17,169 @@ Public Class FormOAR
     Private WebThread As Thread
 
 #Region "JSON"
+
+    Public Class FileData
+        Private _name As String = ""
+        Private _result As MsgBoxResult = MsgBoxResult.No
+        Private _text As String = ""
+
+        Public Property Name As String
+            Get
+                Return _name
+            End Get
+            Set(value As String)
+                _name = value
+            End Set
+        End Property
+
+        Public Property Result As MsgBoxResult
+            Get
+                Return _result
+            End Get
+            Set(value As MsgBoxResult)
+                _result = value
+            End Set
+        End Property
+
+        Public Property Text As String
+            Get
+                Return _text
+            End Get
+            Set(value As String)
+                _text = value
+            End Set
+        End Property
+
+    End Class
+
+    Public Class JSONResult
+        Private _author As String
+        Private _cache As Image
+        Private _copyright As String
+        Private _date As String
+        Private _exclusive As String
+        Private _license As String
+        Private _name As String
+        Private _photo As String
+        Private _size As String
+        Private _str As String
+
+#End Region
+
+#Region "Properties"
+
+        Public Property [Date] As String
+            Get
+                If _date Is Nothing Then Return ""
+                Return _date
+            End Get
+            Set(value As String)
+                _date = value
+            End Set
+        End Property
+
+        Public Property Author As String
+            Get
+                If _author Is Nothing Then Return ""
+                Return _author
+            End Get
+            Set(value As String)
+                _author = value
+            End Set
+        End Property
+
+        Public Property Cache As Image
+            Get
+                Return _cache
+            End Get
+            Set(value As Image)
+                _cache = value
+            End Set
+        End Property
+
+        Public Property CCBY As String
+            Get
+                If _copyright Is Nothing Then Return ""
+                Return _copyright
+            End Get
+            Set(value As String)
+                _copyright = value
+            End Set
+        End Property
+
+        Public Property Exclusive As String
+            Get
+                If _exclusive Is Nothing Then Return "no"
+                Return _exclusive
+            End Get
+            Set(value As String)
+                _exclusive = value
+            End Set
+        End Property
+
+        Public Property License As String
+            Get
+                'Return _license
+                If _license Is Nothing Then Return ""
+                _license = Mid(_license, 1, 1024)
+                Dim i As List(Of String) = Word_Wrap.WrapText(_license, 70)
+                Dim str As String = ""
+                For Each line In i
+                    str += line & vbCrLf
+                    If str.Length >= 1024 Then
+                        Exit For
+                    End If
+                Next
+                Return str
+            End Get
+            Set(value As String)
+                _license = value
+            End Set
+        End Property
+
+        Public Property Name As String
+            Get
+                If _name Is Nothing Then Return ""
+                Return _name
+            End Get
+            Set(value As String)
+                _name = value
+            End Set
+        End Property
+
+        Public Property Photo As String
+            Get
+                If _photo Is Nothing Then Return ""
+                Return _photo
+            End Get
+            Set(value As String)
+                _photo = value
+            End Set
+        End Property
+
+        Public Property Size As String
+            Get
+                If _license Is Nothing Then Return "0"
+                Return _size
+            End Get
+            Set(value As String)
+                _size = value
+            End Set
+        End Property
+
+        Public Property Str As String
+            Get
+                If _str Is Nothing Then Return ""
+                Return _str
+            End Get
+            Set(value As String)
+                _str = value
+            End Set
+        End Property
+
+    End Class
+
+#End Region
 
 #Region "Private Fields"
 
@@ -691,132 +820,3 @@ Public Class FormOAR
 #End Region
 
 End Class
-
-Public Class JSONResult
-    Private _author As String
-    Private _cache As Image
-    Private _copyright As String
-    Private _date As String
-    Private _exclusive As String
-    Private _license As String
-    Private _name As String
-    Private _photo As String
-    Private _size As String
-    Private _str As String
-
-#End Region
-
-#Region "Properties"
-
-    Public Property [Date] As String
-        Get
-            If _date Is Nothing Then Return ""
-            Return _date
-        End Get
-        Set(value As String)
-            _date = value
-        End Set
-    End Property
-
-    Public Property Author As String
-        Get
-            If _author Is Nothing Then Return ""
-            Return _author
-        End Get
-        Set(value As String)
-            _author = value
-        End Set
-    End Property
-
-    Public Property Cache As Image
-        Get
-            Return _cache
-        End Get
-        Set(value As Image)
-            _cache = value
-        End Set
-    End Property
-
-    Public Property CCBY As String
-        Get
-            If _copyright Is Nothing Then Return ""
-            Return _copyright
-        End Get
-        Set(value As String)
-            _copyright = value
-        End Set
-    End Property
-
-    Public Property Exclusive As String
-        Get
-            If _exclusive Is Nothing Then Return "no"
-            Return _exclusive
-        End Get
-        Set(value As String)
-            _exclusive = value
-        End Set
-    End Property
-
-    Public Property License As String
-        Get
-            'Return _license
-            If _license Is Nothing Then Return ""
-            _license = Mid(_license, 1, 1024)
-            Dim i As List(Of String) = Word_Wrap.WrapText(_license, 70)
-            Dim str As String = ""
-            For Each line In i
-                str += line & vbCrLf
-                If str.Length >= 1024 Then
-                    Exit For
-                End If
-            Next
-            Return str
-        End Get
-        Set(value As String)
-            _license = value
-        End Set
-    End Property
-
-    Public Property Name As String
-        Get
-            If _name Is Nothing Then Return ""
-            Return _name
-        End Get
-        Set(value As String)
-            _name = value
-        End Set
-    End Property
-
-    Public Property Photo As String
-        Get
-            If _photo Is Nothing Then Return ""
-            Return _photo
-        End Get
-        Set(value As String)
-            _photo = value
-        End Set
-    End Property
-
-    Public Property Size As String
-        Get
-            If _license Is Nothing Then Return "0"
-            Return _size
-        End Get
-        Set(value As String)
-            _size = value
-        End Set
-    End Property
-
-    Public Property Str As String
-        Get
-            If _str Is Nothing Then Return ""
-            Return _str
-        End Get
-        Set(value As String)
-            _str = value
-        End Set
-    End Property
-
-End Class
-
-#End Region

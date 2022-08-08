@@ -88,7 +88,6 @@ Module WindowHandlers
                 DoType(RegionUUID, command)
                 Thread.Sleep(2000)
                 ShowDOSWindow(RegionUUID, MaybeHideWindow())
-
             Else ' Robust
                 ShowDOSWindow(RobustName, MaybeShowWindow())
                 DoType("Robust", command)
@@ -124,7 +123,7 @@ Module WindowHandlers
                 Return
             End If
             Try
-                AppActivate(PID)                
+                AppActivate(PID)
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)

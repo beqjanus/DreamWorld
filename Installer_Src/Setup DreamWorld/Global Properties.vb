@@ -7,6 +7,7 @@ Module Global_Properties
 
 #Region "Globals"
 
+    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
     Public _Data As IniParser.Model.IniData
     Public BackupAbort As Boolean
     Public Bench As New Benchmark()
@@ -16,7 +17,6 @@ Module Global_Properties
     Public MapX As Integer = 100
     Public MapY As Integer = 100
     Public RunningBackupName As New ConcurrentDictionary(Of String, String)
-    Public ReadOnly LogResults As New Dictionary(Of String, LogReader)
 
 #End Region
 
@@ -35,6 +35,8 @@ Module Global_Properties
 #End Region
 
 #Region "Subs"
+
+    Private TextLock As New Object
 
     Public Sub PokeGroupTimer(GroupName As String)
 
@@ -67,7 +69,6 @@ Module Global_Properties
 
     End Sub
 
-    Private TextLock As New Object
     Public Sub TextPrint(Value As String)
 
         SyncLock TextLock
