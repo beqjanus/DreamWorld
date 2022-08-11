@@ -1,5 +1,8 @@
 REVISIONS FOR DREAMGRID
 
+V4.195
+Welcome regions was using a UUID instead of a Name  - causing the system to always prompt you.
+
 V5.194
 Added a error collector that makes a Opensim.log file in Outworldzfiles\Logs.  This grabs any error lines in any region in real time.
 Opensim 6 #7a710f09c0 fix llRequestInventoryData lm math
