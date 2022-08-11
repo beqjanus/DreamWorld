@@ -1,13 +1,14 @@
 REVISIONS FOR DREAMGRID
 
+V5.195
+Excessive CPU ise fixed in Logger
+
 V5.194
-Added a error collector that makes a Opensim.log file in Outworldzfiles\Logs.  This grabs any error lines in any region in real time.
-Opensim 6 #7a710f09c0 fix llRequestInventoryData lm math
-Lots of small tweaks to Save OAR and backups.
-OAR Backups run sequentially in Smart Start Mode, but can run in parallel in all others
-Show Window and hide it when tp  triggered
-Alphabetic order when doing all regions
-Delete visitor maps for deleted regions
+OAR Backups can run sequentially or with CPU limits in Smart Start Mode.
+Added a error collector that makes a Opensim Error.log file.This grabs any error lines spit out in any region in real time.
+Caches get cleared because this is latest Opensim as of 2022-07-19 19:24:54.
+Alphabetic order when doing anything to all regions.
+Deletes Perl visitor maps when you delete a region.
 
 V5.193
 Lots of tweaks to Backups. Background timer works.  
