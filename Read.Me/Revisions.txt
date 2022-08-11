@@ -1,7 +1,8 @@
 REVISIONS FOR DREAMGRID
 
 V5.195
-Excessive CPU ise fixed in Logger
+Excessive CPU use fixed in Logger
+Welcome regions was using a UUID instead of a Name  - causing the system to always prompt you.
 
 V5.194
 OAR Backups can run sequentially or with CPU limits in Smart Start Mode.
