@@ -406,21 +406,6 @@ Public Module MysqlInterface
 
     End Sub
 
-
-    ''' <summary>
-    ''' Delete old visitors and regions that no longer exist from the stats table
-    ''' </summary>
-    Public Sub DeleteVisitorMap(RegionUUID As String)
-
-        'todo clear up SQL
-        Dim stm = $"delete from stats where UUID = {RegionUUID}"
-        QueryString(stm)
-
-        'todo clear up SQL
-        stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
-        QueryString(stm)
-
-    End Sub
     '''
     ''' logs out any users when we clear caches
     '''
@@ -437,6 +422,21 @@ Public Module MysqlInterface
             FixPresence()
             QueryString("update griduser set online = 'false';")
         End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Delete old visitors and regions that no longer exist from the stats table
+    ''' </summary>
+    Public Sub DeleteVisitorMap(RegionUUID As String)
+
+        'todo clear up SQL
+        Dim stm = $"delete from stats where UUID = {RegionUUID}"
+        QueryString(stm)
+
+        'todo clear up SQL
+        stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
+        QueryString(stm)
 
     End Sub
 
@@ -1577,9 +1577,15 @@ Public Module MysqlInterface
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\StopMySQL.bat")
         DeleteFile(testProgram)
         Try
+            Dim QS As String
+            If Settings.RootMysqlPassword.Length > 0 Then
+                QS = $" -u root --port={Settings.MySqlRobustDBPort} -p{Settings.RootMysqlPassword}"
+            Else
+                QS = $" -u root --port={Settings.MySqlRobustDBPort}"
+            End If
+
             Using outputFile As New StreamWriter(testProgram, False)
-                outputFile.WriteLine("@REM Program to stop MySQL" & vbCrLf +
-            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+                outputFile.WriteLine($"@REM Program to stop MySQL{vbCrLf}mysqladmin.exe -u root {QS} shutdown{vbCrLf}@pause{vbCrLf}")
                 outputFile.Flush()
             End Using
         Catch ex As Exception
