@@ -28,65 +28,21 @@ Module Backup
 
             SequentialPause(True)
 
-            Dim start As ParameterizedThreadStart = AddressOf WaitForOAR
-            Dim WebThread = New Thread(start)
-            WebThread.SetApartmentState(ApartmentState.STA)
-            WebThread.Priority = ThreadPriority.BelowNormal
-            WebThread.Start(Oar)
-        Else
-            WaitForOAR(Oar)
+            Dim w = New WaitForOar()
+            w.Data = Oar
+
+            Dim threadDelegate = New ThreadStart(AddressOf w.Dowork)
+            Dim newThread = New Thread(threadDelegate)
+            newThread.Priority = ThreadPriority.BelowNormal
+            newThread.Start()
+
+            'Dim start = New Thread(WaitForOar)
+            's tart.SetApartmentState(ApartmentState.STA)
+            'start.Priority = ThreadPriority.BelowNormal
+            'start.Start(Oar)
+            'Else
+            '   WaitForOar(Oar)
         End If
-
-    End Sub
-
-    Private Sub WaitForOAR(Oar As OarObject)
-
-        Dim RegionUUID = Oar.RegionUUID
-        Dim FolderAndFileName = Oar.FolderAndFileName
-
-        Const Seconds As Integer = 30
-
-        Dim Filectr As Integer = 60
-        Dim ctr As Integer = 600
-        Dim s As Long
-        Dim oldsize As Long = 0
-        Dim same As Integer = 0
-
-        While same < Seconds And PropOpensimIsRunning
-
-            Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(same)}")
-            PokeRegionTimer(RegionUUID)
-            Try
-                Dim fi = New System.IO.FileInfo(FolderAndFileName)
-                s = fi.Length
-            Catch ex As Exception
-                Filectr -= 1
-            End Try
-
-            If Filectr = 0 Then
-                Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
-                Return
-            End If
-
-            If s = oldsize And s > 0 Then
-                same += 1
-            Else
-                same = 0
-            End If
-            ctr -= 1
-
-            If ctr = 0 Then
-                Log("Error", $"{Region_Name(RegionUUID)} timeout, took too long to save")
-                Return
-            End If
-
-            Sleep(1000)
-            oldsize = s
-
-        End While
-        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
-
-        Return
 
     End Sub
 
@@ -223,5 +179,59 @@ Public Class OarObject
 
     Public FolderAndFileName As String
     Public RegionUUID As String
+
+End Class
+
+Public Class WaitForOar
+
+    Public Data As New OarObject
+
+    Public Sub Dowork()
+        Dim RegionUUID = Data.RegionUUID
+        Dim FolderAndFileName = Data.FolderAndFileName
+
+        Const Seconds As Integer = 30
+
+        Dim Filectr As Integer = 60
+        Dim ctr As Integer = 600
+        Dim s As Long
+        Dim oldsize As Long = 0
+        Dim same As Integer = 0
+
+        While same < Seconds And PropOpensimIsRunning
+
+            Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(same)}")
+            PokeRegionTimer(RegionUUID)
+            Try
+                Dim fi = New System.IO.FileInfo(FolderAndFileName)
+                s = fi.Length
+            Catch ex As Exception
+                Filectr -= 1
+            End Try
+
+            If Filectr = 0 Then
+                Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
+                Return
+            End If
+
+            If s = oldsize And s > 0 Then
+                same += 1
+            Else
+                same = 0
+            End If
+            ctr -= 1
+
+            If ctr = 0 Then
+                Log("Error", $"{Region_Name(RegionUUID)} timeout, took too long to save")
+                Return
+            End If
+
+            Sleep(1000)
+            oldsize = s
+
+        End While
+        RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Region_Name(RegionUUID)} {My.Resources.Finished_with_backup_word}", "")
+
+    End Sub
 
 End Class
