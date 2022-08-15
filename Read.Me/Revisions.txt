@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 
 V5.195
+Added more time to stop MySQL 15->30 seconds.
+If there is a root password, add it to the batch file StopMysql.bat
+
+V5.195
 Excessive CPU use fixed in Logger
 Welcome regions was using a UUID instead of a Name  - causing the system to always prompt you.
 
