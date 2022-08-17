@@ -2630,6 +2630,7 @@ Public Class MySettings
         & ";User ID=" & RegionDBUserName _
         & ";Password=" & RegionDbPassword _
         & ";Old Guids=true;Allow Zero Datetime=true" _
+        & ";Convert Zero Datetime=True" _       ' thanks, Hairy Thor!
         & ";Connect Timeout=28800;Command Timeout=28800;" & """"
 
     End Function
@@ -2653,6 +2654,7 @@ Public Class MySettings
             & ";User ID=" & RobustUserName _
             & ";Password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
+            & ";Convert Zero Datetime=True" _
             & ";Connect Timeout=28800;Command Timeout=28800" & """"
 
     End Function
@@ -2665,6 +2667,7 @@ Public Class MySettings
             & ";user=" & RobustUserName _
             & ";password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
+            & ";Convert Zero Datetime=True" _
             & ";Connect Timeout=28800;Command Timeout=28800;"
 
     End Function
