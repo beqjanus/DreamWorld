@@ -190,10 +190,9 @@ Public Class WaitForOar
         Dim RegionUUID = Data.RegionUUID
         Dim FolderAndFileName = Data.FolderAndFileName
 
-        Const Seconds As Integer = 30
-
-        Dim Filectr As Integer = 60
-        Dim ctr As Integer = 600
+        Const Seconds As Integer = 120 ' wait 2 minutes as it saves to make sure it done. If it stops this long, we are done
+        Dim Filectr As Integer = 120 ' 2 minutes to wait for oar to start saving
+        Dim ctr As Integer = 1200 ' 20 minutes to save an OAR or we give up
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
