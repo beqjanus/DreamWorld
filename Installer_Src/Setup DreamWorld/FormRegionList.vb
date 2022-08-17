@@ -1148,16 +1148,11 @@ Public Class FormRegionlist
                 "Sounds",
                 "Calling Cards",
                 "Landmarks",
-                "Clothing",
                 "Objects",
                 "Notecards",
                 "Scripts",
-                "Body Parts",
-                "Trash",
                 "Photo Album",
-                "Animations",
-                "Gestures",
-                "Meshes"
+                "Animations"
             }
 
             For Each thing In L
@@ -1804,20 +1799,16 @@ Public Class FormRegionlist
 
                     Dim Inventory = GetInventoryList(O.Principalid)
 
-                    If Inventory.ContainsKey(0) Then item1.SubItems.Add(CStr(Inventory.Item(0))) Else item1.SubItems.Add("-") ' "Textures",
-                    If Inventory.ContainsKey(1) Then item1.SubItems.Add(CStr(Inventory.Item(1))) Else item1.SubItems.Add("-") '  "Sounds",
-                    If Inventory.ContainsKey(2) Then item1.SubItems.Add(CStr(Inventory.Item(2))) Else item1.SubItems.Add("-") ' "Calling Cards",
-                    If Inventory.ContainsKey(3) Then item1.SubItems.Add(CStr(Inventory.Item(3))) Else item1.SubItems.Add("-") ' "Landmarks",
-                    If Inventory.ContainsKey(5) Then item1.SubItems.Add(CStr(Inventory.Item(5))) Else item1.SubItems.Add("-") ' "Clothing",
-                    If Inventory.ContainsKey(6) Then item1.SubItems.Add(CStr(Inventory.Item(6))) Else item1.SubItems.Add("-") ' "Objects",
-                    If Inventory.ContainsKey(7) Then item1.SubItems.Add(CStr(Inventory.Item(7))) Else item1.SubItems.Add("-") ' "Notecards",
-                    If Inventory.ContainsKey(10) Then item1.SubItems.Add(CStr(Inventory.Item(10))) Else item1.SubItems.Add("-") ' "Scripts",
-                    If Inventory.ContainsKey(13) Then item1.SubItems.Add(CStr(Inventory.Item(13))) Else item1.SubItems.Add("-") ' "Body Parts",
-                    If Inventory.ContainsKey(14) Then item1.SubItems.Add(CStr(Inventory.Item(14))) Else item1.SubItems.Add("-") ' "Trash",
-                    If Inventory.ContainsKey(15) Then item1.SubItems.Add(CStr(Inventory.Item(15))) Else item1.SubItems.Add("-") ' "Photo Album",
-                    If Inventory.ContainsKey(20) Then item1.SubItems.Add(CStr(Inventory.Item(20))) Else item1.SubItems.Add("-") ' "Animations",
-                    If Inventory.ContainsKey(23) Then item1.SubItems.Add(CStr(Inventory.Item(23))) Else item1.SubItems.Add("-") ' "Gestures",
-                    If Inventory.ContainsKey(49) Then item1.SubItems.Add(CStr(Inventory.Item(49))) Else item1.SubItems.Add("-") ' "Meshes"
+                    If Inventory.ContainsKey(0) Then item1.SubItems.Add((Inventory.Item(0).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Textures",
+                    If Inventory.ContainsKey(1) Then item1.SubItems.Add((Inventory.Item(1).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") '  "Sounds",
+                    If Inventory.ContainsKey(2) Then item1.SubItems.Add((Inventory.Item(2).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Calling Cards",
+                    If Inventory.ContainsKey(3) Then item1.SubItems.Add((Inventory.Item(3).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Landmarks",
+                    If Inventory.ContainsKey(6) Then item1.SubItems.Add((Inventory.Item(6).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Objects",
+                    If Inventory.ContainsKey(7) Then item1.SubItems.Add((Inventory.Item(7).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Notecards",
+                    If Inventory.ContainsKey(10) Then item1.SubItems.Add((Inventory.Item(10).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Scripts",
+                    If Inventory.ContainsKey(15) Then item1.SubItems.Add((Inventory.Item(15).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Photo Album",
+                    If Inventory.ContainsKey(20) Then item1.SubItems.Add((Inventory.Item(20).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Animations",
+
 
                     UserView.Items.AddRange(New ListViewItem() {item1})
 

@@ -861,7 +861,7 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
 
-                Dim stm = "Select count(*), type from inventoryfolders where agentid = @UUID group by type"
+                Dim stm = "Select count(*), invtype from inventoryitems  where avatarid = @UUID group by invtype"
 
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
