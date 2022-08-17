@@ -853,6 +853,37 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function GetInventoryList(AvatarUUID As String) As Dictionary(Of Integer, Integer)
+
+        Dim result = New Dictionary(Of Integer, Integer)
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "Select count(*), type from inventoryfolders where agentid = @UUID group by type"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim count = reader.GetInt32(0)
+                            Dim type = reader.GetInt32(1)
+                            result.Add(type, count)
+                        End While
+                    End Using
+
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+        Return result
+
+    End Function
+
     ''' <summary>
     ''' Returns User name and region they are in, if any
     ''' </summary>
@@ -1928,6 +1959,7 @@ Public Class MailList
     Private _lastName As String = ""
     Private _principalid As String = ""
     Private _title As String = ""
+    Private _type As Integer = 0
     Private _userlevel As String = ""
 
     Public Property Assets As String
@@ -1999,6 +2031,15 @@ Public Class MailList
         End Get
         Set(value As String)
             _title = value
+        End Set
+    End Property
+
+    Public Property Type As Integer
+        Get
+            Return _type
+        End Get
+        Set(value As Integer)
+            _type = value
         End Set
     End Property
 
