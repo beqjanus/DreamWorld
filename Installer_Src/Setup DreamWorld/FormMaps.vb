@@ -231,11 +231,7 @@ Public Class FormMaps
 
         Days2KeepBox.Text = CStr(Settings.KeepVisits)
 
-        If Settings.VisitorsEnabled Then
-            DelMapButton.Visible = True
-        Else
-            DelMapButton.Visible = False
-        End If
+        DelMapButton.Visible = True
 
         initted = True
 
