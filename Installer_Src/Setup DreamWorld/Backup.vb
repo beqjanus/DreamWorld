@@ -190,9 +190,9 @@ Public Class WaitForOar
         Dim RegionUUID = Data.RegionUUID
         Dim FolderAndFileName = Data.FolderAndFileName
 
-        Const Seconds As Integer = 120 ' wait 2 minutes as it saves to make sure it done. If it stops this long, we are done
         Dim Filectr As Integer = 120 ' 2 minutes to wait for oar to start saving
-        Dim ctr As Integer = 1200 ' 20 minutes to save an OAR or we give up
+        Const Seconds As Integer = 120 ' wait 2 minutes as it saves to make sure it done. If it stops this long, we are done
+        Dim ctr As Integer = 1200 ' 20 minutes to stop saving an OAR or we give up
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
@@ -200,15 +200,20 @@ Public Class WaitForOar
         While same < Seconds And PropOpensimIsRunning
 
             Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(same)}")
-            PokeRegionTimer(RegionUUID)
+            Sleep(1000)
+
             Try
                 Dim fi = New System.IO.FileInfo(FolderAndFileName)
                 s = fi.Length
             Catch ex As Exception
                 Filectr -= 1
             End Try
+            If Filectr = -1 Then Continue While
+
+            ' we get here if a file appears or 2 minutes passes
 
             If Filectr = 0 Then
+                ' 2 minutes - abort!
                 Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
                 Return
             End If
@@ -225,7 +230,6 @@ Public Class WaitForOar
                 Return
             End If
 
-            Sleep(1000)
             oldsize = s
 
         End While
