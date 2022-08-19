@@ -36,12 +36,6 @@ Module Backup
             newThread.Priority = ThreadPriority.BelowNormal
             newThread.Start()
 
-            'Dim start = New Thread(WaitForOar)
-            's tart.SetApartmentState(ApartmentState.STA)
-            'start.Priority = ThreadPriority.BelowNormal
-            'start.Start(Oar)
-            'Else
-            '   WaitForOar(Oar)
         End If
 
     End Sub
@@ -190,42 +184,42 @@ Public Class WaitForOar
         Dim RegionUUID = Data.RegionUUID
         Dim FolderAndFileName = Data.FolderAndFileName
 
-        Dim Filectr As Integer = 120 ' 2 minutes to wait for oar to start saving
-        Const Seconds As Integer = 120 ' wait 2 minutes as it saves to make sure it done. If it stops this long, we are done
-        Dim ctr As Integer = 1200 ' 20 minutes to stop saving an OAR or we give up
-        Dim s As Long
+        Dim Filectr As Integer = 0
+        Dim s As Long = 0
         Dim oldsize As Long = 0
-        Dim same As Integer = 0
 
-        While same < Seconds And PropOpensimIsRunning
+        Dim ctr = 0 ' wait two minutes at a given size and we call it done.
 
-            Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(same)}")
+        While PropOpensimIsRunning
+
+            Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(s)}")
             Sleep(1000)
-
             Try
                 Dim fi = New System.IO.FileInfo(FolderAndFileName)
                 s = fi.Length
             Catch ex As Exception
-                Filectr -= 1
+                Filectr += 1
             End Try
-            If Filectr = -1 Then Continue While
 
-            ' we get here if a file appears or 2 minutes passes
-
-            If Filectr = 0 Then
-                ' 2 minutes - abort!
-                Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
-                Return
+            ' file does not exist, check for 2 minutes, and abort
+            If s = 0 Then
+                If Filectr < 120 Then
+                    Continue While
+                Else
+                    ' 2 minutes - abort!
+                    Log("Error", $"{Region_Name(RegionUUID)} failed to start saving")
+                    Return
+                End If
             End If
 
-            If s = oldsize And s > 0 Then
-                same += 1
+            ' See if OAR is growing, or not
+            If s = oldsize Then
+                ctr += 1 ' not growing, reset counter
             Else
-                same = 0
+                ctr = 0
             End If
-            ctr -= 1
 
-            If ctr = 0 Then
+            If ctr = 60 Then
                 Log("Error", $"{Region_Name(RegionUUID)} timeout, took too long to save")
                 Return
             End If
