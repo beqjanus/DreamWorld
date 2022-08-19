@@ -47,10 +47,6 @@
 
 #End Region
 
-    Private Sub ChartWrapper1_Load(sender As Object, e As EventArgs) Handles ChartWrapper1.Load
-
-    End Sub
-
     Private Sub CPU() Handles Me.Load
 
         SetScreen()
@@ -112,7 +108,9 @@
         Dim RAM() As Double = MyRAMCollection.ToArray()
         ChartWrapper2.AddLinePlot("RAM", RAM)
 
-        Me.Text = $"{My.Resources.CPU_word} {Format(CPU1(UBound(CPU1)) / 100, "0.0%")} {My.Resources.RAM_Word} {Format(RAM(UBound(RAM)) / 100, "0.0%") }%"
+        If CPU1.Length > 0 Then
+            Me.Text = $"{My.Resources.CPU_word} {Format(CPU1(UBound(CPU1)) / 100, "0.0%")} {My.Resources.RAM_Word} {Format(RAM(UBound(RAM)) / 100, "0.0%") }%"
+        End If
 
     End Sub
 

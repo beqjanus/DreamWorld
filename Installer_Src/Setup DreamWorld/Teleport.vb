@@ -20,6 +20,7 @@ Module Teleport
 
     Public Sub TeleportAgents()
 
+
         Bench.Start("TeleportAgents")
         Try
             For Each Keypair In TeleportAvatarDict
@@ -39,7 +40,6 @@ Module Teleport
                         Dim fromName = Region_Name(FromRegionUUID)
                         If fromName Is Nothing Then Fin.Add(AgentID)
                         If fromName.Length > 0 Then
-
                             If Settings.TeleportSleepTime = 0 And Not Settings.BootOrSuspend Then
                                 'nothing
                             ElseIf Settings.TeleportSleepTime > 0 And Not Settings.BootOrSuspend Then
@@ -50,7 +50,6 @@ Module Teleport
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                                 Fin.Add(AgentID)
-
                             Else
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
                                 BreakPoint.Print($"{DestinationName} failed to receive teleport")
@@ -62,7 +61,6 @@ Module Teleport
                         End If
                     End If
                     ShowDOSWindow(RegionToUUID, MaybeHideWindow())
-
                 End If
             Next
         Catch
@@ -70,7 +68,9 @@ Module Teleport
         ' rem from the to list as they have moved on
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
-            TeleportAvatarDict.Remove(str)
+            If TeleportAvatarDict.ContainsKey(str) Then
+                TeleportAvatarDict.Remove(str)
+            End If
         Next
         Fin.Clear()
         Bench.Print("TeleportAgents")

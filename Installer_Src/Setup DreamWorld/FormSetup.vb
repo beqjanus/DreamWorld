@@ -318,7 +318,6 @@ Public Class FormSetup
                 End If
             Next
 
-
             If CountisRunning.Count <> LastCount Then
                 If CountisRunning.Count = 1 Then
                     TextPrint(My.Resources.One_region)
@@ -484,7 +483,6 @@ Public Class FormSetup
         TextPrint(My.Resources.Ready)
         Bench.Print("StartOpensim")
         Return True
-
 
     End Function
 
@@ -3232,6 +3230,10 @@ Public Class FormSetup
             BreakPoint.Dump(ex)
         End Try
 
+    End Sub
+
+    Private Sub Virtual_Click(sender As Object, e As EventArgs) Handles Virtual.Click
+        G()
     End Sub
 
     Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click

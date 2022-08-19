@@ -11,7 +11,6 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegionlist
 
-
     Private ReadOnly colsize As New ClassScreenpos("Region List")
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly SearchArray As New List(Of String)
@@ -124,6 +123,13 @@ Public Class FormRegionlist
 
     End Sub
 
+    Public Sub Go()
+
+        Timer1.Start()
+        LoadMyListView()
+
+    End Sub
+
     Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
         Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
         doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
@@ -199,7 +205,6 @@ Public Class FormRegionlist
     Private Shared Function QuoteValue(ByVal value As String) As String
         Return String.Concat("""", value.Replace("""", """"""), """")
     End Function
-
 
     Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
@@ -944,7 +949,6 @@ Public Class FormRegionlist
             DoubleBuff(IconView, True)
             DoubleBuff(UserView, True)
 
-
             Me.Name = "Region List"
             Me.Text = Global.Outworldz.My.Resources.Region_List
 
@@ -1137,7 +1141,25 @@ Public Class FormRegionlist
             UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
             ctr += 1
             UserView.Columns.Add(My.Resources.UUID, colsize.ColumnWidth("UUID" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
-            UserView.Columns(ctr).Name = "UserUUID" & ctr & "_" & CStr(ViewType.Users)
+            UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+
+            Dim L As New List(Of String) From {
+                "Textures",
+                "Sounds",
+                "Calling Cards",
+                "Landmarks",
+                "Objects",
+                "Notecards",
+                "Scripts",
+                "Photo Album",
+                "Animations"
+            }
+
+            For Each thing In L
+                ctr += 1
+                UserView.Columns.Add(thing, colsize.ColumnWidth(thing & ctr & "_" & CStr(ViewType.Users), 70), HorizontalAlignment.Left)
+                UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+            Next
 
             ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
             AddHandler ListView1.ColumnClick, AddressOf ColumnClick
@@ -1184,17 +1206,10 @@ Public Class FormRegionlist
 
     End Sub
 
-    Public Sub Go()
-
-        Timer1.Start()
-        LoadMyListView()
-
-    End Sub
     Private Sub LoadMyListView()
 
         If SearchBusy = True Then Return
         SearchBusy = True
-
 
         BringToFront()
 
@@ -1781,6 +1796,20 @@ Public Class FormRegionlist
                     item1.SubItems.Add(O.Datestring)
                     item1.SubItems.Add(O.Assets)
                     item1.SubItems.Add(O.Principalid)
+
+                    Dim Inventory = GetInventoryList(O.Principalid)
+
+                    If Inventory.ContainsKey(0) Then item1.SubItems.Add((Inventory.Item(0).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Textures",
+                    If Inventory.ContainsKey(1) Then item1.SubItems.Add((Inventory.Item(1).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") '  "Sounds",
+                    If Inventory.ContainsKey(2) Then item1.SubItems.Add((Inventory.Item(2).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Calling Cards",
+                    If Inventory.ContainsKey(3) Then item1.SubItems.Add((Inventory.Item(3).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Landmarks",
+                    If Inventory.ContainsKey(6) Then item1.SubItems.Add((Inventory.Item(6).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Objects",
+                    If Inventory.ContainsKey(7) Then item1.SubItems.Add((Inventory.Item(7).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Notecards",
+                    If Inventory.ContainsKey(10) Then item1.SubItems.Add((Inventory.Item(10).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Scripts",
+                    If Inventory.ContainsKey(15) Then item1.SubItems.Add((Inventory.Item(15).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Photo Album",
+                    If Inventory.ContainsKey(20) Then item1.SubItems.Add((Inventory.Item(20).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Animations",
+
+
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
                     Index += 1
@@ -1789,7 +1818,6 @@ Public Class FormRegionlist
             Next
 
             Me.Text = Mail.Count & " " & My.Resources.Users_word
-
 
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)

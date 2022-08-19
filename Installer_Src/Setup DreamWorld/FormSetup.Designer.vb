@@ -969,49 +969,49 @@ Partial Class FormSetup
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'RestartMysqlItem
         '
         Me.RestartMysqlItem.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RestartMysqlItem.Name = "RestartMysqlItem"
-        Me.RestartMysqlItem.Size = New System.Drawing.Size(184, 26)
+        Me.RestartMysqlItem.Size = New System.Drawing.Size(179, 22)
         Me.RestartMysqlItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         '
         'StartToolStripMenuItem1
         '
         Me.StartToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartToolStripMenuItem1.Name = "StartToolStripMenuItem1"
-        Me.StartToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.StartToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.StartToolStripMenuItem1.Text = "Start"
         '
         'StopToolStripMenuItem1
         '
         Me.StopToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_stop
         Me.StopToolStripMenuItem1.Name = "StopToolStripMenuItem1"
-        Me.StopToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.StopToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.StopToolStripMenuItem1.Text = "Stop"
         '
         'DeleteServiceToolStripMenuItem1
         '
         Me.DeleteServiceToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red
         Me.DeleteServiceToolStripMenuItem1.Name = "DeleteServiceToolStripMenuItem1"
-        Me.DeleteServiceToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.DeleteServiceToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.DeleteServiceToolStripMenuItem1.Text = "Delete Service"
         '
         'ConnectToConsoleToolStripMenuItemMySQL
         '
         Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data
         Me.ConnectToConsoleToolStripMenuItemMySQL.Name = "ConnectToConsoleToolStripMenuItemMySQL"
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(184, 26)
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(179, 22)
         Me.ConnectToConsoleToolStripMenuItemMySQL.Text = "Connect to Console"
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check And Repair"
         '
         'BackupToolStripMenuItem1
@@ -1019,14 +1019,14 @@ Partial Class FormSetup
         Me.BackupToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem1.Name = "BackupToolStripMenuItem1"
         Me.BackupToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
-        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.BackupToolStripMenuItem1.Text = "Backup"
         '
         'RestoreToolStripMenuItem1
         '
         Me.RestoreToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.RestoreToolStripMenuItem1.Name = "RestoreToolStripMenuItem1"
-        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
         Me.RestoreToolStripMenuItem1.Text = "Restore"
         '
         'RestartRobustIcon

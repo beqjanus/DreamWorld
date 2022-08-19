@@ -468,8 +468,8 @@ Module SmartStart
 
             If Settings.SequentialMode = 1 Then
 
-                ' suspend mode can wait on just CPU, not RAM
-                If Not Suspend Then
+                ' smart mode can wait on just CPU, not RAM
+                If Not Settings.Smart_Start Then
                     If (FormSetup.CPUAverageSpeed > Settings.CpuMax Or Settings.Ramused > 90) Then
                         wait = True
                     End If

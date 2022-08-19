@@ -11,7 +11,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "5.194"
+    Public Const _MyVersion As String = "5.197"
     Public Const _SimVersion As String = "Opensim [2022-07-19 19:24:54] #7a710f09c0 fix llRequestInventoryData lm math"
     Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const Hyperica As String = "Hyperica"

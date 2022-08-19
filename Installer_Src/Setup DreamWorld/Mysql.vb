@@ -406,21 +406,6 @@ Public Module MysqlInterface
 
     End Sub
 
-
-    ''' <summary>
-    ''' Delete old visitors and regions that no longer exist from the stats table
-    ''' </summary>
-    Public Sub DeleteVisitorMap(RegionUUID As String)
-
-        'todo clear up SQL
-        Dim stm = $"delete from stats where UUID = {RegionUUID}"
-        QueryString(stm)
-
-        'todo clear up SQL
-        stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
-        QueryString(stm)
-
-    End Sub
     '''
     ''' logs out any users when we clear caches
     '''
@@ -437,6 +422,21 @@ Public Module MysqlInterface
             FixPresence()
             QueryString("update griduser set online = 'false';")
         End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Delete old visitors and regions that no longer exist from the stats table
+    ''' </summary>
+    Public Sub DeleteVisitorMap(RegionUUID As String)
+
+        'todo clear up SQL
+        Dim stm = $"delete from stats where UUID = {RegionUUID}"
+        QueryString(stm)
+
+        'todo clear up SQL
+        stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
+        QueryString(stm)
 
     End Sub
 
@@ -850,6 +850,37 @@ Public Module MysqlInterface
             End Try
         End Using
         Return HGDict
+
+    End Function
+
+    Public Function GetInventoryList(AvatarUUID As String) As Dictionary(Of Integer, Integer)
+
+        Dim result = New Dictionary(Of Integer, Integer)
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "Select count(*), invtype from inventoryitems  where avatarid = @UUID group by invtype"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim count = reader.GetInt32(0)
+                            Dim type = reader.GetInt32(1)
+                            result.Add(type, count)
+                        End While
+                    End Using
+
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+        Return result
 
     End Function
 
@@ -1577,9 +1608,15 @@ Public Module MysqlInterface
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\StopMySQL.bat")
         DeleteFile(testProgram)
         Try
+            Dim QS As String
+            If Settings.RootMysqlPassword.Length > 0 Then
+                QS = $" -u root --port={Settings.MySqlRobustDBPort} -p{Settings.RootMysqlPassword}"
+            Else
+                QS = $" -u root --port={Settings.MySqlRobustDBPort}"
+            End If
+
             Using outputFile As New StreamWriter(testProgram, False)
-                outputFile.WriteLine("@REM Program to stop MySQL" & vbCrLf +
-            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+                outputFile.WriteLine($"@REM Program to stop MySQL{vbCrLf}mysqladmin.exe -u root {QS} shutdown{vbCrLf}@pause{vbCrLf}")
                 outputFile.Flush()
             End Using
         Catch ex As Exception
@@ -1922,6 +1959,7 @@ Public Class MailList
     Private _lastName As String = ""
     Private _principalid As String = ""
     Private _title As String = ""
+    Private _type As Integer = 0
     Private _userlevel As String = ""
 
     Public Property Assets As String
@@ -1993,6 +2031,15 @@ Public Class MailList
         End Get
         Set(value As String)
             _title = value
+        End Set
+    End Property
+
+    Public Property Type As Integer
+        Get
+            Return _type
+        End Get
+        Set(value As Integer)
+            _type = value
         End Set
     End Property
 

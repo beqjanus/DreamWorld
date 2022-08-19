@@ -1,13 +1,29 @@
 REVISIONS FOR DREAMGRID
 
+V5.197
+Fixes for regions freezing when saving OARs after 5 minutes.
+Crash if you clicked the CPU graph button before starting the grid.
+
+V5.196
+Add more time to detect an OAR saving for slow machines
+Fix for Gloebit, which requires "Convert Zero Datetime=True" in connect string
+There is a new feature where it shows inventory counts in the Users section of the region List.  These lists are sortable, too.
+Delete Map button did not show unless Visitor Maps was enabled
+
+V5.195
+Added more time to stop MySQL 15->30 seconds.
+If there is a root password, add it to the batch file StopMysql.bat
+
+V5.195
+Excessive CPU use fixed in Logger
+Welcome regions was using a UUID instead of a Name  - causing the system to always prompt you.
+
 V5.194
-Added a error collector that makes a Opensim.log file in Outworldzfiles\Logs.  This grabs any error lines in any region in real time.
-Opensim 6 #7a710f09c0 fix llRequestInventoryData lm math
-Lots of small tweaks to Save OAR and backups.
-OAR Backups run sequentially in Smart Start Mode, but can run in parallel in all others
-Show Window and hide it when tp  triggered
-Alphabetic order when doing all regions
-Delete visitor maps for deleted regions
+OAR Backups can run sequentially or with CPU limits in Smart Start Mode.
+Added a error collector that makes a Opensim Error.log file.This grabs any error lines spit out in any region in real time.
+Caches get cleared because this is latest Opensim as of 2022-07-19 19:24:54.
+Alphabetic order when doing anything to all regions.
+Deletes Perl visitor maps when you delete a region.
 
 V5.193
 Lots of tweaks to Backups. Background timer works.  
