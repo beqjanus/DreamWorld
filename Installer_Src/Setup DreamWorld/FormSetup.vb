@@ -2510,7 +2510,6 @@ Public Class FormSetup
 
         If sender Is Nothing Then Return
         If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then
-
             HelpManual(CStr(sender.Text))
         End If
 

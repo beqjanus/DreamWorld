@@ -67,6 +67,8 @@ Public Class LogReader
             Catch
                 Sleep(10000)
             End Try
+
+            Sleep(10000)
         End While
 
     End Sub
