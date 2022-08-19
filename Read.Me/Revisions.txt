@@ -1,5 +1,15 @@
 REVISIONS FOR DREAMGRID
 
+V5.197
+Fixes for regions freezing when saving OARs after 5 minutes.
+Crash if you clicked the CPU graph button before starting the grid.
+
+V5.196
+Add more time to detect an OAR saving for slow machines
+Fix for Gloebit, which requires "Convert Zero Datetime=True" in connect string
+There is a new feature where it shows inventory counts in the Users section of the region List.  These lists are sortable, too.
+Delete Map button did not show unless Visitor Maps was enabled
+
 V5.195
 Added more time to stop MySQL 15->30 seconds.
 If there is a root password, add it to the batch file StopMysql.bat
