@@ -52,12 +52,7 @@
     ''' </summary>
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub UnPauseRegion(RegionUUID As String)
-
-        If Settings.Smart_Start And Smart_Start(RegionUUID) Then
-            BreakPoint.Print($"Thaw {Region_Name(RegionUUID)}")
-            Thaw(RegionUUID)
-        End If
-
+        Thaw(RegionUUID)
     End Sub
 
 #End Region
