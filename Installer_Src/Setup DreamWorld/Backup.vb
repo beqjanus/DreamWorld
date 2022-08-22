@@ -161,7 +161,8 @@ Module Backup
     Public Sub Backupper(RegionUUID As String, file As String)
 
         PokeRegionTimer(RegionUUID)
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""{vbCrLf}")
+        PokeRegionTimer(RegionUUID)
 
     End Sub
 
