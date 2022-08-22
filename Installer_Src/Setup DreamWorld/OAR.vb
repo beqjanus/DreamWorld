@@ -106,7 +106,7 @@ Module OAR
                         .Command = v
                     }
                     RebootAndRunTask(RegionUUID, obj)
-
+                    Dim Result = New WaitForOAR2Load(RegionUUID, " backup")
                 End If
             End If
 
@@ -169,6 +169,8 @@ Module OAR
         }
 
         RebootAndRunTask(RegionUUID, obj)
+
+        Dim Result = New WaitForOAR2Load(RegionUUID, " backup")
 
     End Sub
 

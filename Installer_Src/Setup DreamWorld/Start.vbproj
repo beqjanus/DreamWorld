@@ -760,6 +760,7 @@
     <Compile Include="Teleport.vb" />
     <Compile Include="Updater.vb" />
     <Compile Include="UploadImage.vb" />
+    <Compile Include="WaitForOAR.vb" />
     <Compile Include="WindowHandlers.vb" />
     <Compile Include="WordWrap.vb" />
   </ItemGroup>
