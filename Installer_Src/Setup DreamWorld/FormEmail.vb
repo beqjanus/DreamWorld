@@ -55,8 +55,10 @@ Public Class FormEmail
         Dim counter = 0
         For Each X As ListViewItem In L.Items
             If X.Checked Then
-                Contacts.Add(X.Text, X.SubItems(1).Text)
-                counter += 1
+                If Not Contacts.ContainsKey(X.Text) Then
+                    Contacts.Add(X.Text, X.SubItems(1).Text)
+                    counter += 1
+                End If
             End If
         Next
 
