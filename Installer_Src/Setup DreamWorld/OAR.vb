@@ -202,8 +202,6 @@ Module OAR
         End If
         ConsoleCommand(RegionUUID, T.Command)
 
-        'Waitfor(RegionUUID)
-
     End Sub
 
     ''' <summary>

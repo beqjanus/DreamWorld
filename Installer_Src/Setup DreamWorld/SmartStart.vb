@@ -1162,25 +1162,6 @@ Module SmartStart
 
     End Sub
 
-    ''' <summary>
-    ''' Waits for a region to exit or 5 minutes
-    ''' </summary>
-    ''' <param name="regionUUID"></param>
-    Public Sub Waitfor(regionUUID As String)
-
-        ' unused
-        Dim ctr = 3600
-        Dim GroupName = Group_Name(regionUUID)
-        If Not WaitList.Contains(GroupName) Then WaitList.Add(GroupName)
-        While (WaitList.Contains(GroupName) And ctr > 0)
-            Sleep(1000)
-            PokeRegionTimer(regionUUID)
-            Debug.Print($"Waiting for {GroupName}")
-            ctr -= 1
-        End While
-
-    End Sub
-
     Private Sub Maketypes(startWith As String, Filename As String, RegionUUID As String)
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")

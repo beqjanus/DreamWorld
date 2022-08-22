@@ -1576,7 +1576,7 @@ Public Class FormSetup
 
         Try
             ExitList.Clear()
-            WaitList.Clear()
+
             ClearStack()
             PropInstanceHandles.Clear()
             WebserverList.Clear()

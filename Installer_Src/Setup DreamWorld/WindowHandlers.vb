@@ -11,17 +11,10 @@ Imports System.Threading
 Module WindowHandlers
 
     Private _exitList As New ConcurrentDictionary(Of String, String)
-    Private _WaitList As New List(Of String)
 
     Public ReadOnly Property ExitList As ConcurrentDictionary(Of String, String)
         Get
             Return _exitList
-        End Get
-    End Property
-
-    Public ReadOnly Property WaitList As List(Of String)
-        Get
-            Return _WaitList
         End Get
     End Property
 
@@ -256,7 +249,6 @@ Module WindowHandlers
         End If
 
         ExitList.TryAdd(GroupName, "Exit")
-        If WaitList.Contains(GroupName) Then WaitList.Remove(GroupName) ' tell the OAR loader its safe to move on
 
     End Sub
 
