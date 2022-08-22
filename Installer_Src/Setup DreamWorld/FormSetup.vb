@@ -2016,8 +2016,6 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles TimerMain.Tick
 
-        Chart()                     ' do charts collection
-
         If Not PropOpensimIsRunning() Then
             Return
         End If
@@ -2029,7 +2027,10 @@ Public Class FormSetup
             TimerisBusy = 0
         End If
 
+
         TimerisBusy += 1
+
+        Chart()                     ' do charts collection
 
         ' Reload regions from disk
         If PropChangedRegionSettings Then
