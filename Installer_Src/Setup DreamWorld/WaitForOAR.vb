@@ -10,31 +10,37 @@ End Class
 Public Class WaitForOAR2Load
 
     ReadOnly o As New SeekObject
-    Dim CTR As Integer
-    Dim lastMaxOffset As Long
+    Private CTR As Integer
+    Private Filename As String
+    Private lastMaxOffset As Long
+    Private reader As StreamReader
 
-    Public Sub Scan(RegionUUID As String, text As String)
+    Public Sub New(RegionUUID As String, text As String)
 
-        Dim startctr As Integer
         o.text = text
         o.RegionUUID = RegionUUID
 
-        Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(o.RegionUUID)}/Opensim.log")
-        Const limit = 180000
+        Filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(o.RegionUUID)}/Opensim.log")
+        If Not File.Exists(Filename) Then
+            ' Create or overwrite the file.
+            Dim fs As FileStream = File.Create(Filename)
 
-        ' wait 3 minutes for the file to be created
-        While Not File.Exists(filename) And startctr < limit
-            Sleep(10)
-            startctr += 1
-        End While
-        If startctr > limit Then Return ' abort
+            ' Add text to the file.
+            Dim info As Byte() = New System.Text.UTF8Encoding(True).GetBytes("-----START-------")
+            fs.Write(info, 0, info.Length)
+            fs.Close()
+        End If
 
-        ' lo file exists
-        Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            'start at the end of the file
-            reader.BaseStream.Seek(0, SeekOrigin.End)
-            lastMaxOffset = reader.BaseStream.Length
-        End Using
+        reader = New StreamReader(New FileStream(Filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        'start at the end of the file
+        reader.BaseStream.Seek(0, SeekOrigin.End)
+        lastMaxOffset = reader.BaseStream.Length
+
+    End Sub
+
+    Public Sub Scan()
+
+        ' file exists
 
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf SeekOar
@@ -53,34 +59,26 @@ Public Class WaitForOAR2Load
 
         While CTR < 30 * 60 ' 30 minutes to save
             PokeRegionTimer(RegionUUID)
-            Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
             Try
-                If File.Exists(filename) Then
-                    Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-
-                        'seek to the last max offset
-                        reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
-                        While reader.BaseStream.Length <> lastMaxOffset
-                            If ScanForPattern(reader.ReadLine(), text) Then
-                                Return
-                            End If
-                            'update the last max offset
-                            lastMaxOffset = reader.BaseStream.Position
-                            Application.DoEvents()
-                        End While
-
-                    End Using
-                Else
-                    ' not exists
-                    Return
-                End If
+                'seek to the last max offset
+                reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
+                While reader.BaseStream.Length <> lastMaxOffset
+                    If ScanForPattern(reader.ReadLine(), text) Then
+                        Return
+                    End If
+                    'update the last max offset
+                    lastMaxOffset = reader.BaseStream.Position
+                    Application.DoEvents()
+                End While
             Catch
+                reader.Close()
                 Return
             End Try
 
             CTR += 1
             Sleep(1000)
         End While
+        reader.Close()
 
     End Sub
 

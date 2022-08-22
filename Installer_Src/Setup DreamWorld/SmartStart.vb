@@ -357,7 +357,6 @@ Module SmartStart
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub RunTaskList(RegionUUID As String)
 
-
         If ToDoList.ContainsKey(RegionUUID) Then
             Try
 
@@ -1069,7 +1068,11 @@ Module SmartStart
         Dim File = obj.Command
         PokeRegionTimer(RegionUUID)
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
+
+        Dim Result = New WaitForOAR2Load(RegionUUID, "Start scripts done")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
+        Result.Scan()
+
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             PokeRegionTimer(RegionUUID)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
