@@ -1,5 +1,8 @@
 REVISIONS FOR DREAMGRID
 
+V5.198
+Prevent early shutdown when saving OARS
+
 V5.197
 Fixes for regions freezing when saving OARs after 5 minutes.
 Crash if you clicked the CPU graph button before starting the grid.
