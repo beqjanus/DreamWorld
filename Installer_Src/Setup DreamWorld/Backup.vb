@@ -192,6 +192,7 @@ Public Class WaitForOar
         Dim ctr = 0 ' wait two minutes at a given size and we call it done.
 
         While PropOpensimIsRunning
+            PokeRegionTimer(RegionUUID)
 
             Debug.Print($"Waiting on {Region_Name(RegionUUID)} {CStr(s)}")
             Sleep(1000)
@@ -204,7 +205,7 @@ Public Class WaitForOar
 
             ' file does not exist, check for 2 minutes, and abort
             If s = 0 Then
-                If Filectr < 120 Then
+                If Filectr < 60 Then
                     Continue While
                 Else
                     ' 2 minutes - abort!
@@ -220,7 +221,7 @@ Public Class WaitForOar
                 ctr = 0
             End If
 
-            If ctr = 60 Then
+            If ctr = 300 Then
                 Log("Error", $"{Region_Name(RegionUUID)} timeout, took too long to save")
                 Return
             End If

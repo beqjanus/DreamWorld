@@ -541,6 +541,7 @@ Public Class FormRegions
                     }
                     RebootAndRunTask(RegionUUID, obj)
                     AddToRegionMap(RegionUUID)
+
                 End If
 
                 If StopLoading = "StopRequested" Then
