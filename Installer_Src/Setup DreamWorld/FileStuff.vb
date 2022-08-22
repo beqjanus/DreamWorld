@@ -337,7 +337,6 @@ Module FileStuff
             Try
                 System.IO.Directory.Delete(n, True)
             Catch ex As Exception
-                BreakPoint.Dump(ex)
             End Try
 
         End If
