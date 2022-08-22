@@ -124,10 +124,7 @@ Module WindowHandlers
             End If
             Try
                 AppActivate(PID)
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait(command)
-                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
                 SendKeys.Flush()
             Catch
             End Try
@@ -143,9 +140,7 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait(command)
-                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
                 SendKeys.Flush()
             Catch ex As Exception
                 RPC_Region_Command(RegionUUID, command)
