@@ -133,7 +133,7 @@ Public Class ChatToSpeech
                 SpeechBusyFlag = True
                 Speaker.SpeakAsync(Params.TTS)
             Catch ex As Exception
-                BreakPoint.Dump(ex)
+
             End Try
 
             While SpeechBusyFlag
