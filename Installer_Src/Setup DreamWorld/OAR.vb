@@ -105,8 +105,10 @@ Module OAR
                         .TaskName = TaskName.LoadOneOarTask,
                         .Command = v
                     }
+                    Dim Result = New WaitForOAR2Load()
                     RebootAndRunTask(RegionUUID, obj)
-                    Dim Result = New WaitForOAR2Load(RegionUUID, " backup")
+                    Result.Scan(RegionUUID, "# backup")
+
                 End If
             End If
 
@@ -168,9 +170,9 @@ Module OAR
             .Command = LoadOarCmd
         }
 
+        Dim Result = New WaitForOAR2Load()
         RebootAndRunTask(RegionUUID, obj)
-
-        Dim Result = New WaitForOAR2Load(RegionUUID, " backup")
+        Result.Scan(RegionUUID, "# backup")
 
     End Sub
 
@@ -203,6 +205,7 @@ Module OAR
             ConsoleCommand(RegionUUID, "land clear", True)
         End If
         ConsoleCommand(RegionUUID, T.Command)
+
 
     End Sub
 

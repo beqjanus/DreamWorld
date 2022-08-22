@@ -1,16 +1,40 @@
-﻿
-Imports System.IO
+﻿Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
+Public Class SeekObject
+    Public RegionUUID As String
+    Public text As String
+End Class
+
 Public Class WaitForOAR2Load
 
-    Public Sub New(RegionUUID As String, text As String)
+    ReadOnly o As New SeekObject
+    Dim CTR As Integer
+    Dim lastMaxOffset As Long
 
-        Dim o As New SeekObject With {
-            .text = text,
-            .RegionUUID = RegionUUID
-        }
+    Public Sub Scan(RegionUUID As String, text As String)
+
+        Dim startctr As Integer
+        o.text = text
+        o.RegionUUID = RegionUUID
+
+        Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(o.RegionUUID)}/Opensim.log")
+        Const limit = 180000
+
+        ' wait 3 minutes for the file to be created
+        While Not File.Exists(filename) And startctr < limit
+            Sleep(10)
+            startctr += 1
+        End While
+        If startctr > limit Then Return ' abort
+
+        ' lo file exists
+        Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            'start at the end of the file
+            reader.BaseStream.Seek(0, SeekOrigin.End)
+            lastMaxOffset = reader.BaseStream.Length
+        End Using
 
 #Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf SeekOar
@@ -24,22 +48,15 @@ Public Class WaitForOAR2Load
 
     Public Sub SeekOar(o As SeekObject)
 
-
-        Dim CTR As Integer
         Dim RegionUUID As String = o.RegionUUID
         Dim text = o.text
-        Dim lastMaxOffset As Long
-        While CTR < 900 ' 3 minutes to start a file
+
+        While CTR < 30 * 60 ' 30 minutes to save
             PokeRegionTimer(RegionUUID)
             Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
             Try
                 If File.Exists(filename) Then
                     Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        If CTR = 0 Then
-                            'start at the end of the file
-                            reader.BaseStream.Seek(0, SeekOrigin.End)
-                            lastMaxOffset = reader.BaseStream.Length
-                        End If
 
                         'seek to the last max offset
                         reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
@@ -55,9 +72,10 @@ Public Class WaitForOAR2Load
                     End Using
                 Else
                     ' not exists
+                    Return
                 End If
-
             Catch
+                Return
             End Try
 
             CTR += 1
@@ -69,7 +87,7 @@ Public Class WaitForOAR2Load
     Private Function ScanForPattern(line As String, text As String) As Boolean
 
         If line.Length > 0 Then
-            'Debug.Print(line)
+            Debug.Print(line)
             Dim pattern = New Regex(text, RegexOptions.IgnoreCase)
             Dim match = pattern.Match(line)
             If match.Success Then
@@ -80,10 +98,3 @@ Public Class WaitForOAR2Load
     End Function
 
 End Class
-
-Public Class SeekObject
-    Public RegionUUID As String
-    Public text As String
-End Class
-
-
