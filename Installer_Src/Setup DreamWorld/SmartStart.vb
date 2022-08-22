@@ -357,6 +357,7 @@ Module SmartStart
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub RunTaskList(RegionUUID As String)
 
+        PokeRegionTimer(RegionUUID)
         If ToDoList.ContainsKey(RegionUUID) Then
             Try
 
@@ -373,7 +374,7 @@ Module SmartStart
                 Catch
                     ToDoCount(RegionUUID) = 1
                 End Try
-                PokeRegionTimer(RegionUUID)
+
                 If RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Then
                     BreakPoint.Print($"Running tasks for {Region_Name(RegionUUID)}")
                     ToDoList.Remove(RegionUUID)
@@ -450,7 +451,7 @@ Module SmartStart
                     Settings.Smart_Start And
                     Settings.BootOrSuspend And
                     Smart_Start(RegionUUID) Then
-
+                    PokeRegionTimer(RegionUUID)
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
@@ -458,7 +459,7 @@ Module SmartStart
                     ' could be a regular region so we wait
                 ElseIf status = SIMSTATUSENUM.Booting And
                     (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
-
+                    PokeRegionTimer(RegionUUID)
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
