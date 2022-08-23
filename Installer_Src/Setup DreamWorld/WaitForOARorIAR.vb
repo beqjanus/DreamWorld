@@ -7,7 +7,7 @@ Public Class SeekObject
     Public text As String
 End Class
 
-Public Class WaitForOAR2Load
+Public Class WaitForFile
 
     ReadOnly o As New SeekObject
     Private CTR As Integer
@@ -43,7 +43,7 @@ Public Class WaitForOAR2Load
         ' file exists
 
 #Disable Warning BC42016 ' Implicit conversion
-        Dim start As ParameterizedThreadStart = AddressOf SeekOar
+        Dim start As ParameterizedThreadStart = AddressOf SeekFile
 #Enable Warning BC42016 ' Implicit conversion
         Dim T = New Thread(start)
         T.SetApartmentState(ApartmentState.STA)
@@ -52,25 +52,32 @@ Public Class WaitForOAR2Load
 
     End Sub
 
-    Public Sub SeekOar(o As SeekObject)
+    Public Sub SeekFile(o As SeekObject)
 
         Dim RegionUUID As String = o.RegionUUID
         Dim text = o.text
-
-        While CTR < 30 * 60 ' 30 minutes to save
+        Const timeout = 30 * 60 ' 30 minutes to save
+        While CTR < timeout
             PokeRegionTimer(RegionUUID)
             Try
                 'seek to the last max offset
                 reader.BaseStream.Seek(lastMaxOffset, SeekOrigin.Begin)
-                While reader.BaseStream.Length <> lastMaxOffset
-                    If ScanForPattern(reader.ReadLine(), text) Then
-                        Return
+                Dim line As String = ""
+                While reader.BaseStream.Length <> lastMaxOffset And CTR < timeout * 10
+                    line = reader.ReadLine()
+                    If line IsNot Nothing Then
+                        Debug.Print(line)
+                        If ScanForPattern(line, text) Then
+                            Return
+                        End If
+                        'update the last max offset
+                        lastMaxOffset += line.Length
                     End If
-                    'update the last max offset
-                    lastMaxOffset = reader.BaseStream.Position
-                    Application.DoEvents()
+                    CTR += 1
+                    Sleep(100)
+                    PokeRegionTimer(RegionUUID)
                 End While
-            Catch
+            Catch ex As Exception
                 reader.Close()
                 Return
             End Try
@@ -84,15 +91,13 @@ Public Class WaitForOAR2Load
 
     Private Function ScanForPattern(line As String, text As String) As Boolean
 
-        If line.Length > 0 Then
-            Debug.Print(line)
-            Dim pattern = New Regex(text, RegexOptions.IgnoreCase)
-            Dim match = pattern.Match(line)
-            If match.Success Then
-                Return True
-            End If
+        Dim pattern = New Regex(text, RegexOptions.IgnoreCase)
+        Dim match = pattern.Match(line)
+        If match.Success Then
+            Return True
         End If
         Return False
+
     End Function
 
 End Class

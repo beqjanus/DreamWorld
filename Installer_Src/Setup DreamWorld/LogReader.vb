@@ -64,7 +64,8 @@ Public Class LogReader
                         End While
                     End Using
                 End If
-            Catch
+            Catch ex As Exception
+                Return
             End Try
             Sleep(10000)
         End While
