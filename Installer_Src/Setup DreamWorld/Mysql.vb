@@ -367,8 +367,29 @@ Public Module MysqlInterface
     '''
     Public Sub DeleteIM(id As Integer)
 
-        Dim stm = $"delete from im_offline where id = {id}"     ' todo fix sql
-        QueryString(stm)
+        Dim stm = $"delete from im_offline where id = @param"
+        Dim v As String = ""
+
+        Dim conn As String
+        If (Settings.ServerType = RobustServerName) Then
+            conn = Settings.RobustMysqlConnection
+        Else
+            conn = Settings.RegionMySqlConnection
+        End If
+
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(stm, MysqlConn)
+#Enable Warning
+                    cmd.Parameters.AddWithValue("@param", id)
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
 
     End Sub
 
@@ -434,7 +455,7 @@ Public Module MysqlInterface
         Dim stm = $"delete from stats where UUID = {RegionUUID}"
         QueryString(stm)
 
-        'todo clear up SQL
+        ''todo clear up SQL
         stm = $"delete from visitors where regionname = {Region_Name(RegionUUID)}"
         QueryString(stm)
 
@@ -1247,6 +1268,35 @@ Public Module MysqlInterface
             End Try
         End Using
         Return str
+
+    End Function
+
+    Public Function Queryparam(SQL As String, param As String) As String
+
+        Dim v As String = ""
+
+        Dim conn As String
+        If (Settings.ServerType = RobustServerName) Then
+            conn = Settings.RobustMysqlConnection
+        Else
+            conn = Settings.RegionMySqlConnection
+        End If
+
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
+                    cmd.Parameters.AddWithValue("@param", param)
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+        Return v
 
     End Function
 
