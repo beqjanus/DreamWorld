@@ -339,6 +339,8 @@ Module RegionMaker
 
 #Region "Functions"
 
+    Private retry As Integer
+
     Public Sub AddToRegionMap(RegionUUID As String)
 
         ' add to the global map this entire DOS box
@@ -491,7 +493,6 @@ Module RegionMaker
 
     End Function
 
-    Private retry As Integer
     ''' <summary>
     ''' Fetches all regions from Disk Into RAM
     ''' </summary>
@@ -737,7 +738,7 @@ Module RegionMaker
 
     Public Sub StopRegion(RegionUUID As String)
 
-        UnPauseRegion(RegionUUID)
+        Thaw(RegionUUID)
 
         If ShowDOSWindow(RegionUUID, SHOWWINDOWENUM.SWRESTORE) Then
             SequentialPause()
@@ -1166,7 +1167,6 @@ Module RegionMaker
             ErrorLog($"Bad UUID [{uuid}]")
         End If
 
-
     End Sub
 
 #End Region
@@ -1534,8 +1534,8 @@ Module RegionMaker
         End Try
         Return L
 
-
     End Function
+
     ''' <summary>
     ''' Returns a list if region UUIDS sorted by name
     ''' </summary>

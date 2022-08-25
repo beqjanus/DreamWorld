@@ -102,12 +102,7 @@ Public Class FormDebug
         End Try
 
     End Sub
-    Private Sub Poketest()
-        For Each RegionUUID In RegionUuids()
-            UnPauseRegion(RegionUUID)
-            ConsoleCommand(RegionUUID, "show stats")
-        Next
-    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = "Debug LandMaker" Then
@@ -220,6 +215,13 @@ Public Class FormDebug
 
         HelpOnce("Debug")
 
+    End Sub
+
+    Private Sub Poketest()
+        For Each RegionUUID In RegionUuids()
+            Thaw(RegionUUID)
+            ConsoleCommand(RegionUUID, "show stats")
+        Next
     End Sub
 
     Private Sub TPAPITest()

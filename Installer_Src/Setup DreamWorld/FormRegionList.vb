@@ -425,7 +425,7 @@ Public Class FormRegionlist
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ' TODO: Needs to be HGV3?
+
                 Dim webAddress As String = "hop://" & Settings.DnsName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)

@@ -68,7 +68,7 @@ Module WindowHandlers
                 ShowDOSWindow(RegionUUID, MaybeShowWindow())
                 PID = ProcessID(RegionUUID)
                 If PID > 0 Then
-                    UnPauseRegion(RegionUUID)
+                    Thaw(RegionUUID)
                 Else
                     PID = GetPIDofWindow(Group_Name(RegionUUID))
                     If PID = 0 Then
@@ -79,12 +79,10 @@ Module WindowHandlers
                 End If
 
                 DoType(RegionUUID, command)
-                Thread.Sleep(2000)
                 ShowDOSWindow(RegionUUID, MaybeHideWindow())
             Else ' Robust
                 ShowDOSWindow(RobustName, MaybeShowWindow())
                 DoType("Robust", command)
-                Thread.Sleep(2000)
                 ShowDOSWindow(RobustName, MaybeHideWindow())
             End If
         End If
@@ -121,7 +119,6 @@ Module WindowHandlers
                 SendKeys.Flush()
             Catch
             End Try
-
             Return
         End If
 

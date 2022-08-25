@@ -185,7 +185,7 @@ Module OAR
         Try
             If backMeUp = "Yes" Then
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                Dim R = New WaitForFile(RegionUUID, "Finished writing out OAR") ' TODO
+                Dim R = New WaitForFile(RegionUUID, "Finished writing out OAR")
                 ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 R.Scan()
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)

@@ -37,22 +37,13 @@
     ''' <param name="RegionUUID">Region UUID</param>
     Public Sub Thaw(RegionUUID As String)
 
-
         Dim PID = ProcessID(RegionUUID)
-        RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
+        ' RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
         Try
             NtResumeProcess(CachedProcess(PID).Handle)
         Catch
         End Try
 
-    End Sub
-
-    ''' <summary>
-    ''' Runs region
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    Public Sub UnPauseRegion(RegionUUID As String)
-        Thaw(RegionUUID)
     End Sub
 
 #End Region

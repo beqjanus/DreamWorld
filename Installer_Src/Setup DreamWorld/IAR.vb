@@ -159,7 +159,12 @@ Module IAR
 
                     Dim Newpath = BackupPath().Replace("/", "\")
                     Dim RegionUUID = FindRegionByName(Settings.WelcomeRegion)
+
+                    Dim Result = New WaitForFile(RegionUUID, "Saved archive")
                     ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
+
+                    Result.Scan()
+
                     TextPrint(My.Resources.Saving_word & " " & Newpath & "\" & BackupName & ", Region " & Region_Name(RegionUUID))
 
                 End If

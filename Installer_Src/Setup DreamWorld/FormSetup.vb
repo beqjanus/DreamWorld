@@ -2010,7 +2010,7 @@ Public Class FormSetup
     End Sub
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -2026,7 +2026,6 @@ Public Class FormSetup
         Else
             TimerisBusy = 0
         End If
-
 
         TimerisBusy += 1
 
@@ -2116,7 +2115,7 @@ Public Class FormSetup
             Bench.Print("Hour worker")
         End If
 
-        ' TODO fix this to run once
+        ' Only runs once
         If SecondsTicker = 3600 Then
             ExportFsAssets()
         End If
@@ -3137,7 +3136,7 @@ Public Class FormSetup
     Private Sub ThawAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThawAllToolStripMenuItem.Click
 
         For Each RegionUUID In RegionUuids()
-            UnPauseRegion(RegionUUID)
+            Thaw(RegionUUID)
             Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
         Next
 

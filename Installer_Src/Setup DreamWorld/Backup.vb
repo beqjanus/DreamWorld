@@ -160,7 +160,7 @@ Module Backup
     '' must use console as otherwise Smart Start will shutdown
     Public Sub Backupper(RegionUUID As String, file As String)
         PokeRegionTimer(RegionUUID)
-        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR") ' TODO
+        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""{vbCrLf}")
         Result.Scan()
     End Sub

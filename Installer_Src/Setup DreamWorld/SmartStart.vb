@@ -830,7 +830,7 @@ Module SmartStart
                 ' scan over all regions in the DOS box
                 For Each UUID As String In RegionUuidListByName(GroupName)
                     ProcessID(UUID) = PID
-                    UnPauseRegion(UUID)
+                    Thaw(UUID)
                     RegionStatus(UUID) = SIMSTATUSENUM.Booted
                     SendToOpensimWorld(UUID, 0)
                     TextPrint($"{BootName} {My.Resources.Ready}")
@@ -978,7 +978,7 @@ Module SmartStart
 
         ' smart boot Freeze/Thaw type
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
-            UnPauseRegion(RegionUUID)
+            Thaw(RegionUUID)
             PokeRegionTimer(RegionUUID)
             If IsRegionReady(GroupPort(RegionUUID)) Then
                 RunTaskList(RegionUUID)

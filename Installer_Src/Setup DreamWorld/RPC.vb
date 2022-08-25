@@ -180,7 +180,7 @@ Module RPC
 
     Public Sub ShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
-        UnPauseRegion(RegionUUID)
+        Thaw(RegionUUID)
         ConsoleCommand(RegionUUID, "q", True)
 
         Dim Group = Group_Name(RegionUUID)

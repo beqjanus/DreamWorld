@@ -416,7 +416,7 @@ Public Class FormRegions
                             'TextPrint($"{J.Name} {My.Resources.Ok} ")
                             Continue For
                         Else
-                            TextPrint($"{J.Name} needs content")     ' TODO
+                            TextPrint($"{J.Name} needs content")
                             regionList.Add(J.Name, RegionUUID)
                         End If
                     Else

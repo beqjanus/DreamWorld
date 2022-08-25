@@ -18,7 +18,6 @@ Module OfflineIM
 
         If Not Settings.EmailEnabled Then Return My.Resources.EmailDisabled
 
-        ' TODO
 
         If FromName.Length = 0 Then
             Return My.Resources.NoFromEmail
