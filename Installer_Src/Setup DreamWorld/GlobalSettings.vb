@@ -11,7 +11,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "5.197"
+    Public Const _MyVersion As String = "5.198"
     Public Const _SimVersion As String = "Opensim [2022-07-19 19:24:54] #7a710f09c0 fix llRequestInventoryData lm math"
     Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const Hyperica As String = "Hyperica"
@@ -27,5 +27,25 @@ Module GlobalSettings
     Public MySqlRev As String = "5.6.50"
 
 #End Region
+
+    ' TODO
+    'SELECT -- DISTINCT
+    'parent1.folderName AS Parent, child1.type , child1.folderName AS Child,
+    'child2.folderName AS GrandChild, child3.folderName AS GGChild , child4.folderName AS GGGChild,
+    'child5.folderName AS GGGGChild, child6.folderName AS GGGGGChild , child7.folderName AS GGGGGGChild,
+    'useraccounts.FirstName
+    'FROM
+    'useraccounts ,
+    'inventoryfolders parent1
+    'LEFT JOIN inventoryfolders child1 ON child1.parentFolderID = parent1.folderID
+    'LEFT JOIN inventoryfolders child2 ON child2.parentFolderID = child1.folderID
+    'LEFT JOIN inventoryfolders child3 ON child3.parentFolderID = child2.folderID
+    'LEFT JOIN inventoryfolders child4 ON child4.parentFolderID = child3.folderID
+    'LEFT JOIN inventoryfolders child5 ON child5.parentFolderID = child4.folderID
+    'LEFT JOIN inventoryfolders child6 ON child6.parentFolderID = child5.folderID
+    'LEFT JOIN inventoryfolders child7 ON child7.parentFolderID = child6.folderID
+    'WHERE
+    'parent1.agentID = useraccounts.PrincipalID
+    'AND parent1.folderName = "My Inventory
 
 End Module
