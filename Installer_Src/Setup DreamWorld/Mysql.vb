@@ -810,7 +810,7 @@ Public Module MysqlInterface
                             Dim datecreated = UnixTimestampToDateTime(created)
                             Output.Datestring = datecreated.ToString(CultureInfo.CurrentCulture)
                             Output.DiffDays = DateDiff(DateInterval.Day, datecreated, DateTime.Now).ToString("000000", Globalization.CultureInfo.CurrentCulture)
-                            Output.Assets = MysqlInterface.AssetCount(Output.Principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
+                            'Output.Assets = MysqlInterface.AssetCount(Output.Principalid).ToString("000000", Globalization.CultureInfo.CurrentCulture)
 
                             If Output.Firstname <> "GRID" And Output.LastName <> "SERVICES" Then
                                 result.Add(Output.Principalid, Output)
