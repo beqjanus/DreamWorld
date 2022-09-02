@@ -4388,4 +4388,7 @@
   <data name="OneMinute" xml:space="preserve">
     <value>1 Minute</value>
   </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache must  be using port 80. Cannot continue.</value>
+  </data>
 </root>

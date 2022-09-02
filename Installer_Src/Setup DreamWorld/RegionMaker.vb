@@ -2006,27 +2006,27 @@ Module RegionMaker
             ' threads 4 = ubODE
 
             Select Case Settings.Physics
-                Case 0
+                Case 0 'Physics_Default
                     If INI.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
                     If INI.SetIni("Startup", "physics", "basicphysics") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
-                Case 2
+                Case 2 'Physics_Bullet
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
-                Case 3
+                Case 3 ' Physics_Separate thread
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "True") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
-                Case 4
+                Case 4 ' Physics_ubODE
                     If INI.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                     If INI.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
-                Case 5
+                Case 5 'Physics_Hybrid
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
@@ -2040,27 +2040,27 @@ Module RegionMaker
 
             'Override Physics
             Select Case RegionPhysics(uuid)
-                Case "0"
+                Case "0" 'Physics_Default
                     If INI.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
                     If INI.SetIni("Startup", "physics", "basicphysics") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "1"
+                Case "1" ' default
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "2"
+                Case "2"  'Physics_Bullet
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "3"
+                Case "3" ' Physics_Separate thread
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "BulletSim") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "True") Then Return True
-                Case "4"
+                Case "4" ' Physics_ubODE
                     If INI.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
-                Case "5"
+                Case "5" 'Physics_Hybrid
                     If INI.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
                     If INI.SetIni("Startup", "physics", "ubODE") Then Return True
                     If INI.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True

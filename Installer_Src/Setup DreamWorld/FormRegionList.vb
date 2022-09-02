@@ -1754,6 +1754,7 @@ Public Class FormRegionlist
 
         UserView.Show()
         UserView.Visible = True
+
         ListView1.Hide()
         AvatarView.Hide()
         IconView.Hide()
@@ -1775,7 +1776,11 @@ Public Class FormRegionlist
                 Dim k = Agent.Key
                 Dim O = Agent.Value
 
-                If O.Firstname.Contains(SearchBox.Text) Or O.LastName.Contains(SearchBox.Text) Or O.Email.Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
+                If O.Firstname.Contains(SearchBox.Text) Or
+                    O.LastName.Contains(SearchBox.Text) Or
+                    O.Email.Contains(SearchBox.Text) Or
+                    SearchBox.Text.Length = 0 Or
+                    SearchBox.Text = My.Resources.Search_word Then
 
                     Dim item1 As New ListViewItem(O.Firstname & " " & O.LastName, Index)
 
@@ -1788,16 +1793,26 @@ Public Class FormRegionlist
                     End If
 
                     ' Build output string
+                    Dim Inventory = GetInventoryList(O.Principalid)
+
+                    Dim InventoryCount As Integer
+                    If Inventory.ContainsKey(0) Then InventoryCount += Inventory.Item(0)
+                    If Inventory.ContainsKey(1) Then InventoryCount += Inventory.Item(1)
+                    If Inventory.ContainsKey(2) Then InventoryCount += Inventory.Item(2)
+                    If Inventory.ContainsKey(3) Then InventoryCount += Inventory.Item(3)
+                    If Inventory.ContainsKey(6) Then InventoryCount += Inventory.Item(6)
+                    If Inventory.ContainsKey(7) Then InventoryCount += Inventory.Item(7)
+                    If Inventory.ContainsKey(10) Then InventoryCount += Inventory.Item(10)
+                    If Inventory.ContainsKey(15) Then InventoryCount += Inventory.Item(15)
+                    If Inventory.ContainsKey(20) Then InventoryCount += Inventory.Item(20)
 
                     item1.SubItems.Add(O.Email)
                     item1.SubItems.Add(O.Title)
-                    item1.SubItems.Add(O.DiffDays)
+                    item1.SubItems.Add(InventoryCount.ToString("00000", Globalization.CultureInfo.CurrentCulture))
                     item1.SubItems.Add(O.Userlevel)
                     item1.SubItems.Add(O.Datestring)
-                    item1.SubItems.Add(O.Assets)
+                    item1.SubItems.Add(O.DiffDays)
                     item1.SubItems.Add(O.Principalid)
-
-                    Dim Inventory = GetInventoryList(O.Principalid)
 
                     If Inventory.ContainsKey(0) Then item1.SubItems.Add((Inventory.Item(0).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Textures",
                     If Inventory.ContainsKey(1) Then item1.SubItems.Add((Inventory.Item(1).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") '  "Sounds",
@@ -1808,7 +1823,6 @@ Public Class FormRegionlist
                     If Inventory.ContainsKey(10) Then item1.SubItems.Add((Inventory.Item(10).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Scripts",
                     If Inventory.ContainsKey(15) Then item1.SubItems.Add((Inventory.Item(15).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Photo Album",
                     If Inventory.ContainsKey(20) Then item1.SubItems.Add((Inventory.Item(20).ToString("00000", Globalization.CultureInfo.CurrentCulture))) Else item1.SubItems.Add("-") ' "Animations",
-
 
                     UserView.Items.AddRange(New ListViewItem() {item1})
 
@@ -1839,9 +1853,8 @@ Public Class FormRegionlist
             Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
-        UserView.EndUpdate()
-
         PropUpdateView() = False
+        UserView.EndUpdate()
 
     End Sub
 

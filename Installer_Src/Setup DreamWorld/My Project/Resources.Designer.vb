@@ -527,6 +527,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Apache must  be using port 80. Cannot continue..
+        '''</summary>
+        Friend ReadOnly Property ApacheMustBe80() As String
+            Get
+                Return ResourceManager.GetString("ApacheMustBe80", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Apache must be Running.
         '''</summary>
         Friend ReadOnly Property ApacheMustBeRunning() As String
