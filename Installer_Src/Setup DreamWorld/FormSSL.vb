@@ -1,4 +1,6 @@
-﻿Public Class FormSSL
+﻿Imports System.Text.RegularExpressions
+
+Public Class FormSSL
 
     Private changed As Boolean
     Private initted As Boolean
@@ -90,7 +92,14 @@
 
     Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Button2.Click
 
-        Dim webAddress As String = "https: //crt.sh/?q=outworldz.net"
+        Dim pattern = New Regex("\.?(.*)$", RegexOptions.IgnoreCase)
+        Dim match As Match = pattern.Match(Settings.PublicIP)
+        Dim Str As String = ""
+        If match.Success Then
+            Str = $"?q={match.Groups(1).Value}"
+        End If
+
+        Dim webAddress As String = $"https://crt.sh/{Str}"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -192,7 +201,7 @@
                 SSLProcess.StartInfo.Arguments &= $" --emailaddress {Settings.SSLEmail} "
             End If
             If Debugger.IsAttached Then
-                SSLProcess.StartInfo.Arguments &= " --closeonfinish --test " ' so we do not hit a rate limit
+                '  SSLProcess.StartInfo.Arguments &= " --closeonfinish --test " ' so we do not hit a rate limit
             End If
             SSLProcess.StartInfo.FileName = MakeSSLbatch($".\wacs.exe {SSLProcess.StartInfo.Arguments}")
             If Debugger.IsAttached Then
