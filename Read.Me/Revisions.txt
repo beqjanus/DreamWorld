@@ -4,8 +4,11 @@ V5.198
 Oar and IAR load and save:  Prevent early shutdown of Smart Start regions when by reading the console of each Opensim for specific phrases. 
 Steamline typing logic to prevent interruptions.
 
+V5.2
+General Release
 
 V5.197
+Region List was not showing correct inventory count
 Fixes for regions freezing when saving OARs after 5 minutes.
 Crash if you clicked the CPU graph button before starting the grid.
 
