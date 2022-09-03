@@ -1,9 +1,7 @@
-
-
+#!perl.exe
 
 # build Zipfile
 # AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
-
 
 use strict;
 use warnings;
@@ -31,7 +29,7 @@ my $type = "-V$v";
 
 CheckDistro();
 
-# This requires a Authenticode Certificate to sign the files. The thumbprint comes from the cert. It is not the cert, which is privat and is saved in the windows store.
+# This requires a Authenticode Certificate to sign the files. The thumb print comes from the cert. It is not the cert, which is private and is saved in the windows store.
 # convert the Cert to a pfx file:  .\bin\openssl pkcs12 -export -out cert.pfx -inkey 2021.key -in 2021.cer
 # import the PK and the
 my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
@@ -97,6 +95,7 @@ my @deletions = (
     "$dir/OutworldzFiles/logs/Apache",
     "$dir/OutworldzFiles/Apache/htdocs/Stats/Maps/",
     "$dir/OutworldzFiles/Apache/htdocs/TTS",
+    "$dir/OutworldzFiles/Apache/htdocs/.well-known",
 );
 
 foreach my $path (@deletions) {    
@@ -114,6 +113,7 @@ doUnlink ("$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt");
 doUnlink ("$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt");
 doUnlink ("$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db");
 doUnlink ("$dir/OutworldzFiles/BanList.txt");
+
 
 PrintDate("Delete Fsassets files");
 DeleteandKeep("$dir/OutworldzFiles/Opensim/bin/fsassets");
