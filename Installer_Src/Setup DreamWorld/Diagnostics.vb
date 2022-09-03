@@ -49,8 +49,10 @@ Module Diags
 
         If Name.Length = 0 Then Name = Settings.PublicIP   ' optional Alt DNS name can come in
         Dim TotalSize As Double
+        Dim RegionCount As Integer
         For Each RegionUUID In RegionUuids()
             TotalSize += SizeX(RegionUUID) / 256 * SizeY(RegionUUID) / 256
+            RegionCount += 1
         Next
 
         Dim fs = CreateObject("Scripting.FileSystemObject")
@@ -67,8 +69,7 @@ Module Diags
         & "&Description=" & Settings.Description _
         & "&IP=" & Name _
         & "&ServerType=" & Settings.ServerType _
-        & "&MAC=" & Settings.MacAddress _
-        & "&ID0=" & CreateMD5(CStr(d.SerialNumber)) _
+        & "&RegionCount=" & CStr(RegionCount) _
         & "&RegionSize=" & CStr(TotalSize) _
         & "&r=" & RandomNumber.Random()
         Return data
@@ -350,7 +351,6 @@ Module Diags
 
         Dim Used As New List(Of String)
         ' Boot them up
-
 
         For Each RegionUUID In RegionUuids()
             If IsBooted(RegionUUID) Then
