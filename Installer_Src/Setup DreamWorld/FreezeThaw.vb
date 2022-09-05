@@ -9,7 +9,7 @@
 
     Public Sub Freeze(RegionUUID As String)
 
-        If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) = True Then
+        If Smart_Start(RegionUUID) And RegionEnabled(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend = False Then
             Dim PID = ProcessID(RegionUUID)
             ShowDOSWindow(RegionUUID, MaybeHideWindow())
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended
@@ -24,9 +24,13 @@
     ''' <param name="RegionUUID">RegionUUID</param>
     Public Sub PauseRegion(RegionUUID As String)
 
-        If Settings.Smart_Start And Smart_Start(RegionUUID) Then
-            BreakPoint.Print($"Pausing {Region_Name(RegionUUID)}")
-            Freeze(RegionUUID)
+        If Settings.Smart_Start And Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend = False Then
+            Dim Groupname = Group_Name(RegionUUID)
+            For Each UUID As String In RegionUuidListByName(Groupname)
+                BreakPoint.Print($"Pausing {Region_Name(UUID)}")
+                Freeze(UUID)
+            Next
+
         End If
 
     End Sub
@@ -38,7 +42,6 @@
     Public Sub Thaw(RegionUUID As String)
 
         Dim PID = ProcessID(RegionUUID)
-        ' RegionStatus(RegionUUID) = SIMSTATUSENUM.Resume
         Try
             NtResumeProcess(CachedProcess(PID).Handle)
         Catch
