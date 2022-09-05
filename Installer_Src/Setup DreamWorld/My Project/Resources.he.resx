@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>כל האיזורים</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>דקה אחת</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>האפאצ'י בטח משתמשים בפורט 80. לא יכול להמשיך!</value>
+  </data>
 </root>

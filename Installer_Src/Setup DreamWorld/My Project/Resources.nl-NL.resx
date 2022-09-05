@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Alle regio's</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minuut</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache moet poort 80 gebruiken. Kan niet doorgaan!</value>
+  </data>
 </root>

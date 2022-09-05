@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Tüm Bölgeleri Çözün</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 Dakika</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache 80 numaralı portu kullanıyor olmalıdır. Devam edemiyorum.!</value>
+  </data>
 </root>

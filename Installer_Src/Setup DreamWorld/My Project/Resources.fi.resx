@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Kaikki alueet</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minuutti</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apassi käyttää porttia 80. Ei voi jatkaa!</value>
+  </data>
 </root>

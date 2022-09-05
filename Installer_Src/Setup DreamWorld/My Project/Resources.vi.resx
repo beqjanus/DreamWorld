@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Làm tan băng tất cả các khu vực</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 Phút</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache phải  sử dụng cổng 80. Không thể tiếp tục.!</value>
+  </data>
 </root>

@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>Desizoztu Eskualde guztiak</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>Minutu 1</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache-k 80 ataka erabili behar du. Ezin da jarraitu.!</value>
+  </data>
 </root>

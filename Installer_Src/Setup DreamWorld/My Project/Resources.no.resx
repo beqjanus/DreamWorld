@@ -3807,4 +3807,10 @@
   <data name="rezrights" xml:space="preserve">
     <value>Dette vil fjerne rez-rettigheter for sørgende i alle regioner. Fortsette?</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minutt</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>Apache må bruke port 80. Kan ikke fortsette.!</value>
+  </data>
 </root>

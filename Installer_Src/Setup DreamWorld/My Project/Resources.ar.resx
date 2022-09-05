@@ -3807,4 +3807,10 @@
   <data name="ThawAllRegions" xml:space="preserve">
     <value>ذوبان الجليد في جميع المناطق</value>
   </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 دقيقة</value>
+  </data>
+  <data name="ApacheMustBe80" xml:space="preserve">
+    <value>يجب أن يستخدم Apache المنفذ 80. لا يمكن المتابعة.</value>
+  </data>
 </root>
