@@ -34,6 +34,8 @@ Module Disk
                         PauseRegion(RegionUUID)
                         running = True
                     Case SIMSTATUSENUM.RestartPending
+                        PauseRegion(RegionUUID)
+                        running = True
                     Case SIMSTATUSENUM.RestartStage2
                         PauseRegion(RegionUUID)
                         running = True

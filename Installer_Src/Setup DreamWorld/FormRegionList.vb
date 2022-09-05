@@ -725,29 +725,27 @@ Public Class FormRegionlist
             Else
                 Num = Dgicon.Disabled
             End If
-
-        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend Then
+        ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) Then
             Letter = My.Resources.Stopped_word
-            Num = Dgicon.SmartStartStopped
+            Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Waiting
-            Num = Dgicon.SmartStartStopped
-
+            Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Not Smart_Start(RegionUUID) And Not Settings.Smart_Start Then
             Letter = My.Resources.Stopped_word
             Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) And Settings.Smart_Start And Settings.BootOrSuspend Then
             Letter = My.Resources.Stopped_word
-            Num = Dgicon.IceMelted
+            Num = Dgicon.Stopped
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
-            Num = Dgicon.IceMelted
+            Num = Dgicon.SmartStartStopped
         ElseIf Status = SIMSTATUSENUM.Suspended And Smart_Start(RegionUUID) And Settings.Smart_Start And Not Settings.BootOrSuspend Then
             Letter = My.Resources.Frozen
             Num = Dgicon.Icecube
         ElseIf Status = SIMSTATUSENUM.Stopped And Smart_Start(RegionUUID) Then
             Letter = My.Resources.Stopped_word
-            Num = Dgicon.Stopped
+            Num = Dgicon.SmartStartStopped
         ElseIf Status = SIMSTATUSENUM.Error Then
             Letter = My.Resources.Error_word
             Num = Dgicon.ErrorIcon
@@ -1166,6 +1164,7 @@ Public Class FormRegionlist
             AddHandler IconView.ColumnClick, AddressOf ColumnClick
             AddHandler UserView.ColumnClick, AddressOf ColumnClick
 
+            '!!!
             ' index to display icons
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
@@ -1177,7 +1176,7 @@ Public Class FormRegionlist
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2", Globalization.CultureInfo.InvariantCulture))  ' 8 - 1 User
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Globalization.CultureInfo.InvariantCulture))  ' 9 - 2 user
-            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
+            ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("nav_plain_blue", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
             ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
