@@ -1,11 +1,13 @@
 REVISIONS FOR DREAMGRID
 
-V5.198
-Oar and IAR load and save:  Prevent early shutdown of Smart Start regions when by reading the console of each Opensim for specific phrases. 
-Steamline typing logic to prevent interruptions.
 
-V5.2
-General Release
+
+V5.198
+Robust restart counter added. after three crashes it will stop and show the log
+Fix an icon on Regions list for Stopped regions.
+Oar and IAR load and save:  Prevent early shutdown of Smart Start regions when by reading the console of each Opensim for specific phrases. 
+Streamline typing logic to prevent interruptions.
+
 
 V5.197
 Region List was not showing correct inventory count
