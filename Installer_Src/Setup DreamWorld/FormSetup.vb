@@ -438,39 +438,7 @@ Public Class FormSetup
                 Dim RegionName = Region_Name(RegionUUID)
                 If Settings.WelcomeRegion = RegionName Then Continue For
 
-                Dim BootNeeded As Boolean = False
-                Select Case Settings.Smart_Start
-                    Case True
-
-                        ' Suspend mode needs to always run regions, even smart start
-                        If Smart_Start(RegionUUID) And Not Settings.BootOrSuspend Then
-                            BootNeeded = True
-                            Diagnostics.Debug.Print($"Boot Needed for {RegionName}")
-                        End If
-
-                        '  Smart Start, not in Region table
-                        If Smart_Start(RegionUUID) Then
-                            If Not RegionIsRegistered(RegionUUID) Then
-                                BootNeeded = True
-                                'BreakPoint.Print($"{RegionName} is not registered, boot needed")
-                            End If
-
-                            ' If running, make them boot so we can hook on and shut them down
-                            If CBool(GetHwnd(Group_Name(RegionUUID))) Then
-                                BootNeeded = True
-                                'BreakPoint.Print($"{RegionName} boot needed to capture events")
-                            End If
-                        End If
-
-                        ' if set to default, which is true
-                        If Not Smart_Start(RegionUUID) Then
-                            BootNeeded = True
-                        End If
-                    Case False
-                        BootNeeded = True
-                End Select
-
-                If BootNeeded AndAlso PropOpensimIsRunning Then
+                If PropOpensimIsRunning Then
                     Boot(RegionName)
                 End If
             End If
@@ -1170,24 +1138,21 @@ Public Class FormSetup
     Private Sub RestartDOSboxes()
 
         If PropRobustExited = True Then
+            RobustHandler = False
             PropRobustExited = False
             RobustIcon(False)
-            If Not StartRobust() Then Return
         End If
 
         If PropMysqlExited Then
             MySQLIcon(False)
-            StartMySQL()
         End If
 
         If PropApacheExited Then
             ApacheIcon(False)
-            StartApache()
         End If
 
         If PropIceCastExited Then
             IceCastIcon(False)
-            StartIcecast()
         End If
 
     End Sub
