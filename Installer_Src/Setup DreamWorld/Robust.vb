@@ -14,7 +14,9 @@ Module Robust
     Private WithEvents RobustProcess As New Process()
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
+    Private _RobustHandler As Boolean
     Private _RobustProcID As Integer
+    ' if robust has an event handler for exiting
 
     Public Property PropRobustExited() As Boolean
         Get
@@ -40,6 +42,15 @@ Module Robust
         End Get
         Set(value As Integer)
             _RobustCrashCounter = value
+        End Set
+    End Property
+
+    Public Property RobustHandler() As Boolean
+        Get
+            Return _RobustHandler
+        End Get
+        Set(ByVal Value As Boolean)
+            _RobustHandler = Value
         End Set
     End Property
 
@@ -78,6 +89,7 @@ Module Robust
         Log("INFO", "Robust is not running")
         RobustIcon(False)
         PropRobustProcID = 0
+        RobustHandler = False
 
     End Sub
 
@@ -107,7 +119,10 @@ Module Robust
                     Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
                     RobustIcon(True)
                     p.EnableRaisingEvents = True
-                    AddHandler p.Exited, AddressOf RobustProcess_Exited
+                    If Not RobustHandler Then
+                        AddHandler p.Exited, AddressOf RobustProcess_Exited
+                        RobustHandler = True
+                    End If
                     PropOpensimIsRunning = True
                     ShowDOSWindow(RobustName(), MaybeHideWindow())
                     Return True
@@ -158,6 +173,7 @@ Module Robust
 
         Try
             RobustProcess.Start()
+            RobustHandler = True
         Catch ex As Exception
             BreakPoint.Dump(ex)
             TextPrint($"Robust {Global.Outworldz.My.Resources.did_not_start_word} {ex.Message}")
@@ -225,7 +241,7 @@ Module Robust
             End While
             If ctr = 30 Then Zap("Robust")
         End If
-
+        RobustHandler = False
         MarkRobustOffline()
 
     End Sub
@@ -579,17 +595,24 @@ Module Robust
 
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles RobustProcess.Exited
 
+        If RobustHandler = False Then
+            Return
+        End If
+
+        RobustHandler = False
         ' Handle Exited event and display process information.
         PropRobustProcID = Nothing
         If PropAborting Then Return
 
-        If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
-            PropRobustExited = True
+        If Settings.RestartOnCrash And RobustCrashCounter < 3 Then
             MarkRobustOffline()
             RobustCrashCounter += 1
+            StartRobust()
             Return
         End If
 
+        PropRobustExited = True
+        RobustHandler = False
         RobustCrashCounter = 0
         MarkRobustOffline()
 
