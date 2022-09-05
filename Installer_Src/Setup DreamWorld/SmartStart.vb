@@ -454,15 +454,12 @@ Module SmartStart
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
-
                     ' could be a regular region so we wait
-                ElseIf status = SIMSTATUSENUM.Booting And
-                    (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
+                ElseIf status = SIMSTATUSENUM.Booting And (Not Settings.Smart_Start Or Not Smart_Start(RegionUUID)) Then
                     PokeRegionTimer(RegionUUID)
                     BreakPoint.Print($"Waiting On {Region_Name(RegionUUID)}")
                     wait = True
                     Exit For
-
                 End If
             Next
 
@@ -476,6 +473,8 @@ Module SmartStart
                 Else
                     If (FormSetup.CPUAverageSpeed > Settings.CpuMax) Then
                         wait = True
+                    Else
+                        wait = False
                     End If
                 End If
 
