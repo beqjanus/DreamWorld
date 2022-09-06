@@ -425,7 +425,7 @@ Module SmartStart
 
     End Sub
 
-    Public Sub SequentialPause(Optional Suspend As Boolean = False)
+    Public Sub SequentialPause()
 
         ''' <summary>
         ''' 0 for no waiting

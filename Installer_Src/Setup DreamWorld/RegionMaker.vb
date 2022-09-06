@@ -2394,7 +2394,7 @@ Module RegionMaker
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll.bak"),
                          IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
 
-        ElseIf Settings.SearchOptions = Hyperica Then
+        ElseIf Settings.SearchOptions = Outworldz Then
 
             INI.SetIni("DataSnapshot", "data_services", PropDomain & "/Search/register.php")
             Dim SearchURL = PropDomain & "/Search/query.php"

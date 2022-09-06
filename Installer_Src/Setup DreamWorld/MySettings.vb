@@ -13,8 +13,6 @@ Public Class MySettings
 
     Private Const DreamGrid As String = "DreamGrid"
     Private Const JOpensim As String = "JOpensim"
-    Private ReadOnly Apachein As New List(Of String)
-    Private ReadOnly Apacheout As New List(Of String)
     Private _CurSlashDir As String = ""
     Private _DeleteTreesFirst As Boolean
     Private _ExternalHostName As String
@@ -1802,7 +1800,6 @@ Public Class MySettings
         End Set
     End Property
 
-
     Public Property RegionManagerIsGod() As Boolean
         Get
             Return CType(GetMySetting("Region_manager_is_god", "False"), Boolean)
@@ -2012,7 +2009,7 @@ Public Class MySettings
 
     Public Property SearchOptions() As String
         Get
-            Return GetMySetting("OpensimSearch", "Hyperica")
+            Return GetMySetting("OpensimSearch", "Outworldz")
         End Get
         Set
             SetMySetting("OpensimSearch", Value)

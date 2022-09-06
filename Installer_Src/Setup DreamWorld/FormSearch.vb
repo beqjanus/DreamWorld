@@ -47,7 +47,7 @@
             JOpensimRadioButton.Checked = False
         End If
 
-        HelpOnce("Search")
+        HelpOnce("Search Help")
 
         Select Case Settings.SearchOptions
             Case "None"
@@ -65,7 +65,7 @@
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
 
-        HelpManual("Search")
+        HelpManual("Search Help")
 
     End Sub
 
@@ -81,7 +81,7 @@
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
 
         If HypericaRadioButton.Checked Then
-            Settings.SearchOptions = Hyperica
+            Settings.SearchOptions = Outworldz
             Settings.SaveSettings()
         End If
 

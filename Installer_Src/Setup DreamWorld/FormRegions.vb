@@ -11,7 +11,6 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
-    Private _BulkLoadOwner As String = ""
     Private _initialized As Boolean
     Private _StopLoading As String = "Stopped"
 
@@ -559,7 +558,7 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub ResetRun()
+    Private Shared Sub ResetRun()
 
         gEstateName = ""
         FormSetup.Buttons(FormSetup.StopButton)

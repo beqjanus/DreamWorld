@@ -1380,7 +1380,7 @@
     <value>starting as an Avatar is nearby</value>
   </data>
   <data name="Disable_Gloebits_text" xml:space="preserve">
-    <value>The global saetting  Gloebits will not apply to this region if checked.</value>
+    <value>The global saetting 'Gloebit' will not apply to this region if checked.</value>
   </data>
   <data name="NTSuspend" xml:space="preserve">
     <value>Error: Could Not launch NtSuspendProcess64.exe.</value>
@@ -1689,7 +1689,7 @@
     <value>..\Resources\registry.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Quit_Message1" xml:space="preserve">
-    <value>The Appication has quit unexpectedly.</value>
+    <value>The Application has quit unexpectedly.</value>
   </data>
   <data name="Region_Port_word" xml:space="preserve">
     <value>Region Port</value>
@@ -2766,7 +2766,7 @@
     <value>Click To Get a Free Gloebits Account So You Can Buy and Sell</value>
   </data>
   <data name="Disable_Gloebits_word" xml:space="preserve">
-    <value>Disable All Gloebits</value>
+    <value>Disable All Gloebit</value>
   </data>
   <data name="Name_of_Region_Word" xml:space="preserve">
     <value>Name of Region</value>
@@ -3021,7 +3021,7 @@
     <value>Neighbor Distance (default=25.0)</value>
   </data>
   <data name="HypericaSearch_word" xml:space="preserve">
-    <value>Hyperica Search</value>
+    <value>Global Search</value>
   </data>
   <data name="Farsi" xml:space="preserve">
     <value>Farsi (Iran)</value>
@@ -3532,7 +3532,7 @@
     <value>Not a valid Maximum Prim Value. Must be greater than 0.</value>
   </data>
   <data name="Click_to_Setup_Search" xml:space="preserve">
-    <value>Clkick to Setup Search Options for Hyperica  or JOpensim</value>
+    <value>Click to Setup Search Options for Hyperica  or JOpensim</value>
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Do you want to see the log file?</value>
@@ -4227,7 +4227,7 @@
     <value>Web Control Panel</value>
   </data>
   <data name="tt_Apache_EnableDiva" xml:space="preserve">
-    <value>Enables a redirect of the home page to the "Dreamgrid" folder in htdocs</value>
+    <value>Enables a redirect of the home page to the "DreamGrid" folder in htdocs</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Folder to save to</value>

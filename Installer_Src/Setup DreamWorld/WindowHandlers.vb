@@ -54,7 +54,7 @@ Module WindowHandlers
 
     End Function
 
-    Public Function ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False) As Boolean
+    Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
         ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
@@ -263,12 +263,12 @@ Module WindowHandlers
                 End If
 
             Next
-            ConsoleCommand(RobustName, "set log level " & msg, True)
+            ConsoleCommand(RobustName, "set log level " & msg)
         End If
 
     End Sub
 
-    Public Sub SendScriptCmd(cmd As String)
+    Public Sub SendScriptCmd(command As String)
         If Not PropOpensimIsRunning() Then
             TextPrint(My.Resources.Not_Running)
             Return
@@ -276,7 +276,7 @@ Module WindowHandlers
         Dim rname = ChooseRegion(False)
         Dim RegionUUID As String = FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region ""{Region_Name(RegionUUID)}""{vbCrLf}{cmd}")
+            ConsoleCommand(RegionUUID, "change region ""{Region_Name(RegionUUID)}""{vbCrLf}{command}")
         End If
 
     End Sub

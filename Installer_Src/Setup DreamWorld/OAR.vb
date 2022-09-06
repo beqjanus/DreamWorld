@@ -205,7 +205,7 @@ Module OAR
 
         SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
         If Not PropForceParcel() Then
-            ConsoleCommand(RegionUUID, "land clear", True)
+            ConsoleCommand(RegionUUID, "land clear")
         End If
         ConsoleCommand(RegionUUID, T.Command)
 

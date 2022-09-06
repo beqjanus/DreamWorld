@@ -103,21 +103,16 @@ Public Class FormDebug
 
     End Sub
 
+    Private Shared Sub Poketest()
+        For Each RegionUUID In RegionUuids()
+            Thaw(RegionUUID)
+            ConsoleCommand(RegionUUID, "show stats")
+        Next
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        If Command = "Debug LandMaker" Then
-            If Value = True Then
-                Dim res = MsgBox("Are you sure?  This makes a LOT of regions! - Make them Smart Boot and Temporary!", vbYesNo)
-                If res = vbYes Then
-                    DebugLandMaker = True
-                    ProgressPrint("Land making On")
-                End If
-            Else
-                DebugLandMaker = False
-                ProgressPrint("Land making Off")
-            End If
-
-        ElseIf Command = My.Resources.MakeNewMap Then
+        If Command = My.Resources.MakeNewMap Then
             MakeMap()
 
         ElseIf Command = My.Resources.TeleportAPI Then
@@ -208,20 +203,13 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
-        ComboBox1.Items.Add("Debug LandMaker")
+
         ComboBox1.Items.Add(My.Resources.MakeNewMap)
 
         SetScreen()
 
         HelpOnce("Debug")
 
-    End Sub
-
-    Private Sub Poketest()
-        For Each RegionUUID In RegionUuids()
-            Thaw(RegionUUID)
-            ConsoleCommand(RegionUUID, "show stats")
-        Next
     End Sub
 
     Private Sub TPAPITest()

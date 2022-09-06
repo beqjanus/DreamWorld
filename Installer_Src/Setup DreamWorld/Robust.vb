@@ -132,16 +132,18 @@ Module Robust
             End Try
         Next
 
-        ' Check the HTTP port
+        ' Check the HTTP port in case its on a different PC
         If IsRobustRunning() Then
             RobustIcon(True)
             PropOpensimIsRunning = True
+            RobustHandler = False
             Return True
         End If
 
         If Settings.ServerType <> RobustServerName Then
             RobustIcon(True)
             PropOpensimIsRunning = True
+            RobustHandler = False
             Return True
         End If
 
@@ -229,14 +231,14 @@ Module Robust
 
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
 
-            ConsoleCommand(RobustName, "q", True)
+            ConsoleCommand(RobustName, "q")
 
             Dim ctr As Integer = 0
             ' wait 30 seconds for robust to quit
             While IsRobustRunning() And ctr < 30
                 Application.DoEvents()
                 Sleep(1000)
-                ConsoleCommand(RobustName, "q", True)
+                ConsoleCommand(RobustName, "q")
                 ctr += 1
             End While
             If ctr = 30 Then Zap("Robust")
@@ -645,7 +647,10 @@ Module Robust
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
-        ElseIf Settings.SearchOptions = Hyperica Then
+        ElseIf Settings.SearchOptions = Outworldz Then
+            INI.SetIni("LoginService", "SearchURL", PropDomain & "/Search/query.php")
+            INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
+        ElseIf Settings.SearchOptions = "Hyperica" Then
             INI.SetIni("LoginService", "SearchURL", PropDomain & "/Search/query.php")
             INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
         ElseIf Settings.SearchOptions = "Local" Then

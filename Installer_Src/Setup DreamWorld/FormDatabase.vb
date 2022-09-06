@@ -100,7 +100,7 @@ Public Class FormDatabase
         Label15.Text = Global.Outworldz.My.Resources.User_Name_word
         Label16.Text = Global.Outworldz.My.Resources.Robust_word
         Label2.Text = Global.Outworldz.My.Resources.MySqlPort_word
-        Label20.Text = Outworldz.My.Resources.Region_Database
+        Label20.Text = Global.Outworldz.My.Resources.Region_Database
         Label21.Text = Global.Outworldz.My.Resources.User_Name_word
         Label22.Text = Global.Outworldz.My.Resources.Password_word
         Label8.Text = Global.Outworldz.My.Resources.MySqlPort_word

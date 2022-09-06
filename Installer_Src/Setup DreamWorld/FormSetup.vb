@@ -24,7 +24,7 @@ Public Class FormSetup
     ReadOnly BackupThread As New Backups
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly TaskQue As New List(Of TaskObject)
+
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -242,7 +242,6 @@ Public Class FormSetup
         For Each RegionUUID As String In RegionUuidListByName(Groupname)
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
             PokeRegionTimer(RegionUUID)
-            CrashCounter(RegionUUID) = 0
         Next
         PropUpdateView = True
 
@@ -968,27 +967,7 @@ Public Class FormSetup
 
 #Region "Exit Events"
 
-    ''' <summary>Event handler for Icecast</summary>
-    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
-
-        If PropAborting Then Return
-
-        If Settings.RestartOnCrash AndAlso IcecastCrashCounter < 10 Then
-            IcecastCrashCounter += 1
-            PropIceCastExited = True
-            Return
-        End If
-        IcecastCrashCounter = 0
-
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-
-        If (yesno = vbYes) Then
-            Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\error.log") & """")
-        End If
-
-    End Sub
-
-    Public Sub ProcessQuit()
+    Public Shared Sub ProcessQuit()
 
         ' now look at the exit stack
         While Not ExitList.IsEmpty
@@ -1135,11 +1114,29 @@ Public Class FormSetup
 
     End Sub
 
+    ''' <summary>Event handler for Icecast</summary>
+    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+
+        If PropAborting Then Return
+
+        If Settings.RestartOnCrash AndAlso IcecastCrashCounter < 10 Then
+            IcecastCrashCounter += 1
+            PropIceCastExited = True
+            Return
+        End If
+        IcecastCrashCounter = 0
+
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+
+        If (yesno = vbYes) Then
+            Baretail("""" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\error.log") & """")
+        End If
+
+    End Sub
+
     Private Sub RestartDOSboxes()
 
         If PropRobustExited = True Then
-            RobustHandler = False
-            PropRobustExited = False
             RobustIcon(False)
         End If
 
@@ -1389,6 +1386,41 @@ Public Class FormSetup
 
     End Sub
 
+    Private Shared Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
+
+        If Not Visitor.ContainsKey(Avatar) Then
+            Visitor.Add(Avatar, RegionName)
+        Else
+            Visitor.Item(Avatar) = RegionName
+        End If
+
+    End Sub
+
+    Private Shared Sub ClearAllRegions()
+
+        For Each RegionUUID In RegionUuids()
+            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
+                DeleteAllRegionData(RegionUUID)
+                PropChangedRegionSettings = True
+            End If
+
+            RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
+            ProcessID(RegionUUID) = 0
+            DelPidFile(RegionUUID)
+        Next
+
+        Try
+            ExitList.Clear()
+
+            ClearStack()
+            PropInstanceHandles.Clear()
+            WebserverList.Clear()
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
+
+    End Sub
+
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell = New WshShellClass
@@ -1439,16 +1471,6 @@ Public Class FormSetup
         AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
         ViewLogsToolStripMenuItem.Visible = True
         ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
-
-    End Sub
-
-    Private Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
-
-        If Not Visitor.ContainsKey(Avatar) Then
-            Visitor.Add(Avatar, RegionName)
-        Else
-            Visitor.Item(Avatar) = RegionName
-        End If
 
     End Sub
 
@@ -1522,31 +1544,6 @@ Public Class FormSetup
             results.Dispose()
         Catch ex As Exception
             ErrorLog(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub ClearAllRegions()
-
-        For Each RegionUUID In RegionUuids()
-            If Settings.TempRegion AndAlso EstateName(RegionUUID) = "SimSurround" Then
-                DeleteAllRegionData(RegionUUID)
-                PropChangedRegionSettings = True
-            End If
-
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
-            ProcessID(RegionUUID) = 0
-            DelPidFile(RegionUUID)
-        Next
-
-        Try
-            ExitList.Clear()
-
-            ClearStack()
-            PropInstanceHandles.Clear()
-            WebserverList.Clear()
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
         End Try
 
     End Sub
@@ -1931,7 +1928,7 @@ Public Class FormSetup
 
 #End Region
 
-    Private Sub PrintBackups()
+    Private Shared Sub PrintBackups()
 
         For Each k In RunningBackupName
             TextPrint(k.Key)
@@ -2094,6 +2091,16 @@ Public Class FormSetup
 #End Region
 
 #Region "Clicks"
+
+    Private Shared Sub CheckDiagPort()
+
+        TextPrint(My.Resources.Check_Diag)
+        Dim wsstarted = IsRegionReady(CType(Settings.DiagnosticPort, Integer))
+        If wsstarted = False Then
+            MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+        End If
+
+    End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
 
@@ -2258,16 +2265,6 @@ Public Class FormSetup
         End Using
 
         ChDir(Settings.CurrentDirectory)
-
-    End Sub
-
-    Private Sub CheckDiagPort()
-
-        TextPrint(My.Resources.Check_Diag)
-        Dim wsstarted = IsRegionReady(CType(Settings.DiagnosticPort, Integer))
-        If wsstarted = False Then
-            MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort}  {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
-        End If
 
     End Sub
 

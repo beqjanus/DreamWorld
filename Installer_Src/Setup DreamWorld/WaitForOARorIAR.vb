@@ -54,6 +54,8 @@ Public Class WaitForFile
 
     Public Sub SeekFile(o As SeekObject)
 
+        If o Is Nothing Then Return
+
         Dim RegionUUID As String = o.RegionUUID
         Dim text = o.text
         Const timeout = 30 * 60 ' 30 minutes to save
@@ -89,7 +91,7 @@ Public Class WaitForFile
 
     End Sub
 
-    Private Function ScanForPattern(line As String, text As String) As Boolean
+    Private Shared Function ScanForPattern(line As String, text As String) As Boolean
 
         Dim pattern = New Regex(text, RegexOptions.IgnoreCase)
         Dim match = pattern.Match(line)

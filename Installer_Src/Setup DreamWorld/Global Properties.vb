@@ -11,7 +11,6 @@ Module Global_Properties
     Public _Data As IniParser.Model.IniData
     Public BackupAbort As Boolean
     Public Bench As New Benchmark()
-    Public DebugLandMaker As Boolean
     Public gEstateName As String = ""
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
@@ -28,7 +27,6 @@ Module Global_Properties
     Private _RegionFilesChanged As Boolean
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
-    Private _ThreadsArerunning As Boolean
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
 
@@ -93,7 +91,6 @@ Module Global_Properties
             ln = FormSetup.TextBox1.Text.Length
             FormSetup.TextBox1.SelectionStart = ln
             FormSetup.TextBox1.ScrollToCaret()
-
 
         End SyncLock
 

@@ -26,7 +26,7 @@ Module Backup
         'if suspended, keep it alive
         If Not Settings.BootOrSuspend Then
 
-            SequentialPause(True)
+            SequentialPause()
 
             Dim w = New WaitForOar()
             w.Data = Oar

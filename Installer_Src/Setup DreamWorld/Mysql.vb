@@ -12,13 +12,19 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySqlConnector
 
+#Region "MysqlInterface"
+
 Public Module MysqlInterface
     Public WithEvents ProcessMySql As Process = New Process()
+
     Public CachedAvatars As New Dictionary(Of String, String)
 
     Private ReadOnly Dict As New Dictionary(Of String, String)
+
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
+
+#End Region
 
 #Region "Properties"
 
@@ -293,40 +299,6 @@ Public Module MysqlInterface
     End Sub
 
 #End Region
-
-#Region "Public"
-
-    ''' <summary>
-    ''' Counts inventory assets per user
-    ''' </summary>
-    ''' <param name="UUID">Avatar UUID</param>
-    ''' <returns>int</returns>
-    Public Function AssetCount(UUID As String) As Integer
-        ' Todo https://wiki.secondlife.com/wiki/AssetType
-        Dim Val = 0
-
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim stm = "select count(*) from inventoryitems where avatarid = @UUID"
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            'Debug.Print("ID = {0}", reader.GetString(0))
-                            Val = reader.GetInt32(0)
-                        End If
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return Val
-
-    End Function
 
     ''' <summary>
     ''' Gets first name, last name, email from user account
@@ -1774,87 +1746,6 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Class EmailData
-
-        Private _fromid As String = ""
-        Private _id As Integer
-        Private _message As String = ""
-        Private _principalid As String = ""
-
-        Public Property Fromid As String
-            Get
-                Return _fromid
-            End Get
-            Set(value As String)
-                _fromid = value
-            End Set
-        End Property
-
-        Public Property Id As Integer
-            Get
-                Return _id
-            End Get
-            Set(value As Integer)
-                _id = value
-            End Set
-        End Property
-
-        Public Property Message As String
-            Get
-                Return _message
-            End Get
-            Set(value As String)
-                _message = value
-            End Set
-        End Property
-
-        Public Property Principalid As String
-            Get
-                Return _principalid
-            End Get
-            Set(value As String)
-                _principalid = value
-            End Set
-        End Property
-
-    End Class
-
-    Public Class Person
-        Private _email As String = ""
-        Private _firstName As String = ""
-        Private _lastName As String = ""
-
-        Public Property Email As String
-            Get
-                Return _email
-            End Get
-            Set(value As String)
-                _email = value
-            End Set
-        End Property
-
-        Public Property FirstName As String
-            Get
-                Return _firstName
-            End Get
-            Set(value As String)
-                _firstName = value
-            End Set
-        End Property
-
-        Public Property LastName As String
-            Get
-                Return _lastName
-            End Get
-            Set(value As String)
-                _lastName = value
-            End Set
-        End Property
-
-    End Class
-
-#End Region
-
 #Region "Visitors"
 
     ''' <summary>
@@ -1999,6 +1890,51 @@ Public Module MysqlInterface
 
 End Module
 
+Public Class EmailData
+
+    Private _fromid As String = ""
+    Private _id As Integer
+    Private _message As String = ""
+    Private _principalid As String = ""
+
+    Public Property Fromid As String
+        Get
+            Return _fromid
+        End Get
+        Set(value As String)
+            _fromid = value
+        End Set
+    End Property
+
+    Public Property Id As Integer
+        Get
+            Return _id
+        End Get
+        Set(value As Integer)
+            _id = value
+        End Set
+    End Property
+
+    Public Property Message As String
+        Get
+            Return _message
+        End Get
+        Set(value As String)
+            _message = value
+        End Set
+    End Property
+
+    Public Property Principalid As String
+        Get
+            Return _principalid
+        End Get
+        Set(value As String)
+            _principalid = value
+        End Set
+    End Property
+
+End Class
+
 Public Class MailList
 
     Private _assets As String = ""
@@ -2009,7 +1945,6 @@ Public Class MailList
     Private _lastName As String = ""
     Private _principalid As String = ""
     Private _title As String = ""
-    Private _type As Integer = 0
     Private _userlevel As String = ""
 
     Public Property Assets As String
@@ -2084,15 +2019,6 @@ Public Class MailList
         End Set
     End Property
 
-    Public Property Type As Integer
-        Get
-            Return _type
-        End Get
-        Set(value As Integer)
-            _type = value
-        End Set
-    End Property
-
     Public Property Userlevel As String
         Get
             Return _userlevel
@@ -2111,6 +2037,40 @@ Public Class MailList
     Public Overrides Function GetHashCode() As Integer
         Return HashCode.Combine(Assets)
     End Function
+
+End Class
+
+Public Class Person
+    Private _email As String = ""
+    Private _firstName As String = ""
+    Private _lastName As String = ""
+
+    Public Property Email As String
+        Get
+            Return _email
+        End Get
+        Set(value As String)
+            _email = value
+        End Set
+    End Property
+
+    Public Property FirstName As String
+        Get
+            Return _firstName
+        End Get
+        Set(value As String)
+            _firstName = value
+        End Set
+    End Property
+
+    Public Property LastName As String
+        Get
+            Return _lastName
+        End Get
+        Set(value As String)
+            _lastName = value
+        End Set
+    End Property
 
 End Class
 

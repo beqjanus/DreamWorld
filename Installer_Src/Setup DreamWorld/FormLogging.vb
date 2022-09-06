@@ -197,6 +197,22 @@ Public Class FormLogging
 
     End Sub
 
+    Private Shared Sub LookatYengine(line As String, outputfile As StreamWriter, RegionName As String)
+
+        Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)")
+        Dim match As Match = pattern.Match(line)
+        If match.Success Then
+            Dim DateTime1 As String = ""
+            Try
+                DateTime1 = match.Groups(1).Value
+            Catch
+            End Try
+            outputfile.WriteLine($"<tr><td>{DateTime1}</td><td>{RegionName}</td><td>{line}</td></tr>")
+        End If
+        Return
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
@@ -285,8 +301,8 @@ Public Class FormLogging
                         While S.Peek <> -1
                             _LineCounter += 1
                             Dim line = S.ReadLine()
-                            LookatOpensim(line, outputfile, GroupName, RegionName)
-                            LookatYengine(line, outputfile, GroupName, RegionName)
+                            LookatOpensim(line, outputfile, RegionName)
+                            LookatYengine(line, outputfile, RegionName)
                             Application.DoEvents()
                         End While
                     End Using
@@ -325,7 +341,7 @@ Public Class FormLogging
 
     End Sub
 
-    Private Sub LookatOpensim(line As String, outputfile As StreamWriter, GroupName As String, RegionName As String)
+    Private Sub LookatOpensim(line As String, outputfile As StreamWriter, RegionName As String)
 
         Dim pattern = New Regex("^(.*?),.*?ERROR(.*?)(<.*?,.*?,.*?>)(.*)")
         Dim match As Match = pattern.Match(line)
@@ -341,22 +357,6 @@ Public Class FormLogging
             v = v.Replace(">", "")
             outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{RegionName}</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort}/{RegionName}/{v}""> {RegionName}/{v}</a> {Last}</td></tr>")
             _Err += 1
-        End If
-        Return
-
-    End Sub
-
-    Private Sub LookatYengine(line As String, outputfile As StreamWriter, GroupName As String, RegionName As String)
-
-        Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)")
-        Dim match As Match = pattern.Match(line)
-        If match.Success Then
-            Dim DateTime1 As String = ""
-            Try
-                DateTime1 = match.Groups(1).Value
-            Catch
-            End Try
-            outputfile.WriteLine($"<tr><td>{DateTime1}</td><td>{RegionName}</td><td>{line}</td></tr>")
         End If
         Return
 

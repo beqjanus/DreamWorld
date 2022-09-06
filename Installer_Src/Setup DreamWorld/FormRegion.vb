@@ -13,7 +13,6 @@ Public Class FormRegion
 
 #Region "Declarations"
 
-    Private _LastSmartSetting As Boolean  ' flag to remember of SmartStart was enabled and has changed
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
@@ -1556,7 +1555,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub Hyperica_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Hyperica.LinkClicked
-        Dim webAddress As String = "https://hyperica.com"
+        Dim webAddress As String = "https://outworldz.com"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
