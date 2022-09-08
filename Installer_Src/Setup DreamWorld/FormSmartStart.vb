@@ -952,9 +952,13 @@ Public Class FormSmartStart
 
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
 
-        Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
-        TextPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
-        Settings.SaveSettings()
+        Try
+            Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
+            TextPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
+            Settings.SaveSettings()
+        Catch
+
+        End Try
 
     End Sub
 

@@ -651,6 +651,8 @@ Module Robust
             INI.SetIni("LoginService", "SearchURL", PropDomain & "/Search/query.php")
             INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
         ElseIf Settings.SearchOptions = "Hyperica" Then
+            Settings.SearchOptions = Outworldz
+            Settings.SaveSettings()
             INI.SetIni("LoginService", "SearchURL", PropDomain & "/Search/query.php")
             INI.SetIni("LoginService", "DestinationGuide", PropDomain & "/destination-guide")
         ElseIf Settings.SearchOptions = "Local" Then

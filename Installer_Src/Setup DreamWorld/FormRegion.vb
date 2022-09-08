@@ -203,6 +203,7 @@ Public Class FormRegion
 
         Publish.Text = Global.Outworldz.My.Resources.Publish_Items
         PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
+        SearchLabel.Text = Global.Outworldz.My.Resources.Search_word
 
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
@@ -1554,15 +1555,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub Hyperica_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Hyperica.LinkClicked
-        Dim webAddress As String = "https://outworldz.com"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Dump(ex)
-        End Try
-    End Sub
-
     Private Sub LandingSpotTextBox_lostfocus(sender As Object, e As EventArgs) Handles LandingSpotTextBox.LostFocus
 
         If LandingSpotTextBox.Text.Length = 0 Then Return
@@ -1580,6 +1572,15 @@ Public Class FormRegion
     Private Sub LandingSpotTextBox_TextChanged(sender As Object, e As EventArgs) Handles LandingSpotTextBox.TextChanged
         If LandingSpotTextBox.Text.Length = 0 Then Return
         If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Dim webAddress As String = "https://outworldz.com/search"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Dump(ex)
+        End Try
     End Sub
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
