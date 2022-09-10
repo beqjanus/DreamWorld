@@ -2035,7 +2035,7 @@ Public Class FormSetup
         ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             Bench.Start("300 second worker")
-            BackupThread.RunAllBackups() ' run background right now
+            BackupThread.RunTimedBackups() ' run background right now
             RunParser()     ' PHP parse for Publicity
             GetEvents()     ' fetch events from Outworldz
             ScanOpenSimWorld(True)
@@ -2044,7 +2044,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 300 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("300 second + worker")
-
+            BackupThread.RunTimedBackups() ' run background right now, assuming its been long enough
             If TestPrivateLoopback(False) Then
                 ErrorLog("Diagnostic Listener port failed")
                 TextPrint("Diagnostic Listener port failed")

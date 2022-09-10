@@ -193,31 +193,6 @@ Public Class Backups
         GC.SuppressFinalize(Me)
     End Sub
 
-    Public Sub RunAllBackups()
-
-        Dim currentdatetime As Date = Date.Now
-
-        If Not _initted Then
-            _initted = True
-            _startDate = New DateTime()
-            _startDate = Date.Now
-            Settings.StartDate = _startDate
-            Settings.SaveSettings()
-        End If
-
-        Dim Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
-        Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(1, Globalization.CultureInfo.InvariantCulture))
-        Dim diff = DateTime.Compare(currentdatetime, Tomorrow)
-        If diff > 0 Then
-            Settings.StartDate = currentdatetime ' wait another interval
-            Settings.SaveSettings()
-            If Settings.AutoBackup Then
-                RunFullBackupThread()
-            End If
-        End If
-
-    End Sub
-
     Public Sub RunFullBackupThread()
 
         If BackupAbort Then Return
@@ -337,7 +312,31 @@ Public Class Backups
             End Using
         End If
 
+    End Sub
 
+    Public Sub RunTimedBackups()
+
+        Dim currentdatetime As Date = Date.Now
+
+        If Not _initted Then
+            _initted = True
+            _startDate = New DateTime()
+            _startDate = Date.Now
+            Settings.StartDate = _startDate
+            Settings.SaveSettings()
+        End If
+
+        'Settings.AutobackupInterval = 1
+
+        Dim Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
+        Dim diff = DateTime.Compare(currentdatetime, Tomorrow)
+        If diff > 0 Then
+            Settings.StartDate = currentdatetime ' wait another interval
+            Settings.SaveSettings()
+            If Settings.AutoBackup Then
+                RunFullBackupThread()
+            End If
+        End If
 
     End Sub
 

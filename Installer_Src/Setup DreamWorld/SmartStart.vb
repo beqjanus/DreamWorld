@@ -199,6 +199,11 @@ Module SmartStart
 
                 End If
 
+                ' suspended timers need to run to auto restart
+                If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+                    PokeRegionTimer(RegionUUID)
+                End If
+
                 ' auto restart timer
 
                 Dim time2restart = Timer(RegionUUID).AddMinutes(Convert.ToDouble(Settings.AutoRestartInterval, Globalization.CultureInfo.InvariantCulture))
