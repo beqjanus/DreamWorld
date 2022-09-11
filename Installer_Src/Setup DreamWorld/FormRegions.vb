@@ -511,7 +511,7 @@ Public Class FormRegions
         Settings.BootOrSuspend = True
 
         PropChangedRegionSettings = True
-        GetAllRegions(True)
+        'GetAllRegions(True)
         Firewall.SetFirewall()
 
         Try

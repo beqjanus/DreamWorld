@@ -1,6 +1,13 @@
 REVISIONS FOR DREAMGRID
 
+V5.22
+Backups not starting on schedule
+Frozen regions would not auto restart after a period of time
 
+V5.21 
+Search was not settable due to a debug flag
+
+V5.2 General Release
 
 V5.198
 Robust restart counter added. after three crashes it will stop and show the log

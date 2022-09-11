@@ -83,7 +83,7 @@ Module OAR
                     thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     If CheckRegionFit(RegionUUID, thing) Then Return
-
+                    PokeRegionTimer(RegionUUID)
                     Dim Group = Group_Name(RegionUUID)
 
                     Dim ForceParcel As String = ""
@@ -207,6 +207,7 @@ Module OAR
         If Not PropForceParcel() Then
             ConsoleCommand(RegionUUID, "land clear")
         End If
+        PokeRegionTimer(RegionUUID)
         ConsoleCommand(RegionUUID, T.Command)
 
     End Sub
@@ -265,14 +266,13 @@ Module OAR
     Public Sub SaveOneOar(RegionUUID As String, Task As TaskObject)
 
         Dim MyValue = Task.Command
+        ResumeRegion(RegionUUID)
 
-        If IsBooted(RegionUUID) Then
-            Dim Group = Group_Name(RegionUUID)
-            SendMessage(RegionUUID, "CPU Intensive Backup Started")
-            Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR") ' TODO1
-            ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar " & """" & BackupPath() & "/" & MyValue & """")
-            Result.Scan()
-        End If
+        Dim Group = Group_Name(RegionUUID)
+        SendMessage(RegionUUID, "CPU Intensive Backup Started")
+        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR") ' TODO1
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar " & """" & BackupPath() & "/" & MyValue & """")
+        Result.Scan()
 
         TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & MyValue)
 

@@ -500,9 +500,9 @@ Module RegionMaker
     ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        If Not PropChangedRegionSettings Then
-            Return RegionList.Count
-        End If
+        'If Not PropChangedRegionSettings Then
+        'Return RegionList.Count
+        'End If
 
         If retry < 10 AndAlso GetRegionsIsBusy Then
             retry += 1

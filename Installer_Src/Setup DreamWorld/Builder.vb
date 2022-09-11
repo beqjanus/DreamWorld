@@ -161,8 +161,8 @@ Module Build
         Next
 
         If Bootable.Count > 0 Then
-            PropChangedRegionSettings = True
-            GetAllRegions(False)
+            'PropChangedRegionSettings = True
+            'GetAllRegions(False)
 
             For Each Name In Bootable
                 If Name.Length > 0 Then

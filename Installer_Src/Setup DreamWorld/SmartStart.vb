@@ -228,6 +228,7 @@ Module SmartStart
 
                         ShowDOSWindow(RegionUUID, MaybeShowWindow())
                         SequentialPause()
+                        PokeRegionTimer(RegionUUID)
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID, SIMSTATUSENUM.RecyclingDown)
 
@@ -261,7 +262,7 @@ Module SmartStart
                     '[Resume] = 8
                     If PropAborting Then Continue For
                     If Not PropOpensimIsRunning() Then Continue For
-
+                    ResumeRegion(RegionUUID)
                     BreakPoint.Print($"{GroupName} Is Resuming")
                     Dim GroupList As List(Of String) = RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
@@ -500,7 +501,8 @@ Module SmartStart
     Public Sub TeleportClicked(Regionuuid As String)
 
         Dim RegionName = Region_Name(Regionuuid)
-
+        ResumeRegion(Regionuuid)
+        PokeRegionTimer(Regionuuid)
         RegionName = System.Net.WebUtility.UrlEncode(RegionName)
 
         Dim link = $"hop://{Settings.PublicIP}:{Settings.HttpPort}/{RegionName}/128/128/35"

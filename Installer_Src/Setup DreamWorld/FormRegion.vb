@@ -698,7 +698,7 @@ Public Class FormRegion
 
                 WriteRegion(RegionUUID)
                 PropChangedRegionSettings = True
-                GetAllRegions(False)
+                'GetAllRegions(False)
                 Firewall.SetFirewall()
 
                 PropUpdateView() = True
@@ -736,7 +736,7 @@ Public Class FormRegion
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
             PropChangedRegionSettings = True
-            GetAllRegions(False)
+            'GetAllRegions(False)
             Firewall.SetFirewall()
 
             PropUpdateView() = True
