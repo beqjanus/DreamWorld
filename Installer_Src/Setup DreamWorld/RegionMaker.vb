@@ -31,7 +31,7 @@ Module RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of Region_data)
     Private ReadOnly RegionList As New ConcurrentDictionary(Of String, Region_data)
-    Private GetRegionsIsBusy As Boolean
+
     Dim json As New JSONresult
     Private WriteRegionlock As New Object
 
@@ -500,18 +500,6 @@ Module RegionMaker
     ''' <returns>RegionList.Count</returns>
     Public Function GetAllRegions(Verbose As Boolean) As Integer
 
-        'If Not PropChangedRegionSettings Then
-        'Return RegionList.Count
-        'End If
-
-        If retry < 10 AndAlso GetRegionsIsBusy Then
-            retry += 1
-            Return 0
-        End If
-        retry = 0
-
-        GetRegionsIsBusy = True
-
         Try
 
             Backup.Clear()
@@ -684,7 +672,6 @@ Module RegionMaker
                         MsgBox(My.Resources.Error_Region + fName + "  " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("ErrParse file " + fName + ": " + ex.Message)
                         PropUpdateView = True ' make form refresh
-                        GetRegionsIsBusy = False
                         Return 0
                     End Try
                 Next
@@ -695,8 +682,6 @@ Module RegionMaker
 
         PropChangedRegionSettings = False
         PropUpdateView = True ' make form refresh
-
-        GetRegionsIsBusy = False
 
         Return RegionList.Count
 
