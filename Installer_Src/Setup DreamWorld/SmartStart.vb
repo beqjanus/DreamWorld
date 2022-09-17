@@ -563,9 +563,9 @@ Module SmartStart
 
         If Teleport Then
             If TeleportAvatarDict.ContainsKey(AgentID) Then
-                TeleportAvatarDict.Remove(AgentID)
+                TeleportAvatarDict.TryRemove(AgentID, TeleportAvatarDict.Item(AgentID))
             End If
-            TeleportAvatarDict.Add(AgentID, RegionUUID)
+            TeleportAvatarDict(AgentID) = RegionUUID
         End If
 
         ResumeRegion(RegionUUID) ' Wait for it to start booting

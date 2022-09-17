@@ -5,12 +5,14 @@
 
 #End Region
 
+Imports System.Collections.Concurrent
+
 Module Teleport
 
     Public Fin As New List(Of String)
-    Public TeleportAvatarDict As New Dictionary(Of String, String)
+    Public TeleportAvatarDict As New ConcurrentDictionary(Of String, String)
 
-    ''' <summary>Check if region is ready for l;ogin</summary>
+    ''' <summary>Check if region is ready for login</summary>
     ''' <returns>true if up</returns>
     Public Function IsRegionReady(Port As Integer) As Boolean
 
@@ -19,7 +21,6 @@ Module Teleport
     End Function
 
     Public Sub TeleportAgents()
-
 
         Bench.Start("TeleportAgents")
         Try
@@ -69,7 +70,7 @@ Module Teleport
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             If TeleportAvatarDict.ContainsKey(str) Then
-                TeleportAvatarDict.Remove(str)
+                TeleportAvatarDict.TryRemove(str, TeleportAvatarDict.Item(str))
             End If
         Next
         Fin.Clear()
