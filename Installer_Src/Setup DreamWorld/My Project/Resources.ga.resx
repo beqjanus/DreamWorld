@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Taisce Íomhá</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Rabhadh! Luchtóidh sé seo 150+ OARS agus réigiún isteach i do chóras. Tógfaidh sé seo tamall fada.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Lig do na míreanna imeacht</value>
   </data>

@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Kuvavälimuisti</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Varoitus! Tämä lataa järjestelmääsi yli 150 OARS:ää ja aluetta. Tämä kestää kauan.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Anna tavaroiden lähteä</value>
   </data>

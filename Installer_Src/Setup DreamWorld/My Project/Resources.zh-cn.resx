@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>图像缓存</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>警告！这会将 150 多个 OARS 和区域加载到您的系统中。这将需要很长时间。</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>允许物品离开</value>
   </data>

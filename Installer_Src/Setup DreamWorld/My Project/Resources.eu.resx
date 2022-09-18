@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Irudien cachea</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Kontuz! Honek 150 OARS eta eskualde baino gehiago kargatuko ditu zure sisteman. Honek denbora asko beharko du.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Utzi elementuak irteten</value>
   </data>

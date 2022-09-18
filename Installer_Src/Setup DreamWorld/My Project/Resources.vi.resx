@@ -492,9 +492,6 @@
   <data name="Category_word" xml:space="preserve">
     <value>thể loại</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Thận trọng! Điều này sẽ tải hơn 150 OARS và vùng vào hệ thống của bạn. Điều này sẽ mất nhiều thời gian.</value>
-  </data>
   <data name="Caution_word" xml:space="preserve">
     <value>Thận trọng!</value>
   </data>

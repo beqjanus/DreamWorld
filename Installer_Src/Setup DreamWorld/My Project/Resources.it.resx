@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Cache di immagini</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Attenzione! Questo caricherà oltre 150 OARS e regioni nel tuo sistema. Ci vorrà molto tempo.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Consenti agli oggetti di andarsene</value>
   </data>

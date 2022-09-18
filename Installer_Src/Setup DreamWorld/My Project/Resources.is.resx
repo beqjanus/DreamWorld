@@ -492,9 +492,6 @@
   <data name="Category_word" xml:space="preserve">
     <value>Flokkur</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Varúð! Þetta mun hlaða 150+ OARS og svæðum inn í kerfið þitt. Þetta mun taka langan tíma.</value>
-  </data>
   <data name="Caution_word" xml:space="preserve">
     <value>Varúð!</value>
   </data>

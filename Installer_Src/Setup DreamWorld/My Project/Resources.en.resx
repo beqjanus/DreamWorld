@@ -492,9 +492,6 @@
   <data name="Category_word" xml:space="preserve">
     <value>Category</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Caution! This will load 150+ OARS and regions into your system. This will take a long time.</value>
-  </data>
   <data name="Caution_word" xml:space="preserve">
     <value>Caution!</value>
   </data>

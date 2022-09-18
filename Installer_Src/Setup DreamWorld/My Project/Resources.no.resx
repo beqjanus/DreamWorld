@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Bildebuffer</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Forsiktighet! Dette vil laste 150+ OARS og regioner inn i systemet ditt. Dette vil ta lang tid.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Tillat gjenstander å forlate</value>
   </data>

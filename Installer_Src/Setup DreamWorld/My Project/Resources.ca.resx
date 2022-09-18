@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>Memòria cau d'imatges</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Atenció! Això carregarà més de 150 OARS i regions al vostre sistema. Això trigarà molt de temps.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>Permet que els articles surtin</value>
   </data>

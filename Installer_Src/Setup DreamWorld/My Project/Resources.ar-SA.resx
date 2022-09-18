@@ -2394,9 +2394,6 @@
   <data name="Image_Cache_word" xml:space="preserve">
     <value>صورة مخبأ</value>
   </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>حذر! سيؤدي هذا إلى تحميل أكثر من 150 مجالًا ومجالًا ومنطقة في نظامك. هذا وسوف يستغرق وقتا طويلا.</value>
-  </data>
   <data name="Allow_Items_to_leave_word" xml:space="preserve">
     <value>السماح للعناصر بمغادرة</value>
   </data>
