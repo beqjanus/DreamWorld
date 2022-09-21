@@ -983,17 +983,18 @@ Module SmartStart
     Public Sub ResumeRegion(RegionUUID As String)
 
         ' smart boot Freeze/Thaw type
-        If RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Then
+        For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
             Thaw(RegionUUID)
             PokeRegionTimer(RegionUUID)
-            If IsRegionReady(GroupPort(RegionUUID)) Then
-                RunTaskList(RegionUUID)
-                For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
-                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
-                Next
-            End If
-            TeleportAgents()
+        Next
+
+        If IsRegionReady(GroupPort(RegionUUID)) Then
+            RunTaskList(RegionUUID)
+            For Each RegionUUID In RegionUuidListByName(Group_Name(RegionUUID))
+                RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+            Next
         End If
+        TeleportAgents()
 
         ' not smart boot Freeze/Thaw
         If RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped Or
