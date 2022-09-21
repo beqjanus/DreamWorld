@@ -4,6 +4,7 @@
 
     Public Sub Print(Name As String)
 
+        If Not Settings.LogBenchmarks Then Return
         If Not stash.ContainsKey(Name) Then
             Return
         End If
@@ -17,6 +18,7 @@
 
     Public Sub Start(name As String)
 
+        If Not Settings.LogBenchmarks Then Return
         If stash.ContainsKey(name) Then
             Return
         End If
