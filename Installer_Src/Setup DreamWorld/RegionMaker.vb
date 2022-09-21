@@ -630,9 +630,7 @@ Module RegionMaker
 
                                 Dim G = Group_Name(uuid)
                                 If GetHwnd(G) = IntPtr.Zero Then
-
                                     Region_Port(uuid) = GetPort(uuid)
-
                                     Logger("Port", $"Assign Region Port {CStr(Region_Port(uuid))}  To {fName}", "Port")
                                     Logger("Port", $"Assign Group Port {CStr(GroupPort(uuid))} To {fName}", "Port")
                                 Else
