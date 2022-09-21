@@ -70,7 +70,7 @@ Module Teleport
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             If TeleportAvatarDict.ContainsKey(str) Then
-                TeleportAvatarDict.TryRemove(str, TeleportAvatarDict.Item(str))
+                TeleportAvatarDict.TryRemove(str, "")
             End If
         Next
         Fin.Clear()
