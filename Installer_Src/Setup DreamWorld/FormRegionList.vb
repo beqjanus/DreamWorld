@@ -292,15 +292,18 @@ Public Class FormRegionlist
                     ' shut down all regions in the DOS box
                     For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
                         RegionStatus(UUID) = SIMSTATUSENUM.Stopped ' already shutting down
+                        DelPidFile(RegionUUID)
                     Next
-                    DelPidFile(RegionUUID)
+
                     Return
                 Else
-                    RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                    For Each UUID As String In RegionUuidListByName(Group_Name(RegionUUID))
+                        RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted
+                        Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
+                    Next
                 End If
-                Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
-                SetWindowOnTop(GetHwnd(Group_Name(RegionUUID)).ToInt32)
 
+                SetWindowOnTop(GetHwnd(Group_Name(RegionUUID)).ToInt32)
                 Settings.ConsoleShow = tmp
             End If
 
