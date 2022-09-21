@@ -140,9 +140,8 @@ Module Build
         Dim Bootable As New List(Of String)
 
         For Each possible As String In xy
-            If RegionXY.ContainsKey(possible) Then
-                If Debugger.IsAttached Then BreakPoint.Print("Region exists: " & Region_Name(RegionXY.Item(possible)))
-            Else
+            If Not RegionXY.ContainsKey(possible) Then
+
                 Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                 Dim nX = CInt(CStr(parts(0).Trim))
                 Dim nY = CInt(CStr(parts(1).Trim))
