@@ -391,7 +391,7 @@ Public Class FormSetup
         StartTimer()
 
         PropOpensimIsRunning = True
-        Init(False)
+
         OpenPorts()
 
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
