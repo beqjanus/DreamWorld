@@ -1,5 +1,16 @@
 REVISIONS FOR DREAMGRID
 
+V5.24
+Prevent endless loop in teleports
+
+
+V5.23
+Always thaw when resuming regions as they may have changed settings.
+Multi-region consoles would not come out of freeze with Console command.
+Read regions files just once, at boot time.
+Added a conmcurrent dictionary for teleports top prevent a rare crash.
+Opensim no longer uses Autobackup as its handled by Dreamgrid.
+
 V5.22
 Backups not starting on schedule
 Frozen regions would not auto restart after a period of time
