@@ -994,14 +994,13 @@ Public Class FormSetup
                 DelPidFile(RegionUUID) 'kill the disk PID
 
                 If PropInstanceHandles.ContainsKey(PID) Then
-                    Dim S As String = PropInstanceHandles.Item(PID)
-                    PropInstanceHandles.TryRemove(PID, S)
+                    PropInstanceHandles.TryRemove(PID, "")
                 End If
             Else
                 BreakPoint.Print("No UUID!")
 
                 If PID > 0 Then
-                    PropInstanceHandles.TryRemove(PID, PropInstanceHandles.Item(PID))
+                    PropInstanceHandles.TryRemove(PID, "")
                 End If
 
                 Continue While
@@ -1014,7 +1013,7 @@ Public Class FormSetup
             If Reason = "NoLogin" Then
                 RegionStatus(RegionUUID) = SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
-                ExitList.TryRemove(RegionUUID, out)
+                ExitList.TryRemove(RegionUUID, "")
                 Continue While
             End If
 
@@ -1024,7 +1023,7 @@ Public Class FormSetup
             BreakPoint.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not RegionEnabled(RegionUUID) Then
-                ExitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, "")
                 Continue While
             End If
 
@@ -1038,7 +1037,7 @@ Public Class FormSetup
                 End If
 
                 PropUpdateView = True ' make form refresh
-                ExitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, "")
                 Continue While
 
             ElseIf Status = SIMSTATUSENUM.RecyclingDown AndAlso Not PropAborting Then
@@ -1049,7 +1048,7 @@ Public Class FormSetup
                     RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                 Next
                 PropUpdateView = True
-                ExitList.TryRemove(GroupName, out)
+                ExitList.TryRemove(GroupName, "")
                 Continue While
 
             ElseIf (Status = SIMSTATUSENUM.RecyclingUp Or
@@ -1074,7 +1073,7 @@ Public Class FormSetup
                         If (yesno = vbYes) Then
                             Baretail("""" & IO.Path.Combine(OpensimIniPath(RegionUUID), "Opensim.log") & """")
                         End If
-                        ExitList.TryRemove(GroupName, out)
+                        ExitList.TryRemove(GroupName, "")
                         Continue While
                     End If
 
@@ -1088,11 +1087,11 @@ Public Class FormSetup
                         RegionStatus(R) = SIMSTATUSENUM.RestartStage2
                     Next
 
-                    ExitList.TryRemove(GroupName, out)
+                    ExitList.TryRemove(GroupName, "")
                     Continue While
                 Else
                     If PropAborting Then
-                        ExitList.TryRemove(GroupName, out)
+                        ExitList.TryRemove(GroupName, "")
                         Continue While
                     End If
 
@@ -1108,7 +1107,7 @@ Public Class FormSetup
                 StopGroup(GroupName)
             End If
 
-            ExitList.TryRemove(GroupName, out)
+            ExitList.TryRemove(GroupName, "")
 
         End While
 

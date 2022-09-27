@@ -563,7 +563,7 @@ Module SmartStart
 
         If Teleport Then
             If TeleportAvatarDict.ContainsKey(AgentID) Then
-                TeleportAvatarDict.TryRemove(AgentID, TeleportAvatarDict.Item(AgentID))
+                TeleportAvatarDict.TryRemove(AgentID, "")
             End If
             TeleportAvatarDict(AgentID) = RegionUUID
         End If
