@@ -850,7 +850,7 @@ namespace OpenSim.Region.Framework.Scenes
                     return UUID.Zero;
                 }
 
-                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.Timeout = 5000; //5 Second Timeout
                 webRequest.AllowWriteStreamBuffering = false;
 
                 try

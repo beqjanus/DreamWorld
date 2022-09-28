@@ -291,7 +291,7 @@ namespace OpenSim.Services.LLLoginService
                     return UUID.Zero;
                 }
 
-                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.Timeout = 5000; //5 Second Timeout
                 webRequest.AllowWriteStreamBuffering = false;
 
                 try
@@ -693,6 +693,36 @@ namespace OpenSim.Services.LLLoginService
             GridRegion home, out GridRegion gatekeeper,
             out string where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)
         {
+
+            GridRegion dest = FindDestinationNormal(account, scopeID, pinfo, sessionID, startLocation, home,
+   out gatekeeper, out where, out position, out lookAt, out flags);
+
+            if (!m_SmartStartEnabled || dest == null)
+                return dest;
+
+            //RegionFlags.RegionOnline should had a major role here, but it is still unreliable
+            //Jump out if a special region that must be always up
+            // for now the smartstart wait region must have one such flags
+            if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
+                return dest;
+
+            UUID rid = GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);
+            if (rid == dest.RegionID)
+                return dest;
+
+            if (rid == UUID.Zero)
+                return null; //??
+
+            return m_GridService.GetRegionByUUID(scopeID, rid);
+        }
+
+        protected GridRegion FindDestinationNormal(
+            UserAccount account, UUID scopeID, GridUserInfo pinfo, UUID sessionID, string startLocation,
+            GridRegion home, out GridRegion gatekeeper,
+            out string where, out Vector3 position, out Vector3 lookAt, out TeleportFlags flags)
+        {
+
+
             flags = TeleportFlags.ViaLogin;
 
             m_log.DebugFormat(

@@ -37,14 +37,18 @@ using OpenSim.Services.Interfaces;
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using OpenSim.Server.Base;
 
+
+// DreamGrid
+using OpenMetaverse;
 using RegionFlags = OpenSim.Framework.RegionFlags;
+using Nini.Config;
 
 using OpenSim.Services.Connectors.InstantMessage;
 using OpenSim.Services.Connectors.Hypergrid;
-using OpenMetaverse;
+
 using OpenSim.Region.Framework;
 
-using Nini.Config;
+
 using log4net;
 
 
@@ -83,6 +87,7 @@ namespace OpenSim.Services.HypergridService
         private static GridRegion m_DefaultGatewayRegion;
         private static bool m_allowDuplicatePresences = false;
         private static string m_messageKey;
+        
         // SmartStart fkb
         protected static bool m_SmartStartEnabled = false;
         protected static string m_SmartStartUrl = string.Empty;
@@ -347,7 +352,7 @@ namespace OpenSim.Services.HypergridService
                     return UUID.Zero;
                 }
 
-                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.Timeout = 5000; //5 Second Timeout
                 webRequest.AllowWriteStreamBuffering = false;
 
                 try
