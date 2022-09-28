@@ -1092,7 +1092,7 @@ namespace OpenSim.Framework
             catch (Exception e)
             {
                 m_log.InfoFormat("[FORMS]: Error creating POST request to {0}: {1}", requestUrl, e.Message);
-                throw e;
+                throw;
             }
 
             byte[] data = Util.UTF8NBGetbytes(obj);

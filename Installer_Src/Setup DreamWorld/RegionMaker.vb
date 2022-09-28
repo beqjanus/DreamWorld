@@ -2367,6 +2367,10 @@ Module RegionMaker
 
         ' RegionSnapShot
         INI.SetIni("DataSnapshot", "index_sims", "True")
+        If Settings.CMS = JOpensim Then
+            Settings.CMS = "Local"
+        End If
+
         If Settings.CMS = JOpensim AndAlso Settings.SearchOptions = JOpensim Then
 
             INI.SetIni("DataSnapshot", "data_services", "")

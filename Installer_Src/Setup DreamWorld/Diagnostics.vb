@@ -71,6 +71,8 @@ Module Diags
         & "&ServerType=" & Settings.ServerType _
         & "&RegionCount=" & CStr(RegionCount) _
         & "&RegionSize=" & CStr(TotalSize) _
+        & "&MAC=" & Settings.MacAddress _
+        & "&ID0=" & CreateMD5(CStr(d.SerialNumber)) _
         & "&r=" & RandomNumber.Random()
         Return data
 

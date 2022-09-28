@@ -666,9 +666,6 @@ namespace OpenSim.Services.LLLoginService
                 {
                     processedMessage = m_WelcomeMessage;
                 }
-
-
-
                 processedMessage = processedMessage.Replace("\\n", "\n").Replace("<USERNAME>", firstName + " " + lastName);
 
                 LLLoginResponse response

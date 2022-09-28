@@ -1992,12 +1992,6 @@ Public Class FormSetup
 
         Chart()                     ' do charts collection
 
-        ' Reload regions from disk
-        'If PropChangedRegionSettings Then
-        'GetAllRegions(False)
-        'PropChangedRegionSettings = False
-        'End If
-
         CheckPost()                 ' see if anything arrived in the web server
         CheckForBootedRegions()
 

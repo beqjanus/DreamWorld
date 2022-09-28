@@ -11,7 +11,7 @@ $CONF_db_user       = "robustuser";  // login
 $CONF_db_pass       = "robustpassword";  // password 
 $CONF_db_database   = "Robust";     // Name Of Robust Server 
 /* The Coordinates Of the Grid-Center */ 
-$CONF_center_coord_x = "1124";		// the Center-X-Coordinate 
+$CONF_center_coord_x = "1156";		// the Center-X-Coordinate 
 $CONF_center_coord_y = "2892";		// the Center-Y-Coordinate 
 // style-sheet items
 $CONF_style_sheet     = "/css/stylesheet.css";          //Link To your StyleSheet
