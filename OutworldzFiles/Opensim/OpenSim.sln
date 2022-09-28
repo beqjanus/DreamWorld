@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
+# Visual Studio 19
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.AddinExample", "addon-modules\02AddinExample\Diva.AddinExample.csproj", "{D45D8560-0000-0000-0000-000000000000}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diva.Data", "addon-modules\00Data\Diva.Data.csproj", "{4A34BECA-0000-0000-0000-000000000000}"
