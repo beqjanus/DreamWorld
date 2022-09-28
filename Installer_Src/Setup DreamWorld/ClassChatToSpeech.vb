@@ -63,7 +63,7 @@ Public Class ChatToSpeech
 
                 Dim DiskFilepath = IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles\Apache\htdocs\TTS\Audio")
 
-                ' Numbers if from form, else MD5 for security
+                ' Numbers if from form, else counter for security
                 If Params.FileName IsNot Nothing Then
                     fname = $"TTS_{Params.FileName}.wav"
                 Else
