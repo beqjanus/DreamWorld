@@ -526,9 +526,6 @@
 	  <Compile Include="UserAgentData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UserProfileData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="UserProfiles.cs">
 		<SubType>Code</SubType>
 	  </Compile>
