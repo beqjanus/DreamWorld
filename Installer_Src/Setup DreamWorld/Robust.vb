@@ -643,6 +643,9 @@ Module Robust
 
     Private Sub SetupRobustSearchINI(INI As LoadIni)
 
+        If Settings.CMS = JOpensim Then
+            Settings.CMS = "Local"
+        End If
         If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
             INI.SetIni("LoginService", "SearchURL", SearchURL)

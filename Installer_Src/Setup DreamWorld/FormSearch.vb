@@ -53,7 +53,7 @@
             Case "None"
                 NoneButton.Checked = True
             Case JOpensim
-                JOpensimRadioButton.Checked = True
+                LocalButton.Checked = True
             Case "Local"
                 LocalButton.Checked = True
             Case Outworldz

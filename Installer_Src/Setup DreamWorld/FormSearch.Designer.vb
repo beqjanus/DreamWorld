@@ -85,6 +85,7 @@ Partial Class FormSearch
         Me.JOpensimRadioButton.TabStop = True
         Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
         Me.JOpensimRadioButton.UseVisualStyleBackColor = True
+        Me.JOpensimRadioButton.Visible = False
         '
         'OutworldzRadioButton
         '
