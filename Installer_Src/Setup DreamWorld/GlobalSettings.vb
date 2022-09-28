@@ -11,8 +11,8 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "5.24"
-    Public Const _SimVersion As String = "Opensim [2022-07-19 19:24:54] #7a710f09c0 fix llRequestInventoryData lm math"
+    Public Const _MyVersion As String = "5.3"
+    Public Const _SimVersion As String = "Opensim [2022-09-25 19:43:27] #506d8a5f7 update prebuild"
     Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const JOpensim As String = "JOpensim"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"

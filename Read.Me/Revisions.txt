@@ -1,8 +1,11 @@
 REVISIONS FOR DREAMGRID
 
+V5.3 Release
+Many Updates in Opensim now at 9/25/22 Core
+jOpensim Search is now Local Search
+
 V5.24
 Prevent endless loop in teleports
-
 
 V5.23
 Always thaw when resuming regions as they may have changed settings.
