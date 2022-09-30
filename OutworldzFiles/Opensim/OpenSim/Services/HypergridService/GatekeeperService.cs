@@ -574,29 +574,28 @@ namespace OpenSim.Services.HypergridService
                 return false;
             }
 
-            //fkb 
-            if (true)
+            // DreamGrid
+            
+            UUID rid = GetSmartStartALTRegion(destination.RegionID, aCircuit.AgentID);
+            if (rid == UUID.Zero)
             {
-                UUID rid = GetSmartStartALTRegion(destination.RegionID, aCircuit.AgentID);
-                if (rid == UUID.Zero)
+                m_log.Debug("[GateKeeper]: Smart Start Region redirection check fail, regionid = 0");
+                reason = "Region redirection check fail";
+                return false;
+            }
+
+            if (rid != destination.RegionID)
+            {
+                GridRegion r = m_GridService.GetRegionByUUID(m_ScopeID, rid);
+                if (r == null)
                 {
-                    m_log.Debug("[GateKeeper]: Smart Start Region redirection check fail, regionid = 0");
-                    reason = "Region redirection check fail";
+                    m_log.Debug("[GateKeeper]: Smart Start Redirect region not found");
+                    reason = "Redirect region not found";
                     return false;
                 }
-
-                if (rid != destination.RegionID)
-                {
-                    GridRegion r = m_GridService.GetRegionByUUID(m_ScopeID, rid);
-                    if (r == null)
-                    {
-                        m_log.Debug("[GateKeeper]: Smart Start Redirect region not found");
-                        reason = "Redirect region not found";
-                        return false;
-                    }
-                    destination = r;
-                }
+                destination = r;
             }
+            
 
             m_log.DebugFormat(
                 "[GATEKEEPER SERVICE]: Destination {0} is ok for {1}", destination.RegionName, aCircuit.Name);
