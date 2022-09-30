@@ -362,7 +362,8 @@ span.re8
 span.nu0
 	{mso-style-name:nu0;}
 .MsoChpDefault
-	{font-size:10.0pt;}
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
 .MsoPapDefault
 	{margin-top:5.0pt;
 	margin-right:0in;
@@ -675,7 +676,8 @@ Consolas;color:green'>    // Smartstart</span></p>
 Consolas'>        if (httpRequest.QueryFlags.Contains(&quot;version&quot;))<br>
         {<br>
                 httpResponse.StatusCode = (int)HttpStatusCode.OK;<br>
-                httpResponse.RawBuffer = Encoding.ASCII.GetBytes(VersionInfo.Version);<br>
+                httpResponse.RawBuffer =
+Encoding.ASCII.GetBytes(VersionInfo.Version);<br>
                 return;<br>
         }</span></p>
 
@@ -782,11 +784,10 @@ style='font-size:8.0pt;font-family:"Courier New"'>            {</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
 style='font-size:8.0pt;font-family:"Courier New"'>               
-m_SmartStartEnabled = SmartStartConfig.GetBoolean(&quot;Enabled&quot;,
-m_SmartStartEnabled);</span></i></p>
+m_SmartStartEnabled = SmartStartConfig.GetBoolean(&quot;Enabled&quot;, m_SmartStartEnabled);</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
-style='font-size:8.0pt;font-family:"Courier New"'>                if
+style='font-size:8.0pt;font-family:"Courier New"'>                if
 (m_SmartStartEnabled)</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
@@ -801,7 +802,7 @@ style='font-size:8.0pt;font-family:"Courier New"'>                   
 if(string.IsNullOrEmpty(m_SmartStartUrl))</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
-style='font-size:8.0pt;font-family:"Courier New"'>                        m_SmartStartEnabled
+style='font-size:8.0pt;font-family:"Courier New"'>                        m_SmartStartEnabled
 = false;</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
@@ -850,7 +851,7 @@ m_SmartStartMachineID = SmartStartConfig.GetString(&quot;MachineID&quot;,
 m_SmartStartMachineID);</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
-style='font-size:8.0pt;font-family:"Courier New"'>                    }</span></i></p>
+style='font-size:8.0pt;font-family:"Courier New"'>                    }</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
 style='font-size:8.0pt;font-family:"Courier New"'>                }</span></i></p>
@@ -894,8 +895,8 @@ style='font-size:8.0pt;font-family:"Courier New"'>        //DreamGrid
 SmartStart</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>        public UUID GetSmartStartALTRegion(UUID
-regionID, UUID agentID)</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>        public UUID
+GetSmartStartALTRegion(UUID regionID, UUID agentID)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>        {</span></p>
@@ -949,7 +950,7 @@ style='font-size:8.0pt;font-family:"Courier New"'>                }</span></p>
 style='font-size:8.0pt;font-family:"Courier New"'>                catch</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>                {</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>                {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>                   
@@ -971,8 +972,8 @@ style='font-size:8.0pt;font-family:"Courier New"'>               
 webRequest.Timeout = 30000; //30 Second Timeout</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>                webRequest.AllowWriteStreamBuffering
-= false;</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>               
+webRequest.AllowWriteStreamBuffering = false;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>&nbsp;</span></p>
@@ -1013,7 +1014,7 @@ style='font-size:8.0pt;font-family:"Courier New"'>                    if
 (string.IsNullOrEmpty(tempStr))</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>                    {</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>                    {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>                       
@@ -1042,8 +1043,8 @@ style='font-size:8.0pt;font-family:"Courier New"'>                    regionID
 style='font-size:8.0pt;font-family:"Courier New"'>                }</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>                catch
-(Exception ex)</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>                catch (Exception
+ex)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>                {</span></p>
@@ -1057,7 +1058,7 @@ ex.Message);</span></p>
 style='font-size:8.0pt;font-family:"Courier New"'>                }</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>            }</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>            }</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>            return regionID;</span></p>
@@ -1097,8 +1098,8 @@ gatekeeper, out where, out position, out lookAt, out flags);</span></p>
 style='font-size:8.0pt;font-family:"Courier New"'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>            if(!m_SmartStartEnabled
-|| dest == null)</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>           
+if(!m_SmartStartEnabled || dest == null)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>                return dest;</span></p>
@@ -1116,8 +1117,8 @@ style='font-size:8.0pt;font-family:"Courier New"'>            //Jump out if a
 special region that must be always up</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>            // for now the smartstart
-wait region must have one such flags</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>            // for now the
+smartstart wait region must have one such flags</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
 style='font-size:8.0pt;font-family:"Courier New"'>            //if
@@ -1125,7 +1126,7 @@ style='font-size:8.0pt;font-family:"Courier New"'>            //if
 RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
-style='font-size:8.0pt;font-family:"Courier New"'>            //    return
+style='font-size:8.0pt;font-family:"Courier New"'>            //    return
 dest;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal'><span
@@ -1222,7 +1223,7 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>               
 HttpWebRequest webRequest;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                </span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                </span><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>try</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
@@ -1282,8 +1283,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:blue'>try</span></p>
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
-</span><span style='font-size:8.0pt;font-family:"Courier New";color:blue'>string</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                    </span><span
+style='font-size:8.0pt;font-family:"Courier New";color:blue'>string</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'> tempStr;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
@@ -1334,13 +1335,13 @@ null&quot;</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:black'>);</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                       
-</span><span style='font-size:8.0pt;font-family:"Courier New";color:blue'>return</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                        </span><span
+style='font-size:8.0pt;font-family:"Courier New";color:blue'>return</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'> UUID.Zero;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                 
-  }</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
+}</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -1439,10 +1440,10 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>ex)</span></p>
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
-m_log.Warn(</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:#A31515'>&quot;[LLoginService]: GetSmartStartALTRegion exception: &quot;</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'> + ex.Message);</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                    m_log.Warn(</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#A31515'>&quot;[LLoginService]:
+GetSmartStartALTRegion exception: &quot;</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:black'> + ex.Message);</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                }</span></p>
@@ -1494,10 +1495,11 @@ color:black'>)</span></p>
 style='font-size:8.0pt;font-family:"Courier New";color:black'>            {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                m_SmartStartEnabled
-= SmartStartConfig.GetBoolean(</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#A31515'>&quot;Enabled&quot;</span><span style='font-size:
-8.0pt;font-family:"Courier New";color:black'>, m_SmartStartEnabled);</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>               
+m_SmartStartEnabled = SmartStartConfig.GetBoolean(</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#A31515'>&quot;Enabled&quot;</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>,
+m_SmartStartEnabled);</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                </span><span
@@ -1643,7 +1645,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'> Region Config</sp
 style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>File Opensim.Region.CoreModules.Framework.EntityTransfer.EmntityTransferModule.cs</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>File
+Opensim.Region.CoreModules.Framework.EntityTransfer.EntityTransferModule.cs</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -1668,8 +1671,36 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'> RegionFlags = Ope
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>Line 755-758.
-After this insert the following code:</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>Line 755-758. </span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>            if
+(!sp.ValidateAttachments())</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>               
+m_log.DebugFormat(</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
+&quot;[ENTITY TRANSFER MODULE]: Failed validation of all attachments for
+teleport of {0} from {1} to {2}.  Continuing.&quot;,</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
+sp.Name, sp.Scene.Name, finalDestination.RegionName);</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>…..</p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>After this insert
+the following code:</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -1717,8 +1748,8 @@ not on HG</span></p>
 style='font-size:8.0pt;font-family:"Courier New";color:black'>            {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                </span><span
-style='font-size:8.0pt;font-family:"Courier New";color:blue'>if</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>               //
+</span><span style='font-size:8.0pt;font-family:"Courier New";color:blue'>if</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>
 ((finalDestination.RegionFlags &amp; (RegionFlags.Hyperlink |
 RegionFlags.DefaultRegion | RegionFlags.FallbackRegion |
@@ -1786,8 +1817,7 @@ color:blue'>null</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:black'>)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                       
-{</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                        {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                           
@@ -1813,8 +1843,7 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>                  
 reg = finalDestination;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                   
-}</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                    }</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                }</span></p>
@@ -1826,7 +1855,12 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>            }</spa
 style='page-break-before:always'>
 </span>
 
-<p class=MsoNormal style='line-height:normal'>&nbsp;</p>
+<p class=MsoNormal style='line-height:normal'>…..</p>
+
+<p class=MsoNormal style='line-height:normal'>            string reason;</p>
+
+<p class=MsoNormal style='line-height:normal'>            EntityTransferContext
+ctx = new EntityTransferContext();</p>
 
 <div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
@@ -1837,7 +1871,7 @@ style='page-break-before:always'>
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>&nbsp;</p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New"'>File Opensim.Services.HypregridService.GatekeeperService.cs</span></p>
+style='font-size:8.0pt;font-family:"Courier New"'>File Opensim.Services.HypergridService.GatekeeperService.cs</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New"'>&nbsp;</span></p>
@@ -1854,7 +1888,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'> OpenMetaverse;</s
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>41: using</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'> RegionFlags = OpenSim.Framework.RegionFlags;</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'> RegionFlags =
+OpenSim.Framework.RegionFlags;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>42: <i>using</i></span><i><span
@@ -1890,10 +1925,9 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'> </span><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>static</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'> </span><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>bool</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>
-m_SmartStartEnabled = </span><span style='font-size:8.0pt;font-family:"Courier New";
-color:blue'>false</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:black'>;</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'> m_SmartStartEnabled
+= </span><span style='font-size:8.0pt;font-family:"Courier New";color:blue'>false</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:blue'>83:protected</span><span
@@ -1950,6 +1984,9 @@ style='font-size:8.0pt;font-family:"Courier New";color:#A31515'>&quot;MessageKey
 style='font-size:8.0pt;font-family:"Courier New";color:black'>, String.Empty);</span></i></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>…</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
@@ -2001,7 +2038,7 @@ style='font-size:8.0pt;font-family:"Courier New";color:blue'>string</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>.IsNullOrEmpty(m_SmartStartUrl))</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                     m_SmartStartEnabled
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                     m_SmartStartEnabled
 = </span><span style='font-size:8.0pt;font-family:"Courier New";color:blue'>false</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 
@@ -2031,11 +2068,10 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>                  
 {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>                 
-                  m_log.Error(</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#A31515'>&quot;[GATEKEEPER SERVICE]: Could not parse or
-resolve SmartStart URI&quot;</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:black'>);</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>                                    m_log.Error(</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#A31515'>&quot;[GATEKEEPER
+SERVICE]: Could not parse or resolve SmartStart URI&quot;</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>);</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                               
@@ -2070,7 +2106,8 @@ margin-left:1.5in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>m_SmartStartMachineID
 = SmartStartConfig.GetString(</span><span style='font-size:8.0pt;font-family:
 "Courier New";color:#A31515'>&quot;MachineID&quot;</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>, m_SmartStartMachineID);</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>,
+m_SmartStartMachineID);</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                      }</span></p>
@@ -2083,6 +2120,9 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>}</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>…</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>m_log.Debug(</span></i><i><span
@@ -2102,7 +2142,8 @@ text-transform:uppercase;letter-spacing:.75pt'><br clear=all>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><i><span
 style='font-size:8.0pt;font-family:"Courier New"'><br>
-</span></i><span style='font-size:8.0pt;font-family:"Courier New"'>File Opensim.Services.llLoginService.llLoginService.cs</span></p>
+</span></i><span style='font-size:8.0pt;font-family:"Courier New"'>File
+Opensim.Services.llLoginService.llLoginService.cs</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New"'>&nbsp;</span></p>
@@ -2210,7 +2251,7 @@ m_UserAgentService = ServerUtils.LoadPlugin&lt;IUserAgentService&gt;(agentServic
 args);</i></span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>198:</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>198:…..</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>199:        </span><span
@@ -2362,7 +2403,11 @@ style='page-break-before:always'>
 </span>
 
 <p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
-font-family:"Courier New"'>&nbsp;</span></p>
+font-family:"Courier New"'>….</span></p>
+
+<p class=MsoNormal style='line-height:normal'><span style='font-size:8.0pt;
+font-family:"Courier New"'>            // Get the Hypergrid inventory service
+(exists only if Hypergrid is enabled)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'>Line
 273 insert new code:</p>
@@ -2424,7 +2469,7 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>
 (m_SmartStartEnabled)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>            {</span></p>
+style='font-size:8.0pt;font-family:"Courier New";color:black'>            {</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;text-autospace:none'><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>                </span><span
@@ -2536,8 +2581,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>                  
 style='font-size:8.0pt;font-family:"Courier New";color:black'>
 (System.IO.StreamReader reader = </span><span style='font-size:8.0pt;
 font-family:"Courier New";color:blue'>new</span><span style='font-size:8.0pt;
-font-family:"Courier New";color:black'> System.IO.StreamReader( webResponse.GetResponseStream()))                           
-</span></p>
+font-family:"Courier New";color:black'> System.IO.StreamReader(
+webResponse.GetResponseStream()))                            </span></p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:1.0in;text-indent:.5in;line-height:normal;text-autospace:none'><span
@@ -2678,8 +2723,8 @@ startLocation, home,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 out gatekeeper, out where, out position, out lookAt, out flags);<br>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!m_SmartStartEnabled
-|| dest == null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(!m_SmartStartEnabled || dest == null)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 return dest;<br>
 <br>
@@ -2815,8 +2860,9 @@ inventory folders where possible, rather than always creating new ones&quot;</sp
 the IAR should be loaded.&quot; + Environment.NewLine</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-                   
-+ &quot;&lt;password&gt; is the user's password.&quot; + Environment.NewLine</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-   
+                + &quot;&lt;password&gt; is the user's password.&quot; +
+Environment.NewLine</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>                    
@@ -2855,14 +2901,14 @@ color:#66CC66'>(</span></p>
 &quot;Archiving&quot;, this, &quot;save iar&quot;,</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-   
-                &quot;save iar </span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#66CC66'>[</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#991111'>-h|--home=&lt;url&gt;</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>]</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#991111'> </span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>[</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#991111'>--noassets</span><span
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-                   
+&quot;save iar </span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#66CC66'>[</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#991111'>-h|--home=&lt;url&gt;</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#66CC66'>]</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#991111'> </span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#66CC66'>[</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#991111'>--noassets</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>]</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:#991111'> &lt;first&gt;
 &lt;last&gt; &lt;inventory path&gt; &lt;password&gt; </span><span
@@ -3151,8 +3197,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span></p>
 -272,18 +271,18 @@</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>             return
-false;</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
+return false;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>        
@@ -3182,8 +3228,8 @@ color:#66CC66'>)</span></p>
 </span><span style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>{</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-           
-return DearchiveInventory</span><span style='font-size:8.0pt;font-family:"Courier New";
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-          
+ return DearchiveInventory</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:#66CC66'>(</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:#991111'>firstName, lastName, invPath, pass, loadStream, new
 Dictionary&lt;string, object&gt;</span><span style='font-size:8.0pt;font-family:
@@ -3194,10 +3240,10 @@ Dictionary&lt;string, object&gt;</span><span style='font-size:8.0pt;font-family:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+           
 return DearchiveInventory</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:#66CC66'>(</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:#00B000'>firstName, lastName, invPath, loadStream, new Dictionary&lt;string,
-object&gt;</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:#66CC66'>())</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:#00B000'>;</span></p>
+color:#00B000'>firstName, lastName, invPath, loadStream, new
+Dictionary&lt;string, object&gt;</span><span style='font-size:8.0pt;font-family:
+"Courier New";color:#66CC66'>())</span><span style='font-size:8.0pt;font-family:
+"Courier New";color:#00B000'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>        
@@ -3226,8 +3272,8 @@ Dictionary&lt;string, object&gt; options</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#66CC66'>)</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>        
-</span><span style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>{</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>         </span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>{</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
@@ -3427,8 +3473,8 @@ color:#00B000'>;</span></p>
 return;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>                 </span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>}</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>                
+</span><span style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>}</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -4006,10 +4052,10 @@ font-family:"Courier New";color:#66CC66'>}</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#991111'> incorrect.  Please try again.&quot;,</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-           
-            firstName, lastName</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#66CC66'>)</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#991111'>;</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-                       
+firstName, lastName</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#66CC66'>)</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#991111'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-                   
@@ -4148,12 +4194,12 @@ m_iarStreamBytes = archiveWriteStream.ToArray</span><span style='font-size:
 -70,7 +70,7 @@</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
-UserAccountHelpers.CreateUserWithInventory</span><span style='font-size:8.0pt;
-font-family:"Courier New";color:#66CC66'>(</span><span style='font-size:8.0pt;
-font-family:"Courier New";color:black'>scene, m_uaMT, &quot;meowfood&quot;</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>             UserAccountHelpers.CreateUserWithInventory</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>(</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>scene, m_uaMT,
+&quot;meowfood&quot;</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#66CC66'>)</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:black'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
@@ -4235,12 +4281,13 @@ style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:#991111'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+            archiverModule.DearchiveInventory</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>(</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>m_uaMT.FirstName,
-m_uaMT.LastName, &quot;xA&quot;, archiveReadStream</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>;</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+           
+archiverModule.DearchiveInventory</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#66CC66'>(</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#00B000'>m_uaMT.FirstName, m_uaMT.LastName,
+&quot;xA&quot;, archiveReadStream</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#66CC66'>)</span><span style='font-size:8.0pt;
+font-family:"Courier New";color:#00B000'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -4322,12 +4369,12 @@ style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 -110,7 +110,7 @@</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>             SceneHelpers.SetupSceneModules</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>(</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>scene,
-serialiserModule, archiverModule</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:#66CC66'>)</span><span style='font-size:8.0pt;font-family:
-"Courier New";color:black'>;</span></p>
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
+SceneHelpers.SetupSceneModules</span><span style='font-size:8.0pt;font-family:
+"Courier New";color:#66CC66'>(</span><span style='font-size:8.0pt;font-family:
+"Courier New";color:black'>scene, serialiserModule, archiverModule</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
+style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>&nbsp;</span></p>
@@ -4350,8 +4397,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:#991111'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+           
-archiverModule.DearchiveInventory</span><span style='font-size:8.0pt;
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+         
+  archiverModule.DearchiveInventory</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#66CC66'>(</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#00B000'>m_uaMT.FirstName, m_uaMT.LastName,
 &quot;/Objects&quot;, m_iarStream</span><span style='font-size:8.0pt;
@@ -4495,9 +4542,10 @@ font-family:"Courier New";color:#66CC66'>(</span></p>
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-               
 Guid.NewGuid</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:#66CC66'>()</span><span style='font-size:8.0pt;font-family:"Courier New";
-color:#991111'>, userFirstName, userLastName, &quot;/&quot;, userPassword, archiveWriteStream</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#991111'>;</span></p>
+color:#991111'>, userFirstName, userLastName, &quot;/&quot;, userPassword,
+archiveWriteStream</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#66CC66'>)</span><span style='font-size:8.0pt;font-family:"Courier New";
+color:#991111'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
 0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#00B000'>+               
@@ -4677,10 +4725,10 @@ color:#66CC66'>()</span><span style='font-size:8.0pt;font-family:"Courier New";
 color:black'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>       
-     MemoryStream archiveReadStream = new MemoryStream</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>(</span><span
-style='font-size:8.0pt;font-family:"Courier New";color:black'>archive</span><span
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>            
+MemoryStream archiveReadStream = new MemoryStream</span><span style='font-size:
+8.0pt;font-family:"Courier New";color:#66CC66'>(</span><span style='font-size:
+8.0pt;font-family:"Courier New";color:black'>archive</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 
@@ -4823,8 +4871,8 @@ style='font-size:8.0pt;font-family:"Courier New";color:#66CC66'>)</span><span
 style='font-size:8.0pt;font-family:"Courier New";color:black'>;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-    
-       m_archiverModule.DearchiveInventory</span><span style='font-size:8.0pt;
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:#991111'>-           
+m_archiverModule.DearchiveInventory</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#66CC66'>(</span><span style='font-size:8.0pt;
 font-family:"Courier New";color:#991111'>m_uaMT.FirstName, m_uaMT.LastName,
 &quot;/&quot;, &quot;password&quot;, m_iarStream</span><span style='font-size:
@@ -4923,8 +4971,8 @@ color:#00B000'>;</span></p>
 /// the loaded IAR with existing folders where possible.&lt;/param&gt;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>         ///
-&lt;returns&gt;true if the first stage of the operation succeeded, false
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>        
+/// &lt;returns&gt;true if the first stage of the operation succeeded, false
 otherwise&lt;/returns&gt;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
@@ -4964,8 +5012,8 @@ font-family:"Courier New";color:black'>;</span></p>
 inventory should be saved.&lt;/param&gt;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
-0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>         ///
-&lt;param name=&quot;saveStream&quot;&gt;The stream to which the inventory
+0in'><span style='font-size:8.0pt;font-family:"Courier New";color:black'>        
+/// &lt;param name=&quot;saveStream&quot;&gt;The stream to which the inventory
 archive will be saved&lt;/param&gt;</span></p>
 
 <p class=MsoNormal style='margin:0in;line-height:normal;border:none;padding:
