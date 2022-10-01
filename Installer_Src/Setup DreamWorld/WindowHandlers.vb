@@ -130,7 +130,7 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-                If (FocusWindow(PID) Then
+                If (FocusWindow(PID)) Then
                     SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
                     SendKeys.Flush()
                 End If
