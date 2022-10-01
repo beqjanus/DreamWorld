@@ -3092,6 +3092,7 @@ Public Class FormSetup
 
         For Each RegionUUID In RegionUuids()
             Thaw(RegionUUID)
+            Application.DoEvents()
             Timer(RegionUUID) = DateAdd("n", 5, Date.Now) ' Add  5 minutes for console to do things
         Next
 
