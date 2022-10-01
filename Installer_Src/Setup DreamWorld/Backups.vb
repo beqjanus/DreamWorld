@@ -326,8 +326,6 @@ Public Class Backups
             Settings.SaveSettings()
         End If
 
-        'Settings.AutobackupInterval = 1
-
         Dim Tomorrow = Settings.StartDate.AddMinutes(Convert.ToDouble(Settings.AutobackupInterval, Globalization.CultureInfo.InvariantCulture))
         Dim diff = DateTime.Compare(currentdatetime, Tomorrow)
         If diff > 0 Then
