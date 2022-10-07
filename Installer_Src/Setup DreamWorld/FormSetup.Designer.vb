@@ -38,6 +38,7 @@ Partial Class FormSetup
         Me.DiskSize = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Virtual = New System.Windows.Forms.Label()
+        Me.MySQLSpeed = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.TimerMain = New System.Windows.Forms.Timer(Me.components)
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -163,6 +164,10 @@ Partial Class FormSetup
         Me.ConnectToIceCastToolStripMenuItemIcecast = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ShowStatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -182,10 +187,10 @@ Partial Class FormSetup
         '
         Me.PercentCPU.AutoSize = True
         Me.PercentCPU.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentCPU.Location = New System.Drawing.Point(64, 0)
+        Me.PercentCPU.Location = New System.Drawing.Point(83, 0)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(49, 15)
-        Me.PercentCPU.TabIndex = 2
+        Me.PercentCPU.TabIndex = 1
         Me.PercentCPU.Text = "0% CPU"
         Me.PercentCPU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -193,10 +198,10 @@ Partial Class FormSetup
         '
         Me.PercentRAM.AutoSize = True
         Me.PercentRAM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentRAM.Location = New System.Drawing.Point(119, 0)
+        Me.PercentRAM.Location = New System.Drawing.Point(163, 0)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(55, 15)
-        Me.PercentRAM.TabIndex = 1
+        Me.PercentRAM.TabIndex = 2
         Me.PercentRAM.Text = "0 % RAM"
         Me.PercentRAM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -232,44 +237,57 @@ Partial Class FormSetup
         '
         Me.DiskSize.AutoSize = True
         Me.DiskSize.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DiskSize.Location = New System.Drawing.Point(275, 0)
+        Me.DiskSize.Location = New System.Drawing.Point(323, 0)
         Me.DiskSize.Name = "DiskSize"
         Me.DiskSize.Size = New System.Drawing.Size(48, 15)
-        Me.DiskSize.TabIndex = 3
+        Me.DiskSize.TabIndex = 4
         Me.DiskSize.Text = "0% Disk"
         Me.DiskSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.ColumnCount = 5
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.ColumnCount = 6
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarLabel, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Virtual, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.MySQLSpeed, 5, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(174, 31)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 23)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(500, 15)
         Me.TableLayoutPanel1.TabIndex = 18611
         '
         'Virtual
         '
         Me.Virtual.AutoSize = True
         Me.Virtual.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Virtual.Location = New System.Drawing.Point(180, 0)
+        Me.Virtual.Location = New System.Drawing.Point(243, 0)
         Me.Virtual.Name = "Virtual"
-        Me.Virtual.Size = New System.Drawing.Size(89, 15)
-        Me.Virtual.TabIndex = 4
-        Me.Virtual.Text = "0% Virtual RAM"
+        Me.Virtual.Size = New System.Drawing.Size(59, 15)
+        Me.Virtual.TabIndex = 3
+        Me.Virtual.Text = "0% VRAM"
         Me.Virtual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'MySQLSpeed
+        '
+        Me.MySQLSpeed.AutoSize = True
+        Me.MySQLSpeed.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MySQLSpeed.Location = New System.Drawing.Point(403, 0)
+        Me.MySQLSpeed.Name = "MySQLSpeed"
+        Me.MySQLSpeed.Size = New System.Drawing.Size(58, 15)
+        Me.MySQLSpeed.TabIndex = 5
+        Me.MySQLSpeed.Text = "0% Mysql"
+        Me.MySQLSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TextBox1
         '
@@ -282,7 +300,7 @@ Partial Class FormSetup
         Me.TextBox1.Location = New System.Drawing.Point(12, 58)
         Me.TextBox1.MaxLength = 30000
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(641, 96)
+        Me.TextBox1.Size = New System.Drawing.Size(985, 96)
         Me.TextBox1.TabIndex = 2
         Me.TextBox1.Text = ""
         '
@@ -959,7 +977,7 @@ Partial Class FormSetup
         '
         'RestartMysqlIcon
         '
-        Me.RestartMysqlIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem, Me.StartToolStripMenuItem1, Me.StopToolStripMenuItem1, Me.DeleteServiceToolStripMenuItem1, Me.ConnectToConsoleToolStripMenuItemMySQL, Me.CheckAndRepairDatbaseToolStripMenuItem, Me.BackupToolStripMenuItem1, Me.RestoreToolStripMenuItem1})
+        Me.RestartMysqlIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem, Me.StartToolStripMenuItem1, Me.StopToolStripMenuItem1, Me.DeleteServiceToolStripMenuItem1, Me.ConnectToConsoleToolStripMenuItemMySQL, Me.CheckAndRepairDatbaseToolStripMenuItem, Me.BackupToolStripMenuItem1, Me.RestoreToolStripMenuItem1, Me.ShowStatsToolStripMenuItem})
         Me.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.RestartMysqlIcon.Name = "RestartMysqlIcon"
         Me.RestartMysqlIcon.Size = New System.Drawing.Size(77, 24)
@@ -969,49 +987,49 @@ Partial Class FormSetup
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'RestartMysqlItem
         '
         Me.RestartMysqlItem.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RestartMysqlItem.Name = "RestartMysqlItem"
-        Me.RestartMysqlItem.Size = New System.Drawing.Size(179, 22)
+        Me.RestartMysqlItem.Size = New System.Drawing.Size(184, 26)
         Me.RestartMysqlItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         '
         'StartToolStripMenuItem1
         '
         Me.StartToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartToolStripMenuItem1.Name = "StartToolStripMenuItem1"
-        Me.StartToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.StartToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.StartToolStripMenuItem1.Text = "Start"
         '
         'StopToolStripMenuItem1
         '
         Me.StopToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_stop
         Me.StopToolStripMenuItem1.Name = "StopToolStripMenuItem1"
-        Me.StopToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.StopToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.StopToolStripMenuItem1.Text = "Stop"
         '
         'DeleteServiceToolStripMenuItem1
         '
         Me.DeleteServiceToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red
         Me.DeleteServiceToolStripMenuItem1.Name = "DeleteServiceToolStripMenuItem1"
-        Me.DeleteServiceToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.DeleteServiceToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.DeleteServiceToolStripMenuItem1.Text = "Delete Service"
         '
         'ConnectToConsoleToolStripMenuItemMySQL
         '
         Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data
         Me.ConnectToConsoleToolStripMenuItemMySQL.Name = "ConnectToConsoleToolStripMenuItemMySQL"
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(179, 22)
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(184, 26)
         Me.ConnectToConsoleToolStripMenuItemMySQL.Text = "Connect to Console"
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check And Repair"
         '
         'BackupToolStripMenuItem1
@@ -1019,14 +1037,14 @@ Partial Class FormSetup
         Me.BackupToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem1.Name = "BackupToolStripMenuItem1"
         Me.BackupToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
-        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.BackupToolStripMenuItem1.Text = "Backup"
         '
         'RestoreToolStripMenuItem1
         '
         Me.RestoreToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.RestoreToolStripMenuItem1.Name = "RestoreToolStripMenuItem1"
-        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(179, 22)
+        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.RestoreToolStripMenuItem1.Text = "Restore"
         '
         'RestartRobustIcon
@@ -1165,15 +1183,35 @@ Partial Class FormSetup
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(665, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 26)
         Me.MenuStrip1.TabIndex = 0
+        '
+        'ShowStatsToolStripMenuItem
+        '
+        Me.ShowStatsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem, Me.OffToolStripMenuItem})
+        Me.ShowStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_chart
+        Me.ShowStatsToolStripMenuItem.Name = "ShowStatsToolStripMenuItem"
+        Me.ShowStatsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ShowStatsToolStripMenuItem.Text = "Show Stats"
+        '
+        'OnToolStripMenuItem
+        '
+        Me.OnToolStripMenuItem.Name = "OnToolStripMenuItem"
+        Me.OnToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OnToolStripMenuItem.Text = "On"
+        '
+        'OffToolStripMenuItem
+        '
+        Me.OffToolStripMenuItem.Name = "OffToolStripMenuItem"
+        Me.OffToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OffToolStripMenuItem.Text = "Off"
         '
         'FormSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(665, 161)
+        Me.ClientSize = New System.Drawing.Size(1009, 161)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.BusyButton)
@@ -1338,4 +1376,9 @@ Partial Class FormSetup
     Friend WithEvents BackupCriticalFilesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestoreToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents BackupToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MySQLSpeed As Label
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents ShowStatsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OnToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OffToolStripMenuItem As ToolStripMenuItem
 End Class

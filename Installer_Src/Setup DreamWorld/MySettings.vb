@@ -2086,6 +2086,19 @@ Public Class MySettings
     End Property
 
     ''' <summary>
+    ''' SHows Mysql stats is enabled, which is laggy
+    ''' </summary>
+    ''' <returns>ShowMysqlStats as boolean</returns>
+    Public Property ShowMysqlStats() As Boolean
+        Get
+            Return CType(GetMySetting("ShowMysqlStats", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("ShowMysqlStats", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
     ''' ShowRegionListOnBoot brings up the Region list if enabled
     ''' </summary>
     ''' <returns>T/F</returns>

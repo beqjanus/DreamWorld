@@ -876,6 +876,15 @@ Public Class FormSetup
         LoadHelp()      ' Help loads once
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
 
+        If Settings.ShowMysqlStats Then
+            OnToolStripMenuItem.Checked = True
+            OffToolStripMenuItem.Checked = False
+        Else
+            OnToolStripMenuItem.Checked = False
+            OffToolStripMenuItem.Checked = True
+            MySQLSpeed.Text = ""
+        End If
+
         If Settings.ShowRegionListOnBoot Then
             ShowRegionform()
         End If
@@ -1382,6 +1391,7 @@ Public Class FormSetup
         PercentCPU.Visible = visible
         PercentRAM.Visible = visible
         DiskSize.Visible = visible
+        MySQLSpeed.Visible = visible
 
     End Sub
 
@@ -1537,8 +1547,8 @@ Public Class FormSetup
                 r = Math.Round(r)
                 v = Math.Round(v)
                 Settings.Ramused = r
-                PercentRAM.Text = $"{r / 100:p1} RAM Used"
-                Virtual.Text = $"{v} MB Virtual RAM"
+                PercentRAM.Text = $"{r / 100:p1} RAM"
+                Virtual.Text = $"{v} MB VRAM"
             Next
             results.Dispose()
         Catch ex As Exception
@@ -2004,13 +2014,21 @@ Public Class FormSetup
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
             ScanAgents()                ' update agent count
-
             CalcDiskFree()              ' check for free disk space
+
+            If Settings.ShowMysqlStats Then
+                MySQLSpeed.Text = (MysqlStats() / 5).ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " Queries/Sec"
+            Else
+                MySQLSpeed.Text = ""
+            End If
+
             Bench.Print("5 second + worker")
         End If
 
         If SecondsTicker = 60 Then
             Bench.Start("60 second worker")
+            DeleteOldWave()         ' clean up TTS cache
+            RegionListHTML("Name") ' create HTML for old teleport boards
             DeleteDirectoryTmp()      ' clean up old tmp folder
             MakeMaps()                 ' Make all the large maps
             Bench.Print("60 second worker")
@@ -2022,6 +2040,7 @@ Public Class FormSetup
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
+
             Bench.Print("60 second + worker")
         End If
 
@@ -2720,6 +2739,18 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub OffToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OffToolStripMenuItem.Click
+        OnToolStripMenuItem.Checked = False
+        OffToolStripMenuItem.Checked = True
+        Settings.ShowMysqlStats = False
+    End Sub
+
+    Private Sub OnToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnToolStripMenuItem.Click
+        OnToolStripMenuItem.Checked = True
+        OffToolStripMenuItem.Checked = False
+        Settings.ShowMysqlStats = True
+    End Sub
+
     Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
 
         Me.TopMost = True
@@ -2956,6 +2987,20 @@ Public Class FormSetup
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
         TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.PublicIP}:{Settings.HttpPort}")
+
+    End Sub
+
+    Private Sub ShowStatsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowStatsToolStripMenuItem.Click
+
+        If Settings.ShowMysqlStats Then
+            Settings.ShowMysqlStats = False
+            OnToolStripMenuItem.Checked = False
+            OffToolStripMenuItem.Checked = True
+        Else
+            Settings.ShowMysqlStats = True
+            OnToolStripMenuItem.Checked = True
+            OffToolStripMenuItem.Checked = False
+        End If
 
     End Sub
 

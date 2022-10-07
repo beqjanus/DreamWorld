@@ -23,6 +23,7 @@ Public Module MysqlInterface
 
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
+    Private _MysqlLPM As Integer
 
 #End Region
 
@@ -45,6 +46,39 @@ Public Module MysqlInterface
             _MysqlExited = Value
         End Set
     End Property
+
+#End Region
+
+#Region "Stats"
+
+    Public Function MysqlStats() As Double
+
+        QuerySuper("SET GLOBAL general_log = 'OFF'")
+
+        Using MysqlConn As New MySqlConnection(Settings.RootMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select count(*) from mysql.general_log"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            _MysqlLPM = reader.GetInt32(0)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        QuerySuper("Rename TABLE mysql.general_log TO general_log_temp;")
+        QuerySuper("DELETE FROM mysql.general_log_temp;")
+        QuerySuper("Rename TABLE mysql.general_log_temp TO general_log;")
+        QuerySuper("SET GLOBAL general_log = 'ON'")
+
+        Return _MysqlLPM
+
+    End Function
 
 #End Region
 
@@ -125,10 +159,11 @@ Public Module MysqlInterface
             BreakPoint.Dump(ex)
         End Try
 
-        CreateService()
         CreateStopMySql()
 
         If Settings.MysqlRunasaService Then
+
+            CreateService()
 
             If Settings.CurrentDirectory <> Settings.MysqlLastDirectory Or Not ServiceExists("MySQLDreamGrid") Then
                 Using MysqlProcess As New Process With {
@@ -1283,6 +1318,32 @@ Public Module MysqlInterface
         Else
             conn = Settings.RegionMySqlConnection
         End If
+
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+        Return v
+
+    End Function
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
+    Public Function QuerySuper(SQL As String) As String
+
+        Dim v As String = ""
+
+        Dim conn As String
+
+        conn = Settings.RootMysqlConnection
 
         Using MysqlConn As New MySqlConnection(conn)
             Try
