@@ -130,8 +130,11 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-                SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
-                SendKeys.Flush()
+                If (FocusWindow(PID)) Then
+                    SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
+                    SendKeys.Flush()
+                End If
+
             Catch ex As Exception
                 RPC_Region_Command(RegionUUID, command)
             End Try
@@ -139,13 +142,13 @@ Module WindowHandlers
 
     End Sub
 
-    Public Sub FocusWindow(ByVal PID As Integer)
+    Public Function FocusWindow(ByVal PID As Integer) As Boolean
 
         Dim p As System.Diagnostics.Process = CachedProcess(PID)
         If p IsNot Nothing Then
-            SetForegroundWindow(p.MainWindowHandle)
+            Return SetForegroundWindow(p.MainWindowHandle)
         End If
-    End Sub
+    End Function
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 

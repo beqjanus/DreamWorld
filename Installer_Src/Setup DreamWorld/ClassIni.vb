@@ -114,6 +114,7 @@ Public Class LoadIni
     <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")>
     Public Sub SaveIni()
 
+        CopyFileFast(Settings.CurrentDirectory + "\OutworldzFiles\Settings.ini", Settings.CurrentDirectory + "\OutworldzFiles\Settings.bak")
         Dim Retry As Integer = 100 ' 1 sec
         While Retry > 0
             Try
