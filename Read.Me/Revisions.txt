@@ -1,6 +1,7 @@
 REVISIONS FOR DREAMGRID
 
-V5.3 Release
+V5.25
+Mysql Query Stats in the Mysql pull down. This prints the number of queries per second in the stats bar. Useful for detecting excessive Satyr Farm use and runaway scripts or motion.
 Many Updates in Opensim now at 9/25/22 Core- see http://opensimulator.org/viewgit/?a=summary&p=opensim
 jOpensim Search is now Local Search.
 
