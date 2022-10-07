@@ -71,10 +71,8 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        QuerySuper("Rename TABLE mysql.general_log TO general_log_temp;")
-        QuerySuper("DELETE FROM mysql.general_log_temp;")
-        QuerySuper("Rename TABLE mysql.general_log_temp TO general_log;")
-        QuerySuper("SET GLOBAL general_log = 'ON'")
+        QuerySuper("TRUNCATE table mysql.general_log;")
+        QuerySuper("SET GLOBAL general_log = 'ON'; set GLOBAL log_output = 'TABLE';")
 
         Return _MysqlLPM
 
@@ -1337,30 +1335,24 @@ Public Module MysqlInterface
     End Function
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
-    Public Function QuerySuper(SQL As String) As String
-
-        Dim v As String = ""
+    Public Sub QuerySuper(SQL As String)
 
         Dim conn As String
-
         conn = Settings.RootMysqlConnection
-
         Using MysqlConn As New MySqlConnection(conn)
             Try
                 MysqlConn.Open()
 #Disable Warning CA2100
                 Using cmd As New MySqlCommand(SQL, MysqlConn)
 #Enable Warning
-                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                    cmd.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
                 BreakPoint.Print(ex.Message)
             End Try
         End Using
 
-        Return v
-
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Disable on-line flag for suspended regions
