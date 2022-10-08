@@ -756,32 +756,33 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 m_log.DebugFormat(
                     "[ENTITY TRANSFER MODULE]: Failed validation of all attachments for teleport of {0} from {1} to {2}.  Continuing.",
                     sp.Name, sp.Scene.Name, finalDestination.RegionName);
-            // Smartstart            
-            //fkb 
-            // this possible should only be called if query fails with a limited set of errors like connection refused.
-            if (reg.RegionLocY != 0) // not on HG
-            {
-              //  if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
+
+            
+            // SmartStart                                    
+            //if (reg.RegionLocY != 0) // not on HG
+            {              
+                UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId);
+                if (regID != UUID.Zero && regID != finalDestination.RegionID)
                 {
-                    UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId); // fkb
-                    if (regID != UUID.Zero && regID != finalDestination.RegionID)
+                    //if (regID == sp.Scene.RegionInfo.RegionID)
+                    //{
+                    //    sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                    //    return;
+                    //}
+
+                    finalDestination = sp.Scene.GridService.GetRegionByUUID(sp.Scene.RegionInfo.ScopeID, regID);
+                    if (finalDestination == null)
                     {
-                        if (regID == sp.Scene.RegionInfo.RegionID)
-                        {
-                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
-                            return;
-                        }
-
-                        finalDestination = sp.Scene.GridService.GetRegionByUUID(sp.Scene.RegionInfo.ScopeID, regID);
-                        if (finalDestination == null)
-                        {
-                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
-                            return;
-                        }
-
-                        reg = finalDestination;
+                        sp.ControllingClient.SendTeleportFailed("Teleport Failed. No region located.");
+                        return;
                     }
+
+                    m_log.DebugFormat(
+                              "[SMART START]: Teleporting {0} {1} from {2} to {3} ({4}) {5}/{6}",
+                              sp.Name, sp.UUID, m_sceneName,
+                              reg.ServerURI, finalDestination.ServerURI, finalDestination.RegionName, position);
                 }
+
             }
 
 
