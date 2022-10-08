@@ -289,10 +289,10 @@ if ( $publish =~ /p/ ) {
         
     
     #doUnlink("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
-    doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
+    #doUnlink("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid.zip");
         
     if (!copy("../Zips/DreamGrid$type.zip",
-              "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid.zip")){
+              "$Fleta/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip")){
         die $!;
     }
     
