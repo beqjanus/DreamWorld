@@ -879,6 +879,7 @@ Public Class FormSetup
         If Settings.ShowMysqlStats Then
             OnToolStripMenuItem.Checked = True
             OffToolStripMenuItem.Checked = False
+            MySQLSpeed.Text = ""
         Else
             OnToolStripMenuItem.Checked = False
             OffToolStripMenuItem.Checked = True

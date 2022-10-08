@@ -131,7 +131,7 @@ Module WindowHandlers
             Try
                 AppActivate(PID)
                 If (FocusWindow(PID)) Then
-                    SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break!!
+                    SendKeys.SendWait("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break due to {}
                     SendKeys.Flush()
                 End If
 
@@ -148,6 +148,8 @@ Module WindowHandlers
         If p IsNot Nothing Then
             Return SetForegroundWindow(p.MainWindowHandle)
         End If
+        Return False
+
     End Function
 
     Public Function GetHwnd(Groupname As String) As IntPtr
