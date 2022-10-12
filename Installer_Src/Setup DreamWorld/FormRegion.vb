@@ -819,13 +819,6 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
-
-            Dim loopctr = 30 ' wait 30 seconds
-            While IsRegionReady(GroupPort(RegionUUID)) And loopctr > 0
-                Sleep(1000)
-                loopctr -= 1
-            End While
-
             DeleteAllRegionData(RegionUUID)
             PropChangedRegionSettings = True
             Changed1 = False
@@ -1348,6 +1341,14 @@ Public Class FormRegion
                 ScriptEngine(RegionUUID) = "XEngine"
             ElseIf YEngineButton.Checked = True Then
                 ScriptEngine(RegionUUID) = "YEngine"
+            End If
+
+            ' Get Next Port
+            If GroupPort(RegionUUID) = 0 Then
+                GroupPort(RegionUUID) = GetPort(RegionUUID)
+            End If
+            If Region_Port(RegionUUID) = 0 Then
+                Region_Port(RegionUUID) = GetPort(RegionUUID)
             End If
 
             FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")

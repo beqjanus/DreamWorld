@@ -1,5 +1,9 @@
 REVISIONS FOR DREAMGRID
 
+V5.26
+When loading an OAR the Allow Rez Objects and Edit Land flags will be cleared to prevent griefer attacks.
+
+
 V5.25
 Mysql Query Stats in the Mysql pull down. This prints the number of queries per second in the stats bar. Useful for detecting excessive Satyr Farm use and runaway scripts or motion.
 Many Updates in Opensim now at 9/25/22 Core- see http://opensimulator.org/viewgit/?a=summary&p=opensim

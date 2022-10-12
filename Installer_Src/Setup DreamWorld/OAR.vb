@@ -105,7 +105,7 @@ Module OAR
                         .TaskName = TaskName.LoadOneOarTask,
                         .Command = v
                     }
-                    Dim Result = New WaitForFile(RegionUUID, "Start scripts done")
+                    Dim Result = New WaitForFile(RegionUUID, "Start scripts done", "Load OAR")
                     RebootAndRunTask(RegionUUID, obj)
                     Result.Scan()
 
@@ -167,10 +167,11 @@ Module OAR
         Dim obj As New TaskObject With {
             .TaskName = TaskName.LoadOARContent,
             .backMeUp = BackUpString,
-            .Command = LoadOarCmd
+            .Command = LoadOarCmd,
+            .Type = "Load OAR"
         }
 
-        Dim Result = New WaitForFile(RegionUUID, "Start scripts done")
+        Dim Result = New WaitForFile(RegionUUID, "Start scripts done", "Load OAR")
         RebootAndRunTask(RegionUUID, obj)
         Result.Scan()
 
@@ -185,13 +186,14 @@ Module OAR
         Try
             If backMeUp = "Yes" Then
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                Dim R = New WaitForFile(RegionUUID, "Finished writing out OAR")
+                Dim R = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
                 ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.oar""")
                 R.Scan()
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
+
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-            Dim Result = New WaitForFile(RegionUUID, "Start scripts done")
+            Dim Result = New WaitForFile(RegionUUID, "Start scripts done", "Load OAR")
             ConsoleCommand(RegionUUID, LoadOarStr)
             Result.Scan()
         Catch ex As Exception
@@ -270,7 +272,7 @@ Module OAR
 
         Dim Group = Group_Name(RegionUUID)
         SendMessage(RegionUUID, "CPU Intensive Backup Started")
-        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR") ' TODO1
+        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar " & """" & BackupPath() & "/" & MyValue & """")
         Result.Scan()
 

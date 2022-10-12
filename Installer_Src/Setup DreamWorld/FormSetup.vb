@@ -2018,7 +2018,7 @@ Public Class FormSetup
             CalcDiskFree()              ' check for free disk space
 
             If Settings.ShowMysqlStats Then
-                MySQLSpeed.Text = (MysqlStats() / 5).ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " Queries/Sec"
+                MySQLSpeed.Text = (MysqlStats() / 5).ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " Q/S"
             Else
                 MySQLSpeed.Text = ""
             End If

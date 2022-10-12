@@ -1076,7 +1076,7 @@ Module SmartStart
         PokeRegionTimer(RegionUUID)
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
 
-        Dim Result = New WaitForFile(RegionUUID, "Start scripts done")
+        Dim Result = New WaitForFile(RegionUUID, "Start scripts done", "Load OAR")
         ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
         Result.Scan()
 
@@ -1211,6 +1211,7 @@ Module SmartStart
         Public Command As String    ' text to send in sequence to the task
         Public Str As String
         Public TaskName As TaskName
+        Public Type As String
 
     End Class
 

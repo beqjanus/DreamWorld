@@ -5,6 +5,7 @@ Imports System.Threading
 Public Class SeekObject
     Public RegionUUID As String
     Public text As String
+    Public Type As String
 End Class
 
 Public Class WaitForFile
@@ -15,8 +16,9 @@ Public Class WaitForFile
     Private lastMaxOffset As Long
     Private reader As StreamReader
 
-    Public Sub New(RegionUUID As String, text As String)
+    Public Sub New(RegionUUID As String, text As String, Type As String)
 
+        o.Type = Type
         o.text = text
         o.RegionUUID = RegionUUID
 
@@ -70,6 +72,10 @@ Public Class WaitForFile
                     If line IsNot Nothing Then
                         Debug.Print(line)
                         If ScanForPattern(line, text) Then
+                            If o.Type = "Load OAR" Then
+                                DoLandOneRegion(RegionUUID) ' set region to no rez, no scripts
+                            End If
+                            reader.Close()
                             Return
                         End If
                         'update the last max offset

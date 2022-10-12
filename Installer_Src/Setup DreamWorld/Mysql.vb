@@ -51,6 +51,12 @@ Public Module MysqlInterface
 
 #Region "Stats"
 
+    ' TODO
+
+    'Select Case COUNT(*), SUBSTRING( argument, 1, 7), SUBSTRING_INDEX(SUBSTRING_INDEX(argument, "values", -1), "'", 3) As arg    FROM mysql.general_log    WHERE SUBSTRING( argument, 1, 21) = "insert into primitems"    GROUP BY arg    ORDER BY 1 DESC
+
+    'SELECT COUNT(), SUBSTRING( argument, 1, 7), SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX( argument, "values", -1),"'", 4),"'", -1) AS arg    FROM mysql.general_log    WHERE SUBSTRING( argument, 1, 19) = "replace into prims "GROUP BY arg ORDER BY 1 DESC
+
     Public Function MysqlStats() As Double
 
         QuerySuper("SET GLOBAL general_log = 'OFF'")
@@ -549,6 +555,15 @@ Public Module MysqlInterface
         Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez
         DoOpensim(stm)
         stm = "update land set landflags = (landflags & ! 16);" ' Land editing
+        DoOpensim(stm)
+
+    End Sub
+
+    Public Sub DoLandOneRegion(regionUUID As String)
+
+        Dim stm = $"update land set landflags = (landflags & ! 64) where regionUUID = '{regionUUID}';" ' Rez
+        DoOpensim(stm)
+        stm = "update land set landflags = (landflags & ! 16) where regionUUID = '{regionUUID}';" ' Land editing
         DoOpensim(stm)
 
     End Sub

@@ -286,7 +286,7 @@ Partial Class FormSetup
         Me.MySQLSpeed.Name = "MySQLSpeed"
         Me.MySQLSpeed.Size = New System.Drawing.Size(58, 15)
         Me.MySQLSpeed.TabIndex = 5
-        Me.MySQLSpeed.Text = "0 Queries/Sec"
+        Me.MySQLSpeed.Text = "0 Queries/Second"
         Me.MySQLSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TextBox1
