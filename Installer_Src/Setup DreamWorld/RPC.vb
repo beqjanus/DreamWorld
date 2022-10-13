@@ -60,6 +60,19 @@ Module RPC
 
     End Function
 
+    Public Sub ReallyShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
+
+        Thaw(RegionUUID)
+        RPC_Region_Command(RegionUUID, "quit")
+
+        Dim Group = Group_Name(RegionUUID)
+
+        For Each RegionUUID In RegionUuidListByName(Group)
+            RegionStatus(RegionUUID) = nextstate
+        Next
+
+    End Sub
+
     Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
 
         Dim RegionUUID As String = GetRegionFromAgentId(agentId)

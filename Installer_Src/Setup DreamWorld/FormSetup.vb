@@ -337,7 +337,7 @@ Public Class FormSetup
             For Each PID In CountisRunning
                 For Each RegionUUID In RegionUuids()
                     If ProcessID(RegionUUID) = PID Then
-                        ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                        ReallyShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                         Application.DoEvents()
                     End If
                 Next
