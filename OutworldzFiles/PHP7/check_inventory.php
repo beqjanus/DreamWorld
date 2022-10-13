@@ -2,10 +2,12 @@
 
 // Database setup, edit as needed
 $database_info = array();
-$database_info['hostname'] = "localhost";
-$database_info['database'] = "grid";
-$database_info['username'] = "grid";
-$database_info['password'] = "grid";
+include "databaseinfo.php";
+
+$database_info['hostname'] = $DB_HOST;
+$database_info['database'] = "Robust";
+$database_info['username'] = $DB_USER;
+$database_info['password'] = $DB_PASSWORD;
 ////////////////////////////////////////////////
 
 $errors = 0;
@@ -185,6 +187,7 @@ function report()
 	global $wikilink;
 	echo "\nFound " . $errors . " potential inventory errors\n";
 	echo "Here is how: ". $wikilink . " to resolve them.\n";
+	$a = readline('Press Enter to quit');
 }
 
 

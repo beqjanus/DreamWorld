@@ -291,7 +291,7 @@ Public Class FormSetup
 
                 If CBool(GetHwnd(Group_Name(RegionUUID))) Then
                     TextPrint(Group_Name(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                    ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
+                    ReallyShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
                 Else
                     RegionStatus(RegionUUID) = SIMSTATUSENUM.Stopped
                 End If
@@ -2287,6 +2287,13 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub ChooseAUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChooseAUserToolStripMenuItem.Click
+
+        Dim User = InputBox("Enter a User Name", "UserName", "everyone")
+        RunCheck(User)
+
+    End Sub
+
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
 
         ContentIar.Activate()
@@ -2380,11 +2387,11 @@ Public Class FormSetup
         StopApache()
         Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
         Dim pi = New ProcessStartInfo With {
-    .WindowStyle = ProcessWindowStyle.Hidden,
-    .CreateNoWindow = True,
-    .FileName = win,
-    .Arguments = "delete ApacheHTTPServer"
-}
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .CreateNoWindow = True,
+            .FileName = win,
+            .Arguments = "delete ApacheHTTPServer"
+        }
         Using p As New Process
             p.StartInfo = pi
             Try
@@ -2440,6 +2447,13 @@ Public Class FormSetup
 
         Settings.LogLevel = "ERROR"
         SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub EveryoneToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EveryoneToolStripMenuItem.Click
+
+
+        RunCheck("everyone")
 
     End Sub
 
@@ -2948,6 +2962,25 @@ Public Class FormSetup
             StopRobust()
         End If
 
+    End Sub
+
+    Private Sub RunCheck(type As String)
+        Using p = New Process()
+            Dim pi = New ProcessStartInfo With {
+                .Arguments = $"check_inventory.php {type}",
+                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/php7/php.exe"),
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/php7/"),
+                .UseShellExecute = True, ' so we can redirect streams and minimize
+                .WindowStyle = ProcessWindowStyle.Normal,
+                .CreateNoWindow = False
+            }
+            p.StartInfo = pi
+            Try
+                p.Start()
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
     End Sub
 
     Private Sub SaveAllRunningRegiondsAsOARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegiondsAsOARSToolStripMenuItem.Click

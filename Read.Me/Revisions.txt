@@ -2,7 +2,8 @@ REVISIONS FOR DREAMGRID
 
 V5.26
 When loading an OAR the Allow Rez Objects and Edit Land flags will be cleared to prevent griefer attacks.
-
+Jopensim search set to Hyperica. Local Search in jOpensim and Profiles will no longer work until jOpensim changes to V4 due to core Opensim changes.
+Add MySQL/check User's inventory for issues to menu
 
 V5.25
 Mysql Query Stats in the Mysql pull down. This prints the number of queries per second in the stats bar. Useful for detecting excessive Satyr Farm use and runaway scripts or motion.
