@@ -1344,12 +1344,11 @@ Public Class FormRegion
             End If
 
             ' Get Next Port
-            If GroupPort(RegionUUID) = 0 Then
+            If GroupPort(RegionUUID) = 0 Or Region_Port(RegionUUID) = 0 Then
                 GroupPort(RegionUUID) = GetPort(RegionUUID)
+                Region_Port(RegionUUID) = GroupPort(RegionUUID)
             End If
-            If Region_Port(RegionUUID) = 0 Then
-                Region_Port(RegionUUID) = GetPort(RegionUUID)
-            End If
+
 
             FileStuff.CopyFileFast(RegionIniFilePath(RegionUUID), RegionIniFilePath(RegionUUID) & ".bak")
 

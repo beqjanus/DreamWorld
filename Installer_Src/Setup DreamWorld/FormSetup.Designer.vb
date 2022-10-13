@@ -140,10 +140,16 @@ Partial Class FormSetup
         Me.StartToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.StopToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteServiceToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConnectToConsoleToolStripMenuItemMySQL = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CheckAndRepairDatbaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestoreToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConnectToConsoleToolStripMenuItemMySQL = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowStatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckAndRepairDatbaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckInventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EveryoneToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChooseAUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartRobustIcon = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.StartToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -165,9 +171,6 @@ Partial Class FormSetup
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ShowStatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OnToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OffToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -284,7 +287,7 @@ Partial Class FormSetup
         Me.MySQLSpeed.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MySQLSpeed.Location = New System.Drawing.Point(403, 0)
         Me.MySQLSpeed.Name = "MySQLSpeed"
-        Me.MySQLSpeed.Size = New System.Drawing.Size(58, 15)
+        Me.MySQLSpeed.Size = New System.Drawing.Size(91, 15)
         Me.MySQLSpeed.TabIndex = 5
         Me.MySQLSpeed.Text = "0 Queries/Second"
         Me.MySQLSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -977,7 +980,7 @@ Partial Class FormSetup
         '
         'RestartMysqlIcon
         '
-        Me.RestartMysqlIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem, Me.StartToolStripMenuItem1, Me.StopToolStripMenuItem1, Me.DeleteServiceToolStripMenuItem1, Me.ConnectToConsoleToolStripMenuItemMySQL, Me.CheckAndRepairDatbaseToolStripMenuItem, Me.BackupToolStripMenuItem1, Me.RestoreToolStripMenuItem1, Me.ShowStatsToolStripMenuItem})
+        Me.RestartMysqlIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem, Me.StartToolStripMenuItem1, Me.StopToolStripMenuItem1, Me.DeleteServiceToolStripMenuItem1, Me.BackupToolStripMenuItem1, Me.RestoreToolStripMenuItem1, Me.ConnectToConsoleToolStripMenuItemMySQL, Me.ShowStatsToolStripMenuItem, Me.CheckAndRepairDatbaseToolStripMenuItem, Me.CheckInventoryToolStripMenuItem})
         Me.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.RestartMysqlIcon.Name = "RestartMysqlIcon"
         Me.RestartMysqlIcon.Size = New System.Drawing.Size(77, 24)
@@ -1018,20 +1021,6 @@ Partial Class FormSetup
         Me.DeleteServiceToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.DeleteServiceToolStripMenuItem1.Text = "Delete Service"
         '
-        'ConnectToConsoleToolStripMenuItemMySQL
-        '
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Name = "ConnectToConsoleToolStripMenuItemMySQL"
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(184, 26)
-        Me.ConnectToConsoleToolStripMenuItemMySQL.Text = "Connect to Console"
-        '
-        'CheckAndRepairDatbaseToolStripMenuItem
-        '
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check And Repair"
-        '
         'BackupToolStripMenuItem1
         '
         Me.BackupToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disks
@@ -1046,6 +1035,62 @@ Partial Class FormSetup
         Me.RestoreToolStripMenuItem1.Name = "RestoreToolStripMenuItem1"
         Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.RestoreToolStripMenuItem1.Text = "Restore"
+        '
+        'ConnectToConsoleToolStripMenuItemMySQL
+        '
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Image = Global.Outworldz.My.Resources.Resources.data
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Name = "ConnectToConsoleToolStripMenuItemMySQL"
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Size = New System.Drawing.Size(184, 26)
+        Me.ConnectToConsoleToolStripMenuItemMySQL.Text = "Connect to Console"
+        '
+        'ShowStatsToolStripMenuItem
+        '
+        Me.ShowStatsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem, Me.OffToolStripMenuItem})
+        Me.ShowStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_chart
+        Me.ShowStatsToolStripMenuItem.Name = "ShowStatsToolStripMenuItem"
+        Me.ShowStatsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ShowStatsToolStripMenuItem.Text = "Show Stats"
+        '
+        'OnToolStripMenuItem
+        '
+        Me.OnToolStripMenuItem.Name = "OnToolStripMenuItem"
+        Me.OnToolStripMenuItem.Size = New System.Drawing.Size(91, 22)
+        Me.OnToolStripMenuItem.Text = "On"
+        '
+        'OffToolStripMenuItem
+        '
+        Me.OffToolStripMenuItem.Name = "OffToolStripMenuItem"
+        Me.OffToolStripMenuItem.Size = New System.Drawing.Size(91, 22)
+        Me.OffToolStripMenuItem.Text = "Off"
+        '
+        'CheckAndRepairDatbaseToolStripMenuItem
+        '
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check And Repair"
+        '
+        'CheckInventoryToolStripMenuItem
+        '
+        Me.CheckInventoryToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EveryoneToolStripMenuItem, Me.ChooseAUserToolStripMenuItem})
+        Me.CheckInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.briefcase
+        Me.CheckInventoryToolStripMenuItem.Name = "CheckInventoryToolStripMenuItem"
+        Me.CheckInventoryToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.CheckInventoryToolStripMenuItem.Text = "Check Inventory"
+        '
+        'EveryoneToolStripMenuItem
+        '
+        Me.EveryoneToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users2
+        Me.EveryoneToolStripMenuItem.Name = "EveryoneToolStripMenuItem"
+        Me.EveryoneToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.EveryoneToolStripMenuItem.Text = "Everyone"
+        '
+        'ChooseAUserToolStripMenuItem
+        '
+        Me.ChooseAUserToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user2
+        Me.ChooseAUserToolStripMenuItem.Name = "ChooseAUserToolStripMenuItem"
+        Me.ChooseAUserToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ChooseAUserToolStripMenuItem.Text = "Choose a User"
         '
         'RestartRobustIcon
         '
@@ -1185,26 +1230,6 @@ Partial Class FormSetup
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(1009, 26)
         Me.MenuStrip1.TabIndex = 0
-        '
-        'ShowStatsToolStripMenuItem
-        '
-        Me.ShowStatsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem, Me.OffToolStripMenuItem})
-        Me.ShowStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_chart
-        Me.ShowStatsToolStripMenuItem.Name = "ShowStatsToolStripMenuItem"
-        Me.ShowStatsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.ShowStatsToolStripMenuItem.Text = "Show Stats"
-        '
-        'OnToolStripMenuItem
-        '
-        Me.OnToolStripMenuItem.Name = "OnToolStripMenuItem"
-        Me.OnToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.OnToolStripMenuItem.Text = "On"
-        '
-        'OffToolStripMenuItem
-        '
-        Me.OffToolStripMenuItem.Name = "OffToolStripMenuItem"
-        Me.OffToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.OffToolStripMenuItem.Text = "Off"
         '
         'FormSetup
         '
@@ -1381,4 +1406,7 @@ Partial Class FormSetup
     Friend WithEvents ShowStatsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OffToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CheckInventoryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EveryoneToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChooseAUserToolStripMenuItem As ToolStripMenuItem
 End Class
