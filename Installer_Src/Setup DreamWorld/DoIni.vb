@@ -475,6 +475,8 @@ Module DoIni
     "$DB_USER = " & """" & Settings.RobustUserName & """" & ";" & vbCrLf &
     "$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
     "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
+    "$ROBUST_NAME = " & """" & Settings.RobustDatabaseName & """" & ";" & vbCrLf &
+    "$OPENSIM_NAME = " & """" & Settings.RegionDBName & """" & ";" & vbCrLf &
     "?>"
 
                 Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\databaseinfo.php"), False)

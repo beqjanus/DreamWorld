@@ -5,4 +5,6 @@ $DB_PORT = "3306"; // Robust port
 $DB_USER = "robustuser";
 $DB_PASSWORD = "robustpassword";
 $DB_NAME = "ossearch";
+$ROBUST_NAME = "Robust";
+$OPENSIM_NAME = "opensim";
 ?>
