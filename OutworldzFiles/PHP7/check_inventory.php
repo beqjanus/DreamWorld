@@ -5,7 +5,7 @@ $database_info = array();
 include "databaseinfo.php";
 
 $database_info['hostname'] = $DB_HOST;
-$database_info['database'] = "Robust";
+$database_info['database'] = $ROBUST_NAME;
 $database_info['username'] = $DB_USER;
 $database_info['password'] = $DB_PASSWORD;
 ////////////////////////////////////////////////
