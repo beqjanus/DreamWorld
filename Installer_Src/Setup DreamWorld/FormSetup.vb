@@ -2452,7 +2452,6 @@ Public Class FormSetup
 
     Private Sub EveryoneToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EveryoneToolStripMenuItem.Click
 
-
         RunCheck("everyone")
 
     End Sub
@@ -3016,6 +3015,12 @@ Public Class FormSetup
         HelpAbout.Select()
         HelpAbout.BringToFront()
 
+    End Sub
+
+    Private Sub ShowAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowAllToolStripMenuItem.Click
+        For Each RegionUuid In RegionUuids()
+            ShowDOSWindow(RegionUuid, SHOWWINDOWENUM.SWRESTORE)
+        Next
     End Sub
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
