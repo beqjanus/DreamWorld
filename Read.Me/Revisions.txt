@@ -1,9 +1,35 @@
 REVISIONS FOR DREAMGRID
 
 V5.26
-When loading an OAR the Allow Rez Objects and Edit Land flags will be cleared to prevent griefer attacks.
-Jopensim search set to Hyperica. Local Search in jOpensim and Profiles will no longer work until jOpensim changes to V4 due to core Opensim changes.
-Add MySQL/check User's inventory for issues to menu
+When loading an OAR the Allow Rez Objects and Edit Land flags will always be cleared to prevent griefer attacks.
+
+Backups use a different folder layout and method of time.  The problem has been if you set it to store 5 days of data, 
+   and six days later you turn it on, it deletes all five backups as they have aged out.  
+   It is now coded to keep 5 days of the latest backups, regardless of the date created.
+   |
+   There is a new folder structure in Autobackup. Autobackup/Backup-YEAR-MM-DD folders hold all backups for that day.
+   Inside the Daily folder is a /OAR and /IAR folder that hold that days run of data:
+   OutworldzFiles\AutoBackup\ 
+                            \IAR\Test_User_2022-10-15_13_22_10.iar
+							\IAR\Wifi_Admin_2022-10-15_13_22_11.iar
+								\....
+							\OAR\
+							    \Test_2022-10-15_13_23_46.oar
+								...
+							Backup_2022-10-15_13_22_01.zip
+							Backup_opensim_2022-10-15_13_22_02.zip
+							Backup_Robust_2022-10-15_13_22_05.zip
+							Backup_WordPress_2022-10-15_13_22_08
+							...
+
+jOpensim search set to GLobal Search, and jProfiles is offline,as its broken due to core changes 
+    they refuse to add back. They will no longer work until jOpensim changes to V4 due to core 
+	Opensim changes. This will occur sometime after 0.9.2.2 release according to the Author.
+
+Add to MySQL->Check User's inventory for issues to Mysql menu.
+Add to Setup->Console a Show all regions. 
+Stop Asset 57 complaint caused by future Material upgrade from Linden Lab.
+Opensim core #0069c9fef334b	fix bullet config for mac osx to bring us up to date with core
 
 V5.25
 Mysql Query Stats in the Mysql pull down. This prints the number of queries per second in the stats bar. Useful for detecting excessive Satyr Farm use and runaway scripts or motion.
