@@ -397,7 +397,7 @@ Module FileStuff
         Dim count = 1
         Dim folders = Directory.GetDirectories(BackupPath(), "Autobackup-*").OrderByDescending(Function(d) New FileInfo(d).CreationTime)
         For Each folder In folders
-            If count >= Settings.KeepForDays And Settings.KeepForDays > 0 Then
+            If count > Settings.KeepForDays And Settings.KeepForDays > 0 Then
                 DeleteFolder(folder)
             End If
             count += 1
@@ -414,8 +414,6 @@ Module FileStuff
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log"))
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
-
-        ExpireLogByCount()
 
         For Each UUID In RegionUuids()
             Dim GroupName = Group_Name(UUID)

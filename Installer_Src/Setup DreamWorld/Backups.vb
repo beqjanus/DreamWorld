@@ -337,7 +337,10 @@ Public Class Backups
             If Settings.AutoBackup Then
                 RunFullBackupThread()
             End If
+
         End If
+
+
 
     End Sub
 
@@ -423,11 +426,14 @@ Public Class Backups
         StartMySQL()
         StartRobust()
 
+        ExpireLogsByAge()       ' clean up old logs
+
         RunMainZip() 'Settings, region.ini, Diva
         RunAllSQLBackups()  ' Mysql SDL backup
         RunBackupIARThread() ' IARS
         BackupAllRegions()   ' OARS
         BackupFsassets()    ' fsassets folder
+
 
     End Sub
 

@@ -173,7 +173,8 @@ Module Backup
     Public Sub Backupper(RegionUUID As String, file As String)
         PokeRegionTimer(RegionUUID)
         Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
-        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""{vbCrLf}")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}"" ")
+        RPC_Region_Command(RegionUUID, $"save oar ""{file}"" ")
         Result.Scan()
     End Sub
 

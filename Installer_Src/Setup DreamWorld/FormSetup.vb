@@ -603,6 +603,7 @@ Public Class FormSetup
         LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_On_LoopBack_word
         LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_Loopback_Text
         MinimizeAllToolStripMenuItem.Text = Global.Outworldz.My.Resources.Minimize_all
+        ShowAllToolStripMenuItem.Text = Global.Outworldz.My.Resources.Show_all
         MnuContent.Text = Global.Outworldz.My.Resources.Content_word
         MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Free_Islands_and_Parts_word
@@ -2037,6 +2038,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("60 second + worker")
+
             DeleteOldWave()         ' clean up TTS cache
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
@@ -2048,7 +2050,7 @@ Public Class FormSetup
         ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             Bench.Start("300 second worker")
-            BackupThread.RunTimedBackups() ' run background right now
+            BackupThread.RunTimedBackups() ' run background thread once and also expire old backups
             RunParser()     ' PHP parse for Publicity
             GetEvents()     ' fetch events from Outworldz
             ScanOpenSimWorld(True)
@@ -2076,7 +2078,7 @@ Public Class FormSetup
         End If
 
         ' print hourly marks on console
-        If SecondsTicker Mod 3600 = 0 Then
+        If SecondsTicker Mod 3600 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("Hour worker")
             TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()           ' Adjust to any IP changes
