@@ -30,7 +30,7 @@ Add to MySQL->Check User's inventory for issues to Mysql menu.
 Add to Setup->Console a Show all regions. 
 Stop Asset 57 complaint caused by future Material upgrade from Linden Lab.
 Opensim core #0069c9fef334b	fix bullet config for mac osx to bring us up to date with core
-Added a Check Inventory script to the Mysql Pulldown 
+
 
 V5.25
 Mysql Query Stats in the Mysql pull down. This prints the number of queries per second in the stats bar. Useful for detecting excessive Satyr Farm use and runaway scripts or motion.
