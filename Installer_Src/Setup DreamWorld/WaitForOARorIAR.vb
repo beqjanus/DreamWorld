@@ -70,7 +70,7 @@ Public Class WaitForFile
                 While reader.BaseStream.Length <> lastMaxOffset And CTR < timeout * 10
                     line = reader.ReadLine()
                     If line IsNot Nothing Then
-                        Debug.Print(line)
+                        'Debug.Print(line)
                         If ScanForPattern(line, text) Then
                             If o.Type = "Load OAR" Then
                                 DoLandOneRegion(RegionUUID) ' set region to no rez, no scripts

@@ -54,11 +54,15 @@ Module Backup
         'used to zip it, zip it good
         Dim _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Region_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
         FileIO.FileSystem.CreateDirectory(_folder)
+        Dim whenrun As String = Date.Now().ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
-        Dim Foldername = "Region_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+        Dim FileName = "Region_" & whenrun ' Set default folder
+        Dim Bak = IO.Path.Combine(_folder, FileName & ".zip")
+        Dim f = IO.Path.Combine(BackupPath(), Date.Now().ToString("yyyy-MM-dd", Globalization.CultureInfo.InvariantCulture))
+        FileIO.FileSystem.CreateDirectory(f)
+        Dim NewFile = IO.Path.Combine(f, "Backup_" & Name & "_" & whenrun)
 
-        Using Z = New ZipFile(Bak) With {
+        Using Z = New ZipFile(NewFile) With {
                 .UseZip64WhenSaving = Zip64Option.AsNecessary,
                 .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
             }
@@ -90,7 +94,6 @@ Module Backup
                 If zipused = True Then
                     Z.Save()
                     Sleep(500)
-                    MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                 End If
 
                 DeleteFolder(_folder)
@@ -117,8 +120,11 @@ Module Backup
 
         If Not IO.Directory.Exists(BackupPath) Then
             BackupPath = IO.Path.Combine(Settings.CurrentSlashDir, "OutworldzFiles/Autobackup")
-            FileIO.FileSystem.CreateDirectory(BackupPath)
-            Settings.BackupFolder = BackupPath
+            Try
+                FileIO.FileSystem.CreateDirectory(BackupPath)
+                Settings.BackupFolder = BackupPath
+            Catch
+            End Try
         End If
 
         Return BackupPath
@@ -142,8 +148,14 @@ Module Backup
 
             RunningBackupName.TryAdd($"{Region_Name(RegionUUID)} {My.Resources.backup_running}", "")
 
-            Dim file = BackupPath() & "/" & Region_Name(RegionUUID) & "_" &
-         DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
+            Dim f = IO.Path.Combine(BackupPath(), "AutoBackup-" & Date.Now().ToString("yyyy-MM-dd", Globalization.CultureInfo.InvariantCulture))
+            FileIO.FileSystem.CreateDirectory(f)
+
+            If Not System.IO.Directory.Exists(f & "/OAR") Then
+                MakeFolder(f & "/OAR")
+            End If
+
+            Dim file = f & "/OAR/" & Region_Name(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             Dim Obj = New TaskObject With {
                 .TaskName = TaskName.LaunchBackupper,
@@ -161,7 +173,7 @@ Module Backup
     Public Sub Backupper(RegionUUID As String, file As String)
         PokeRegionTimer(RegionUUID)
         Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""{vbCrLf}")
+        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{file}""{vbCrLf}")
         Result.Scan()
     End Sub
 

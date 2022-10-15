@@ -2078,7 +2078,7 @@ Public Class MySettings
 
     Public Property ShowFSAssetBackup() As Boolean
         Get
-            Return CType(GetMySetting("ShowFsAssetBackup", "True"), Boolean)
+            Return CType(GetMySetting("ShowFsAssetBackup", "False"), Boolean)
         End Get
         Set
             SetMySetting("ShowFsAssetBackup", CStr(Value))

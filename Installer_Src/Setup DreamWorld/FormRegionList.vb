@@ -578,7 +578,7 @@ Public Class FormRegionlist
         If TheView1 <> ViewType.Details Then Return
 
         Dim BaseFolder As String
-        Dim f = Settings.BackupFolder.Replace("/", "\")
+        Dim f = BackupPath().Replace("/", "\")
         'Create an instance of the open file dialog box.
         Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,

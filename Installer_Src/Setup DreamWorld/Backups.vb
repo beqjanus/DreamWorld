@@ -75,18 +75,17 @@ Public Class Backups
         RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Starting_word}", "")
 
         Try
-            Dim currentdatetime As Date = Date.Now()
-            Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
+            Dim whenrun As String = Date.Now().ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
             'used to zip it, zip it good
             _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
             FileIO.FileSystem.CreateDirectory(_folder)
 
-            Dim _filename = "Backup_" & Name & "_" & whenrun & ".sql"
-            Dim SQLFile = IO.Path.Combine(_folder, _filename)
+            Dim FileName = "Backup_" & Name & "_" & whenrun & ".sql"
+            Dim Bak = IO.Path.Combine(_folder, FileName)
 
             ' we must write this to the file so it knows what database to use.
-            Using outputFile As New StreamWriter(SQLFile, False)
+            Using outputFile As New StreamWriter(Bak, False)
                 outputFile.Write("use " & Name & ";" + vbCrLf)
             End Using
 
@@ -124,7 +123,7 @@ Public Class Backups
                     & " -u" & user _
                     & " -p" & password _
                     & " --verbose --log-error=Mysqldump.log " _
-                    & " --result-file=" & """" & SQLFile & """" _
+                    & " --result-file=" & """" & Bak & """" _
                     & " " & dbname
                 Debug.Print(options)
                 '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
@@ -151,26 +150,26 @@ Public Class Backups
                 End Try
                 ProcessSqlDump.WaitForExit()
             End Using
-            RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Ok}", "")
 
-            Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
-            DeleteFile(Bak)
             RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Saving_Zip}", "")
 
-            Using Zip = New ZipFile(Bak)
+            Dim f = IO.Path.Combine(BackupPath(), "AutoBackup-" & Date.Now().ToString("yyyy-MM-dd", Globalization.CultureInfo.InvariantCulture))
+            FileIO.FileSystem.CreateDirectory(f)
+            Dim NewFile = IO.Path.Combine(f, "Backup_" & Name & "_" & whenrun & ".zip")
+
+            Using Zip = New ZipFile(NewFile)
                 Zip.UseZip64WhenSaving = Zip64Option.AsNecessary
                 Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-                Zip.AddFile(SQLFile, "/")
+                Zip.AddFile(Bak, "/")
                 Zip.Save()
             End Using
             ' stupid windows does not flush buffers!
-            While Not File.Exists(Bak)
+            While Not File.Exists(NewFile)
                 Thread.Sleep(100)
             End While
-            MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
 
             Thread.Sleep(1000)
-            DeleteFile(SQLFile)
+            DeleteFile(Bak)
             Thread.Sleep(1000)
             DeleteFolder(_folder)
         Catch ex As Exception
@@ -215,13 +214,19 @@ Public Class Backups
         If Settings.BackupSettings Or Settings.BackupWifi Or Settings.BackupRegion Then
             Dim zipused As Boolean
             'used to zip it, zip it good
-            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+            Dim whenrun As String = Date.Now().ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
+
+            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & whenrun)
             FileIO.FileSystem.CreateDirectory(_folder)
 
-            Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-            Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+            Dim FileName = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+            Dim Bak = IO.Path.Combine(_folder, FileName & ".zip")
 
-            Using Z = New ZipFile(Bak) With {
+            Dim f = IO.Path.Combine(BackupPath(), "AutoBackup-" & Date.Now().ToString("yyyy-MM-dd", Globalization.CultureInfo.InvariantCulture))
+            FileIO.FileSystem.CreateDirectory(f)
+            Dim NewFile = IO.Path.Combine(f, "Backup_" & whenrun & ".zip")
+
+            Using Z = New ZipFile(NewFile) With {
                 .UseZip64WhenSaving = Zip64Option.AsNecessary,
                 .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
             }
@@ -298,8 +303,6 @@ Public Class Backups
                         RunningBackupName.TryAdd($"{My.Resources.Saving_Zip} {My.Resources.Starting_word}", "")
 
                         Z.Save()
-                        Thread.Sleep(5000)
-                        MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                         Thread.Sleep(1000)
                     End If
 

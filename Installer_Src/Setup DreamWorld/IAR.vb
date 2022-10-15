@@ -274,12 +274,16 @@ Module IAR
 
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
-            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
-                MakeFolder(BackupPath() & "/IAR")
+
+            Dim f = IO.Path.Combine(BackupPath(), "AutoBackup-" & Date.Now().ToString("yyyy-MM-dd", Globalization.CultureInfo.InvariantCulture))
+            FileIO.FileSystem.CreateDirectory(f)
+
+            If Not System.IO.Directory.Exists(f & "/IAR") Then
+                MakeFolder(f & "/IAR")
             End If
 
-            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
-            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
+            ToBackup = IO.Path.Combine(f & "/IAR", BackupName)
+            RPC_Region_Command(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(RegionUUID, ToBackup)
             RunningBackupName.TryAdd($"{My.Resources.Backup_IAR} {k} {My.Resources.Ok}", "")
 

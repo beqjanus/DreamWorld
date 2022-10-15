@@ -190,7 +190,7 @@ Public Class FormAutoBackups
 
     Private Sub BackupFolderDialog()
 
-        Dim f = Settings.BackupFolder.Replace("/", "\")
+        Dim f = BackupPath().Replace("/", "\")
         'Create an instance of the open file dialog box.
         Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
@@ -244,7 +244,7 @@ Public Class FormAutoBackups
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
 
-        Dim f = Settings.BackupFolder.Replace("/", "\")
+        Dim f = BackupPath().Replace("/", "\")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
     End Sub
