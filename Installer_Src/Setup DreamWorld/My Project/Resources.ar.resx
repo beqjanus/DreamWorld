@@ -3810,4 +3810,7 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>يجب أن يستخدم Apache المنفذ 80. لا يمكن المتابعة.</value>
   </data>
+  <data name="Show_all" xml:space="preserve">
+    <value>عرض جميع المناطق</value>
+  </data>
 </root>

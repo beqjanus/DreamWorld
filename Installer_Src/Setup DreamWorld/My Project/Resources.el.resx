@@ -3810,4 +3810,7 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Ο Apache πρέπει να χρησιμοποιεί τη θύρα 80. Δεν είναι δυνατή η συνέχιση.</value>
   </data>
+  <data name="Show_all" xml:space="preserve">
+    <value>Εμφάνιση όλων των περιοχών</value>
+  </data>
 </root>

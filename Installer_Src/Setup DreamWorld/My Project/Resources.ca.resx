@@ -3810,4 +3810,7 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache ha d'utilitzar el port 80. No es pot continuar.</value>
   </data>
+  <data name="Show_all" xml:space="preserve">
+    <value>Mostra totes les regions</value>
+  </data>
 </root>

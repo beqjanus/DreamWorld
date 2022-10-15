@@ -10496,6 +10496,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Show All Regions.
+        '''</summary>
+        Friend ReadOnly Property Show_all() As String
+            Get
+                Return ResourceManager.GetString("Show_all", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Show Grid Address.
         '''</summary>
         Friend ReadOnly Property Show_Grid_Address() As String
