@@ -36,21 +36,6 @@ Module Global_Properties
 
     Private TextLock As New Object
 
-    Public Sub PokeGroupTimer(GroupName As String)
-
-        For Each RegionUUID In RegionUuidListByName(GroupName)
-            If Timer(RegionUUID) < Date.Now() Then
-                Timer(RegionUUID) = Date.Now()
-            End If
-        Next
-
-    End Sub
-
-    Public Sub PokeRegionTimer(RegionUUID As String)
-
-        PokeGroupTimer(Group_Name(RegionUUID))
-
-    End Sub
 
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
@@ -82,14 +67,13 @@ Module Global_Properties
 
             Dim ln As Integer = FormSetup.TextBox1.Text.Length
             FormSetup.TextBox1.SelectionStart = ln
-            FormSetup.TextBox1.ScrollToCaret()
+            'FormSetup.TextBox1.ScrollToCaret()
             Dim Le As Integer = 29000
             Dim L = FormSetup.TextBox1.Text.Length - Le
             If L > 0 Then
                 FormSetup.TextBox1.Text = FormSetup.TextBox1.Text.Substring(FormSetup.TextBox1.Text.Length - Le, Le)
             End If
-            ln = FormSetup.TextBox1.Text.Length
-            FormSetup.TextBox1.SelectionStart = ln
+            FormSetup.TextBox1.SelectionStart = FormSetup.TextBox1.Text.Length
             FormSetup.TextBox1.ScrollToCaret()
 
         End SyncLock
@@ -98,79 +82,6 @@ Module Global_Properties
 
 #End Region
 
-#Region "Functions"
-
-    Public Function GetStateString(state As Integer) As String
-
-        Dim statestring As String
-        Select Case state
-            Case -1
-                statestring = "ERROR"
-            Case 0
-                statestring = "Stopped"
-            Case 1
-                statestring = "Booting"
-            Case 2
-                statestring = "Booted"
-            Case 3
-                statestring = "RecyclingUp"
-            Case 4
-                statestring = "RecyclingDown"
-            Case 5
-                statestring = "RestartPending"
-            Case 6
-                statestring = "RetartingNow"
-            Case 7
-                statestring = "Resume"
-            Case 8
-                statestring = "Suspended"
-            Case 9
-                statestring = "RestartStage2"
-            Case 10
-                statestring = "ShuttingDownForGood"
-            Case 11
-                statestring = "NoLogin"
-            Case 12
-                statestring = "No Error"
-            Case Else
-                statestring = "**** Unknown state ****"
-                BreakPoint.Print($"**** Unknown state **** {CStr(state)}")
-        End Select
-
-        Return statestring
-
-    End Function
-
-    Public Function RobustName() As String
-
-        Return "Robust " & Settings.PublicIP
-
-    End Function
-
-    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
-
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-        Dim size = SizeX(RegionUUID)
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        Dim span As Integer = CInt(Math.Ceiling(size / 256))
-        ' Show Dialog as a modal dialog
-        VarForm.Init(span, RegionUUID, Map)
-
-        If modal Then
-            VarForm.ShowDialog()
-            VarForm.Dispose()
-        Else
-            VarForm.Show()
-        End If
-
-        Return PropSelectedBox
-
-    End Function
-
-#End Region
 
 #Region "Classes and Enums"
 
