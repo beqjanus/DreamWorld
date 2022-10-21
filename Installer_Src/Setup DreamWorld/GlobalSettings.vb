@@ -11,7 +11,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://www.outworldz.com"
     Public Const _httpsDomain As String = "https://www.outworldz.com"
-    Public Const _MyVersion As String = "5.26"
+    Public Const _MyVersion As String = "5.27"
     Public Const _SimVersion As String = "Opensim core #0069c9fef334b fix bullet config for mac osx"
     Public Const FreeDiskSpaceWarn As Long = 100000000  ' 100 MB to freeze
     Public Const JOpensim As String = "JOpensim"

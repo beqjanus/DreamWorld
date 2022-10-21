@@ -278,6 +278,20 @@ Public Class MySettings
     End Property
 
     ''' <summary>
+    ''' Sort Ascent or Descend in OARS
+    ''' </summary>
+    ''' <returns>Boolean</returns>
+    Public Property AscendOrDescend() As Boolean
+        Get
+            Return CType(GetMySetting("AscendOrDescend", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("AscendOrDescend", CStr(Value))
+        End Set
+
+    End Property
+
+    ''' <summary>
     ''' Run Autobackup?
     ''' </summary>
     ''' <returns>Boolean</returns>
@@ -1589,6 +1603,20 @@ Public Class MySettings
         Set
             SetMySetting("MyY", CStr(Value))
         End Set
+    End Property
+
+    ''' <summary>
+    ''' Sort Name or Date in OARS
+    ''' </summary>
+    ''' <returns>Boolean</returns>
+    Public Property NameOrDate() As Boolean
+        Get
+            Return CType(GetMySetting("NameOrDate", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("NameOrDate", CStr(Value))
+        End Set
+
     End Property
 
     Public Property NinjaRagdoll() As Boolean

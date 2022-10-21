@@ -274,9 +274,6 @@ Public Class FormOAR
 
         InitiateThread()
 
-        NameRadioButton.Checked = True
-        AscendRadioButton.Checked = True
-
     End Sub
 
     Public Sub ShowForm()
@@ -351,9 +348,16 @@ Public Class FormOAR
         NameRadioButton.Text = My.Resources.SortbyName
         DateRadioButton.Text = My.Resources.SortbyDate
         AscendRadioButton.Text = My.Resources.Ascending
-        DecendRadioButton.Text = My.Resources.Descending
+        DescendRadioButton.Text = My.Resources.Descending
 
         SetScreen()
+
+        NameRadioButton.Checked = Settings.NameOrDate
+        DateRadioButton.Checked = Not Settings.NameOrDate
+        AscendRadioButton.Checked = Settings.AscendOrDescend
+        DescendRadioButton.Checked = Not Settings.AscendOrDescend
+        Application.DoEvents()
+        Search()
 
     End Sub
 
@@ -532,18 +536,23 @@ Public Class FormOAR
     End Sub
 
     Private Sub RadioDateRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DateRadioButton.CheckedChanged
+        Settings.NameOrDate = DateRadioButton.Checked
         If DateRadioButton.Checked Then Search()
     End Sub
 
-    Private Sub RadioDecendRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DecendRadioButton.CheckedChanged
-        If DecendRadioButton.Checked Then Search()
+    Private Sub RadioDecendRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles DescendRadioButton.CheckedChanged
+        Settings.AscendOrDescend = DescendRadioButton.Checked
+        If DescendRadioButton.Checked Then Search()
     End Sub
 
     Private Sub RadioNameRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles NameRadioButton.CheckedChanged
+
+        Settings.NameOrDate = NameRadioButton.Checked
         If NameRadioButton.Checked Then Search()
     End Sub
 
     Private Sub RadioOldestRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AscendRadioButton.CheckedChanged
+        Settings.AscendOrDescend = AscendRadioButton.Checked
         If AscendRadioButton.Checked Then Search()
     End Sub
 
@@ -626,7 +635,10 @@ Public Class FormOAR
                 Dim NewArray = From thing In SearchArray
                                Order By thing.Name Ascending
                 SearchArray = NewArray.ToArray()
-
+            Else
+                Dim NewArray = From thing In SearchArray
+                               Order By thing.Date Ascending
+                SearchArray = NewArray.ToArray()
             End If
 
             Redraw(SearchArray)

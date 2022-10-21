@@ -36,7 +36,7 @@ Partial Class FormOAR
         Me.DateRadioButton = New System.Windows.Forms.RadioButton()
         Me.AscendRadioButton = New System.Windows.Forms.RadioButton()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.DecendRadioButton = New System.Windows.Forms.RadioButton()
+        Me.DescendRadioButton = New System.Windows.Forms.RadioButton()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.ExclusiveCheckbox = New System.Windows.Forms.CheckBox()
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -163,16 +163,16 @@ Partial Class FormOAR
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(243, 29)
         Me.TableLayoutPanel1.TabIndex = 1896
         '
-        'DecendRadioButton
+        'DescendRadioButton
         '
-        Me.DecendRadioButton.AutoSize = True
-        Me.DecendRadioButton.Location = New System.Drawing.Point(124, 3)
-        Me.DecendRadioButton.Name = "DecendRadioButton"
-        Me.DecendRadioButton.Size = New System.Drawing.Size(82, 17)
-        Me.DecendRadioButton.TabIndex = 1897
-        Me.DecendRadioButton.TabStop = True
-        Me.DecendRadioButton.Text = "Descending"
-        Me.DecendRadioButton.UseVisualStyleBackColor = True
+        Me.DescendRadioButton.AutoSize = True
+        Me.DescendRadioButton.Location = New System.Drawing.Point(124, 3)
+        Me.DescendRadioButton.Name = "DescendRadioButton"
+        Me.DescendRadioButton.Size = New System.Drawing.Size(82, 17)
+        Me.DescendRadioButton.TabIndex = 1897
+        Me.DescendRadioButton.TabStop = True
+        Me.DescendRadioButton.Text = "Descending"
+        Me.DescendRadioButton.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel2
         '
@@ -180,7 +180,7 @@ Partial Class FormOAR
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.DecendRadioButton, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.DescendRadioButton, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.AscendRadioButton, 0, 0)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(425, 37)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -239,7 +239,7 @@ Partial Class FormOAR
     Friend WithEvents DateRadioButton As RadioButton
     Friend WithEvents AscendRadioButton As RadioButton
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents DecendRadioButton As RadioButton
+    Friend WithEvents DescendRadioButton As RadioButton
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents ExclusiveCheckbox As CheckBox
 End Class
