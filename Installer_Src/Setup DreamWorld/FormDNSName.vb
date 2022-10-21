@@ -51,6 +51,7 @@ Public Class FormDnsName
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        PictureBox.Visible = False
         EnableHypergrid.Text = Global.Outworldz.My.Resources.Enable_Hypergrid_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
@@ -108,6 +109,7 @@ Public Class FormDnsName
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
 
+
         NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
         Application.DoEvents()
@@ -121,9 +123,11 @@ Public Class FormDnsName
             DNSNameBox.Text = newname
         End If
 
+
     End Sub
 
     Private Sub SaveAll()
+
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Saving_word
 
@@ -138,6 +142,7 @@ Public Class FormDnsName
 
         SaveAll()
         Close()
+
     End Sub
 
     Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
@@ -153,6 +158,8 @@ Public Class FormDnsName
 
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
+        PictureBox.Visible = True
+        Application.DoEvents()
         NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
 
         Dim address As System.Net.IPAddress = Nothing
@@ -166,6 +173,7 @@ Public Class FormDnsName
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     Dim IP = GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
+                        PictureBox.Visible = False
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
                         MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
@@ -173,6 +181,7 @@ Public Class FormDnsName
                 Else
                     Dim IP = GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
+                        PictureBox.Visible = False
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
                         MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
@@ -189,7 +198,7 @@ Public Class FormDnsName
                     For Each part As String In array
 
                         RegisterName(part)
-
+                        PictureBox.Visible = False
                         If IPAddress.TryParse(part, address) Then
                             MsgBox(Global.Outworldz.My.Resources.resolved & " " & part, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                         Else
@@ -209,6 +218,8 @@ Public Class FormDnsName
         End If
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Next1
+
+        PictureBox.Visible = False
 
     End Sub
 

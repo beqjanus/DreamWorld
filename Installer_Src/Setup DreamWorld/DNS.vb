@@ -75,7 +75,7 @@ Module DNS
                     MsgBox(DNSName & ":" & My.Resources.DDNS_In_Use, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                     Exit For
                 End If
-
+                Application.doevents()
             Next
         End Using
 
@@ -85,6 +85,7 @@ Module DNS
 
     Public Sub SetPublicIP()
 
+        Application.DoEvents()
         Settings.WANIP = WANIP()
         Settings.LANIP = PropMyUPnpMap.LocalIP
         Settings.MacAddress = GetMacByIP(Settings.LANIP)
