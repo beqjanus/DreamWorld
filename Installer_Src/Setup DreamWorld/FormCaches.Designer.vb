@@ -30,6 +30,7 @@ Partial Class FormCaches
         Me.ImageCheckBox4 = New System.Windows.Forms.CheckBox()
         Me.MeshCheckBox5 = New System.Windows.Forms.CheckBox()
         Me.GridUsers = New System.Windows.Forms.GroupBox()
+        Me.PictureBox = New System.Windows.Forms.PictureBox()
         Me.GridCacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -44,6 +45,7 @@ Partial Class FormCaches
         Me.LogLevelBox = New System.Windows.Forms.ComboBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GridUsers.SuspendLayout()
+        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -101,6 +103,7 @@ Partial Class FormCaches
         '
         'GridUsers
         '
+        Me.GridUsers.Controls.Add(Me.PictureBox)
         Me.GridUsers.Controls.Add(Me.GridCacheCheckbox)
         Me.GridUsers.Controls.Add(Me.Button1)
         Me.GridUsers.Controls.Add(Me.AvatarCheckBox2)
@@ -114,6 +117,18 @@ Partial Class FormCaches
         Me.GridUsers.TabIndex = 1
         Me.GridUsers.TabStop = False
         Me.GridUsers.Text = "Choose which cache to empty"
+        '
+        'PictureBox
+        '
+        Me.PictureBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox.Image = Global.Outworldz.My.Resources.Resources.loader
+        Me.PictureBox.Location = New System.Drawing.Point(161, 164)
+        Me.PictureBox.Name = "PictureBox"
+        Me.PictureBox.Size = New System.Drawing.Size(38, 34)
+        Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox.TabIndex = 18620
+        Me.PictureBox.TabStop = False
         '
         'GridCacheCheckbox
         '
@@ -242,6 +257,7 @@ Partial Class FormCaches
         Me.Text = "Cache Control"
         Me.GridUsers.ResumeLayout(False)
         Me.GridUsers.PerformLayout()
+        CType(Me.PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -271,4 +287,5 @@ Partial Class FormCaches
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents GridCacheCheckbox As CheckBox
+    Friend WithEvents PictureBox As PictureBox
 End Class

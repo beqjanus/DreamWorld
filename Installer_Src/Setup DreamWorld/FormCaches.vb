@@ -50,6 +50,8 @@ Public Class FormCaches
 
     Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        PictureBox.Visible = True
+
         If GridCacheCheckbox.Checked Then
             DeleteOnlineUsers()
         End If
@@ -80,6 +82,7 @@ Public Class FormCaches
             TextPrint(My.Resources.Cache_Most_Cleared)
         End If
 
+        PictureBox.Visible = False
         Me.Close()
 
     End Sub
@@ -128,6 +131,7 @@ Public Class FormCaches
         Text = Global.Outworldz.My.Resources.Cache_Control_word
 
         ToolTip1.SetToolTip(CacheTimeout, Global.Outworldz.My.Resources.Timeout_in_hours_word)
+        PictureBox.Visible = False
 
         SetScreen()
 
