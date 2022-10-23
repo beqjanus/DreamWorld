@@ -5,18 +5,12 @@ Imports System.Threading
 Public Class LogReader
 
     Private Errors As New List(Of String) From {
-                "invalid degenerated mesh",
-                "Couldn't start script",
-                "references To missing Or damaged assets",
-                "Database contains an orphan child prim",
-                "references that may Not be assets Or are missing",
-                "invalid degenerated mesh"
+                "Couldn't start script"
             }
 
-    Public Sub New(RegionUUID As String, Optional SeektoEnd As Boolean = False)
+    Public Sub New(RegionUUID As String)
 
         Dim o As New Seeker With {
-            .seek = SeektoEnd,
             .RegionUUID = RegionUUID
         }
 
@@ -33,22 +27,19 @@ Public Class LogReader
     Public Sub Dowork(o As Seeker)
 
         Dim RegionUUID As String = o.RegionUUID
-        Dim SeektoEnd As Boolean = o.seek
-
         Dim lastMaxOffset As Long = 0
-        While True
 
-            Try
-                Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
-                If File.Exists(filename) Then
-                    Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        'start at the end of the file
-                        If SeektoEnd Then
-                            reader.BaseStream.Seek(0, SeekOrigin.End)
-                            lastMaxOffset = reader.BaseStream.Length
-                            SeektoEnd = False
-                        End If
+        Try
+            Dim filename = IO.Path.Combine(Settings.OpensimBinPath, $"Regions/{Group_Name(RegionUUID)}/Opensim.log")
+            If File.Exists(filename) Then
 
+                Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+
+                    'start at the end of the file                    
+                    reader.BaseStream.Seek(0, SeekOrigin.End)
+                    lastMaxOffset = reader.BaseStream.Length
+
+                    While True
                         Sleep(10000)
                         'if the file size has not changed, idle
                         If reader.BaseStream.Length = lastMaxOffset Then Continue While
@@ -62,13 +53,13 @@ Public Class LogReader
                             lastMaxOffset = reader.BaseStream.Position
                             Application.DoEvents()
                         End While
-                    End Using
-                End If
-            Catch ex As Exception
+                    End While
+                End Using
+            End If
+        Catch ex As Exception
                 Return
             End Try
-            Sleep(10000)
-        End While
+
 
     End Sub
 
