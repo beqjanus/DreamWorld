@@ -341,92 +341,6 @@ Module RegionMaker
 
     Private retry As Integer
 
-
-    Public Function GetStateString(state As Integer) As String
-
-        Dim statestring As String
-        Select Case state
-            Case -1
-                statestring = "ERROR"
-            Case 0
-                statestring = "Stopped"
-            Case 1
-                statestring = "Booting"
-            Case 2
-                statestring = "Booted"
-            Case 3
-                statestring = "RecyclingUp"
-            Case 4
-                statestring = "RecyclingDown"
-            Case 5
-                statestring = "RestartPending"
-            Case 6
-                statestring = "RetartingNow"
-            Case 7
-                statestring = "Resume"
-            Case 8
-                statestring = "Suspended"
-            Case 9
-                statestring = "RestartStage2"
-            Case 10
-                statestring = "ShuttingDownForGood"
-            Case 11
-                statestring = "NoLogin"
-            Case 12
-                statestring = "No Error"
-            Case Else
-                statestring = "**** Unknown state ****"
-                BreakPoint.Print($"**** Unknown state **** {CStr(state)}")
-        End Select
-
-        Return statestring
-
-    End Function
-
-    Public Function RobustName() As String
-
-        Return "Robust " & Settings.PublicIP
-
-    End Function
-
-    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
-
-        Dim RegionUUID As String = FindRegionByName(RegionName)
-        Dim size = SizeX(RegionUUID)
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        Dim span As Integer = CInt(Math.Ceiling(size / 256))
-        ' Show Dialog as a modal dialog
-        VarForm.Init(span, RegionUUID, Map)
-
-        If modal Then
-            VarForm.ShowDialog()
-            VarForm.Dispose()
-        Else
-            VarForm.Show()
-        End If
-
-        Return PropSelectedBox
-
-    End Function
-
-    Public Sub PokeRegionTimer(RegionUUID As String)
-
-        PokeGroupTimer(Group_Name(RegionUUID))
-
-    End Sub
-
-    Public Sub PokeGroupTimer(GroupName As String)
-
-        For Each RegionUUID In RegionUuidListByName(GroupName)
-            If Timer(RegionUUID) < Date.Now() Then
-                Timer(RegionUUID) = Date.Now()
-            End If
-        Next
-
-    End Sub
     Public Sub AddToRegionMap(RegionUUID As String)
 
         ' add to the global map this entire DOS box
@@ -505,6 +419,9 @@ Module RegionMaker
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
         For Each RegionUUID As String In RegionUuidListByName(groupname)
+
+            If RegionStatus(RegionUUID) <> SIMSTATUSENUM.Booted Then Return False
+
             If IsAgentInRegion(RegionUUID) Then
                 Return True
             End If
@@ -771,6 +688,47 @@ Module RegionMaker
 
     End Function
 
+    Public Function GetStateString(state As Integer) As String
+
+        Dim statestring As String
+        Select Case state
+            Case -1
+                statestring = "ERROR"
+            Case 0
+                statestring = "Stopped"
+            Case 1
+                statestring = "Booting"
+            Case 2
+                statestring = "Booted"
+            Case 3
+                statestring = "RecyclingUp"
+            Case 4
+                statestring = "RecyclingDown"
+            Case 5
+                statestring = "RestartPending"
+            Case 6
+                statestring = "RetartingNow"
+            Case 7
+                statestring = "Resume"
+            Case 8
+                statestring = "Suspended"
+            Case 9
+                statestring = "RestartStage2"
+            Case 10
+                statestring = "ShuttingDownForGood"
+            Case 11
+                statestring = "NoLogin"
+            Case 12
+                statestring = "No Error"
+            Case Else
+                statestring = "**** Unknown state ****"
+                BreakPoint.Print($"**** Unknown state **** {CStr(state)}")
+        End Select
+
+        Return statestring
+
+    End Function
+
     Public Function LargestX() As Integer
 
         ' locate largest global coordinates
@@ -805,6 +763,28 @@ Module RegionMaker
 
     End Function
 
+    Public Sub PokeGroupTimer(GroupName As String)
+
+        For Each RegionUUID In RegionUuidListByName(GroupName)
+            If Timer(RegionUUID) < Date.Now() Then
+                Timer(RegionUUID) = Date.Now()
+            End If
+        Next
+
+    End Sub
+
+    Public Sub PokeRegionTimer(RegionUUID As String)
+
+        PokeGroupTimer(Group_Name(RegionUUID))
+
+    End Sub
+
+    Public Function RobustName() As String
+
+        Return "Robust " & Settings.PublicIP
+
+    End Function
+
     Public Sub StopRegion(RegionUUID As String)
 
         Thaw(RegionUUID)
@@ -822,6 +802,29 @@ Module RegionMaker
         PropUpdateView = True ' make form refresh
 
     End Sub
+
+    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
+
+        Dim RegionUUID As String = FindRegionByName(RegionName)
+        Dim size = SizeX(RegionUUID)
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        Dim span As Integer = CInt(Math.Ceiling(size / 256))
+        ' Show Dialog as a modal dialog
+        VarForm.Init(span, RegionUUID, Map)
+
+        If modal Then
+            VarForm.ShowDialog()
+            VarForm.Dispose()
+        Else
+            VarForm.Show()
+        End If
+
+        Return PropSelectedBox
+
+    End Function
 
 #Region "Region_data"
 
@@ -1714,10 +1717,8 @@ Module RegionMaker
     Private Function TOS(post As String) As String
         ' currently unused as is only in standalone
         Debug.Print("UUID:" + post)
-        '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
+        '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:8001" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
         '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
-
-        Return "<html><head></head><body>Error</html>"
 
         Dim uid As Guid
         Dim sid As Guid
@@ -1730,6 +1731,24 @@ Module RegionMaker
             Dim match As Match = pattern.Match(post)
             If match.Success Then
                 uid = Guid.Parse(match.Groups(1).Value)
+
+                Dim webpage As String = "<html>"
+                Dim From = $"{Settings.CurrentDirectory}/tos.html"
+                Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
+                    Using S = New StreamReader(streamRead)
+                        'now loop through each line
+                        While S.Peek <> -1
+                            webpage += S.ReadLine
+                            webpage = webpage.Replace("'<!-- #get var=GridName -->'", Settings.SimName)
+                        End While
+                    End Using
+                    webpage += "<form>"
+                    webpage += "<input type='Submit' name='agree' value='Agree wth TOS'>"
+                    webpage += $"<input type='hidden' name='sid' value='{uid}'>"
+                    webpage += "</form>"
+                    webpage += "</html>"
+                End Using
+                Return webpage
             End If
 
             Dim pattern2 = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
@@ -1738,23 +1757,8 @@ Module RegionMaker
                 sid = Guid.Parse(match2.Groups(1).Value)
             End If
 
-            If match.Success AndAlso match2.Success Then
-
-                ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
-                Dim result As Integer = 1
-
-                Dim myConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-
-                Dim Query1 = "update griduser set TOS = 1 where UserID = @p1; "
-                Dim myCommand1 = New MySqlCommand(Query1) With {
-                    .Connection = myConnection
-                }
-                myConnection.Open()
-                myCommand1.Prepare()
-                myCommand1.Parameters.AddWithValue("p1", uid.ToString())
-                myCommand1.ExecuteScalar()
-                myConnection.Close()
-                myConnection.Dispose()
+            If match2.Success Then
+                Agree2Tos(sid)
                 Return "<html><head></head><body>Welcome! You can close this window.</html>"
             Else
                 Return "<html><head></head><body>Test Passed</html>"

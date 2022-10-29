@@ -4397,4 +4397,7 @@
   <data name="Show_all" xml:space="preserve">
     <value>Show All Regions</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>To accept the Terms of Service at our grid, please complete the following form in the next 5 minutes, or you will be logged out.</value>
+  </data>
 </root>

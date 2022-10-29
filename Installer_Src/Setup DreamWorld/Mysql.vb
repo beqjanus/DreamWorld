@@ -17,10 +17,6 @@ Imports MySqlConnector
 Public Module MysqlInterface
     Public WithEvents ProcessMySql As Process = New Process()
 
-    Public CachedAvatars As New Dictionary(Of String, String)
-
-    Private ReadOnly Dict As New Dictionary(Of String, String)
-
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _MysqlLPM As Integer
@@ -316,28 +312,7 @@ Public Module MysqlInterface
     ''' <param name="tablename"></param>
     ''' <param name="uuidname"></param>
 
-#Region "DeletePrims"
-
-    Public Sub DeleteContent(RegionUuid As String, tablename As String, uuidname As String)
-
-        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim stm = $"delete from {tablename} WHERE {uuidname} = @UUID"
-#Disable Warning CA2100
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", RegionUuid)
-                    cmd.ExecuteNonQuery()
-                End Using
-#Enable Warning CA2100
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-    End Sub
-
-#End Region
+#Region "Email"
 
     ''' <summary>
     ''' Gets first name, last name, email from user account
@@ -370,6 +345,33 @@ Public Module MysqlInterface
         Return Avi
 
     End Function
+
+#End Region
+
+#Region "TOS"
+
+#End Region
+
+#Region "Delete Stuff"
+
+    Public Sub DeleteContent(RegionUuid As String, tablename As String, uuidname As String)
+
+        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = $"delete from {tablename} WHERE = "
+#Disable Warning CA2100
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUuid)
+                    cmd.ExecuteNonQuery()
+                End Using
+#Enable Warning CA2100
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+    End Sub
 
     ''' <summary>
     ''' Deletes all IMS from a user
@@ -546,6 +548,46 @@ Public Module MysqlInterface
                 BreakPoint.Dump(ex)
             End Try
 
+        End Using
+
+    End Sub
+
+#End Region
+
+    Public Function Add2Tos(AvatarUUID As String, token As String, avatarname As String) As Boolean
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+
+            Dim stm = "insert into tosauth (avataruuid, avatarname, agreed, token) values (@AVATARUUID,@AVATARNAME,0,@TOKEN)"
+            Using cmd As New MySqlCommand(stm, NewSQLConn)
+                Try
+                    NewSQLConn.Open()
+                    cmd.Parameters.AddWithValue("@AVATARUUID", AvatarUUID)
+                    cmd.Parameters.AddWithValue("@AVATARNAME", avatarname)
+                    cmd.Parameters.AddWithValue("@TOKEN", token)
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
+        End Using
+
+    End Function
+
+    Public Sub Agree2Tos(uuid As Guid)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+
+            Dim stm = "update tosauth set agreed=1, confirmtime = now() where token = @TOKEN; "
+            Using cmd As New MySqlCommand(stm, NewSQLConn)
+                Try
+                    NewSQLConn.Open()
+                    cmd.Parameters.AddWithValue("@TOKEN", uuid.ToString())
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
+            End Using
         End Using
 
     End Sub
@@ -852,13 +894,17 @@ Public Module MysqlInterface
     ''' <summary>
     ''' Returns list of people and region UUID
     ''' </summary>
-    Public Function GetGridUsers() As Dictionary(Of String, String)
+    Public Function GetGridUsers() As List(Of AvatarObject)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
         Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
         Dim pattern As String = "(.*?);(.*?);(.*)$"
-        Dim HGDict As New Dictionary(Of String, String)
+
+        Dim L As New List(Of AvatarObject)
+
+        '0a44c403-93e4-4519-b620-bde38883d874;http://hg.osgrid.org:80/;andressa loren
+
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
@@ -868,20 +914,22 @@ Public Module MysqlInterface
                             ' Debug.Print(reader.GetString(0))
                             Dim LongName = reader.GetString(0)
                             Dim UUID = reader.GetString(1)
+
                             For Each m In Regex.Matches(LongName, pattern)
-                                ' Debug.Print("Avatar {0}", m.Groups(2).Value)
-                                ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Dim grid = m.Groups(2).Value.ToString
                                 grid = grid.Replace("http://", "")
                                 grid = grid.Replace("/", "")
 
+                                Dim AvatarUUID = m.Groups(0).Value.ToString
                                 Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
-
-                                If HGDict.ContainsKey(Avatar) Then
-                                    HGDict.Item(Avatar) = UUID
-                                Else
-                                    HGDict.Add(Avatar, UUID)
-                                End If
+                                Dim HGVisitors As New AvatarObject
+                                HGVisitors.RegionID = UUID
+                                HGVisitors.AvatarUUID = AvatarUUID
+                                Dim parts As String() = m.Groups(3).Value.ToString.Split(" ".ToCharArray())
+                                HGVisitors.FirstName = parts(0).Trim
+                                HGVisitors.LastName = parts(1).Trim
+                                HGVisitors.AgentName = m.Groups(3).Value.ToString
+                                L.Add(HGVisitors)
                             Next
                         End While
                     End Using
@@ -890,7 +938,7 @@ Public Module MysqlInterface
                 BreakPoint.Dump(ex)
             End Try
         End Using
-        Return HGDict
+        Return L
 
     End Function
 
@@ -929,19 +977,27 @@ Public Module MysqlInterface
     ''' Returns User name and region they are in, if any
     ''' </summary>
     ''' <returns>First name, Last Name, RegionUUID</returns>
-    Public Function GetPresence() As Dictionary(Of String, String)
+    Public Function GetPresence() As List(Of AvatarObject)
+
+        Dim L As New List(Of AvatarObject)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Dict.Clear()
+
             Try
                 NewSQLConn.Open()
 
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
+                Dim stm As String = "SELECT useraccounts.PrincipalID, useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where presence.regionid <> '00000000-0000-0000-0000-000000000000' "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             If reader.GetString(0).Length > 0 Then
-                                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+                                Dim Avatar As New AvatarObject
+                                Avatar.AvatarUUID = reader.GetString("PrincipalID")
+                                Avatar.FirstName = reader.GetString("Firstname")
+                                Avatar.LastName = reader.GetString("LastName")
+                                Avatar.RegionID = reader.GetString("RegionID")
+                                Avatar.AgentName = Avatar.FirstName & " " & Avatar.LastName
+                                L.Add(Avatar)
                             End If
                         End While
                     End Using
@@ -951,7 +1007,7 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        Return Dict
+        Return L
 
     End Function
 
@@ -1030,6 +1086,28 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function InAuth(AvatarUUID As String) As Boolean
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT COUNT(*) as C FROM tosauth where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return CBool(reader.GetInt32(0))
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+        Return False
+
+    End Function
+
     ''' <summary>
     ''' Locates if an Agent is in a region
     ''' </summary>
@@ -1039,7 +1117,12 @@ Public Module MysqlInterface
 
         If Settings.ServerType <> RobustServerName Then Return False
         If Not RegionEnabled(regionuuid) Then Return False
-        Return CachedAvatars.ContainsValue(regionuuid)
+        For Each AgentObject In CachedAvatars
+            If AgentObject.RegionID = regionuuid Then
+                Return True
+            End If
+        Next
+        Return False
 
     End Function
 
@@ -1058,6 +1141,32 @@ Public Module MysqlInterface
         End If
 
         MySQLIcon(False)
+        Return False
+
+    End Function
+
+    Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
+
+        If Not InAuth(AvatarUUID) Then
+            Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
+        End If
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT agreed FROM tosauth where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return CBool(reader.GetInt32(0))
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
         Return False
 
     End Function
@@ -1597,6 +1706,34 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Sub SetupTOSTable()
+        If Settings.ServerType <> "Robust" Then Return
+
+        Dim pi = New ProcessStartInfo()
+
+        FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin")
+        pi.FileName = "Create_TOS.bat"
+        pi.UseShellExecute = True
+        pi.CreateNoWindow = False
+        pi.WindowStyle = ProcessWindowStyle.Hidden
+        Using ProcessMysql = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                ProcessMysql.Start()
+                ProcessMysql.WaitForExit()
+            Catch ex As Exception
+                ErrorLog("Error Setting TOS failed to launch " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
+
+        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+
+    End Sub
+
     Public Sub SetupWordPress()
 
         If Not Settings.ApacheEnable Then Return
@@ -1664,11 +1801,12 @@ Public Module MysqlInterface
     '' Deprecated
     Public Function WhereisAgent(agentName As String) As String
 
-        Dim agents = GetAllAgents()
-
-        If agents.ContainsKey(agentName) Then
-            Return FindRegionByName(agents.Item(agentName))
-        End If
+        GetAllAgents()
+        For Each O In CachedAvatars
+            If O.AgentName = agentName Then
+                Return FindRegionByName(O.RegionID)
+            End If
+        Next
 
         Return ""
 

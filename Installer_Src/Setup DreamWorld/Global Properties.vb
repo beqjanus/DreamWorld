@@ -3,6 +3,14 @@ Imports System.IO
 Imports System.Threading
 Imports IniParser.Model
 
+Public Class AvatarObject
+    Public AgentName As String
+    Public AvatarUUID As String
+    Public FirstName As String
+    Public LastName As String
+    Public RegionID As String
+End Class
+
 Module Global_Properties
 
 #Region "Globals"
@@ -11,6 +19,7 @@ Module Global_Properties
     Public _Data As IniParser.Model.IniData
     Public BackupAbort As Boolean
     Public Bench As New Benchmark()
+    Public CachedAvatars As New List(Of AvatarObject)
     Public gEstateName As String = ""
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100
@@ -35,7 +44,6 @@ Module Global_Properties
 #Region "Subs"
 
     Private TextLock As New Object
-
 
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
@@ -82,11 +90,9 @@ Module Global_Properties
 
 #End Region
 
-
 #Region "Classes and Enums"
 
     Public Class PRIEnumClass
-
         Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
         Public BelowNormal As ProcessPriorityClass = ProcessPriorityClass.BelowNormal
         Public High As ProcessPriorityClass = ProcessPriorityClass.High

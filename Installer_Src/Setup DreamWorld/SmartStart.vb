@@ -43,36 +43,31 @@ Module SmartStart
 
     End Enum
 
-    Public Sub BuildLand(Avatars As Dictionary(Of String, String))
+    Public Sub BuildLand(Avatars As List(Of AvatarObject))
 
         If Not Settings.AutoFill Then Return
         If Avatars.Count = 0 Then Return
 
-        For Each Agent In Avatars
-            If Agent.Value.Length > 0 Then
+        For Each AgentObject In Avatars
 
-                Dim RegionUUID = Agent.Value
-                Dim RegionName As String
+            Dim RegionUUID = AgentObject.RegionID
+            Dim RegionName As String
 
-                RegionName = Region_Name(RegionUUID)
-                If RegionName Is Nothing Then Continue For
+            RegionName = Region_Name(RegionUUID)
+            If RegionName Is Nothing Then Continue For
 
-                If RegionName.Length > 0 Then
-                    Dim X = Coord_X(RegionUUID)
-                    Dim Y = Coord_Y(RegionUUID)
-                    If X = 0 Or Y = 0 Then Continue For
+            If RegionName.Length > 0 Then
+                Dim X = Coord_X(RegionUUID)
+                Dim Y = Coord_Y(RegionUUID)
+                If X = 0 Or Y = 0 Then Continue For
 
-                    Try
-                        SurroundingLandMaker(RegionUUID)
-                    Catch ex As Exception
-                        BreakPoint.Dump(ex)
-                    End Try
+                Try
+                    SurroundingLandMaker(RegionUUID)
+                Catch ex As Exception
+                    BreakPoint.Dump(ex)
+                End Try
 
-                End If
-            Else
-                BreakPoint.Print("Region Name cannot be located")
             End If
-
         Next
 
     End Sub
@@ -301,34 +296,22 @@ Module SmartStart
 
     End Sub
 
-    Public Function GetAllAgents() As Dictionary(Of String, String)
+    Public Sub GetAllAgents()
 
         Bench.Start("GetAllAgents")
         ' Scan all the regions
-        Dim Agents = New Dictionary(Of String, String)
+        CachedAvatars.Clear()
+        ' List of AvatarObject
+        CachedAvatars = GetPresence()
 
-        Dim Presence = GetPresence()
         Dim HGUsers = GetGridUsers()
-
-        For Each item In Presence
-            If Agents.ContainsKey(item.Key) Then
-                Agents.Item(item.Key) = item.Value
-            Else
-                Agents.Add(item.Key, item.Value)
-            End If
-        Next
-
         For Each item In HGUsers
-            If Agents.ContainsKey(item.Key) Then
-                Agents.Item(item.Key) = item.Value
-            Else
-                Agents.Add(item.Key, item.Value)
-            End If
+            CachedAvatars.Add(item)
         Next
-        Bench.Print("GetAllAgents")
-        Return Agents
 
-    End Function
+        Return
+
+    End Sub
 
     ''' <summary>
     ''' Queue a task to occur after a region is booted.
@@ -756,13 +739,13 @@ Module SmartStart
                                 'Logger("Sign Suspend,Agent ", Name & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             End If
-
                         End If
                     End If
                 Else
                     ' not enabled
                     RPC_admin_dialog(AgentID, $"Destination {Region_Name(RegionUUID)} is disabled.")
                     Debug.Print($"Destination {Region_Name(RegionUUID)} is disabled.")
+                    Return Settings.ParkingLot
                 End If
             Else ' Non Smart Start
                 If TeleportType.ToUpperInvariant = "UUID" Then

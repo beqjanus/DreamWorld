@@ -5,6 +5,7 @@
 #End Region
 
 Imports System.Globalization
+Imports System.Text.RegularExpressions
 Imports System.IO
 Imports System.Management
 Imports System.Threading
@@ -1304,6 +1305,7 @@ Public Class FormSetup
         SetupWordPress()    ' in case they want to use WordPress
         SetupSimStats()     ' Perl code
         SetupLocalSearch()  ' local search database
+        SetupTOSTable()     ' local TOS table in Robust
         StartApache()
         StartIcecast()
         UploadPhoto()
@@ -1637,11 +1639,11 @@ Public Class FormSetup
                 If counter > 0 Then
                     Dim Name = Path.GetFileName(OAR)
                     Dim OarMenu As New ToolStripMenuItem With {
-            .Text = Name,
-            .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-            .DisplayStyle = ToolStripItemDisplayStyle.Text,
-            .Image = My.Resources.box_new
-        }
+                        .Text = Name,
+                        .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = My.Resources.box_new
+                    }
                     AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
                     LoadLocalOARToolStripMenuItem.Visible = True
                     LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
@@ -1746,7 +1748,7 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
-            CachedAvatars = GetAllAgents()
+            GetAllAgents()  ' to list (of Cachedavatars)
 
             If CachedAvatars IsNot Nothing AndAlso CachedAvatars.Count > 0 Then
                 BuildLand(CachedAvatars)
@@ -1757,9 +1759,9 @@ Public Class FormSetup
                 AvatarCount(RegionUUID) = 0
             Next
 
-            For Each NameValue In CachedAvatars
-                Dim Avatar = NameValue.Key
-                Dim RegionUUID = NameValue.Value
+            For Each AgentObject In CachedAvatars
+                Dim Avatar = AgentObject.AgentName
+                Dim RegionUUID = AgentObject.RegionID
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
                     Continue For
                 End If
@@ -1770,6 +1772,23 @@ Public Class FormSetup
                 ' not seen before
                 If Not CurrentLocation.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+
+                    Dim UUID = System.Guid.NewGuid.ToString
+
+                    Dim URL = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/TOS?uid={UUID}"
+                    Dim Fname As String = ""
+                    Dim Lname As String = ""
+                    Dim pattern As New Regex("^(.*?) (.*?)$")
+                    Dim match As Match = pattern.Match(Avatar)
+                    If match.Success Then
+                        Fname = match.Groups(1).Value
+                        Lname = match.Groups(2).Value
+                    End If
+
+                    If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
+                        RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                    End If
+
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Add(Avatar, RegionName)
                     AvatarCount(RegionUUID) += 1
@@ -1800,8 +1819,14 @@ Public Class FormSetup
             For Each NameValue In CurrentLocation
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-
-                If Not CachedAvatars.ContainsKey(Avatar) Then
+                Dim exists As Boolean
+                For Each o In CachedAvatars
+                    Diagnostics.Debug.Print(o.AgentName)
+                    If o.AgentName = Avatar Then
+                        exists = True
+                    End If
+                Next
+                If Not exists Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
@@ -2010,12 +2035,13 @@ Public Class FormSetup
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
+        ScanAgents()                ' update agent count
         Chat2Speech()               ' speak of the devil
         RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
-            ScanAgents()                ' update agent count
+
             CalcDiskFree()              ' check for free disk space
 
             If Settings.ShowMysqlStats Then

@@ -265,6 +265,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to To accept the Terms of Service at our grid, please complete the following form in the next 5 minutes, or you will be logged out..
+        '''</summary>
+        Friend ReadOnly Property AgreeTOS() As String
+            Get
+                Return ResourceManager.GetString("AgreeTOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property AI() As System.Drawing.Bitmap

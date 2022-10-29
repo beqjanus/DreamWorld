@@ -72,6 +72,7 @@ Module RPC
         Next
 
     End Sub
+    ''TODO logoff_user
 
     Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
 
@@ -80,7 +81,7 @@ Module RPC
            {"password", Settings.MachineId},
            {"message", text}
         }
-        Return SendRPC(RegionUUID, "admin_broadcast", ht)
+        Return SendRPC(RegionUUID, "admin_dialog", ht)
 
     End Function
 

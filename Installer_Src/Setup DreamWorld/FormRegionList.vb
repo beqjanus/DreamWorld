@@ -1381,17 +1381,14 @@ Public Class FormRegionlist
 
             Dim Index = 0
 
-            ' Create items and sub items for each item.
-            Dim ListOfAgents As New Dictionary(Of String, String)
-
             If MysqlInterface.IsMySqlRunning() Then
-                ListOfAgents = GetAllAgents()
+                GetAllAgents()
             End If
 
-            For Each Agent In ListOfAgents
-                If Region_Name(Agent.Value).Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Region_Name(Agent.Value))
+            For Each Agent In CachedAvatars
+                If Region_Name(Agent.RegionID).Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
+                    Dim item1 As New ListViewItem(Agent.FirstName & " " & Agent.LastName, Index)
+                    item1.SubItems.Add(Region_Name(Agent.RegionID))
                     item1.SubItems.Add("-".ToUpperInvariant)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
@@ -1399,7 +1396,7 @@ Public Class FormRegionlist
 
             Next
 
-            If ListOfAgents.Count = 0 Then
+            If CachedAvatars.Count = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
                 item1.SubItems.Add("-".ToUpperInvariant)
