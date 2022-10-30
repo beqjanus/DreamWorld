@@ -1147,6 +1147,8 @@ Public Module MysqlInterface
 
     Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
 
+        If Not Settings.RequireTOS Then Return True
+
         If Not InAuth(AvatarUUID) Then
             Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
         End If

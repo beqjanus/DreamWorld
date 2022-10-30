@@ -496,23 +496,11 @@ Module DoIni
 
     Public Function DoTos() As Boolean
 
-        Try
-            Dim reader As System.IO.StreamReader
-            reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
-            'now loop through each line
-            Dim HTML As String = ""
-            While reader.Peek <> -1
-                HTML = HTML + reader.ReadLine() + vbCrLf
-            End While
-            reader.Close()
+        If Not IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "tos.html")) Then
+            CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "tos.proto"), IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
+        End If
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\tos.html"), False)
-                outputFile.WriteLine(HTML)
-                outputFile.Flush()
-            End Using
-        Catch ex As Exception
-            Return True
-        End Try
+        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\tos.html"))
 
         Return False
 

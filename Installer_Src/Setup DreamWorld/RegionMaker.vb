@@ -1724,30 +1724,45 @@ Module RegionMaker
         Dim sid As Guid
 
         Try
-            post = post.Replace("{ENTER}", "")
-            post = post.Replace("\r", "")
 
+            Dim include = ""
+            Dim From = IO.Path.Combine(Settings.CurrentDirectory, "tos.html")
+            Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
+                Using S = New StreamReader(streamRead)
+                    'now loop through each line
+                    While S.Peek <> -1
+                        Dim data = S.ReadLine
+                        data = data.Replace("[GRIDNAME]", Settings.SimName)
+                        include += data
+                    End While
+                End Using
+                include += "<form>"
+                include += "<input class='button' type='Submit' name='agree' value='Agree wth TOS'>"
+                include += $"<input type='hidden' name='sid' value='{uid}'>"
+                include += "</form>"
+                include += "</body>"
+                include += "</html>"
+            End Using
+
+            Dim webpage = ""
             Dim pattern = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
             Dim match As Match = pattern.Match(post)
             If match.Success Then
                 uid = Guid.Parse(match.Groups(1).Value)
-
-                Dim webpage As String = "<html>"
-                Dim From = $"{Settings.CurrentDirectory}/tos.html"
-                Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
-                    Using S = New StreamReader(streamRead)
-                        'now loop through each line
+                Dim Header = IO.Path.Combine(Settings.CurrentDirectory, "termsofservice.html")
+                Using streamReader As New System.IO.FileStream(Header, FileMode.Open, FileAccess.Read, FileShare.Read)
+                    Using S = New StreamReader(streamReader)
+                        'now loop through each line and append the css to web page
                         While S.Peek <> -1
-                            webpage += S.ReadLine
-                            webpage = webpage.Replace("'<!-- #get var=GridName -->'", Settings.SimName)
+                            Dim line = S.ReadLine
+                            line = line.Replace("[GRIDNAME]", Settings.SimName)
+                            line = line.Replace("[TOS]", include & vbCrLf)
+                            webpage += line & vbCrLf
                         End While
                     End Using
-                    webpage += "<form>"
-                    webpage += "<input type='Submit' name='agree' value='Agree wth TOS'>"
-                    webpage += $"<input type='hidden' name='sid' value='{uid}'>"
-                    webpage += "</form>"
-                    webpage += "</html>"
                 End Using
+                webpage += "</style>"
+                webpage += "</head>"
                 Return webpage
             End If
 
@@ -1759,7 +1774,24 @@ Module RegionMaker
 
             If match2.Success Then
                 Agree2Tos(sid)
-                Return "<html><head></head><body>Welcome! You can close this window.</html>"
+                include = "Welcome! You can close this window."
+                Dim Header = IO.Path.Combine(Settings.CurrentDirectory, "termsofservice.html")
+                Using streamReader As New System.IO.FileStream(Header, FileMode.Open, FileAccess.Read, FileShare.Read)
+                    Using S = New StreamReader(streamReader)
+                        'now loop through each line and append the css to web page
+                        While S.Peek <> -1
+                            Dim line = S.ReadLine
+                            line = line.Replace("[GRIDNAME]", Settings.SimName)
+                            line = line.Replace("[TOS]", include & vbCrLf)
+                            webpage += line & vbCrLf
+                        End While
+                    End Using
+                End Using
+                webpage += "</style>"
+                webpage += "</head>"
+                Return webpage
+
+
             Else
                 Return "<html><head></head><body>Test Passed</html>"
             End If

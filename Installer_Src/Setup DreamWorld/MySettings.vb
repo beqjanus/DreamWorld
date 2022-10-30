@@ -120,7 +120,7 @@ Public Class MySettings
 #Region "Properties"
 
     ''' <summary>
-    ''' Diva will set regions to disabled (-1) if this switch is set
+    ''' Diva will set Logins to disabled (-1) if this switch is set
     ''' </summary>
     ''' <returns>AccountConfirmationRequired as boolean</returns>
     Public Property AccountConfirmationRequired() As Boolean
@@ -1876,6 +1876,19 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("RenderMinHeight", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' TOS Is enforced at any login
+    ''' </summary>
+    ''' <returns> boolean</returns>
+    Public Property RequireTOS() As Boolean
+        Get
+            Return CType(GetMySetting("RequireTOS", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("RequireTOS", CStr(Value))
         End Set
     End Property
 

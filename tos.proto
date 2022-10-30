@@ -1,3 +1,5 @@
+<H3>Terms of Service</H3><!-- Change the text at your own will. These are suggested terms and do not represent any legal advice.--><STRONG>Welcome to [GRIDNAME] !</STRONG> 
+<P></P>
 <P>Your access to and use of [GRIDNAME] is based on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service. </STRONG>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service. </STRONG></P>
 <P><STRONG>DRM in Opensimulator</STRONG></P>
 <P>You acknowledge the use of Digital Rights Management in Opensimulator that grants certain content licenses to other users through the permissions system. This may include the copy, modify, and transfer settings for indicating how other users may use, reproduce, distribute, prepare derivative works of, display, or perform your Content subject to choices you make. You agree to respect, follow and allow the DRM rights of others that use this system.</P>
@@ -15,12 +17,13 @@
 <UL>
 <LI>Registration information you provide when you create an account such as: 
 <UL>
-<LI>Your Email address</LI>
-<LI>Your Avatar Name</LI>
-<LI>Your IP address</LI></UL></LI>
-<LI>Information necessary to connect to your PC such as session ID's and web cookies</LI>
-<LI>Any other personal information you give us to service your account.</LI>
-<LI>Transaction information you provide when you request information or purchase a product or service from us, whether on our sites or through our applications. </LI></UL>
+    <LI>Your Email address</LI>
+    <LI>Your Avatar Name</LI>
+    <LI>Your IP address</LI></UL></LI>
+    <LI>Information necessary to connect to your PC such as session ID's and web cookies</LI>
+    <LI>Any other personal information you give us to service your account.</LI>
+    <LI>Transaction information you provide when you request information or purchase a product or service from us, whether on our sites or through our applications. </LI>
+</UL>
 <P><STRONG>Hyperlinks</STRONG></P>
 <P>[GRIDNAME] may contain links or hyperlinks to third-party services that are not owned or controlled by [GRIDNAME]. Hyperlinks are destinations that you may travel to. Hyperlinks connect to third parties and they will have access to limited data. They will need this info to provide Hypergrid service, and may not follow the GDPR act, but may use this information by means outside of our control.</P>
 <P>You agree that your Avatar Name, Session ID, IP address and other technical information can be sent to other opensim grids when you travel the hypergrid. [GRIDNAME] has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that [GRIDNAME] may contain links to third-party services that are not owned or controlled by [GRIDNAME] .</P>

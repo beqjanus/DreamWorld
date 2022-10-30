@@ -9478,6 +9478,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Require Agreement to TOS with a Pop Up..
+        '''</summary>
+        Friend ReadOnly Property RequireTOS() As String
+            Get
+                Return ResourceManager.GetString("RequireTOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Reserve your DYN DNS name. This is a password for your Grid name..
         '''</summary>
         Friend ReadOnly Property Reserve_Password() As String
