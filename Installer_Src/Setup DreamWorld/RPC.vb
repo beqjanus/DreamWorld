@@ -72,6 +72,7 @@ Module RPC
         Next
 
     End Sub
+
     ''TODO logoff_user
 
     Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
@@ -237,7 +238,9 @@ Module RPC
 
         Try
             Dim r = RPC.Send(url, Timeout)
-            If r.Value Is Nothing Then Return True
+            If r.Value Is Nothing Then
+                Return True
+            End If
 #Disable Warning BC42016 ' Implicit conversion
 
             For Each s In r.Value
@@ -247,7 +250,7 @@ Module RPC
                     Return True
                 End If
                 If s.Key = "success" AndAlso s.Value = "True" Then
-                    Debug.Print("Teleport Sent")
+                    Debug.Print($"{cmd} Sent")
                     Return True
                 End If
                 If s.Key = "faultCode" Then

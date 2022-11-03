@@ -554,7 +554,9 @@ Public Module MysqlInterface
 
 #End Region
 
-    Public Function Add2Tos(AvatarUUID As String, token As String, avatarname As String) As Boolean
+#Region "TOS"
+
+    Public Sub Add2Tos(AvatarUUID As String, token As String, avatarname As String)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
@@ -572,7 +574,7 @@ Public Module MysqlInterface
             End Using
         End Using
 
-    End Function
+    End Sub
 
     Public Sub Agree2Tos(uuid As Guid)
 
@@ -592,6 +594,101 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
+
+        If Not Settings.TOSEnabled Then Return True
+
+        If Not InAuth(AvatarUUID) Then
+            Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
+            Return False
+        End If
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT agreed FROM tosauth where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return CBool(reader.GetInt32(0))
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return False
+
+    End Function
+
+    ''' <summary>
+    ''' Check if an avatar has been here 5 minutes and not agreed to a TOS. If so, it logs them out
+    ''' </summary>
+    Public Sub NewUserTimeout()
+
+        If Not Settings.TOSEnabled Then Return
+
+        Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                Connection.Open()
+                Dim stm = "Select avataruuid from robust.tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
+                Using cmd = New MySqlCommand(stm, Connection)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim Val = reader.GetString("avataruuid")
+                            LogoutAvatar(Val)
+                            DropAvatarFromTOS(Val)
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+    End Sub
+
+    Private Sub DropAvatarFromTOS(AvatarUUID As String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "delete FROM tosauth where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub LogoutAvatar(AvatarUUID As String)
+
+        For Each Agent In CachedAvatars
+            If Agent.AvatarUUID = AvatarUUID Then
+                For Each Avatar In CachedAvatars
+                    Dim RegionUUID = Avatar.RegionID
+                    If IsAgentInRegion(RegionUUID) Then
+                        RPC_Region_Command(RegionUUID, $"kick user {Avatar.FirstName} {Avatar.LastName} You are logged out for not agreeing to the Terms and Conditions of this Grid. ")
+                        Exit For
+                    End If
+                Next
+            End If
+        Next
+
+    End Sub
+
+#End Region
+
+#Region "Land"
+
     Public Sub DoLand()
 
         Dim stm = "update land set landflags = (landflags & ! 64);" ' Rez
@@ -610,6 +707,10 @@ Public Module MysqlInterface
 
     End Sub
 
+#End Region
+
+#Region "Needs fixup"
+
     Public Sub DoOpensim(stm As String)
 
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
@@ -626,6 +727,89 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+
+    ' TODO model for one param queries
+    Public Function Queryparam(SQL As String, param As String) As String
+
+        Dim v As String = ""
+
+        Dim conn As String
+        If (Settings.ServerType = RobustServerName) Then
+            conn = Settings.RobustMysqlConnection
+        Else
+            conn = Settings.RegionMySqlConnection
+        End If
+
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
+                    cmd.Parameters.AddWithValue("@param", param)
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+        Return v
+
+    End Function
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
+    Public Function QueryString(SQL As String) As String
+
+        Dim v As String = ""
+
+        Dim conn As String
+        If (Settings.ServerType = RobustServerName) Then
+            conn = Settings.RobustMysqlConnection
+        Else
+            conn = Settings.RegionMySqlConnection
+        End If
+
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+        Return v
+
+    End Function
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
+    Public Sub QuerySuper(SQL As String)
+
+        Dim conn As String
+        conn = Settings.RootMysqlConnection
+        Using MysqlConn As New MySqlConnection(conn)
+            Try
+                MysqlConn.Open()
+#Disable Warning CA2100
+                Using cmd As New MySqlCommand(SQL, MysqlConn)
+#Enable Warning
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Print(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+#End Region
+
+#Region "Estates"
 
     ''' <summary>
     ''' Gets Estate ID number 101, 102, etc
@@ -690,6 +874,10 @@ Public Module MysqlInterface
 
     End Function
 
+#End Region
+
+#Region "Run Once"
+
     ''' <summary>
     ''' Runs once at the hour tick mark to move assets to file system
     ''' </summary>
@@ -703,6 +891,10 @@ Public Module MysqlInterface
 
     End Sub
 
+#End Region
+
+#Region "Presence"
+
     ''' <summary>
     ''' This deletes Presence rows where the corresponding GridUser row does Not exist and is online
     ''' </summary>
@@ -712,6 +904,10 @@ Public Module MysqlInterface
         QueryString(q)
 
     End Sub
+
+#End Region
+
+#Region "Avatar Counts"
 
     ''' <summary>
     ''' Gets user count from user accounts
@@ -1012,39 +1208,6 @@ Public Module MysqlInterface
     End Function
 
     ''' <summary>
-    ''' Number of prims in this region
-    ''' </summary>
-    ''' <param name="UUID">Region UUID</param>
-    ''' <returns>integer</returns>
-    Public Function GetPrimCount(UUID As String) As Integer
-
-        Dim count As Integer
-        Using MysqlConn = New MySqlConnection(Settings.RegionMySqlConnection)
-
-            Try
-                MysqlConn.Open()
-
-                Dim stm = "select count(*) from prims where regionuuid = @UUID"
-
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            count = reader.GetInt32(0)
-                        End If
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-
-        End Using
-
-        Return count
-
-    End Function
-
-    ''' <summary>
     ''' Finds where an avatar is
     ''' </summary>
     ''' <param name="AgentID"></param>
@@ -1126,6 +1289,104 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function MysqlGetUserData(uuid As String) As UserData
+
+        Dim UD As New UserData
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from useraccounts where principalID = @UUID"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", uuid)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            UD.FirstName = reader.GetString(0)
+                            UD.LastName = reader.GetString(1)
+                            UD.Email = reader.GetString(2)
+                            UD.Level = reader.GetInt32(3)
+                            UD.UserTitle = reader.GetString(4)
+                            UD.PrincipalID = uuid
+                        Else
+                            UD.FirstName = "No record"
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return UD
+
+    End Function
+
+    Public Sub MysqlSaveUserData(ud As UserData)
+
+        If ud Is Nothing Then Return
+
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "update useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@level", ud.Level)
+                    cmd.Parameters.AddWithValue("@UUID", ud.PrincipalID)
+                    cmd.Parameters.AddWithValue("@fname", ud.FirstName)
+                    cmd.Parameters.AddWithValue("@lname", ud.LastName)
+                    cmd.Parameters.AddWithValue("@email", ud.Email)
+                    cmd.Parameters.AddWithValue("@utitle", ud.UserTitle)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+    End Sub
+
+#End Region
+
+#Region "Prims"
+
+    ''' <summary>
+    ''' Number of prims in this region
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>integer</returns>
+    Public Function GetPrimCount(UUID As String) As Integer
+
+        Dim count As Integer
+        Using MysqlConn = New MySqlConnection(Settings.RegionMySqlConnection)
+
+            Try
+                MysqlConn.Open()
+
+                Dim stm = "select count(*) from prims where regionuuid = @UUID"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = reader.GetInt32(0)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+        Return count
+
+    End Function
+
+#End Region
+
+#Region "Mysql Overhead"
+
     ''' <summary>
     ''' Queries Mysql to see if its up
     ''' </summary>
@@ -1141,34 +1402,6 @@ Public Module MysqlInterface
         End If
 
         MySQLIcon(False)
-        Return False
-
-    End Function
-
-    Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
-
-        If Not Settings.RequireTOS Then Return True
-
-        If Not InAuth(AvatarUUID) Then
-            Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
-        End If
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT agreed FROM tosauth where avataruuid = @UUID"
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Return CBool(reader.GetInt32(0))
-                        End While
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
         Return False
 
     End Function
@@ -1199,6 +1432,20 @@ Public Module MysqlInterface
             End Try
         End Using
     End Sub
+
+    Public Sub MySQLIcon(running As Boolean)
+
+        If Not running Then
+            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+        Else
+            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Partners"
 
     Public Function MysqlGetPartner(p1 As String, mysetting As MySettings) As String
 
@@ -1232,72 +1479,9 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function MysqlGetUserData(uuid As String) As UserData
+#End Region
 
-        Dim UD As New UserData
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim stm = "select FirstName, LastName, Email, UserLevel, UserTitle from useraccounts where principalID = @UUID"
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", uuid)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            UD.FirstName = reader.GetString(0)
-                            UD.LastName = reader.GetString(1)
-                            UD.Email = reader.GetString(2)
-                            UD.Level = reader.GetInt32(3)
-                            UD.UserTitle = reader.GetString(4)
-                            UD.PrincipalID = uuid
-                        Else
-                            UD.FirstName = "No record"
-                        End If
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return UD
-
-    End Function
-
-    Public Sub MySQLIcon(running As Boolean)
-
-        If Not running Then
-            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-        Else
-            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
-        End If
-
-    End Sub
-
-    Public Sub MysqlSaveUserData(ud As UserData)
-
-        If ud Is Nothing Then Return
-
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-
-                Dim stm = "update useraccounts set email=@email,usertitle=@utitle,userlevel=@level,firstname=@fname,lastname=@lname where PrincipalID=@UUID;"
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@level", ud.Level)
-                    cmd.Parameters.AddWithValue("@UUID", ud.PrincipalID)
-                    cmd.Parameters.AddWithValue("@fname", ud.FirstName)
-                    cmd.Parameters.AddWithValue("@lname", ud.LastName)
-                    cmd.Parameters.AddWithValue("@email", ud.Email)
-                    cmd.Parameters.AddWithValue("@utitle", ud.UserTitle)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-
-        End Using
-
-    End Sub
+#Region "Region Flags"
 
     Public Sub MysqlSetRegionFlagOnline(RegionUUID As String)
 
@@ -1323,36 +1507,6 @@ Public Module MysqlInterface
         End Using
 
     End Sub
-
-    Public Function OfflineEmails() As List(Of EmailData)
-
-        Dim emails = New List(Of EmailData)
-        Dim result = New EmailData
-        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim stm = "Select id, principalId, fromid, message from im_offline"
-
-                Using cmd = New MySqlCommand(stm, MysqlConn)
-
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            result.Id = reader.GetInt32(0)
-                            result.Principalid = reader.GetString(1)
-                            result.Fromid = reader.GetString(2)
-                            result.Message = reader.GetString(3)
-                            emails.Add(result)
-                        End If
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return emails
-
-    End Function
 
     ''' <summary>
     ''' Gets any parcels names that have rez rights on for everyone
@@ -1401,84 +1555,6 @@ Public Module MysqlInterface
         Return str
 
     End Function
-
-    Public Function Queryparam(SQL As String, param As String) As String
-
-        Dim v As String = ""
-
-        Dim conn As String
-        If (Settings.ServerType = RobustServerName) Then
-            conn = Settings.RobustMysqlConnection
-        Else
-            conn = Settings.RegionMySqlConnection
-        End If
-
-        Using MysqlConn As New MySqlConnection(conn)
-            Try
-                MysqlConn.Open()
-#Disable Warning CA2100
-                Using cmd As New MySqlCommand(SQL, MysqlConn)
-#Enable Warning
-                    cmd.Parameters.AddWithValue("@param", param)
-                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
-                End Using
-            Catch ex As Exception
-                BreakPoint.Print(ex.Message)
-            End Try
-        End Using
-
-        Return v
-
-    End Function
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
-    Public Function QueryString(SQL As String) As String
-
-        Dim v As String = ""
-
-        Dim conn As String
-        If (Settings.ServerType = RobustServerName) Then
-            conn = Settings.RobustMysqlConnection
-        Else
-            conn = Settings.RegionMySqlConnection
-        End If
-
-        Using MysqlConn As New MySqlConnection(conn)
-            Try
-                MysqlConn.Open()
-#Disable Warning CA2100
-                Using cmd As New MySqlCommand(SQL, MysqlConn)
-#Enable Warning
-                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
-                End Using
-            Catch ex As Exception
-                BreakPoint.Print(ex.Message)
-            End Try
-        End Using
-
-        Return v
-
-    End Function
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100Review Sql queries for security vulnerabilities")>
-    Public Sub QuerySuper(SQL As String)
-
-        Dim conn As String
-        conn = Settings.RootMysqlConnection
-        Using MysqlConn As New MySqlConnection(conn)
-            Try
-                MysqlConn.Open()
-#Disable Warning CA2100
-                Using cmd As New MySqlCommand(SQL, MysqlConn)
-#Enable Warning
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As Exception
-                BreakPoint.Print(ex.Message)
-            End Try
-        End Using
-
-    End Sub
 
     ''' <summary>
     ''' Disable on-line flag for suspended regions
@@ -1643,6 +1719,67 @@ Public Module MysqlInterface
 
     End Sub
 
+    Private Function GetFlag(RegionUUID As String) As Integer
+        Dim Val = 0
+        Using Flags As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                Flags.Open()
+                Dim stm = "select flags from regions where uuid=@UUID"
+                Using cmd = New MySqlCommand(stm, Flags)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Val = reader.GetInt32("flags")
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+
+        End Using
+
+        Return Val
+    End Function
+
+#End Region
+
+#Region "Offline Email"
+
+    Public Function OfflineEmails() As List(Of EmailData)
+
+        Dim emails = New List(Of EmailData)
+        Dim result = New EmailData
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select id, principalId, fromid, message from im_offline"
+
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            result.Id = reader.GetInt32(0)
+                            result.Principalid = reader.GetString(1)
+                            result.Fromid = reader.GetString(2)
+                            result.Message = reader.GetString(3)
+                            emails.Add(result)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return emails
+
+    End Function
+
+#End Region
+
+#Region "Search"
+
     Public Sub SetupLocalSearch()
 
         If Settings.ServerType <> "Robust" Then Return
@@ -1683,6 +1820,10 @@ Public Module MysqlInterface
 
     End Sub
 
+#End Region
+
+#Region "Stats"
+
     Public Sub SetupSimStats()
 
         Dim pi = New ProcessStartInfo With {
@@ -1707,6 +1848,10 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+
+#End Region
+
+#Region "Setup Database"
 
     Public Sub SetupTOSTable()
         If Settings.ServerType <> "Robust" Then Return
@@ -1800,20 +1945,6 @@ Public Module MysqlInterface
 
     End Function
 
-    '' Deprecated
-    Public Function WhereisAgent(agentName As String) As String
-
-        GetAllAgents()
-        For Each O In CachedAvatars
-            If O.AgentName = agentName Then
-                Return FindRegionByName(O.RegionID)
-            End If
-        Next
-
-        Return ""
-
-    End Function
-
     Private Sub CreateService()
 
         ' create test program slants the other way:
@@ -1870,29 +2001,6 @@ Public Module MysqlInterface
         End Using
 
     End Sub
-
-    Private Function GetFlag(RegionUUID As String) As Integer
-        Dim Val = 0
-        Using Flags As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                Flags.Open()
-                Dim stm = "select flags from regions where uuid=@UUID"
-                Using cmd = New MySqlCommand(stm, Flags)
-                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            Val = reader.GetInt32("flags")
-                        End If
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-
-        End Using
-
-        Return Val
-    End Function
 
     Private Sub MakeMysql()
 
@@ -1953,6 +2061,8 @@ Public Module MysqlInterface
         End If
 
     End Sub
+
+#End Region
 
 #Region "Visitors"
 
@@ -2097,6 +2207,8 @@ Public Module MysqlInterface
 #End Region
 
 End Module
+
+#Region "Classes"
 
 Public Class EmailData
 
@@ -2344,5 +2456,7 @@ Public Class UserData
             _userTitle = value
         End Set
     End Property
+
+#End Region
 
 End Class

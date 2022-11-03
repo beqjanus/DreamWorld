@@ -265,7 +265,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to To accept the Terms of Service at our grid, please complete the following form in the next 5 minutes, or you will be logged out..
+        '''  Looks up a localized string similar to Please read and agree our Terms of Service, or you will be logged out..
         '''</summary>
         Friend ReadOnly Property AgreeTOS() As String
             Get

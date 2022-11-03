@@ -1879,18 +1879,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' TOS Is enforced at any login
-    ''' </summary>
-    ''' <returns> boolean</returns>
-    Public Property RequireTOS() As Boolean
-        Get
-            Return CType(GetMySetting("RequireTOS", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("RequireTOS", CStr(Value))
-        End Set
-    End Property
+
 
     Public Property RestartOnCrash() As Boolean
         Get

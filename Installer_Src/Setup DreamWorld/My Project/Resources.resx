@@ -4398,7 +4398,7 @@
     <value>Show All Regions</value>
   </data>
   <data name="AgreeTOS" xml:space="preserve">
-    <value>To accept the Terms of Service at our grid, please complete the following form in the next 5 minutes, or you will be logged out.</value>
+    <value>Please read and agree our Terms of Service, or you will be logged out.</value>
   </data>
   <data name="RequireTOS" xml:space="preserve">
     <value>Require Agreement to TOS with a Pop Up.</value>

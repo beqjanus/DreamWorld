@@ -1720,35 +1720,16 @@ Module RegionMaker
         '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:8001" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
         '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
 
-        Dim uid As Guid
         Dim sid As Guid
 
         Try
-
-            Dim include = ""
-            Dim From = IO.Path.Combine(Settings.CurrentDirectory, "tos.html")
-            Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
-                Using S = New StreamReader(streamRead)
-                    'now loop through each line
-                    While S.Peek <> -1
-                        Dim data = S.ReadLine
-                        data = data.Replace("[GRIDNAME]", Settings.SimName)
-                        include += data
-                    End While
-                End Using
-                include += "<form>"
-                include += "<input class='button' type='Submit' name='agree' value='Agree wth TOS'>"
-                include += $"<input type='hidden' name='sid' value='{uid}'>"
-                include += "</form>"
-                include += "</body>"
-                include += "</html>"
-            End Using
-
             Dim webpage = ""
             Dim pattern = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
             Dim match As Match = pattern.Match(post)
             If match.Success Then
-                uid = Guid.Parse(match.Groups(1).Value)
+
+                Dim include = tosinclude(match.Groups(1).Value)
+
                 Dim Header = IO.Path.Combine(Settings.CurrentDirectory, "termsofservice.html")
                 Using streamReader As New System.IO.FileStream(Header, FileMode.Open, FileAccess.Read, FileShare.Read)
                     Using S = New StreamReader(streamReader)
@@ -1766,6 +1747,7 @@ Module RegionMaker
                 Return webpage
             End If
 
+            ' detect and print a response to an ACCEPT
             Dim pattern2 = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
             Dim match2 As Match = pattern2.Match(post)
             If match2.Success Then
@@ -1773,8 +1755,8 @@ Module RegionMaker
             End If
 
             If match2.Success Then
-                Agree2Tos(sid)
-                include = "Welcome! You can close this window."
+                Agree2Tos(sid)  ' detect and print a response to an ACCEPT
+                Dim include = "Welcome! You can close this window."
                 Dim Header = IO.Path.Combine(Settings.CurrentDirectory, "termsofservice.html")
                 Using streamReader As New System.IO.FileStream(Header, FileMode.Open, FileAccess.Read, FileShare.Read)
                     Using S = New StreamReader(streamReader)
@@ -1790,8 +1772,6 @@ Module RegionMaker
                 webpage += "</style>"
                 webpage += "</head>"
                 Return webpage
-
-
             Else
                 Return "<html><head></head><body>Test Passed</html>"
             End If
@@ -1800,6 +1780,31 @@ Module RegionMaker
             Return "<html><head></head><body>Error</html>"
         End Try
 
+    End Function
+
+    Private Function tosinclude(uid As String) As String
+
+        ' Print a TOS webpage to the client
+        Dim include = ""
+        Dim From = IO.Path.Combine(Settings.CurrentDirectory, "tos.html")
+        Using streamRead As New System.IO.FileStream(From, FileMode.Open, FileAccess.Read, FileShare.Read)
+            Using S = New StreamReader(streamRead)
+                'now loop through each line
+                While S.Peek <> -1
+                    Dim data = S.ReadLine
+                    data = data.Replace("[GRIDNAME]", Settings.SimName)
+                    include += data
+                End While
+            End Using
+            include += "<form>"
+            include += "<input class='button' type='Submit' name='agree' value='Agree wth TOS'>"
+            include += $"<input type='hidden' name='sid' value='{uid.ToString}'>"
+            include += "</form>"
+            include += "</body>"
+            include += "</html>"
+        End Using
+
+        Return include
     End Function
 
 #End Region

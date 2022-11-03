@@ -1750,10 +1750,6 @@ Public Class FormSetup
 
             GetAllAgents()  ' to list (of Cachedavatars)
 
-            If CachedAvatars IsNot Nothing AndAlso CachedAvatars.Count > 0 Then
-                BuildLand(CachedAvatars)
-            End If
-
             ' start with zero avatars
             For Each RegionUUID In RegionUuids()
                 AvatarCount(RegionUUID) = 0
@@ -1785,16 +1781,16 @@ Public Class FormSetup
                         Lname = match.Groups(2).Value
                     End If
 
-                    If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
-                        RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
-                    End If
-
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Add(Avatar, RegionName)
                     AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                     PropUpdateView = True
-                    ' Seen visitor before, check the region to see if it moved
+
+                    If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
+                        RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                    End If
+
                 End If
 
                 If Not CurrentLocation.Item(Avatar) = RegionName Then
@@ -1811,6 +1807,7 @@ Public Class FormSetup
                     End Try
 
                 End If
+
             Next
 
             ' remove anyone who has left for good
@@ -1843,6 +1840,10 @@ Public Class FormSetup
 
             total = CachedAvatars.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
+
+            If CachedAvatars IsNot Nothing AndAlso CachedAvatars.Count > 0 Then
+                BuildLand(CachedAvatars)
+            End If
         Catch ex As Exception
             BreakPoint.Dump(ex)
         End Try
@@ -1852,7 +1853,6 @@ Public Class FormSetup
     End Function
 
     Private Sub ScriptsResumeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsResumeToolStripMenuItem.Click
-
         SendScriptCmd("scripts resume")
     End Sub
 
@@ -2030,17 +2030,18 @@ Public Class FormSetup
         Chart()                     ' do charts collection
 
         CheckPost()                 ' see if anything arrived in the web server
-        CheckForBootedRegions()
-
+        CheckForBootedRegions()     ' task to scan for anything that just came online
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
-        ScanAgents()                ' update agent count
+
         Chat2Speech()               ' speak of the devil
         RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
+
+            ScanAgents()                ' update agent count
 
             CalcDiskFree()              ' check for free disk space
 
@@ -2049,27 +2050,25 @@ Public Class FormSetup
             Else
                 MySQLSpeed.Text = ""
             End If
-
             Bench.Print("5 second + worker")
         End If
 
         If SecondsTicker = 60 Then
             Bench.Start("60 second worker")
             DeleteOldWave()         ' clean up TTS cache
-            RegionListHTML("Name") ' create HTML for old teleport boards
-            DeleteDirectoryTmp()      ' clean up old tmp folder
-            MakeMaps()                 ' Make all the large maps
+            RegionListHTML("Name")  ' create HTML for old teleport boards
+            DeleteDirectoryTmp()    ' clean up old tmp folder
+            MakeMaps()              ' Make all the large maps
             Bench.Print("60 second worker")
         End If
 
         If SecondsTicker Mod 60 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("60 second + worker")
-
+            NewUserTimeout()        ' see if a new users has read and agreed to the tos
             DeleteOldWave()         ' clean up TTS cache
             ScanOpenSimWorld(False) ' do not force an update unless avatar count changes
             RegionListHTML("Name") ' create HTML for old teleport boards
             VisitorCount()         ' For the large maps
-
             Bench.Print("60 second + worker")
         End If
 

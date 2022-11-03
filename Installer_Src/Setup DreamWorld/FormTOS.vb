@@ -65,7 +65,7 @@ Public Class TosForm
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
 
-        Settings.RequireTOS = CheckBox1.Checked
+        Settings.TOSEnabled = CheckBox1.Checked
         Settings.SaveSettings()
 
     End Sub
@@ -76,7 +76,7 @@ Public Class TosForm
         ApplyButton.Text = My.Resources.Apply_word
         PreviewButton.Text = My.Resources.Preview_in_Browser
 
-        CheckBox1.Checked = Settings.RequireTOS
+        CheckBox1.Checked = Settings.TOSEnabled
         CheckBox1.Text = My.Resources.RequireTOS
 
         Dim reader As System.IO.StreamReader
