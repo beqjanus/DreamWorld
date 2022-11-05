@@ -348,9 +348,7 @@ Public Module MysqlInterface
 
 #End Region
 
-#Region "TOS"
 
-#End Region
 
 #Region "Delete Stuff"
 
@@ -1094,7 +1092,7 @@ Public Module MysqlInterface
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
-        Dim UserStmt = "Select UserID, LastRegionID from GridUser where online = 'true' and lastregionid <> '00000000-0000-0000-0000-000000000000'"
+        Dim UserStmt = "Select UserID, LastRegionID from GridUser where  lastregionid <> '00000000-0000-0000-0000-000000000000'"
         Dim pattern As String = "(.*?);(.*?);(.*)$"
 
         Dim L As New List(Of AvatarObject)
@@ -1116,7 +1114,7 @@ Public Module MysqlInterface
                                 grid = grid.Replace("http://", "")
                                 grid = grid.Replace("/", "")
 
-                                Dim AvatarUUID = m.Groups(0).Value.ToString
+                                Dim AvatarUUID = m.Groups(1).Value.ToString
                                 Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
                                 Dim HGVisitors As New AvatarObject
                                 HGVisitors.RegionID = UUID
@@ -1125,7 +1123,10 @@ Public Module MysqlInterface
                                 HGVisitors.FirstName = parts(0).Trim
                                 HGVisitors.LastName = parts(1).Trim
                                 HGVisitors.AgentName = m.Groups(3).Value.ToString
-                                L.Add(HGVisitors)
+                                If IsInPresence(AvatarUUID) Then
+                                    L.Add(HGVisitors)
+                                End If
+
                             Next
                         End While
                     End Using
@@ -1166,6 +1167,36 @@ Public Module MysqlInterface
         End Using
 
         Return result
+
+    End Function
+    ''' <summary>
+    ''' Check if a given key is in presence without a join.
+    ''' </summary>
+    ''' <param name="AvatarUUID"></param>
+    ''' <returns></returns>
+    Public Function IsInPresence(AvatarUUID As String) As Boolean
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) from presence where presence.UserID = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            If reader.GetInt32(0) > 0 Then
+                                Return True
+                            End If
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
+        Return False
 
     End Function
 

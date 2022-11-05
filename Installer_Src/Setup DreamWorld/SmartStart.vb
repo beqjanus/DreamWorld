@@ -302,9 +302,9 @@ Module SmartStart
         ' Scan all the regions
         CachedAvatars.Clear()
         ' List of AvatarObject
-        CachedAvatars = GetPresence()
+        CachedAvatars = GetPresence() ' local usres
 
-        Dim HGUsers = GetGridUsers()
+        Dim HGUsers = GetGridUsers() ' HG users
         For Each item In HGUsers
             CachedAvatars.Add(item)
         Next
