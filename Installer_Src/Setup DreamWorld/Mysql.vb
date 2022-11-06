@@ -319,9 +319,9 @@ Public Module MysqlInterface
     ''' </summary>
     ''' <param name="UUID">avatar UUID</param>
     ''' <returns>Person class</returns>
-    Public Function AvatarEmailData(UUID As String) As Person
+    Public Function AvatarEmailData(UUID As String) As UserData
 
-        Dim Avi As New Person
+        Dim Avi As New UserData
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -629,10 +629,11 @@ Public Module MysqlInterface
 
         If Not Settings.TOSEnabled Then Return
 
+
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avatarname, avataruuid from robust.tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
+                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
@@ -641,7 +642,7 @@ Public Module MysqlInterface
                             TextPrint($"{aviname} {My.Resources.DidNotAccept}.")
                             ' TODO
                             'LogoutAvatar(Val)
-                            'DropAvatarFromTOS(Val)
+                            DropAvatarFromTOS(Val)
                         End While
                     End Using
                 End Using
@@ -655,10 +656,11 @@ Public Module MysqlInterface
 
     Private Sub DropAvatarFromTOS(AvatarUUID As String)
 
+        ' T
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
-                Dim stm As String = "delete FROM tosauth where avataruuid = @UUID"
+                Dim stm As String = "update tosauth set agreed = -1 where avataruuid = @UUID"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
                     cmd.ExecuteNonQuery()
@@ -2394,40 +2396,6 @@ Public Class MailList
 
 End Class
 
-Public Class Person
-    Private _email As String = ""
-    Private _firstName As String = ""
-    Private _lastName As String = ""
-
-    Public Property Email As String
-        Get
-            Return _email
-        End Get
-        Set(value As String)
-            _email = value
-        End Set
-    End Property
-
-    Public Property FirstName As String
-        Get
-            Return _firstName
-        End Get
-        Set(value As String)
-            _firstName = value
-        End Set
-    End Property
-
-    Public Property LastName As String
-        Get
-            Return _lastName
-        End Get
-        Set(value As String)
-            _lastName = value
-        End Set
-    End Property
-
-End Class
-
 Public Class UserData
 
     Private _email As String = ""
@@ -2436,6 +2404,16 @@ Public Class UserData
     Private _level As Integer = -1
     Private _principalID As String = ""
     Private _userTitle As String = ""
+    Private _RegionUUID As String = ""
+
+    Public Property RegionUUID As String
+        Get
+            Return _RegionUUID
+        End Get
+        Set(value As String)
+            _RegionUUID = value
+        End Set
+    End Property
 
     Public Property Email As String
         Get
