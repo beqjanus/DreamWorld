@@ -23,9 +23,9 @@ Public Class FormSetup
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     ReadOnly BackupThread As New Backups
-    Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
-    Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
 
+    Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -1748,6 +1748,7 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
+            Dim UUID2Name As New Dictionary(Of String, String)
             GetAllAgents()  ' to list (of Cachedavatars)
 
             ' start with zero avatars
@@ -1757,6 +1758,8 @@ Public Class FormSetup
 
             For Each AgentObject In CachedAvatars
                 Dim Avatar = AgentObject.AgentName
+                Dim AvatarKey = AgentObject.AvatarUUID
+                UUID2Name.Add(AvatarKey, Avatar) ' stash this, we need it later
                 Dim RegionUUID = AgentObject.RegionID
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
                     Continue For
@@ -1766,7 +1769,7 @@ Public Class FormSetup
                 If RegionName.Length = 0 Then Continue For
 
                 ' not seen before
-                If Not CurrentLocation.ContainsKey(Avatar) Then
+                If Not CurrentLocation.ContainsKey(AvatarKey) Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
 
                     Dim UUID = System.Guid.NewGuid.ToString
@@ -1782,7 +1785,7 @@ Public Class FormSetup
                     End If
 
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    CurrentLocation.Add(Avatar, RegionName)
+                    CurrentLocation.Add(AvatarKey, RegionName)
                     AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                     PropUpdateView = True
@@ -1793,10 +1796,10 @@ Public Class FormSetup
 
                 End If
 
-                If Not CurrentLocation.Item(Avatar) = RegionName Then
+                If Not CurrentLocation.Item(AvatarKey) = RegionName Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    CurrentLocation.Item(Avatar) = RegionName
+                    CurrentLocation.Item(AvatarKey) = RegionName
                     AvatarCount(RegionUUID) += 1
                     PropUpdateView = True
                     AddorUpdateVisitor(Avatar, RegionName)
@@ -1814,19 +1817,19 @@ Public Class FormSetup
 
             Dim Remove As New List(Of String)
             For Each NameValue In CurrentLocation
-                Dim Avatar = NameValue.Key
+                Dim AvatarKey = NameValue.Key
                 Dim RegionName = NameValue.Value
                 Dim exists As Boolean
                 For Each o In CachedAvatars
                     Diagnostics.Debug.Print(o.AgentName)
-                    If o.AgentName = Avatar Then
+                    If o.AvatarUUID = AvatarKey Then
                         exists = True
                     End If
                 Next
                 If Not exists Then
-                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    Remove.Add(Avatar)
+                    TextPrint($"{UUID2Name.Item(AvatarKey)} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{UUID2Name.Item(AvatarKey)} {My.Resources.leaving_word} {RegionName}")
+                    Remove.Add(AvatarKey)
                     PropUpdateView = True
                 End If
             Next
