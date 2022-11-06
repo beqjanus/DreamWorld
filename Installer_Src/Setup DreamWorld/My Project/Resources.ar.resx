@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>عرض جميع المناطق</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>يرجى قراءة شروط الخدمة الخاصة بنا والموافقة عليها ، أو سيتم تسجيل خروجك.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>طلب الموافقة على TOS مع نافذة منبثقة.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>لم تقبل الشروط والأحكام</value>
+  </data>
 </root>

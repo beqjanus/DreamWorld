@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>Alle Regionen anzeigen</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>Bitte lesen und stimmen Sie unseren Nutzungsbedingungen zu, oder Sie werden abgemeldet.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>Erfordern Sie die Zustimmung zu den TOS mit einem Pop-up.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>die AGB nicht akzeptiert</value>
+  </data>
 </root>

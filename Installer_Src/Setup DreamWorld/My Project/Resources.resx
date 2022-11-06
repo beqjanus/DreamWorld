@@ -4403,4 +4403,7 @@
   <data name="RequireTOS" xml:space="preserve">
     <value>Require Agreement to TOS with a Pop Up.</value>
   </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>did not accept the Terms and Conditions</value>
+  </data>
 </root>

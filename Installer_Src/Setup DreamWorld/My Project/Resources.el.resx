@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>Εμφάνιση όλων των περιοχών</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>Διαβάστε και συμφωνήστε τους Όρους Παροχής Υπηρεσιών, διαφορετικά θα αποσυνδεθείτε.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>Απαιτείται συμφωνία για τους TOS με ένα αναδυόμενο παράθυρο.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>δεν αποδέχτηκε τους Όρους και Προϋποθέσεις</value>
+  </data>
 </root>

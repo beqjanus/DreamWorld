@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>Mostra totes les regions</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>Si us plau, llegiu i accepteu les nostres Condicions del servei, o se us tancarà la sessió.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>Requereix l'acord amb els TOS amb una finestra emergent.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>no va acceptar els Termes i Condicions</value>
+  </data>
 </root>

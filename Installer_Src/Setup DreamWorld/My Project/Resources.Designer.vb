@@ -3163,6 +3163,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to did not accept the Terms and Conditions.
+        '''</summary>
+        Friend ReadOnly Property DidNotAccept() As String
+            Get
+                Return ResourceManager.GetString("DidNotAccept", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Disable Foreign Visitors.
         '''</summary>
         Friend ReadOnly Property Disable_Foreigners_word() As String

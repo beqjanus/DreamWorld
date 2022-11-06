@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>Zobrazit všechny regiony</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>Přečtěte si prosím naše Podmínky služby a odsouhlaste je, jinak budete odhlášeni.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>Vyžadovat souhlas s TOS pomocí vyskakovacího okna.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>nepřijal Smluvní podmínky</value>
+  </data>
 </root>

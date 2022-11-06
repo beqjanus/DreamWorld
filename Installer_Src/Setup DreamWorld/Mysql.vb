@@ -632,13 +632,16 @@ Public Module MysqlInterface
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avataruuid from robust.tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
+                Dim stm = "Select avatarname, avataruuid from robust.tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim Val = reader.GetString("avataruuid")
-                            LogoutAvatar(Val)
-                            DropAvatarFromTOS(Val)
+                            Dim aviname = reader.GetString("avatarname")
+                            TextPrint($"{aviname} {My.Resources.DidNotAccept}.")
+                            ' TODO
+                            'LogoutAvatar(Val)
+                            'DropAvatarFromTOS(Val)
                         End While
                     End Using
                 End Using

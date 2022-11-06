@@ -3813,4 +3813,13 @@
   <data name="Show_all" xml:space="preserve">
     <value>Vis alle regioner</value>
   </data>
+  <data name="AgreeTOS" xml:space="preserve">
+    <value>Læs venligst og accepter vores servicevilkår, ellers bliver du logget ud.</value>
+  </data>
+  <data name="RequireTOS" xml:space="preserve">
+    <value>Kræv aftale til TOS med en pop op.</value>
+  </data>
+  <data name="DidNotAccept" xml:space="preserve">
+    <value>accepterede ikke vilkår og betingelser</value>
+  </data>
 </root>
