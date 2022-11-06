@@ -532,13 +532,13 @@ Module SmartStart
 
         If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
             BreakPoint.Print("UUID Zero")
-            Logger("Addem", "Bad UUID", "Teleport")
+            Logger("Addem", "Bad Region UUID", "Teleport")
             Return True
         End If
 
         Dim result As New Guid
         If Not Guid.TryParse(RegionUUID, result) Then
-            Logger("Addem", "Bad UUID", "Teleport")
+            Logger("Addem", "Bad Region UUID", "Teleport")
             Return False
         End If
 

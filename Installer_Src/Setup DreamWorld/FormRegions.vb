@@ -419,7 +419,7 @@ Public Class FormRegions
                             regionList.Add(J.Name, RegionUUID)
                         End If
                     Else
-                        BreakPoint.Print("Bad UUID " & RegionUUID)
+                        BreakPoint.Print("Bad Region UUID " & RegionUUID)
                         ResetRun()
                         Return
                     End If
