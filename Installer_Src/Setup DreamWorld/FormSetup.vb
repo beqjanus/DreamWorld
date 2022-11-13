@@ -24,8 +24,8 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     ReadOnly BackupThread As New Backups
 
-    Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
+    Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -1748,7 +1748,12 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
-            Dim UUID2Name As New Dictionary(Of String, String)
+            ' make a copy to detect changes and remember names and region data
+            Dim LastAvatars As New Dictionary(Of String, AvatarObject)
+            For Each person In CachedAvatars
+                LastAvatars(person.AvatarUUID) = person
+            Next
+
             GetAllAgents()  ' to list (of Cachedavatars)
 
             ' start with zero avatars
@@ -1759,7 +1764,6 @@ Public Class FormSetup
             For Each AgentObject In CachedAvatars
                 Dim Avatar = AgentObject.AgentName
                 Dim AvatarKey = AgentObject.AvatarUUID
-                UUID2Name.Add(AvatarKey, Avatar) ' stash this, we need it later
                 Dim RegionUUID = AgentObject.RegionID
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
                     Continue For
@@ -1791,7 +1795,8 @@ Public Class FormSetup
                     PropUpdateView = True
 
                     If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
-                        RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        RPC_Region_Command(RegionUUID, $"alert-user {Fname} {Lname} {My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        'RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
                     End If
 
                 End If
@@ -1827,8 +1832,8 @@ Public Class FormSetup
                     End If
                 Next
                 If Not exists Then
-                    TextPrint($"{UUID2Name.Item(AvatarKey)} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{UUID2Name.Item(AvatarKey)} {My.Resources.leaving_word} {RegionName}")
+                    TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(AvatarKey)
                     PropUpdateView = True
                 End If

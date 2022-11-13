@@ -348,8 +348,6 @@ Public Module MysqlInterface
 
 #End Region
 
-
-
 #Region "Delete Stuff"
 
     Public Sub DeleteContent(RegionUuid As String, tablename As String, uuidname As String)
@@ -608,9 +606,10 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Return CBool(reader.GetInt32(0))
-                        End While
+                        If reader.Read() Then
+                            If reader.GetInt32(0) = 1 Then Return True ' could be 0 for new person, or a -1 if they declined and got booted.
+                            Return False
+                        End If
                     End Using
                 End Using
             Catch ex As Exception
@@ -629,19 +628,17 @@ Public Module MysqlInterface
 
         If Not Settings.TOSEnabled Then Return
 
-
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed = 0; "
+                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed <> 1; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim Val = reader.GetString("avataruuid")
                             Dim aviname = reader.GetString("avatarname")
                             TextPrint($"{aviname} {My.Resources.DidNotAccept}.")
-                            ' TODO
-                            'LogoutAvatar(Val)
+                            LogoutAvatar(Val)
                             DropAvatarFromTOS(Val)
                         End While
                     End Using
@@ -654,9 +651,12 @@ Public Module MysqlInterface
 
     End Sub
 
+    ''' <summary>
+    ''' Sets status to -1 as they timed out and failed to read the TOS
+    ''' </summary>
+    ''' <param name="AvatarUUID"></param>
     Private Sub DropAvatarFromTOS(AvatarUUID As String)
 
-        ' T
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
@@ -1174,36 +1174,6 @@ Public Module MysqlInterface
         Return result
 
     End Function
-    ''' <summary>
-    ''' Check if a given key is in presence without a join.
-    ''' </summary>
-    ''' <param name="AvatarUUID"></param>
-    ''' <returns></returns>
-    Public Function IsInPresence(AvatarUUID As String) As Boolean
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) from presence where presence.UserID = @UUID"
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            If reader.GetInt32(0) > 0 Then
-                                Return True
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return False
-
-    End Function
 
     ''' <summary>
     ''' Returns User name and region they are in, if any
@@ -1321,6 +1291,37 @@ Public Module MysqlInterface
                 Return True
             End If
         Next
+        Return False
+
+    End Function
+
+    ''' <summary>
+    ''' Check if a given key is in presence without a join.
+    ''' </summary>
+    ''' <param name="AvatarUUID"></param>
+    ''' <returns></returns>
+    Public Function IsInPresence(AvatarUUID As String) As Boolean
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) from presence where presence.UserID = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            If reader.GetInt32(0) > 0 Then
+                                Return True
+                            End If
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
         Return False
 
     End Function
@@ -2403,17 +2404,8 @@ Public Class UserData
     Private _lastName As String = ""
     Private _level As Integer = -1
     Private _principalID As String = ""
-    Private _userTitle As String = ""
     Private _RegionUUID As String = ""
-
-    Public Property RegionUUID As String
-        Get
-            Return _RegionUUID
-        End Get
-        Set(value As String)
-            _RegionUUID = value
-        End Set
-    End Property
+    Private _userTitle As String = ""
 
     Public Property Email As String
         Get
@@ -2457,6 +2449,15 @@ Public Class UserData
         End Get
         Set(value As String)
             _principalID = value
+        End Set
+    End Property
+
+    Public Property RegionUUID As String
+        Get
+            Return _RegionUUID
+        End Get
+        Set(value As String)
+            _RegionUUID = value
         End Set
     End Property
 
