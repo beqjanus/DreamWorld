@@ -1795,8 +1795,9 @@ Public Class FormSetup
                     PropUpdateView = True
 
                     If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
-                        RPC_Region_Command(RegionUUID, $"alert-user {Fname} {Lname} {My.Resources.AgreeTOS}{vbCrLf}{URL}")
-                        'RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        'RPC_Region_Command(RegionUUID, $"alert-user {Fname} {Lname} {My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        SetTos2Zero(AgentObject.AvatarUUID)
                     End If
 
                 End If
@@ -1826,7 +1827,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
                 Dim exists As Boolean
                 For Each o In CachedAvatars
-                    Diagnostics.Debug.Print(o.AgentName)
+                    'Diagnostics.Debug.Print(o.AgentName)
                     If o.AvatarUUID = AvatarKey Then
                         exists = True
                     End If
@@ -2036,23 +2037,18 @@ Public Class FormSetup
         TimerisBusy += 1
 
         Chart()                     ' do charts collection
-
         CheckPost()                 ' see if anything arrived in the web server
         CheckForBootedRegions()     ' task to scan for anything that just came online
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
-
         Chat2Speech()               ' speak of the devil
         RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
-
             ScanAgents()                ' update agent count
-
             CalcDiskFree()              ' check for free disk space
-
             If Settings.ShowMysqlStats Then
                 MySQLSpeed.Text = (MysqlStats() / 5).ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " Q/S"
             Else

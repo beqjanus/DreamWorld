@@ -590,6 +590,23 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Sub SetTos2Zero(AvatarUUID As String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "update tosauth set agreed='0' where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+    End Sub
+
+
     Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
 
         If Not Settings.TOSEnabled Then Return True
@@ -631,7 +648,7 @@ Public Module MysqlInterface
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed <> 1; "
+                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed =0 ; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
@@ -1097,7 +1114,7 @@ Public Module MysqlInterface
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
-        Dim UserStmt = "Select UserID, LastRegionID from GridUser where  lastregionid <> '00000000-0000-0000-0000-000000000000'"
+        Dim UserStmt = "Select UserID, LastRegionID from GridUser where  lastregionid <> '00000000-0000-0000-0000-000000000000' And GridUser.Online = 'True'"
         Dim pattern As String = "(.*?);(.*?);(.*)$"
 
         Dim L As New List(Of AvatarObject)
