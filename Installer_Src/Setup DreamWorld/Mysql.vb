@@ -696,6 +696,7 @@ Public Module MysqlInterface
                 For Each Avatar In CachedAvatars
                     Dim RegionUUID = Avatar.RegionID
                     If IsAgentInRegion(RegionUUID) Then
+                        TextPrint($"{Avatar.FirstName} {Avatar.LastName} kicked. TOS not accepted.")
                         RPC_Region_Command(RegionUUID, $"kick user {Avatar.FirstName} {Avatar.LastName} You are logged out for not agreeing to the Terms and Conditions of this Grid. ")
                         Exit For
                     End If
