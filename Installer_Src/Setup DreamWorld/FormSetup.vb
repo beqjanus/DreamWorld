@@ -2113,7 +2113,7 @@ Public Class FormSetup
             SetPublicIP()           ' Adjust to any IP changes
             ExpireLogsByAge()       ' clean up old logs
             DeleteOldVisitors()     ' can be pretty old
-
+            ExpireLogByCount()      ' kill off old backup folders
             ' Dynamically adjust Mysql for size of DB
             ' set mysql for amount of buffer to use now that it running.
             ' Will take effect next time Mysql is started.
