@@ -355,7 +355,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = $"delete from {tablename} WHERE = "
+                Dim stm = $"delete from {tablename} WHERE  {uuidname} = @UUID"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", RegionUuid)
@@ -552,16 +552,17 @@ Public Module MysqlInterface
 
 #Region "TOS"
 
-    Public Sub Add2Tos(AvatarUUID As String, token As String, avatarname As String)
+    Public Sub Add2Tos(Agent As AvatarObject, token As String)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
-            Dim stm = "insert into tosauth (avataruuid, avatarname, agreed, token) values (@AVATARUUID,@AVATARNAME,0,@TOKEN)"
+            Dim stm = "insert into tosauth (avataruuid, avatarname, grid, agreed, token) values (@AVATARUUID,@AVATARNAME,@GRID,0,@TOKEN)"
             Using cmd As New MySqlCommand(stm, NewSQLConn)
                 Try
                     NewSQLConn.Open()
-                    cmd.Parameters.AddWithValue("@AVATARUUID", AvatarUUID)
-                    cmd.Parameters.AddWithValue("@AVATARNAME", avatarname)
+                    cmd.Parameters.AddWithValue("@AVATARUUID", Agent.AvatarUUID)
+                    cmd.Parameters.AddWithValue("@AVATARNAME", Agent.FirstName & " " & Agent.LastName)
+                    cmd.Parameters.AddWithValue("@GRID", Agent.Grid)
                     cmd.Parameters.AddWithValue("@TOKEN", token)
                     cmd.ExecuteScalar()
                 Catch ex As Exception
@@ -607,12 +608,12 @@ Public Module MysqlInterface
     End Sub
 
 
-    Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
+    Public Function IsTOSAccepted(Agent As AvatarObject, token As String) As Boolean
 
         If Not Settings.TOSEnabled Then Return True
 
-        If Not InAuth(AvatarUUID) Then
-            Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
+        If Not InAuth(Agent.AvatarUUID) Then
+            Add2Tos(Agent, token)
             Return False
         End If
 
@@ -621,7 +622,7 @@ Public Module MysqlInterface
                 NewSQLConn.Open()
                 Dim stm As String = "SELECT agreed FROM tosauth where avataruuid = @UUID"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.Parameters.AddWithValue("@UUID", Agent.AvatarUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             If reader.GetInt32(0) = 1 Then Return True ' could be 0 for new person, or a -1 if they declined and got booted.
@@ -648,13 +649,14 @@ Public Module MysqlInterface
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avatarname, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed =0 ; "
+                Dim stm = "Select avatarname, grid, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed =0 ; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim Val = reader.GetString("avataruuid")
                             Dim aviname = reader.GetString("avatarname")
-                            TextPrint($"{aviname} {My.Resources.DidNotAccept}.")
+                            Dim grid = reader.GetString("grid")
+                            TextPrint($"{aviname}@{grid} {My.Resources.DidNotAccept}.")
                             LogoutAvatar(Val)
                             DropAvatarFromTOS(Val)
                         End While
@@ -1136,10 +1138,10 @@ Public Module MysqlInterface
                                 Dim grid = m.Groups(2).Value.ToString
                                 grid = grid.Replace("http://", "")
                                 grid = grid.Replace("/", "")
-
                                 Dim AvatarUUID = m.Groups(1).Value.ToString
                                 Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
                                 Dim HGVisitors As New AvatarObject
+                                HGVisitors.Grid = grid
                                 HGVisitors.RegionID = UUID
                                 HGVisitors.AvatarUUID = AvatarUUID
                                 Dim parts As String() = m.Groups(3).Value.ToString.Split(" ".ToCharArray())
@@ -1149,7 +1151,6 @@ Public Module MysqlInterface
                                 If IsInPresence(AvatarUUID) Then
                                     L.Add(HGVisitors)
                                 End If
-
                             Next
                         End While
                     End Using
@@ -1217,6 +1218,7 @@ Public Module MysqlInterface
                                 Avatar.LastName = reader.GetString("LastName")
                                 Avatar.RegionID = reader.GetString("RegionID")
                                 Avatar.AgentName = Avatar.FirstName & " " & Avatar.LastName
+                                Avatar.Grid = Settings.PublicIP
                                 L.Add(Avatar)
                             End If
                         End While

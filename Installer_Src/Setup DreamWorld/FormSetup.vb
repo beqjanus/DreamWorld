@@ -1794,8 +1794,7 @@ Public Class FormSetup
                     AddorUpdateVisitor(Avatar, RegionName)
                     PropUpdateView = True
 
-                    If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
-                        'RPC_Region_Command(RegionUUID, $"alert-user {Fname} {Lname} {My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                    If Not IsTOSAccepted(AgentObject, UUID) Then
                         RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
                         SetTos2Zero(AgentObject.AvatarUUID)
                     End If
