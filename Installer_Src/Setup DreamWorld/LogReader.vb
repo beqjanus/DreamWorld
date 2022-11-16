@@ -26,6 +26,7 @@ Public Class LogReader
 
     Public Sub Dowork(o As Seeker)
 
+        If o Is Nothing Then Return
         Dim RegionUUID As String = o.RegionUUID
         Dim lastMaxOffset As Long = 0
 
@@ -35,7 +36,7 @@ Public Class LogReader
 
                 Using reader = New StreamReader(New FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 
-                    'start at the end of the file                    
+                    'start at the end of the file
                     reader.BaseStream.Seek(0, SeekOrigin.End)
                     lastMaxOffset = reader.BaseStream.Length
 
@@ -57,9 +58,8 @@ Public Class LogReader
                 End Using
             End If
         Catch ex As Exception
-                Return
-            End Try
-
+            Return
+        End Try
 
     End Sub
 

@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache moet poort 80 gebruiken. Kan niet doorgaan!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatische sitemap</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Back-upmap</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Inhoudsbeheer</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Dagen bewaren</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Map bekijken</value>
+  </data>
 </root>

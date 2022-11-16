@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apassi käyttää porttia 80. Ei voi jatkaa!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automaattinen sivustokartta</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Varmuuskopiokansio</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Sisältöpäällikkö</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervalli</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Säilytä päiviä</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Näytä kansio</value>
+  </data>
 </root>

@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Ní mór Apache a bheith ag baint úsáide as port 80. Ní féidir leanúint ar aghaidh!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Léarscáil an tSuímh Uathoibríoch</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Fillteán Cúltaca</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Bainisteoir Ábhar</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Eatramh</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Coinnigh ar feadh laethanta</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Féach ar an bhFillteán</value>
+  </data>
 </root>

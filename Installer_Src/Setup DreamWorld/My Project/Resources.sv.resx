@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache måste använda port 80. Kan inte fortsätta!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatisk webbplatskarta</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Säkerhetskopieringsmapp</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Innehållshanterare</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervall</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Håll i dagar</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Se fil</value>
+  </data>
 </root>

@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>no va acceptar els Termes i Condicions</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Mapa automàtic del lloc</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Carpeta de còpia de seguretat</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Gestor de continguts</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Guardar durant dies</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Veure carpeta</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Còpia de seguretat SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Tipus de còpia de seguretat</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Canvia carpeta</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Port web (80)</value>
+  </data>
 </root>

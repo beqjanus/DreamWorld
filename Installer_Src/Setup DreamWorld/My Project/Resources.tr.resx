@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache 80 numaralı portu kullanıyor olmalıdır. Devam edemiyorum.!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Otomatik Site Haritası</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Yedekleme Klasörü</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>İçerik yöneticisi</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Aralık</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>günlerce sakla</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Dosya görüntüle</value>
+  </data>
 </root>

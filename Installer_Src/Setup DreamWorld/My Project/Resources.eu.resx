@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache-k 80 ataka erabili behar du. Ezin da jarraitu.!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Gunearen mapa automatikoa</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Babeskopia karpeta</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Eduki-kudeatzailea</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Tartea</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Mantendu egunez</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Ikusi karpeta</value>
+  </data>
 </root>

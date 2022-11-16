@@ -553,7 +553,7 @@ Public Module MysqlInterface
 #Region "TOS"
 
     Public Sub Add2Tos(Agent As AvatarObject, token As String)
-
+        If Agent Is Nothing Then Return
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
             Dim stm = "insert into tosauth (avataruuid, avatarname, grid, agreed, token) values (@AVATARUUID,@AVATARNAME,@GRID,0,@TOKEN)"
@@ -591,25 +591,9 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub SetTos2Zero(AvatarUUID As String)
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "update tosauth set agreed='0' where avataruuid = @UUID"
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-    End Sub
-
-
     Public Function IsTOSAccepted(Agent As AvatarObject, token As String) As Boolean
 
+        If Agent Is Nothing Then Return False
         If Not Settings.TOSEnabled Then Return True
 
         If Not InAuth(Agent.AvatarUUID) Then
@@ -668,6 +652,22 @@ Public Module MysqlInterface
 
         End Using
 
+    End Sub
+
+    Public Sub SetTos2Zero(AvatarUUID As String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "update tosauth set agreed='0' where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
     End Sub
 
     ''' <summary>

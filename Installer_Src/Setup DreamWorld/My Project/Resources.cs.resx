@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>nepřijal Smluvní podmínky</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatická mapa stránek</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Záložní složka</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Manažer obsahu</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Časový úsek</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Uchovávejte několik dní</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Zobrazit složku</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Zálohování SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Typ zálohy</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Změnit složku</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Webový port (80)</value>
+  </data>
 </root>

@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache verður  að nota port 80. Get ekki haldið áfram.!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Sjálfvirk Site Map</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Afritun Mappa</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>content Manager</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>interval</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Halda daga</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Skoða möppu</value>
+  </data>
 </root>
