@@ -1264,11 +1264,11 @@ Public Class FormSetup
         My.Application.ChangeCulture(Settings.Language)
 
         If Settings.AutoBackup Then
-            ' add 30 minutes to allow time to auto backup andalso then restart
+            ' add 30 minutes to allow time to auto backup and also  restart
             Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 AndAlso Settings.AutoRestartInterval < BTime Then
-                Settings.AutoRestartInterval = BTime + 30
-                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
+                Settings.AutoRestartInterval = BTime + 60
+                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 60 min.")
             End If
         End If
 
