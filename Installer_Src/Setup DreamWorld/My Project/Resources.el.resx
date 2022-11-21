@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>δεν αποδέχτηκε τους Όρους και Προϋποθέσεις</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Αυτόματος χάρτης τοποθεσίας</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Φάκελος αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Διαχείριση περιεχομένου</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Διάστημα</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Κρατήστε για μέρες</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Προβολή φακέλου</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Δημιουργία αντιγράφων ασφαλείας SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Τύπος αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Αλλαγή φακέλου</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Θύρα Ιστού (80)</value>
+  </data>
 </root>

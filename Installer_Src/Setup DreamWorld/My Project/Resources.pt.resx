@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>O Apache deve  estar a usar a porta 80. Não é possível continuar!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Mapa do site automático</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Pasta de backup</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Gestor de conteúdos</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervalo</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Manter por dias</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Ver pasta</value>
+  </data>
 </root>

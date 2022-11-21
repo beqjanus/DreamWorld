@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache必须使用端口80。无法继续。！</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>自动站点地图</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>备份文件夹</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>内容管理者</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>间隔</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>保存几天</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>查看文件夹</value>
+  </data>
 </root>

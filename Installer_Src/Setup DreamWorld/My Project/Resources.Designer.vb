@@ -779,6 +779,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatic Site Map.
+        '''</summary>
+        Friend ReadOnly Property AutomaticSiteMap() As String
+            Get
+                Return ResourceManager.GetString("AutomaticSiteMap", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to 0  - Off. How many minutes until auto restart occurs?.
         '''</summary>
         Friend ReadOnly Property AutorestartBox() As String
@@ -1067,6 +1076,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backup SQL.
+        '''</summary>
+        Friend ReadOnly Property Backup_SQL() As String
+            Get
+                Return ResourceManager.GetString("Backup_SQL", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Type.
+        '''</summary>
+        Friend ReadOnly Property backup_type() As String
+            Get
+                Return ResourceManager.GetString("backup_type", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Wifi.
         '''</summary>
         Friend ReadOnly Property Backup_Wifi() As String
@@ -1081,6 +1108,15 @@ Namespace My.Resources
         Friend ReadOnly Property Backup_word() As String
             Get
                 Return ResourceManager.GetString("Backup_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup Folder.
+        '''</summary>
+        Friend ReadOnly Property BackupFolder() As String
+            Get
+                Return ResourceManager.GetString("BackupFolder", resourceCulture)
             End Get
         End Property
         
@@ -1705,6 +1741,15 @@ Namespace My.Resources
         Friend ReadOnly Property Change_UUID() As String
             Get
                 Return ResourceManager.GetString("Change_UUID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Change Folder.
+        '''</summary>
+        Friend ReadOnly Property ChangeFolder() As String
+            Get
+                Return ResourceManager.GetString("ChangeFolder", resourceCulture)
             End Get
         End Property
         
@@ -2500,6 +2545,15 @@ Namespace My.Resources
         Friend ReadOnly Property Content_word() As String
             Get
                 Return ResourceManager.GetString("Content_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Content Manager.
+        '''</summary>
+        Friend ReadOnly Property ContentManager() As String
+            Get
+                Return ResourceManager.GetString("ContentManager", resourceCulture)
             End Get
         End Property
         
@@ -5845,6 +5899,15 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Interval.
         '''</summary>
+        Friend ReadOnly Property Interval() As String
+            Get
+                Return ResourceManager.GetString("Interval", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Interval.
+        '''</summary>
         Friend ReadOnly Property Interval_word() As String
             Get
                 Return ResourceManager.GetString("Interval_word", resourceCulture)
@@ -6039,6 +6102,15 @@ Namespace My.Resources
         Friend ReadOnly Property KeepAlways() As String
             Get
                 Return ResourceManager.GetString("KeepAlways", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Keep for days.
+        '''</summary>
+        Friend ReadOnly Property Keepfordays() As String
+            Get
+                Return ResourceManager.GetString("Keepfordays", resourceCulture)
             End Get
         End Property
         
@@ -12638,6 +12710,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to View Folder.
+        '''</summary>
+        Friend ReadOnly Property ViewFolder() As String
+            Get
+                Return ResourceManager.GetString("ViewFolder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to View Google Map.
         '''</summary>
         Friend ReadOnly Property ViewGoogleMap() As String
@@ -12817,6 +12898,15 @@ Namespace My.Resources
         Friend ReadOnly Property Web_UI() As String
             Get
                 Return ResourceManager.GetString("Web_UI", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Web Port (80).
+        '''</summary>
+        Friend ReadOnly Property WebPort() As String
+            Get
+                Return ResourceManager.GetString("WebPort", resourceCulture)
             End Get
         End Property
         

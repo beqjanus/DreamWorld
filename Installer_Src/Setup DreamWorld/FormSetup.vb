@@ -23,9 +23,9 @@ Public Class FormSetup
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     ReadOnly BackupThread As New Backups
+
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -1264,11 +1264,11 @@ Public Class FormSetup
         My.Application.ChangeCulture(Settings.Language)
 
         If Settings.AutoBackup Then
-            ' add 30 minutes to allow time to auto backup andalso then restart
+            ' add 30 minutes to allow time to auto backup and also  restart
             Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 AndAlso Settings.AutoRestartInterval < BTime Then
-                Settings.AutoRestartInterval = BTime + 30
-                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
+                Settings.AutoRestartInterval = BTime + 60
+                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 60 min.")
             End If
         End If
 
@@ -1748,6 +1748,12 @@ Public Class FormSetup
         Dim total As Integer
         Try
 
+            ' make a copy to detect changes and remember names and region data
+            Dim LastAvatars As New Dictionary(Of String, AvatarObject)
+            For Each person In CachedAvatars
+                LastAvatars(person.AvatarUUID) = person
+            Next
+
             GetAllAgents()  ' to list (of Cachedavatars)
 
             ' start with zero avatars
@@ -1757,6 +1763,7 @@ Public Class FormSetup
 
             For Each AgentObject In CachedAvatars
                 Dim Avatar = AgentObject.AgentName
+                Dim AvatarKey = AgentObject.AvatarUUID
                 Dim RegionUUID = AgentObject.RegionID
                 If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
                     Continue For
@@ -1766,7 +1773,7 @@ Public Class FormSetup
                 If RegionName.Length = 0 Then Continue For
 
                 ' not seen before
-                If Not CurrentLocation.ContainsKey(Avatar) Then
+                If Not CurrentLocation.ContainsKey(AvatarKey) Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
 
                     Dim UUID = System.Guid.NewGuid.ToString
@@ -1782,21 +1789,22 @@ Public Class FormSetup
                     End If
 
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    CurrentLocation.Add(Avatar, RegionName)
+                    CurrentLocation.Add(AvatarKey, RegionName)
                     AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                     PropUpdateView = True
 
-                    If Not IsTOSAccepted(AgentObject.AvatarUUID, Fname, Lname, UUID) Then
+                    If Not IsTOSAccepted(AgentObject, UUID) Then
                         RPC_admin_dialog(AgentObject.AvatarUUID, $"{My.Resources.AgreeTOS}{vbCrLf}{URL}")
+                        SetTos2Zero(AgentObject.AvatarUUID)
                     End If
 
                 End If
 
-                If Not CurrentLocation.Item(Avatar) = RegionName Then
+                If Not CurrentLocation.Item(AvatarKey) = RegionName Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    CurrentLocation.Item(Avatar) = RegionName
+                    CurrentLocation.Item(AvatarKey) = RegionName
                     AvatarCount(RegionUUID) += 1
                     PropUpdateView = True
                     AddorUpdateVisitor(Avatar, RegionName)
@@ -1814,19 +1822,19 @@ Public Class FormSetup
 
             Dim Remove As New List(Of String)
             For Each NameValue In CurrentLocation
-                Dim Avatar = NameValue.Key
+                Dim AvatarKey = NameValue.Key
                 Dim RegionName = NameValue.Value
                 Dim exists As Boolean
                 For Each o In CachedAvatars
-                    Diagnostics.Debug.Print(o.AgentName)
-                    If o.AgentName = Avatar Then
+                    'Diagnostics.Debug.Print(o.AgentName)
+                    If o.AvatarUUID = AvatarKey Then
                         exists = True
                     End If
                 Next
                 If Not exists Then
-                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    Remove.Add(Avatar)
+                    TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                    Remove.Add(AvatarKey)
                     PropUpdateView = True
                 End If
             Next
@@ -2028,23 +2036,18 @@ Public Class FormSetup
         TimerisBusy += 1
 
         Chart()                     ' do charts collection
-
         CheckPost()                 ' see if anything arrived in the web server
         CheckForBootedRegions()     ' task to scan for anything that just came online
         TeleportAgents()            ' send them onward
         ProcessQuit()               ' check if any processes exited
         PrintBackups()              ' print if backups are running
-
         Chat2Speech()               ' speak of the devil
         RestartDOSboxes()           ' Icons for failed Services
 
         If SecondsTicker Mod 5 = 0 AndAlso SecondsTicker > 0 Then
             Bench.Start("5 second + worker")
-
             ScanAgents()                ' update agent count
-
             CalcDiskFree()              ' check for free disk space
-
             If Settings.ShowMysqlStats Then
                 MySQLSpeed.Text = (MysqlStats() / 5).ToString("0.0", Globalization.CultureInfo.CurrentCulture) & " Q/S"
             Else
@@ -2109,7 +2112,7 @@ Public Class FormSetup
             SetPublicIP()           ' Adjust to any IP changes
             ExpireLogsByAge()       ' clean up old logs
             DeleteOldVisitors()     ' can be pretty old
-
+            ExpireLogByCount()      ' kill off old backup folders
             ' Dynamically adjust Mysql for size of DB
             ' set mysql for amount of buffer to use now that it running.
             ' Will take effect next time Mysql is started.

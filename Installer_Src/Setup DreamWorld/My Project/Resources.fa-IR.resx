@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>آپاچی باید از پورت 80 استفاده کند. ادامه ندارد.!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>نقشه سایت خودکار</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>پوشه پشتیبان</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>مدیریت محتوا</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>فاصله</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>روزها نگه دارید</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>مشاهده پوشه</value>
+  </data>
 </root>

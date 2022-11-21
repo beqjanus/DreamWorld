@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>האפאצ'י בטח משתמשים בפורט 80. לא יכול להמשיך!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>מפת אתר אוטומטית</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>תיקיית גיבוי</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>מנהל תוכן</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>הַפסָקָה</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>לשמור במשך ימים</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>הצג תיקייה</value>
+  </data>
 </root>

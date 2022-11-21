@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>لم تقبل الشروط والأحكام</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>خريطة الموقع التلقائية</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>مجلد النسخ الاحتياطي</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>مدير محتوى</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>فترة</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>احتفظ به لأيام</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>مشاهدة الملف</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>SQL النسخ الاحتياطي</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>نوع النسخ الاحتياطي</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>تغير مجلد</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>منفذ الويب (80)</value>
+  </data>
 </root>

@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache phải  sử dụng cổng 80. Không thể tiếp tục.!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Sơ đồ trang web tự động</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Thư mục sao lưu</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Nội dung quản lí</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Khoảng thời gian</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Giữ trong nhiều ngày</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Xem thư mục</value>
+  </data>
 </root>

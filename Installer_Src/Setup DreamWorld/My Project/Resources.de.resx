@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>die AGB nicht akzeptiert</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatische Sitemap</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Sicherungsordner</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Content-Manager</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervall</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Tage halten</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Ordner anzeigen</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Backup-SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Sicherungstyp</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Ändere den Ordner</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Webport (80)</value>
+  </data>
 </root>

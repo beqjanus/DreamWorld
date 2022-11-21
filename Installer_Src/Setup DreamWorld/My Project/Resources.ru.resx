@@ -3810,4 +3810,22 @@
   <data name="ApacheMustBe80" xml:space="preserve">
     <value>Apache должен использовать порт 80. Продолжение невозможно!</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Автоматическая карта сайта</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Резервная папка</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Контент менеджер</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Интервал</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Хранить в течение нескольких дней</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Посмотреть папку</value>
+  </data>
 </root>

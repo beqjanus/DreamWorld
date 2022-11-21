@@ -330,7 +330,7 @@ Module Diags
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
                 BreakPoint.Dump(ex)
                 Logger("Error", Global.Outworldz.My.Resources.Wrong & " " & ex.Message, "Diagnostics")
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                ErrorLog($"{My.Resources.Wrong} {ex.Message}")
             End Try
         End Using
 
@@ -340,7 +340,7 @@ Module Diags
         Else
             Settings.LoopbackDiag = False
             Settings.DiagFailed = "True"
-            Logger("INFO", Global.Outworldz.My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded, "Diagnostics")
+            Logger("INFO", $"{Global.Outworldz.My.Resources.Internet_address} {Settings.PublicIP}:{Settings.HttpPort}{Global.Outworldz.My.Resources.Not_Forwarded}", "Diagnostics")
             TextPrint(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded)
         End If
 
@@ -360,7 +360,7 @@ Module Diags
 
                 If Used.Contains(RegionName) Then Continue For
                 Used.Add(RegionName)
-                Logger("INFO", "Testing region " & RegionName, "Diagnostics")
+                Logger("INFO", $"Testing region {RegionName}", "Diagnostics")
                 Dim Port = GroupPort(RegionUUID)
                 TextPrint(My.Resources.Checking_Loopback_word & " " & RegionName)
                 Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")

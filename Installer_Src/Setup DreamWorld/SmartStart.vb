@@ -171,7 +171,7 @@ Module SmartStart
                     End If
 
                     ' Smart Start Timer
-                    If Smart_Start(RegionUUID) AndAlso status = SIMSTATUSENUM.Booted Then
+                    If Settings.Smart_Start AndAlso Smart_Start(RegionUUID) AndAlso status = SIMSTATUSENUM.Booted Then
                         Dim diff = DateAndTime.DateDiff(DateInterval.Second, Timer(RegionUUID), Date.Now)
                         If diff < 0 Then diff = 0
 
@@ -532,13 +532,13 @@ Module SmartStart
 
         If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
             BreakPoint.Print("UUID Zero")
-            Logger("Addem", "Bad UUID", "Teleport")
+            Logger("Addem", "Bad Region UUID", "Teleport")
             Return True
         End If
 
         Dim result As New Guid
         If Not Guid.TryParse(RegionUUID, result) Then
-            Logger("Addem", "Bad UUID", "Teleport")
+            Logger("Addem", "Bad Region UUID", "Teleport")
             Return False
         End If
 
@@ -1060,13 +1060,11 @@ Module SmartStart
         TextPrint($"{Region_Name(RegionUUID)}: load oar {File}")
 
         Dim Result = New WaitForFile(RegionUUID, "Start scripts done", "Load OAR")
-        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}backup{vbCrLf}")
+        ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}load oar --force-terrain --force-parcels ""{File}""{vbCrLf}")
         Result.Scan()
 
         If Not AvatarsIsInGroup(Group_Name(RegionUUID)) Then
             PokeRegionTimer(RegionUUID)
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood
-            ShutDown(RegionUUID, SIMSTATUSENUM.ShuttingDownForGood)
         End If
 
     End Sub

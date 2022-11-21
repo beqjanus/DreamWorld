@@ -3822,4 +3822,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>accepterede ikke vilkår og betingelser</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatisk webstedskort</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Sikkerhedskopieringsmappe</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Content Manager</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Hold i dagevis</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>Se mappe</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Sikkerhedskopier SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Sikkerhedskopieringstype</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Skift mappe</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Webport (80)</value>
+  </data>
 </root>

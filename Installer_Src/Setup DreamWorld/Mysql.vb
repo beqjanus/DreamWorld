@@ -319,9 +319,9 @@ Public Module MysqlInterface
     ''' </summary>
     ''' <param name="UUID">avatar UUID</param>
     ''' <returns>Person class</returns>
-    Public Function AvatarEmailData(UUID As String) As Person
+    Public Function AvatarEmailData(UUID As String) As UserData
 
-        Dim Avi As New Person
+        Dim Avi As New UserData
 
         Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -348,8 +348,6 @@ Public Module MysqlInterface
 
 #End Region
 
-
-
 #Region "Delete Stuff"
 
     Public Sub DeleteContent(RegionUuid As String, tablename As String, uuidname As String)
@@ -357,7 +355,7 @@ Public Module MysqlInterface
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
-                Dim stm = $"delete from {tablename} WHERE = "
+                Dim stm = $"delete from {tablename} WHERE  {uuidname} = @UUID"
 #Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", RegionUuid)
@@ -554,16 +552,17 @@ Public Module MysqlInterface
 
 #Region "TOS"
 
-    Public Sub Add2Tos(AvatarUUID As String, token As String, avatarname As String)
-
+    Public Sub Add2Tos(Agent As AvatarObject, token As String)
+        If Agent Is Nothing Then Return
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
-            Dim stm = "insert into tosauth (avataruuid, avatarname, agreed, token) values (@AVATARUUID,@AVATARNAME,0,@TOKEN)"
+            Dim stm = "insert into tosauth (avataruuid, avatarname, grid, agreed, token) values (@AVATARUUID,@AVATARNAME,@GRID,0,@TOKEN)"
             Using cmd As New MySqlCommand(stm, NewSQLConn)
                 Try
                     NewSQLConn.Open()
-                    cmd.Parameters.AddWithValue("@AVATARUUID", AvatarUUID)
-                    cmd.Parameters.AddWithValue("@AVATARNAME", avatarname)
+                    cmd.Parameters.AddWithValue("@AVATARUUID", Agent.AvatarUUID)
+                    cmd.Parameters.AddWithValue("@AVATARNAME", Agent.FirstName & " " & Agent.LastName)
+                    cmd.Parameters.AddWithValue("@GRID", Agent.Grid)
                     cmd.Parameters.AddWithValue("@TOKEN", token)
                     cmd.ExecuteScalar()
                 Catch ex As Exception
@@ -592,12 +591,13 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Function IsTOSAccepted(AvatarUUID As String, Fname As String, LName As String, UUID As String) As Boolean
+    Public Function IsTOSAccepted(Agent As AvatarObject, token As String) As Boolean
 
+        If Agent Is Nothing Then Return False
         If Not Settings.TOSEnabled Then Return True
 
-        If Not InAuth(AvatarUUID) Then
-            Add2Tos(AvatarUUID, UUID, Fname & " " & LName)
+        If Not InAuth(Agent.AvatarUUID) Then
+            Add2Tos(Agent, token)
             Return False
         End If
 
@@ -606,11 +606,12 @@ Public Module MysqlInterface
                 NewSQLConn.Open()
                 Dim stm As String = "SELECT agreed FROM tosauth where avataruuid = @UUID"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.Parameters.AddWithValue("@UUID", Agent.AvatarUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Return CBool(reader.GetInt32(0))
-                        End While
+                        If reader.Read() Then
+                            If reader.GetInt32(0) = 1 Then Return True ' could be 0 for new person, or a -1 if they declined and got booted.
+                            Return False
+                        End If
                     End Using
                 End Using
             Catch ex As Exception
@@ -638,8 +639,8 @@ Public Module MysqlInterface
                         While reader.Read()
                             Dim Val = reader.GetString("avataruuid")
                             Dim aviname = reader.GetString("avatarname")
-                            TextPrint($"{aviname} {My.Resources.DidNotAccept}.")
-
+                            Dim grid = reader.GetString("grid")
+                            TextPrint($"{aviname}@{grid} {My.Resources.DidNotAccept}.")
                             LogoutAvatar(Val)
                             DropAvatarFromTOS(Val)
                         End While
@@ -653,12 +654,32 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Sub SetTos2Zero(AvatarUUID As String)
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "update tosauth set agreed='0' where avataruuid = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+    End Sub
+
+    ''' <summary>
+    ''' Sets status to -1 as they timed out and failed to read the TOS
+    ''' </summary>
+    ''' <param name="AvatarUUID"></param>
     Private Sub DropAvatarFromTOS(AvatarUUID As String)
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
-                Dim stm As String = "delete FROM tosauth where avataruuid = @UUID"
+                Dim stm As String = "update tosauth set agreed = -1 where avataruuid = @UUID"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
                     cmd.ExecuteNonQuery()
@@ -677,6 +698,7 @@ Public Module MysqlInterface
                 For Each Avatar In CachedAvatars
                     Dim RegionUUID = Avatar.RegionID
                     If IsAgentInRegion(RegionUUID) Then
+                        TextPrint($"{Avatar.FirstName} {Avatar.LastName} kicked. TOS not accepted.")
                         RPC_Region_Command(RegionUUID, $"kick user {Avatar.FirstName} {Avatar.LastName} You are logged out for not agreeing to the Terms and Conditions of this Grid. ")
                         Exit For
                     End If
@@ -1095,7 +1117,7 @@ Public Module MysqlInterface
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
 
-        Dim UserStmt = "Select UserID, LastRegionID from GridUser where  lastregionid <> '00000000-0000-0000-0000-000000000000'"
+        Dim UserStmt = "Select UserID, LastRegionID from GridUser where  lastregionid <> '00000000-0000-0000-0000-000000000000' And GridUser.Online = 'True'"
         Dim pattern As String = "(.*?);(.*?);(.*)$"
 
         Dim L As New List(Of AvatarObject)
@@ -1116,10 +1138,10 @@ Public Module MysqlInterface
                                 Dim grid = m.Groups(2).Value.ToString
                                 grid = grid.Replace("http://", "")
                                 grid = grid.Replace("/", "")
-
                                 Dim AvatarUUID = m.Groups(1).Value.ToString
                                 Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
                                 Dim HGVisitors As New AvatarObject
+                                HGVisitors.Grid = grid
                                 HGVisitors.RegionID = UUID
                                 HGVisitors.AvatarUUID = AvatarUUID
                                 Dim parts As String() = m.Groups(3).Value.ToString.Split(" ".ToCharArray())
@@ -1129,7 +1151,6 @@ Public Module MysqlInterface
                                 If IsInPresence(AvatarUUID) Then
                                     L.Add(HGVisitors)
                                 End If
-
                             Next
                         End While
                     End Using
@@ -1172,36 +1193,6 @@ Public Module MysqlInterface
         Return result
 
     End Function
-    ''' <summary>
-    ''' Check if a given key is in presence without a join.
-    ''' </summary>
-    ''' <param name="AvatarUUID"></param>
-    ''' <returns></returns>
-    Public Function IsInPresence(AvatarUUID As String) As Boolean
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) from presence where presence.UserID = @UUID"
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            If reader.GetInt32(0) > 0 Then
-                                Return True
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch ex As Exception
-                BreakPoint.Dump(ex)
-            End Try
-        End Using
-
-        Return False
-
-    End Function
 
     ''' <summary>
     ''' Returns User name and region they are in, if any
@@ -1227,6 +1218,7 @@ Public Module MysqlInterface
                                 Avatar.LastName = reader.GetString("LastName")
                                 Avatar.RegionID = reader.GetString("RegionID")
                                 Avatar.AgentName = Avatar.FirstName & " " & Avatar.LastName
+                                Avatar.Grid = Settings.PublicIP
                                 L.Add(Avatar)
                             End If
                         End While
@@ -1319,6 +1311,37 @@ Public Module MysqlInterface
                 Return True
             End If
         Next
+        Return False
+
+    End Function
+
+    ''' <summary>
+    ''' Check if a given key is in presence without a join.
+    ''' </summary>
+    ''' <param name="AvatarUUID"></param>
+    ''' <returns></returns>
+    Public Function IsInPresence(AvatarUUID As String) As Boolean
+
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) from presence where presence.UserID = @UUID"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", AvatarUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            If reader.GetInt32(0) > 0 Then
+                                Return True
+                            End If
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Dump(ex)
+            End Try
+        End Using
+
         Return False
 
     End Function
@@ -2394,40 +2417,6 @@ Public Class MailList
 
 End Class
 
-Public Class Person
-    Private _email As String = ""
-    Private _firstName As String = ""
-    Private _lastName As String = ""
-
-    Public Property Email As String
-        Get
-            Return _email
-        End Get
-        Set(value As String)
-            _email = value
-        End Set
-    End Property
-
-    Public Property FirstName As String
-        Get
-            Return _firstName
-        End Get
-        Set(value As String)
-            _firstName = value
-        End Set
-    End Property
-
-    Public Property LastName As String
-        Get
-            Return _lastName
-        End Get
-        Set(value As String)
-            _lastName = value
-        End Set
-    End Property
-
-End Class
-
 Public Class UserData
 
     Private _email As String = ""
@@ -2435,6 +2424,7 @@ Public Class UserData
     Private _lastName As String = ""
     Private _level As Integer = -1
     Private _principalID As String = ""
+    Private _RegionUUID As String = ""
     Private _userTitle As String = ""
 
     Public Property Email As String
@@ -2479,6 +2469,15 @@ Public Class UserData
         End Get
         Set(value As String)
             _principalID = value
+        End Set
+    End Property
+
+    Public Property RegionUUID As String
+        Get
+            Return _RegionUUID
+        End Get
+        Set(value As String)
+            _RegionUUID = value
         End Set
     End Property
 

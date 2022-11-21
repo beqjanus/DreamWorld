@@ -50,6 +50,7 @@ Public Class ChatToSpeech
         Dim HttpPathInfo As String = ""
         If Settings.VoiceName = "No Speech" Then Return ""
         If Settings.VoiceName = "No Speech" Then Return ""
+        If Params.TTS Is Nothing Then Return ""
         If Params.TTS.Length = 0 Then Return ""
 
         SyncLock Interlock
@@ -82,6 +83,8 @@ Public Class ChatToSpeech
                 End If
 
                 DiskFilepath = IO.Path.Combine(DiskFilepath, fname)
+                If DiskFilepath Is Nothing Then Return ""
+                If fname Is Nothing Then Return ""
                 Debug.Print(DiskFilepath)
 
                 ' check if it is in cache

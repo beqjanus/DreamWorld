@@ -4406,4 +4406,34 @@
   <data name="DidNotAccept" xml:space="preserve">
     <value>did not accept the Terms and Conditions</value>
   </data>
+  <data name="AutomaticSiteMap" xml:space="preserve">
+    <value>Automatic Site Map</value>
+  </data>
+  <data name="BackupFolder" xml:space="preserve">
+    <value>Backup Folder</value>
+  </data>
+  <data name="Backup_SQL" xml:space="preserve">
+    <value>Backup SQL</value>
+  </data>
+  <data name="backup_type" xml:space="preserve">
+    <value>Backup Type</value>
+  </data>
+  <data name="ChangeFolder" xml:space="preserve">
+    <value>Change Folder</value>
+  </data>
+  <data name="ContentManager" xml:space="preserve">
+    <value>Content Manager</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="Keepfordays" xml:space="preserve">
+    <value>Keep for days</value>
+  </data>
+  <data name="ViewFolder" xml:space="preserve">
+    <value>View Folder</value>
+  </data>
+  <data name="WebPort" xml:space="preserve">
+    <value>Web Port (80)</value>
+  </data>
 </root>

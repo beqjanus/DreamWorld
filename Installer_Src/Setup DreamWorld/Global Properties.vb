@@ -9,6 +9,7 @@ Public Class AvatarObject
     Public FirstName As String
     Public LastName As String
     Public RegionID As String
+    Public Grid As String
 End Class
 
 Module Global_Properties

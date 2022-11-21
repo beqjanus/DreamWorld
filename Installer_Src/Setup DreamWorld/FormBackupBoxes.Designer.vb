@@ -59,7 +59,7 @@ Partial Class FormBackupBoxes
         Me.GroupBox1.Size = New System.Drawing.Size(346, 222)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Backup"
+        Me.GroupBox1.Text = My.Resources.Backup_word
         '
         'ShowFsassets
         '
@@ -70,7 +70,7 @@ Partial Class FormBackupBoxes
         Me.ShowFsassets.Name = "ShowFsassets"
         Me.ShowFsassets.Size = New System.Drawing.Size(53, 17)
         Me.ShowFsassets.TabIndex = 12
-        Me.ShowFsassets.Text = "Show"
+        Me.ShowFsassets.Text = My.Resources.Show_word
         Me.ShowFsassets.UseVisualStyleBackColor = True
         '
         'BackupIARsCheckBox
@@ -82,7 +82,7 @@ Partial Class FormBackupBoxes
         Me.BackupIARsCheckBox.Name = "BackupIARsCheckBox"
         Me.BackupIARsCheckBox.Size = New System.Drawing.Size(89, 17)
         Me.BackupIARsCheckBox.TabIndex = 11
-        Me.BackupIARsCheckBox.Text = "Backup IARs"
+        Me.BackupIARsCheckBox.Text = My.Resources.Backup_IARs
         Me.BackupIARsCheckBox.UseVisualStyleBackColor = True
         '
         'BackupSQlCheckBox
@@ -94,7 +94,7 @@ Partial Class FormBackupBoxes
         Me.BackupSQlCheckBox.Name = "BackupSQlCheckBox"
         Me.BackupSQlCheckBox.Size = New System.Drawing.Size(87, 17)
         Me.BackupSQlCheckBox.TabIndex = 6
-        Me.BackupSQlCheckBox.Text = "Backup SQL"
+        Me.BackupSQlCheckBox.Text = My.Resources.Backup_SQL
         Me.BackupSQlCheckBox.UseVisualStyleBackColor = True
         '
         'BackupOarsCheckBox

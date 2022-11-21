@@ -81,7 +81,7 @@ Partial Class FormApache
         Me.Sitemap.Name = "Sitemap"
         Me.Sitemap.Size = New System.Drawing.Size(118, 17)
         Me.Sitemap.TabIndex = 2
-        Me.Sitemap.Text = "Automatic Site Map"
+        Me.Sitemap.Text = My.Resources.AutomaticSiteMap
         Me.Sitemap.UseVisualStyleBackColor = True
         '
         'ApachePort
@@ -98,7 +98,7 @@ Partial Class FormApache
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(115, 13)
         Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Web Port (80, or 8000)"
+        Me.Label3.Text = My.Resources.WebPort
         '
         'ApacheCheckbox
         '
@@ -141,7 +141,7 @@ Partial Class FormApache
         Me.GroupBox3.Size = New System.Drawing.Size(224, 150)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Content Manager"
+        Me.GroupBox3.Text = My.Resources.ContentManager
         '
         'Other
         '
