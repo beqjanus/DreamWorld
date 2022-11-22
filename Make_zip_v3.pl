@@ -18,22 +18,25 @@ my $dir = getcwd;
 
 # paths
 my $src= "$dir/Installer_Src/Setup DreamWorld/GlobalSettings.vb";
-#my $Contabo = '\\\\contabo2.outworldz.com/c';
-my $Fleta = '\\\\fleta/c';
-my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";
-my $zip = 'C:/Opensim/Zip/';
-my $repo ='C:/Opensim/Zips'; 
+#my $Contabo = '\\\\contabo2.outworldz.com/c'; # unuised - now uses syncback to sync web server
+my $Fleta = '\\\\fleta/c'; # my web server
+my $Dest = "H:/Dropbox/Dreamworld/Zip/DreamGrid.zip";  # where the final product goes
+my $zip = 'C:/Opensim/Zip/';    # temp storage 
+my $repo ='C:/Opensim/Zips';    # long term storage of all zips
+
 my $v = GetVersion($src);
 say ( "Version $v");
 my $type = "-V$v";
 
 CheckDistro();
 
-# This requires a Authenticode Certificate to sign the files. The thumb print comes from the cert. It is not the cert, which is private and is saved in the windows store.
+# This can use an Authenticode Certificate to sign the files. The thumb print comes from the cert. It is not the cert, which is private and is saved in the windows store.
 # convert the Cert to a pfx file:  .\bin\openssl pkcs12 -export -out cert.pfx -inkey 2021.key -in 2021.cer
-# import the PK and the
-my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1';    # 2021
+# import the PK and then right click te entry in the digicert untility to get the thumbprint.
 
+my $thumbprint = '9FC0371A50087DD2A0FD134131B0DC4A98104832'; #2022
+
+my $signfiles = 1;    # 0 to not authenticode dsign
 
 my $Version = `git rev-parse --short HEAD `;
 chomp $Version;
@@ -53,7 +56,6 @@ mkdir $zip;
 
 $v > io("$dir/Version.txt");
 
-
 my $start = GetDate() . " " . GetTime() . "\n";
 
 PrintDate("Delete Languages");
@@ -63,6 +65,7 @@ foreach my $lang (@languages) {
     JustDelete($lang);
 }
 
+#drop all debug code
 PrintDate("Delete pdb");
 my @a = io->dir('.')->all(0);
 
@@ -484,6 +487,8 @@ sub DelMaps {
 
 sub sign {
 
+    return unless $signfiles ;
+    
     my @files = io->dir(shift)->all(0);
 
     my @signs;
