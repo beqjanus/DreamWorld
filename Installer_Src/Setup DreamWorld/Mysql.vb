@@ -633,7 +633,7 @@ Public Module MysqlInterface
         Using Connection As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 Connection.Open()
-                Dim stm = "Select avatarname, grid, avataruuid from tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 3 and agreed =0 ; "
+                Dim stm = "Select avatarname, avataruuid from robust.tosauth where TIMESTAMPDIFF(minute,createtime,now()) > 5 and agreed = 0; "
                 Using cmd = New MySqlCommand(stm, Connection)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()

@@ -15,7 +15,7 @@ Module BreakPoint
 
         For Each sf As StackFrame In st.GetFrames
             If sf.GetFileLineNumber() > 0 Then
-                Message &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
+                Message &= $"Line:{sf.GetFileLineNumber()} Filename: {IO.Path.GetFileName(sf.GetFileName)}{Environment.NewLine}"
             End If
         Next
         BreakPoint.Print(Message)

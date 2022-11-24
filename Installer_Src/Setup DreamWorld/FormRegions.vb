@@ -355,7 +355,7 @@ Public Class FormRegions
         End Try
 
         If X <= 1 Or Y < 32 Then
-            MsgBox($"{My.Resources.BadCoordinates} : X > 1 And Y > 32", MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
+            MsgBox($"{My.Resources.BadCoordinates} : X >= 1 And Y > 32", MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Return
         End If
 
@@ -507,11 +507,9 @@ Public Class FormRegions
 
         PropUpdateView = True ' make form refresh
 
-        Settings.Smart_Start = True
-        Settings.BootOrSuspend = True
-
         PropChangedRegionSettings = True
-        'GetAllRegions(True)
+        GetAllRegions(True)
+
         Firewall.SetFirewall()
 
         Try
@@ -551,7 +549,6 @@ Public Class FormRegions
             Next
         Catch ex As Exception
             BreakPoint.Print(ex.Message)
-
         End Try
 
         ResetRun()

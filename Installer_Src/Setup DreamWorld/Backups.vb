@@ -68,6 +68,7 @@ Public Class Backups
     ''' Create a named SQL Mysqldump backup in tmp and zip it up.
     ''' </summary>
     ''' <param name="Name"></param>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Logging.ErrorLog(System.String)")>
     Private Sub DoBackup(Name As String)
 
         StartMySQL()
@@ -340,8 +341,6 @@ Public Class Backups
 
         End If
 
-
-
     End Sub
 
     Protected Overridable Sub Dispose(disposing As Boolean)
@@ -433,7 +432,6 @@ Public Class Backups
         RunBackupIARThread() ' IARS
         BackupAllRegions()   ' OARS
         BackupFsassets()    ' fsassets folder
-
 
     End Sub
 

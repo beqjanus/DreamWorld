@@ -172,10 +172,12 @@ Module Backup
     '' must use console as otherwise Smart Start will shutdown
     Public Sub Backupper(RegionUUID As String, file As String)
         PokeRegionTimer(RegionUUID)
-        Dim Result = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
-        RPC_Region_Command(RegionUUID, $"change region ""{Region_Name(RegionUUID)}"" ")
-        RPC_Region_Command(RegionUUID, $"save oar ""{file}"" ")
-        Result.Scan()
+        Const fin = "Finished writing out OAR"
+        Const change = "change region"
+        Const save = "save oar"
+        Dim Result = New WaitForFile(RegionUUID, fin, "Save OAR")
+        RPC_Region_Command(RegionUUID, $"{change} {Region_Name(RegionUUID)}"" ")
+        RPC_Region_Command(RegionUUID, $"{save} ""{file}"" ")
     End Sub
 
 #End Region
@@ -193,6 +195,7 @@ Public Class WaitForOar
 
     Public Data As New OarObject
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Logging.Log(System.String,System.String)")>
     Public Sub Dowork()
         Dim RegionUUID = Data.RegionUUID
         Dim FolderAndFileName = Data.FolderAndFileName
