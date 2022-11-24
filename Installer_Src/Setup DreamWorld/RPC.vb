@@ -63,7 +63,9 @@ Module RPC
     Public Sub ReallyShutDown(RegionUUID As String, nextstate As SIMSTATUSENUM)
 
         Thaw(RegionUUID)
-        RPC_Region_Command(RegionUUID, "quit")
+        If Not RPC_Region_Command(RegionUUID, "quit") Then
+            nextstate = SIMSTATUSENUM.Stopped
+        End If
 
         Dim Group = Group_Name(RegionUUID)
 

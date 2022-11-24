@@ -286,7 +286,6 @@ Public Class FormSetup
             If RegionEnabled(RegionUUID) And
             (RegionStatus(RegionUUID) = SIMSTATUSENUM.Booted Or
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Suspended Or
-            RegionStatus(RegionUUID) = SIMSTATUSENUM.ShuttingDownForGood Or
             RegionStatus(RegionUUID) = SIMSTATUSENUM.Booting) Then
                 SequentialPause()
 
@@ -1832,10 +1831,12 @@ Public Class FormSetup
                     End If
                 Next
                 If Not exists Then
-                    TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(AvatarKey)
                     PropUpdateView = True
+                    If LastAvatars.ContainsKey(AvatarKey) Then
+                        TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                        SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                    End If
                 End If
             Next
 
