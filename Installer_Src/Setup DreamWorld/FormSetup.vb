@@ -1832,8 +1832,12 @@ Public Class FormSetup
                     End If
                 Next
                 If Not exists Then
-                    TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+
+                    If LastAvatars.ContainsKey(AvatarKey) Then
+                        TextPrint($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                        SpeechList.Enqueue($"{LastAvatars.Item(AvatarKey).AgentName} {My.Resources.leaving_word} {RegionName}")
+                    End If
+
                     Remove.Add(AvatarKey)
                     PropUpdateView = True
                 End If
