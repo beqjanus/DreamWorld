@@ -85,7 +85,6 @@ Module DNS
 
     Public Sub SetPublicIP()
 
-        Application.DoEvents()
         Settings.WANIP = WANIP()
         Settings.LANIP = PropMyUPnpMap.LocalIP
         Settings.MacAddress = GetMacByIP(Settings.LANIP)

@@ -1236,7 +1236,7 @@ Module RegionMaker
     Private Sub BadUUID(uuid As String)
 
         If Debugger.IsAttached Then
-            ErrorLog($"Bad UUID [{uuid}]")
+            Logger($"Bad UUID [{uuid}]")
         End If
 
     End Sub
