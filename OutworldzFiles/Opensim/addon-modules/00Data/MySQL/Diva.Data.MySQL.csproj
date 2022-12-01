@@ -202,18 +202,6 @@
 	  <Compile Include="MySQLXInventoryData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Release\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
