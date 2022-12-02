@@ -10,6 +10,9 @@
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
@@ -19,10 +22,10 @@
 	{font-family:Consolas;
 	panose-1:2 11 6 9 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Open Sans";}
-@font-face
 	{font-family:"Segoe UI Symbol";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"Open Sans";}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -206,6 +209,11 @@ em
 	text-transform:uppercase;
 	letter-spacing:.25pt;
 	font-style:normal;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-link:"Plain Text Char";
+	margin:0in;
+	font-size:10.5pt;
+	font-family:Consolas;}
 p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
 	{margin-top:5.0pt;
 	margin-right:0in;
@@ -360,6 +368,10 @@ span.IntenseQuoteChar
 	mso-style-link:"Intense Quote";
 	font-family:"Times New Roman",serif;
 	color:#4472C4;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-link:"Plain Text";
+	font-family:Consolas;}
 .MsoChpDefault
 	{font-size:10.0pt;}
 .MsoPapDefault
@@ -403,7 +415,460 @@ background:#4472C4'>Revisions for DreamGrid</h1>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:0in;margin-right:.5in'>
 
-<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.17</span></h2>
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.28</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Gloebit DLL's were missing</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.27</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Authenticode cert extended with
+SHA384 and RSA 4096 encryption.   </p>
+
+<p class=MsoNormal style='margin-left:0in'>Autobackup-* Folders that exceed the
+specified count are now deleted. </p>
+
+<p class=MsoNormal style='margin-left:0in'>In-world GDPR/TOS popup can be
+enabled in the Terms Of Service Settings. The TOS is integrated with the Diva
+page.  </p>
+
+<p class=MsoNormal style='margin-left:0in'>          If the user fails to click
+the link and agree, they get kicked off the simulator in 5 minutes.</p>
+
+<p class=MsoNormal style='margin-left:0in'>          A macro [GRIDNAME] can be
+used to fill in the grid name.</p>
+
+<p class=MsoNormal style='margin-left:0in'>HG and Local Visitor fixes for
+counters.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Deleting a region deletes the Region
+database contents. DB will end up smaller.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Web OARs and IARs sort by date by
+default, which you can override and it will remember.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Scrolling Textbox is now read-only
+so it does not steal the focus when it scrolls.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.26</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>When loading an OAR the Allow Rez
+Objects and Edit Land flags will always be cleared to prevent griefer attacks.</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>Backups use a different folder
+layout and method of time.  The problem has been if you set it to store 5 days
+of data, </p>
+
+<p class=MsoNormal style='margin-left:0in'>   and six days later you turn it
+on, it deletes all five backups as they have aged out.  </p>
+
+<p class=MsoNormal style='margin-left:0in'>   It is now coded to keep 5 days of
+the latest backups, regardless of the date created.</p>
+
+<p class=MsoNormal style='margin-left:0in'>   |</p>
+
+<p class=MsoNormal style='margin-left:0in'>   There is a new folder structure
+in Autobackup. Autobackup/Backup-YEAR-MM-DD folders hold all backups for that
+day.</p>
+
+<p class=MsoNormal style='margin-left:0in'>   Inside the Daily folder is a /OAR
+and /IAR folder that hold that days run of data:</p>
+
+<p class=MsoNormal style='margin-left:0in'>   OutworldzFiles\AutoBackup\ </p>
+
+<p class=MsoNormal style='margin-left:0in'>                           
+\IAR\Test_User_2022-10-15_13_22_10.iar</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      \IAR\Wifi_Admin_2022-10-15_13_22_11.iar</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                                \....</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      \OAR\</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                         
+\Test_2022-10-15_13_23_46.oar</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                                ...</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      Backup_2022-10-15_13_22_01.zip</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      Backup_opensim_2022-10-15_13_22_02.zip</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      Backup_Robust_2022-10-15_13_22_05.zip</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      Backup_WordPress_2022-10-15_13_22_08</p>
+
+<p class=MsoNormal style='margin-left:0in'>                                                                      ...</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>jOpensim search set to GLobal
+Search, and jProfiles is offline,as its broken due to core changes </p>
+
+<p class=MsoNormal style='margin-left:0in'>    they refuse to add back. They
+will no longer work until jOpensim changes to V4 due to core </p>
+
+<p class=MsoNormal style='margin-left:0in'>          Opensim changes. This will
+occur sometime after 0.9.2.2 release according to the Author.</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>Add to MySQL-&gt;Check User's
+inventory for issues to Mysql menu.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Add to Setup-&gt;Console a Show all
+regions. </p>
+
+<p class=MsoNormal style='margin-left:0in'>Stop Asset 57 complaint caused by
+future Material upgrade from Linden Lab.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Opensim core #0069c9fef334b      fix
+bullet config for mac osx to bring us up to date with core</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.25</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Mysql Query Stats in the Mysql pull
+down. This prints the number of queries per second in the stats bar. Useful for
+detecting excessive Satyr Farm use and runaway scripts or motion.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Many Updates in Opensim now at
+9/25/22 Core- see http://opensimulator.org/viewgit/?a=summary&amp;p=opensim</p>
+
+<p class=MsoNormal style='margin-left:0in'>jOpensim Search is now Local Search.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.24</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Prevent endless loop in teleports.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.23</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Always thaw when resuming regions as
+they may have changed settings.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Multi-region consoles would not come
+out of freeze with Console command.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Read regions files just once, at
+boot time.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Added a concurrent dictionary for
+teleports to prevent a rare crash.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Opensim no longer uses Autobackup as
+its handled by Dreamgrid.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.22</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Backups not starting on schedule</p>
+
+<p class=MsoNormal style='margin-left:0in'>Frozen regions would not auto
+restart after a period of time</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.21
+</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Search was not settable due to a
+debug flag</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.2
+General Release</span></h2>
+
+</div>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.198</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Robust restart counter added. after
+three crashes it will stop and show the log</p>
+
+<p class=MsoNormal style='margin-left:0in'>Fix an icon on Regions list for
+Stopped regions.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Oar and IAR load and save:  Prevent
+early shutdown of Smart Start regions when by reading the console of each
+Opensim for specific phrases. </p>
+
+<p class=MsoNormal style='margin-left:0in'>Streamline typing logic to prevent
+interruptions.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.197</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Region List was not showing correct
+inventory count</p>
+
+<p class=MsoNormal style='margin-left:0in'>Fixes for regions freezing when
+saving OARs after 5 minutes.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Crash if you clicked the CPU graph
+button before starting the grid.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.196</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Add more time to detect an OAR
+saving for slow machines</p>
+
+<p class=MsoNormal style='margin-left:0in'>Fix for Gloebit, which requires
+&quot;Convert Zero Datetime=True&quot; in connect string</p>
+
+<p class=MsoNormal style='margin-left:0in'>There is a new feature where it
+shows inventory counts in the Users section of the region List.  These lists
+are sortable, too.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Delete Map button did not show
+unless Visitor Maps was enabled</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.195</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Added more time to stop MySQL
+15-&gt;30 seconds.</p>
+
+<p class=MsoNormal style='margin-left:0in'>If there is a root password, add it
+to the batch file StopMysql.bat</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.195</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Excessive CPU use fixed in Logger</p>
+
+<p class=MsoNormal style='margin-left:0in'>Welcome regions was using a UUID
+instead of a Name  - causing the system to always prompt you.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.194</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>OAR Backups can run sequentially or
+with CPU limits in Smart Start Mode.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Added a error collector that makes a
+Opensim Error.log file.This grabs any error lines spit out in any region in
+real time.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Caches get cleared because this is
+latest Opensim as of 2022-07-19 19:24:54.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Alphabetic order when doing anything
+to all regions.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Deletes Perl visitor maps when you
+delete a region.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.193</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Lots of tweaks to Backups.
+Background timer works.  </p>
+
+<p class=MsoNormal style='margin-left:0in'>AppActivate() turns out to have been
+a mistake so focus is back to the original behavior.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.192</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Default for Hybrid Physics was not
+set, could only be overwritten by region overrides.</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.191</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Fixed CheckAndRepair.bat to work
+with or without password.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Moved the Mysql check and backup SQL
+buttons to the Mysql Icon.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Change the CPU chart to show all
+CPUs time to match what Task Manager shows.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Backup all OARS fixes </p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.19
+</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:0in'>Tweaks to Mass loader so you have
+choices on Suspend modes and Sequential start modes. I strongly suggest Smart
+Boot mode (Not suspend) and Sequential on low RAM machines. </p>
+
+<p class=MsoNormal style='margin-left:0in'>If you have lots of RAM (32GB), SSDs
+and a fast CPU, you can go for parallel modes</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.18</span></h2>
+
+</div>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>Stop
+Griefing:Added a button to Setup-&gt;Settings Regions to clear land flags for
+Rez and terrain = on. </span></p>
+
+<p class=MsoNormal style='margin-left:0in'>          If you have sandboxes,
+either set them back on or set up a group to control land and rez rights</p>
+
+<p class=MsoNormal style='margin-left:0in'>No changes to Opensimulator.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Backups: Print Backup progress. Add
+an Abort button to stop them. Backups are not reentrant, as  only one can run
+at a time.  </p>
+
+<p class=MsoNormal style='margin-left:0in'>          If you press backup while
+one is running, you can choose to abort it to start a new one. Only one backup
+will ever run at the same time.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Security: Allow adding a root
+password to Mysql and allow database passwords to be changed from the GUI. It
+used localhost for security before.</p>
+
+<p class=MsoNormal style='margin-left:0in'>FsAssets: Export FsAssets runs one
+time at the hour mark. This moves asset blobs from mysql to file system for
+speed and de-duplication.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Mysql error on quit:  Wait longer
+for mysql to quit. </p>
+
+<p class=MsoNormal style='margin-left:0in'>View Console button sets the region
+timer to keep the region alive for 5 minutes.</p>
+
+<p class=MsoNormal style='margin-left:0in'>Added Freeze All Regions and Thaw
+All Region menus items to Setup-&gt;Console Menu</p>
+
+<p class=MsoPlainText><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:0in;margin-right:.5in'>
+
+<h2><span style='color:black'>V5.17</span></h2>
 
 </div>
 
@@ -449,7 +914,7 @@ messages in Email setup.</p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:0in;margin-right:.5in'>
 
-<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.16</span></h2>
+<h2><span style='color:black'>V5.16</span></h2>
 
 </div>
 
@@ -473,7 +938,7 @@ viewer.</p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:0in;margin-right:.5in'>
 
-<h2 style='margin-right:0in;background:#D9E2F3'><span style='color:black'>V5.15</span></h2>
+<h2><span style='color:black'>V5.15</span></h2>
 
 </div>
 
@@ -708,8 +1173,8 @@ margin-left:0in;margin-right:.5in'>
 troubleshooting guide.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Windows:  SetWindowText(myhandle,
-windowName) is horrifically unreliable. Added a better retry loop with longer waits.
-                    </p>
+windowName) is horrifically unreliable. Added a better retry loop with longer
+waits.               </p>
 
 <p class=MsoNormal style='margin-left:0in'>Bans: Read ban list at boot instead
 of waiting until you start, otherwise you might think it was gone.</p>
@@ -720,22 +1185,22 @@ default per region where people land. &lt;128,1128,35&gt; is the usual default</
 <p class=MsoNormal style='margin-left:0in'>Opensim: PhysicalPrimMax was getting
 the PhysicalPrimMin, then getting overwritten. Filed a Mantis and it was fixed.</p>
 
-<p class=MsoNormal style='margin-left:0in'>                   AllowTeleportsToAnyRegion
+<p class=MsoNormal style='margin-left:0in'>                    AllowTeleportsToAnyRegion
 is broken in Opensim. This was what broke Hypergrid. Disabled it and HG works
 again. Its supposed to send all traffic to the Welcome region. Instead you get
 a protocol error.</p>
 
-<p class=MsoNormal style='margin-left:0in'>                   Deregister
+<p class=MsoNormal style='margin-left:0in'>                    Deregister
 regions and people when booting when no Opensim’s are running and in Grid mode.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Region List: Exporting the region
 list left out the parcel permissions column.</p>
 
-<p class=MsoNormal style='margin-left:0in'>                        Region list
+<p class=MsoNormal style='margin-left:0in'>                         Region list
 shifted left a column at boot if Mysql was off.</p>
 
-<p class=MsoNormal style='margin-left:0in'>                              The HG
-visitors show up again.</p>
+<p class=MsoNormal style='margin-left:0in'>                               The
+HG visitors show up again.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Security: Updated SSH.net due to a
 required security patch, spotted by CIM/GitHub.</p>
@@ -1085,8 +1550,7 @@ disabled SS regions still appeared.</p>
 <p class=MsoNormal style='margin-left:0in'>Do not deregister a region when
 saved and its running.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Shutdown regions in Alphabetical
-order.</p>
+<p class=MsoNormal style='margin-left:0in'>Shutdown regions in Alphabetical order.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1108,9 +1572,9 @@ release.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Whisper distance showed up as blank</p>
 
-<p class=MsoNormal style='margin-left:0in'>Yet another Region port bug is fixed.
-This could cause large numbers of region ports to be used and possible region
-crashes.</p>
+<p class=MsoNormal style='margin-left:0in'>Yet another Region port bug is
+fixed. This could cause large numbers of region ports to be used and possible
+region crashes.</p>
 
 <p class=MsoNormal style='margin-left:0in'>SQL backups when the system is not
 booted would do nothing.  It now starts Mysql when run.</p>
@@ -1139,8 +1603,8 @@ to disk. </p>
 <p class=MsoNormal style='margin-left:0in'>Yet another Region port bug is
 fixed. This could cause large numbers of region ports to be used.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Consoles will pop up less often. Just
-once when it does a command you may be interested in.</p>
+<p class=MsoNormal style='margin-left:0in'>Consoles will pop up less often.
+Just once when it does a command you may be interested in.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Language form is resizable</p>
 
@@ -1310,10 +1774,10 @@ grid has been down for an entire week.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added an API for Chat To Speech.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Added a Form for you to create arbitrary
-Text 2 Speech.  The wav files can be uploaded and played in world, or you can
-use the mP3 files directly in world using Media On A Prim.  More documentation
-and a sample script are in the works.</p>
+<p class=MsoNormal style='margin-left:0in'>Added a Form for you to create
+arbitrary Text 2 Speech.  The wav files can be uploaded and played in world, or
+you can use the mP3 files directly in world using Media On A Prim.  More
+documentation and a sample script are in the works.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Boot sequence of regions is back in
 alphabetical order.</p>
@@ -1327,8 +1791,8 @@ files to detect or prevent potential crashes.</p>
 scanning as fast. You will likely notice the graphs update only every 5
 seconds. </p>
 
-<p class=MsoNormal style='margin-left:0in'>Clicking Apache or Icecast start
-buttons enables them, then boots.</p>
+<p class=MsoNormal style='margin-left:0in'>Clicking Apache or Icecast start buttons
+enables them, then boots.</p>
 
 <p class=MsoNormal style='margin-left:0in'>OsGrid HTTP port 80 was not set. It
 printed wrong, otherwise this was harmless.</p>
@@ -1681,7 +2145,7 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Added “To Do List.pdf” to help. It’s
 a PDF of things To do. It is currently not going to make much sense to you as
 it was intended for my eyes only. I’ll add more detail to it as I go.  This
-goes back 62 pages in time.        </p>
+goes back 62 pages in time.      </p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -1893,8 +2357,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Possible crash if Avatar name is
-mangled in Smart Start.</p>
+<p class=MsoNormal style='margin-left:0in'>Possible crash if Avatar name is mangled
+in Smart Start.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Add auto-incrementing Assembly
 Version and Date of build to crash dumps.</p>
@@ -2106,8 +2570,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Lots of small tweaks to UI to
-improve performance.</p>
+<p class=MsoNormal style='margin-left:0in'>Lots of small tweaks to UI to improve
+performance.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Link set: Max number of prims
 increased to 1024.</p>
@@ -2131,8 +2595,9 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Git is Rev V4 so it's `git checkout V4`.
-My code is mostly written in Visual Basic and anyone can compile it for free.</p>
+<p class=MsoNormal style='margin-left:0in'>Git is Rev V4 so it's `git checkout
+V4`. My code is mostly written in Visual Basic and anyone can compile it for
+free.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Opensim is now same as core as of
 7/31/2021. Rev is &quot;#d0e41f747b9054 there should be no need...&quot;</p>
@@ -2141,8 +2606,8 @@ My code is mostly written in Visual Basic and anyone can compile it for free.</p
 languages.</p>
 
 <p class=MsoNormal style='margin-left:0in'>jOpensimProfiles.dll was not being
-deleted at startup, even if Joomla/jOpensim was off. Is now deleted from the
-Zip, and is deleted by code if jOpenaim is off on startup. </p>
+deleted at startup, even if Joomla/jOpensim was off. Is now deleted from the Zip,
+and is deleted by code if jOpenaim is off on startup. </p>
 
 <p class=MsoNormal style='margin-left:0in'> This is necessary as Opensim
 stupidly loads all DLLs it finds - a big security issue to say the least! have
@@ -2172,8 +2637,8 @@ screen.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Crash fix: Windows caching could
 cause a crash when renaming a file during INI file checks. The Crash report I
-added a while back has worked beautifully and thanks to the you folks, the reporters,
-39 sneaky bugs have been fixed.</p>
+added a while back has worked beautifully and thanks to the you folks, the
+reporters, 39 sneaky bugs have been fixed.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Changes to Diva settings causes
 robust to restart, if running, as it should.</p>
@@ -2396,9 +2861,9 @@ the end. Restarting will reuse the ports that are in the region files.</p>
 of seconds for regions to stabilize after boot before launching the teleport.
 This lest you tune the length of time to let the region stabilize.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Running more than one grid on a
-server would improperly detect all running regions during shutdown and so would
-never shut down.</p>
+<p class=MsoNormal style='margin-left:0in'>Running more than one grid on a server
+would improperly detect all running regions during shutdown and so would never
+shut down.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Explicit version message of
 VersionIS==&gt; WillBe when prompted to update. As in 4.3 ==&gt; 4.4</p>
@@ -2430,8 +2895,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Finally fixed the crash in some
 machines since 4.03. Its timing in thread exits.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Crash report # 234345360: a crash
-could happen when restarting if two processes are using the PID file.</p>
+<p class=MsoNormal style='margin-left:0in'>Crash report # 234345360: a crash could
+happen when restarting if two processes are using the PID file.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Expires files by age did not apply
 to all files in AutoBackup. </p>
@@ -2458,8 +2923,8 @@ Opensim is running.</p>
 
 <p class=MsoNormal style='margin-left:0in'>RegionList Search box.</p>
 
-<p class=MsoNormal style='margin-left:0in'>RegionList check boxes for All, Smart
-On, and Disabled</p>
+<p class=MsoNormal style='margin-left:0in'>RegionList check boxes for All,
+Smart On, and Disabled</p>
 
 <p class=MsoNormal style='margin-left:0in'>Save Size of the graphs</p>
 
@@ -2498,7 +2963,7 @@ margin-left:0in;margin-right:.5in'>
 now has a pretty look and works in both XEngine and YEngine.</p>
 
 <p class=MsoNormal style='margin-left:0in'>This is a new Beta for Smart Start.
-The Smart Start Button in &quot;Settings&quot; is now enabled.      </p>
+The Smart Start Button in &quot;Settings&quot; is now enabled. </p>
 
 <p class=MsoNormal style='margin-left:0in'>OpensimWorld Beacons now get pinged
 when in Smart Start Mode and a region is powered down.</p>
@@ -2516,7 +2981,7 @@ not check to see if a region is online.</p>
 <p class=MsoNormal style='margin-left:0in'>          </p>
 
 <p class=MsoNormal style='margin-left:0in'>Some Smart Boot features are
-missing:     </p>
+missing:    </p>
 
 <p class=MsoNormal style='margin-left:0in'>          You cannot log into a
 powered-off region. Go to your Welcome region or Home, and set home to a region
@@ -2635,16 +3100,16 @@ reach.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:0in'>          localhost:DiagnosticPort       http://(loopback
+<p class=MsoNormal style='margin-left:0in'>          localhost:DiagnosticPort      http://(loopback
 via DNS)(8001) </p>
 
-<p class=MsoNormal style='margin-left:0in'>          127.0.0.1:DiagnosticPort      http://(loopback
+<p class=MsoNormal style='margin-left:0in'>          127.0.0.1:DiagnosticPort     http://(loopback
 IP)(8001)</p>
 
-<p class=MsoNormal style='margin-left:0in'>          LANIP.DiagnosticPort           http://(PC
+<p class=MsoNormal style='margin-left:0in'>          LANIP.DiagnosticPort          http://(PC
 LAN IP):(8001)</p>
 
-<p class=MsoNormal style='margin-left:0in'>          LANIP:HttpPort                                      http://(PC
+<p class=MsoNormal style='margin-left:0in'>          LANIP:HttpPort                                      http://(PC
 LAN IP):(80)</p>
 
 <p class=MsoNormal style='margin-left:0in'>          PublicIP:HttpPort                          http://(PC
@@ -2671,8 +3136,8 @@ wait for Robust to finish updating.</p>
 <p class=MsoNormal style='margin-left:0in'>          A sign V4.0 is in the
 Local IAR folder. This suppresses an error and supports</p>
 
-<p class=MsoNormal style='margin-left:0in'>          ESTATE, NAME and GROUP sorting.
-It also works on 127.0.0.1:8001.</p>
+<p class=MsoNormal style='margin-left:0in'>          ESTATE, NAME and GROUP
+sorting. It also works on 127.0.0.1:8001.</p>
 
 <p class=MsoNormal style='margin-left:0in'>          All you need to do is add
 the password,</p>
@@ -2738,8 +3203,8 @@ margin-left:0in;margin-right:.5in'>
 </div>
 
 <p class=MsoNormal style='margin-left:0in'>Icecast did not redirect to the
-/status.xsl home page. An &lt;Alias=..&gt; got wildcarded in, should be &lt;alias=
-..&gt;</p>
+/status.xsl home page. An &lt;Alias=..&gt; got wildcarded in, should be
+&lt;alias= ..&gt;</p>
 
 <p class=MsoNormal style='margin-left:0in'>Icecast updated to latest 2.4.4</p>
 
@@ -3023,8 +3488,8 @@ margin-left:0in;margin-right:.5in'>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-left:0in'>Scrolling Text box bottom was not
-floating with the bottom of the window.</p>
+<p class=MsoNormal style='margin-left:0in'>Scrolling Text box bottom was not floating
+with the bottom of the window.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Teleport signs got back a UUID
 instead of a region name, so scripted teleports were borked. missing an else.</p>
@@ -3086,8 +3551,8 @@ default.</p>
 <p class=MsoNormal style='margin-left:0in'>Check if sims overlap and issue a
 warning of which overlap, and where.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Added buttons in Load OAR as no
-everyone is blind to the Options.</p>
+<p class=MsoNormal style='margin-left:0in'>Added buttons in Load OAR as no everyone
+is blind to the Options.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Git failed to save important DLLs so
 WhoGotWhat failed on every development machine.Thank you, core. Not every DLL
@@ -3112,8 +3577,7 @@ internal stuff on and off</p>
 <p class=MsoNormal style='margin-left:0in'>Added a disk space calculator and
 warning is disk space is low.</p>
 
-<p class=MsoNormal style='margin-left:0in'>View all maps did not tile as
-expected.</p>
+<p class=MsoNormal style='margin-left:0in'>View all maps did not tile as expected.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -3513,8 +3977,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Backups chat how many are running
 and a message when they are finished.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Themes would not save the image to
-the running theme, just to the next running theme.</p>
+<p class=MsoNormal style='margin-left:0in'>Themes would not save the image to the
+running theme, just to the next running theme.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Windows on Top control moved to a
 Menu and added to the main form</p>
@@ -3549,8 +4013,8 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Another crash in Black and White
 Diva Wifi Image on boot.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Systems running with a merged database
-where robust and region files are in the same db would backup twice.</p>
+<p class=MsoNormal style='margin-left:0in'>Systems running with a merged
+database where robust and region files are in the same db would backup twice.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Ban Lists did not reload
 automatically. It required you to click the Ban list after a reboot.</p>
@@ -3662,8 +4126,7 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>MaxPort prevented you from adding a
 region and restarting it. Now adds Region port to the end of the list</p>
 
-<p class=MsoNormal style='margin-left:0in'>Save IAR does no longer ask for
-passwords.</p>
+<p class=MsoNormal style='margin-left:0in'>Save IAR does no longer ask for passwords.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Server 2019 C++ Service Pack added.</p>
 
@@ -3766,8 +4229,8 @@ counters as necessary, for umm, performance!</p>
 <p class=MsoNormal style='margin-left:0in'>Boot Speedup: Install Apache only if
 it has changed folder. Also stops Apache from occasionally not starting. </p>
 
-<p class=MsoNormal style='margin-left:0in'>Opensim error: Mutelist and SearchURL
-fixes if Jopensim was enabled and them disabled.</p>
+<p class=MsoNormal style='margin-left:0in'>Opensim error: Mutelist and
+SearchURL fixes if Jopensim was enabled and them disabled.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -4150,10 +4613,10 @@ Older versions of DreamGrid were forced to use this DLL at an even old rev due
 to collisions in updater and older Dreamgrids. Now its really, really dead.
 Replaced by System.Compression.DotNetZip.</p>
 
-<p class=MsoNormal style='margin-left:0in'>DreamGridUpdater case in URL (Dremgrid
-vs DreamGrid) caused download to be incredibly slow. An updateable redirect at
-Outworldz.com was supposed to send this URL to a Cloud Storage service. It did
-not always do so.</p>
+<p class=MsoNormal style='margin-left:0in'>DreamGridUpdater case in URL
+(Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable
+redirect at Outworldz.com was supposed to send this URL to a Cloud Storage
+service. It did not always do so.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Add CAA record to Outworldz and
 Hyperica DNS for security - prevents forgery of certificates.</p>
@@ -4252,9 +4715,9 @@ margin-left:0in;margin-right:.5in'>
 updated to be more random when clicking Next.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Added Alias field to HG DNS Name
-Setting so you can run more than one URL to your grid. For example, both www.outworldz.com
-and outworldz.com. Or an old grid name. The alias field accepts a comma
-delimited list of names.</p>
+Setting so you can run more than one URL to your grid. For example, both
+www.outworldz.com and outworldz.com. Or an old grid name. The alias field
+accepts a comma delimited list of names.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Gloebits is fixed again.</p>
 
@@ -4425,14 +4888,14 @@ margin-left:0in;margin-right:.5in'>
 </div>
 
 <p class=MsoNormal style='margin-left:0in'>Opensim updated to
-&quot;#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08       fix silly bugs on
+&quot;#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08          fix silly bugs on
 osReplaceRegionEnvironment()</p>
 
 <p class=MsoNormal style='margin-left:0in'>Fixed birds module.dll after
 mistakenly deleting the .bak and .ini files. doh</p>
 
-<p class=MsoNormal style='margin-left:0in'>Updated DreamGrid_Test_Region-1X1.oar
-to include birds test</p>
+<p class=MsoNormal style='margin-left:0in'>Updated
+DreamGrid_Test_Region-1X1.oar to include birds test</p>
 
 <p class=MsoNormal style='margin-left:0in'>Updated DreamGrid_Test_Region-1X1 to
 include the Outworldz Radio system. This is an always up-to-date radio system.</p>
@@ -4453,7 +4916,7 @@ margin-left:0in;margin-right:.5in'>
 </div>
 
 <p class=MsoNormal style='margin-left:0in'>Opensim updated to #ac8271e391bee1b
-0.9.2.dev 2020-09-12 19:10:45       try reduce number of this webrequest</p>
+0.9.2.dev 2020-09-12 19:10:45          try reduce number of this webrequest</p>
 
 <p class=MsoNormal style='margin-left:0in'>This mainly adds back in EEP
 defaults. See http://opensimulator.org/viewgit/?a=shortlog&amp;p=opensim. Also
@@ -4748,11 +5211,12 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>New Feature: Updates could destroy
-added on services such as WordPress or Joomla. Added a switch to </p>
+<p class=MsoNormal style='margin-left:0in'>New Feature: Updates could destroy added
+on services such as WordPress or Joomla. Added a switch to </p>
 
-<p class=MsoNormal style='margin-left:0in'>Apache to select &quot;DreamGrid Diva&quot;,
-WordPress, or Joomla/JOpensim or &quot;Other&quot; folder as the home page, </p>
+<p class=MsoNormal style='margin-left:0in'>Apache to select &quot;DreamGrid
+Diva&quot;, WordPress, or Joomla/JOpensim or &quot;Other&quot; folder as the
+home page, </p>
 
 <p class=MsoNormal style='margin-left:0in'>such as http://(your grid):80, aka
 http://(your grid). Documentation on this is not in this update. </p>
@@ -4788,8 +5252,7 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Added a Refresh button to the OAR
-loader</p>
+<p class=MsoNormal style='margin-left:0in'>Added a Refresh button to the OAR loader</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -4839,8 +5302,8 @@ Joomla.</p>
 <p class=MsoNormal style='margin-left:0in'>Include conf/extra/httpd-mpm.conf
 whioch has been tweaked to use a 4 core machine without too much RAM in use. </p>
 
-<p class=MsoNormal style='margin-left:0in'>Added MIMEMagicFile module and conf/magic
-for peeking in file contents to determine the MIME type.</p>
+<p class=MsoNormal style='margin-left:0in'>Added MIMEMagicFile module and
+conf/magic for peeking in file contents to determine the MIME type.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Just in case of user error, prevent
 .user.ini PHP settings files from being viewed by Web clients.</p>
@@ -4875,8 +5338,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Tweaks at turn off DEBUG in opensim.exe.config,
-make a longer default password for Wifi Admin.</p>
+<p class=MsoNormal style='margin-left:0in'>Tweaks at turn off DEBUG in
+opensim.exe.config, make a longer default password for Wifi Admin.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -4993,8 +5456,8 @@ Now you can.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Upnp Manager crash fix.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Enabling Apache will remove and re-install
-the service on startup to make it easier to move to a new folder.</p>
+<p class=MsoNormal style='margin-left:0in'>Enabling Apache will remove and
+re-install the service on startup to make it easier to move to a new folder.</p>
 
 <p class=MsoNormal style='margin-left:0in'>PHP.ini got duplicated - now it's
 just one. Also changed some PHP settings for Search.</p>
@@ -5067,8 +5530,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>A load OAR or Load IAR search and clicking
-to load it got you the wrong item. Thankxx for the tip, Scott Taylor!</p>
+<p class=MsoNormal style='margin-left:0in'>A load OAR or Load IAR search and
+clicking to load it got you the wrong item. Thankxx for the tip, Scott Taylor!</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -5171,8 +5634,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Added Search to Load OAR and Load IAR
-(web)</p>
+<p class=MsoNormal style='margin-left:0in'>Added Search to Load OAR and Load
+IAR (web)</p>
 
 <p class=MsoNormal style='margin-left:0in'>Stopped a crash on Server 2016 if
 Publicity was blank.</p>
@@ -5244,8 +5707,8 @@ case SSL fails.</p>
 when Region Recycling is used. Restarts will be about 30 seconds now as there
 are two stages</p>
 
-<p class=MsoNormal style='margin-left:0in'>Allow_osMessageObject and Allow_osGetNotecard
-set true for Satyr farming by non estate managers.</p>
+<p class=MsoNormal style='margin-left:0in'>Allow_osMessageObject and
+Allow_osGetNotecard set true for Satyr farming by non estate managers.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Updates to Nuget repos.</p>
 
@@ -5420,8 +5883,8 @@ the Automatic Updater.</p>
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
 <p class=MsoNormal style='margin-left:0in'>Opensim set to Released
-OpenSimulator version 0.9.1.1 Snail #7bdc408caca3. This changes some LSL
-constants so an automatic script cache clear will be done at first boot.</p>
+OpenSimulator version 0.9.1.1 Snail #7bdc408caca3. This changes some LSL constants
+so an automatic script cache clear will be done at first boot.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -5535,8 +5998,8 @@ in Web Links. Many thanks to AI Austin and </p>
 <p class=MsoNormal style='margin-left:0in'>Robust logging set back to INFO from
 DEBUG.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Ports are initialized sequentially only
-at boot. Adding a new region puts the port onto the end. This stops Region
+<p class=MsoNormal style='margin-left:0in'>Ports are initialized sequentially
+only at boot. Adding a new region puts the port onto the end. This stops Region
 confusion when regions are added while system is running.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Regions &gt; 4X4 in some cases would
@@ -5742,15 +6205,14 @@ Robust, Apache and Icecast status buttons to stop/start them. </p>
 <p class=MsoNormal style='margin-left:0in'>Avatar count was different in
 different displays.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Half-dozen new language
-Translations.</p>
+<p class=MsoNormal style='margin-left:0in'>Half-dozen new language Translations.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Was possible to have a Null
 Reference Exception when Booting a region if Stop button was clicked at the
 right time.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Busy/Start/Abort button fixes. Clicking
-Busy will force an Abort when shutting down.</p>
+<p class=MsoNormal style='margin-left:0in'>Busy/Start/Abort button fixes.
+Clicking Busy will force an Abort when shutting down.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Catch as many individual errors as
 it can when reading region INI files. It complains with details of what to fix,
@@ -5785,8 +6247,8 @@ highest region as it did before.</p>
 Regions and Maps Settings.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&quot;Allow Level Gods&quot; was
-unchecked in Region Form, as it is based on the other settings being a null string,
-not &quot;False&quot;.</p>
+unchecked in Region Form, as it is based on the other settings being a null
+string, not &quot;False&quot;.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Removed some unneeded logging that
 slowed down the system.</p>
@@ -6111,8 +6573,8 @@ htdocs</p>
 <p class=MsoNormal style='margin-left:0in'>Unchecking Apache as a Service
 removes the service</p>
 
-<p class=MsoNormal style='margin-left:0in'>Bug in Email prevented it from
-emailing confirmation of a new user</p>
+<p class=MsoNormal style='margin-left:0in'>Bug in Email prevented it from emailing
+confirmation of a new user</p>
 
 <p class=MsoNormal style='margin-left:0in'>Bug in Settings caused Clear Cache
 button to crash</p>
@@ -6193,9 +6655,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Export Checkbox in
-Settings-&gt;permissions to disallow export of prims from viewers. Default
--&gt; Allow</p>
+<p class=MsoNormal style='margin-left:0in'>Export Checkbox in Settings-&gt;permissions
+to disallow export of prims from viewers. Default -&gt; Allow</p>
 
 <p class=MsoNormal style='margin-left:0in'>If an OAR is loaded into a Var
 region &gt; 4X4, allow it.</p>
@@ -6319,8 +6780,8 @@ Vivox web page for signup.</p>
 <p class=MsoNormal style='margin-left:0in'>Windows can return a null PID from
 Process(). It should wait until there is a PID before returning. But nooooo it
 does not, so I added a fix to Boot () to make sure we have a valid PID so we
-can minimize windows. This may explain whey sometimes it does not type 'q' in
-certain windows.</p>
+can minimize windows. This may explain whey sometimes it does not type 'q' in certain
+windows.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Slow down the tests on quitting to
 prevent spamming the console.</p>
@@ -6428,8 +6889,8 @@ the system</p>
 <p class=MsoNormal style='margin-left:0in'>IM Offline works without having to
 open port 8003.</p>
 
-<p class=MsoNormal style='margin-left:0in'>Firewall code typo put an extra Apache
-Http Port 80 in the firewall every start.</p>
+<p class=MsoNormal style='margin-left:0in'>Firewall code typo put an extra
+Apache Http Port 80 in the firewall every start.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -6552,9 +7013,9 @@ size with a new panel.</p>
 server. Also updated the Steam punk TP and set the partners prim to full
 mod/copy.</p>
 
-<p class=MsoNormal style='margin-left:0in'>SupportViewerObjectsCache -= true explicitly
-to help with missing prims, theoretically this does nothing as true is the
-default. See http://opensimulator.org/mantis/view.php?id=8516</p>
+<p class=MsoNormal style='margin-left:0in'>SupportViewerObjectsCache -= true
+explicitly to help with missing prims, theoretically this does nothing as true
+is the default. See http://opensimulator.org/mantis/view.php?id=8516</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -6671,8 +7132,8 @@ margin-left:0in;margin-right:.5in'>
 
 </div>
 
-<p class=MsoNormal style='margin-left:0in'>Auto detect any loopback adapter
-named &quot;Loopback&quot;, and set it up when the grid starts.</p>
+<p class=MsoNormal style='margin-left:0in'>Auto detect any loopback adapter named
+&quot;Loopback&quot;, and set it up when the grid starts.</p>
 
 <p class=MsoNormal style='margin-left:0in'>This set loopback adapters with the
 correct IP automatically.</p>
@@ -6757,9 +7218,9 @@ margin-left:0in;margin-right:.5in'>
 <p class=MsoNormal style='margin-left:0in'>Try-catch a possible crash on events
 load if Outworldz web site is offline. There should never be any dependencies
 on having an external PC running except for ns1.outworldz.net for dynamic DNS
-and that only applies to outworldz.net users. DreamGrid pulls a list of
-available OARS, IARs, and events from Outworldz.com web site periodically, and
-these are dependent on Outworldz.com being online.</p>
+and that only applies to outworldz.net users. DreamGrid pulls a list of available
+OARS, IARs, and events from Outworldz.com web site periodically, and these are
+dependent on Outworldz.com being online.</p>
 
 <p class=MsoNormal style='margin-left:0in'>Removed bin\addins as it is old,
 unused, and may have old DLLS in it leading to mysterious crashes about log4net
@@ -7007,8 +7468,8 @@ a name will start a teleport sequence to that avatar in your viewer.</p>
 set, and will reappear after a restart if it was open. </p>
 
 <p class=MsoNormal style='margin-left:0in'>Many changes to Recycling and Auto
-restart. More icons for recycling regions. Recycle up and recycle down are single
-blue arrows, Bootup and Shutdown are double Blue arrows.</p>
+restart. More icons for recycling regions. Recycle up and recycle down are
+single blue arrows, Bootup and Shutdown are double Blue arrows.</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -7163,7 +7624,8 @@ with their home set here so they can hypergrid back home.</p>
 from Jeff Kelly, thanks!</p>
 
 <p class=MsoNormal style='margin-left:0in'>Suppress crash if Outworldz
-webserver is offline and you have Publicity checked - threaded apartment violation</p>
+webserver is offline and you have Publicity checked - threaded apartment
+violation</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -7274,8 +7736,7 @@ margin-left:0in;margin-right:.5in'>
 
 <p class=MsoNormal style='margin-left:0in'>V4 updater and installer </p>
 
-<p class=MsoNormal style='margin-left:0in'>rm broken
-OpenSim.Addons.AutoRestart.dll</p>
+<p class=MsoNormal style='margin-left:0in'>rm broken OpenSim.Addons.AutoRestart.dll</p>
 
 <p class=MsoNormal style='margin-left:0in'>Deregister region button in
 RegionForm</p>
@@ -7911,8 +8372,8 @@ error.</p>
 <p class=MsoNormal style='margin-left:0in'>Default for Auto Restart set to off
 (0 minutes)</p>
 
-<p class=MsoNormal style='margin-left:0in'>Force region to foreground when typing
-in commands</p>
+<p class=MsoNormal style='margin-left:0in'>Force region to foreground when
+typing in commands</p>
 
 <p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
 
@@ -7942,8 +8403,8 @@ as &quot;show in Search&quot;. This replaces the broken Diva search. It works
 across all DreamGrids.</p>
 
 <p class=MsoNormal style='margin-left:0in'> - Prim Info (location, for sale,
-etc.) is sent to http://hyperica.com/. The actual search engine is under development.
-Enable this in Settings-Expert at bottom left corner.</p>
+etc.) is sent to http://hyperica.com/. The actual search engine is under
+development. Enable this in Settings-Expert at bottom left corner.</p>
 
 <p class=MsoNormal style='margin-left:0in'> - Classified ad will soon be
 possible across the Outworldz.</p>

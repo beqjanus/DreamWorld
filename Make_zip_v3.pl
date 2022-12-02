@@ -49,6 +49,7 @@ PrintDate('Server Publish ? <p = publish, c = clean, enter = make the zip only>'
 my $publish = <stdin>;
 chomp $publish;
 
+
 PrintDate("Delete Destination Zip");
 JustDelete($zip);
 
@@ -281,7 +282,7 @@ unless ( $finalzip->writeToFileNamed($dest) == AZ_OK ) {
     die 'write error';
 }
 
-
+test:
 
 if ( $publish =~ /p/ ) {
 
@@ -602,17 +603,28 @@ sub CopyManuals
 {
     
     PrintDate('Copy Manuals');
+    JustDelete("$Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help");
+        
         
     my @manuals = io->dir($dir . '/OutworldzFiles/Help/')->all;
-    
+    my $link = '';
     foreach my $src (@manuals) {
         
-        if ($src !~ /\.htm$/) {next};
         use File::Basename;
         my $fname = basename($src->name);
+        
+        
+        if ($src !~ /\.htm$/) {
+            say( qq!robocopy $src\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$fname\\ /E!);
+            my $x = `robocopy $src\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$fname\\ /E`;
+            next;
+        };
+        
         $fname =~ s/\.htm//;
         
         PrintDate($src);
+        
+          
         my @data = io->file($src)->slurp;
         my $output;
         my $ctr = 0 ;
@@ -639,8 +651,10 @@ sub CopyManuals
         my $filename = basename($src);
        #$output > io("$Contabo/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
         $output > io("$Fleta/Inetpub/Secondlife/Outworldz_Installer/Help/$filename");
-        
+        $link .= qq!<li><a href="/Outworldz_installer/Help/$filename">$fname</a></li>\n!;
     }
+    
+    $link > io("$Fleta/Inetpub/Secondlife/link.txt");
 }
 
 sub GetVersion

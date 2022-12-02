@@ -1,7 +1,10 @@
 REVISIONS FOR DREAMGRID
 
+V5.28
+Gloebit DLL's were missing
+
 V5.27
-Authenticode cert extended with SHA384 and RSA 4096 encyption.   
+Authenticode cert extended with SHA384 and RSA 4096 encryption.   
 Autobackup-* Folders that exceed the specified count are now deleted. 
 In-world GDPR/TOS popup can be enabled in the Terms Of Service Settings. The TOS is integrated with the Diva page.  
 	If the user fails to click the link and agree, they get kicked off the simulator in 5 minutes.

@@ -160,7 +160,7 @@ everything in the objects inventory<br>
 llGetObjectName(),[], &quot;&quot;);</span></p>
 
 <p class=MsoNormal><span style='font-size:8.0pt;line-height:115%;font-family:
-"Courier New"'>        list        inventory;<br>
+"Courier New"'>        list        inventory;<br>
         string      name;<br>
         integer     num = llGetInventoryNumber(INVENTORY_ALL);<br>
         integer     i;</span></p>
@@ -171,7 +171,7 @@ llGetObjectName(),[], &quot;&quot;);</span></p>
             if(llGetInventoryPermMask(name, MASK_NEXT) &amp; PERM_COPY)<br>
                 inventory += name;<br>
             else<br>
-                llSay(0, &quot;Don't have permissions to give you
+                llSay(0, &quot;Don't have permissions to give you
 \&quot;&quot;+name+&quot;\&quot;.&quot;);<br>
         }</span></p>
 
