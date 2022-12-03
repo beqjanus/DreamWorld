@@ -627,7 +627,7 @@ Public Class FormOAR
                 Dim NewArray = From thing In SearchArray
                                Order By thing.Date Ascending
                 SearchArray = NewArray.ToArray()
-            ElseIf NameRadioButton.Checked And Not AscendRadioButton.Checked Then
+            ElseIf NameRadioButton.Checked And AscendRadioButton.Checked Then
                 Dim NewArray = From thing In SearchArray
                                Order By thing.Name Descending
                 SearchArray = NewArray.ToArray()
