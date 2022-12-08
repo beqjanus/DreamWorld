@@ -2,6 +2,7 @@ REVISIONS FOR DREAMGRID
 
 V5.28
 Gloebit DLL's were missing
+Sort by Ascending in the OAR list did not work, always was descending
 
 V5.27
 Authenticode cert extended with SHA384 and RSA 4096 encryption.   

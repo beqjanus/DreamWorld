@@ -725,7 +725,7 @@ Public Module MysqlInterface
 
         Dim stm = $"update land set landflags = (landflags & ! 64) where regionUUID = '{regionUUID}';" ' Rez
         DoOpensim(stm)
-        stm = "update land set landflags = (landflags & ! 16) where regionUUID = '{regionUUID}';" ' Land editing
+        stm = $"update land set landflags = (landflags & ! 16) where regionUUID = '{regionUUID}';" ' Land editing
         DoOpensim(stm)
 
     End Sub
