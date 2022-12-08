@@ -23,7 +23,6 @@
 | <a href="/Stats">Stats</a>
 | <a href="http://outworldz.com/Search" >Search</a>
 | <a href="http://outworldz.com/DestinationGuide" >Destinations</a>
-| <a href="http://outworldz.com/DestinationGuide" >Destinations</a> |</p>
 |</p>
 
 <p>[% welcome %]</p>
