@@ -20,7 +20,17 @@
         </script>
 </head>
 <body>
-<p>| <a href="/">Home</a>| <a href="/Video">Video</a> | <a href="/Audio">Audio</a> | <a href="/Dreamgrid">Diva</a> | <a href="/Wordpress">Wordpress</a> | <a href="/JOpensim">JOpensim</a> | <a href="/PerlExample">Perl Examples</a> |</p>
+<p>| <a href="/">Home</a>
+| <a href="/VR">360 View</a>
+| <a href="/Video">Video</a>
+| <a href="/Audio">Audio</a>
+| <a href="/PerlExample">Perl Examples</a>
+| <a href="/Stats">Stats</a>
+| <a href="http://outworldz.com/Search" >Search</a>
+| <a href="http://outworldz.com/DestinationGuide" >Destinations</a>
+|</p>
+
+
 <p>[% welcome %]</p>
 </body>
 </html>

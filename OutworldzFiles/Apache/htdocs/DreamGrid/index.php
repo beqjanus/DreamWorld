@@ -10,17 +10,15 @@
 
 [ <a href="/Search">Search</a>
 | Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">DreamGrid</a>
-| <a href="/Stats">Visitor Stats</a>
 | <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>/wifi/map.html">Map</a> ]
 | <a href="/Stats">Visitors</a>
+| <a href="/VR">360 View</a>
 | <a href="/Video">Video</a>
 | <a href="/Audio">Audio</a>
-| <a href="/Dreamgrid">Diva</a>
-| <a href="/Wordpress">Wordpress</a>
-| <a href="/JOpensim">JOpensim</a>
 | <a href="/PerlExample">Perl Examples</a>
 | <a href="/Stats">Stats</a>
-| <a href="http://outworldz.com//Search" >Search</a> |</p>
+| <a href="http://outworldz.com/Search" >Search</a> |</p>
+| <a href="http://outworldz.com/DestinationGuide" >Destinations</a> |</p>
 
 <p>
 <iframe frameborder="0" height="900" width="1600" src="/Metromap/index.php"></iframe>
