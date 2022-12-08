@@ -1,14 +1,10 @@
 
 # Print 'show stats via perl on each region
 
-use CGI;
-# uncomment these next lines if you wish to run this via Apache. Commented out, it secure this example.
+use CGI qw(:standard);   # use the Common Gateway Interface to talk via the web server
+# uncomment the next if you wish to run this via Apache. Commented out, it secure this example.
 # if you uncomment out line example should run on Apache over the web.
-
-#print $Input->header(   # and print it as UTF-8
-#      -type    => 'text/html',
-#      -charset =>  'utf-8',
-#   );
+#print header; # this tells the web server iots good data.  It prints the http headers, which is basically a 200 OK\n\n
 
 
 use Config::IniFiles;
