@@ -164,7 +164,7 @@ Module Backup
             RebootAndRunTask(RegionUUID, Obj)
             WaitforComplete(RegionUUID, file)
             ShowDOSWindow(RegionUUID, MaybeHideWindow())
-
+            Application.DoEvents()
         Next
 
     End Sub

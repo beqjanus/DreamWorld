@@ -38,17 +38,21 @@ Public Class Backups
         If Settings.RegionDBName <> Settings.RobustDatabaseName Then
             If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles/Mysql/Data/{Settings.RobustDatabaseName}")) Then
                 DoBackup(Settings.RobustDatabaseName)
+                Application.DoEvents()
             End If
         End If
 
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/WordPress")) Then
             DoBackup("WordPress")
+            Application.DoEvents()
         End If
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/Joomla")) Then
             DoBackup("Joomla")
+            Application.DoEvents()
         End If
         If Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Mysql/Data/ossearch")) Then
             DoBackup("ossearch")
+            Application.DoEvents()
         End If
 
     End Sub
@@ -150,6 +154,7 @@ Public Class Backups
                     Break(ex.Message)
                 End Try
                 ProcessSqlDump.WaitForExit()
+                Application.DoEvents()
             End Using
 
             RunningBackupName.TryAdd($"{My.Resources.Backup_word} {Name} {My.Resources.Saving_Zip}", "")
@@ -168,10 +173,11 @@ Public Class Backups
             While Not File.Exists(NewFile)
                 Thread.Sleep(100)
             End While
-
+            Application.DoEvents()
             Thread.Sleep(1000)
             DeleteFile(Bak)
             Thread.Sleep(1000)
+            Application.DoEvents()
             DeleteFolder(_folder)
         Catch ex As Exception
             Break(ex.Message)
@@ -426,8 +432,9 @@ Public Class Backups
         StartRobust()
 
         ExpireLogsByAge()       ' clean up old logs
-
+        Application.DoEvents()
         RunMainZip() 'Settings, region.ini, Diva
+        Application.DoEvents()
         RunAllSQLBackups()  ' Mysql SDL backup
         RunBackupIARThread() ' IARS
         BackupAllRegions()   ' OARS

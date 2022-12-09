@@ -160,6 +160,7 @@ Public Class NetServer
                     result.AsyncWaitHandle.WaitOne()
                 Catch
                 End Try
+                Application.DoEvents()
             End While
 
         End Using

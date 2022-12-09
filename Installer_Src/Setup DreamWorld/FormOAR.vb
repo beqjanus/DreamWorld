@@ -394,6 +394,7 @@ Public Class FormOAR
             Try
                 Dim str = $"{PropHttpsDomain}/outworldz_installer/JSON/{_type}2.json?r={CStr(Random())}"
                 result = client.DownloadString(str)
+                Application.DoEvents()
             Catch ex As Exception
                 BreakPoint.Dump(ex)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
