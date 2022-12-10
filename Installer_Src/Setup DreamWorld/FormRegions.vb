@@ -642,7 +642,7 @@ Public Class FormRegions
 
     Private Sub Button1_Click_4(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If (MsgBox(My.Resources.rezrights, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "Information") = Windows.Forms.DialogResult.Yes) Then
+        If (MsgBox(My.Resources.rezrights, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "Information") = DialogResult.Yes) Then
             DoLand()
         End If
 
@@ -651,7 +651,7 @@ Public Class FormRegions
     Private Sub Form1_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         If StopLoading = "Running" Then
-            If (MsgBox("Abort Loading?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "") = Windows.Forms.DialogResult.No) Then
+            If (MsgBox("Abort Loading?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "") = DialogResult.No) Then
                 e.Cancel = True
             End If
         End If
