@@ -1125,7 +1125,7 @@ Public Class FormSetup
     End Sub
 
     ''' <summary>Event handler for Icecast</summary>
-    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
         If PropAborting Then Return
 

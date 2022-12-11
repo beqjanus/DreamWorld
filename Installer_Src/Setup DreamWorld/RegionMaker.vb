@@ -836,7 +836,7 @@ Module RegionMaker
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
-        Public _Cores As Integer = 0
+        Public _Cores As Integer
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
         Public _Estate As String = ""
