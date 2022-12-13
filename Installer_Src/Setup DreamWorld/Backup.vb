@@ -155,7 +155,8 @@ Module Backup
                 MakeFolder(f & "/OAR")
             End If
 
-            Dim file = f & "/OAR/" & Region_Name(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
+
+            Dim file = f & "/OAR/" & Region_Name(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss" & $"({CStr(SizeX(RegionUUID))}X{CStr(SizeY(RegionUUID))})", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             Dim Obj = New TaskObject With {
                 .TaskName = TaskName.LaunchBackupper,
