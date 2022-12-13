@@ -68,15 +68,13 @@ Module Global_Properties
             Dim dt = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
             If Settings.ShowDateandTimeinLogs Then
                 FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
-                Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
             Else
                 FormSetup.TextBox1.Text += $"{Value}{vbCrLf}"
-                Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
             End If
+            Log(My.Resources.Info_word, $"{dt} {Value}{vbCrLf}")
 
             Dim ln As Integer = FormSetup.TextBox1.Text.Length
             FormSetup.TextBox1.SelectionStart = ln
-            'FormSetup.TextBox1.ScrollToCaret()
             Dim Le As Integer = 29000
             Dim L = FormSetup.TextBox1.Text.Length - Le
             If L > 0 Then

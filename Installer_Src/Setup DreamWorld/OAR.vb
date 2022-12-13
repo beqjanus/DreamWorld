@@ -187,7 +187,7 @@ Module OAR
             If backMeUp = "Yes" Then
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
                 Dim R = New WaitForFile(RegionUUID, "Finished writing out OAR", "Save OAR")
-                ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss}({CStr(SizeX(RegionUUID))}X{CStr(SizeY(RegionUUID))})""", Globalization.CultureInfo.InvariantCulture)}.oar")
+                ConsoleCommand(RegionUUID, $"change region ""{Region_Name(RegionUUID)}""{vbCrLf}save oar ""{BackupPath()}/{Region_Name(RegionUUID)}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss}({CStr(SizeX(RegionUUID)/256)}X{CStr(SizeY(RegionUUID)/256)})""", Globalization.CultureInfo.InvariantCulture)}.oar")
                 R.Scan()
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
@@ -243,7 +243,7 @@ Module OAR
         ' Set prompt.
         Message = Global.Outworldz.My.Resources.EnterName
         title = "Backup to OAR"
-        defaultValue = $"{RegionName}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}({CStr(SizeX(RegionUUID))})X({CStr(SizeY(RegionUUID))}).oar"
+        defaultValue = $"{RegionName}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}({CStr(SizeX(RegionUUID) / 256)}X{CStr(SizeY(RegionUUID) / 256)}).oar"
 
         ' Display message, title, and default value.
         myValue = InputBox(Message, title, defaultValue)
