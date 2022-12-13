@@ -68,8 +68,16 @@ Module PublicIP
         Dim ipaddress As String = "127.0.0.1"
         Using client As New System.Net.WebClient ' download client for web page
             Try
-                ipaddress = client.DownloadString("https://api.ipify.org")
+                ipaddress = client.DownloadString("https://iip.seeip.org/")
             Catch ex As Exception
+                Try
+                    ipaddress = client.DownloadString("https://api.ipify.org")
+                Catch ex1 As Exception
+                    Try
+                        ipaddress = client.DownloadString("https://api.ip.sb/ipg")
+                    Catch ex2 As Exception
+                    End Try
+                End Try
             End Try
         End Using
         Return ipaddress
