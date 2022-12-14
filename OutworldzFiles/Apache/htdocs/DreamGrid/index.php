@@ -1,4 +1,4 @@
-﻿<html>
+<html>
  <head>
   <title>Welcome to DreamGrid</title>
   <link rel="shortcut icon" href="/favicon.ico">
@@ -8,13 +8,13 @@
   include("../Metromap/includes/config.php");
 ?>
 | Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">DreamGrid</a>
-| <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>/wifi/map.html">Map</a> ]
+| <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>/wifi/map.html">Map</a>
 | <a href="/VR">360 View</a>
 | <a href="/Video">Video</a>
 | <a href="/Audio">Audio</a>
 | <a href="/PerlExample">Perl Examples</a>
 | <a href="/Stats">Stats</a>
-| <a href="http://outworldz.com//Search" >Search</a> |
+| <a href="http://outworldz.com/Search" >Search</a> |
 | <a href="http://outworldz.com/DestinationGuide" >Destinations</a> |</p>
 
 <p>

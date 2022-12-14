@@ -17,7 +17,7 @@ print $Input->header(   # and print it as UTF-8
 # this is so yoiudo not leak information to the Internet
 my $env = $ENV{REMOTE_ADDR} || '127.0.0.1';
 if ( $env ne '127.0.0.1' ) {
-  print "This demo only works on Local Host at http://localhost/PerlExample/listusers.plx";
+  print qq!This demo only works on http://127.0.0.1 at <a href="http://127.0.0.1/PerlExample/listusers.plx"> http://127.0.0.1/PerlExample/listusers.plx</a>!;
   exit;
 }
 
