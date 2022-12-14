@@ -365,24 +365,10 @@ Public Class FormSetup
 
     End Function
 
-    Public Sub Language(sender As Object, e As EventArgs)
-        Settings.SaveSettings()
+    Public Sub Reload(ByVal sender As Object, ByVal e As EventArgs)
 
-        'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
-        'Breakpoint.Print("")
-        'Breakpoint.Print(ci.Name)
-        'Breakpoint.Print(ci.TwoLetterISOLanguageName)
-        'Breakpoint.Print(ci.ThreeLetterISOLanguageName)
-        'Breakpoint.Print(ci.ThreeLetterWindowsLanguageName)
-        'Breakpoint.Print(ci.DisplayName)
-        'Breakpoint.Print(ci.EnglishName)
-        'Next
+        FrmHome_Load(sender, e)
 
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-        Me.Controls.Clear() 'removes all the controls on the form
-        InitializeComponent() 'load all the controls again
-        FrmHome_Load(sender, e) 'Load everything in your form load event again
     End Sub
 
     Public Function StartOpensimulator() As Boolean
@@ -963,6 +949,26 @@ Public Class FormSetup
 
         ToolBar(True)
 
+    End Sub
+
+    Private Sub Language(sender As Object, e As EventArgs)
+        Settings.SaveSettings()
+
+        'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
+        'Breakpoint.Print("")
+        'Breakpoint.Print(ci.Name)
+        'Breakpoint.Print(ci.TwoLetterISOLanguageName)
+        'Breakpoint.Print(ci.ThreeLetterISOLanguageName)
+        'Breakpoint.Print(ci.ThreeLetterWindowsLanguageName)
+        'Breakpoint.Print(ci.DisplayName)
+        'Breakpoint.Print(ci.EnglishName)
+        'Next
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        FrmHome_Load(sender, e) 'Load everything in your form load event again
     End Sub
 
     Private Sub Link_Clicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles TextBox1.LinkClicked
