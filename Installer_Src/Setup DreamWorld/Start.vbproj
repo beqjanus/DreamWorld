@@ -139,9 +139,6 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="Certes, Version=3.0.3.0, Culture=neutral, PublicKeyToken=308b9c08e7effcb1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Certes.3.0.3\lib\net461\Certes.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
@@ -687,6 +684,7 @@
     <Compile Include="LogReader.vb" />
     <Compile Include="Maps.vb" />
     <Compile Include="My Project\certes.vb" />
+    <Compile Include="My Project\Module1.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -349,7 +349,10 @@ Public Class FormRegionlist
             SaveOar(RegionName)
 
         End If
-        Choices.Close()
+        Try
+            Choices.Close()
+        Catch
+        End Try
 
     End Sub
 

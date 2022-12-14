@@ -1,3 +1,3 @@
-﻿Public Class certes
+Public Class certes
 
 End Class

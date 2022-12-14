@@ -339,8 +339,6 @@ Module RegionMaker
 
 #Region "Functions"
 
-    Private retry As Integer
-
     Public Sub AddToRegionMap(RegionUUID As String)
 
         ' add to the global map this entire DOS box

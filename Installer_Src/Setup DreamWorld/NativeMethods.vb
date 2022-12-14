@@ -18,10 +18,6 @@ Friend Module NativeMethods
 
     Const NOSIZE As Long = &H1
 
-    <DllImport("ntdll.dll")>
-    Public Function GetLastError() As Integer
-    End Function
-
     <DllImport("ntdll.dll", PreserveSig:=False, SetLastError:=True)>
     Public Sub NtResumeProcess(ByVal ProcessHandle As IntPtr)
     End Sub
@@ -46,17 +42,6 @@ Friend Module NativeMethods
     Public Function SetForegroundWindow(hWnd As IntPtr) As Boolean
     End Function
 
-    <DllImport("user32.dll", CharSet:=CharSet.Unicode)>
-    Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
-    End Function
-
-    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
-
-    Public Declare Function SetWindowPos Lib "user32" _
-            (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
-            ByVal x As Integer, ByVal y As Integer, ByVal cX As Integer,
-            ByVal cY As Integer, ByVal wFlags_ As Integer) As Long
-
     Public Sub SetWindowOnTop(ByVal lhWnd As Int32)
 
         On Error GoTo SetWindowOnTop_Err
@@ -71,4 +56,14 @@ SetWindowOnTop_Err:
 
     End Sub
 
+    <DllImport("user32.dll", CharSet:=CharSet.Unicode)>
+    Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
+    End Function
+
+    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
+
+    Public Declare Function SetWindowPos Lib "user32" _
+            (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
+            ByVal x As Integer, ByVal y As Integer, ByVal cX As Integer,
+            ByVal cY As Integer, ByVal wFlags_ As Integer) As Long
 End Module
