@@ -229,11 +229,9 @@ namespace OpenSim.Services.LLLoginService
             string hgInvServicePlugin = m_LoginServerConfig.GetString("HGInventoryServicePlugin", string.Empty);
             if (!string.IsNullOrWhiteSpace(hgInvServicePlugin))
             {
-                // TODO: Remove HGInventoryServiceConstructorArg after 0.9 release
                 string hgInvServiceArg = m_LoginServerConfig.GetString("HGInventoryServiceConstructorArg", string.Empty);
                 if (!string.IsNullOrWhiteSpace(hgInvServiceArg))
                 {
-                    m_log.Warn("[LLOGIN SERVICE]: You are using HGInventoryServiceConstructorArg, which is deprecated. See example file for correct syntax.");
                     hgInvServicePlugin = hgInvServiceArg + "@" + hgInvServicePlugin;
                 }
                 m_HGInventoryService = ServerUtils.LoadPlugin<IInventoryService>(hgInvServicePlugin, args);
@@ -700,7 +698,12 @@ namespace OpenSim.Services.LLLoginService
             if (!m_SmartStartEnabled || dest == null)
                 return dest;
 
-            
+            //RegionFlags.RegionOnline should had a major role here, but it is still unreliable
+            //Jump out if a special region that must be always up
+            // for now the smartstart wait region must have one such flags
+           //if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
+            //    return dest;
+
             UUID rid = GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);
             if (rid == dest.RegionID)
                 return dest;

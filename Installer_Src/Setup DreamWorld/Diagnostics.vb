@@ -1,4 +1,6 @@
-﻿Imports System.Net
+﻿Imports System.Text
+Imports System.Net
+Imports System.Net.Sockets
 
 Module Diags
 
@@ -365,8 +367,38 @@ Module Diags
                 TextPrint(My.Resources.Checking_Loopback_word & " " & RegionName)
                 Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
+                UDPTest(Region_Port(RegionUUID))
+
             End If
         Next
+
+    End Sub
+
+    Private Sub UDPTest(Port As Integer)
+
+        Return
+        ' This needs to send an actual UDP packet that generates a response such as a Ping
+
+        Using UDPClient As New UdpClient()
+
+            UDPClient.Client.SetSocketOption(SocketOptionLevel.Socket,
+                    SocketOptionName.ReuseAddress, True)
+            UDPClient.Connect("localhost", Port)
+            Try
+                Dim count = 10
+                Dim strMessage As String = String.Empty
+                Do
+
+                    strMessage = "?"
+                    Dim bytSent As Byte() = Encoding.ASCII.GetBytes(strMessage)
+                    UDPClient.Send(bytSent, bytSent.Length)
+                    count -= 1
+                Loop While count > 0
+            Catch e As Exception
+                Settings.LoopbackDiag = False
+                Settings.DiagFailed = "True"
+            End Try
+        End Using
 
     End Sub
 
