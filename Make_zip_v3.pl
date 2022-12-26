@@ -603,8 +603,8 @@ sub CopyManuals
 {
     
     PrintDate('Copy Manuals');
-    JustDelete("$Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help");
-        
+    DeleteandKeep("$Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help");
+    
         
     my @manuals = io->dir($dir . '/OutworldzFiles/Help/')->all;
     my $link = '';
@@ -614,9 +614,17 @@ sub CopyManuals
         my $fname = basename($src->name);
         
         
-        if ($src !~ /\.htm$/) {
-            say( qq!robocopy $src\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$fname\\ /E!);
-            my $x = `robocopy $src\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$fname\\ /E`;
+        if ($src->name !~ /\.htm$/) {
+            if ($src->name =~ /Contabo/)
+            {
+                my $bp = 1;
+            }
+            my $nospace1 = $src;
+            $nospace1 =~ s/ /\" \"/g;
+            my $nospaces = $fname;
+            $nospaces =~ s/ /\" \"/g;
+            say( qq!robocopy $nospace1\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$nospaces\\ /E!);
+            my $x = `robocopy $nospace1\\ $Fleta\\Inetpub\\Secondlife\\Outworldz_Installer\\Help\\$nospaces\\ /E`;
             next;
         };
         

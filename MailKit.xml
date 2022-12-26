@@ -6629,7 +6629,7 @@
             of getting the desired information should be used.</para>
             <para>For example, a common use for the <see cref="M:MailKit.Net.Imap.ImapFolder.Status(MailKit.StatusItems,System.Threading.CancellationToken)"/>
             method is to get the number of unread messages in the folder. When the folder is open, however, it is
-            possible to use the <see cref="M:MailKit.Net.Imap.ImapFolder.Search(MailKit.Search.SearchQuery,System.Threading.CancellationToken)"/>
+            possible to use the <see cref="!:ImapFolder.Search(MailKit.Search.SearchQuery, System.Threading.CancellationToken)"/>
             method to query for the list of unread messages.</para>
             <para>For more information about the <c>STATUS</c> command, see
             <a href="https://tools.ietf.org/html/rfc3501#section-6.3.10">rfc3501</a>.</para>
@@ -6675,7 +6675,7 @@
             of getting the desired information should be used.</para>
             <para>For example, a common use for the <see cref="M:MailKit.Net.Imap.ImapFolder.Status(MailKit.StatusItems,System.Threading.CancellationToken)"/>
             method is to get the number of unread messages in the folder. When the folder is open, however, it is
-            possible to use the <see cref="M:MailKit.Net.Imap.ImapFolder.Search(MailKit.Search.SearchQuery,System.Threading.CancellationToken)"/>
+            possible to use the <see cref="!:ImapFolder.Search(MailKit.Search.SearchQuery, System.Threading.CancellationToken)"/>
             method to query for the list of unread messages.</para>
             <para>For more information about the <c>STATUS</c> command, see
             <a href="https://tools.ietf.org/html/rfc3501#section-6.3.10">rfc3501</a>.</para>
@@ -11944,90 +11944,6 @@
             The server replied with a NO or BAD response.
             </exception>
         </member>
-        <member name="M:MailKit.Net.Imap.ImapFolder.Search(MailKit.Search.SearchQuery,System.Threading.CancellationToken)">
-            <summary>
-            Search the folder for messages matching the specified query.
-            </summary>
-            <remarks>
-            The returned array of unique identifiers can be used with methods such as
-            <see cref="M:MailKit.IMailFolder.GetMessage(MailKit.UniqueId,System.Threading.CancellationToken,MailKit.ITransferProgress)"/>.
-            </remarks>
-            <returns>An array of matching UIDs.</returns>
-            <param name="query">The search query.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="query"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.NotSupportedException">
-            One or more search terms in the <paramref name="query"/> are not supported by the IMAP server.
-            </exception>
-            <exception cref="T:System.ObjectDisposedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> has been disposed.
-            </exception>
-            <exception cref="T:MailKit.ServiceNotConnectedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> is not connected.
-            </exception>
-            <exception cref="T:MailKit.ServiceNotAuthenticatedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> is not authenticated.
-            </exception>
-            <exception cref="T:MailKit.FolderNotOpenException">
-            The <see cref="T:MailKit.Net.Imap.ImapFolder"/> is not currently open.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was canceled via the cancellation token.
-            </exception>
-            <exception cref="T:System.IO.IOException">
-            An I/O error occurred.
-            </exception>
-            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
-            The server's response contained unexpected tokens.
-            </exception>
-            <exception cref="T:MailKit.Net.Imap.ImapCommandException">
-            The server replied with a NO or BAD response.
-            </exception>
-        </member>
-        <member name="M:MailKit.Net.Imap.ImapFolder.SearchAsync(MailKit.Search.SearchQuery,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously search the folder for messages matching the specified query.
-            </summary>
-            <remarks>
-            The returned array of unique identifiers can be used with methods such as
-            <see cref="M:MailKit.IMailFolder.GetMessage(MailKit.UniqueId,System.Threading.CancellationToken,MailKit.ITransferProgress)"/>.
-            </remarks>
-            <returns>An array of matching UIDs.</returns>
-            <param name="query">The search query.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="query"/> is <c>null</c>.
-            </exception>
-            <exception cref="T:System.NotSupportedException">
-            One or more search terms in the <paramref name="query"/> are not supported by the IMAP server.
-            </exception>
-            <exception cref="T:System.ObjectDisposedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> has been disposed.
-            </exception>
-            <exception cref="T:MailKit.ServiceNotConnectedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> is not connected.
-            </exception>
-            <exception cref="T:MailKit.ServiceNotAuthenticatedException">
-            The <see cref="T:MailKit.Net.Imap.ImapClient"/> is not authenticated.
-            </exception>
-            <exception cref="T:MailKit.FolderNotOpenException">
-            The <see cref="T:MailKit.Net.Imap.ImapFolder"/> is not currently open.
-            </exception>
-            <exception cref="T:System.OperationCanceledException">
-            The operation was canceled via the cancellation token.
-            </exception>
-            <exception cref="T:System.IO.IOException">
-            An I/O error occurred.
-            </exception>
-            <exception cref="T:MailKit.Net.Imap.ImapProtocolException">
-            The server's response contained unexpected tokens.
-            </exception>
-            <exception cref="T:MailKit.Net.Imap.ImapCommandException">
-            The server replied with a NO or BAD response.
-            </exception>
-        </member>
         <member name="M:MailKit.Net.Imap.ImapFolder.Search(MailKit.Search.SearchOptions,MailKit.Search.SearchQuery,System.Threading.CancellationToken)">
             <summary>
             Search the folder for messages matching the specified query.
@@ -12625,7 +12541,9 @@
             Constructor arguments for <see cref="T:MailKit.Net.Imap.ImapFolder"/>.
             </summary>
             <remarks>
-            Constructor arguments for <see cref="T:MailKit.Net.Imap.ImapFolder"/>.
+            <para>Constructor arguments for <see cref="T:MailKit.Net.Imap.ImapFolder"/>.</para>
+            <para>The <see cref="T:MailKit.Net.Imap.ImapFolderConstructorArgs"/> are meant only to allow subclassing of <see cref="T:MailKit.Net.Imap.ImapFolder"/>
+            by overriding the <see cref="M:MailKit.Net.Imap.ImapClient.CreateImapFolder(MailKit.Net.Imap.ImapFolderConstructorArgs)"/> method.</para>
             </remarks>
         </member>
         <member name="M:MailKit.Net.Imap.ImapFolderConstructorArgs.#ctor(MailKit.Net.Imap.ImapEngine,System.String,MailKit.FolderAttributes,System.Char)">
@@ -17096,17 +17014,25 @@
             An I/O error occurred.
             </exception>
         </member>
-        <member name="M:MailKit.Net.Pop3.Pop3Engine.Iterate">
+        <member name="M:MailKit.Net.Pop3.Pop3Engine.Run(System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Iterate the command pipeline.
+            Run the command pipeline.
             </summary>
-            <returns>The ID of the command that just completed.</returns>
+            <param name="throwOnError"><c>true</c> if exceptions should be thrown for failed commands; otherwise, <c>false</c>.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
         </member>
-        <member name="M:MailKit.Net.Pop3.Pop3Engine.IterateAsync">
+        <member name="M:MailKit.Net.Pop3.Pop3Engine.RunAsync(System.Boolean,System.Threading.CancellationToken)">
             <summary>
-            Iterate the command pipeline.
+            Asynchronously run the command pipeline.
             </summary>
-            <returns>The ID of the command that just completed.</returns>
+            <param name="throwOnError"><c>true</c> if exceptions should be thrown for failed commands; otherwise, <c>false</c>.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.InvalidOperationException">
+            The engine is not connected.
+            </exception>
         </member>
         <member name="T:MailKit.Net.Pop3.Pop3Language">
             <summary>
@@ -17495,6 +17421,46 @@
             </remarks>
             <returns><c>true</c>, if reading the line is complete, <c>false</c> otherwise.</returns>
             <param name="builder">The output buffer to write the line data into.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Pop3.Pop3Stream.QueueCommand(System.Text.Encoding,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Queue a command to the POP3 server.
+            </summary>
+            <remarks>
+            Queues a command to the POP3 server.
+            </remarks>
+            <param name="encoding">The character encoding.</param>
+            <param name="command">The command.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Pop3.Pop3Stream.QueueCommandAsync(System.Text.Encoding,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously queue a command to the POP3 server.
+            </summary>
+            <remarks>
+            Asynchronously queues a command to the POP3 server.
+            </remarks>
+            <param name="encoding">The character encoding.</param>
+            <param name="command">The command.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ObjectDisposedException">
             The stream has been disposed.
@@ -19170,6 +19136,25 @@
             An SMTP protocol error occurred.
             </exception>
         </member>
+        <member name="M:MailKit.Net.Smtp.SmtpClient.GetSizeAsync(MimeKit.FormatOptions,MimeKit.MimeMessage,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously get the size of the message.
+            </summary>
+            <remarks>
+            <para>Asynchronously calculates the size of the message in bytes.</para>
+            <para>This method is called by <a href="Overload_MailKit_MailTransport_SendAsync.htm">SendAsync</a>
+            methods in the following conditions:</para>
+            <list type="bullet">
+            <item>The SMTP server supports the <c>SIZE=</c> parameter in the <c>MAIL FROM</c> command.</item>
+            <item>The <see cref="T:MailKit.ITransferProgress"/> parameter is non-null.</item>
+            <item>The SMTP server supports the <c>CHUNKING</c> extension.</item>
+            </list>
+            </remarks>
+            <returns>The size of the message, in bytes.</returns>
+            <param name="options">The formatting options.</param>
+            <param name="message">The message.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
         <member name="M:MailKit.Net.Smtp.SmtpClient.SendAsync(MimeKit.FormatOptions,MimeKit.MimeMessage,System.Threading.CancellationToken,MailKit.ITransferProgress)">
             <summary>
             Asynchronously send the specified message.
@@ -20149,25 +20134,6 @@
             <remarks>
             <para>Calculates the size of the message in bytes.</para>
             <para>This method is called by <a href="Overload_MailKit_MailTransport_Send.htm">Send</a>
-            methods in the following conditions:</para>
-            <list type="bullet">
-            <item>The SMTP server supports the <c>SIZE=</c> parameter in the <c>MAIL FROM</c> command.</item>
-            <item>The <see cref="T:MailKit.ITransferProgress"/> parameter is non-null.</item>
-            <item>The SMTP server supports the <c>CHUNKING</c> extension.</item>
-            </list>
-            </remarks>
-            <returns>The size of the message, in bytes.</returns>
-            <param name="options">The formatting options.</param>
-            <param name="message">The message.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-        </member>
-        <member name="M:MailKit.Net.Smtp.SmtpClient.GetSizeAsync(MimeKit.FormatOptions,MimeKit.MimeMessage,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously get the size of the message.
-            </summary>
-            <remarks>
-            <para>Asynchronously calculates the size of the message in bytes.</para>
-            <para>This method is called by <a href="Overload_MailKit_MailTransport_SendAsync.htm">SendAsync</a>
             methods in the following conditions:</para>
             <list type="bullet">
             <item>The SMTP server supports the <c>SIZE=</c> parameter in the <c>MAIL FROM</c> command.</item>
@@ -21394,6 +21360,90 @@
             Reads a full command response from the SMTP server.
             </remarks>
             <returns>The response.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Smtp.SmtpProtocolException">
+            An SMTP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Smtp.SmtpStream.QueueCommand(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Queue a command to the SMTP server.
+            </summary>
+            <remarks>
+            Queues a command to the SMTP server.
+            </remarks>
+            <param name="command">The command.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Smtp.SmtpStream.QueueCommandAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously queue a command to the SMTP server.
+            </summary>
+            <remarks>
+            Asynchronously queues a command to the SMTP server.
+            </remarks>
+            <param name="command">The command.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Smtp.SmtpStream.SendCommand(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Send a command to the SMTP server.
+            </summary>
+            <remarks>
+            Sends a command to the SMTP server and reads the response.
+            </remarks>
+            <returns>The response.</returns>
+            <param name="command">The command.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The stream has been disposed.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+            <exception cref="T:MailKit.Net.Smtp.SmtpProtocolException">
+            An SMTP protocol error occurred.
+            </exception>
+        </member>
+        <member name="M:MailKit.Net.Smtp.SmtpStream.SendCommandAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously send a command to the SMTP server.
+            </summary>
+            <remarks>
+            Asynchronously sends a command to the SMTP server and reads the response.
+            </remarks>
+            <returns>The response.</returns>
+            <param name="command">The command.</param>
             <param name="cancellationToken">The cancellation token.</param>
             <exception cref="T:System.ObjectDisposedException">
             The stream has been disposed.

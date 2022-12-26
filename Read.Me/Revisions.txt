@@ -2,7 +2,8 @@ REVISIONS FOR DREAMGRID
 
 V5.28
 Gloebit DLL's were missing.
-Opensim rev 2022-10-22 12:49 'missing using statement' has lots of small fixes. See http://opensimulator.org/viewgit/?a=shortlog&p=opensim&h=HEAD&pg=1 
+Opensim 6b4dfcde84 ("mantis 9039: do not lose runtime permitions on llAttachToAvatarTemp", 2022-11-18)
+
 	llObjectGetLinkKey and llSHA256String added
 	Added missing GroupPowers  for VoteOnProposal, ExperienceAdmin, ExperienceCreator, GroupBanAccess, HostEvent
 	Don't close a http socket still in use

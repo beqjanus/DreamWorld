@@ -596,7 +596,7 @@
             <summary>
             <para>Use <see cref="T:MySqlConnector.MySqlBulkCopyColumnMapping"/> to specify how to map columns in the source data to
             columns in the destination table when using <see cref="T:MySqlConnector.MySqlBulkCopy"/>.</para>
-            <para>Set <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.SourceOrdinal"/> to the index of the source column to map. Set <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.DestinationColumn"/> to
+            <para>Set <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.SourceOrdinal"/> to the zero-based index of the source column to map. Set <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.DestinationColumn"/> to
             either the name of a column in the destination table, or the name of a user-defined variable.
             If a user-defined variable, you can use <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.Expression"/> to specify a MySQL expression that assigns
             its value to destination column.</para>
@@ -631,13 +631,13 @@
             <summary>
             Initializes <see cref="T:MySqlConnector.MySqlBulkCopyColumnMapping"/> to the specified values.
             </summary>
-            <param name="sourceOrdinal">The ordinal position of the source column.</param>
+            <param name="sourceOrdinal">The zero-based ordinal position of the source column.</param>
             <param name="destinationColumn">The name of the destination column.</param>
             <param name="expression">The optional expression to be used to set the destination column.</param>
         </member>
         <member name="P:MySqlConnector.MySqlBulkCopyColumnMapping.SourceOrdinal">
             <summary>
-            The ordinal position of the source column to map from.
+            The zero-based ordinal position of the source column to map from.
             </summary>
         </member>
         <member name="P:MySqlConnector.MySqlBulkCopyColumnMapping.DestinationColumn">
@@ -1091,7 +1091,7 @@
             Returns schema information for the data source of this <see cref="T:MySqlConnector.MySqlConnection"/>.
             </summary>
             <param name="collectionName">The name of the schema to return.</param>
-            <param name="restrictionValues">The restrictions to apply to the schema; this parameter is currently ignored.</param>
+            <param name="restrictionValues">The restrictions to apply to the schema.</param>
             <returns>A <see cref="T:System.Data.DataTable"/> containing schema information.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlConnection.GetSchemaAsync(System.Threading.CancellationToken)">
@@ -1116,7 +1116,7 @@
             Asynchronously returns schema information for the data source of this <see cref="T:MySqlConnector.MySqlConnection"/>.
             </summary>
             <param name="collectionName">The name of the schema to return.</param>
-            <param name="restrictionValues">The restrictions to apply to the schema; this parameter is currently ignored.</param>
+            <param name="restrictionValues">The restrictions to apply to the schema.</param>
             <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> containing schema information.</returns>
             <remarks>The proposed ADO.NET API that this is based on is not finalized; this API may change in the future.</remarks>
@@ -1243,6 +1243,16 @@
             The password for the certificate specified using the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile"/> option. Not required if the certificate file is not password protected.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation">
+            <summary>
+            Uses a certificate from the specified Certificate Store on the machine. The default value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.None"/> means the certificate store is not used; a value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.CurrentUser"/> or <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.LocalMachine"/> uses the specified store.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateThumbprint">
+            <summary>
+            Specifies which certificate should be used from the Certificate Store specified in <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation"/>. This option must be used to indicate which certificate in the store should be used for authentication.
+            </summary>
+        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslCert">
             <summary>
             The path to the client’s SSL certificate file in PEM format. <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslKey"/> must also be specified, and <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile"/> should not be.
@@ -1261,16 +1271,6 @@
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslCa">
             <summary>
             The path to a CA certificate file in a PEM Encoded (.pem) format. This should be used with a value for the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslMode"/> property of <see cref="F:MySqlConnector.MySqlSslMode.VerifyCA"/> or <see cref="F:MySqlConnector.MySqlSslMode.VerifyFull"/> to enable verification of a CA certificate that is not trusted by the operating system’s certificate store.
-            </summary>
-        </member>
-        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation">
-            <summary>
-            Uses a certificate from the specified Certificate Store on the machine. The default value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.None"/> means the certificate store is not used; a value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.CurrentUser"/> or <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.LocalMachine"/> uses the specified store.
-            </summary>
-        </member>
-        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateThumbprint">
-            <summary>
-            Specifies which certificate should be used from the Certificate Store specified in <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation"/>. This option must be used to indicate which certificate in the store should be used for authentication.
             </summary>
         </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.TlsVersion">
@@ -1298,6 +1298,11 @@
             Whether connections are reset when being retrieved from the pool.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DeferConnectionReset">
+            <summary>
+            This option is no longer supported.
+            </summary>
+        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionIdlePingTime">
             <summary>
             This option is no longer supported.
@@ -1308,11 +1313,6 @@
             The amount of time (in seconds) that a connection can remain idle in the pool.
             </summary>
         </member>
-        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DeferConnectionReset">
-            <summary>
-            This option is no longer supported.
-            </summary>
-        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.MinimumPoolSize">
             <summary>
             The minimum number of connections to leave in the pool if <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionIdleTimeout"/> is reached.
@@ -1321,6 +1321,11 @@
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.MaximumPoolSize">
             <summary>
             The maximum number of connections allowed in the pool.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DnsCheckInterval">
+            <summary>
+            The number of seconds between checks for DNS changes, or 0 to disable periodic checks.
             </summary>
         </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AllowLoadLocalInfile">
@@ -1353,6 +1358,11 @@
             Automatically enlists this connection in any active <see cref="T:System.Transactions.TransactionScope"/>.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CancellationTimeout">
+            <summary>
+            The length of time (in seconds) to wait for a query to be canceled when <see cref="P:MySqlConnector.MySqlCommand.CommandTimeout"/> expires, or zero for no timeout.
+            </summary>
+        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CharacterSet">
             <summary>
             Supported for backwards compatibility; MySqlConnector always uses <c>utf8mb4</c>.
@@ -1377,11 +1387,6 @@
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DefaultCommandTimeout">
             <summary>
             The length of time (in seconds) each command can execute before the query is cancelled on the server, or zero to disable timeouts.
-            </summary>
-        </member>
-        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CancellationTimeout">
-            <summary>
-            The length of time (in seconds) to wait for a query to be canceled when <see cref="P:MySqlConnector.MySqlCommand.CommandTimeout"/> expires, or zero for no timeout.
             </summary>
         </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ForceSynchronous">
@@ -1467,6 +1472,11 @@
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.UseXaTransactions">
             <summary>
             Use XA transactions to implement <see cref="T:System.Transactions.TransactionScope"/> distributed transactions.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Keys">
+            <summary>
+            Returns an <see cref="T:System.Collections.ICollection"/> that contains the keys in the <see cref="T:MySqlConnector.MySqlConnectionStringBuilder"/>.
             </summary>
         </member>
         <member name="M:MySqlConnector.MySqlConnectionStringBuilder.ContainsKey(System.String)">
@@ -5609,7 +5619,7 @@
             <summary>
             MySQL character set codes.
             </summary>
-            <remarks>Obtained from <c>SELECT id, collation_name FROM information_schema.collations ORDER BY id;</c> on MySQL 8.0.16.</remarks>
+            <remarks>Obtained from <c>SELECT id, collation_name FROM information_schema.collations ORDER BY id;</c> on MySQL 8.0.30.</remarks>
         </member>
         <member name="F:MySqlConnector.Protocol.ColumnFlags.NotNull">
             <summary>
@@ -5883,7 +5893,6 @@
             </summary>
             <param name="data">The data to write.</param>
             <param name="ioBehavior">The <see cref="T:MySqlConnector.Protocol.Serialization.IOBehavior"/> to use when writing.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/>. The value of this object is not defined.</returns>
         </member>
         <member name="T:MySqlConnector.Protocol.Serialization.IOBehavior">
             <summary>
@@ -5937,7 +5946,6 @@
             </summary>
             <param name="payload">The data to write.</param>
             <param name="ioBehavior">The <see cref="T:MySqlConnector.Protocol.Serialization.IOBehavior"/> to use when writing.</param>
-            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/>. The value of this object is not defined.</returns>
         </member>
         <member name="T:MySqlConnector.Protocol.Serialization.ProtocolErrorBehavior">
             <summary>

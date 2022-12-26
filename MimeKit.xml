@@ -398,6 +398,25 @@
             An I/O error occurred.
             </exception>
         </member>
+        <member name="M:MimeKit.MimeParser.ParseStatusGroup(System.Threading.CancellationToken)">
+            <summary>
+            Parse a single message/delivery-status status group from the stream.
+            </summary>
+            <remarks>
+            Parses a single message/delivery-status status group from the stream.
+            </remarks>
+            <returns>The parsed status group.</returns>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.OperationCanceledException">
+            The operation was canceled via the cancellation token.
+            </exception>
+            <exception cref="T:System.FormatException">
+            There was an error parsing the status group.
+            </exception>
+            <exception cref="T:System.IO.IOException">
+            An I/O error occurred.
+            </exception>
+        </member>
         <member name="M:MimeKit.MimeParser.ParseEntity(System.Threading.CancellationToken)">
             <summary>
             Parse an entity from the stream.
@@ -2024,7 +2043,7 @@
             </summary>
             <remarks>
             Creates a string-representation of the <see cref="T:MimeKit.ContentDisposition"/>,
-            optionally encoding the parameters as they would be encoded for trabsport.
+            optionally encoding the parameters as they would be encoded for transport.
             </remarks>
             <returns>The serialized string.</returns>
             <param name="options">The formatting options.</param>
@@ -2042,7 +2061,7 @@
             </summary>
             <remarks>
             Creates a string-representation of the <see cref="T:MimeKit.ContentDisposition"/>,
-            optionally encoding the parameters as they would be encoded for trabsport.
+            optionally encoding the parameters as they would be encoded for transport.
             </remarks>
             <returns>The serialized string.</returns>
             <param name="charset">The charset to be used when encoding the parameter values.</param>
@@ -2057,7 +2076,7 @@
             </summary>
             <remarks>
             Creates a string-representation of the <see cref="T:MimeKit.ContentDisposition"/>,
-            optionally encoding the parameters as they would be encoded for trabsport.
+            optionally encoding the parameters as they would be encoded for transport.
             </remarks>
             <returns>The serialized string.</returns>
             <param name="encode">If set to <c>true</c>, the parameter values will be encoded.</param>
@@ -16831,6 +16850,18 @@
             <param name="connection">The database connection.</param>
             <param name="record">The CRL record.</param>
         </member>
+        <member name="M:MimeKit.Cryptography.SqlCertificateDatabase.Dispose(System.Boolean)">
+            <summary>
+            Releases the unmanaged resources used by the <see cref="T:MimeKit.Cryptography.SqlCertificateDatabase"/> and
+            optionally releases the managed resources.
+            </summary>
+            <remarks>
+            Releases the unmanaged resources used by the <see cref="T:MimeKit.Cryptography.SqlCertificateDatabase"/> and
+            optionally releases the managed resources.
+            </remarks>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
+            <c>false</c> to release only the unmanaged resources.</param>
+        </member>
         <member name="T:MimeKit.Cryptography.SqliteCertificateDatabase">
             <summary>
             An X.509 certificate database built on SQLite.
@@ -20903,6 +20934,95 @@
             Resets the state of the encoder.
             </remarks>
         </member>
+        <member name="T:MimeKit.Encodings.IPunycode">
+            <summary>
+            An interface for encoding and decoding international domain names.
+            </summary>
+            <remarks>
+            An interface for encoding and decoding international domain names.
+            </remarks>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Encode(System.String)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The Unicode domain name.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Encode(System.String,System.Int32)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The Unicode domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="domain"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Encode(System.String,System.Int32,System.Int32)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The Unicode domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="domain"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <param name="count">The number of characters to convert in the substring that starts
+            at the position specified by <paramref name="index"/> in the <paramref name="domain"/>
+            string.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Decode(System.String)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The ASCII-encoded domain name.</param>
+            <returns>The Unicode domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Decode(System.String,System.Int32)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The ASCII-encoded domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="domain"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <returns>The Unicode domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.IPunycode.Decode(System.String,System.Int32,System.Int32)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="domain">The ASCII-encoded domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="domain"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <param name="count">The number of characters to convert in the substring that starts
+            at the position specified by <paramref name="index"/> in the <paramref name="domain"/>
+            string.</param>
+            <returns>The Unicode domain name.</returns>
+        </member>
         <member name="T:MimeKit.Encodings.PassThroughDecoder">
             <summary>
             A pass-through decoder implementing the <see cref="T:MimeKit.Encodings.IMimeDecoder"/> interface.
@@ -21101,6 +21221,115 @@
             <remarks>
             Resets the state of the encoder.
             </remarks>
+        </member>
+        <member name="T:MimeKit.Encodings.Punycode">
+            <summary>
+            A class for encoding and decoding international domain names.
+            </summary>
+            <remarks>
+            A class for encoding and decoding international domain names.
+            </remarks>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.#ctor">
+            <summary>
+            Initialize a new instance of the <see cref="T:MimeKit.Encodings.Punycode"/> class.
+            </summary>
+            <remarks>
+            Creates a new instance of <see cref="T:MimeKit.Encodings.Punycode"/>.
+            </remarks>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.#ctor(System.Globalization.IdnMapping)">
+            <summary>
+            Initialize a new instance of the <see cref="T:MimeKit.Encodings.Punycode"/> class.
+            </summary>
+            <remarks>
+            Creates a new instance of <see cref="T:MimeKit.Encodings.Punycode"/>.
+            </remarks>
+            <param name="idnMapping">The <see cref="T:System.Globalization.IdnMapping"/> to use for encoding and decoding international domain names.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="idnMapping"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Encode(System.String)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="unicode">The Unicode domain name.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Encode(System.String,System.Int32)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="unicode">The Unicode domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="unicode"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Encode(System.String,System.Int32,System.Int32)">
+            <summary>
+            Encode a Unicode domain name, converting it to an ASCII-safe representation.
+            </summary>
+            <remarks>
+            Encodes a Unicode domain name, converting it to an ASCII-safe representation
+            according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="unicode">The Unicode domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="unicode"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <param name="count">The number of characters to convert in the substring that starts
+            at the position specified by <paramref name="index"/> in the <paramref name="unicode"/>
+            string.</param>
+            <returns>The ASCII-encoded domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Decode(System.String)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="ascii">The ASCII-encoded domain name.</param>
+            <returns>The Unicode domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Decode(System.String,System.Int32)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="ascii">The ASCII-encoded domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="ascii"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <returns>The Unicode domain name.</returns>
+        </member>
+        <member name="M:MimeKit.Encodings.Punycode.Decode(System.String,System.Int32,System.Int32)">
+            <summary>
+            Decode a domain name, converting it to a string of Unicode characters.
+            </summary>
+            <remarks>
+            Decodes a domain name, converting it to Unicode, according to the rules defined by the IDNA standard.
+            </remarks>
+            <param name="ascii">The ASCII-encoded domain name.</param>
+            <param name="index">A zero-based offset into <paramref name="ascii"/> that
+            specifies the start of the substring to convert. The conversion operation continues
+            to the end of the string.</param>
+            <param name="count">The number of characters to convert in the substring that starts
+            at the position specified by <paramref name="index"/> in the <paramref name="ascii"/>
+            string.</param>
+            <returns>The Unicode domain name.</returns>
         </member>
         <member name="T:MimeKit.Encodings.QEncodeMode">
             <summary>
@@ -29410,6 +29639,15 @@
             for a single recipient.
             </remarks>
         </member>
+        <member name="P:MimeKit.MailboxAddress.IdnMapping">
+            <summary>
+            Get or set the punycode implementation that should be used for encoding and decoding mailbox addresses.
+            </summary>
+            <remarks>
+            Gets or sets the punycode implementation that should be used for encoding and decoding mailbox addresses.
+            </remarks>
+            <value>The punycode implementation.</value>
+        </member>
         <member name="M:MimeKit.MailboxAddress.#ctor(System.Text.Encoding,System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>
             Initialize a new instance of the <see cref="T:MimeKit.MailboxAddress"/> class.
@@ -30072,7 +30310,7 @@
             <remarks>
             Gets the disposition notification fields.
             </remarks>
-            <value>The fields.</value>
+            <value>The disposition notification fields.</value>
             <exception cref="T:System.ObjectDisposedException">
             The <see cref="T:MimeKit.MessageDispositionNotification"/> has been disposed.
             </exception>
@@ -30095,6 +30333,67 @@
             </exception>
             <exception cref="T:System.ObjectDisposedException">
             The <see cref="T:MimeKit.MessageDispositionNotification"/> has been disposed.
+            </exception>
+        </member>
+        <member name="T:MimeKit.MessageFeedbackReport">
+            <summary>
+            A message feedback report MIME part.
+            </summary>
+            <remarks>
+            A <c>message/feedback-report</c> MIME part is a machine readable feedback report.
+            <seealso cref="T:MimeKit.MultipartReport"/>
+            </remarks>
+        </member>
+        <member name="M:MimeKit.MessageFeedbackReport.#ctor(MimeKit.MimeEntityConstructorArgs)">
+            <summary>
+            Initialize a new instance of the <see cref="T:MimeKit.MessageFeedbackReport"/> class.
+            </summary>
+            <remarks>
+            This constructor is used by <see cref="T:MimeKit.MimeParser"/>.
+            </remarks>
+            <param name="args">Information used by the constructor.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="args"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:MimeKit.MessageFeedbackReport.#ctor">
+            <summary>
+            Initialize a new instance of the <see cref="T:MimeKit.MessageFeedbackReport"/> class.
+            </summary>
+            <remarks>
+            Creates a new <see cref="T:MimeKit.MessageFeedbackReport"/>.
+            </remarks>
+        </member>
+        <member name="P:MimeKit.MessageFeedbackReport.Fields">
+            <summary>
+            Get the feedback report fields.
+            </summary>
+            <remarks>
+            Gets the feedback report fields.
+            </remarks>
+            <value>The feedback report fields.</value>
+            <exception cref="T:System.ObjectDisposedException">
+            The <see cref="T:MimeKit.MessageFeedbackReport"/> has been disposed.
+            </exception>
+        </member>
+        <member name="M:MimeKit.MessageFeedbackReport.Accept(MimeKit.MimeVisitor)">
+            <summary>
+            Dispatches to the specific visit method for this MIME entity.
+            </summary>
+            <remarks>
+            This default implementation for <see cref="T:MimeKit.MessageFeedbackReport"/> nodes
+            calls <see cref="M:MimeKit.MimeVisitor.VisitMessageFeedbackReport(MimeKit.MessageFeedbackReport)"/>. Override this
+            method to call into a more specific method on a derived visitor class
+            of the <see cref="T:MimeKit.MimeVisitor"/> class. However, it should still
+            support unknown visitors by calling
+            <see cref="M:MimeKit.MimeVisitor.VisitMessageFeedbackReport(MimeKit.MessageFeedbackReport)"/>.
+            </remarks>
+            <param name="visitor">The visitor.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="visitor"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.ObjectDisposedException">
+            The <see cref="T:MimeKit.MessageFeedbackReport"/> has been disposed.
             </exception>
         </member>
         <member name="T:MimeKit.MessageIdList">
@@ -31070,15 +31369,18 @@
         </member>
         <member name="P:MimeKit.MimeEntity.ContentId">
             <summary>
-            Get or set the content identifier.
+            Get or set the Content-Id.
             </summary>
             <remarks>
-            <para>The Content-Id header is used for uniquely identifying a particular entity and
-            uses the same syntax as the Message-Id header on MIME messages.</para>
-            <para>Setting a Content-Id allows other <see cref="T:MimeKit.MimePart"/> objects within the same
+            <para>The <c>Content-Id</c> header is used for uniquely identifying a particular entity and
+            uses the same syntax as the <c>Message-Id</c> header on MIME messages.</para>
+            <para>Setting a <c>Content-Id</c> allows other <see cref="T:MimeKit.MimePart"/> objects within the same
             multipart/related container to reference this part by its unique identifier, typically
             by using a "cid:" URI in an HTML-formatted message body. This can be useful, for example,
             when the HTML-formatted message body needs to reference image attachments.</para>
+            <note type="note">It is recommended that <see cref="M:MimeKit.Utils.MimeUtils.GenerateMessageId"/> or
+            <see cref="M:MimeKit.Utils.MimeUtils.GenerateMessageId(System.String)"/> be used to generate a valid
+            <c>Content-Id</c> value.</note>
             </remarks>
             <value>The content identifier.</value>
             <exception cref="T:System.ObjectDisposedException">
@@ -34881,6 +35183,15 @@
             </remarks>
             <param name="entity">The message/delivery-status MIME entity.</param>
         </member>
+        <member name="M:MimeKit.MimeVisitor.VisitMessageFeedbackReport(MimeKit.MessageFeedbackReport)">
+            <summary>
+            Visit the message/feedback-report MIME entity.
+            </summary>
+            <remarks>
+            Visits the message/feedback-report MIME entity.
+            </remarks>
+            <param name="entity">The message/feedback-report MIME entity.</param>
+        </member>
         <member name="M:MimeKit.MimeVisitor.VisitMessage(MimeKit.MessagePart)">
             <summary>
             Visit the message contained within a message/rfc822 or message/news MIME entity.
@@ -36924,6 +37235,31 @@
             The <see cref="T:MimeKit.TextPart"/> has been disposed.
             </exception>
         </member>
+        <member name="M:MimeKit.TextPart.TryDetectEncoding(System.Text.Encoding@,MimeKit.Text.TextEncodingConfidence@)">
+            <summary>
+            Try to detect the encoding of the text content.
+            </summary>
+            <remarks>
+            <para>Attempts to detect the encoding of the text content.</para>
+            <para>If no content is defined, then <paramref name="encoding"/> is set to ASCII and <paramref name="confidence"/>
+            is set to <see cref="F:MimeKit.Text.TextEncodingConfidence.Irrelevant"/>.</para>
+            <para>If a charset is specified on the <c>Content-Type</c> header and it is a supported encoding, then
+            <paramref name="encoding"/> is set to the encoding for the specified charset and <paramref name="confidence"/>
+            is set to <see cref="F:MimeKit.Text.TextEncodingConfidence.Certain"/>.</para>
+            <para>If a Byte-Order-Mark (BOM) is found, then <paramref name="encoding"/> is set to the corresponding unicode
+            encoding and <paramref name="confidence"/> is set to <see cref="F:MimeKit.Text.TextEncodingConfidence.Certain"/>.</para>
+            <para>If the content is in HTML format, then the first 1024 bytes are processed for <c>&lt;meta&gt;</c> tags
+            containing charset information. If charset information is found and the charset is a supported encoding, then
+            <paramref name="encoding"/> is set to the encoding for the specified charset and <paramref name="confidence"/> is
+            set to <see cref="F:MimeKit.Text.TextEncodingConfidence.Tentative"/>.</para>
+            </remarks>
+            <returns><c>true</c> if an encoding was detected; otherwise, <c>false</c>.</returns>
+            <param name="encoding">The detected encoding; otherwise, <c>null</c>.</param>
+            <param name="confidence">The confidence in the detected encoding being correct.</param>
+            <exception cref="T:System.ObjectDisposedException">
+            The <see cref="T:MimeKit.TextPart"/> has been disposed.
+            </exception>
+        </member>
         <member name="M:MimeKit.TextPart.GetText(System.Text.Encoding@)">
             <summary>
             Get the decoded text and the encoding used to convert it into unicode.
@@ -36931,7 +37267,7 @@
             <remarks>
             <para>If the charset parameter on the <see cref="P:MimeKit.MimeEntity.ContentType"/>
             is set, it will be used in order to convert the raw content into unicode.
-            If that fails or if the charset parameter is not set, the first 2 bytes of
+            If that fails or if the charset parameter is not set, the first 3 bytes of
             the content will be checked for a unicode BOM. If a BOM exists, then that
             will be used for conversion. If no BOM is found, then UTF-8 is attempted.
             If conversion fails, then iso-8859-1 will be used as the final fallback.</para>
@@ -37388,6 +37724,52 @@
             </remarks>
             <value>The number of attributes in the collection.</value>
         </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.Contains(MimeKit.Text.HtmlAttributeId)">
+            <summary>
+            Check if an attribute exists.
+            </summary>
+            <remarks>
+            Checks if an attribute exists.
+            </remarks>
+            <param name="id">The attribute.</param>
+            <returns><c>true</c> if the attribute exists within the collection; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.Contains(System.String)">
+            <summary>
+            Check if an attribute exists.
+            </summary>
+            <remarks>
+            Checks if an attribute exists.
+            </remarks>
+            <param name="name">The name of the attribute.</param>
+            <returns><c>true</c> if the attribute exists within the collection; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="name"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.IndexOf(MimeKit.Text.HtmlAttributeId)">
+            <summary>
+            Get the index of a desired attribute.
+            </summary>
+            <remarks>
+            Gets the index of a desired attribute.
+            </remarks>
+            <param name="id">The attribute.</param>
+            <returns><c>true</c> if the attribute exists within the collection; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.IndexOf(System.String)">
+            <summary>
+            Get the index of a desired attribute.
+            </summary>
+            <remarks>
+            Gets the index of a desired attribute.
+            </remarks>
+            <param name="name">The name of the attribute.</param>
+            <returns><c>true</c> if the attribute exists within the collection; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="name"/> is <c>null</c>.
+            </exception>
+        </member>
         <member name="P:MimeKit.Text.HtmlAttributeCollection.Item(System.Int32)">
             <summary>
             Get the <see cref="T:MimeKit.Text.HtmlAttribute"/> at the specified index.
@@ -37399,6 +37781,31 @@
             <param name="index">The index.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="index"/> is out of range.
+            </exception>
+        </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.TryGetValue(MimeKit.Text.HtmlAttributeId,MimeKit.Text.HtmlAttribute@)">
+            <summary>
+            Get an attribute from the collection if it exists.
+            </summary>
+            <remarks>
+            Gets an attribute from the collection if it exists.
+            </remarks>
+            <param name="id">The id of the attribute.</param>
+            <param name="attribute">The attribute if found; otherwise, <c>null</c>.</param>
+            <returns><c>true</c> if the desired attribute is found; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MimeKit.Text.HtmlAttributeCollection.TryGetValue(System.String,MimeKit.Text.HtmlAttribute@)">
+            <summary>
+            Get an attribute from the collection if it exists.
+            </summary>
+            <remarks>
+            Gets an attribute from the collection if it exists.
+            </remarks>
+            <param name="name">The name of the attribute.</param>
+            <param name="attribute">The attribute if found; otherwise, <c>null</c>.</param>
+            <returns><c>true</c> if the desired attribute is found; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="name"/> is <c>null</c>.
             </exception>
         </member>
         <member name="M:MimeKit.Text.HtmlAttributeCollection.GetEnumerator">
@@ -41402,6 +41809,34 @@
             <exception cref="T:System.ArgumentNullException">
             <paramref name="text"/> is <c>null</c>.
             </exception>
+        </member>
+        <member name="T:MimeKit.Text.TextEncodingConfidence">
+            <summary>
+            An enumeration of text encoding confidences.
+            </summary>
+            <remarks>
+            An enumeration of text encoding confidences.
+            </remarks>
+        </member>
+        <member name="F:MimeKit.Text.TextEncodingConfidence.Undefined">
+            <summary>
+            The text encoding confidence is undefined.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Text.TextEncodingConfidence.Tentative">
+            <summary>
+            The text encoding confidence is tentative.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Text.TextEncodingConfidence.Certain">
+            <summary>
+            The text encoding confidence is certain.
+            </summary>
+        </member>
+        <member name="F:MimeKit.Text.TextEncodingConfidence.Irrelevant">
+            <summary>
+            The text encoding confidence is irrelevant.
+            </summary>
         </member>
         <member name="T:MimeKit.Text.TextFormat">
             <summary>
@@ -52070,7 +52505,7 @@
             <paramref name="text"/> is <c>null</c>.
             </exception>
         </member>
-        <member name="M:MimeKit.Utils.MimeUtils.AppendQuoted(System.Text.ValueStringBuilder@,System.ReadOnlySpan{System.Char})">
+        <member name="M:MimeKit.Utils.MimeUtils.AppendQuoted(MimeKit.Utils.ValueStringBuilder@,System.ReadOnlySpan{System.Char})">
             <summary>
             Quote the specified text and append it into the value string builder.
             </summary>
@@ -52081,7 +52516,7 @@
             <param name="builder">The value string builder.</param>
             <param name="text">The text to quote.</param>
         </member>
-        <member name="M:MimeKit.Utils.MimeUtils.AppendQuoted(System.Text.ValueStringBuilder@,System.String)">
+        <member name="M:MimeKit.Utils.MimeUtils.AppendQuoted(MimeKit.Utils.ValueStringBuilder@,System.String)">
             <summary>
             Quote the specified text and append it into the value string builder.
             </summary>
@@ -52120,7 +52555,7 @@
             <paramref name="text"/> is <c>null</c>.
             </exception>
         </member>
-        <member name="M:MimeKit.Utils.MimeUtils.Unquote(System.String)">
+        <member name="M:MimeKit.Utils.MimeUtils.Unquote(System.String,System.Boolean)">
             <summary>
             Unquote the specified text.
             </summary>
@@ -52129,6 +52564,7 @@
             </remarks>
             <returns>The unquoted text.</returns>
             <param name="text">The text to unquote.</param>
+            <param name="convertTabsToSpaces"><c>true</c> if tab characters should be converted to a space; otherwise, <c>false</c>.</param>
             <exception cref="T:System.ArgumentNullException">
             <paramref name="text"/> is <c>null</c>.
             </exception>
@@ -52454,6 +52890,16 @@
             <para><paramref name="text"/> is <c>null</c>.</para>
             </exception>
         </member>
+        <member name="M:MimeKit.Utils.ValueStringBuilder.Grow(System.Int32)">
+            <summary>
+            Resize the internal buffer either by doubling current buffer size or
+            by adding <paramref name="additionalCapacityBeyondPos"/> to
+            <see cref="F:MimeKit.Utils.ValueStringBuilder._pos"/> whichever is greater.
+            </summary>
+            <param name="additionalCapacityBeyondPos">
+            Number of chars requested beyond current position.
+            </param>
+        </member>
         <member name="T:MimeKit.Utils.OptimizedOrdinalIgnoreCaseComparer">
             <summary>
             An optimized version of StringComparer.OrdinalIgnoreCase.
@@ -52529,16 +52975,6 @@
             <summary>
             The message is of lowest priority.
             </summary>
-        </member>
-        <member name="M:System.Text.ValueStringBuilder.Grow(System.Int32)">
-            <summary>
-            Resize the internal buffer either by doubling current buffer size or
-            by adding <paramref name="additionalCapacityBeyondPos"/> to
-            <see cref="F:System.Text.ValueStringBuilder._pos"/> whichever is greater.
-            </summary>
-            <param name="additionalCapacityBeyondPos">
-            Number of chars requested beyond current position.
-            </param>
         </member>
     </members>
 </doc>
