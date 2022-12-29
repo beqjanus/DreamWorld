@@ -168,6 +168,9 @@ foreach my $file (@files) {
     copy("$dir/$file", "$zip$file") || die;
 }
 
+PrintDate("Update the Updater");
+copy("$dir/DreamGridUpdater.exe", "$dir/DreamGridUpdater.new") || die;
+
 PrintDate("Adding folders");
 
 # just dirs
@@ -262,7 +265,7 @@ JustDelete ("$zip/Outworldzfiles/Settings.ini");
 
 PrintDate("Signing copies");
 use IO::All;
-sign($zip);
+ sign($zip);
 
 end:
 
@@ -492,7 +495,7 @@ sub sign {
     
     my @files = io->dir(shift)->all(0);
 
-    my @signs;
+    
     foreach my $file (@files) {
         my $name = $file->name;
         next
@@ -502,37 +505,34 @@ sub sign {
             my $bp = 1;
         }
 
-        if ( $name =~ /dll$|exe$/ ) {
+        if ( $name =~ /dll$|exe$|cat$|cab$|ocx$|stl$/ ) {
 
             my $r = qq!../Certs/sigcheck64.exe "$name"!;
-            say $r. "\n";
+            #say $r. "\n";
             my $result1 = `$r`;
 
-            say $result1;
+           # say $result1;
 
             if ( $result1 !~ /Unsigned/ ) {
                 next;
             }
             $result1 =~ s/\n//g;
-            if ( $result1 =~ /Verified(.*)/i ) {
-                push( @signs, $name );
-            }
-
+           
             my $f =
 qq!../Certs/digicertutil.exe sign /noInput /sha1 $thumbprint "$name"!;
-            say $f . "\n";
+            #say $f . "\n";
             my $result = `$f`;
-            say $result. "\n";
+            #say $result. "\n";
             $result =~ s/\n/|/g;
 
             $r = qq!../Certs/sigcheck64.exe "$name"!;
-            say $r. "\n";
+            #say $r. "\n";
             $result1 = `$r`;
 
-            say $result1;
+            #say $result1;
 
             if ( $result1 !~ /Verified:	Signed/ ) {
-                PrintDate("***** Failed to sign!");
+                PrintDate("***** Failed to sign! $result");
                 die;
             }
 
@@ -540,10 +540,11 @@ qq!../Certs/digicertutil.exe sign /noInput /sha1 $thumbprint "$name"!;
                 PrintDate("***** Failed to sign!");
                 die;
             }
+            say ("Signed $name");
         }
     }
 
-    PrintDate( join( "\n", @signs ) );
+    
 }
 
 sub process_file {
