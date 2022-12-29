@@ -383,39 +383,42 @@ Public Class FormRegionlist
         If Not initted Then Return
 
         If TheView1 = ViewType.Users Then
-
-            For Each X As ListViewItem In UserView.Items
-
-                If AllNone.Checked Then
-                    If X.ForeColor = Color.Black Then
-                        X.Checked = AllNone.Checked
+            Try
+                For Each X As ListViewItem In UserView.Items
+                    If AllNone.Checked Then
+                        If X.ForeColor = Color.Black Then
+                            X.Checked = AllNone.Checked
+                        End If
+                    Else
+                        X.Checked = False
                     End If
-                Else
-                    X.Checked = False
-                End If
-            Next
-
+                Next
+            Catch ex As Exception
+            End Try
         ElseIf TheView1 = ViewType.Details Then
 
-            For Each X As ListViewItem In ListView1.Items
-                Dim RegionUUID As String
+            Try
+                For Each X As ListViewItem In ListView1.Items
+                    Dim RegionUUID As String
 
-                Dim name = X.Text
-                If name.Length > 0 Then
-                    RegionUUID = FindRegionByName(name)
+                    Dim name = X.Text
+                    If name.Length > 0 Then
+                        RegionUUID = FindRegionByName(name)
 
-                    If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
-                    If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
-                    If SmartButton.Checked And Not Smart_Start(RegionUUID) Then Continue For
+                        If OnButton.Checked And Not RegionEnabled(RegionUUID) Then Continue For
+                        If OffButton.Checked And RegionEnabled(RegionUUID) Then Continue For
+                        If SmartButton.Checked And Not Smart_Start(RegionUUID) Then Continue For
 
-                    RegionEnabled(RegionUUID) = AllNone.Checked
+                        RegionEnabled(RegionUUID) = AllNone.Checked
 
-                    Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-                    INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
-                    INI.SaveIni()
-                    Application.DoEvents()
-                End If
-            Next
+                        Dim INI = New LoadIni(RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                        INI.SetIni(Region_Name(RegionUUID), "Enabled", CStr(RegionEnabled(RegionUUID)))
+                        INI.SaveIni()
+                        Application.DoEvents()
+                    End If
+                Next
+            Catch ex As Exception
+            End Try
         End If
 
         PropUpdateView = True ' make form refresh
@@ -426,19 +429,21 @@ Public Class FormRegionlist
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
         Dim item As ListViewItem
+        Try
+            For Each item In regions
+                Dim RegionName = item.SubItems(1).Text
+                Dim RegionUUID As String = FindRegionByName(RegionName)
+                If RegionUUID.Length > 0 Then
 
-        For Each item In regions
-            Dim RegionName = item.SubItems(1).Text
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-
-                Dim webAddress As String = "hop://" & Settings.DnsName & ":" & Settings.HttpPort & "/" & RegionName
-                Try
-                    Dim result = Process.Start(webAddress)
-                Catch ex As Exception
-                End Try
-            End If
-        Next
+                    Dim webAddress As String = "hop://" & Settings.DnsName & ":" & Settings.HttpPort & "/" & RegionName
+                    Try
+                        Dim result = Process.Start(webAddress)
+                    Catch ex As Exception
+                    End Try
+                End If
+            Next
+        Catch ex As Exception
+        End Try
         PropUpdateView() = True
 
     End Sub
@@ -822,13 +827,16 @@ Public Class FormRegionlist
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
         Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                StartStopEdit(RegionUUID, RegionName)
-            End If
-        Next
+        Try
+            For Each item In regions
+                Dim RegionName = item.SubItems(0).Text.Trim
+                Dim RegionUUID As String = FindRegionByName(RegionName)
+                If RegionUUID.Length > 0 Then
+                    StartStopEdit(RegionUUID, RegionName)
+                End If
+            Next
+        Catch ex As Exception
+        End Try
 
     End Sub
 
@@ -836,13 +844,16 @@ Public Class FormRegionlist
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
         Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
-                StartStopEdit(RegionUUID, RegionName)
-            End If
-        Next
+        Try
+            For Each item In regions
+                Dim RegionName = item.SubItems(0).Text.Trim
+                Dim RegionUUID As String = FindRegionByName(RegionName)
+                If RegionUUID.Length > 0 Then
+                    StartStopEdit(RegionUUID, RegionName)
+                End If
+            Next
+        Catch ex As Exception
+        End Try
 
     End Sub
 
@@ -1342,20 +1353,23 @@ Public Class FormRegionlist
         If Not initted Then Return
         Dim User As ListView.SelectedListViewItemCollection = Me.UserView.SelectedItems
         Dim item As ListViewItem
-        For Each item In User
-            Dim Username = item.SubItems(0).Text.Trim
-            Dim UUID = item.SubItems(7).Text.Trim
-            If Username.Length > 0 Then
+        Try
+            For Each item In User
+                Dim Username = item.SubItems(0).Text.Trim
+                Dim UUID = item.SubItems(7).Text.Trim
+                If Username.Length > 0 Then
 #Disable Warning CA2000
-                Dim UserData As New FormEditUser
+                    Dim UserData As New FormEditUser
 #Enable Warning CA2000
-                UserData.Init(UUID)
-                UserData.BringToFront()
-                UserData.Activate()
-                UserData.Visible = True
-                UserData.Select()
-            End If
-        Next
+                    UserData.Init(UUID)
+                    UserData.BringToFront()
+                    UserData.Activate()
+                    UserData.Visible = True
+                    UserData.Select()
+                End If
+            Next
+        Catch ex As Exception
+        End Try
 
     End Sub
 
@@ -1390,11 +1404,14 @@ Public Class FormRegionlist
 
             For Each Agent In CachedAvatars
                 If Region_Name(Agent.RegionID).Contains(SearchBox.Text) Or SearchBox.Text.Length = 0 Or SearchBox.Text = My.Resources.Search_word Then
-                    Dim item1 As New ListViewItem(Agent.FirstName & " " & Agent.LastName, Index)
-                    item1.SubItems.Add(Region_Name(Agent.RegionID))
-                    item1.SubItems.Add("-".ToUpperInvariant)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
+                    Try
+                        Dim item1 As New ListViewItem(Agent.FirstName & " " & Agent.LastName, Index)
+                        item1.SubItems.Add(Region_Name(Agent.RegionID))
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                        AvatarView.Items.AddRange(New ListViewItem() {item1})
+                        Index += 1
+                    Catch ex As Exception
+                    End Try
                 End If
 
             Next

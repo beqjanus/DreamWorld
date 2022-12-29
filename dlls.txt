@@ -141,11 +141,9 @@
 \OutworldzFiles\Opensim\bin\fr\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\lib\NET\Mono.Security.dll
 \OutworldzFiles\Opensim\bin\lib32\BulletSim.dll
-\OutworldzFiles\Opensim\bin\lib32\ode.dll
 \OutworldzFiles\Opensim\bin\lib32\sqlite3.dll
 \OutworldzFiles\Opensim\bin\lib32\ubode.dll
 \OutworldzFiles\Opensim\bin\lib64\BulletSim.dll
-\OutworldzFiles\Opensim\bin\lib64\ode.dll
 \OutworldzFiles\Opensim\bin\lib64\sqlite3.dll
 \OutworldzFiles\Opensim\bin\lib64\ubode.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll

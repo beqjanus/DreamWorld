@@ -64,15 +64,16 @@ Module Teleport
                     ShowDOSWindow(RegionToUUID, MaybeHideWindow())
                 End If
             Next
+
+            ' rem from the to list as they have moved on
+            For Each str As String In Fin
+                Logger("Teleport Done", str, "Teleport")
+                If TeleportAvatarDict.ContainsKey(str) Then
+                    TeleportAvatarDict.TryRemove(str, "")
+                End If
+            Next
         Catch
         End Try
-        ' rem from the to list as they have moved on
-        For Each str As String In Fin
-            Logger("Teleport Done", str, "Teleport")
-            If TeleportAvatarDict.ContainsKey(str) Then
-                TeleportAvatarDict.TryRemove(str, "")
-            End If
-        Next
         Fin.Clear()
         Bench.Print("TeleportAgents")
 

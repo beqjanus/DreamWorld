@@ -168,7 +168,7 @@ Module FileStuff
 
         Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
 
-        ' If the destination folder don't exist then create it
+        ' If the destination folder doesn't exist then create it
         If Not System.IO.Directory.Exists(destinationPath) Then
             MakeFolder(destinationPath)
         End If

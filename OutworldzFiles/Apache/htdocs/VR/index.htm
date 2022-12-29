@@ -1,36 +1,33 @@
 <head>
-<title>VR View</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-   
-<script type-"text/javascript">
-  
-$( document ).ready(function() {
-    
+    <title>VR View</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+    <script type-"text /javascript">
 
-  $.getJSON("list3D.plx", function( data ) {
-      var items = [];
-      $.each( data, function( key, val ) {
-        items.push( "<li><p class=\"title\">" + val + "</p>"  );
-        items.push( "<iframe src=\"./index1.html?image=/VR/photo/" + val + ".jpg\" width=\"1024\" height=\"512\" ></iframe></li>" );
-      });
-    
-      $( "<ul>", {
-        "class": "data",
-        html: items.join( "\n" )
-      }).appendTo( "#3D" );
-    }
-  );
-});
+        $(document).ready(function () {
 
-        
+            $.getJSON("list3D.plx?r=" + math.random(), function (data) {
+                var items = [];
+                $.each(data, function (key, val) {
+                    items.push("<li><p class=\"title\">" + val + "</p>");
+                    items.push("<iframe src=\"./index1.html?image=/VR/photo/" + val + ".jpg\" width=\"1024\" height=\"512\" ></iframe></li>");
+                });
+
+                $("<ul>", {
+                    "class": "data",
+                    html: items.join("\n")
+                }).appendTo("#3D");
+            }
+            );
+        });
     </script>
     <style>
         .centered {
-            width: 1024px;        
-            margin: 0 auto;            
-            display:block;
+            width: 1024px;
+            margin: 0 auto;
+            display: block;
         }
+
         .title {
             margin: 0 auto;
             font-size: 14px;
@@ -42,18 +39,16 @@ $( document ).ready(function() {
     </style>
 </head>
 <body>
-<div class="centered" id="3D">
-    
-    <!--
-<p class="title">Coral</p>
-<iframe src="./index1.html?image=/VR/photo/coral.jpg" width=1024" height="512" ></iframe>
-<p class="title">Hobbiton</p>
-<iframe src="./index1.html?image=/VR/photo/Hobbiton.jpg" width=1024" height="512" ></iframe>
-<p class="title">LandsEnd</p>
-<iframe src="./index1.html?image=/VR/photo/LandsEnd.jpg" width=1024" height="512" ></iframe>
+    <div class="centered" id="3D">
 
--->
+        <!--
+        <p class="title">Coral</p>
+        <iframe src="./index1.html?image=/VR/photo/coral.jpg" width=1024" height="512" ></iframe>
+        <p class="title">Hobbiton</p>
+        <iframe src="./index1.html?image=/VR/photo/Hobbiton.jpg" width=1024" height="512" ></iframe>
+        <p class="title">LandsEnd</p>
+        <iframe src="./index1.html?image=/VR/photo/LandsEnd.jpg" width=1024" height="512" ></iframe>
 
-
-</div>
+        -->
+    </div>
 </body>

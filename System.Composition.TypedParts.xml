@@ -153,6 +153,42 @@
             <param name="conventions">Conventions represented by a <see cref="T:System.Composition.Convention.AttributedModelProvider"/>, or null.</param>
             <returns>A configuration object allowing configuration to continue.</returns>
         </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport``1(``0)">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <typeparam name="TExport">The type of the contract of the instance.</typeparam>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport``1(``0,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <typeparam name="TExport">The type of the contract of the instance.</typeparam>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <param name="contractName">Optionally, a name that discriminates this contract from others with the same type.</param>
+            <param name="metadata">Optionally, a non-empty collection of named constraints that apply to the contract.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport(System.Type,System.Object)">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <param name="contractType">The type of the contract of the instance.</param>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport(System.Type,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <param name="contractType">The type of the contract of the instance.</param>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <param name="contractName">Optionally, a name that discriminates this contract from others with the same type.</param>
+            <param name="metadata">Optionally, a non-empty collection of named constraints that apply to the contract.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
         <member name="T:System.Composition.TypedParts.ActivationFeatures.ActivationFeature">
             <summary>
             Allows modification of the activators generated for typed parts.
@@ -227,7 +263,7 @@
         <member name="P:System.SR.OnImportsSatisfiedFeature_AttributeError">
             <summary>The method {0}.{1} has the OnImportsSatisfied attribute applied, but is not a public or internal parameterless instance method returning void.</summary>
         </member>
-        <member name="P:System.SR.TypeInspector_ArgumentMissmatch">
+        <member name="P:System.SR.TypeInspector_ArgumentMismatch">
             <summary>Exported contract '{0}' of open generic part '{1}' does not match the generic arguments of the class.</summary>
         </member>
         <member name="P:System.SR.TypeInspector_ContractNotAssignable">
@@ -241,6 +277,77 @@
         </member>
         <member name="P:System.SR.TypeInspector_NoExportNonGenericContract">
             <summary>Open generic part '{0}' cannot export non-generic contract '{1}'.</summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
+            <summary>
+            Attribute used to indicate a source generator should create a function for marshalling
+            arguments instead of relying on the runtime to generate an equivalent marshalling function at run-time.
+            </summary>
+            <remarks>
+            This attribute is meaningless if the source generator associated with it is not enabled.
+            The current built-in source generator only supports C# and only supplies an implementation when
+            applied to static, partial, non-generic methods.
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.LibraryImportAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.LibraryImportAttribute"/>.
+            </summary>
+            <param name="libraryName">Name of the library containing the import.</param>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.LibraryName">
+            <summary>
+            Gets the name of the library containing the import.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.EntryPoint">
+            <summary>
+            Gets or sets the name of the entry point to be called.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling">
+            <summary>
+            Gets or sets how to marshal string arguments to the method.
+            </summary>
+            <remarks>
+            If this field is set to a value other than <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />,
+            <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType" /> must not be specified.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType">
+            <summary>
+            Gets or sets the <see cref="T:System.Type"/> used to control how string arguments to the method are marshalled.
+            </summary>
+            <remarks>
+            If this field is specified, <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling" /> must not be specified
+            or must be set to <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.SetLastError">
+            <summary>
+            Gets or sets whether the callee sets an error (SetLastError on Windows or errno
+            on other platforms) before returning from the attributed method.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.StringMarshalling">
+            <summary>
+            Specifies how strings should be marshalled for generated p/invokes
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
+            <summary>
+            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
+            <summary>
+            Use the platform-provided UTF-8 marshaller.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf16">
+            <summary>
+            Use the platform-provided UTF-16 marshaller.
+            </summary>
         </member>
     </members>
 </doc>
