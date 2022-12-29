@@ -1,5 +1,6 @@
 ﻿Imports EmailValidation
 Imports MimeKit
+Imports MailKit
 
 Public Class FormEmail
 

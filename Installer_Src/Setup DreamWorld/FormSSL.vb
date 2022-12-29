@@ -193,10 +193,19 @@ Public Class FormSSL
         PictureBox1.Image = My.Resources.lock_time
         Using SSLProcess As New Process
 
+            Dim shortname = Settings.DnsName
+
+            Dim pattern = New Regex("\.?(.*)$", RegexOptions.IgnoreCase)
+            Dim match As Match = pattern.Match(shortname)
+            Dim Str As String = ""
+            If match.Success Then
+                shortname = match.Groups(1).Value
+            End If
+
             SSLProcess.StartInfo.CreateNoWindow = True
             SSLProcess.StartInfo.UseShellExecute = False
             SSLProcess.StartInfo.RedirectStandardOutput = True
-            SSLProcess.StartInfo.Arguments = $"--accepttos --source manual --host {Settings.DnsName} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}""  "
+            SSLProcess.StartInfo.Arguments = $"--accepttos --source manual --host {shortname} --validation filesystem --webroot ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs")}"" --store pemfiles --pemfilespath ""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Certs")}""  "
             If Settings.SSLEmail.Length > 0 Then
                 SSLProcess.StartInfo.Arguments &= $" --emailaddress {Settings.SSLEmail} "
             End If
