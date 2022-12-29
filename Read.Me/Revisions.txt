@@ -1,5 +1,14 @@
 REVISIONS FOR DREAMGRID
 
+V5.3 Release
+HIGH DPI monitor modes such as 150% should look better.
+Oars have the size Appended (1X1) = 256X256 meters
+Dual redundant WAP IP detection
+Delete old FXCOp Analyzer
+Cleaned up Web menu and Perl examples.
+Added a cache clearing fix to /VR on web site.
+Prep work for Running as a Service which is the goal of the 5.3 series
+
 V5.28
 Gloebit DLL's were missing.
 Opensim 6b4dfcde84 ("mantis 9039: do not lose runtime permitions on llAttachToAvatarTemp", 2022-11-18)
