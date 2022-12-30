@@ -219,12 +219,12 @@ Public Class FormSSL
                     SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "SSL")
                     Dim Address As String = "explorer.exe"
                     Try
-                        Process.Start(Address, $"/open, {SSLProcess.StartInfo.FileName}")
+                        '            Process.Start(Address, $"/open, {SSLProcess.StartInfo.FileName}")
                     Catch ex As Exception
                         BreakPoint.Print(ex.Message)
                     End Try
                 End Using
-                Return
+                '   Return
             End If
 
             SSLProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\SSL")
@@ -247,10 +247,11 @@ Public Class FormSSL
                 Logger("OK", log, "SSL")
                 Logger("Info", "Certificate installed", "SSL")
                 ' It was not installed, so we need to restart Apache
-                If Settings.SSLIsInstalled = False Then
-                    Settings.SSLIsInstalled = True
-                    PictureBox1.Image = My.Resources.lock_time
-                End If
+                Settings.SSLIsInstalled = True
+                PictureBox1.Image = My.Resources.lock_time
+                StopApache()
+                StartApache()
+
             Else
                 If Status = -1 Then Logger("Error", "Failed to make the Certificate", "SSL")
                 If Status = 1 Then Logger("Error", "Non-recognized command", "SSL")
@@ -278,7 +279,7 @@ Public Class FormSSL
 
         'If Debugger.IsAttached Then Settings.SSLIsInstalled = False
 
-        LogFile = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\logs\SSL.log")
+        LogFile = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\SSL.log")
 
         If Not Settings.ApacheEnable Then
             Settings.SSLEnabled = False
