@@ -24,13 +24,15 @@ Module Clear_Cache
         End If
         Dim ctr As Integer = 0
         If folders IsNot Nothing Then
-
-            For Each folder As String In folders
-                DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                ctr += 1
-                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                Application.DoEvents()
-            Next
+            Try
+                For Each folder As String In folders
+                    DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    ctr += 1
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+                    Application.DoEvents()
+                Next
+            Catch ex As Exception
+            End Try
         End If
         TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
 
@@ -68,12 +70,16 @@ Module Clear_Cache
 
         If files IsNot Nothing Then
             Dim ctr As Integer = 0
-            For Each file As String In files
-                DeleteFile(file)
-                ctr += 1
-                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                Application.DoEvents()
-            Next
+            Try
+                For Each file As String In files
+                    DeleteFile(file)
+                    ctr += 1
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    Application.DoEvents()
+                Next
+            Catch ex As Exception
+            End Try
+
             TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
         End If
 
@@ -119,12 +125,15 @@ Module Clear_Cache
 
         Dim ctr As Integer = 0
         If files IsNot Nothing Then
-            For Each file As String In files
-                DeleteFile(file)
-                ctr += 1
-                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                Application.DoEvents()
-            Next
+            Try
+                For Each file As String In files
+                    DeleteFile(file)
+                    ctr += 1
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    Application.DoEvents()
+                Next
+            Catch
+            End Try
         End If
         TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
     End Sub
@@ -137,20 +146,22 @@ Module Clear_Cache
             Dim src As String = Path.Combine(Settings.OpensimBinPath, "ScriptEngines")
             TextPrint(My.Resources.Clearing_Script)
             If Directory.Exists(src) Then
-                folders = IO.Directory.GetFiles(src, "*", SearchOption.AllDirectories)
-                If folders IsNot Nothing Then
-                    For Each script As String In folders
+                Try
+                    folders = IO.Directory.GetFiles(src, "*", SearchOption.AllDirectories)
+                    If folders IsNot Nothing Then
+                        For Each script As String In folders
+                            Dim ext = Path.GetExtension(script)
+                            If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
+                                DeleteFile(script)
+                                ctr += 1
+                                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+                                Application.DoEvents()
+                            End If
+                        Next
+                    End If
+                Catch ex As Exception
+                End Try
 
-                        Dim ext = Path.GetExtension(script)
-
-                        If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
-                            DeleteFile(script)
-                            ctr += 1
-                            If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
-                            Application.DoEvents()
-                        End If
-                    Next
-                End If
             End If
             TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
         End If

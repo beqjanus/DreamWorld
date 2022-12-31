@@ -1,5 +1,8 @@
 REVISIONS FOR DREAMGRID
 
+V5.3 Release
+Closed all crashreports.  5.31 will be the beta for running as a service.
+
 V5.29
 HIGH DPI monitor modes such as 150% should look better.
 Oars have the size Appended (1X1) = 256X256 meters

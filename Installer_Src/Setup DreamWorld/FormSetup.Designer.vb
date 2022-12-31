@@ -191,7 +191,7 @@ Partial Class FormSetup
         '
         Me.PercentCPU.AutoSize = True
         Me.PercentCPU.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentCPU.Location = New System.Drawing.Point(83, 0)
+        Me.PercentCPU.Location = New System.Drawing.Point(64, 0)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(49, 15)
         Me.PercentCPU.TabIndex = 1
@@ -202,7 +202,7 @@ Partial Class FormSetup
         '
         Me.PercentRAM.AutoSize = True
         Me.PercentRAM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentRAM.Location = New System.Drawing.Point(163, 0)
+        Me.PercentRAM.Location = New System.Drawing.Point(119, 0)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(55, 15)
         Me.PercentRAM.TabIndex = 2
@@ -241,7 +241,7 @@ Partial Class FormSetup
         '
         Me.DiskSize.AutoSize = True
         Me.DiskSize.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DiskSize.Location = New System.Drawing.Point(323, 0)
+        Me.DiskSize.Location = New System.Drawing.Point(245, 0)
         Me.DiskSize.Name = "DiskSize"
         Me.DiskSize.Size = New System.Drawing.Size(48, 15)
         Me.DiskSize.TabIndex = 4
@@ -250,14 +250,15 @@ Partial Class FormSetup
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.AutoSize = True
         Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.TableLayoutPanel1.ColumnCount = 6
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarLabel, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 4, 0)
@@ -268,14 +269,14 @@ Partial Class FormSetup
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(500, 15)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(402, 15)
         Me.TableLayoutPanel1.TabIndex = 18611
         '
         'Virtual
         '
         Me.Virtual.AutoSize = True
         Me.Virtual.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Virtual.Location = New System.Drawing.Point(243, 0)
+        Me.Virtual.Location = New System.Drawing.Point(180, 0)
         Me.Virtual.Name = "Virtual"
         Me.Virtual.Size = New System.Drawing.Size(59, 15)
         Me.Virtual.TabIndex = 3
@@ -286,9 +287,9 @@ Partial Class FormSetup
         '
         Me.MySQLSpeed.AutoSize = True
         Me.MySQLSpeed.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MySQLSpeed.Location = New System.Drawing.Point(403, 0)
+        Me.MySQLSpeed.Location = New System.Drawing.Point(299, 0)
         Me.MySQLSpeed.Name = "MySQLSpeed"
-        Me.MySQLSpeed.Size = New System.Drawing.Size(91, 15)
+        Me.MySQLSpeed.Size = New System.Drawing.Size(100, 15)
         Me.MySQLSpeed.TabIndex = 5
         Me.MySQLSpeed.Text = "0 Queries/Second"
         Me.MySQLSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1199,35 +1200,35 @@ Partial Class FormSetup
         '
         Me.HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
-        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(174, 22)
+        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(184, 26)
         Me.HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'StartToolStripMenuItem3
         '
         Me.StartToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartToolStripMenuItem3.Name = "StartToolStripMenuItem3"
-        Me.StartToolStripMenuItem3.Size = New System.Drawing.Size(174, 22)
+        Me.StartToolStripMenuItem3.Size = New System.Drawing.Size(184, 26)
         Me.StartToolStripMenuItem3.Text = "Start"
         '
         'RestartIceCastItem2
         '
         Me.RestartIceCastItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RestartIceCastItem2.Name = "RestartIceCastItem2"
-        Me.RestartIceCastItem2.Size = New System.Drawing.Size(174, 22)
+        Me.RestartIceCastItem2.Size = New System.Drawing.Size(184, 26)
         Me.RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         '
         'StopToolStripMenuItem3
         '
         Me.StopToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.media_stop
         Me.StopToolStripMenuItem3.Name = "StopToolStripMenuItem3"
-        Me.StopToolStripMenuItem3.Size = New System.Drawing.Size(174, 22)
+        Me.StopToolStripMenuItem3.Size = New System.Drawing.Size(184, 26)
         Me.StopToolStripMenuItem3.Text = "Stop"
         '
         'ConnectToIceCastToolStripMenuItemIcecast
         '
         Me.ConnectToIceCastToolStripMenuItemIcecast.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ConnectToIceCastToolStripMenuItemIcecast.Name = "ConnectToIceCastToolStripMenuItemIcecast"
-        Me.ConnectToIceCastToolStripMenuItemIcecast.Size = New System.Drawing.Size(174, 22)
+        Me.ConnectToIceCastToolStripMenuItemIcecast.Size = New System.Drawing.Size(184, 26)
         Me.ConnectToIceCastToolStripMenuItemIcecast.Text = "Connect to IceCast"
         '
         'MenuStrip1

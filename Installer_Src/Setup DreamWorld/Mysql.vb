@@ -792,19 +792,20 @@ Public Module MysqlInterface
         Else
             conn = Settings.RegionMySqlConnection
         End If
+        Try
+            Using MysqlConn As New MySqlConnection(conn)
 
-        Using MysqlConn As New MySqlConnection(conn)
-            Try
                 MysqlConn.Open()
 #Disable Warning CA2100
                 Using cmd As New MySqlCommand(SQL, MysqlConn)
 #Enable Warning
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
-            Catch ex As Exception
-                BreakPoint.Print(ex.Message)
-            End Try
-        End Using
+
+            End Using
+        Catch ex As Exception
+            BreakPoint.Print(ex.Message)
+        End Try
 
         Return v
 
@@ -1139,7 +1140,6 @@ Public Module MysqlInterface
                                 grid = grid.Replace("http://", "")
                                 grid = grid.Replace("/", "")
                                 Dim AvatarUUID = m.Groups(1).Value.ToString
-                                Dim Avatar = m.Groups(3).Value.ToString & "@" & grid
                                 Dim HGVisitors As New AvatarObject
                                 HGVisitors.Grid = grid
                                 HGVisitors.RegionID = UUID

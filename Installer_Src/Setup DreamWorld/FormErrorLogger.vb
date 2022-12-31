@@ -30,7 +30,7 @@
 
             Dim CGI = New Uri(PropHttpsDomain & "/cgi/uploadcrash.plx")
             PostContentUploadFile(path, CGI)
-            DeleteFile(path)
+            'DeleteFile(path)
         Catch
         End Try
 

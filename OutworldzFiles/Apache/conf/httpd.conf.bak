@@ -250,6 +250,7 @@ ServerAdmin not@set.yet
 # If your host doesn't have a registered DNS name, enter its IP address here.
 #
 # changed by Dreamgrid
+
 ServerName 192.168.2.139
 
 # This fixes a bug with the OS
@@ -336,16 +337,18 @@ TimeOut 240
 # is requested.
 #
   
-<IfDefine SSL>
-    RedirectMatch Permanent "^(/(?!Search/).*)" https://%{ServerName}$1
-</IfDefine>
-
-
-DirectoryIndex  index.php index.htm index.html default.htm
+<IfDefine SSL>    
 
 # must be flush aligned left
 # changed by Dreamgrid
 ServerName 192.168.2.139
+# This checks to make sure the connection is not already HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+</IfDefine>
+
+
+DirectoryIndex  index.php index.htm index.html default.htm
 
 # in case you want a different URL for your servers Web site yet still have Apache on.
 #Redirect permanent / https://google.com
@@ -598,10 +601,6 @@ Include conf/extra/httpd-autoindex.conf
 Include conf/extra/httpd-ssl.conf
 SSLRandomSeed startup builtin
 SSLRandomSeed connect builtin
-
-RewriteEngine On
-RewriteCond %{HTTPS} !=on
-RewriteRule ^/?(.*) https://%{ServerName}/$1 [R,L]
 
 </IfDefine>
 

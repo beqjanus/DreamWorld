@@ -1504,6 +1504,7 @@ Public Class FormSetup
                 speed = Me.Cpu1.NextValue()
                 If speed > 100 Then speed = 100
             Catch ex As Exception
+                ErrorLog("Chart 1 " & ex.Message)
                 BreakPoint.Dump(ex)
                 If Not Settings.CpuPatched Then
                     Dim pUpdate = New Process()
@@ -1530,7 +1531,8 @@ Public Class FormSetup
 
             PercentCPU.Text = $"CPU {speed / 100:P1}"
         Catch ex As Exception
-            ErrorLog(ex.Message)
+            BreakPoint.Dump(ex)
+            ErrorLog("Chart 2 " & ex.Message)
         End Try
         'RAM
 
@@ -1557,11 +1559,12 @@ Public Class FormSetup
                 v = Math.Round(v)
                 Settings.Ramused = r
                 PercentRAM.Text = $"{r / 100:p1} RAM"
-                Virtual.Text = $"{v} MB VRAM"
+                Virtual.Text = $"VRAM {v}MB"
             Next
             results.Dispose()
         Catch ex As Exception
-            ErrorLog(ex.Message)
+            BreakPoint.Dump(ex)
+            ErrorLog("Chart 3 " & ex.Message)
         End Try
 
     End Sub
@@ -2958,7 +2961,8 @@ Public Class FormSetup
                             outputFile.WriteLine($"@REM A program to restore MySQL from a backup{vbCrLf}mysql -u root {db} {opt} < ""{thing}""{vbCrLf} @pause{vbCrLf}")
                         End Using
                     Catch ex As Exception
-                        ErrorLog(" Failed to create restore file:" & ex.Message)
+                        BreakPoint.Dump(ex)
+                        ErrorLog("RestoreDatabase Failed to create restore file:" & ex.Message)
                         Return
                     End Try
 

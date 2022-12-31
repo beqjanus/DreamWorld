@@ -39,8 +39,7 @@ Public Class UPnp
             UPnpnat = New NATUPNPLib.UPnPNAT
         Catch ex As Exception
             BreakPoint.Dump(ex)
-            ErrorLog(ex.Message)
-
+            ErrorLog("New UPnp: " & ex.Message)
         End Try
 
         'generate the static mappings
@@ -149,8 +148,12 @@ Public Class UPnp
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")>
     Public Sub Dispose() Implements IDisposable.Dispose
         Try
-            Marshal.ReleaseComObject(staticMapping)
-            Marshal.ReleaseComObject(UPnpnat)
+            If staticMapping IsNot Nothing Then
+                Marshal.ReleaseComObject(staticMapping)
+            End If
+            If UPnpnat IsNot Nothing Then
+                Marshal.ReleaseComObject(UPnpnat)
+            End If
             Dispose(True)
             GC.SuppressFinalize(Me)
         Catch

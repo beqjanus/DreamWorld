@@ -134,7 +134,6 @@ Module WindowHandlers
                     SendKeys.Send("{ENTER}" & command & "{ENTER}")  ' DO NOT make a interpolated string, will break due to {}
                     SendKeys.Flush()
                 End If
-
             Catch ex As Exception
                 RPC_Region_Command(RegionUUID, command)
             End Try
@@ -312,7 +311,7 @@ Module WindowHandlers
             While myhandle = IntPtr.Zero
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
-                    ErrorLog("Cannot get MainWindowHandle for " & windowName)
+                    ErrorLog("SetWindowTextCall cannot get MainWindowHandle for " & windowName)
                     Return
                 End If
                 Thread.Sleep(100)
@@ -348,7 +347,7 @@ Module WindowHandlers
 
             WindowCounter += 1
             If WindowCounter > 1200 Then '  2 minutes
-                ErrorLog(windowName & " timeout setting title")
+                ErrorLog("SetWindowTextCall " & windowName & " timeout setting title")
                 Return
             End If
 

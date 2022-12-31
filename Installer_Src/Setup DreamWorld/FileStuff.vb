@@ -159,7 +159,7 @@ Module FileStuff
                 End Using
             End Using
         Catch ex As Exception
-            'BreakPoint.Print($"Cannot copy file {From}")
+            BreakPoint.Print($"Cannot copy file {From}")
         End Try
 
     End Sub
@@ -506,14 +506,17 @@ Module FileStuff
         If Not Debugger.IsAttached Then
             Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "dlls.txt"))
             Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.dll")
-            For Each localdllname In localdlls
-                Application.DoEvents()
-                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.OrdinalIgnoreCase)
-                Dim newlocaldllname = Mid(localdllname, x)
-                If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                    DeleteFile(localdllname)
-                End If
-            Next
+            Try
+                For Each localdllname In localdlls
+                    Application.DoEvents()
+                    Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.OrdinalIgnoreCase)
+                    Dim newlocaldllname = Mid(localdllname, x)
+                    If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
+                        DeleteFile(localdllname)
+                    End If
+                Next
+            Catch
+            End Try
         End If
 
     End Sub

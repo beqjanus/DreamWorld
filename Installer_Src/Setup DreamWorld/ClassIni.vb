@@ -24,6 +24,7 @@ Public Class LoadIni
         If File Is Nothing Then Return
         FileName = File
         If arg Is Nothing Then Return
+        If FileName.Length = 0 Then Return
         If File.Contains("\Region\") Then CheckINI()
         Sep = arg
 
@@ -35,7 +36,7 @@ Public Class LoadIni
         _parser.Parser.Configuration.CommentString = Sep ' Opensim uses semicolons
         _SettingsData = ReadINIFile()
         If _SettingsData Is Nothing Then
-            ErrorLog($"No Data in {FileName}")
+            Logger("$Error", $"No Data in {FileName}", "Outworldz")
         End If
 
     End Sub
@@ -146,7 +147,7 @@ Public Class LoadIni
         Try
             _SettingsData(section)(key) = value
         Catch ex As Exception
-            ErrorLog(ex.Message)
+            ErrorLog($"Section {section} Key {key} Value {value} {ex.Message}")
             Return True
         End Try
         Return False

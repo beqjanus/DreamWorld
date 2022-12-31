@@ -170,31 +170,34 @@ Module DoIni
     Private Function DoGloebit() As Boolean
 
         'Gloebit.ini
-        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
-        ' always select the money symbol and the DLL's
-        SelectMoneySymbol(INI)
+        Try
+            Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
+            ' always select the money symbol and the DLL's
+            SelectMoneySymbol(INI)
 
-        If Not Settings.GloebitsEnable Then Return False
+            If Not Settings.GloebitsEnable Then Return False
 
-        INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
-        INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GlbShowNewSessionAuthIM))
-        INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GlbShowNewSessionPurchaseIM))
-        INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GlbShowWelcomeMessage))
+            INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
+            INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GlbShowNewSessionAuthIM))
+            INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GlbShowNewSessionPurchaseIM))
+            INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GlbShowWelcomeMessage))
 
-        INI.SetIni("Gloebit", "GLBEnvironment", "production")
-        INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-        INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
+            INI.SetIni("Gloebit", "GLBEnvironment", "production")
+            INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+            INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
 
-        INI.SetIni("Gloebit", "GLBOwnerName", Settings.GlbOwnerName)
-        INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GlbOwnerEmail)
+            INI.SetIni("Gloebit", "GLBOwnerName", Settings.GlbOwnerName)
+            INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GlbOwnerEmail)
 
-        If Settings.ServerType = RobustServerName Then
-            INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
-        Else
-            INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
-        End If
+            If Settings.ServerType = RobustServerName Then
+                INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+            Else
+                INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
+            End If
 
-        INI.SaveIni()
+            INI.SaveIni()
+        Catch
+        End Try
 
         Return False
 
