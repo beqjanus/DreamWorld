@@ -79,6 +79,8 @@ Public Class FormPorts
 
         SetScreen()
 
+        intIP.Text = Settings.InternalAddress
+
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & CStr(LargestPort())
 
@@ -182,6 +184,14 @@ Public Class FormPorts
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
         HelpManual("Ports")
+
+    End Sub
+
+    Private Sub intIP_TextChanged(sender As Object, e As EventArgs) Handles intIP.TextChanged
+
+        If Not initted Then Return
+        Settings.InternalAddress = intIP.Text
+        Settings.SaveSettings()
 
     End Sub
 

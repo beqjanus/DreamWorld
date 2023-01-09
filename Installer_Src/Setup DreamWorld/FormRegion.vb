@@ -1361,7 +1361,7 @@ Public Class FormRegion
                                 "[" & RegionName.Text & "]" & vbCrLf &
                                 "RegionUUID=" & UUID.Text & vbCrLf &
                                 "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
-                                "InternalAddress = 0.0.0.0" & vbCrLf &
+                                "InternalAddress=" & Settings.InternalAddress &
                                 "InternalPort=" & Region_Port(RegionUUID) & vbCrLf &
                                 "GroupPort=" & GroupPort(RegionUUID) & vbCrLf &
                                 "AllowAlternatePorts = False" & vbCrLf &

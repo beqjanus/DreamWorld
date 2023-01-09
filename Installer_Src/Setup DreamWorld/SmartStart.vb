@@ -845,7 +845,7 @@ Module SmartStart
 #Enable Warning CA2000 ' Dispose objects before losing scope
             AddHandler BootProcess.Exited, AddressOf OpensimExited ' Registering event handler
 
-            BootProcess.StartInfo.UseShellExecute = True
+            BootProcess.StartInfo.UseShellExecute = False
             BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
             BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
             BootProcess.StartInfo.CreateNoWindow = False

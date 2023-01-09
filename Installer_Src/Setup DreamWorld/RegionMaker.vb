@@ -281,7 +281,7 @@ Module RegionMaker
         & "[" & RegionName & "]" & vbCrLf _
         & "RegionUUID=" & RegionUUID & vbCrLf _
         & "Location=" & Coord_X(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & "," & Coord_Y(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
-        & "InternalAddress = 0.0.0.0" & vbCrLf _
+        & "InternalAddress" = Settings.InternalAddress & vbCrLf _
         & "InternalPort=" & Region_Port(RegionUUID) & vbCrLf _
         & "GroupPort=" & GroupPort(RegionUUID) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
@@ -1707,6 +1707,7 @@ Module RegionMaker
         Return "Test Completed"
 
     End Function
+
 
 #End Region
 

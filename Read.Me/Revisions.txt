@@ -1,5 +1,8 @@
 REVISIONS FOR DREAMGRID
 
+V5.31
+Added a InternalIpaddress setting to Network Ports. Thanks, Ai AUstin!
+
 V5.3 Release
 Closed all crashreports.  5.31 will be the beta for running as a service.
 

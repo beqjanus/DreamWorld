@@ -26,6 +26,8 @@ Partial Class FormPorts
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
         Me.GroupBoxA = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.intIP = New System.Windows.Forms.TextBox()
         Me.FirstRegionPort = New System.Windows.Forms.TextBox()
         Me.OverrideNameLabel = New System.Windows.Forms.Label()
         Me.Label26 = New System.Windows.Forms.Label()
@@ -49,6 +51,8 @@ Partial Class FormPorts
         '
         'GroupBoxA
         '
+        Me.GroupBoxA.Controls.Add(Me.Label1)
+        Me.GroupBoxA.Controls.Add(Me.intIP)
         Me.GroupBoxA.Controls.Add(Me.FirstRegionPort)
         Me.GroupBoxA.Controls.Add(Me.OverrideNameLabel)
         Me.GroupBoxA.Controls.Add(Me.Label26)
@@ -64,10 +68,28 @@ Partial Class FormPorts
         Me.GroupBoxA.Controls.Add(Me.Label4)
         Me.GroupBoxA.Location = New System.Drawing.Point(12, 39)
         Me.GroupBoxA.Name = "GroupBoxA"
-        Me.GroupBoxA.Size = New System.Drawing.Size(271, 259)
+        Me.GroupBoxA.Size = New System.Drawing.Size(271, 266)
         Me.GroupBoxA.TabIndex = 0
         Me.GroupBoxA.TabStop = False
         Me.GroupBoxA.Text = "Ports"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(17, 223)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(115, 13)
+        Me.Label1.TabIndex = 1860
+        Me.Label1.Text = "Internal IP For Regions"
+        Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Resources.External_text)
+        '
+        'intIP
+        '
+        Me.intIP.Location = New System.Drawing.Point(20, 239)
+        Me.intIP.Name = "intIP"
+        Me.intIP.Size = New System.Drawing.Size(219, 20)
+        Me.intIP.TabIndex = 1861
+        Me.ToolTip1.SetToolTip(Me.intIP, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'FirstRegionPort
         '
@@ -80,7 +102,7 @@ Partial Class FormPorts
         'OverrideNameLabel
         '
         Me.OverrideNameLabel.AutoSize = True
-        Me.OverrideNameLabel.Location = New System.Drawing.Point(20, 193)
+        Me.OverrideNameLabel.Location = New System.Drawing.Point(20, 178)
         Me.OverrideNameLabel.Name = "OverrideNameLabel"
         Me.OverrideNameLabel.Size = New System.Drawing.Size(192, 13)
         Me.OverrideNameLabel.TabIndex = 6
@@ -98,7 +120,7 @@ Partial Class FormPorts
         '
         'ExternalHostName
         '
-        Me.ExternalHostName.Location = New System.Drawing.Point(23, 219)
+        Me.ExternalHostName.Location = New System.Drawing.Point(23, 194)
         Me.ExternalHostName.Name = "ExternalHostName"
         Me.ExternalHostName.Size = New System.Drawing.Size(219, 20)
         Me.ExternalHostName.TabIndex = 7
@@ -210,7 +232,7 @@ Partial Class FormPorts
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(295, 305)
+        Me.ClientSize = New System.Drawing.Size(295, 318)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBoxA)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -243,4 +265,6 @@ Partial Class FormPorts
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents Label1 As Label
+    Friend WithEvents intIP As TextBox
 End Class
