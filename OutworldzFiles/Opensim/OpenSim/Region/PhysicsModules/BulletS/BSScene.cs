@@ -725,6 +725,7 @@ namespace OpenSim.Region.PhysicsModule.BulletS
                 {
                     lock (PhysObjects)
                     {
+                        collidersCount = Math.Min(collidersCount, m_collisionArray.Length); // Cap the max iteration to avoid out of bounds exception
                         for (int ii = 0; ii < collidersCount; ii++)
                         {
                             uint cA = m_collisionArray[ii].aID;
@@ -747,6 +748,7 @@ namespace OpenSim.Region.PhysicsModule.BulletS
                 {
                     lock (PhysObjects)
                     {
+                        updatedEntityCount = Math.Min(updatedEntityCount, m_updatedEntities.Length);// Cap the max iteration to avoid out of bounds exception
                         for (int ii = 0; ii < updatedEntityCount; ii++)
                         {
                             EntityProperties entprop = m_updateArray[ii];
